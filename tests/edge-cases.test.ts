@@ -465,22 +465,22 @@ describe('MCP Server Edge Cases', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Connection Policy Edge Cases
+// Project Integration Edge Cases
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Connection Policy Edge Cases', () => {
+describe('Project Integration Edge Cases', () => {
   let connId: string
   let projectId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'Policy Edge', slug: 'policy-edge-test' })
+    const p = await client.projects.create({ name: 'ProjInt Edge', slug: 'projint-edge-test' })
     projectId = (p.project as any).id
     cleanupStack.push(() => client.projects.delete(projectId))
 
     const c = await client.connections.create({
       type: 'SECRET_TEXT',
-      externalId: 'policy-edge-conn',
-      displayName: 'Policy Edge Conn',
+      externalId: 'projint-edge-conn',
+      displayName: 'ProjInt Edge Conn',
       integrationName: 'github',
       secretText: 'ghp_testtoken123',
       projectId,
@@ -489,11 +489,11 @@ describe('Connection Policy Edge Cases', () => {
     cleanupStack.push(() => client.connections.delete(connId))
   })
 
-  it('should reject ENFORCED_ORG without connectionId', async () => {
+  it('should reject fixed strategy without connectionId', async () => {
     try {
-      await client.connectionPolicies.create({
+      await client.projects.addIntegration(projectId, {
         integrationName: 'github',
-        policy: 'ENFORCED_ORG',
+        connectionStrategy: 'fixed',
       })
       expect(true).toBe(false)
     } catch (e) {
@@ -502,55 +502,99 @@ describe('Connection Policy Edge Cases', () => {
     }
   })
 
-  it('should reject ENFORCED_PROJECT without connectionId', async () => {
-    try {
-      await client.connectionPolicies.create({
-        integrationName: 'github',
-        policy: 'ENFORCED_PROJECT',
-        projectId,
-      })
-      expect(true).toBe(false)
-    } catch (e) {
-      expect(e).toBeInstanceOf(WeavzError)
-      expect((e as WeavzError).status).toBe(400)
-    }
-  })
-
-  it('should create ENFORCED_ORG with connectionId', async () => {
-    const result = await client.connectionPolicies.create({
+  it('should add fixed strategy integration with connectionId', async () => {
+    const result = await client.projects.addIntegration(projectId, {
       integrationName: 'github',
-      policy: 'ENFORCED_ORG',
+      connectionStrategy: 'fixed',
       connectionId: connId,
     })
-    expect(result).toHaveProperty('policy')
-    expect((result.policy as any).policy).toBe('ENFORCED_ORG')
-    const policyId = (result.policy as any).id
-    cleanupStack.push(() => client.connectionPolicies.delete(policyId))
+    expect(result).toHaveProperty('integration')
+    expect((result.integration as any).connectionStrategy).toBe('fixed')
+    expect((result.integration as any).connectionId).toBe(connId)
+    const integrationId = (result.integration as any).id
+    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
   })
 
-  it('should update existing policy for same integration', async () => {
-    // Create USER_REQUIRED, then update to USER_WITH_DEFAULT
-    const created = await client.connectionPolicies.create({
+  it('should update existing project integration strategy', async () => {
+    // Create per_user, then update to per_user_with_fallback
+    const created = await client.projects.addIntegration(projectId, {
       integrationName: 'slack',
-      policy: 'USER_REQUIRED',
+      connectionStrategy: 'per_user',
     })
-    const policyId = (created.policy as any).id
-    cleanupStack.push(() => client.connectionPolicies.delete(policyId))
+    const integrationId = (created.integration as any).id
+    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
 
-    const updated = await client.connectionPolicies.update(policyId, {
-      policy: 'USER_WITH_DEFAULT',
+    const updated = await client.projects.updateIntegration(projectId, integrationId, {
+      connectionStrategy: 'per_user_with_fallback',
     })
-    expect((updated.policy as any).policy).toBe('USER_WITH_DEFAULT')
+    expect((updated.integration as any).connectionStrategy).toBe('per_user_with_fallback')
   })
 
-  it('should create USER_REQUIRED policy for different integration', async () => {
-    const result = await client.connectionPolicies.create({
+  it('should add per_user integration for different integration', async () => {
+    const result = await client.projects.addIntegration(projectId, {
       integrationName: 'notion',
-      policy: 'USER_REQUIRED',
+      connectionStrategy: 'per_user',
     })
-    expect(result).toHaveProperty('policy')
-    const policyId = (result.policy as any).id
-    cleanupStack.push(() => client.connectionPolicies.delete(policyId))
+    expect(result).toHaveProperty('integration')
+    expect((result.integration as any).integrationName).toBe('notion')
+    const integrationId = (result.integration as any).id
+    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+  })
+
+  it('should add integration with custom alias', async () => {
+    const result = await client.projects.addIntegration(projectId, {
+      integrationName: 'openai',
+      alias: 'openai-primary',
+      connectionStrategy: 'per_user',
+    })
+    expect(result).toHaveProperty('integration')
+    expect((result.integration as any).alias).toBe('openai-primary')
+    const integrationId = (result.integration as any).id
+    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+  })
+
+  it('should remove a project integration', async () => {
+    const created = await client.projects.addIntegration(projectId, {
+      integrationName: 'anthropic',
+      connectionStrategy: 'per_user',
+    })
+    const integrationId = (created.integration as any).id
+
+    const result = await client.projects.removeIntegration(projectId, integrationId)
+    expect(result).toHaveProperty('deleted', true)
+    expect(result).toHaveProperty('id', integrationId)
+  })
+
+  it('should list project integrations and verify structure', async () => {
+    const result = await client.projects.listIntegrations(projectId)
+    expect(result).toHaveProperty('integrations')
+    expect(result).toHaveProperty('total')
+    expect(Array.isArray(result.integrations)).toBe(true)
+    expect(result.integrations.length).toBeGreaterThan(0)
+
+    // Each project integration should have basic fields
+    const first = result.integrations[0] as any
+    expect(first).toHaveProperty('id')
+    expect(first).toHaveProperty('integrationName')
+    expect(first).toHaveProperty('connectionStrategy')
+  })
+
+  it('should add integration with display name', async () => {
+    const created = await client.projects.addIntegration(projectId, {
+      integrationName: 'http',
+      connectionStrategy: 'per_user',
+      displayName: 'HTTP Service',
+    })
+    const integrationId = (created.integration as any).id
+    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+
+    expect((created.integration as any).displayName).toBe('HTTP Service')
+
+    // Update display name
+    const updated = await client.projects.updateIntegration(projectId, integrationId, {
+      displayName: 'Updated HTTP Service',
+    })
+    expect((updated.integration as any).displayName).toBe('Updated HTTP Service')
   })
 })
 

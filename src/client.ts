@@ -17,6 +17,20 @@ interface RequestOptions {
   params?: Record<string, string | number | boolean | undefined>
 }
 
+export interface ProjectIntegration {
+  id: string
+  projectId: string
+  integrationName: string
+  alias: string
+  connectionStrategy: 'fixed' | 'per_user' | 'per_user_with_fallback'
+  connectionId?: string | null
+  displayName?: string | null
+  enabledActions?: string[] | null
+  sortOrder: number
+  createdAt: string
+  updatedAt: string
+}
+
 // ============================================================================
 // Resource Classes
 // ============================================================================
@@ -62,6 +76,33 @@ class ProjectsResource extends BaseResource {
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/projects/${id}`)
+  }
+  listIntegrations(projectId: string) {
+    return this._get<{ integrations: ProjectIntegration[]; total: number }>(`/api/v1/projects/${projectId}/integrations`)
+  }
+  addIntegration(projectId: string, data: {
+    integrationName: string
+    alias?: string
+    connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
+    connectionId?: string
+    displayName?: string
+    enabledActions?: string[]
+    sortOrder?: number
+  }) {
+    return this._post<{ integration: ProjectIntegration }>(`/api/v1/projects/${projectId}/integrations`, data)
+  }
+  updateIntegration(projectId: string, id: string, data: {
+    alias?: string
+    connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
+    connectionId?: string | null
+    displayName?: string | null
+    enabledActions?: string[] | null
+    sortOrder?: number
+  }) {
+    return this._patch<{ integration: ProjectIntegration }>(`/api/v1/projects/${projectId}/integrations/${id}`, data)
+  }
+  removeIntegration(projectId: string, id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/projects/${projectId}/integrations/${id}`)
   }
 }
 
@@ -164,6 +205,7 @@ class ActionsResource extends BaseResource {
     connectionExternalId?: string
     projectId?: string
     userId?: string
+    integrationAlias?: string
   }) {
     return this._post<{ output: Record<string, unknown> }>('/api/v1/actions/execute', {
       integrationName,
@@ -172,6 +214,7 @@ class ActionsResource extends BaseResource {
       connectionExternalId: options?.connectionExternalId,
       projectId: options?.projectId,
       userId: options?.userId,
+      integrationAlias: options?.integrationAlias,
     })
   }
 }
@@ -259,6 +302,12 @@ class McpServersResource extends BaseResource {
   getDeclarations(serverId: string, integrationOrAlias: string) {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
   }
+  syncFromProject(id: string, data?: {
+    mode?: 'TOOLS' | 'CODE'
+    includeDisabled?: boolean
+  }) {
+    return this._post<{ server: unknown; added: number; removed: number }>(`/api/v1/mcp/servers/${id}/sync-from-project`, data)
+  }
 }
 
 class ApiKeysResource extends BaseResource {
@@ -294,26 +343,6 @@ class ProjectMembersResource extends BaseResource {
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/project-members/${id}`)
-  }
-}
-
-class ConnectionPoliciesResource extends BaseResource {
-  list() {
-    return this._get<{ policies: unknown[]; total: number }>('/api/v1/connection-policies')
-  }
-  create(data: {
-    integrationName: string
-    policy: 'ENFORCED_ORG' | 'ENFORCED_PROJECT' | 'USER_REQUIRED' | 'USER_WITH_DEFAULT'
-    projectId?: string
-    connectionId?: string
-  }) {
-    return this._post<{ policy: unknown }>('/api/v1/connection-policies', data)
-  }
-  update(id: string, data: { policy?: string; connectionId?: string }) {
-    return this._patch<{ policy: unknown }>(`/api/v1/connection-policies/${id}`, data)
-  }
-  delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/connection-policies/${id}`)
   }
 }
 
@@ -378,7 +407,6 @@ export class WeavzClient {
   readonly apiKeys: ApiKeysResource
   readonly members: MembersResource
   readonly projectMembers: ProjectMembersResource
-  readonly connectionPolicies: ConnectionPoliciesResource
   readonly integrations: IntegrationsResource
   readonly activity: ActivityResource
 
@@ -398,7 +426,6 @@ export class WeavzClient {
     this.apiKeys = new ApiKeysResource(this)
     this.members = new MembersResource(this)
     this.projectMembers = new ProjectMembersResource(this)
-    this.connectionPolicies = new ConnectionPoliciesResource(this)
     this.integrations = new IntegrationsResource(this)
     this.activity = new ActivityResource(this)
   }

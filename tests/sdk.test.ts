@@ -23,7 +23,7 @@ let apiKeyId: string
 let createdProjectId: string
 let createdConnectionId: string
 let createdMcpServerId: string
-let createdPolicyId: string
+let createdProjectIntegrationId: string
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   const headers: Record<string, string> = {
@@ -67,7 +67,7 @@ beforeAll(async () => {
 afterAll(async () => {
   // Cleanup in reverse order
   try {
-    if (createdPolicyId) await client.connectionPolicies.delete(createdPolicyId)
+    if (createdProjectIntegrationId) await client.projects.removeIntegration(createdProjectId, createdProjectIntegrationId)
   } catch {}
   try {
     if (createdMcpServerId) await client.mcpServers.delete(createdMcpServerId)
@@ -213,32 +213,34 @@ describe('Connections', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Connection Policies
+// Project Integrations
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Connection Policies', () => {
-  it('should create a policy', async () => {
-    const result = await client.connectionPolicies.create({
+describe('Project Integrations', () => {
+  it('should add an integration to a project', async () => {
+    const result = await client.projects.addIntegration(createdProjectId, {
       integrationName: 'slack',
-      policy: 'USER_REQUIRED',
+      connectionStrategy: 'per_user',
     })
-    expect(result).toHaveProperty('policy')
-    expect((result.policy as any).policy).toBe('USER_REQUIRED')
-    createdPolicyId = (result.policy as any).id
+    expect(result).toHaveProperty('integration')
+    expect((result.integration as any).integrationName).toBe('slack')
+    expect((result.integration as any).connectionStrategy).toBe('per_user')
+    createdProjectIntegrationId = (result.integration as any).id
   })
 
-  it('should list policies', async () => {
-    const result = await client.connectionPolicies.list()
-    expect(result).toHaveProperty('policies')
-    expect((result as any).policies.length).toBeGreaterThan(0)
+  it('should list project integrations', async () => {
+    const result = await client.projects.listIntegrations(createdProjectId)
+    expect(result).toHaveProperty('integrations')
+    expect(result).toHaveProperty('total')
+    expect(result.integrations.length).toBeGreaterThan(0)
   })
 
-  it('should update a policy', async () => {
-    const result = await client.connectionPolicies.update(createdPolicyId, {
-      policy: 'USER_WITH_DEFAULT',
+  it('should update a project integration', async () => {
+    const result = await client.projects.updateIntegration(createdProjectId, createdProjectIntegrationId, {
+      connectionStrategy: 'per_user_with_fallback',
     })
-    expect(result).toHaveProperty('policy')
-    expect((result.policy as any).policy).toBe('USER_WITH_DEFAULT')
+    expect(result).toHaveProperty('integration')
+    expect((result.integration as any).connectionStrategy).toBe('per_user_with_fallback')
   })
 })
 
