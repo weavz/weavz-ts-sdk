@@ -1,0 +1,10 @@
+import { defineConfig } from '@hey-api/openapi-ts'
+
+export default defineConfig({
+  input: '../../api/openapi.yaml',
+  output: {
+    path: 'src/generated',
+    format: 'prettier',
+  },
+  plugins: ['@hey-api/typescript'],
+})

@@ -1,0 +1,86 @@
+# @weavz/sdk
+
+TypeScript SDK for the [Weavz](https://weavz.io) API — an embedded iPaaS for connection management, MCP servers, triggers, and action execution.
+
+## Installation
+
+```bash
+npm install @weavz/sdk
+```
+
+## Quick Start
+
+```typescript
+import { WeavzClient } from '@weavz/sdk'
+
+const client = new WeavzClient({
+  apiKey: 'wvz_your_api_key',
+  baseUrl: 'https://api.weavz.io', // optional
+})
+
+// List connections
+const { connections } = await client.connections.list()
+
+// Execute an action
+const result = await client.actions.execute('slack', 'send_channel_message', {
+  input: { channel: '#general', text: 'Hello from Weavz!' },
+  connectionExternalId: 'my-slack',
+})
+
+// Create an MCP server
+const { server, bearerToken } = await client.mcpServers.create({
+  name: 'My MCP Server',
+  mode: 'TOOLS',
+})
+```
+
+## Resources
+
+The client provides namespaced access to all API resources:
+
+| Resource | Methods |
+|----------|---------|
+| `client.projects` | `list()`, `create()`, `get()`, `delete()` |
+| `client.connections` | `list()`, `create()`, `delete()`, `resolve()` |
+| `client.actions` | `execute()` |
+| `client.triggers` | `list()`, `enable()`, `disable()`, `test()` |
+| `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()` |
+| `client.apiKeys` | `list()`, `create()`, `delete()` |
+| `client.members` | `list()`, `create()`, `update()`, `delete()` |
+| `client.connectionPolicies` | `list()`, `create()`, `update()`, `delete()` |
+| `client.pieces` | `list()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
+| `client.billing` | `plans()`, `plan()`, `usage()`, `addons()`, `purchaseAddon()` |
+| `client.activity` | `list()` |
+
+## Error Handling
+
+```typescript
+import { WeavzClient, WeavzError } from '@weavz/sdk'
+
+try {
+  await client.actions.execute('slack', 'send_channel_message', { input: {} })
+} catch (err) {
+  if (err instanceof WeavzError) {
+    console.error(err.code)    // 'ACTION_FAILED'
+    console.error(err.status)  // 400
+    console.error(err.details) // additional context
+  }
+}
+```
+
+## Typed Piece Inputs
+
+After running the schema generator (`npx tsx scripts/generate-piece-schemas.ts`), the SDK includes typed interfaces for all piece action inputs:
+
+```typescript
+import type { SlackSendChannelMessageInput } from '@weavz/sdk'
+
+const input: SlackSendChannelMessageInput = {
+  channel: '#general',
+  text: 'Hello!',
+}
+```
+
+## License
+
+MIT
