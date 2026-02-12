@@ -314,7 +314,11 @@ class ApiKeysResource extends BaseResource {
   list() {
     return this._get<{ apiKeys: unknown[]; total: number }>('/api/v1/api-keys')
   }
-  create(data: { name: string; expiresAt?: string; permissions?: Record<string, unknown> }) {
+  create(data: {
+    name: string
+    expiresAt?: string
+    permissions?: { scope: 'org' } | { scope: 'project'; projectIds: string[] }
+  }) {
     return this._post<{ apiKey: unknown; plainKey: string }>('/api/v1/api-keys', data)
   }
   delete(id: string) {
