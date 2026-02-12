@@ -48,8 +48,9 @@ The client provides namespaced access to all API resources:
 | `client.apiKeys` | `list()`, `create()`, `delete()` |
 | `client.members` | `list()`, `create()`, `update()`, `delete()` |
 | `client.connectionPolicies` | `list()`, `create()`, `update()`, `delete()` |
-| `client.pieces` | `list()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
-| `client.billing` | `plans()`, `plan()`, `usage()`, `addons()`, `purchaseAddon()` |
+| `client.integrations` | `list()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
+| `client.oauthApps` | `list()`, `create()`, `delete()` |
+| `client.webhookSecrets` | `list()`, `create()`, `delete()` |
 | `client.activity` | `list()` |
 
 ## Error Handling
@@ -68,9 +69,9 @@ try {
 }
 ```
 
-## Typed Piece Inputs
+## Typed Integration Inputs
 
-After running the schema generator (`npx tsx scripts/generate-piece-schemas.ts`), the SDK includes typed interfaces for all piece action inputs:
+After running the schema generator (`npm run generate:integrations`), the SDK includes typed interfaces for all integration action inputs:
 
 ```typescript
 import type { SlackSendChannelMessageInput } from '@weavz/sdk'

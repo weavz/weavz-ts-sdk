@@ -352,30 +352,6 @@ class IntegrationsResource extends BaseResource {
   }
 }
 
-class FilesResource extends BaseResource {
-  getUrl(key: string) {
-    return this._get<{ url: string }>('/api/v1/files', { key })
-  }
-}
-
-class BillingResource extends BaseResource {
-  plans() {
-    return this._get<{ plans: unknown[] }>('/api/v1/billing/plans')
-  }
-  plan() {
-    return this._get<{ plan: string; limits: unknown; subscription: unknown; billingEnabled: boolean }>('/api/v1/billing/plan')
-  }
-  usage() {
-    return this._get<{ usage: unknown; resources: unknown; limits: unknown; plan: string }>('/api/v1/billing/usage')
-  }
-  addons() {
-    return this._get<{ addons: unknown[] }>('/api/v1/billing/addons')
-  }
-  purchaseAddon(addonId: string) {
-    return this._post<{ success: boolean; addon: unknown; message: string }>('/api/v1/billing/addons/purchase', { addonId })
-  }
-}
-
 class ActivityResource extends BaseResource {
   list(params?: { limit?: number; offset?: number; type?: string; integrationName?: string; since?: string }) {
     return this._get<{ events: unknown[]; total: number }>('/api/v1/activity', params as Record<string, string | number | boolean | undefined>)
@@ -404,8 +380,6 @@ export class WeavzClient {
   readonly projectMembers: ProjectMembersResource
   readonly connectionPolicies: ConnectionPoliciesResource
   readonly integrations: IntegrationsResource
-  readonly files: FilesResource
-  readonly billing: BillingResource
   readonly activity: ActivityResource
 
   constructor(options: WeavzClientOptions) {
@@ -426,8 +400,6 @@ export class WeavzClient {
     this.projectMembers = new ProjectMembersResource(this)
     this.connectionPolicies = new ConnectionPoliciesResource(this)
     this.integrations = new IntegrationsResource(this)
-    this.files = new FilesResource(this)
-    this.billing = new BillingResource(this)
     this.activity = new ActivityResource(this)
   }
 
