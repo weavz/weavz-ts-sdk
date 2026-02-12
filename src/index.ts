@@ -1,3 +1,3 @@
 export { WeavzClient, type WeavzClientOptions } from './client'
 export { WeavzError } from './errors'
-export type * from './pieces'
+export type * from './integrations'

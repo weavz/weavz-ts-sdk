@@ -76,7 +76,7 @@ class ConnectionsResource extends BaseResource {
     type: 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
     externalId: string
     displayName: string
-    pieceName: string
+    integrationName: string
     projectId?: string
     userId?: string
     scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
@@ -96,7 +96,7 @@ class ConnectionsResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
-  resolve(data: { pieceName: string; externalId?: string; projectId?: string; userId?: string }) {
+  resolve(data: { integrationName: string; externalId?: string; projectId?: string; userId?: string }) {
     return this._post<{ connection: unknown }>('/api/v1/connections/resolve', data)
   }
 }
@@ -106,7 +106,7 @@ class OAuthAppsResource extends BaseResource {
     return this._get<{ apps: unknown[] }>('/api/v1/oauth-apps')
   }
   create(data: {
-    pieceName: string
+    integrationName: string
     clientId: string
     clientSecret: string
     authUrl?: string
@@ -123,7 +123,7 @@ class OAuthAppsResource extends BaseResource {
 
 class OAuthResource extends BaseResource {
   authorize(data: {
-    pieceName: string
+    integrationName: string
     redirectUrl: string
     connectionName: string
     scope?: string[]
@@ -132,7 +132,7 @@ class OAuthResource extends BaseResource {
     return this._post<{ authorizationUrl: string; state: string; codeVerifier?: string }>('/api/v1/oauth/authorize', data)
   }
   claim(data: {
-    pieceName: string
+    integrationName: string
     code: string
     redirectUrl: string
     connectionName: string
@@ -150,23 +150,23 @@ class WebhookSecretsResource extends BaseResource {
   list() {
     return this._get<{ secrets: unknown[] }>('/api/v1/webhook-secrets')
   }
-  create(data: { pieceName: string; secret: string }) {
+  create(data: { integrationName: string; secret: string }) {
     return this._post<{ secret: unknown }>('/api/v1/webhook-secrets', data)
   }
-  delete(id: string, pieceName: string) {
-    return this._del<{ deleted: boolean; pieceName: string }>(`/api/v1/webhook-secrets/${id}`, { pieceName })
+  delete(id: string, integrationName: string) {
+    return this._del<{ deleted: boolean; integrationName: string }>(`/api/v1/webhook-secrets/${id}`, { integrationName })
   }
 }
 
 class ActionsResource extends BaseResource {
-  execute(pieceName: string, actionName: string, options?: {
+  execute(integrationName: string, actionName: string, options?: {
     input?: Record<string, unknown>
     connectionExternalId?: string
     projectId?: string
     userId?: string
   }) {
     return this._post<{ output: Record<string, unknown> }>('/api/v1/actions/execute', {
-      pieceName,
+      integrationName,
       actionName,
       input: options?.input ?? {},
       connectionExternalId: options?.connectionExternalId,
@@ -181,7 +181,7 @@ class TriggersResource extends BaseResource {
     return this._get<{ triggers: unknown[]; total: number }>('/api/v1/triggers')
   }
   enable(data: {
-    pieceName: string
+    integrationName: string
     triggerName: string
     callbackUrl: string
     callbackHeaders?: Record<string, string>
@@ -196,8 +196,8 @@ class TriggersResource extends BaseResource {
   disable(triggerSourceId: string) {
     return this._post<{ disabled: boolean; triggerSourceId: string }>('/api/v1/triggers/disable', { triggerSourceId })
   }
-  test(pieceName: string, triggerName: string) {
-    return this._post<{ sampleData: unknown }>('/api/v1/triggers/test', { pieceName, triggerName })
+  test(integrationName: string, triggerName: string) {
+    return this._post<{ sampleData: unknown }>('/api/v1/triggers/test', { integrationName, triggerName })
   }
 }
 
@@ -228,9 +228,9 @@ class McpServersResource extends BaseResource {
     return this._post<{ bearerToken: string; mcpEndpoint: string }>(`/api/v1/mcp/servers/${id}/regenerate-token`)
   }
   addTool(serverId: string, data: {
-    pieceName: string
+    integrationName: string
     actionName: string
-    pieceAlias?: string
+    integrationAlias?: string
     toolType?: 'ACTION' | 'TRIGGER'
     connectionId?: string
     displayName?: string
@@ -246,7 +246,7 @@ class McpServersResource extends BaseResource {
     inputDefaults?: Record<string, unknown>
     connectionId?: string
     sortOrder?: number
-    pieceAlias?: string
+    integrationAlias?: string
   }) {
     return this._patch<{ tool: unknown }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`, data)
   }
@@ -256,8 +256,8 @@ class McpServersResource extends BaseResource {
   executeCode(serverId: string, code: string) {
     return this._post<{ content: unknown[]; isError: boolean }>(`/api/v1/mcp/servers/${serverId}/execute-code`, { code })
   }
-  getDeclarations(serverId: string, pieceOrAlias: string) {
-    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${pieceOrAlias}`)
+  getDeclarations(serverId: string, integrationOrAlias: string) {
+    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
   }
 }
 
@@ -302,7 +302,7 @@ class ConnectionPoliciesResource extends BaseResource {
     return this._get<{ policies: unknown[]; total: number }>('/api/v1/connection-policies')
   }
   create(data: {
-    pieceName: string
+    integrationName: string
     policy: 'ENFORCED_ORG' | 'ENFORCED_PROJECT' | 'USER_REQUIRED' | 'USER_WITH_DEFAULT'
     projectId?: string
     connectionId?: string
@@ -317,14 +317,14 @@ class ConnectionPoliciesResource extends BaseResource {
   }
 }
 
-class PiecesResource extends BaseResource {
+class IntegrationsResource extends BaseResource {
   list() {
-    return this._get<{ pieces: unknown[]; total: number; registered: string[] }>('/api/v1/pieces')
+    return this._get<{ integrations: unknown[]; total: number; registered: string[] }>('/api/v1/integrations')
   }
   get(name: string) {
-    return this._get<{ piece: unknown }>('/api/v1/pieces', { name })
+    return this._get<{ integration: unknown }>('/api/v1/integrations', { name })
   }
-  resolveOptions(pieceName: string, data: {
+  resolveOptions(integrationName: string, data: {
     propertyName: string
     actionName?: string
     triggerName?: string
@@ -334,9 +334,9 @@ class PiecesResource extends BaseResource {
     input?: Record<string, unknown>
     searchValue?: string
   }) {
-    return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/pieces/${pieceName}/properties/options`, data)
+    return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/integrations/${integrationName}/properties/options`, data)
   }
-  resolveProperty(pieceName: string, data: {
+  resolveProperty(integrationName: string, data: {
     propertyName: string
     actionName?: string
     triggerName?: string
@@ -345,10 +345,10 @@ class PiecesResource extends BaseResource {
     userId?: string
     input?: Record<string, unknown>
   }) {
-    return this._post<unknown>(`/api/v1/pieces/${pieceName}/properties/resolve`, data)
+    return this._post<unknown>(`/api/v1/integrations/${integrationName}/properties/resolve`, data)
   }
   oauthStatus() {
-    return this._get<{ configured: string[] }>('/api/v1/pieces/oauth-status')
+    return this._get<{ configured: string[] }>('/api/v1/integrations/oauth-status')
   }
 }
 
@@ -377,7 +377,7 @@ class BillingResource extends BaseResource {
 }
 
 class ActivityResource extends BaseResource {
-  list(params?: { limit?: number; offset?: number; type?: string; pieceName?: string; since?: string }) {
+  list(params?: { limit?: number; offset?: number; type?: string; integrationName?: string; since?: string }) {
     return this._get<{ events: unknown[]; total: number }>('/api/v1/activity', params as Record<string, string | number | boolean | undefined>)
   }
 }
@@ -403,7 +403,7 @@ export class WeavzClient {
   readonly members: MembersResource
   readonly projectMembers: ProjectMembersResource
   readonly connectionPolicies: ConnectionPoliciesResource
-  readonly pieces: PiecesResource
+  readonly integrations: IntegrationsResource
   readonly files: FilesResource
   readonly billing: BillingResource
   readonly activity: ActivityResource
@@ -425,7 +425,7 @@ export class WeavzClient {
     this.members = new MembersResource(this)
     this.projectMembers = new ProjectMembersResource(this)
     this.connectionPolicies = new ConnectionPoliciesResource(this)
-    this.pieces = new PiecesResource(this)
+    this.integrations = new IntegrationsResource(this)
     this.files = new FilesResource(this)
     this.billing = new BillingResource(this)
     this.activity = new ActivityResource(this)
