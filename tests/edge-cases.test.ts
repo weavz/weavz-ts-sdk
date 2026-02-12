@@ -630,8 +630,6 @@ describe('API Key Edge Cases', () => {
     cleanupStack.push(() => client.apiKeys.delete((key.apiKey as any).id))
 
     const newClient = new WeavzClient({ apiKey: key.plainKey, baseUrl: BASE_URL })
-    const health = await newClient.health()
-    expect(health.status).toBe('healthy')
 
     // Should be able to list integrations
     const intResult = await newClient.integrations.list()
@@ -643,7 +641,7 @@ describe('API Key Edge Cases', () => {
     const keyClient = new WeavzClient({ apiKey: key.plainKey, baseUrl: BASE_URL })
 
     // Should work
-    await keyClient.health()
+    await keyClient.integrations.list()
 
     // Delete the key
     await client.apiKeys.delete((key.apiKey as any).id)
@@ -861,15 +859,15 @@ describe('Error Shape Consistency', () => {
 describe('Client Configuration', () => {
   it('should strip trailing slashes from baseUrl', async () => {
     const c = new WeavzClient({ apiKey: apiKeyPlain, baseUrl: BASE_URL + '///' })
-    const health = await c.health()
-    expect(health.status).toBe('healthy')
+    const result = await c.integrations.list()
+    expect(result.total).toBeGreaterThan(0)
   })
 
   it('should handle baseUrl without protocol gracefully', async () => {
     // This should fail but not crash
     const c = new WeavzClient({ apiKey: apiKeyPlain, baseUrl: 'localhost:3000' })
     try {
-      await c.health()
+      await c.integrations.list()
     } catch (e) {
       // Expected to fail - fetch requires protocol
       expect(e).toBeTruthy()

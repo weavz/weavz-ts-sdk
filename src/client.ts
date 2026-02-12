@@ -475,9 +475,4 @@ export class WeavzClient {
 
     return response.json() as Promise<T>
   }
-
-  /** Health check */
-  async health() {
-    return this.request<{ status: string }>('/health')
-  }
 }
