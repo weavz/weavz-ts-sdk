@@ -21,6 +21,7 @@ let apiKeyId: string
 
 // Track resources for cleanup
 const cleanupStack: Array<() => Promise<void>> = []
+const RAND = Date.now().toString(36)
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   return fetch(`${BASE_URL}${path}`, {
@@ -98,7 +99,7 @@ describe('Project Edge Cases', () => {
   it('should create project with unicode name', async () => {
     const result = await client.projects.create({
       name: 'Projet Spécial 日本語',
-      slug: 'unicode-name-test',
+      slug: `unicode-name-${RAND}`,
     })
     expect(result).toHaveProperty('project')
     projectId = (result.project as any).id
@@ -108,7 +109,7 @@ describe('Project Edge Cases', () => {
 
   it('should reject duplicate project slug', async () => {
     try {
-      await client.projects.create({ name: 'Duplicate', slug: 'unicode-name-test' })
+      await client.projects.create({ name: 'Duplicate', slug: `unicode-name-${RAND}` })
       // Should have thrown
       expect(true).toBe(false)
     } catch (e) {
@@ -131,7 +132,7 @@ describe('Project Edge Cases', () => {
 
   it('should handle deleting already-deleted project gracefully', async () => {
     // Create then delete a project
-    const created = await client.projects.create({ name: 'ToDelete', slug: 'to-delete-edge' })
+    const created = await client.projects.create({ name: 'ToDelete', slug: `to-delete-${RAND}` })
     const id = (created.project as any).id
     await client.projects.delete(id)
     // Try to delete again
@@ -148,7 +149,7 @@ describe('Connection Edge Cases', () => {
   let connId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'Conn Edge', slug: 'conn-edge-test' })
+    const p = await client.projects.create({ name: 'Conn Edge', slug: `conn-edge-${RAND}` })
     projectId = (p.project as any).id
     cleanupStack.push(() => client.projects.delete(projectId))
   })
@@ -189,8 +190,8 @@ describe('Connection Edge Cases', () => {
       type: 'SECRET_TEXT',
       externalId: 'edge-secret-1',
       displayName: 'Same ExtID Different Integration',
-      integrationName: 'anthropic',
-      secretText: 'sk-ant-test-edge',
+      integrationName: 'slack',
+      secretText: 'sk-slack-test-edge',
       projectId,
     })
     expect(result).toHaveProperty('connection')
@@ -284,7 +285,7 @@ describe('MCP Server Edge Cases', () => {
   let codeServerId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'MCP Edge', slug: 'mcp-edge-test' })
+    const p = await client.projects.create({ name: 'MCP Edge', slug: `mcp-edge-${RAND}` })
     projectId = (p.project as any).id
     cleanupStack.push(() => client.projects.delete(projectId))
   })
@@ -397,11 +398,11 @@ describe('MCP Server Edge Cases', () => {
   })
 
   it('should reject alias conflict (same alias, different integration)', async () => {
-    // 'openai-primary' already exists for openai — try adding with anthropic
+    // 'openai-primary' already exists for openai — try adding with discord
     try {
       await client.mcpServers.addTool(toolsServerId, {
-        integrationName: 'anthropic',
-        actionName: 'ask_claude',
+        integrationName: 'discord',
+        actionName: 'sendMessageWithBot',
         integrationAlias: 'openai-primary',
       })
     } catch (e) {
@@ -473,7 +474,7 @@ describe('Project Integration Edge Cases', () => {
   let projectId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'ProjInt Edge', slug: 'projint-edge-test' })
+    const p = await client.projects.create({ name: 'ProjInt Edge', slug: `projint-edge-${RAND}` })
     projectId = (p.project as any).id
     cleanupStack.push(() => client.projects.delete(projectId))
 
@@ -555,7 +556,7 @@ describe('Project Integration Edge Cases', () => {
 
   it('should remove a project integration', async () => {
     const created = await client.projects.addIntegration(projectId, {
-      integrationName: 'anthropic',
+      integrationName: 'discord',
       connectionStrategy: 'per_user',
     })
     const integrationId = (created.integration as any).id

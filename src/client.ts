@@ -119,7 +119,7 @@ class ConnectionsResource extends BaseResource {
     displayName: string
     integrationName: string
     projectId?: string
-    userId?: string
+    endUserId?: string
     scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
     secretText?: string
     username?: string
@@ -137,7 +137,7 @@ class ConnectionsResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
-  resolve(data: { integrationName: string; externalId?: string; projectId?: string; userId?: string }) {
+  resolve(data: { integrationName: string; externalId?: string; projectId?: string; endUserId?: string }) {
     return this._post<{ connection: unknown }>('/api/v1/connections/resolve', data)
   }
 }
@@ -204,7 +204,7 @@ class ActionsResource extends BaseResource {
     input?: Record<string, unknown>
     connectionExternalId?: string
     projectId?: string
-    userId?: string
+    endUserId?: string
     integrationAlias?: string
   }) {
     return this._post<{ output: Record<string, unknown> }>('/api/v1/actions/execute', {
@@ -213,7 +213,7 @@ class ActionsResource extends BaseResource {
       input: options?.input ?? {},
       connectionExternalId: options?.connectionExternalId,
       projectId: options?.projectId,
-      userId: options?.userId,
+      endUserId: options?.endUserId,
       integrationAlias: options?.integrationAlias,
     })
   }
@@ -231,7 +231,7 @@ class TriggersResource extends BaseResource {
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
     projectId?: string
-    userId?: string
+    endUserId?: string
     simulate?: boolean
   }) {
     return this._post<{ triggerSource: unknown }>('/api/v1/triggers/enable', data)
@@ -363,7 +363,7 @@ class IntegrationsResource extends BaseResource {
     triggerName?: string
     connectionExternalId?: string
     projectId?: string
-    userId?: string
+    endUserId?: string
     input?: Record<string, unknown>
     searchValue?: string
   }) {
@@ -375,7 +375,7 @@ class IntegrationsResource extends BaseResource {
     triggerName?: string
     connectionExternalId?: string
     projectId?: string
-    userId?: string
+    endUserId?: string
     input?: Record<string, unknown>
   }) {
     return this._post<unknown>(`/api/v1/integrations/${integrationName}/properties/resolve`, data)

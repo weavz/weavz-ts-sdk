@@ -382,6 +382,77 @@ describe('Webhook Secrets', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
+// endUserId Parameter
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('endUserId Parameter', () => {
+  it('should create a connection with endUserId', async () => {
+    const result = await client.connections.create({
+      type: 'SECRET_TEXT',
+      externalId: 'sdk-enduser-test',
+      displayName: 'endUserId Test Connection',
+      integrationName: 'openai',
+      secretText: 'sk-test-enduser-key',
+      projectId: createdProjectId,
+      endUserId: 'end-user-ts-001',
+    })
+    expect(result).toHaveProperty('connection')
+    expect((result.connection as any).endUserId).toBe('end-user-ts-001')
+    expect(result.connection).not.toHaveProperty('userId')
+
+    // Cleanup
+    await client.connections.delete((result.connection as any).id)
+  })
+
+  it('should resolve a connection with endUserId', async () => {
+    // Create a connection with endUserId first
+    const created = await client.connections.create({
+      type: 'SECRET_TEXT',
+      externalId: 'sdk-resolve-enduser',
+      displayName: 'Resolve endUserId Test',
+      integrationName: 'openai',
+      secretText: 'sk-test-resolve-enduser',
+      projectId: createdProjectId,
+      endUserId: 'end-user-ts-002',
+    })
+
+    const result = await client.connections.resolve({
+      integrationName: 'openai',
+      externalId: 'sdk-resolve-enduser',
+      projectId: createdProjectId,
+      endUserId: 'end-user-ts-002',
+    })
+    expect(result).toHaveProperty('connection')
+    expect((result.connection as any).endUserId).toBe('end-user-ts-002')
+
+    // Cleanup
+    await client.connections.delete((created.connection as any).id)
+  })
+})
+
+// ────────────────────────────────────────────────────────────────────────────
+// Project-Scoped API Keys
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Project-Scoped API Keys', () => {
+  it('should create a project-scoped API key', async () => {
+    const result = await client.apiKeys.create({
+      name: 'project-scoped-test-key',
+      permissions: { scope: 'project', projectIds: [createdProjectId] },
+    })
+    expect(result).toHaveProperty('plainKey')
+    expect(result.plainKey).toMatch(/^wvz_/)
+    expect((result.apiKey as any).permissions).toEqual({
+      scope: 'project',
+      projectIds: [createdProjectId],
+    })
+
+    // Cleanup
+    await client.apiKeys.delete((result.apiKey as any).id)
+  })
+})
+
+// ────────────────────────────────────────────────────────────────────────────
 // Error Handling
 // ────────────────────────────────────────────────────────────────────────────
 
