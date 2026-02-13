@@ -162,26 +162,66 @@ class OAuthAppsResource extends BaseResource {
   }
 }
 
-class OAuthResource extends BaseResource {
-  authorize(data: {
+class ConnectResource extends BaseResource {
+  /** Create a connect session token for the hosted connect flow */
+  createToken(data: {
     integrationName: string
-    redirectUrl: string
-    connectionName: string
-    scope?: string[]
-    extraParams?: Record<string, string>
-  }) {
-    return this._post<{ authorizationUrl: string; state: string; codeVerifier?: string }>('/api/v1/oauth/authorize', data)
-  }
-  claim(data: {
-    integrationName: string
-    code: string
-    redirectUrl: string
     connectionName: string
     externalId: string
-    codeVerifier?: string
+    endUserId?: string
+    projectId?: string
+    scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
+    successRedirectUri?: string
+    errorRedirectUri?: string
   }) {
-    return this._post<{ connection: unknown }>('/api/v1/oauth/callback', data)
+    return this._post<{ token: string; connectUrl: string; expiresAt: string }>('/api/v1/connect/token', data)
   }
+  /** Poll connect session status */
+  getSession(sessionId: string) {
+    return this._get<{ session: { id: string; integrationName: string; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
+  }
+  /**
+   * Open a popup for the hosted connect flow (browser-only).
+   * Resolves with the connection result when complete.
+   */
+  async popup(options: { token: string; connectUrl: string }): Promise<{ connectionId: string; integrationName: string; externalId: string }> {
+    return new Promise((resolve, reject) => {
+      const popup = window.open(options.connectUrl, 'weavz-connect', 'width=500,height=600,popup=yes')
+
+      const handler = (event: MessageEvent) => {
+        if (event.data?.type !== 'weavz-connect-result') return
+        window.removeEventListener('message', handler)
+
+        if (event.data.status === 'error') {
+          reject(new Error(event.data.error || 'Connection failed'))
+          return
+        }
+
+        resolve({
+          connectionId: event.data.connectionId,
+          integrationName: event.data.integrationName,
+          externalId: event.data.externalId,
+        })
+      }
+
+      window.addEventListener('message', handler)
+
+      // Fallback: poll for popup close
+      const interval = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(interval)
+          setTimeout(() => {
+            window.removeEventListener('message', handler)
+            reject(new Error('Popup closed before completing'))
+          }, 3000)
+        }
+      }, 500)
+    })
+  }
+}
+
+class OAuthResource extends BaseResource {
+  /** Refresh an OAuth2 connection token */
   refresh(externalId: string) {
     return this._post<{ connection: unknown; refreshed: boolean }>('/api/v1/oauth/refresh', { externalId })
   }
@@ -402,6 +442,7 @@ export class WeavzClient {
   readonly organizations: OrganizationsResource
   readonly projects: ProjectsResource
   readonly connections: ConnectionsResource
+  readonly connect: ConnectResource
   readonly oauthApps: OAuthAppsResource
   readonly oauth: OAuthResource
   readonly webhookSecrets: WebhookSecretsResource
@@ -421,6 +462,7 @@ export class WeavzClient {
     this.organizations = new OrganizationsResource(this)
     this.projects = new ProjectsResource(this)
     this.connections = new ConnectionsResource(this)
+    this.connect = new ConnectResource(this)
     this.oauthApps = new OAuthAppsResource(this)
     this.oauth = new OAuthResource(this)
     this.webhookSecrets = new WebhookSecretsResource(this)
