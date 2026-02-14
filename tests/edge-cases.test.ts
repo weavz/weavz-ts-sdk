@@ -11,9 +11,9 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { WeavzClient, WeavzError } from '../src/index'
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
 const SERVICE_KEY = 'local-test-service-key-12345'
-const TEST_ORG_ID = '6555c8f1-c057-4c02-9980-1ef723c23855'
+let TEST_ORG_ID = ''
 
 let client: WeavzClient
 let apiKeyPlain: string
@@ -38,6 +38,16 @@ async function serviceKeyRequest(method: string, path: string, body?: unknown) {
 beforeAll(async () => {
   const health = await fetch(`${BASE_URL}/health`)
   if (!health.ok) throw new Error('API server not reachable at ' + BASE_URL)
+
+  // Create a test org
+  const orgRes = await fetch(`${BASE_URL}/api/v1/orgs`, {
+    method: 'POST',
+    headers: { 'X-Service-Key': SERVICE_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Edge Case Org', slug: `edge-test-${Date.now()}` }),
+  })
+  if (!orgRes.ok) throw new Error(`Failed to create org: ${orgRes.status} ${await orgRes.text()}`)
+  const orgData = (await orgRes.json()) as { org: { id: string } }
+  TEST_ORG_ID = orgData.org.id
 
   const res = await serviceKeyRequest('POST', '/api/v1/api-keys', {
     name: 'edge-case-test-key',

@@ -207,9 +207,26 @@ class ConnectResource extends BaseResource {
     return new Promise((resolve, reject) => {
       const popup = window.open(options.connectUrl, 'weavz-connect', 'width=500,height=600,popup=yes')
 
+      // Fallback: poll for popup close
+      const interval = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(interval)
+          setTimeout(() => {
+            window.removeEventListener('message', handler)
+            reject(new Error('Popup closed before completing'))
+          }, 3000)
+        }
+      }, 500)
+
       const handler = (event: MessageEvent) => {
         if (event.data?.type !== 'weavz-connect-result') return
+        // Validate origin matches connect URL
+        try {
+          const expectedOrigin = new URL(options.connectUrl).origin
+          if (event.origin && event.origin !== expectedOrigin) return
+        } catch { /* ignore URL parse errors */ }
         window.removeEventListener('message', handler)
+        clearInterval(interval)
 
         if (event.data.status === 'error') {
           reject(new Error(event.data.error || 'Connection failed'))
@@ -224,17 +241,6 @@ class ConnectResource extends BaseResource {
       }
 
       window.addEventListener('message', handler)
-
-      // Fallback: poll for popup close
-      const interval = setInterval(() => {
-        if (popup?.closed) {
-          clearInterval(interval)
-          setTimeout(() => {
-            window.removeEventListener('message', handler)
-            reject(new Error('Popup closed before completing'))
-          }, 3000)
-        }
-      }, 500)
     })
   }
 }
@@ -367,10 +373,10 @@ class McpServersResource extends BaseResource {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
   }
   syncFromProject(id: string, data?: {
-    mode?: 'TOOLS' | 'CODE'
-    includeDisabled?: boolean
+    aliases?: string[]
+    actions?: Record<string, string[]>
   }) {
-    return this._post<{ server: unknown; added: number; removed: number }>(`/api/v1/mcp/servers/${id}/sync-from-project`, data)
+    return this._post<{ tools: unknown[]; added: number }>(`/api/v1/mcp/servers/${id}/sync-from-project`, data)
   }
 }
 
@@ -394,10 +400,10 @@ class MembersResource extends BaseResource {
   list() {
     return this._get<{ members: unknown[]; total: number }>('/api/v1/members')
   }
-  create(data: { userId: string; role?: 'OWNER' | 'ADMIN' | 'MEMBER' }) {
+  create(data: { userId: string; role?: 'owner' | 'admin' | 'member' }) {
     return this._post<{ member: unknown }>('/api/v1/members', data)
   }
-  update(id: string, data: { role: 'OWNER' | 'ADMIN' | 'MEMBER' }) {
+  update(id: string, data: { role: 'owner' | 'admin' | 'member' }) {
     return this._patch<{ member: unknown }>(`/api/v1/members/${id}`, data)
   }
   delete(id: string) {
@@ -406,7 +412,7 @@ class MembersResource extends BaseResource {
 }
 
 class ProjectMembersResource extends BaseResource {
-  create(data: { projectId: string; memberId: string; role?: 'ADMIN' | 'MEMBER' }) {
+  create(data: { projectId: string; memberId: string; role?: 'admin' | 'member' }) {
     return this._post<{ projectMember: unknown }>('/api/v1/project-members', data)
   }
   delete(id: string) {
