@@ -234,6 +234,92 @@ describe('Project Integrations', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
+// Input Partials
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Input Partials', () => {
+  let partialId: string
+
+  it('should create an input partial', async () => {
+    const result = await client.partials.create({
+      projectId: createdProjectId,
+      integrationName: 'openai',
+      name: 'SDK Test Partial',
+      description: 'Test partial from SDK tests',
+      values: { model: 'gpt-4o', temperature: 0.7 },
+      enforcedKeys: ['model'],
+    })
+    expect(result).toHaveProperty('partial')
+    expect(result.partial.name).toBe('SDK Test Partial')
+    expect(result.partial.integrationName).toBe('openai')
+    expect(result.partial.values).toEqual({ model: 'gpt-4o', temperature: 0.7 })
+    expect(result.partial.enforcedKeys).toEqual(['model'])
+    expect(result.partial.isDefault).toBe(false)
+    partialId = result.partial.id
+  })
+
+  it('should list partials for a project', async () => {
+    const result = await client.partials.list({ projectId: createdProjectId })
+    expect(result).toHaveProperty('partials')
+    expect(result).toHaveProperty('total')
+    expect(result.partials.length).toBeGreaterThan(0)
+    expect(result.partials.some(p => p.id === partialId)).toBe(true)
+  })
+
+  it('should list partials filtered by integrationName', async () => {
+    const result = await client.partials.list({ projectId: createdProjectId, integrationName: 'openai' })
+    expect(result.partials.length).toBeGreaterThan(0)
+    expect(result.partials.every(p => p.integrationName === 'openai')).toBe(true)
+  })
+
+  it('should get a specific partial', async () => {
+    const result = await client.partials.get(partialId)
+    expect(result).toHaveProperty('partial')
+    expect(result.partial.id).toBe(partialId)
+    expect(result.partial.name).toBe('SDK Test Partial')
+  })
+
+  it('should update a partial', async () => {
+    const result = await client.partials.update(partialId, {
+      name: 'SDK Test Partial (updated)',
+      description: 'Updated description',
+      values: { model: 'gpt-4o', temperature: 0.9 },
+    })
+    expect(result).toHaveProperty('partial')
+    expect(result.partial.name).toBe('SDK Test Partial (updated)')
+    expect(result.partial.description).toBe('Updated description')
+    expect(result.partial.values).toEqual({ model: 'gpt-4o', temperature: 0.9 })
+  })
+
+  it('should set a partial as default', async () => {
+    const result = await client.partials.setDefault(partialId, true)
+    expect(result).toHaveProperty('partial')
+    expect(result.partial.isDefault).toBe(true)
+  })
+
+  it('should unset a partial as default', async () => {
+    const result = await client.partials.setDefault(partialId, false)
+    expect(result).toHaveProperty('partial')
+    expect(result.partial.isDefault).toBe(false)
+  })
+
+  it('should delete a partial', async () => {
+    const result = await client.partials.delete(partialId)
+    expect(result).toHaveProperty('deleted', true)
+    expect(result).toHaveProperty('id', partialId)
+  })
+
+  it('should return 404 for deleted partial', async () => {
+    await expect(client.partials.get(partialId)).rejects.toThrow(WeavzError)
+    try {
+      await client.partials.get(partialId)
+    } catch (e) {
+      expect((e as WeavzError).status).toBe(404)
+    }
+  })
+})
+
+// ────────────────────────────────────────────────────────────────────────────
 // MCP Servers
 // ────────────────────────────────────────────────────────────────────────────
 

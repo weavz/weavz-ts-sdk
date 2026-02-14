@@ -31,6 +31,21 @@ export interface ProjectIntegration {
   updatedAt: string
 }
 
+export interface InputPartial {
+  id: string
+  orgId: string
+  projectId: string
+  integrationName: string
+  actionName?: string | null
+  name: string
+  description?: string | null
+  values: Record<string, unknown>
+  enforcedKeys: string[]
+  isDefault: boolean
+  createdAt: string
+  updatedAt: string
+}
+
 // ============================================================================
 // Resource Classes
 // ============================================================================
@@ -137,7 +152,7 @@ class ConnectionsResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
-  resolve(data: { integrationName: string; externalId?: string; projectId?: string; endUserId?: string }) {
+  resolve(data: { integrationName: string; projectId: string; externalId?: string; endUserId?: string }) {
     return this._post<{ connection: unknown }>('/api/v1/connections/resolve', data)
   }
 }
@@ -168,8 +183,8 @@ class ConnectResource extends BaseResource {
     integrationName: string
     connectionName: string
     externalId: string
+    projectId: string
     endUserId?: string
-    projectId?: string
     scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
     successRedirectUri?: string
     errorRedirectUri?: string
@@ -240,21 +255,23 @@ class WebhookSecretsResource extends BaseResource {
 }
 
 class ActionsResource extends BaseResource {
-  execute(integrationName: string, actionName: string, options?: {
+  execute(integrationName: string, actionName: string, options: {
+    projectId: string
     input?: Record<string, unknown>
     connectionExternalId?: string
-    projectId?: string
     endUserId?: string
     integrationAlias?: string
+    partialIds?: string[]
   }) {
     return this._post<{ output: Record<string, unknown> }>('/api/v1/actions/execute', {
       integrationName,
       actionName,
-      input: options?.input ?? {},
-      connectionExternalId: options?.connectionExternalId,
-      projectId: options?.projectId,
-      endUserId: options?.endUserId,
-      integrationAlias: options?.integrationAlias,
+      input: options.input ?? {},
+      connectionExternalId: options.connectionExternalId,
+      projectId: options.projectId,
+      endUserId: options.endUserId,
+      integrationAlias: options.integrationAlias,
+      partialIds: options.partialIds,
     })
   }
 }
@@ -267,11 +284,13 @@ class TriggersResource extends BaseResource {
     integrationName: string
     triggerName: string
     callbackUrl: string
+    projectId: string
     callbackHeaders?: Record<string, string>
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
-    projectId?: string
     endUserId?: string
+    input?: Record<string, unknown>
+    partialIds?: string[]
     simulate?: boolean
   }) {
     return this._post<{ triggerSource: unknown }>('/api/v1/triggers/enable', data)
@@ -290,8 +309,8 @@ class McpServersResource extends BaseResource {
   }
   create(data: {
     name: string
+    projectId: string
     description?: string
-    projectId?: string
     createdBy?: string
     sharing?: 'PRIVATE' | 'PROJECT' | 'ORG'
     mode?: 'TOOLS' | 'CODE'
@@ -319,6 +338,7 @@ class McpServersResource extends BaseResource {
     displayName?: string
     description?: string
     inputDefaults?: Record<string, unknown>
+    partialIds?: string[]
     sortOrder?: number
   }) {
     return this._post<{ tool: unknown }>(`/api/v1/mcp/servers/${serverId}/tools`, data)
@@ -330,6 +350,7 @@ class McpServersResource extends BaseResource {
     connectionId?: string
     sortOrder?: number
     integrationAlias?: string
+    partialIds?: string[]
   }) {
     return this._patch<{ tool: unknown }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`, data)
   }
@@ -431,6 +452,45 @@ class ActivityResource extends BaseResource {
   }
 }
 
+class PartialsResource extends BaseResource {
+  list(params: { projectId: string; integrationName?: string; actionName?: string }) {
+    return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
+  }
+  get(id: string) {
+    return this._get<{ partial: InputPartial }>(`/api/v1/partials/${id}`)
+  }
+  create(data: {
+    projectId: string
+    integrationName: string
+    name: string
+    actionName?: string | null
+    description?: string | null
+    values?: Record<string, unknown>
+    enforcedKeys?: string[]
+    isDefault?: boolean
+  }) {
+    return this._post<{ partial: InputPartial }>('/api/v1/partials', {
+      ...data,
+      values: data.values ?? {},
+    })
+  }
+  update(id: string, data: {
+    name?: string
+    description?: string | null
+    values?: Record<string, unknown>
+    enforcedKeys?: string[]
+    isDefault?: boolean
+  }) {
+    return this._patch<{ partial: InputPartial }>(`/api/v1/partials/${id}`, data)
+  }
+  delete(id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/partials/${id}`)
+  }
+  setDefault(id: string, isDefault: boolean) {
+    return this._post<{ partial: InputPartial }>(`/api/v1/partials/${id}/set-default`, { isDefault })
+  }
+}
+
 // ============================================================================
 // Client
 // ============================================================================
@@ -454,6 +514,7 @@ export class WeavzClient {
   readonly projectMembers: ProjectMembersResource
   readonly integrations: IntegrationsResource
   readonly activity: ActivityResource
+  readonly partials: PartialsResource
 
   constructor(options: WeavzClientOptions) {
     this.apiKey = options.apiKey
@@ -474,6 +535,7 @@ export class WeavzClient {
     this.projectMembers = new ProjectMembersResource(this)
     this.integrations = new IntegrationsResource(this)
     this.activity = new ActivityResource(this)
+    this.partials = new PartialsResource(this)
   }
 
   /** Make an authenticated request to the Weavz API */
