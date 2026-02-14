@@ -9,6 +9,10 @@ export interface WeavzClientOptions {
   apiKey: string
   /** Base URL of the Weavz API (default: https://api.weavz.io) */
   baseUrl?: string
+  /** Request timeout in milliseconds (default: 30000) */
+  timeout?: number
+  /** Maximum number of retries on retryable errors (default: 2, meaning 3 total attempts) */
+  maxRetries?: number
 }
 
 interface RequestOptions {
@@ -312,7 +316,6 @@ class McpServersResource extends BaseResource {
     projectId: string
     description?: string
     createdBy?: string
-    sharing?: 'PRIVATE' | 'PROJECT' | 'ORG'
     mode?: 'TOOLS' | 'CODE'
   }) {
     return this._post<{ server: unknown; bearerToken: string; mcpEndpoint: string }>('/api/v1/mcp/servers', data)
@@ -320,7 +323,7 @@ class McpServersResource extends BaseResource {
   get(id: string) {
     return this._get<{ server: unknown; tools: unknown[] }>(`/api/v1/mcp/servers/${id}`)
   }
-  update(id: string, data: { name?: string; description?: string; sharing?: string; mode?: string }) {
+  update(id: string, data: { name?: string; description?: string; mode?: string }) {
     return this._patch<{ server: unknown }>(`/api/v1/mcp/servers/${id}`, data)
   }
   delete(id: string) {
@@ -491,6 +494,21 @@ class PartialsResource extends BaseResource {
   }
 }
 
+class InvitationsResource extends BaseResource {
+  send(data: { email: string; role?: string; organizationId: string }) {
+    return this._post<{ invitation: unknown }>('/api/v1/members/invite', data)
+  }
+  list() {
+    return this._get<{ invitations: unknown[]; total: number }>('/api/v1/members/invitations')
+  }
+  revoke(id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/members/invitations/${id}`)
+  }
+  accept(id: string) {
+    return this._post<{ member: unknown }>(`/api/v1/members/invitations/${id}/accept`)
+  }
+}
+
 // ============================================================================
 // Client
 // ============================================================================
@@ -498,6 +516,8 @@ class PartialsResource extends BaseResource {
 export class WeavzClient {
   private readonly apiKey: string
   private readonly baseUrl: string
+  private readonly timeout: number
+  private readonly maxRetries: number
 
   readonly organizations: OrganizationsResource
   readonly projects: ProjectsResource
@@ -515,10 +535,13 @@ export class WeavzClient {
   readonly integrations: IntegrationsResource
   readonly activity: ActivityResource
   readonly partials: PartialsResource
+  readonly invitations: InvitationsResource
 
   constructor(options: WeavzClientOptions) {
     this.apiKey = options.apiKey
     this.baseUrl = (options.baseUrl || 'https://api.weavz.io').replace(/\/+$/, '')
+    this.timeout = options.timeout ?? 30_000
+    this.maxRetries = options.maxRetries ?? 2
 
     this.organizations = new OrganizationsResource(this)
     this.projects = new ProjectsResource(this)
@@ -536,6 +559,7 @@ export class WeavzClient {
     this.integrations = new IntegrationsResource(this)
     this.activity = new ActivityResource(this)
     this.partials = new PartialsResource(this)
+    this.invitations = new InvitationsResource(this)
   }
 
   /** Make an authenticated request to the Weavz API */
@@ -560,27 +584,64 @@ export class WeavzClient {
       headers['Content-Type'] = 'application/json'
     }
 
-    const response = await fetch(url, {
-      method,
-      headers,
-      body: body ? JSON.stringify(body) : undefined,
-    })
+    const isIdempotent = method === 'GET' || method === 'PUT' || method === 'DELETE' || method === 'PATCH'
 
-    if (!response.ok) {
+    let lastError: WeavzError | undefined
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      const response = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : undefined,
+        signal: AbortSignal.timeout(this.timeout),
+      })
+
+      if (response.ok) {
+        return response.json() as Promise<T>
+      }
+
       let errorBody: { error?: string; code?: string; details?: unknown } = {}
       try {
         errorBody = await response.json() as typeof errorBody
       } catch {
         // ignore parse errors
       }
-      throw new WeavzError({
+
+      lastError = new WeavzError({
         message: errorBody.error || `HTTP ${response.status}`,
         code: errorBody.code || 'HTTP_ERROR',
         status: response.status,
         details: errorBody.details,
       })
+
+      const is429 = response.status === 429
+      const is5xx = response.status >= 500 && response.status < 600
+      const shouldRetry = is429 || (is5xx && isIdempotent)
+
+      if (!shouldRetry || attempt >= this.maxRetries) {
+        throw lastError
+      }
+
+      // Calculate backoff delay
+      const retryAfter = response.headers.get('Retry-After')
+      let delay: number
+      if (retryAfter) {
+        const parsed = Number(retryAfter)
+        if (!Number.isNaN(parsed)) {
+          delay = parsed * 1000
+        } else {
+          // RFC 7231 date format
+          const date = new Date(retryAfter).getTime()
+          delay = Math.max(0, date - Date.now())
+        }
+      } else {
+        // Exponential backoff: 500ms, 1000ms, 2000ms, ...
+        delay = 500 * Math.pow(2, attempt)
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay))
     }
 
-    return response.json() as Promise<T>
+    // Should not reach here, but satisfy TypeScript
+    throw lastError!
   }
 }
