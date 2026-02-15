@@ -500,6 +500,53 @@ class PartialsResource extends BaseResource {
   }
 }
 
+export interface EndUser {
+  id: string
+  projectId: string
+  externalId?: string | null
+  displayName?: string | null
+  email?: string | null
+  metadata?: Record<string, unknown> | null
+  connectionCount?: number
+  type: 'external' | 'member'
+  createdAt: string
+  updatedAt: string
+}
+
+class EndUsersResource extends BaseResource {
+  create(data: {
+    projectId: string
+    externalId: string
+    displayName?: string
+    email?: string
+    metadata?: Record<string, unknown>
+  }) {
+    return this._post<{ endUser: EndUser }>('/api/v1/end-users', data)
+  }
+  list(params: { projectId: string }) {
+    return this._get<{ endUsers: EndUser[]; total: number }>('/api/v1/end-users', params)
+  }
+  get(id: string) {
+    return this._get<{ endUser: EndUser; connections: unknown[] }>(`/api/v1/end-users/${id}`)
+  }
+  update(id: string, data: {
+    displayName?: string | null
+    email?: string | null
+    metadata?: Record<string, unknown> | null
+  }) {
+    return this._patch<{ endUser: EndUser }>(`/api/v1/end-users/${id}`, data)
+  }
+  delete(id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/end-users/${id}`)
+  }
+  createConnectToken(id: string, data?: { integrationName?: string; expiresIn?: number }) {
+    return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${id}/connect-token`, data)
+  }
+  invite(id: string, data: { email: string; integrationName?: string; expiresIn?: number }) {
+    return this._post<{ sent: boolean; email: string }>(`/api/v1/end-users/${id}/invite`, data)
+  }
+}
+
 class InvitationsResource extends BaseResource {
   send(data: { email: string; role?: string; organizationId: string }) {
     return this._post<{ invitation: unknown }>('/api/v1/members/invite', data)
@@ -542,6 +589,7 @@ export class WeavzClient {
   readonly activity: ActivityResource
   readonly partials: PartialsResource
   readonly invitations: InvitationsResource
+  readonly endUsers: EndUsersResource
 
   constructor(options: WeavzClientOptions) {
     this.apiKey = options.apiKey
@@ -566,6 +614,7 @@ export class WeavzClient {
     this.activity = new ActivityResource(this)
     this.partials = new PartialsResource(this)
     this.invitations = new InvitationsResource(this)
+    this.endUsers = new EndUsersResource(this)
   }
 
   /** Make an authenticated request to the Weavz API */

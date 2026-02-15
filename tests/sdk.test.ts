@@ -549,6 +549,81 @@ describe('Project-Scoped API Keys', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
+// End Users
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('End Users', () => {
+  let endUserId: string
+
+  it('should create an end user', async () => {
+    const result = await client.endUsers.create({
+      projectId: createdProjectId,
+      externalId: `sdk-eu-${Date.now()}`,
+      displayName: 'SDK Test End User',
+      email: 'sdk-enduser@example.com',
+      metadata: { plan: 'pro' },
+    })
+    expect(result).toHaveProperty('endUser')
+    expect(result.endUser.displayName).toBe('SDK Test End User')
+    expect(result.endUser.email).toBe('sdk-enduser@example.com')
+    expect(result.endUser.externalId).toBeTruthy()
+    expect(result.endUser.type).toBe('external')
+    endUserId = result.endUser.id
+  })
+
+  it('should list end users by project', async () => {
+    const result = await client.endUsers.list({ projectId: createdProjectId })
+    expect(result).toHaveProperty('endUsers')
+    expect(result).toHaveProperty('total')
+    expect(result.endUsers.length).toBeGreaterThan(0)
+    expect(result.endUsers.some((eu: any) => eu.id === endUserId)).toBe(true)
+  })
+
+  it('should get a specific end user', async () => {
+    const result = await client.endUsers.get(endUserId)
+    expect(result).toHaveProperty('endUser')
+    expect(result.endUser.id).toBe(endUserId)
+    expect(result.endUser.displayName).toBe('SDK Test End User')
+    expect(result).toHaveProperty('connections')
+    expect(Array.isArray(result.connections)).toBe(true)
+  })
+
+  it('should update an end user', async () => {
+    const result = await client.endUsers.update(endUserId, {
+      displayName: 'Updated End User',
+      email: 'updated@example.com',
+    })
+    expect(result).toHaveProperty('endUser')
+    expect(result.endUser.displayName).toBe('Updated End User')
+    expect(result.endUser.email).toBe('updated@example.com')
+  })
+
+  it('should create a connect token', async () => {
+    const result = await client.endUsers.createConnectToken(endUserId)
+    expect(result).toHaveProperty('connectUrl')
+    expect(result).toHaveProperty('token')
+    expect(result).toHaveProperty('expiresAt')
+    expect(result.token).toMatch(/^eut_/)
+    expect(result.connectUrl).toContain('/connect/portal')
+  })
+
+  it('should create a connect token with integration filter', async () => {
+    const result = await client.endUsers.createConnectToken(endUserId, {
+      integrationName: 'slack',
+      expiresIn: 86400,
+    })
+    expect(result).toHaveProperty('token')
+    expect(result.token).toMatch(/^eut_/)
+  })
+
+  it('should delete an end user', async () => {
+    const result = await client.endUsers.delete(endUserId)
+    expect(result).toHaveProperty('deleted', true)
+    expect(result).toHaveProperty('id', endUserId)
+  })
+})
+
+// ────────────────────────────────────────────────────────────────────────────
 // Error Handling
 // ────────────────────────────────────────────────────────────────────────────
 
