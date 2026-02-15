@@ -323,13 +323,14 @@ class McpServersResource extends BaseResource {
     description?: string
     createdBy?: string
     mode?: 'TOOLS' | 'CODE'
+    endUserId?: string
   }) {
     return this._post<{ server: unknown; bearerToken: string; mcpEndpoint: string }>('/api/v1/mcp/servers', data)
   }
   get(id: string) {
     return this._get<{ server: unknown; tools: unknown[] }>(`/api/v1/mcp/servers/${id}`)
   }
-  update(id: string, data: { name?: string; description?: string; mode?: string }) {
+  update(id: string, data: { name?: string; description?: string; mode?: string; endUserId?: string | null }) {
     return this._patch<{ server: unknown }>(`/api/v1/mcp/servers/${id}`, data)
   }
   delete(id: string) {
