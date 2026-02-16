@@ -393,6 +393,76 @@ export interface AttioCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Baserow — Create Row */
+export interface BaserowBaserowCreateRowInput {
+  /** Please enter the table ID where the row must be created in. You can find the ID by clicking on the three dots next to the table. It's the number between brackets. */
+  table_id: number
+  /** Table Fields */
+  table_fields: Record<string, unknown>
+}
+
+/** Baserow — Delete Row */
+export interface BaserowBaserowDeleteRowInput {
+  /** Please enter the table ID where the row must be deleted in.You can find the ID by clicking on the three dots next to the table. It's the number between brackets. */
+  table_id: number
+  /** Please enter the row ID that needs to be deleted. */
+  row_id: number
+}
+
+/** Baserow — Get Row */
+export interface BaserowBaserowGetRowInput {
+  /** Please enter the table ID where you want to get the row from. You can find the ID by clicking on the three dots next to the table. It's the number between brackets. */
+  table_id: number
+  /** Please enter the row ID that is requested. */
+  row_id: number
+}
+
+/** Baserow — List Rows */
+export interface BaserowBaserowListRowsInput {
+  /** Please enter the table ID where you want to get the rows from. You can find the ID by clicking on the three dots next to the table. It's the number between brackets. */
+  table_id: number
+  /** The maximum number of rows to return. */
+  limit?: number
+  /** If provided only rows with cell data that matches the search query are going to be returned. */
+  search?: string
+  /** If provided rows will be order by specific field.Use **-** sign for descending / **+** sing for ascending ordering.         Example. "-My Field" will return rows in descending order based on "My Field" field. */
+  order_by?: string
+}
+
+/** Baserow — Update Row */
+export interface BaserowBaserowUpdateRowInput {
+  /** Please enter the table ID where the row must be updated in. You can find the ID by clicking on the three dots next to the table. It's the number between brackets. */
+  table_id: number
+  /** Please enter the row ID that needs to be updated. */
+  row_id: number
+  /** Table Fields */
+  table_fields: Record<string, unknown>
+}
+
+/** Baserow — Custom API Call */
+export interface BaserowCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Bigcommerce — Create Customer */
 export interface BigcommerceCreateCustomerInput {
   /** Customer email address */
@@ -587,6 +657,74 @@ export interface BigcommerceCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Bluesky — Create Post */
+export interface BlueskyCreatePostInput {
+  /** Type of content you're sharing (values: `text`, `photo`, `link`, `reply`, `quote`) */
+  postType?: "text" | "photo" | "link" | "reply" | "quote"
+  /** What do you want to post? (Max 300 characters) */
+  text: string
+  /** Language of your post */
+  language?: "en" | "es" | "fr" | "de" | "it" | "pt" | "ja" | "ko" | "zh" | "ru" | "ar" | "hi" | "nl" | "sv" | "other"
+  /** Add up to 4 images by URL */
+  imageUrls?: unknown[]
+  /** Describe each image for accessibility */
+  imageDescriptions?: unknown[]
+  /** Link to video file (MP4, max 100MB) */
+  videoUrl?: string
+  /** Describe the video for accessibility */
+  videoAltText?: string
+  /** Caption file URLs (optional) */
+  videoCaptions?: unknown[]
+  /** URL to share with your post */
+  linkUrl?: string
+  /** URL of post to reply to */
+  replyToPost?: string
+  /** Create additional connected posts */
+  threadContent?: unknown[]
+  /** Add hashtags (e.g., tech,bluesky) */
+  additionalHashtags?: string
+  /** Add warnings for sensitive content */
+  contentWarnings?: string[]
+  /** Who can see this post (values: `public`, `followers`, `unlisted`) */
+  audience?: "public" | "followers" | "unlisted"
+}
+
+/** Bluesky — Like Post */
+export interface BlueskyLikePostInput {
+  /** How to choose the post (values: `timeline`, `manual`) */
+  selectionMethod: "timeline" | "manual"
+  /** Choose from your recent timeline posts (only when "From my timeline" is selected above) (resolve via property options API) */
+  postSelection?: string
+  /** Paste the Bluesky post URL */
+  postUrl?: string
+}
+
+/** Bluesky — Repost Post */
+export interface BlueskyRepostPostInput {
+  /** How to choose the post (values: `timeline`, `manual`) */
+  selectionMethod: "timeline" | "manual"
+  /** Choose from your recent timeline posts (only when "From my timeline" is selected above) (resolve via property options API) */
+  postSelection?: string
+  /** Paste the Bluesky post URL */
+  postUrl?: string
+}
+
+/** Bluesky — Find Post */
+export interface BlueskyFindPostInput {
+  /** Paste the Bluesky post URL (e.g., https://bsky.app/profile/username.bsky.social/post/xxx) */
+  postUrl: string
+}
+
+/** Bluesky — Find Thread */
+export interface BlueskyFindThreadInput {
+  /** Paste the Bluesky post URL (e.g., https://bsky.app/profile/username.bsky.social/post/xxx) */
+  postUrl: string
+  /** How many levels deep to retrieve replies (values: `1`, `2`, `3`, `5`, `10`, `20`, `50`, `100`) */
+  depth?: "1" | "2" | "3" | "5" | "10" | "20" | "50" | "100"
+  /** How many parent posts to retrieve (values: `0`, `1`, `2`, `3`, `5`, `10`, `20`, `80`) */
+  parentHeight?: "0" | "1" | "2" | "3" | "5" | "10" | "20" | "80"
 }
 
 /** ClickUp — Create Task */
@@ -1143,12 +1281,158 @@ export interface CloseCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Coda — Create Row */
+export interface CodaCreateRowInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Define the data for the new row based on table columns. */
+  rowData: Record<string, unknown>
+}
+
+/** Coda — Update Row */
+export interface CodaUpdateRowInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Row ID or Name */
+  rowIdOrName: string
+  /** Define the data for the new row based on table columns. */
+  rowData: Record<string, unknown>
+}
+
+/** Coda — Upsert Row */
+export interface CodaUpsertRowInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Matching Columns */
+  keyColumns: string[]
+  /** Define the data for the new row based on table columns. */
+  rowData: Record<string, unknown>
+}
+
+/** Coda — Find Row(s) */
+export interface CodaFindRowInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Search Column (resolve via property options API) */
+  searchColumn: string
+  /** Search Value */
+  searchValue: string
+}
+
+/** Coda — Get Row */
+export interface CodaGetRowInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Row ID or Name */
+  rowIdOrName: string
+}
+
+/** Coda — List Table(s) */
+export interface CodaListTablesInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Maximum number of results to return. */
+  max: number
+}
+
+/** Coda — Get Table */
+export interface CodaGetTableInput {
+  /** Document (resolve via property options API) */
+  docId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+}
+
+/** Coda — Custom API Call */
+export interface CodaCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Code — Run Code */
 export interface CodeRunCodeInput {
   /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
   code: string
   /** Data to pass as the `inputs` variable inside the code */
   inputs?: unknown
+}
+
+/** Confluence — Get Page Content */
+export interface ConfluenceGetPageContentInput {
+  /** Get this from the page URL of your Confluence Cloud */
+  pageId: string
+  /** If checked, will fetch all child pages recursively. */
+  includeDescendants?: boolean
+  /** Dynamic Properties */
+  dynamic: Record<string, unknown>
+}
+
+/** Confluence — Create Page from Template */
+export interface ConfluenceCreatePageFromTemplateInput {
+  /** Space (resolve via property options API) */
+  spaceId: string
+  /** Template (resolve via property options API) */
+  templateId: string
+  /** Parent Folder (resolve via property options API) */
+  folderId?: string
+  /** Title */
+  title: string
+  /** Status (values: `current`, `draft`) */
+  status: "current" | "draft"
+  /** Template Variables */
+  templateVariables: Record<string, unknown>
+}
+
+/** Confluence — Custom API Call */
+export interface ConfluenceCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Copper — Create Person */
@@ -1635,6 +1919,100 @@ export interface CopperCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Crisp — Add Note to Conversation */
+export interface CrispAddNoteInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** You can obtain session from URL address bar.It starts with 'session_'. */
+  sessionId: string
+  /** Note Content */
+  content: string
+}
+
+/** Crisp — Create Conversation */
+export interface CrispCreateConversationInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** Customer Email */
+  email: string
+  /** Customer Username */
+  username: string
+  /** Message From (values: `user`, `operator`) */
+  messageFrom: "user" | "operator"
+  /** Message */
+  message: string
+}
+
+/** Crisp — Create/Update Contact */
+export interface CrispCreateUpdateContactInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** Email */
+  email: string
+  /** Name */
+  name: string
+  /** Phone Number */
+  phone?: string
+  /** Address */
+  address?: string
+  /** Company */
+  company?: string
+  /** Contact Website */
+  website?: string
+  /** Notepad */
+  notepad?: string
+}
+
+/** Crisp — Change Conversation State */
+export interface CrispChangeStateInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** You can obtain session from URL address bar.It starts with 'session_'. */
+  sessionId: string
+  /** State (values: `unresolved`, `resolved`, `pending`) */
+  state: "unresolved" | "resolved" | "pending"
+}
+
+/** Crisp — Find Conversation */
+export interface CrispFindConversationInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** Search Query */
+  searchQuery: string
+}
+
+/** Crisp — Find User Profile */
+export interface CrispFindUserProfileInput {
+  /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
+  websiteId: string
+  /** The email address of the user to find. */
+  email: string
+}
+
+/** Crisp — Custom API Call */
+export interface CrispCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Discord — Send Message with Bot */
 export interface DiscordSendMessageWithBotInput {
   /** List of channels (resolve via property options API) */
@@ -1969,6 +2347,38 @@ export interface DropboxCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Facebook Pages — Create Page Post */
+export interface FacebookPagesCreatePostInput {
+  /** Page (resolve via property options API) */
+  page: string
+  /** Message */
+  message: string
+  /** Link */
+  link?: string
+}
+
+/** Facebook Pages — Create Page Photo */
+export interface FacebookPagesCreatePhotoPostInput {
+  /** Page (resolve via property options API) */
+  page: string
+  /** A URL we can access for the photo */
+  photo: string
+  /** Caption */
+  caption?: string
+}
+
+/** Facebook Pages — Create Page Video */
+export interface FacebookPagesCreateVideoPostInput {
+  /** Page (resolve via property options API) */
+  page: string
+  /** A URL we can access for the video (Limit: 1GB or 20 minutes) */
+  video: string
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+}
+
 /** Figma — Get File */
 export interface FigmaGetFileInput {
   /** The Figma file key (copy from Figma file URL) */
@@ -2155,6 +2565,63 @@ export interface FormstackCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Freshdesk — Get Tickets */
+export type FreshdeskGetTicketsInput = Record<string, never>
+
+/** Freshdesk — Get Contact from ID */
+export interface FreshdeskGetContactFromIdInput {
+  /** The ID number of the contact */
+  contactid: string
+}
+
+/** Freshdesk — Get Ticket Status */
+export interface FreshdeskGetTicketStatusInput {
+  /** The Ticket ID to return status */
+  ticketid: string
+}
+
+/** Freshdesk — Get Freshdesk Contacts */
+export interface FreshdeskGetContactsInput {
+  /** Select one and provide the value. (values: `email`, `mobile`, `phone`, `company_id`, `updated_since`) */
+  filter_type?: "email" | "mobile" | "phone" | "company_id" | "updated_since"
+  /** Provide value if previous option selected! */
+  filter_value?: string
+  /** Can filter by state: blocked, deleted, unverified or verified. (values: `blocked`, `deleted`, `unverified`, `verified`) */
+  filter_status?: "blocked" | "deleted" | "unverified" | "verified"
+  /** Freshdesk calls this per_page - set to 0 for all, if specified maximum is 100 */
+  per_page: number
+}
+
+/** Freshdesk — Get All Tickets By Status */
+export interface FreshdeskGetAllTicketsByStatusInput {
+  /** Select one or status values */
+  status_filter: string[]
+}
+
+/** Freshdesk — Custom API Call */
+export interface FreshdeskCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Freshsales — Create Contact */
 export interface FreshsalesFreshsalesCreateContactInput {
   /** First name of the contact */
@@ -2227,6 +2694,300 @@ export interface FreshsalesCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Front — Add Comment */
+export interface FrontAddCommentInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** Select the teammate (resolve via property options API) */
+  author_id: string
+  /** The content of the comment. */
+  body: string
+}
+
+/** Front — Add Contact Handle */
+export interface FrontAddContactHandleInput {
+  /** Select the contact (resolve via property options API) */
+  contact_id: string
+  /** Type of handle to add. (values: `email`, `phone`, `twitter`, `facebook`, `intercom`, `front_chat`, `custom`) */
+  handle_type: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom"
+  /** The value of the handle (e.g., email address, phone number). */
+  handle_value: string
+}
+
+/** Front — Add Conversation Links */
+export interface FrontAddConversationLinksInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** Select one or more links */
+  link_ids?: string[]
+}
+
+/** Front — Add Conversation Tags */
+export interface FrontAddConversationTagsInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** Select one or more tags */
+  tag_ids?: string[]
+}
+
+/** Front — Assign/Unassign Conversation */
+export interface FrontAssignUnassignConversationInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** Select the teammate (resolve via property options API) */
+  assignee_id: string
+}
+
+/** Front — Create Account */
+export interface FrontCreateAccountInput {
+  /** The name of the account to create. */
+  name: string
+  /** A description for the account. */
+  description?: string
+  /** List of domains associated with the account. */
+  domains?: Array<{   domain: string }>
+  /** An external identifier for the account. */
+  external_id?: string
+  /** Custom fields for this account, as a JSON object. */
+  custom_fields?: unknown
+}
+
+/** Front — Create Contact */
+export interface FrontCreateContactInput {
+  /** The name of the contact. */
+  name?: string
+  /** A description for the contact. */
+  description?: string
+  /** List of contact handles (e.g., email, phone). */
+  handles: Array<{   handle: string;   source: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom" }>
+  /** URL of the contact’s avatar image. */
+  avatar_url?: string
+  /** List of URLs associated with the contact. */
+  links?: Array<{   link: string }>
+  /** List of group names to associate with the contact. */
+  group_names?: Array<{   group_names: string }>
+  /** List of contact list names this contact belongs to. Front will create any that do not exist. */
+  list_names?: unknown[]
+  /** Custom fields for this contact, as a JSON object (e.g., {"CRM ID": "12345"}). */
+  custom_fields?: unknown
+}
+
+/** Front — Create Draft */
+export interface FrontCreateDraftInput {
+  /** Select the channel (resolve via property options API) */
+  channel_id: string
+  /** List of recipient handles (email addresses, etc.). */
+  to: unknown[]
+  /** List of CC recipient handles. */
+  cc?: unknown[]
+  /** List of BCC recipient handles. */
+  bcc?: unknown[]
+  /** The subject of the draft. */
+  subject?: string
+  /** The body of the draft message. */
+  body: string
+  /** List of attachment URLs. */
+  attachments?: unknown[]
+  /** Mode of the draft reply (values: `private`, `shared`) */
+  mode: "private" | "shared"
+  /** The ID of the signature to use for the draft reply (if applicable). */
+  signature_id?: string
+  /** Whether to append the default signature to the draft reply (if applicable). */
+  should_add_default_signature?: boolean
+}
+
+/** Front — Create Draft Reply */
+export interface FrontCreateDraftReplyInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** The content of the draft reply. */
+  body: string
+  /** The subject of the draft reply (for email channels). */
+  subject?: string
+  /** Select the teammate (resolve via property options API) */
+  author_id: string
+  /** Select the channel (resolve via property options API) */
+  channel_id: string
+  /** List of recipient handles (email addresses, etc.). */
+  to?: unknown[]
+  /** List of CC recipient handles. */
+  cc?: unknown[]
+  /** List of BCC recipient handles. */
+  bcc?: unknown[]
+  /** List of attachment URLs. */
+  attachments?: unknown[]
+  /** Mode of the draft reply (values: `private`, `shared`) */
+  mode: "private" | "shared"
+  /** The ID of the signature to use for the draft reply (if applicable). */
+  signature_id?: string
+  /** Whether to append the default signature to the draft reply (if applicable). */
+  should_add_default_signature?: boolean
+}
+
+/** Front — Create Link */
+export interface FrontCreateLinkInput {
+  /** The name of the link. */
+  name: string
+  /** The external URL for the link. */
+  external_url: string
+  /** Optional pattern to match URLs (regex). */
+  pattern?: string
+}
+
+/** Front — Find Account */
+export interface FrontFindAccountInput {
+  /** Filter accounts by email domain  */
+  email_domain?: string
+  /** Filter accounts by external ID */
+  external_id?: string
+  /** Maximum number of accounts to return (max 100). */
+  limit?: number
+  /** Token for pagination. */
+  page_token?: string
+  /** Field used to sort the accounts. (values: `created_at`, `updated_at`) */
+  sort_by?: "created_at" | "updated_at"
+  /** Order by which results should be sorted. (values: `asc`, `desc`) */
+  sort_order?: "asc" | "desc"
+}
+
+/** Front — Find Contact */
+export interface FrontFindContactInput {
+  /** Email address to search for. */
+  email?: string
+  /** Phone number to search for. */
+  phone?: string
+  /** Custom Front query string (advanced). */
+  custom_query?: string
+  /** Maximum number of contacts to return. */
+  limit?: number
+  /** Token for pagination. */
+  page_token?: string
+}
+
+/** Front — Find Conversation */
+export interface FrontFindConversationInput {
+  /** Front query string (e.g. subject:"Order", tag_ids:tag_123, inbox_id:inb_456, etc.). See https://dev.frontapp.com/docs/search-1 */
+  q: string
+  /** Maximum number of conversations to return. */
+  limit?: number
+  /** Token for pagination. */
+  page_token?: string
+}
+
+/** Front — Remove Contact Handle */
+export interface FrontRemoveContactHandleInput {
+  /** Select the contact (resolve via property options API) */
+  contact_id: string
+  /** The handle to remove. */
+  handle: string
+  /** The type of the handle to remove. (values: `email`, `phone`, `twitter`, `facebook`, `intercom`, `front_chat`, `custom`) */
+  source: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom"
+  /** If true, the entire contact will be deleted if this is their last handle. */
+  force?: boolean
+}
+
+/** Front — Remove Conversation Links */
+export interface FrontRemoveConversationLinksInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** List of external URLs to remove from the conversation. */
+  links: Array<{   item: string }>
+}
+
+/** Front — Send Message */
+export interface FrontSendMessageInput {
+  /** Select the channel (resolve via property options API) */
+  channel_id: string
+  /** List of recipient handles (email addresses, etc.). */
+  to: unknown[]
+  /** List of CC recipient handles. */
+  cc?: unknown[]
+  /** List of BCC recipient handles. */
+  bcc?: unknown[]
+  /** The subject of the message. */
+  subject?: string
+  /** The body of the message. */
+  body: string
+  /** List of attachment URLs. */
+  attachments?: unknown[]
+  /** Select one or more tags */
+  tag_ids?: string[]
+}
+
+/** Front — Send Reply */
+export interface FrontSendReplyInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** The content of the reply message. */
+  body: string
+  /** Select the teammate (resolve via property options API) */
+  author_id: string
+  /** The subject of the reply (for email channels). */
+  subject?: string
+  /** List of recipient handles (email addresses, etc.). */
+  to?: unknown[]
+  /** List of CC recipient handles. */
+  cc?: unknown[]
+  /** List of BCC recipient handles. */
+  bcc?: unknown[]
+  /** Select the channel (resolve via property options API) */
+  channel_id: string
+  /** List of attachment URLs. */
+  attachments?: unknown[]
+}
+
+/** Front — Update Account */
+export interface FrontUpdateAccountInput {
+  /** Select the account (resolve via property options API) */
+  account_id: string
+  /** The new name for the account. */
+  name?: string
+  /** The new description for the account. */
+  description?: string
+  /** List of domains associated with the account. */
+  domains?: unknown[]
+  /** Custom fields to add or update. Existing fields will be preserved. */
+  custom_fields?: unknown
+}
+
+/** Front — Update Contact */
+export interface FrontUpdateContactInput {
+  /** Select the contact (resolve via property options API) */
+  contact_id: string
+  /** The new name for the contact. */
+  name?: string
+  /** A new description for the contact. */
+  description?: string
+  /** URL of the contact’s avatar image. */
+  avatar_url?: string
+  /** List of URLs associated with the contact. */
+  links?: Array<{   item: string }>
+}
+
+/** Front — Update Conversation */
+export interface FrontUpdateConversationInput {
+  /** Select the conversation (resolve via property options API) */
+  conversation_id: string
+  /** The new status for the conversation. (values: `open`, `archived`, `deleted`) */
+  status?: "open" | "archived" | "deleted"
+  /** Select the teammate (resolve via property options API) */
+  assignee_id: string
+  /** Select the inbox (resolve via property options API) */
+  inbox_id?: string
+  /** Select one or more tags */
+  tag_ids?: string[]
+}
+
+/** Front — Update Link */
+export interface FrontUpdateLinkInput {
+  /** Select the link (resolve via property options API) */
+  link_id?: string
+  /** The new name for the link. */
+  name?: string
+  /** The new external URL for the link. */
+  external_url?: string
 }
 
 /** GitHub — Create Issue */
@@ -3450,6 +4211,154 @@ export interface GoogleTasksCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Help Scout — Create Conversation */
+export interface HelpScoutCreateConversationInput {
+  /** Mailbox (resolve via property options API) */
+  mailboxId: string
+  /** Subject */
+  subject: string
+  /** Customer Email */
+  customerEmail: string
+  /** From User (resolve via property options API) */
+  fromUser?: string
+  /** Thread Type (values: `chat`, `phone`, `reply`, `customer`) */
+  threadType: "chat" | "phone" | "reply" | "customer"
+  /** Conversation Status (values: `active`, `closed`, `pending`) */
+  status: "active" | "closed" | "pending"
+  /** Body */
+  body: string
+  /** Assigned User (resolve via property options API) */
+  assignTo?: string
+  /** Tags */
+  tags?: unknown[]
+  /** CC */
+  cc?: unknown[]
+  /** BCC */
+  bcc?: unknown[]
+  /** Imported */
+  imported?: boolean
+}
+
+/** Help Scout — Send Reply */
+export interface HelpScoutSendReplyInput {
+  /** Conversation (resolve via property options API) */
+  conversationId?: string
+  /** Reply Text */
+  text: string
+  /** Customer Email */
+  customerEmail: string
+  /** Draft */
+  draft?: boolean
+  /** Conversation Status (values: `active`, `pending`, `closed`, `spam`) */
+  status?: "active" | "pending" | "closed" | "spam"
+  /** User (who adds the reply) (resolve via property options API) */
+  userId?: string
+  /** CC (emails) */
+  cc?: unknown[]
+  /** BCC (emails) */
+  bcc?: unknown[]
+}
+
+/** Help Scout — Add Note */
+export interface HelpScoutAddNoteInput {
+  /** Conversation (resolve via property options API) */
+  conversationId?: string
+  /** Note Text */
+  text: string
+  /** User (resolve via property options API) */
+  userId?: string
+}
+
+/** Help Scout — Create Customer */
+export interface HelpScoutCreateCustomerInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Photo URL */
+  photoUrl?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Location */
+  location?: string
+  /** Background */
+  background?: string
+  /** Customer’s age (string, e.g. "30-35") */
+  age?: string
+  /** Gender (values: `male`, `female`, `unknown`) */
+  gender?: "male" | "female" | "unknown"
+  /** Organization */
+  organization?: string
+  /** URLs for social profiles (type will be set to "other") */
+  socialProfiles?: unknown[]
+}
+
+/** Help Scout — Update Customer Properties */
+export interface HelpScoutUpdateCustomerPropertiesInput {
+  /** Customer (resolve via property options API) */
+  customerId: string
+  /** Customer Properties */
+  fields: Record<string, unknown>
+}
+
+/** Help Scout — Find Conversation */
+export interface HelpScoutFindConversationInput {
+  /** Subject */
+  subject?: string
+  /** Mailbox (resolve via property options API) */
+  mailboxId?: string
+  /** Status (values: `active`, `open`, `closed`, `pending`, `spam`, `all`) */
+  status?: "active" | "open" | "closed" | "pending" | "spam" | "all"
+  /** Assigned User (resolve via property options API) */
+  assignTo?: string
+  /** Email */
+  email?: string
+  /** Tags */
+  tags?: unknown[]
+  /** Custom Query */
+  query?: string
+}
+
+/** Help Scout — Find Customer */
+export interface HelpScoutFindCustomerInput {
+  /** Email */
+  email: string
+}
+
+/** Help Scout — Find User */
+export interface HelpScoutFindUserInput {
+  /** Email */
+  email: string
+}
+
+/** Help Scout — Custom API Call */
+export interface HelpScoutCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** HTTP — Send HTTP request */
 export interface HttpSendRequestInput {
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -4048,6 +4957,66 @@ export interface HubspotCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** IMAP — Mark Email as Read/Unread */
+export interface ImapMarkEmailReadInput {
+  /** Select the parent folder containing the email. (resolve via property options API) */
+  mailbox: string
+  /** The UID of the email to mark. */
+  uid: number
+  /** Check to mark as read, uncheck to mark as unread. */
+  markAsRead?: boolean
+}
+
+/** IMAP — Copy Email */
+export interface ImapCopyEmailInput {
+  /** Folder to copy the email from. (resolve via property options API) */
+  sourceMailbox: string
+  /** The UID of the email to copy. */
+  uid: number
+  /** Folder to copy the email to. (resolve via property options API) */
+  targetMailbox: string
+}
+
+/** IMAP — Move Email */
+export interface ImapMoveEmailInput {
+  /** Folder to move the email from. (resolve via property options API) */
+  sourceMailbox: string
+  /** The UID of the email to move. */
+  uid: number
+  /** Destination folder for the email. (resolve via property options API) */
+  targetMailbox: string
+}
+
+/** IMAP — Delete Email */
+export interface ImapDeleteEmailInput {
+  /** Folder to delete the email from. (resolve via property options API) */
+  mailbox: string
+  /** The UID of the email to delete. */
+  uid: number
+  /**  **Permanent Deletion:**  This action permanently deletes the email. This action cannot be undone. To move an email to the Trash folder, use the Move Email action instead.  */
+  permanentDeletionNotice?: string
+}
+
+/** Instagram for Business — Upload Photo */
+export interface InstagramBusinessUploadPhotoInput {
+  /** Page (resolve via property options API) */
+  page: string
+  /** A URL we can access for the photo (JPG only) */
+  photo: string
+  /** Caption */
+  caption?: string
+}
+
+/** Instagram for Business — Upload Reel */
+export interface InstagramBusinessUploadReelInput {
+  /** Page (resolve via property options API) */
+  page: string
+  /** A URL we can access for the video (Limit: 1GB or 15 minutes) */
+  video: string
+  /** Caption */
+  caption?: string
+}
+
 /** Intercom — Add Note */
 export interface IntercomAddNoteToUserInput {
   /** Email */
@@ -4643,6 +5612,62 @@ export interface LinearRawGraphqlQueryInput {
   variables?: Record<string, unknown>
 }
 
+/** LinkedIn — Create Share Update */
+export interface LinkedinCreateShareUpdateInput {
+  /** Text */
+  text: string
+  /** Visibility (resolve via property options API) */
+  visibility: string
+  /** Image */
+  imageUrl?: string
+  /** Content - URL */
+  link?: string
+  /** Content - Title */
+  linkTitle?: string
+  /** Content - Description */
+  linkDescription?: string
+}
+
+/** LinkedIn — Create Company Update */
+export interface LinkedinCreateCompanyUpdateInput {
+  /** Company Page (resolve via property options API) */
+  company: string
+  /** Image */
+  imageUrl?: string
+  /** Text */
+  text: string
+  /** Content - URL */
+  link?: string
+  /** Content - Title */
+  linkTitle?: string
+  /** Content - Description */
+  linkDescription?: string
+}
+
+/** LinkedIn — Custom API Call */
+export interface LinkedinCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Mailchimp — Add or Update Subscriber */
 export interface MailchimpAddMemberToListInput {
   /** Audience you want to add the contact to (resolve via property options API) */
@@ -4857,6 +5882,890 @@ export interface MailchimpFindSubscriberInput {
   exclude_fields?: unknown[]
 }
 
+/** Microsoft Excel 365 — Append Row to Worksheet */
+export interface MicrosoftExcel365AppendRowInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** If the first row is headers */
+  first_row_headers: boolean
+  /** The values to insert */
+  values: Record<string, unknown>
+}
+
+/** Microsoft Excel 365 — Append Multiple Rows */
+export interface MicrosoftExcel365AppendMultipleRowsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Values */
+  values: Record<string, unknown>
+  /** Use below Filter properties to insert only the rows that meet your conditions. */
+  filterMarkdown?: string
+  /** Filter Column (resolve via property options API) */
+  filterColumn?: string
+  /** Filter Type (values: `TEXT_EXACTLY_MATCHES`, `TEXT_DOES_NOT_EXACTLY_MATCH`, `TEXT_MATCHES_ANY_OF`, `TEXT_MATCHES_NONE_OF`) */
+  filterType?: "TEXT_EXACTLY_MATCHES" | "TEXT_DOES_NOT_EXACTLY_MATCH" | "TEXT_MATCHES_ANY_OF" | "TEXT_MATCHES_NONE_OF"
+  /** Filter Value */
+  filterValue?: Record<string, unknown>
+}
+
+/** Microsoft Excel 365 — Get Worksheets */
+export interface MicrosoftExcel365GetWorksheetsInput {
+  /** Workbook (resolve via property options API) */
+  workbook: string
+  /** If checked, all worksheets will be returned */
+  returnAll?: boolean
+  /** Limit the number of worksheets returned */
+  limit?: number
+}
+
+/** Microsoft Excel 365 — Get Worksheet Rows */
+export interface MicrosoftExcel365GetWorksheetRowsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Range of the rows to retrieve (e.g., A2:B2) */
+  range?: string
+  /** Row number of the header */
+  headerRow?: number
+  /** Row number of the first data row */
+  firstDataRow?: number
+  /** Enables the column wise filter. */
+  useFilter?: boolean
+  /** Filter */
+  filterList?: Record<string, unknown>
+}
+
+/** Microsoft Excel 365 — Update Worksheet Rows */
+export interface MicrosoftExcel365UpdateRowInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The row number to update */
+  row_number: number
+  /** If the first row is headers */
+  first_row_headers: boolean
+  /** The values to insert */
+  values: Record<string, unknown>
+}
+
+/** Microsoft Excel 365 — Clear Worksheet */
+export interface MicrosoftExcel365ClearWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The range in A1 notation (e.g., A2:B2) to clear in the worksheet, if not provided, clear the entire worksheet */
+  range?: string
+}
+
+/** Microsoft Excel 365 — Delete Worksheet */
+export interface MicrosoftExcel365DeleteWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+}
+
+/** Microsoft Excel 365 — Get Workbooks */
+export interface MicrosoftExcel365GetWorkbooksInput {
+  /** Limits the number of workbooks returned, returns all workbooks if empty */
+  limit?: number
+}
+
+/** Microsoft Excel 365 — Get Worksheet Columns */
+export interface MicrosoftExcel365GetWorksheetColumnsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+}
+
+/** Microsoft Excel 365 — Delete Workbook */
+export interface MicrosoftExcel365DeleteWorkbookInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+}
+
+/** Microsoft Excel 365 — Add a Worksheet to a Workbook */
+export interface MicrosoftExcel365AddWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** The name of the new worksheet */
+  worksheet_name?: string
+}
+
+/** Microsoft Excel 365 — Get Table Rows */
+export interface MicrosoftExcel365GetTableRowsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** Limit the number of rows retrieved */
+  limit?: number
+}
+
+/** Microsoft Excel 365 — Get Table Columns */
+export interface MicrosoftExcel365GetTableColumnsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** Limit the number of columns retrieved */
+  limit?: number
+}
+
+/** Microsoft Excel 365 — Create Table */
+export interface MicrosoftExcel365CreateTableInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** How to select the range for the table (resolve via property options API) */
+  selectRange: string
+  /** The range of cells in A1 notation (e.g., A2:B2) that will be converted to a table */
+  range?: string
+  /** Whether the range has column labels */
+  hasHeaders: boolean
+}
+
+/** Microsoft Excel 365 — Delete Table */
+export interface MicrosoftExcel365DeleteTableInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+}
+
+/** Microsoft Excel 365 — Lookup Table Column */
+export interface MicrosoftExcel365LookupTableColumnInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** The column name to lookup the value in */
+  lookup_column: string
+  /** The value to lookup */
+  lookup_value: string
+  /** If checked, all matching rows will be returned */
+  return_all_matches?: boolean
+}
+
+/** Microsoft Excel 365 — Append Rows to a Table */
+export interface MicrosoftExcel365AppendTableRowsInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** The values to insert */
+  values: Record<string, unknown>
+}
+
+/** Microsoft Excel 365 — Convert to Range */
+export interface MicrosoftExcel365ConvertToRangeInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+}
+
+/** Microsoft Excel 365 — Create Workbook */
+export interface MicrosoftExcel365CreateWorkbookInput {
+  /** The name of the new workbook */
+  name: string
+  /** The parent folder to use (resolve via property options API) */
+  parentFolder: string
+}
+
+/** Microsoft Excel 365 — Clear Column by Index */
+export interface MicrosoftExcel365ClearColumnInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The 1-based index of the column to be cleared (e.g., 1 for column A, 2 for column B). */
+  column_index: number
+  /** Specify what to clear from the column. (values: `All`, `Contents`, `Formats`) */
+  applyTo: "All" | "Contents" | "Formats"
+}
+
+/** Microsoft Excel 365 — Clear Cells by Range */
+export interface MicrosoftExcel365ClearRangeInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The range of cells to clear, in A1 notation (e.g., "A1:C5"). */
+  range: string
+  /** Specify what to clear from the range. (values: `All`, `Contents`, `Formats`) */
+  applyTo: "All" | "Contents" | "Formats"
+}
+
+/** Microsoft Excel 365 — Clear Row by ID */
+export interface MicrosoftExcel365ClearRowInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The number of the row to be cleared (e.g., 5 for the 5th row). */
+  row_id: number
+  /** Specify what to clear from the row. (values: `All`, `Contents`, `Formats`) */
+  applyTo: "All" | "Contents" | "Formats"
+}
+
+/** Microsoft Excel 365 — Create Worksheet */
+export interface MicrosoftExcel365CreateWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** The name for the new worksheet. If not provided, a default name like 'Sheet1' will be assigned. */
+  name?: string
+  /** Optional: A list of headers to add to the first row. A table will be created from these headers. */
+  headers?: unknown[]
+}
+
+/** Microsoft Excel 365 — Find Row */
+export interface MicrosoftExcel365FindRowInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** The column to search in. (resolve via property options API) */
+  lookup_column: string
+  /** The value to find in the lookup column. */
+  lookup_value: string
+}
+
+/** Microsoft Excel 365 — Find Workbook */
+export interface MicrosoftExcel365FindWorkbookInput {
+  /** Excel File name to search for without extension. */
+  fileName: string
+}
+
+/** Microsoft Excel 365 — Find Worksheet */
+export interface MicrosoftExcel365FindWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbookId: string
+  /** Worksheet Name */
+  sheetName: string
+  /** If true, only return worksheets that exactly match the name. If false, return worksheets that contain the name. */
+  exactMatch?: boolean
+}
+
+/** Microsoft Excel 365 — Get Cells in Range */
+export interface MicrosoftExcel365GetRangeInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** The range of cells to retrieve, in A1 notation (e.g., "A1:C10"). */
+  range: string
+}
+
+/** Microsoft Excel 365 — Get Row by ID */
+export interface MicrosoftExcel365GetRowByIdInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** The zero-based index of the row to retrieve (e.g., 0 for the first row, 1 for the second). */
+  row_id: number
+}
+
+/** Microsoft Excel 365 — Get Worksheet by ID */
+export interface MicrosoftExcel365GetWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+}
+
+/** Microsoft Excel 365 — Rename Worksheet */
+export interface MicrosoftExcel365RenameWorksheetInput {
+  /** Workbook (resolve via property options API) */
+  workbook_id: string
+  /** Worksheet (resolve via property options API) */
+  worksheet_id: string
+  /**  The new name for the worksheet. The name must adhere to the following rules: - Cannot be blank. - Cannot exceed 31 characters. - Must not contain any of the following characters: `/`, `\`, `?`, `*`, `:`, `[`, `]`. - The name "History" is reserved by Excel and cannot be used.  */
+  new_name: string
+}
+
+/** Microsoft Excel 365 — Custom API Call */
+export interface MicrosoftExcel365CustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft OneDrive — Upload file */
+export interface MicrosoftOnedriveUploadOnedriveFileInput {
+  /** The name the file should be saved as (e.g. file.txt) */
+  fileName: string
+  /** The file URL or base64 to upload */
+  file: string
+  /** **Note**: If you can't find the folder in the dropdown list (which fetches up to 1000 folders), please click on the **(F)** and type the folder ID directly.         you can find the folder ID in the OneDrive URL after **?id=**, e.g., "onedrive.live.com/?id=**folder-id**&cid=some-other-id"       */
+  markdown?: string
+  /** Parent Folder (resolve via property options API) */
+  parentId?: string
+}
+
+/** Microsoft OneDrive — Download file */
+export interface MicrosoftOnedriveDownloadFileInput {
+  /** The ID of the file to download */
+  fileId: string
+}
+
+/** Microsoft OneDrive — List Files */
+export interface MicrosoftOnedriveListFilesInput {
+  /** **Note**: If you can't find the folder in the dropdown list (which fetches up to 1000 folders), please click on the **(F)** and type the folder ID directly.         you can find the folder ID in the OneDrive URL after **?id=**, e.g., "onedrive.live.com/?id=**folder-id**&cid=some-other-id"       */
+  markdown?: string
+  /** Parent Folder (resolve via property options API) */
+  parentFolder?: string
+}
+
+/** Microsoft OneDrive — List Folders */
+export interface MicrosoftOnedriveListFoldersInput {
+  /** **Note**: If you can't find the folder in the dropdown list (which fetches up to 1000 folders), please click on the **(F)** and type the folder ID directly.         you can find the folder ID in the OneDrive URL after **?id=**, e.g., "onedrive.live.com/?id=**folder-id**&cid=some-other-id"       */
+  markdown?: string
+  /** Parent Folder (resolve via property options API) */
+  parentFolder?: string
+}
+
+/** Microsoft OneDrive — Custom API Call */
+export interface MicrosoftOnedriveCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft OneNote — Create Notebook */
+export interface MicrosoftOnenoteCreateNotebookInput {
+  /** The name of the notebook. Must be unique and cannot contain more than 128 characters or the following characters: ?*/:<>|'"%~ */
+  displayName: string
+}
+
+/** Microsoft OneNote — Create Section */
+export interface MicrosoftOnenoteCreateSectionInput {
+  /** The notebook to create the section in. (resolve via property options API) */
+  notebook_id: string
+  /** The name of the section. Must be unique within the notebook and cannot contain more than 50 characters or the following characters: ?*/:<>|&#''%~ */
+  displayName: string
+}
+
+/** Microsoft OneNote — Create Note in Section */
+export interface MicrosoftOnenoteCreateNoteInSectionInput {
+  /** The notebook to create the note in. (resolve via property options API) */
+  notebook_id: string
+  /** The section to create the note in. (resolve via property options API) */
+  section_id: string
+  /** The title of the note. */
+  title: string
+  /** The content of the note. Use basic HTML tags like <p>, <h1>, <h2>, <ul>, <li>, etc. */
+  content?: string
+}
+
+/** Microsoft OneNote — Create Page */
+export interface MicrosoftOnenoteCreatePageInput {
+  /** The notebook to create the page in. (resolve via property options API) */
+  notebook_id: string
+  /** The section to create the page in. (resolve via property options API) */
+  section_id: string
+  /** The title of the page. */
+  title: string
+  /** The HTML content of the page. Use basic HTML tags like <p>, <h1>, <h2>, <ul>, <li>, etc. */
+  content?: string
+}
+
+/** Microsoft OneNote — Create Image Note */
+export interface MicrosoftOnenoteCreateImageNoteInput {
+  /** The notebook to create the image note in. (resolve via property options API) */
+  notebook_id: string
+  /** The section to create the image note in. (resolve via property options API) */
+  section_id: string
+  /** The title of the image note page. */
+  title: string
+  /** The public URL of the image to embed (must be publicly accessible). */
+  image_url: string
+  /** The width of the image in pixels (optional). */
+  image_width?: number
+  /** Alternative text for the image (for accessibility). */
+  image_alt_text?: string
+  /** Optional description text to include with the image. */
+  description?: string
+}
+
+/** Microsoft OneNote — Append Note */
+export interface MicrosoftOnenoteAppendNoteInput {
+  /** The notebook containing the page to append to. (resolve via property options API) */
+  notebook_id: string
+  /** The section containing the page to append to. (resolve via property options API) */
+  section_id: string
+  /** The page to append content to. (resolve via property options API) */
+  page_id: string
+  /** The type of content to append. (values: `paragraph`, `list_item`, `heading`, `html`) */
+  content_type: "paragraph" | "list_item" | "heading" | "html"
+  /** The content to append to the page. */
+  content: string
+  /** The heading level (only for heading content type). (values: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`) */
+  heading_level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+}
+
+/** Microsoft Outlook — Send Email */
+export interface MicrosoftOutlookSendEmailInput {
+  /** To Email(s) */
+  recipients: unknown[]
+  /** CC Email(s) */
+  ccRecipients?: unknown[]
+  /** BCC Email(s) */
+  bccRecipients?: unknown[]
+  /** Subject */
+  subject: string
+  /** Body Format (values: `html`, `text`) */
+  bodyFormat: "html" | "text"
+  /** Body */
+  body: string
+  /** Attachments */
+  attachments?: Array<{   file: string;   fileName?: string }>
+}
+
+/** Microsoft Outlook — Download Attachment */
+export interface MicrosoftOutlookDownloadAttachmentInput {
+  /** The ID of the email message containing the attachment. */
+  messageId: string
+}
+
+/** Microsoft Outlook — Reply to Email */
+export interface MicrosoftOutlookReplyEmailInput {
+  /** Select the email message to reply to. (resolve via property options API) */
+  messageId: string
+  /** Body Format (values: `html`, `text`) */
+  bodyFormat: "html" | "text"
+  /** Reply Body */
+  replyBody: string
+  /** CC Recipients */
+  ccRecipients?: unknown[]
+  /** BCC Recipients */
+  bccRecipients?: unknown[]
+  /** Attachments */
+  attachments?: Array<{   file: string;   fileName?: string }>
+  /** If enabled, creates draft without sending. */
+  draft: boolean
+}
+
+/** Microsoft Outlook — Create Draft Email */
+export interface MicrosoftOutlookCreateDraftEmailInput {
+  /** To Email(s) */
+  recipients: unknown[]
+  /** CC Email(s) */
+  ccRecipients?: unknown[]
+  /** BCC Email(s) */
+  bccRecipients?: unknown[]
+  /** Subject */
+  subject: string
+  /** Body Format (values: `html`, `text`) */
+  bodyFormat: "html" | "text"
+  /** Body */
+  body: string
+  /** Attachments */
+  attachments?: Array<{   file: string;   fileName?: string }>
+}
+
+/** Microsoft Outlook — Add Label to Email */
+export interface MicrosoftOutlookAddLabelToEmailInput {
+  /** Select the email message to add the label to. (resolve via property options API) */
+  messageId: string
+  /** Categories to add to the email. */
+  categories: unknown[]
+}
+
+/** Microsoft Outlook — Remove Label from Email */
+export interface MicrosoftOutlookRemoveLabelFromEmailInput {
+  /** Select the email message to remove the label from. (resolve via property options API) */
+  messageId: string
+  /** Categories to remove from the email. */
+  categories: unknown[]
+}
+
+/** Microsoft Outlook — Request Approval in Email */
+export interface MicrosoftOutlookRequestApprovalInMailInput {
+  /** The email address of the recipient who will receive the approval request. */
+  recipients: string
+  /** The subject of the approval request email. */
+  subject: string
+  /** The main content of the email. You can include details about the approval request here in the html format or plain text. */
+  body: string
+}
+
+/** Microsoft Outlook — Move Email to Folder */
+export interface MicrosoftOutlookMoveEmailToFolderInput {
+  /** Select the email message to move. (resolve via property options API) */
+  messageId: string
+  /** The folder to move the email to. (resolve via property options API) */
+  destinationFolderId: string
+}
+
+/** Microsoft Outlook — Send Draft Email */
+export interface MicrosoftOutlookSendDraftEmailInput {
+  /** Select the draft email message to send. (resolve via property options API) */
+  messageId: string
+}
+
+/** Microsoft Outlook — Forward Email */
+export interface MicrosoftOutlookForwardEmailInput {
+  /** Select the email message to forward. (resolve via property options API) */
+  messageId: string
+  /** To Email(s) */
+  recipients: unknown[]
+  /** Optional comment to include with the forwarded message. */
+  comment?: string
+}
+
+/** Microsoft Outlook — Find Email */
+export interface MicrosoftOutlookFindEmailInput {
+  /** Search terms to find emails (e.g., "from:john@example.com", "subject:urgent", "hasAttachments:true") */
+  searchQuery: string
+  /** Search in a specific folder. Leave empty to search all folders. (resolve via property options API) */
+  folderId?: string
+  /** Maximum number of results to return (1-1000). */
+  top?: number
+}
+
+/** Microsoft Outlook — Custom API Call */
+export interface MicrosoftOutlookCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft Outlook Calendar — Create a new event in a calendar */
+export interface MicrosoftOutlookCalendarCreateEventInput {
+  /** Calendar (resolve via property options API) */
+  calendarId: string
+  /** Title of the event */
+  title: string
+  /** Start date time of the event */
+  start: string
+  /** By default it'll be 30 min post start time */
+  end?: string
+  /** Timezone (resolve via property options API) */
+  timezone: string
+  /** Location */
+  location?: string
+}
+
+/** Microsoft Outlook Calendar — Delete an event in a calendar */
+export interface MicrosoftOutlookCalendarDeleteEventInput {
+  /** Calendar (resolve via property options API) */
+  calendarId: string
+  /** Event ID */
+  eventId: string
+}
+
+/** Microsoft Outlook Calendar — List events in a calendar */
+export interface MicrosoftOutlookCalendarListEventsInput {
+  /** Calendar (resolve via property options API) */
+  calendarId: string
+  /** Search query filter, see: https://learn.microsoft.com/en-us/graph/filter-query-parameter */
+  filter?: string
+}
+
+/** Microsoft Outlook Calendar — Custom API Call */
+export interface MicrosoftOutlookCalendarCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft SharePoint — Create Folder */
+export interface MicrosoftSharepointMicrosoftSharepointCreateFolderInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** Parent folder,like "/demo/" or "/docs/assignment/".Leave it default if you want to create folder at the root (**/**) level. */
+  parentFolder: string
+  /** Folder Name */
+  folderName: string
+}
+
+/** Microsoft SharePoint — Create List */
+export interface MicrosoftSharepointMicrosoftSharepointCreateListInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** List Name */
+  displayName: string
+  /** List Description */
+  description: string
+}
+
+/** Microsoft SharePoint — Create List Item */
+export interface MicrosoftSharepointMicrosoftSharepointCreateListItemInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** List (resolve via property options API) */
+  listId: string
+  /** List Columns */
+  listColumns: Record<string, unknown>
+}
+
+/** Microsoft SharePoint — Update List Item */
+export interface MicrosoftSharepointMicrosoftSharepointUpdateListItemInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** List (resolve via property options API) */
+  listId: string
+  /** List Item (resolve via property options API) */
+  listItemId: string
+  /** List Columns */
+  listColumns: Record<string, unknown>
+}
+
+/** Microsoft SharePoint — Delete List Item */
+export interface MicrosoftSharepointMicrosoftSharepointDeleteListItemInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** List (resolve via property options API) */
+  listId: string
+  /** List Item (resolve via property options API) */
+  listItemId: string
+}
+
+/** Microsoft SharePoint — Find List Item */
+export interface MicrosoftSharepointMicrosoftSharepointSearchListItemInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** List (resolve via property options API) */
+  listId: string
+  /** Item title to search */
+  searchValue: string
+}
+
+/** Microsoft SharePoint — Upload File */
+export interface MicrosoftSharepointMicrosoftSharepointUploadFileInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** The file or url you want to upload */
+  file: string
+  /** Parent folder, like "/demo/" or "/docs/assignment/".Leave it default if you want to create folder at the root (**CHANGE THIS BACK//**) level. */
+  parentFolder: string
+  /** File Name */
+  fileName: string
+}
+
+/** Microsoft SharePoint — Publish Page */
+export interface MicrosoftSharepointMicrosoftSharepointPublishPageInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Page (resolve via property options API) */
+  pageId: string
+}
+
+/** Microsoft SharePoint — Copy File or Folder (Across Sites) */
+export interface MicrosoftSharepointMicrosoftSharepointCopyItemInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** Source File or Folder (resolve via property options API) */
+  itemId: string
+  /** Site (resolve via property options API) */
+  destination_site_id: string
+  /** Destination Drive (resolve via property options API) */
+  destination_drive_id: string
+  /** The folder to copy the item into. Defaults to the root of the drive. (resolve via property options API) */
+  destination_folder_id?: string
+  /** A new name for the copied item. If not provided, the original name is used. */
+  new_name?: string
+  /** Action to take if a file with the same name already exists. (values: `fail`, `replace`, `rename`) */
+  conflict_behavior: "fail" | "replace" | "rename"
+}
+
+/** Microsoft SharePoint — Copy File or Folder (Within Site) */
+export interface MicrosoftSharepointMicrosoftSharepointCopyItemWithinSiteInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** Source File or Folder (resolve via property options API) */
+  itemId: string
+  /** The folder to copy the item into. Select "Root" to copy to the top level of the drive. (resolve via property options API) */
+  destinationFolderId: string
+  /** A new name for the copied item. If not provided, the original name is used. */
+  newName?: string
+  /** Action to take if a file with the same name already exists in the destination. (values: `fail`, `replace`, `rename`) */
+  conflictBehavior: "fail" | "replace" | "rename"
+}
+
+/** Microsoft SharePoint — Move File */
+export interface MicrosoftSharepointMicrosoftSharepointMoveFileInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** The file you want to move. (resolve via property options API) */
+  fileId: string
+  /** The folder to move the file into. Select "Root" to move to the top level of the drive. (resolve via property options API) */
+  destinationFolderId: string
+  /** Provide a new name to rename the file during the move. */
+  newName?: string
+}
+
+/** Microsoft SharePoint — Find File */
+export interface MicrosoftSharepointMicrosoftSharepointFindFileInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** Choose how to find the file. (values: `path`, `search`) */
+  findMethod: "path" | "search"
+  /** The exact path to the file from the drive's root. **Required if finding by path.** Example: `Documents/Reports/Q1-Report.docx` */
+  filePath?: string
+  /** The file name or keyword to search for. **Required if searching by name.** Example: `Q1-Report.docx` */
+  searchQuery?: string
+  /** The folder to search within. If not specified, the entire drive will be searched. **Only applies when searching by name.** (resolve via property options API) */
+  searchFolderId?: string
+}
+
+/** Microsoft SharePoint — Get Folder Contents */
+export interface MicrosoftSharepointMicrosoftSharepointGetFolderContentsInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** Drive (resolve via property options API) */
+  driveId: string
+  /** The folder whose contents you want to list. Select "Root Folder" for the top-level folder. (resolve via property options API) */
+  folderId: string
+  /** Check this to include SharePoint-specific metadata (custom columns). This may slow down the request. */
+  includeCustomFields?: boolean
+  /** The maximum number of items to return. The API default is 200. If more items exist, the output will contain a field `@odata.nextLink` that you can use in a custom API call to get the next page. */
+  top?: number
+  /** A comma-separated list of properties to return. Example: `id,name,size,webUrl` */
+  select?: string
+  /** Specifies how to sort the returned items. Example: `name asc` or `lastModifiedDateTime desc` */
+  orderby?: string
+}
+
+/** Microsoft SharePoint — Get Site Information */
+export interface MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput {
+  /** Site (resolve via property options API) */
+  siteId: string
+  /** A comma-separated list of properties to return. If left blank, all default properties are returned. Example: `id,displayName,webUrl,description` */
+  select?: string
+}
+
+/** Microsoft SharePoint — Custom API Call */
+export interface MicrosoftSharepointCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Microsoft Teams — Create Channel */
 export interface MicrosoftTeamsMicrosoftTeamsCreateChannelInput {
   /** Team ID (resolve via property options API) */
@@ -4991,6 +6900,144 @@ export interface MicrosoftTeamsRequestApprovalDirectMessageInput {
 
 /** Microsoft Teams — Custom API Call */
 export interface MicrosoftTeamsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft To Do — Create Task */
+export interface MicrosoftTodoCreateTaskInput {
+  /** The task list to create the task in. (resolve via property options API) */
+  task_list_id: string
+  /** The title of the task. */
+  title: string
+  /** The body or notes for the task. */
+  body_content?: string
+  /** The importance of the task. (values: `low`, `normal`, `high`) */
+  importance?: "low" | "normal" | "high"
+  /** The status of the task. (values: `notStarted`, `inProgress`, `completed`, `waitingOnOthers`, `deferred`) */
+  status?: "notStarted" | "inProgress" | "completed" | "waitingOnOthers" | "deferred"
+  /** Due Date */
+  due_date_time?: string
+  /** Reminder Date */
+  reminder_date_time?: string
+  /** The date and time the task is scheduled to start. */
+  start_date_time?: string
+  /** Comma-separated categories for the task (e.g., Work, Personal). */
+  categories?: string
+}
+
+/** Microsoft To Do — Create Task List */
+export interface MicrosoftTodoCreateTaskListInput {
+  /** The name for the new task list. */
+  displayName: string
+}
+
+/** Microsoft To Do — Update Task */
+export interface MicrosoftTodoUpdateTaskInput {
+  /** The task list containing the task to update. (resolve via property options API) */
+  task_list_id: string
+  /** The task to update. (resolve via property options API) */
+  task_id: string
+  /** The title of the task. */
+  title?: string
+  /** The body or notes for the task. */
+  body_content?: string
+  /** The importance of the task. (values: `low`, `normal`, `high`) */
+  importance?: "low" | "normal" | "high"
+  /** The status of the task. (values: `notStarted`, `inProgress`, `completed`, `waitingOnOthers`, `deferred`) */
+  status?: "notStarted" | "inProgress" | "completed" | "waitingOnOthers" | "deferred"
+  /** Due Date */
+  due_date_time?: string
+  /** Reminder Date */
+  reminder_date_time?: string
+  /** The date and time the task is scheduled to start. */
+  start_date_time?: string
+  /** Comma-separated categories for the task (e.g., Work, Personal). */
+  categories?: string
+}
+
+/** Microsoft To Do — Update Task List */
+export interface MicrosoftTodoUpdateTaskListInput {
+  /** The task list to update. (resolve via property options API) */
+  task_list_id: string
+  /** The new name for the task list. */
+  displayName: string
+}
+
+/** Microsoft To Do — Complete Task */
+export interface MicrosoftTodoCompleteTaskInput {
+  /** The task list containing the task you want to complete. (resolve via property options API) */
+  task_list_id: string
+  /** The specific task to mark as complete. (resolve via property options API) */
+  task_id: string
+}
+
+/** Microsoft To Do — Delete Task */
+export interface MicrosoftTodoDeleteTaskInput {
+  /** The list containing the task you want to delete. (resolve via property options API) */
+  task_list_id: string
+  /** The specific task to delete. (resolve via property options API) */
+  task_id: string
+}
+
+/** Microsoft To Do — Add an Attachment */
+export interface MicrosoftTodoAddAttachmentInput {
+  /** The task list that contains the task. (resolve via property options API) */
+  task_list_id: string
+  /** The task to which you are adding the attachment. (resolve via property options API) */
+  task_id: string
+  /** The file to attach (up to 25 MB supported). */
+  file: string
+  /** The name to display for the attachment. If left blank, the original filename will be used. */
+  filename?: string
+}
+
+/** Microsoft To Do — Get Task */
+export interface MicrosoftTodoGetTaskInput {
+  /** The list containing the task you want to retrieve. (resolve via property options API) */
+  task_list_id: string
+  /** The specific task to retrieve. (resolve via property options API) */
+  task_id: string
+}
+
+/** Microsoft To Do — Find Task List */
+export interface MicrosoftTodoFindTaskListByNameInput {
+  /** The name (or partial name) of the task list to find. */
+  name: string
+  /** How to match the list name. (values: `contains`, `startsWith`, `exact`) */
+  match_type?: "contains" | "startsWith" | "exact"
+}
+
+/** Microsoft To Do — Find Task */
+export interface MicrosoftTodoFindTaskByTitleInput {
+  /** Select a specific task list to search within. (resolve via property options API) */
+  task_list_id: string
+  /** The title (or partial title) of the task to find. */
+  title: string
+  /** How to match the task title. (values: `contains`, `startsWith`, `exact`) */
+  match_type?: "contains" | "startsWith" | "exact"
+}
+
+/** Microsoft To Do — Custom API Call */
+export interface MicrosoftTodoCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -5863,6 +7910,98 @@ export interface PaywhirlCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Pinterest — Create Pin */
+export interface PinterestCreatePinInput {
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+  /** Board Id (resolve via property options API) */
+  board_id: string
+  /** Board Section Id (resolve via property options API) */
+  board_section_id?: string
+  /** The title of the Pin (max 100 characters). */
+  title: string
+  /** The description of the Pin (max 800 characters). */
+  description?: string
+  /** The type of media source for the Pin. (values: `image_url`, `image_base64`, `video_url`) */
+  media_source_type: "image_url" | "image_base64" | "video_url"
+  /** The URL of the image or video to upload. Must be a valid URL. */
+  media_url: string
+  /** The destination URL that the Pin will link to when clicked. */
+  link?: string
+  /** The dominant color of the Pin as a hex color code (e.g., "#6E7874"). */
+  dominant_color?: string
+  /** Alternative text for accessibility and screen readers (max 500 characters). */
+  alt_text?: string
+  /** The ID of the original Pin if this is a saved/repinned Pin. */
+  parent_pin_id?: string
+  /** The sponsor account ID for paid partnership content. Available only to select users in closed beta. */
+  sponsor_id?: string
+  /** Select one or more options */
+  product_tags?: string[]
+  /** A private note for this Pin that only you can see. */
+  note?: string
+  /** Set to true to create an ad-only Pin that can be easily removed. */
+  is_removable?: boolean
+}
+
+/** Pinterest — Create Board */
+export interface PinterestCreateBoardInput {
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+  /** The name of the board (max 180 characters). */
+  name: string
+  /** Optional description for your board. */
+  description?: string
+  /** Board privacy setting (auto-set to "PROTECTED" for ad-only boards). (values: `PUBLIC`, `PROTECTED`, `SECRET`) */
+  privacy?: "PUBLIC" | "PROTECTED" | "SECRET"
+  /** Create an ad-only board that can only store promotional Pins. Note: Board name will become "Ad-only Pins" and privacy will be set to "PROTECTED". */
+  is_ads_only?: boolean
+}
+
+/** Pinterest — Delete Pin */
+export interface PinterestDeletePinInput {
+  /** pin Id (resolve via property options API) */
+  pin_id: string
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+}
+
+/** Pinterest — Find Board by Name */
+export interface PinterestFindBoardByNameInput {
+  /** The search term to find boards (required). */
+  query: string
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+  /** Pagination bookmark from previous response. */
+  bookmark?: string
+}
+
+/** Pinterest — Find Pin by Title/Keyword */
+export interface PinterestFindPinInput {
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+  /** Search terms for pin titles, descriptions, or tags. You can also search using comma-separated pin IDs. */
+  query: string
+  /** Bookmark token from previous search results for pagination. */
+  bookmark?: string
+  /** Maximum number of pins to return (useful for large result sets). */
+  max_results?: number
+}
+
+/** Pinterest — Update Board */
+export interface PinterestUpdateBoardInput {
+  /** Board Id (resolve via property options API) */
+  board_id: string
+  /** Ad account Id (resolve via property options API) */
+  ad_account_id?: string
+  /** The new name of the board (max 180 characters). Leave empty to keep current name. */
+  name?: string
+  /** The new description of the board (max 500 characters). Leave empty to keep current description. */
+  description?: string
+  /** Update board privacy setting. Leave empty to keep current setting. (values: `PUBLIC`, `PROTECTED`, `SECRET`) */
+  privacy?: "PUBLIC" | "PROTECTED" | "SECRET"
+}
+
 /** Pipedrive — Add Follower */
 export interface PipedriveAddFollowerInput {
   /** Follower (resolve via property options API) */
@@ -6719,6 +8858,102 @@ export interface RazorpayCreatePaymentLinkInput {
   callback_url?: string
   /** Callback Method */
   callback_method?: string
+}
+
+/** Reddit — Retrieve Post */
+export interface RedditRetrieveRedditPostInput {
+  /** Select the category of posts to retrieve (values: `hot`, `new`, `top`, `rising`, `controversial`) */
+  post_category: "hot" | "new" | "top" | "rising" | "controversial"
+  /** The subreddit to fetch posts from */
+  subreddit: string
+  /** Number of posts to fetch (max 100) */
+  size?: number
+}
+
+/** Reddit — Get Post Details */
+export interface RedditGetRedditPostDetailsInput {
+  /** The ID of the Reddit post (e.g. "t3_abc123" or "abc123") */
+  post_id: string
+}
+
+/** Reddit — Create Post */
+export interface RedditCreateRedditPostInput {
+  /** The subreddit to post in (without r/). */
+  subreddit: string
+  /** Title of the Reddit post. */
+  title: string
+  /** Text content of the post. */
+  content: string
+}
+
+/** Reddit — Create Comment */
+export interface RedditCreateRedditCommentInput {
+  /** ID of the post (t3_*) or comment (t1_*) to reply to. */
+  parent_id: string
+  /** Text of the comment. */
+  content: string
+}
+
+/** Reddit — Fetch Post Comments */
+export interface RedditFetchPostCommentsInput {
+  /** The ID of the Reddit post (e.g. "abc123" or "t3_abc123"). */
+  post_id: string
+  /** Sorting method for comments (values: `new`, `top`, `hot`, `best`, `old`, `controversial`) */
+  sort?: "new" | "top" | "hot" | "best" | "old" | "controversial"
+  /** Maximum number of top-level comments to fetch */
+  limit?: number
+}
+
+/** Reddit — Edit Post */
+export interface RedditEditRedditPostInput {
+  /** ID of the Reddit post to edit (e.g., "abc123" or "t3_abc123"). */
+  post_id: string
+  /** Updated text content for the post. */
+  content: string
+}
+
+/** Reddit — Edit Comment */
+export interface RedditEditRedditCommentInput {
+  /** ID of the Reddit comment to edit (e.g., "def456" or "t1_def456"). */
+  comment_id: string
+  /** Updated text content for the comment. */
+  content: string
+}
+
+/** Reddit — Delete Post */
+export interface RedditDeleteRedditPostInput {
+  /** ID of the Reddit post to delete (e.g., "abc123" or "t3_abc123"). */
+  post_id: string
+}
+
+/** Reddit — Delete Comment */
+export interface RedditDeleteRedditCommentInput {
+  /** ID of the Reddit comment to delete (e.g., "def456" or "t1_def456"). */
+  comment_id: string
+}
+
+/** Reddit — Custom API Call */
+export interface RedditCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Resend — Send Email */
@@ -7785,6 +10020,144 @@ export interface SlackCustomApiCallInput {
   useUserToken: boolean
 }
 
+/** Smartsheet — Add Row to Sheet */
+export interface SmartsheetAddRowToSheetInput {
+  /** Select a sheet (resolve via property options API) */
+  sheet_id: string
+  /** Cell data with properties based on column types */
+  cells: Record<string, unknown>
+  /** Add Row to Top or Bottom (values: `top`, `bottom`) */
+  location_type: "top" | "bottom"
+}
+
+/** Smartsheet — Update Row */
+export interface SmartsheetUpdateRowInput {
+  /** Select a sheet (resolve via property options API) */
+  sheet_id: string
+  /** Row (resolve via property options API) */
+  row_id: string
+  /** Cell data with properties based on column types */
+  cells: Record<string, unknown>
+}
+
+/** Smartsheet — Attach File to Row */
+export interface SmartsheetAttachFileToRowInput {
+  /** Select a sheet (resolve via property options API) */
+  sheet_id: string
+  /** Row (resolve via property options API) */
+  row_id: string
+  /** Type of attachment to add (values: `FILE`, `LINK`, `BOX_COM`, `DROPBOX`, `EGNYTE`, `EVERNOTE`, `GOOGLE_DRIVE`, `ONEDRIVE`) */
+  attachment_type: "FILE" | "LINK" | "BOX_COM" | "DROPBOX" | "EGNYTE" | "EVERNOTE" | "GOOGLE_DRIVE" | "ONEDRIVE"
+  /** The file to attach (required for FILE type) */
+  file?: string
+  /** The URL to attach (required for URL-based attachment types) */
+  url?: string
+  /** Name for the attachment (optional, will use file name or URL if not provided) */
+  attachment_name?: string
+  /** Sub type for Google Drive and Egnyte attachments (values: `DOCUMENT`, `DRAWING`, `FOLDER`, `PDF`, `PRESENTATION`, `SPREADSHEET`) */
+  attachment_sub_type?: "DOCUMENT" | "DRAWING" | "FOLDER" | "PDF" | "PRESENTATION" | "SPREADSHEET"
+  /** MIME type of the attachment (optional, auto-detected for files) */
+  mime_type?: string
+}
+
+/** Smartsheet — Find Row */
+export interface SmartsheetFindRowsByQueryInput {
+  /** Choose whether to search within a specific sheet or across all accessible sheets. (values: `specific_sheet`, `all_sheets`) */
+  search_scope: "specific_sheet" | "all_sheets"
+  /** Select a sheet (resolve via property options API) */
+  sheet_id?: string
+  /** Text to search for. Use double quotes for exact phrase matching (e.g., "project status") */
+  query: string
+  /** Specify what types of content to search in (leave empty to search all) */
+  search_scopes?: string[]
+  /** Include information about which items are marked as favorites */
+  include_favorites?: boolean
+  /** Only return results modified on or after this date/time */
+  modified_since?: string
+  /** Maximum number of results to return (default: 50, max: 100) */
+  max_results?: number
+  /** Only return results of specific object types (leave empty for all types) */
+  object_types_filter?: string[]
+}
+
+/** Smartsheet — List Row Attachments */
+export interface SmartsheetFindAttachmentByRowIdInput {
+  /** Select a sheet (resolve via property options API) */
+  sheet_id: string
+  /** Row (resolve via property options API) */
+  row_id: string
+  /** If true, include all results without pagination (overrides page and page size) */
+  include_all?: boolean
+  /** Which page to return (defaults to 1, ignored if "Include All Results" is true) */
+  page?: number
+  /** Maximum number of items to return per page (defaults to 100, max 10000, ignored if "Include All Results" is true) */
+  page_size?: number
+  /** Only return attachments of specific types (leave empty for all types) */
+  attachment_type_filter?: string[]
+  /** Only return attachments from specific parent types (leave empty for all) */
+  parent_type_filter?: string[]
+  /** Only return files with size greater than or equal to this value (applies to FILE type only) */
+  min_file_size_kb?: number
+  /** Only return files with size less than or equal to this value (applies to FILE type only) */
+  max_file_size_kb?: number
+}
+
+/** Smartsheet — Find Sheet(s) */
+export interface SmartsheetFindSheetByNameInput {
+  /** Filter sheets by name (partial or exact match). Leave empty to list all sheets. */
+  sheet_name?: string
+  /** When filtering by name, require exact match instead of partial match */
+  exact_match?: boolean
+  /** If true, include all results without pagination (overrides page and page size) */
+  include_all?: boolean
+  /** Which page to return (defaults to 1, ignored if "Include All Results" is true) */
+  page?: number
+  /** Maximum number of items to return per page (defaults to 100, max 10000, ignored if "Include All Results" is true) */
+  page_size?: number
+  /** API access level for viewing and filtering permissions (values: `0`, `1`) */
+  access_api_level?: "0" | "1"
+  /** Only return sheets where you have specific access levels (leave empty for all) */
+  access_level_filter?: string[]
+  /** Only return sheets modified on or after this date/time */
+  modified_since?: string
+  /** Include current version number of each sheet */
+  include_sheet_version?: boolean
+  /** Include information about the source (template/sheet) each sheet was created from */
+  include_source_info?: boolean
+  /** Return dates as milliseconds since UNIX epoch instead of ISO strings */
+  numeric_dates?: boolean
+  /** Filter sheets by creation date range (values: `all`, `week`, `month`, `quarter`, `year`) */
+  created_date_range?: "all" | "week" | "month" | "quarter" | "year"
+  /** How to sort the returned sheets (values: `name`, `created_desc`, `created_asc`, `modified_desc`, `modified_asc`, `access`) */
+  sort_by?: "name" | "created_desc" | "created_asc" | "modified_desc" | "modified_asc" | "access"
+}
+
+/** SMTP — Send Email */
+export interface SmtpSendEmailInput {
+  /** From Email */
+  from: string
+  /** Sender Name */
+  senderName?: string
+  /** To */
+  to: unknown[]
+  /** CC */
+  cc?: unknown[]
+  /** Reply To */
+  replyTo?: string
+  /** BCC */
+  bcc?: unknown[]
+  /** Subject */
+  subject: string
+  /** Body Type (values: `plain_text`, `html`) */
+  body_type: "plain_text" | "html"
+  /** Body */
+  body: string
+  /** Custom Headers */
+  customHeaders?: Record<string, unknown>
+  /** Attachments */
+  attachments?: Array<{   file: string;   name?: string }>
+}
+
 /** Storage — Read File */
 export interface StorageReadFileInput {
   /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
@@ -8437,6 +10810,32 @@ export interface TwilioCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Twitter — Create Tweet */
+export interface TwitterCreateTweetInput {
+  /** The text of the tweet */
+  text: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_1?: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_2?: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_3?: string
+}
+
+/** Twitter — Create Reply */
+export interface TwitterCreateReplyInput {
+  /** The ID of the tweet to reply too. */
+  tweet_id: string
+  /** The text of the tweet */
+  text: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_1?: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_2?: string
+  /** An image, video or GIF url or base64 to attach to the tweet */
+  image_3?: string
+}
+
 /** Typeform — Custom API Call */
 export interface TypeformCustomApiCallInput {
   /** url */
@@ -8459,6 +10858,44 @@ export interface TypeformCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** WhatsApp Business — Send Message */
+export interface WhatsappSendMessageInput {
+  /** Phone number ID that will be used to send the message. (resolve via property options API) */
+  phone_number_id: string
+  /** The recipient of the message */
+  to: string
+  /** The message to send */
+  text: string
+}
+
+/** WhatsApp Business — Send Media */
+export interface WhatsappSendMediaInput {
+  /** Phone number ID that will be used to send the message. (resolve via property options API) */
+  phone_number_id: string
+  /** The recipient of the message */
+  to: string
+  /** The type of media to send (resolve via property options API) */
+  type: string
+  /** The URL of the media to send */
+  media: string
+  /** A caption for the media */
+  caption?: string
+  /** Filename of the document to send */
+  filename?: string
+}
+
+/** WhatsApp Business — Send Template Message */
+export interface WhatsappSendTemplateMessageInput {
+  /** Phone number ID that will be used to send the message. (resolve via property options API) */
+  phone_number_id: string
+  /** Recipient phone number. */
+  to: string
+  /** Message Template ID (resolve via property options API) */
+  message_template_id: string
+  /** Template Fields */
+  message_template_fields: Record<string, unknown>
 }
 
 /** WooCommerce — Create Customer */
@@ -8531,6 +10968,182 @@ export interface WoocommerceFindProductInput {
 
 /** WooCommerce — Custom API Call */
 export interface WoocommerceCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Wrike — Create Task */
+export interface WrikeCreateTaskInput {
+  /** The ID of the folder where the task will be created */
+  folderId: string
+  /** The title of the task */
+  title: string
+  /** The description of the task */
+  description?: string
+  /** The status of the task (values: `Active`, `Completed`, `Deferred`, `Cancelled`) */
+  status?: "Active" | "Completed" | "Deferred" | "Cancelled"
+  /** The importance/priority of the task (values: `Low`, `Normal`, `High`, `Critical`) */
+  importance?: "Low" | "Normal" | "High" | "Critical"
+  /** User IDs to assign to the task */
+  assignees?: Array<{   userId: string }>
+  /** Task start date (format: YYYY-MM-DD) */
+  start_date?: string
+  /** Task due date (format: YYYY-MM-DD) */
+  due_date?: string
+  /** Task duration in minutes */
+  duration?: number
+  /** Custom field values for the task */
+  customFields?: Array<{   fieldId: string;   value: string }>
+}
+
+/** Wrike — Update Task */
+export interface WrikeUpdateTaskInput {
+  /** The ID of the task to update */
+  taskId: string
+  /** The new title of the task */
+  title?: string
+  /** The new description of the task */
+  description?: string
+  /** The new status of the task (values: `Active`, `Completed`, `Deferred`, `Cancelled`) */
+  status?: "Active" | "Completed" | "Deferred" | "Cancelled"
+  /** The new importance/priority of the task (values: `Low`, `Normal`, `High`, `Critical`) */
+  importance?: "Low" | "Normal" | "High" | "Critical"
+  /** User IDs to assign to the task (replaces existing assignees) */
+  assignees?: Array<{   userId: string }>
+  /** Task start date (format: YYYY-MM-DD) */
+  start_date?: string
+  /** Task due date (format: YYYY-MM-DD) */
+  due_date?: string
+  /** Task duration in minutes */
+  duration?: number
+  /** Custom field values to update for the task */
+  customFields?: Array<{   fieldId: string;   value: string }>
+}
+
+/** Wrike — Create Folder */
+export interface WrikeCreateFolderInput {
+  /** The ID of the parent folder where the new folder will be created. Leave empty to create at root level. */
+  parentFolderId?: string
+  /** The title of the folder */
+  title: string
+  /** The description of the folder */
+  description?: string
+  /** User IDs to share the folder with */
+  shareds?: Array<{   userId: string }>
+  /** Whether this folder should be created as a project with additional project settings */
+  project?: boolean
+  /** The ID of the user who will own the project (required when creating as project) */
+  projectOwnerId?: string
+  /** The start date of the project (format: YYYY-MM-DD) */
+  projectStartDate?: string
+  /** The end date of the project (format: YYYY-MM-DD) */
+  projectEndDate?: string
+}
+
+/** Wrike — Create Project */
+export interface WrikeCreateProjectInput {
+  /** The ID of the parent folder where the project will be created. Leave empty to create at root level. */
+  parentFolderId?: string
+  /** The title of the project */
+  title: string
+  /** The description of the project */
+  description?: string
+  /** User IDs who will own the project */
+  ownerIds?: Array<{   userId: string }>
+  /** User IDs to share the project with */
+  shareds?: Array<{   userId: string }>
+  /** Project start date (format: YYYY-MM-DD) */
+  start_date?: string
+  /** Project end date (format: YYYY-MM-DD) */
+  end_date?: string
+}
+
+/** Wrike — Add Comment */
+export interface WrikeAddCommentInput {
+  /** Select whether you want to add the comment to a task or folder (values: `tasks`, `folders`) */
+  entityType: "tasks" | "folders"
+  /** The ID of the task or folder to add the comment to */
+  entityId: string
+  /** The text content of the comment */
+  text: string
+  /** Whether the comment should be treated as plain text (no HTML formatting). Default is HTML formatting. */
+  plainText?: boolean
+}
+
+/** Wrike — Upload Attachment */
+export interface WrikeUploadAttachmentInput {
+  /** Select whether to attach the file to a task or folder (values: `tasks`, `folders`) */
+  entityType: "tasks" | "folders"
+  /** The ID of the task or folder to attach the file to */
+  entityId: string
+  /** The file to upload and attach */
+  file: string
+  /** Optional custom name for the uploaded file */
+  fileName?: string
+}
+
+/** Wrike — Find Task */
+export interface WrikeFindTaskInput {
+  /** The ID of the task to retrieve. If provided, other search criteria will be ignored. */
+  taskId?: string
+  /** Search for tasks by title (partial match) */
+  title?: string
+  /** Search for tasks within a specific folder */
+  folderId?: string
+  /** Filter tasks by status (values: `Active`, `Completed`, `Deferred`, `Cancelled`) */
+  status?: "Active" | "Completed" | "Deferred" | "Cancelled"
+  /** Filter tasks by importance/priority (values: `Low`, `Normal`, `High`, `Critical`) */
+  importance?: "Low" | "Normal" | "High" | "Critical"
+  /** Filter tasks by assignee user IDs */
+  assignees?: Array<{   userId: string }>
+  /** Filter tasks by author user IDs */
+  authors?: Array<{   userId: string }>
+  /** Maximum number of tasks to return (max 1000) */
+  pageSize?: number
+  /** Field to sort tasks by (values: `CreatedDate`, `UpdatedDate`, `DueDate`, `StartDate`, `CompletedDate`, `Title`, `Status`, `Importance`) */
+  sortField?: "CreatedDate" | "UpdatedDate" | "DueDate" | "StartDate" | "CompletedDate" | "Title" | "Status" | "Importance"
+  /** Sort order for results (values: `Asc`, `Desc`) */
+  sortOrder?: "Asc" | "Desc"
+}
+
+/** Wrike — Find Folder / Project */
+export interface WrikeFindFolderInput {
+  /** The ID of the folder/project to retrieve. If provided, other search criteria will be ignored. */
+  folderId?: string
+  /** Search for folders/projects by title (partial match) */
+  title?: string
+  /** Search for folders/projects within specific parent folders */
+  parentIds?: Array<{   folderId: string }>
+  /** Filter to only return projects (folders marked as projects) */
+  project?: boolean
+  /** Maximum number of folders/projects to return (max 1000) */
+  pageSize?: number
+  /** Filter by authors (users who created the folders) */
+  authors?: Array<{   userId: string }>
+  /** Filter by owners (users who own the projects) */
+  owners?: Array<{   userId: string }>
+}
+
+/** Wrike — Custom API Call */
+export interface WrikeCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -9015,6 +11628,380 @@ export interface XeroCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** YouTube — Custom API Call */
+export interface YoutubeCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Zendesk — Create Ticket */
+export interface ZendeskCreateTicketInput {
+  /** The subject of the ticket (optional - will use first comment text if not provided) */
+  subject?: string
+  /** The comment body (text). Use this for plain text comments. */
+  comment_body?: string
+  /** The comment body (HTML). Use this for HTML formatted comments. If provided, this takes precedence over Comment Body. */
+  comment_html_body?: string
+  /** Email address of the ticket requester. If not provided, the authenticated user will be the requester. */
+  requester_email?: string
+  /** Name of the ticket requester (used when creating a new user). */
+  requester_name?: string
+  /** Email address of the agent to assign the ticket to. */
+  assignee_email?: string
+  /** The priority of the ticket. (values: `low`, `normal`, `high`, `urgent`) */
+  priority?: "low" | "normal" | "high" | "urgent"
+  /** The type of ticket. (values: `problem`, `incident`, `question`, `task`) */
+  type?: "problem" | "incident" | "question" | "task"
+  /** The status of the ticket. (values: `new`, `open`, `pending`, `hold`, `solved`, `closed`) */
+  status?: "new" | "open" | "pending" | "hold" | "solved" | "closed"
+  /** Array of tags to apply to the ticket. */
+  tags?: unknown[]
+  /** Select the organization to work with (resolve via property options API) */
+  organization_id: string
+  /** Select the group to assign (resolve via property options API) */
+  group_id?: string
+  /** An external ID for the ticket (useful for integrations). */
+  external_id?: string
+  /** Array of email addresses to add as collaborators. */
+  collaborator_emails?: unknown[]
+  /** Array of email addresses to add as followers. */
+  follower_emails?: unknown[]
+  /** The date and time when the ticket is due. */
+  due_at?: string
+  /** Custom ticket field values */
+  custom_fields?: Record<string, unknown>
+  /** Whether the comment is public (visible to the requester). Defaults to true. */
+  comment_public?: boolean
+  /** Select the brand to work with (resolve via property options API) */
+  brand_id?: string
+  /** The ID of the forum topic associated with the ticket. */
+  forum_topic_id?: number
+  /** Select the problem ticket this ticket is an incident of (resolve via property options API) */
+  problem_id?: string
+}
+
+/** Zendesk — Update Ticket */
+export interface ZendeskUpdateTicketInput {
+  /** Select the ticket to work with (resolve via property options API) */
+  ticket_id: string
+  /** Update the subject of the ticket */
+  subject?: string
+  /** Add a comment to the ticket (plain text) */
+  comment_body?: string
+  /** Add a comment to the ticket (HTML). If provided, this takes precedence over Comment Body. */
+  comment_html_body?: string
+  /** Whether the comment is public (visible to the requester). Defaults to true. */
+  comment_public?: boolean
+  /** Email address of the agent to assign the ticket to */
+  assignee_email?: string
+  /** Update the priority of the ticket (values: `low`, `normal`, `high`, `urgent`) */
+  priority?: "low" | "normal" | "high" | "urgent"
+  /** Update the type of ticket (values: `problem`, `incident`, `question`, `task`) */
+  type?: "problem" | "incident" | "question" | "task"
+  /** Update the status of the ticket (values: `new`, `open`, `pending`, `hold`, `solved`, `closed`) */
+  status?: "new" | "open" | "pending" | "hold" | "solved" | "closed"
+  /** Replace all tags with this array. Use "Add Tag to Ticket" action to add tags without replacing existing ones. */
+  tags?: unknown[]
+  /** Select the organization to work with (resolve via property options API) */
+  organization_id: string
+  /** Select the group to assign (resolve via property options API) */
+  group_id?: string
+  /** Update the external ID for the ticket */
+  external_id?: string
+  /** Update the date and time when the ticket is due */
+  due_at?: string
+  /** Update custom ticket field values */
+  custom_fields?: Record<string, unknown>
+  /** Set a custom status ID for the ticket */
+  custom_status_id?: number
+  /** Update the forum topic associated with the ticket */
+  forum_topic_id?: number
+  /** Replace collaborators with this array of email addresses */
+  collaborator_emails?: unknown[]
+  /** Replace followers with this array of email addresses */
+  follower_emails?: unknown[]
+  /** Update the requester of the ticket */
+  requester_email?: string
+  /** Prevent update collisions by checking timestamp */
+  safe_update?: boolean
+  /** Ticket timestamp from updated_at field for collision prevention */
+  updated_stamp?: string
+  /** Select the brand to work with (resolve via property options API) */
+  brand_id?: string
+  /** Select the problem ticket this ticket is an incident of (resolve via property options API) */
+  problem_id?: string
+}
+
+/** Zendesk — Add Tag to Ticket */
+export interface ZendeskAddTagToTicketInput {
+  /** Select the ticket to work with (resolve via property options API) */
+  ticket_id: string
+  /** Tags to add to the ticket (adds to existing tags) */
+  tags: unknown[]
+  /** Prevent tag loss from concurrent updates */
+  safe_update?: boolean
+  /** Ticket timestamp from updated_at field for collision prevention */
+  updated_stamp?: string
+}
+
+/** Zendesk — Add Comment to Ticket */
+export interface ZendeskAddCommentToTicketInput {
+  /** Select the ticket to work with (resolve via property options API) */
+  ticket_id: string
+  /** The comment text content */
+  comment_body?: string
+  /** HTML formatted comment (takes precedence over text) */
+  comment_html_body?: string
+  /** Make comment visible to requester (default: true) */
+  public?: boolean
+  /** Email of comment author (defaults to authenticated user) */
+  author_email?: string
+  /** Upload tokens for file attachments */
+  uploads?: unknown[]
+  /** Original ticket ID if this is from a follow-up */
+  via_followup_source_id?: number
+}
+
+/** Zendesk — Create Organization */
+export interface ZendeskCreateOrganizationInput {
+  /** Unique name for the organization */
+  name: string
+  /** Additional details about the organization */
+  details?: string
+  /** Internal notes about the organization */
+  notes?: string
+  /** External ID for integration purposes */
+  external_id?: string
+  /** Select the group to assign (resolve via property options API) */
+  group_id?: string
+  /** Domain names associated with the organization */
+  domain_names?: unknown[]
+  /** Tags to apply to the organization */
+  tags?: unknown[]
+  /** Custom organization field values */
+  organization_fields?: Record<string, unknown>
+  /** Allow users to see each other's tickets */
+  shared_tickets?: boolean
+  /** Allow users to see each other's comments */
+  shared_comments?: boolean
+}
+
+/** Zendesk — Update Organization */
+export interface ZendeskUpdateOrganizationInput {
+  /** Select the organization to work with (resolve via property options API) */
+  organization_id: string
+  /** New name for the organization (must be unique) */
+  name?: string
+  /** Additional details about the organization */
+  details?: string
+  /** Internal notes about the organization */
+  notes?: string
+  /** External ID for integration purposes */
+  external_id?: string
+  /** Select the group to assign (resolve via property options API) */
+  group_id?: string
+  /** Domain names for the organization (replaces all existing) */
+  domain_names?: unknown[]
+  /** Tags for the organization (replaces all existing) */
+  tags?: unknown[]
+  /** Custom organization field values */
+  organization_fields?: Record<string, unknown>
+  /** Allow users to see each other's tickets */
+  shared_tickets?: boolean
+  /** Allow users to see each other's comments */
+  shared_comments?: boolean
+}
+
+/** Zendesk — Create User */
+export interface ZendeskCreateUserInput {
+  /** The name of the user */
+  name: string
+  /** The primary email address of the user */
+  email?: string
+  /** The role of the user. Defaults to "end-user" if not specified. (values: `end-user`, `agent`, `admin`) */
+  role?: "end-user" | "agent" | "admin"
+  /** Select the custom role for the agent (resolve via property options API) */
+  custom_role_id?: string
+  /** Select the organization to work with (resolve via property options API) */
+  organization_id: string
+  /** Create and associate user with a new organization by name (alternative to Organization ID) */
+  organization_name?: string
+  /** The phone number of the user */
+  phone?: string
+  /** An alias displayed to end users */
+  alias?: string
+  /** Additional details about the user */
+  details?: string
+  /** Internal notes about the user */
+  notes?: string
+  /** A unique external ID for the user (useful for integrations) */
+  external_id?: string
+  /** The time zone of the user (e.g., "America/New_York") */
+  time_zone?: string
+  /** The locale of the user (e.g., "en-US") */
+  locale?: string
+  /** Whether the user is verified */
+  verified?: boolean
+  /** Whether the user is active. Defaults to true. */
+  active?: boolean
+  /** Whether the user is shared from a different Zendesk Support instance */
+  shared?: boolean
+  /** Whether the user is a shared agent from a different Zendesk Support instance */
+  shared_agent?: boolean
+  /** Whether the user has forum moderation capabilities */
+  moderator?: boolean
+  /** Whether the user is suspended */
+  suspended?: boolean
+  /** Whether the agent has restrictions on what tickets they can access */
+  restricted_agent?: boolean
+  /** Whether the user can only create private comments */
+  only_private_comments?: boolean
+  /** Whether the user can access CSV reports */
+  report_csv?: boolean
+  /** Skip sending a verification email to the user */
+  skip_verify_email?: boolean
+  /** The ticket restriction for the user (values: `organization`, `groups`, `assigned`, `requested`) */
+  ticket_restriction?: "organization" | "groups" | "assigned" | "requested"
+  /** The user's signature for email responses */
+  signature?: string
+  /** Select the group to assign (resolve via property options API) */
+  default_group_id?: string
+  /** Select the brands that the agent can access (for agents only) */
+  agent_brand_ids?: string[]
+  /** Array of tags to apply to the user */
+  tags?: unknown[]
+  /** Custom user field values */
+  user_fields?: Record<string, unknown>
+  /** Array of identity objects with type and value. Example: [{"type": "email", "value": "test@user.com"}, {"type": "twitter", "value": "username"}] */
+  identities?: unknown
+}
+
+/** Zendesk — Delete User */
+export interface ZendeskDeleteUserInput {
+  /** Select the user to work with (resolve via property options API) */
+  user_id: string
+  /** I understand that deleted users are not recoverable and this action cannot be undone. */
+  confirmation: boolean
+}
+
+/** Zendesk — Find Organization(s) */
+export interface ZendeskFindOrganizationInput {
+  /** Choose how to search for organizations (values: `name`, `domain`, `external_id`, `tag`, `details`, `custom`) */
+  search_type: "name" | "domain" | "external_id" | "tag" | "details" | "custom"
+  /** The name of the organization to search for */
+  name?: string
+  /** Search organizations by domain name */
+  domain?: string
+  /** Search organizations by external ID */
+  external_id?: string
+  /** Search organizations containing this tag */
+  tag?: string
+  /** Search in organization details/notes */
+  details?: string
+  /** Custom search query using Zendesk search syntax (e.g., "type:organization domain:example.com") */
+  custom_query?: string
+  /** How to sort the results (values: `relevance`, `created_at`, `updated_at`) */
+  sort_by?: "relevance" | "created_at" | "updated_at"
+  /** Sort order for results (values: `desc`, `asc`) */
+  sort_order?: "desc" | "asc"
+}
+
+/** Zendesk — Find Ticket(s) */
+export interface ZendeskFindTicketsInput {
+  /** Choose how to search for tickets (values: `id`, `status`, `priority`, `type`, `tag`, `requester`, `assignee`, `content`, `custom`) */
+  search_type: "id" | "status" | "priority" | "type" | "tag" | "requester" | "assignee" | "content" | "custom"
+  /** Date Time Filter */
+  timeFilter?: Array<{   field: "created" | "updated" | "solved" | "due_date";   operator: ":" | ">" | "<" | ">=" | "<=";   fieldValue: string }>
+  /** The ID of the ticket to find */
+  ticket_id?: string
+  /** Search tickets by status (values: `new`, `open`, `pending`, `hold`, `solved`, `closed`) */
+  status?: "new" | "open" | "pending" | "hold" | "solved" | "closed"
+  /** Search tickets by priority (values: `low`, `normal`, `high`, `urgent`) */
+  priority?: "low" | "normal" | "high" | "urgent"
+  /** Search tickets by type (values: `problem`, `incident`, `question`, `task`) */
+  ticket_type?: "problem" | "incident" | "question" | "task"
+  /** Search tickets containing this tag */
+  tag?: string
+  /** Search tickets by requester email address */
+  requester_email?: string
+  /** Search tickets by assignee email address */
+  assignee_email?: string
+  /** Search in ticket subject and content */
+  content?: string
+  /** Custom search query using Zendesk search syntax (e.g., "type:ticket status:open priority:high") */
+  custom_query?: string
+  /** How to sort the results (values: `relevance`, `created_at`, `updated_at`, `priority`, `status`, `ticket_type`) */
+  sort_by?: "relevance" | "created_at" | "updated_at" | "priority" | "status" | "ticket_type"
+  /** Sort order for results (values: `desc`, `asc`) */
+  sort_order?: "desc" | "asc"
+}
+
+/** Zendesk — Find User(s) */
+export interface ZendeskFindUserInput {
+  /** Choose how to search for users (values: `email`, `name`, `role`, `organization`, `tag`, `external_id`, `custom`) */
+  search_type: "email" | "name" | "role" | "organization" | "tag" | "external_id" | "custom"
+  /** The email address of the user to search for */
+  email?: string
+  /** The name of the user to search for */
+  name?: string
+  /** Search users by role (values: `end-user`, `agent`, `admin`) */
+  role?: "end-user" | "agent" | "admin"
+  /** Search users by organization name */
+  organization?: string
+  /** Search users containing this tag */
+  tag?: string
+  /** Search users by external ID */
+  external_id?: string
+  /** Custom search query using Zendesk search syntax (e.g., "type:user role:agent") */
+  custom_query?: string
+  /** How to sort the results (values: `relevance`, `created_at`, `updated_at`) */
+  sort_by?: "relevance" | "created_at" | "updated_at"
+  /** Sort order for results (values: `desc`, `asc`) */
+  sort_order?: "desc" | "asc"
+}
+
+/** Zendesk — Custom API Call */
+export interface ZendeskCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Zoho CRM — Read file */
 export interface ZohoCrmReadFileInput {
   /** The full URL to use, including the base URL */
@@ -9080,6 +12067,12 @@ export interface IntegrationActionInputMap {
   'attio.update_entry': AttioUpdateEntryInput
   'attio.find_list_entry': AttioFindListEntryInput
   'attio.custom_api_call': AttioCustomApiCallInput
+  'baserow.baserow_create_row': BaserowBaserowCreateRowInput
+  'baserow.baserow_delete_row': BaserowBaserowDeleteRowInput
+  'baserow.baserow_get_row': BaserowBaserowGetRowInput
+  'baserow.baserow_list_rows': BaserowBaserowListRowsInput
+  'baserow.baserow_update_row': BaserowBaserowUpdateRowInput
+  'baserow.custom_api_call': BaserowCustomApiCallInput
   'bigcommerce.createCustomer': BigcommerceCreateCustomerInput
   'bigcommerce.createAProduct': BigcommerceCreateAProductInput
   'bigcommerce.createBlogPost': BigcommerceCreateBlogPostInput
@@ -9091,6 +12084,11 @@ export interface IntegrationActionInputMap {
   'bigcommerce.findOrCreateProduct': BigcommerceFindOrCreateProductInput
   'bigcommerce.findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
   'bigcommerce.custom_api_call': BigcommerceCustomApiCallInput
+  'bluesky.createPost': BlueskyCreatePostInput
+  'bluesky.likePost': BlueskyLikePostInput
+  'bluesky.repostPost': BlueskyRepostPostInput
+  'bluesky.findPost': BlueskyFindPostInput
+  'bluesky.findThread': BlueskyFindThreadInput
   'clickup.create_task': ClickupCreateTaskInput
   'clickup.create_task_from_template': ClickupCreateTaskFromTemplateInput
   'clickup.create_folderless_list': ClickupCreateFolderlessListInput
@@ -9128,7 +12126,18 @@ export interface IntegrationActionInputMap {
   'close.create_opportunity': CloseCreateOpportunityInput
   'close.find_contact': CloseFindContactInput
   'close.custom_api_call': CloseCustomApiCallInput
+  'coda.create-row': CodaCreateRowInput
+  'coda.update-row': CodaUpdateRowInput
+  'coda.upsert-row': CodaUpsertRowInput
+  'coda.find-row': CodaFindRowInput
+  'coda.get-row': CodaGetRowInput
+  'coda.list-tables': CodaListTablesInput
+  'coda.get-table': CodaGetTableInput
+  'coda.custom_api_call': CodaCustomApiCallInput
   'code.run_code': CodeRunCodeInput
+  'confluence.getPageContent': ConfluenceGetPageContentInput
+  'confluence.create-page-from-template': ConfluenceCreatePageFromTemplateInput
+  'confluence.custom_api_call': ConfluenceCustomApiCallInput
   'copper.createPerson': CopperCreatePersonInput
   'copper.updatePerson': CopperUpdatePersonInput
   'copper.createLead': CopperCreateLeadInput
@@ -9149,6 +12158,13 @@ export interface IntegrationActionInputMap {
   'copper.searchForAnOpportunity': CopperSearchForAnOpportunityInput
   'copper.searchForAProject': CopperSearchForAProjectInput
   'copper.custom_api_call': CopperCustomApiCallInput
+  'crisp.add_note': CrispAddNoteInput
+  'crisp.create_conversation': CrispCreateConversationInput
+  'crisp.create_update_contact': CrispCreateUpdateContactInput
+  'crisp.change_state': CrispChangeStateInput
+  'crisp.find_conversation': CrispFindConversationInput
+  'crisp.find_user_profile': CrispFindUserProfileInput
+  'crisp.custom_api_call': CrispCustomApiCallInput
   'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
   'discord.send_message_webhook': DiscordSendMessageWebhookInput
   'discord.request_approval_message': DiscordRequestApprovalMessageInput
@@ -9179,6 +12195,9 @@ export interface IntegrationActionInputMap {
   'dropbox.copy_dropbox_folder': DropboxCopyDropboxFolderInput
   'dropbox.list_dropbox_folder': DropboxListDropboxFolderInput
   'dropbox.custom_api_call': DropboxCustomApiCallInput
+  'facebook-pages.create_post': FacebookPagesCreatePostInput
+  'facebook-pages.create_photo_post': FacebookPagesCreatePhotoPostInput
+  'facebook-pages.create_video_post': FacebookPagesCreateVideoPostInput
   'figma.get_file': FigmaGetFileInput
   'figma.get_comments': FigmaGetCommentsInput
   'figma.post_comment': FigmaPostCommentInput
@@ -9192,8 +12211,35 @@ export interface IntegrationActionInputMap {
   'formstack.getSubmissionDetails': FormstackGetSubmissionDetailsInput
   'formstack.findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
   'formstack.custom_api_call': FormstackCustomApiCallInput
+  'freshdesk.get_tickets': FreshdeskGetTicketsInput
+  'freshdesk.get_contact_from_id': FreshdeskGetContactFromIdInput
+  'freshdesk.get_ticket_status': FreshdeskGetTicketStatusInput
+  'freshdesk.get_contacts': FreshdeskGetContactsInput
+  'freshdesk.get_all_tickets_by_status': FreshdeskGetAllTicketsByStatusInput
+  'freshdesk.custom_api_call': FreshdeskCustomApiCallInput
   'freshsales.freshsales_create_contact': FreshsalesFreshsalesCreateContactInput
   'freshsales.custom_api_call': FreshsalesCustomApiCallInput
+  'front.addComment': FrontAddCommentInput
+  'front.addContactHandle': FrontAddContactHandleInput
+  'front.addConversationLinks': FrontAddConversationLinksInput
+  'front.addConversationTags': FrontAddConversationTagsInput
+  'front.assignUnassignConversation': FrontAssignUnassignConversationInput
+  'front.createAccount': FrontCreateAccountInput
+  'front.createContact': FrontCreateContactInput
+  'front.createDraft': FrontCreateDraftInput
+  'front.createDraftReply': FrontCreateDraftReplyInput
+  'front.createLink': FrontCreateLinkInput
+  'front.findAccount': FrontFindAccountInput
+  'front.findContact': FrontFindContactInput
+  'front.findConversation': FrontFindConversationInput
+  'front.removeContactHandle': FrontRemoveContactHandleInput
+  'front.removeConversationLinks': FrontRemoveConversationLinksInput
+  'front.sendMessage': FrontSendMessageInput
+  'front.sendReply': FrontSendReplyInput
+  'front.updateAccount': FrontUpdateAccountInput
+  'front.updateContact': FrontUpdateContactInput
+  'front.updateConversation': FrontUpdateConversationInput
+  'front.updateLink': FrontUpdateLinkInput
   'github.github_create_issue': GithubGithubCreateIssueInput
   'github.getIssueInformation': GithubGetIssueInformationInput
   'github.createCommentOnAIssue': GithubCreateCommentOnAIssueInput
@@ -9279,6 +12325,15 @@ export interface IntegrationActionInputMap {
   'google-sheets.custom_api_call': GoogleSheetsCustomApiCallInput
   'google-tasks.add_task': GoogleTasksAddTaskInput
   'google-tasks.custom_api_call': GoogleTasksCustomApiCallInput
+  'help-scout.create_conversation': HelpScoutCreateConversationInput
+  'help-scout.send_reply': HelpScoutSendReplyInput
+  'help-scout.add_note': HelpScoutAddNoteInput
+  'help-scout.create_customer': HelpScoutCreateCustomerInput
+  'help-scout.update_customer_properties': HelpScoutUpdateCustomerPropertiesInput
+  'help-scout.find_conversation': HelpScoutFindConversationInput
+  'help-scout.find_customer': HelpScoutFindCustomerInput
+  'help-scout.find_user': HelpScoutFindUserInput
+  'help-scout.custom_api_call': HelpScoutCustomApiCallInput
   'http.send_request': HttpSendRequestInput
   'hubspot.add_contact_to_list': HubspotAddContactToListInput
   'hubspot.add-contact-to-workflow': HubspotAddContactToWorkflowInput
@@ -9325,6 +12380,12 @@ export interface IntegrationActionInputMap {
   'hubspot.get-owner-by-id': HubspotGetOwnerByIdInput
   'hubspot.get-pipeline-stage-details': HubspotGetPipelineStageDetailsInput
   'hubspot.custom_api_call': HubspotCustomApiCallInput
+  'imap.mark_email_read': ImapMarkEmailReadInput
+  'imap.copy_email': ImapCopyEmailInput
+  'imap.move_email': ImapMoveEmailInput
+  'imap.delete_email': ImapDeleteEmailInput
+  'instagram-business.upload_photo': InstagramBusinessUploadPhotoInput
+  'instagram-business.upload_reel': InstagramBusinessUploadReelInput
   'intercom.add-note-to-user': IntercomAddNoteToUserInput
   'intercom.addNoteToConversation': IntercomAddNoteToConversationInput
   'intercom.add-or-remove-tag-on-contact': IntercomAddOrRemoveTagOnContactInput
@@ -9374,6 +12435,9 @@ export interface IntegrationActionInputMap {
   'linear.linear_update_project': LinearLinearUpdateProjectInput
   'linear.linear_create_comment': LinearLinearCreateCommentInput
   'linear.rawGraphqlQuery': LinearRawGraphqlQueryInput
+  'linkedin.create_share_update': LinkedinCreateShareUpdateInput
+  'linkedin.create_company_update': LinkedinCreateCompanyUpdateInput
+  'linkedin.custom_api_call': LinkedinCustomApiCallInput
   'mailchimp.add_member_to_list': MailchimpAddMemberToListInput
   'mailchimp.add_note_to_subscriber': MailchimpAddNoteToSubscriberInput
   'mailchimp.add_subscriber_to_tag': MailchimpAddSubscriberToTagInput
@@ -9388,6 +12452,79 @@ export interface IntegrationActionInputMap {
   'mailchimp.find_customer': MailchimpFindCustomerInput
   'mailchimp.find_tag': MailchimpFindTagInput
   'mailchimp.find_subscriber': MailchimpFindSubscriberInput
+  'microsoft-excel-365.append_row': MicrosoftExcel365AppendRowInput
+  'microsoft-excel-365.append_multiple_rows': MicrosoftExcel365AppendMultipleRowsInput
+  'microsoft-excel-365.get_worksheets': MicrosoftExcel365GetWorksheetsInput
+  'microsoft-excel-365.get_worksheet_rows': MicrosoftExcel365GetWorksheetRowsInput
+  'microsoft-excel-365.update_row': MicrosoftExcel365UpdateRowInput
+  'microsoft-excel-365.clear_worksheet': MicrosoftExcel365ClearWorksheetInput
+  'microsoft-excel-365.delete_worksheet': MicrosoftExcel365DeleteWorksheetInput
+  'microsoft-excel-365.get_workbooks': MicrosoftExcel365GetWorkbooksInput
+  'microsoft-excel-365.get-worksheet-columns': MicrosoftExcel365GetWorksheetColumnsInput
+  'microsoft-excel-365.delete_workbook': MicrosoftExcel365DeleteWorkbookInput
+  'microsoft-excel-365.add_worksheet': MicrosoftExcel365AddWorksheetInput
+  'microsoft-excel-365.get_table_rows': MicrosoftExcel365GetTableRowsInput
+  'microsoft-excel-365.get_table_columns': MicrosoftExcel365GetTableColumnsInput
+  'microsoft-excel-365.create_table': MicrosoftExcel365CreateTableInput
+  'microsoft-excel-365.delete_table': MicrosoftExcel365DeleteTableInput
+  'microsoft-excel-365.lookup_table_column': MicrosoftExcel365LookupTableColumnInput
+  'microsoft-excel-365.append_table_rows': MicrosoftExcel365AppendTableRowsInput
+  'microsoft-excel-365.convert_to_range': MicrosoftExcel365ConvertToRangeInput
+  'microsoft-excel-365.createWorkbook': MicrosoftExcel365CreateWorkbookInput
+  'microsoft-excel-365.clear_column': MicrosoftExcel365ClearColumnInput
+  'microsoft-excel-365.clear_range': MicrosoftExcel365ClearRangeInput
+  'microsoft-excel-365.clear_row': MicrosoftExcel365ClearRowInput
+  'microsoft-excel-365.create_worksheet': MicrosoftExcel365CreateWorksheetInput
+  'microsoft-excel-365.find_row': MicrosoftExcel365FindRowInput
+  'microsoft-excel-365.find-workbook': MicrosoftExcel365FindWorkbookInput
+  'microsoft-excel-365.find-worksheet': MicrosoftExcel365FindWorksheetInput
+  'microsoft-excel-365.get_range': MicrosoftExcel365GetRangeInput
+  'microsoft-excel-365.getRowById': MicrosoftExcel365GetRowByIdInput
+  'microsoft-excel-365.get_worksheet': MicrosoftExcel365GetWorksheetInput
+  'microsoft-excel-365.rename_worksheet': MicrosoftExcel365RenameWorksheetInput
+  'microsoft-excel-365.custom_api_call': MicrosoftExcel365CustomApiCallInput
+  'microsoft-onedrive.upload_onedrive_file': MicrosoftOnedriveUploadOnedriveFileInput
+  'microsoft-onedrive.download_file': MicrosoftOnedriveDownloadFileInput
+  'microsoft-onedrive.list_files': MicrosoftOnedriveListFilesInput
+  'microsoft-onedrive.list_folders': MicrosoftOnedriveListFoldersInput
+  'microsoft-onedrive.custom_api_call': MicrosoftOnedriveCustomApiCallInput
+  'microsoft-onenote.create_notebook': MicrosoftOnenoteCreateNotebookInput
+  'microsoft-onenote.create_section': MicrosoftOnenoteCreateSectionInput
+  'microsoft-onenote.create_note_in_section': MicrosoftOnenoteCreateNoteInSectionInput
+  'microsoft-onenote.create_page': MicrosoftOnenoteCreatePageInput
+  'microsoft-onenote.create_image_note': MicrosoftOnenoteCreateImageNoteInput
+  'microsoft-onenote.append_note': MicrosoftOnenoteAppendNoteInput
+  'microsoft-outlook.send-email': MicrosoftOutlookSendEmailInput
+  'microsoft-outlook.downloadAttachment': MicrosoftOutlookDownloadAttachmentInput
+  'microsoft-outlook.reply-email': MicrosoftOutlookReplyEmailInput
+  'microsoft-outlook.createDraftEmail': MicrosoftOutlookCreateDraftEmailInput
+  'microsoft-outlook.addLabelToEmail': MicrosoftOutlookAddLabelToEmailInput
+  'microsoft-outlook.removeLabelFromEmail': MicrosoftOutlookRemoveLabelFromEmailInput
+  'microsoft-outlook.request_approval_in_mail': MicrosoftOutlookRequestApprovalInMailInput
+  'microsoft-outlook.moveEmailToFolder': MicrosoftOutlookMoveEmailToFolderInput
+  'microsoft-outlook.sendDraftEmail': MicrosoftOutlookSendDraftEmailInput
+  'microsoft-outlook.forwardEmail': MicrosoftOutlookForwardEmailInput
+  'microsoft-outlook.findEmail': MicrosoftOutlookFindEmailInput
+  'microsoft-outlook.custom_api_call': MicrosoftOutlookCustomApiCallInput
+  'microsoft-outlook-calendar.create_event': MicrosoftOutlookCalendarCreateEventInput
+  'microsoft-outlook-calendar.delete_event': MicrosoftOutlookCalendarDeleteEventInput
+  'microsoft-outlook-calendar.list_events': MicrosoftOutlookCalendarListEventsInput
+  'microsoft-outlook-calendar.custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
+  'microsoft-sharepoint.microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
+  'microsoft-sharepoint.microsoft_sharepoint_create_list': MicrosoftSharepointMicrosoftSharepointCreateListInput
+  'microsoft-sharepoint.microsoft_sharepoint_create_list_item': MicrosoftSharepointMicrosoftSharepointCreateListItemInput
+  'microsoft-sharepoint.microsoft_sharepoint_update_list_item': MicrosoftSharepointMicrosoftSharepointUpdateListItemInput
+  'microsoft-sharepoint.microsoft_sharepoint_delete_list_item': MicrosoftSharepointMicrosoftSharepointDeleteListItemInput
+  'microsoft-sharepoint.microsoft_sharepoint_search_list_item': MicrosoftSharepointMicrosoftSharepointSearchListItemInput
+  'microsoft-sharepoint.microsoft_sharepoint_upload_file': MicrosoftSharepointMicrosoftSharepointUploadFileInput
+  'microsoft-sharepoint.microsoft_sharepoint_publish_page': MicrosoftSharepointMicrosoftSharepointPublishPageInput
+  'microsoft-sharepoint.microsoft_sharepoint_copy_item': MicrosoftSharepointMicrosoftSharepointCopyItemInput
+  'microsoft-sharepoint.microsoft_sharepoint_copy_item_within_site': MicrosoftSharepointMicrosoftSharepointCopyItemWithinSiteInput
+  'microsoft-sharepoint.microsoft_sharepoint_move_file': MicrosoftSharepointMicrosoftSharepointMoveFileInput
+  'microsoft-sharepoint.microsoft_sharepoint_find_file': MicrosoftSharepointMicrosoftSharepointFindFileInput
+  'microsoft-sharepoint.microsoft_sharepoint_get_folder_contents': MicrosoftSharepointMicrosoftSharepointGetFolderContentsInput
+  'microsoft-sharepoint.microsoft_sharepoint_get_site_information': MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput
+  'microsoft-sharepoint.custom_api_call': MicrosoftSharepointCustomApiCallInput
   'microsoft-teams.microsoft_teams_create_channel': MicrosoftTeamsMicrosoftTeamsCreateChannelInput
   'microsoft-teams.microsoft_teams_send_channel_message': MicrosoftTeamsMicrosoftTeamsSendChannelMessageInput
   'microsoft-teams.microsoft_teams_send_chat_message': MicrosoftTeamsMicrosoftTeamsSendChatMessageInput
@@ -9402,6 +12539,17 @@ export interface IntegrationActionInputMap {
   'microsoft-teams.request_approval_in_channel': MicrosoftTeamsRequestApprovalInChannelInput
   'microsoft-teams.request_approval_direct_message': MicrosoftTeamsRequestApprovalDirectMessageInput
   'microsoft-teams.custom_api_call': MicrosoftTeamsCustomApiCallInput
+  'microsoft-todo.create_task': MicrosoftTodoCreateTaskInput
+  'microsoft-todo.create_task_list': MicrosoftTodoCreateTaskListInput
+  'microsoft-todo.update_task': MicrosoftTodoUpdateTaskInput
+  'microsoft-todo.update_task_list': MicrosoftTodoUpdateTaskListInput
+  'microsoft-todo.complete_task': MicrosoftTodoCompleteTaskInput
+  'microsoft-todo.delete_task': MicrosoftTodoDeleteTaskInput
+  'microsoft-todo.add_attachment': MicrosoftTodoAddAttachmentInput
+  'microsoft-todo.get_task': MicrosoftTodoGetTaskInput
+  'microsoft-todo.find_task_list_by_name': MicrosoftTodoFindTaskListByNameInput
+  'microsoft-todo.find_task_by_title': MicrosoftTodoFindTaskByTitleInput
+  'microsoft-todo.custom_api_call': MicrosoftTodoCustomApiCallInput
   'mixpanel.track_event': MixpanelTrackEventInput
   'mixpanel.custom_api_call': MixpanelCustomApiCallInput
   'mollie.create_order': MollieCreateOrderInput
@@ -9449,6 +12597,12 @@ export interface IntegrationActionInputMap {
   'paywhirl.searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
   'paywhirl.subscribeCustomer': PaywhirlSubscribeCustomerInput
   'paywhirl.custom_api_call': PaywhirlCustomApiCallInput
+  'pinterest.createPin': PinterestCreatePinInput
+  'pinterest.createBoard': PinterestCreateBoardInput
+  'pinterest.deletePin': PinterestDeletePinInput
+  'pinterest.findBoardByName': PinterestFindBoardByNameInput
+  'pinterest.findPin': PinterestFindPinInput
+  'pinterest.updateBoard': PinterestUpdateBoardInput
   'pipedrive.add-follower': PipedriveAddFollowerInput
   'pipedrive.get-note': PipedriveGetNoteInput
   'pipedrive.create-note': PipedriveCreateNoteInput
@@ -9505,6 +12659,16 @@ export interface IntegrationActionInputMap {
   'quickbooks.custom_api_call': QuickbooksCustomApiCallInput
   'razorpay.custom_api_call': RazorpayCustomApiCallInput
   'razorpay.create-payment-link': RazorpayCreatePaymentLinkInput
+  'reddit.retrieveRedditPost': RedditRetrieveRedditPostInput
+  'reddit.getRedditPostDetails': RedditGetRedditPostDetailsInput
+  'reddit.createRedditPost': RedditCreateRedditPostInput
+  'reddit.createRedditComment': RedditCreateRedditCommentInput
+  'reddit.fetchPostComments': RedditFetchPostCommentsInput
+  'reddit.editRedditPost': RedditEditRedditPostInput
+  'reddit.editRedditComment': RedditEditRedditCommentInput
+  'reddit.deleteRedditPost': RedditDeleteRedditPostInput
+  'reddit.deleteRedditComment': RedditDeleteRedditCommentInput
+  'reddit.custom_api_call': RedditCustomApiCallInput
   'resend.send_email': ResendSendEmailInput
   'resend.custom_api_call': ResendCustomApiCallInput
   'salesforce.add_contact_to_campaign': SalesforceAddContactToCampaignInput
@@ -9591,6 +12755,13 @@ export interface IntegrationActionInputMap {
   'slack.get-message': SlackGetMessageInput
   'slack.invite-user-to-channel': SlackInviteUserToChannelInput
   'slack.custom_api_call': SlackCustomApiCallInput
+  'smartsheet.add_row_to_sheet': SmartsheetAddRowToSheetInput
+  'smartsheet.update_row': SmartsheetUpdateRowInput
+  'smartsheet.attach_file_to_row': SmartsheetAttachFileToRowInput
+  'smartsheet.find_rows_by_query': SmartsheetFindRowsByQueryInput
+  'smartsheet.find_attachment_by_row_id': SmartsheetFindAttachmentByRowIdInput
+  'smartsheet.find_sheet_by_name': SmartsheetFindSheetByNameInput
+  'smtp.send-email': SmtpSendEmailInput
   'storage.read_file': StorageReadFileInput
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
@@ -9641,13 +12812,27 @@ export interface IntegrationActionInputMap {
   'twilio.get_message': TwilioGetMessageInput
   'twilio.download_recording_media': TwilioDownloadRecordingMediaInput
   'twilio.custom_api_call': TwilioCustomApiCallInput
+  'twitter.create-tweet': TwitterCreateTweetInput
+  'twitter.create-reply': TwitterCreateReplyInput
   'typeform.custom_api_call': TypeformCustomApiCallInput
+  'whatsapp.sendMessage': WhatsappSendMessageInput
+  'whatsapp.sendMedia': WhatsappSendMediaInput
+  'whatsapp.send-template-message': WhatsappSendTemplateMessageInput
   'woocommerce.Create Customer': WoocommerceCreateCustomerInput
   'woocommerce.Create Coupon': WoocommerceCreateCouponInput
   'woocommerce.Create Product': WoocommerceCreateProductInput
   'woocommerce.Find Customer': WoocommerceFindCustomerInput
   'woocommerce.Find Product': WoocommerceFindProductInput
   'woocommerce.custom_api_call': WoocommerceCustomApiCallInput
+  'wrike.create_task': WrikeCreateTaskInput
+  'wrike.update_task': WrikeUpdateTaskInput
+  'wrike.create_folder': WrikeCreateFolderInput
+  'wrike.create_project': WrikeCreateProjectInput
+  'wrike.add_comment': WrikeAddCommentInput
+  'wrike.upload_attachment': WrikeUploadAttachmentInput
+  'wrike.find_task': WrikeFindTaskInput
+  'wrike.find_folder': WrikeFindFolderInput
+  'wrike.custom_api_call': WrikeCustomApiCallInput
   'xero.xero_create_contact': XeroXeroCreateContactInput
   'xero.xero_create_invoice': XeroXeroCreateInvoiceInput
   'xero.xero_allocate_credit_note_to_invoice': XeroXeroAllocateCreditNoteToInvoiceInput
@@ -9670,6 +12855,19 @@ export interface IntegrationActionInputMap {
   'xero.xero_find_item': XeroXeroFindItemInput
   'xero.xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
   'xero.custom_api_call': XeroCustomApiCallInput
+  'youtube.custom_api_call': YoutubeCustomApiCallInput
+  'zendesk.create-ticket': ZendeskCreateTicketInput
+  'zendesk.update-ticket': ZendeskUpdateTicketInput
+  'zendesk.add-tag-to-ticket': ZendeskAddTagToTicketInput
+  'zendesk.add-comment-to-ticket': ZendeskAddCommentToTicketInput
+  'zendesk.create-organization': ZendeskCreateOrganizationInput
+  'zendesk.update-organization': ZendeskUpdateOrganizationInput
+  'zendesk.create-user': ZendeskCreateUserInput
+  'zendesk.delete-user': ZendeskDeleteUserInput
+  'zendesk.find-organization': ZendeskFindOrganizationInput
+  'zendesk.find-tickets': ZendeskFindTicketsInput
+  'zendesk.find-user': ZendeskFindUserInput
+  'zendesk.custom_api_call': ZendeskCustomApiCallInput
   'zoho-crm.read-file': ZohoCrmReadFileInput
   'zoho-crm.custom_api_call': ZohoCrmCustomApiCallInput
 }
@@ -9713,6 +12911,14 @@ export interface IntegrationActionInputsByIntegration {
     'find_list_entry': AttioFindListEntryInput
     'custom_api_call': AttioCustomApiCallInput
   }
+  'baserow': {
+    'baserow_create_row': BaserowBaserowCreateRowInput
+    'baserow_delete_row': BaserowBaserowDeleteRowInput
+    'baserow_get_row': BaserowBaserowGetRowInput
+    'baserow_list_rows': BaserowBaserowListRowsInput
+    'baserow_update_row': BaserowBaserowUpdateRowInput
+    'custom_api_call': BaserowCustomApiCallInput
+  }
   'bigcommerce': {
     'createCustomer': BigcommerceCreateCustomerInput
     'createAProduct': BigcommerceCreateAProductInput
@@ -9725,6 +12931,13 @@ export interface IntegrationActionInputsByIntegration {
     'findOrCreateProduct': BigcommerceFindOrCreateProductInput
     'findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
     'custom_api_call': BigcommerceCustomApiCallInput
+  }
+  'bluesky': {
+    'createPost': BlueskyCreatePostInput
+    'likePost': BlueskyLikePostInput
+    'repostPost': BlueskyRepostPostInput
+    'findPost': BlueskyFindPostInput
+    'findThread': BlueskyFindThreadInput
   }
   'clickup': {
     'create_task': ClickupCreateTaskInput
@@ -9767,8 +12980,23 @@ export interface IntegrationActionInputsByIntegration {
     'find_contact': CloseFindContactInput
     'custom_api_call': CloseCustomApiCallInput
   }
+  'coda': {
+    'create-row': CodaCreateRowInput
+    'update-row': CodaUpdateRowInput
+    'upsert-row': CodaUpsertRowInput
+    'find-row': CodaFindRowInput
+    'get-row': CodaGetRowInput
+    'list-tables': CodaListTablesInput
+    'get-table': CodaGetTableInput
+    'custom_api_call': CodaCustomApiCallInput
+  }
   'code': {
     'run_code': CodeRunCodeInput
+  }
+  'confluence': {
+    'getPageContent': ConfluenceGetPageContentInput
+    'create-page-from-template': ConfluenceCreatePageFromTemplateInput
+    'custom_api_call': ConfluenceCustomApiCallInput
   }
   'copper': {
     'createPerson': CopperCreatePersonInput
@@ -9791,6 +13019,15 @@ export interface IntegrationActionInputsByIntegration {
     'searchForAnOpportunity': CopperSearchForAnOpportunityInput
     'searchForAProject': CopperSearchForAProjectInput
     'custom_api_call': CopperCustomApiCallInput
+  }
+  'crisp': {
+    'add_note': CrispAddNoteInput
+    'create_conversation': CrispCreateConversationInput
+    'create_update_contact': CrispCreateUpdateContactInput
+    'change_state': CrispChangeStateInput
+    'find_conversation': CrispFindConversationInput
+    'find_user_profile': CrispFindUserProfileInput
+    'custom_api_call': CrispCustomApiCallInput
   }
   'discord': {
     'sendMessageWithBot': DiscordSendMessageWithBotInput
@@ -9826,6 +13063,11 @@ export interface IntegrationActionInputsByIntegration {
     'list_dropbox_folder': DropboxListDropboxFolderInput
     'custom_api_call': DropboxCustomApiCallInput
   }
+  'facebook-pages': {
+    'create_post': FacebookPagesCreatePostInput
+    'create_photo_post': FacebookPagesCreatePhotoPostInput
+    'create_video_post': FacebookPagesCreateVideoPostInput
+  }
   'figma': {
     'get_file': FigmaGetFileInput
     'get_comments': FigmaGetCommentsInput
@@ -9845,9 +13087,40 @@ export interface IntegrationActionInputsByIntegration {
     'findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
     'custom_api_call': FormstackCustomApiCallInput
   }
+  'freshdesk': {
+    'get_tickets': FreshdeskGetTicketsInput
+    'get_contact_from_id': FreshdeskGetContactFromIdInput
+    'get_ticket_status': FreshdeskGetTicketStatusInput
+    'get_contacts': FreshdeskGetContactsInput
+    'get_all_tickets_by_status': FreshdeskGetAllTicketsByStatusInput
+    'custom_api_call': FreshdeskCustomApiCallInput
+  }
   'freshsales': {
     'freshsales_create_contact': FreshsalesFreshsalesCreateContactInput
     'custom_api_call': FreshsalesCustomApiCallInput
+  }
+  'front': {
+    'addComment': FrontAddCommentInput
+    'addContactHandle': FrontAddContactHandleInput
+    'addConversationLinks': FrontAddConversationLinksInput
+    'addConversationTags': FrontAddConversationTagsInput
+    'assignUnassignConversation': FrontAssignUnassignConversationInput
+    'createAccount': FrontCreateAccountInput
+    'createContact': FrontCreateContactInput
+    'createDraft': FrontCreateDraftInput
+    'createDraftReply': FrontCreateDraftReplyInput
+    'createLink': FrontCreateLinkInput
+    'findAccount': FrontFindAccountInput
+    'findContact': FrontFindContactInput
+    'findConversation': FrontFindConversationInput
+    'removeContactHandle': FrontRemoveContactHandleInput
+    'removeConversationLinks': FrontRemoveConversationLinksInput
+    'sendMessage': FrontSendMessageInput
+    'sendReply': FrontSendReplyInput
+    'updateAccount': FrontUpdateAccountInput
+    'updateContact': FrontUpdateContactInput
+    'updateConversation': FrontUpdateConversationInput
+    'updateLink': FrontUpdateLinkInput
   }
   'github': {
     'github_create_issue': GithubGithubCreateIssueInput
@@ -9952,6 +13225,17 @@ export interface IntegrationActionInputsByIntegration {
     'add_task': GoogleTasksAddTaskInput
     'custom_api_call': GoogleTasksCustomApiCallInput
   }
+  'help-scout': {
+    'create_conversation': HelpScoutCreateConversationInput
+    'send_reply': HelpScoutSendReplyInput
+    'add_note': HelpScoutAddNoteInput
+    'create_customer': HelpScoutCreateCustomerInput
+    'update_customer_properties': HelpScoutUpdateCustomerPropertiesInput
+    'find_conversation': HelpScoutFindConversationInput
+    'find_customer': HelpScoutFindCustomerInput
+    'find_user': HelpScoutFindUserInput
+    'custom_api_call': HelpScoutCustomApiCallInput
+  }
   'http': {
     'send_request': HttpSendRequestInput
   }
@@ -10001,6 +13285,16 @@ export interface IntegrationActionInputsByIntegration {
     'get-owner-by-id': HubspotGetOwnerByIdInput
     'get-pipeline-stage-details': HubspotGetPipelineStageDetailsInput
     'custom_api_call': HubspotCustomApiCallInput
+  }
+  'imap': {
+    'mark_email_read': ImapMarkEmailReadInput
+    'copy_email': ImapCopyEmailInput
+    'move_email': ImapMoveEmailInput
+    'delete_email': ImapDeleteEmailInput
+  }
+  'instagram-business': {
+    'upload_photo': InstagramBusinessUploadPhotoInput
+    'upload_reel': InstagramBusinessUploadReelInput
   }
   'intercom': {
     'add-note-to-user': IntercomAddNoteToUserInput
@@ -10061,6 +13355,11 @@ export interface IntegrationActionInputsByIntegration {
     'linear_create_comment': LinearLinearCreateCommentInput
     'rawGraphqlQuery': LinearRawGraphqlQueryInput
   }
+  'linkedin': {
+    'create_share_update': LinkedinCreateShareUpdateInput
+    'create_company_update': LinkedinCreateCompanyUpdateInput
+    'custom_api_call': LinkedinCustomApiCallInput
+  }
   'mailchimp': {
     'add_member_to_list': MailchimpAddMemberToListInput
     'add_note_to_subscriber': MailchimpAddNoteToSubscriberInput
@@ -10077,6 +13376,91 @@ export interface IntegrationActionInputsByIntegration {
     'find_tag': MailchimpFindTagInput
     'find_subscriber': MailchimpFindSubscriberInput
   }
+  'microsoft-excel-365': {
+    'append_row': MicrosoftExcel365AppendRowInput
+    'append_multiple_rows': MicrosoftExcel365AppendMultipleRowsInput
+    'get_worksheets': MicrosoftExcel365GetWorksheetsInput
+    'get_worksheet_rows': MicrosoftExcel365GetWorksheetRowsInput
+    'update_row': MicrosoftExcel365UpdateRowInput
+    'clear_worksheet': MicrosoftExcel365ClearWorksheetInput
+    'delete_worksheet': MicrosoftExcel365DeleteWorksheetInput
+    'get_workbooks': MicrosoftExcel365GetWorkbooksInput
+    'get-worksheet-columns': MicrosoftExcel365GetWorksheetColumnsInput
+    'delete_workbook': MicrosoftExcel365DeleteWorkbookInput
+    'add_worksheet': MicrosoftExcel365AddWorksheetInput
+    'get_table_rows': MicrosoftExcel365GetTableRowsInput
+    'get_table_columns': MicrosoftExcel365GetTableColumnsInput
+    'create_table': MicrosoftExcel365CreateTableInput
+    'delete_table': MicrosoftExcel365DeleteTableInput
+    'lookup_table_column': MicrosoftExcel365LookupTableColumnInput
+    'append_table_rows': MicrosoftExcel365AppendTableRowsInput
+    'convert_to_range': MicrosoftExcel365ConvertToRangeInput
+    'createWorkbook': MicrosoftExcel365CreateWorkbookInput
+    'clear_column': MicrosoftExcel365ClearColumnInput
+    'clear_range': MicrosoftExcel365ClearRangeInput
+    'clear_row': MicrosoftExcel365ClearRowInput
+    'create_worksheet': MicrosoftExcel365CreateWorksheetInput
+    'find_row': MicrosoftExcel365FindRowInput
+    'find-workbook': MicrosoftExcel365FindWorkbookInput
+    'find-worksheet': MicrosoftExcel365FindWorksheetInput
+    'get_range': MicrosoftExcel365GetRangeInput
+    'getRowById': MicrosoftExcel365GetRowByIdInput
+    'get_worksheet': MicrosoftExcel365GetWorksheetInput
+    'rename_worksheet': MicrosoftExcel365RenameWorksheetInput
+    'custom_api_call': MicrosoftExcel365CustomApiCallInput
+  }
+  'microsoft-onedrive': {
+    'upload_onedrive_file': MicrosoftOnedriveUploadOnedriveFileInput
+    'download_file': MicrosoftOnedriveDownloadFileInput
+    'list_files': MicrosoftOnedriveListFilesInput
+    'list_folders': MicrosoftOnedriveListFoldersInput
+    'custom_api_call': MicrosoftOnedriveCustomApiCallInput
+  }
+  'microsoft-onenote': {
+    'create_notebook': MicrosoftOnenoteCreateNotebookInput
+    'create_section': MicrosoftOnenoteCreateSectionInput
+    'create_note_in_section': MicrosoftOnenoteCreateNoteInSectionInput
+    'create_page': MicrosoftOnenoteCreatePageInput
+    'create_image_note': MicrosoftOnenoteCreateImageNoteInput
+    'append_note': MicrosoftOnenoteAppendNoteInput
+  }
+  'microsoft-outlook': {
+    'send-email': MicrosoftOutlookSendEmailInput
+    'downloadAttachment': MicrosoftOutlookDownloadAttachmentInput
+    'reply-email': MicrosoftOutlookReplyEmailInput
+    'createDraftEmail': MicrosoftOutlookCreateDraftEmailInput
+    'addLabelToEmail': MicrosoftOutlookAddLabelToEmailInput
+    'removeLabelFromEmail': MicrosoftOutlookRemoveLabelFromEmailInput
+    'request_approval_in_mail': MicrosoftOutlookRequestApprovalInMailInput
+    'moveEmailToFolder': MicrosoftOutlookMoveEmailToFolderInput
+    'sendDraftEmail': MicrosoftOutlookSendDraftEmailInput
+    'forwardEmail': MicrosoftOutlookForwardEmailInput
+    'findEmail': MicrosoftOutlookFindEmailInput
+    'custom_api_call': MicrosoftOutlookCustomApiCallInput
+  }
+  'microsoft-outlook-calendar': {
+    'create_event': MicrosoftOutlookCalendarCreateEventInput
+    'delete_event': MicrosoftOutlookCalendarDeleteEventInput
+    'list_events': MicrosoftOutlookCalendarListEventsInput
+    'custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
+  }
+  'microsoft-sharepoint': {
+    'microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
+    'microsoft_sharepoint_create_list': MicrosoftSharepointMicrosoftSharepointCreateListInput
+    'microsoft_sharepoint_create_list_item': MicrosoftSharepointMicrosoftSharepointCreateListItemInput
+    'microsoft_sharepoint_update_list_item': MicrosoftSharepointMicrosoftSharepointUpdateListItemInput
+    'microsoft_sharepoint_delete_list_item': MicrosoftSharepointMicrosoftSharepointDeleteListItemInput
+    'microsoft_sharepoint_search_list_item': MicrosoftSharepointMicrosoftSharepointSearchListItemInput
+    'microsoft_sharepoint_upload_file': MicrosoftSharepointMicrosoftSharepointUploadFileInput
+    'microsoft_sharepoint_publish_page': MicrosoftSharepointMicrosoftSharepointPublishPageInput
+    'microsoft_sharepoint_copy_item': MicrosoftSharepointMicrosoftSharepointCopyItemInput
+    'microsoft_sharepoint_copy_item_within_site': MicrosoftSharepointMicrosoftSharepointCopyItemWithinSiteInput
+    'microsoft_sharepoint_move_file': MicrosoftSharepointMicrosoftSharepointMoveFileInput
+    'microsoft_sharepoint_find_file': MicrosoftSharepointMicrosoftSharepointFindFileInput
+    'microsoft_sharepoint_get_folder_contents': MicrosoftSharepointMicrosoftSharepointGetFolderContentsInput
+    'microsoft_sharepoint_get_site_information': MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput
+    'custom_api_call': MicrosoftSharepointCustomApiCallInput
+  }
   'microsoft-teams': {
     'microsoft_teams_create_channel': MicrosoftTeamsMicrosoftTeamsCreateChannelInput
     'microsoft_teams_send_channel_message': MicrosoftTeamsMicrosoftTeamsSendChannelMessageInput
@@ -10092,6 +13476,19 @@ export interface IntegrationActionInputsByIntegration {
     'request_approval_in_channel': MicrosoftTeamsRequestApprovalInChannelInput
     'request_approval_direct_message': MicrosoftTeamsRequestApprovalDirectMessageInput
     'custom_api_call': MicrosoftTeamsCustomApiCallInput
+  }
+  'microsoft-todo': {
+    'create_task': MicrosoftTodoCreateTaskInput
+    'create_task_list': MicrosoftTodoCreateTaskListInput
+    'update_task': MicrosoftTodoUpdateTaskInput
+    'update_task_list': MicrosoftTodoUpdateTaskListInput
+    'complete_task': MicrosoftTodoCompleteTaskInput
+    'delete_task': MicrosoftTodoDeleteTaskInput
+    'add_attachment': MicrosoftTodoAddAttachmentInput
+    'get_task': MicrosoftTodoGetTaskInput
+    'find_task_list_by_name': MicrosoftTodoFindTaskListByNameInput
+    'find_task_by_title': MicrosoftTodoFindTaskByTitleInput
+    'custom_api_call': MicrosoftTodoCustomApiCallInput
   }
   'mixpanel': {
     'track_event': MixpanelTrackEventInput
@@ -10151,6 +13548,14 @@ export interface IntegrationActionInputsByIntegration {
     'searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
     'subscribeCustomer': PaywhirlSubscribeCustomerInput
     'custom_api_call': PaywhirlCustomApiCallInput
+  }
+  'pinterest': {
+    'createPin': PinterestCreatePinInput
+    'createBoard': PinterestCreateBoardInput
+    'deletePin': PinterestDeletePinInput
+    'findBoardByName': PinterestFindBoardByNameInput
+    'findPin': PinterestFindPinInput
+    'updateBoard': PinterestUpdateBoardInput
   }
   'pipedrive': {
     'add-follower': PipedriveAddFollowerInput
@@ -10217,6 +13622,18 @@ export interface IntegrationActionInputsByIntegration {
   'razorpay': {
     'custom_api_call': RazorpayCustomApiCallInput
     'create-payment-link': RazorpayCreatePaymentLinkInput
+  }
+  'reddit': {
+    'retrieveRedditPost': RedditRetrieveRedditPostInput
+    'getRedditPostDetails': RedditGetRedditPostDetailsInput
+    'createRedditPost': RedditCreateRedditPostInput
+    'createRedditComment': RedditCreateRedditCommentInput
+    'fetchPostComments': RedditFetchPostCommentsInput
+    'editRedditPost': RedditEditRedditPostInput
+    'editRedditComment': RedditEditRedditCommentInput
+    'deleteRedditPost': RedditDeleteRedditPostInput
+    'deleteRedditComment': RedditDeleteRedditCommentInput
+    'custom_api_call': RedditCustomApiCallInput
   }
   'resend': {
     'send_email': ResendSendEmailInput
@@ -10316,6 +13733,17 @@ export interface IntegrationActionInputsByIntegration {
     'invite-user-to-channel': SlackInviteUserToChannelInput
     'custom_api_call': SlackCustomApiCallInput
   }
+  'smartsheet': {
+    'add_row_to_sheet': SmartsheetAddRowToSheetInput
+    'update_row': SmartsheetUpdateRowInput
+    'attach_file_to_row': SmartsheetAttachFileToRowInput
+    'find_rows_by_query': SmartsheetFindRowsByQueryInput
+    'find_attachment_by_row_id': SmartsheetFindAttachmentByRowIdInput
+    'find_sheet_by_name': SmartsheetFindSheetByNameInput
+  }
+  'smtp': {
+    'send-email': SmtpSendEmailInput
+  }
   'storage': {
     'read_file': StorageReadFileInput
     'write_file': StorageWriteFileInput
@@ -10380,8 +13808,17 @@ export interface IntegrationActionInputsByIntegration {
     'download_recording_media': TwilioDownloadRecordingMediaInput
     'custom_api_call': TwilioCustomApiCallInput
   }
+  'twitter': {
+    'create-tweet': TwitterCreateTweetInput
+    'create-reply': TwitterCreateReplyInput
+  }
   'typeform': {
     'custom_api_call': TypeformCustomApiCallInput
+  }
+  'whatsapp': {
+    'sendMessage': WhatsappSendMessageInput
+    'sendMedia': WhatsappSendMediaInput
+    'send-template-message': WhatsappSendTemplateMessageInput
   }
   'woocommerce': {
     'Create Customer': WoocommerceCreateCustomerInput
@@ -10390,6 +13827,17 @@ export interface IntegrationActionInputsByIntegration {
     'Find Customer': WoocommerceFindCustomerInput
     'Find Product': WoocommerceFindProductInput
     'custom_api_call': WoocommerceCustomApiCallInput
+  }
+  'wrike': {
+    'create_task': WrikeCreateTaskInput
+    'update_task': WrikeUpdateTaskInput
+    'create_folder': WrikeCreateFolderInput
+    'create_project': WrikeCreateProjectInput
+    'add_comment': WrikeAddCommentInput
+    'upload_attachment': WrikeUploadAttachmentInput
+    'find_task': WrikeFindTaskInput
+    'find_folder': WrikeFindFolderInput
+    'custom_api_call': WrikeCustomApiCallInput
   }
   'xero': {
     'xero_create_contact': XeroXeroCreateContactInput
@@ -10414,6 +13862,23 @@ export interface IntegrationActionInputsByIntegration {
     'xero_find_item': XeroXeroFindItemInput
     'xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
     'custom_api_call': XeroCustomApiCallInput
+  }
+  'youtube': {
+    'custom_api_call': YoutubeCustomApiCallInput
+  }
+  'zendesk': {
+    'create-ticket': ZendeskCreateTicketInput
+    'update-ticket': ZendeskUpdateTicketInput
+    'add-tag-to-ticket': ZendeskAddTagToTicketInput
+    'add-comment-to-ticket': ZendeskAddCommentToTicketInput
+    'create-organization': ZendeskCreateOrganizationInput
+    'update-organization': ZendeskUpdateOrganizationInput
+    'create-user': ZendeskCreateUserInput
+    'delete-user': ZendeskDeleteUserInput
+    'find-organization': ZendeskFindOrganizationInput
+    'find-tickets': ZendeskFindTicketsInput
+    'find-user': ZendeskFindUserInput
+    'custom_api_call': ZendeskCustomApiCallInput
   }
   'zoho-crm': {
     'read-file': ZohoCrmReadFileInput
