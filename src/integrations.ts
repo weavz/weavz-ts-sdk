@@ -5,6 +5,46 @@
 // Integration Action Input Types
 // ============================================================================
 
+/** AI Toolkit — Extract Structured Data */
+export interface AiToolkitExtractStructuredDataInput {
+  /** Text to extract data from */
+  text: string
+  /** Zod-compatible schema object defining the expected output structure (e.g., {"name": "string", "age": "number"}) */
+  schema: unknown
+  /** Optional additional context or instructions for the AI */
+  instructions?: string
+}
+
+/** AI Toolkit — Classify Text */
+export interface AiToolkitClassifyTextInput {
+  /** Text to classify */
+  text: string
+  /** Array of category labels (e.g., ["positive", "negative", "neutral"]) */
+  categories: unknown[]
+  /** Optional additional context or classification criteria */
+  instructions?: string
+}
+
+/** AI Toolkit — Transform Data */
+export interface AiToolkitTransformDataInput {
+  /** Data to transform (any JSON-serializable value) */
+  input: unknown
+  /** Natural language description of how to transform the data (e.g., "Convert all field names to camelCase", "Extract only users with status active") */
+  instructions: string
+  /** Optional Zod-compatible schema for the output (e.g., {"users": "array", "count": "number"}). If omitted, AI decides the structure. */
+  outputSchema?: unknown
+}
+
+/** AI Toolkit — Generate Text */
+export interface AiToolkitGenerateTextInput {
+  /** Text template or prompt (e.g., "Write a product description for {{productName}}") */
+  template: string
+  /** Context variables to fill into the template (e.g., {"productName": "Widget Pro", "features": ["Fast", "Reliable"]}) */
+  context?: unknown
+  /** Maximum length in characters (approximate). If omitted, AI decides length. */
+  maxLength?: number
+}
+
 /** Airtable — Create Airtable Record */
 export interface AirtableAirtableCreateRecordInput {
   /** Base (resolve via property options API) */
@@ -2011,6 +2051,84 @@ export interface CrispCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Data Transformer — Transform JSON */
+export interface DataTransformerTransformJsonInput {
+  /** Input JSON object to transform */
+  input: unknown
+  /** Mapping object where keys are output field names and values are JSONPath selectors (e.g., {"name": "$.user.firstName", "email": "$.user.email"}) */
+  mapping: unknown
+}
+
+/** Data Transformer — Merge Objects */
+export interface DataTransformerMergeObjectsInput {
+  /** Array of objects to merge */
+  objects: unknown[]
+  /** How to merge the objects (values: `deep`, `shallow`, `first`, `last`) */
+  strategy: "deep" | "shallow" | "first" | "last"
+}
+
+/** Data Transformer — Filter Array */
+export interface DataTransformerFilterArrayInput {
+  /** Array to filter */
+  array: unknown[]
+  /** Filter conditions as key-value pairs. Supports operators: $gt, $gte, $lt, $lte, $ne, $in, $nin (e.g., {"age": {"$gte": 18}, "status": "active"}) */
+  conditions: unknown
+}
+
+/** Data Transformer — Batch Array */
+export interface DataTransformerBatchArrayInput {
+  /** Array to batch */
+  array: unknown[]
+  /** Number of items per batch */
+  batchSize: number
+}
+
+/** Datetime — Parse Date */
+export interface DatetimeParseDateInput {
+  /** Date string to parse (supports ISO 8601, common formats, and timestamps) */
+  dateString: string
+  /** IANA timezone name (e.g., "America/New_York", "Europe/London", "UTC"). Defaults to UTC. */
+  timezone?: string
+}
+
+/** Datetime — Format Date */
+export interface DatetimeFormatDateInput {
+  /** Date to format (ISO 8601 string or timestamp) */
+  date: string
+  /** Output format preset (values: `iso`, `us`, `eu`, `long`, `short`, `time`, `datetime`, `relative`) */
+  format: "iso" | "us" | "eu" | "long" | "short" | "time" | "datetime" | "relative"
+  /** IANA timezone name (e.g., "America/New_York", "Europe/London", "UTC"). Defaults to UTC. */
+  timezone?: string
+}
+
+/** Datetime — Date Math */
+export interface DatetimeDateMathInput {
+  /** Starting date (ISO 8601 string or timestamp) */
+  date: string
+  /** Add or subtract (values: `add`, `subtract`) */
+  operation: "add" | "subtract"
+  /** Amount to add or subtract */
+  amount: number
+  /** Time unit (values: `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`) */
+  unit: "seconds" | "minutes" | "hours" | "days" | "weeks" | "months" | "years"
+  /** IANA timezone name (e.g., "America/New_York", "Europe/London", "UTC"). Defaults to UTC. */
+  timezone?: string
+}
+
+/** Datetime — Is Business Hours */
+export interface DatetimeIsBusinessHoursInput {
+  /** Date to check (ISO 8601 string or timestamp). Defaults to current time if omitted. */
+  date?: string
+  /** IANA timezone name (e.g., "America/New_York", "Europe/London", "UTC"). Defaults to UTC. */
+  timezone?: string
+  /** Business hours start (0-23, default: 9) */
+  startHour?: number
+  /** Business hours end (0-23, default: 17) */
+  endHour?: number
+  /** Array of work day numbers (0=Sunday, 1=Monday, ..., 6=Saturday). Defaults to Mon-Fri. */
+  workDays?: unknown[]
 }
 
 /** Discord — Send Message with Bot */
@@ -4209,6 +4327,38 @@ export interface GoogleTasksCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Hash & Encode — Hash */
+export interface HashEncodeHashInput {
+  /** Text to hash */
+  text: string
+  /** Hashing algorithm (values: `sha256`, `sha1`) */
+  algorithm: "sha256" | "sha1"
+  /** Output encoding (values: `hex`, `base64`) */
+  encoding: "hex" | "base64"
+}
+
+/** Hash & Encode — Encode */
+export interface HashEncodeEncodeInput {
+  /** Text to encode */
+  text: string
+  /** Output encoding (values: `base64`, `url`, `hex`) */
+  encoding: "base64" | "url" | "hex"
+}
+
+/** Hash & Encode — Decode */
+export interface HashEncodeDecodeInput {
+  /** Encoded text to decode */
+  encoded: string
+  /** Input encoding (values: `base64`, `url`, `hex`) */
+  encoding: "base64" | "url" | "hex"
+}
+
+/** Hash & Encode — Generate UUID */
+export interface HashEncodeGenerateUuidInput {
+  /** Number of UUIDs to generate (1-100, default: 1) */
+  count?: number
 }
 
 /** Help Scout — Create Conversation */
@@ -12037,6 +12187,10 @@ export interface ZohoCrmCustomApiCallInput {
 // ============================================================================
 
 export interface IntegrationActionInputMap {
+  'ai-toolkit.extract_structured_data': AiToolkitExtractStructuredDataInput
+  'ai-toolkit.classify_text': AiToolkitClassifyTextInput
+  'ai-toolkit.transform_data': AiToolkitTransformDataInput
+  'ai-toolkit.generate_text': AiToolkitGenerateTextInput
   'airtable.airtable_create_record': AirtableAirtableCreateRecordInput
   'airtable.airtable_find_record': AirtableAirtableFindRecordInput
   'airtable.airtable_update_record': AirtableAirtableUpdateRecordInput
@@ -12165,6 +12319,14 @@ export interface IntegrationActionInputMap {
   'crisp.find_conversation': CrispFindConversationInput
   'crisp.find_user_profile': CrispFindUserProfileInput
   'crisp.custom_api_call': CrispCustomApiCallInput
+  'data-transformer.transform_json': DataTransformerTransformJsonInput
+  'data-transformer.merge_objects': DataTransformerMergeObjectsInput
+  'data-transformer.filter_array': DataTransformerFilterArrayInput
+  'data-transformer.batch_array': DataTransformerBatchArrayInput
+  'datetime.parse_date': DatetimeParseDateInput
+  'datetime.format_date': DatetimeFormatDateInput
+  'datetime.date_math': DatetimeDateMathInput
+  'datetime.is_business_hours': DatetimeIsBusinessHoursInput
   'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
   'discord.send_message_webhook': DiscordSendMessageWebhookInput
   'discord.request_approval_message': DiscordRequestApprovalMessageInput
@@ -12325,6 +12487,10 @@ export interface IntegrationActionInputMap {
   'google-sheets.custom_api_call': GoogleSheetsCustomApiCallInput
   'google-tasks.add_task': GoogleTasksAddTaskInput
   'google-tasks.custom_api_call': GoogleTasksCustomApiCallInput
+  'hash-encode.hash': HashEncodeHashInput
+  'hash-encode.encode': HashEncodeEncodeInput
+  'hash-encode.decode': HashEncodeDecodeInput
+  'hash-encode.generate_uuid': HashEncodeGenerateUuidInput
   'help-scout.create_conversation': HelpScoutCreateConversationInput
   'help-scout.send_reply': HelpScoutSendReplyInput
   'help-scout.add_note': HelpScoutAddNoteInput
@@ -12873,6 +13039,12 @@ export interface IntegrationActionInputMap {
 }
 
 export interface IntegrationActionInputsByIntegration {
+  'ai-toolkit': {
+    'extract_structured_data': AiToolkitExtractStructuredDataInput
+    'classify_text': AiToolkitClassifyTextInput
+    'transform_data': AiToolkitTransformDataInput
+    'generate_text': AiToolkitGenerateTextInput
+  }
   'airtable': {
     'airtable_create_record': AirtableAirtableCreateRecordInput
     'airtable_find_record': AirtableAirtableFindRecordInput
@@ -13028,6 +13200,18 @@ export interface IntegrationActionInputsByIntegration {
     'find_conversation': CrispFindConversationInput
     'find_user_profile': CrispFindUserProfileInput
     'custom_api_call': CrispCustomApiCallInput
+  }
+  'data-transformer': {
+    'transform_json': DataTransformerTransformJsonInput
+    'merge_objects': DataTransformerMergeObjectsInput
+    'filter_array': DataTransformerFilterArrayInput
+    'batch_array': DataTransformerBatchArrayInput
+  }
+  'datetime': {
+    'parse_date': DatetimeParseDateInput
+    'format_date': DatetimeFormatDateInput
+    'date_math': DatetimeDateMathInput
+    'is_business_hours': DatetimeIsBusinessHoursInput
   }
   'discord': {
     'sendMessageWithBot': DiscordSendMessageWithBotInput
@@ -13224,6 +13408,12 @@ export interface IntegrationActionInputsByIntegration {
   'google-tasks': {
     'add_task': GoogleTasksAddTaskInput
     'custom_api_call': GoogleTasksCustomApiCallInput
+  }
+  'hash-encode': {
+    'hash': HashEncodeHashInput
+    'encode': HashEncodeEncodeInput
+    'decode': HashEncodeDecodeInput
+    'generate_uuid': HashEncodeGenerateUuidInput
   }
   'help-scout': {
     'create_conversation': HelpScoutCreateConversationInput
