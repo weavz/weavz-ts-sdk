@@ -767,6 +767,30 @@ export interface BlueskyFindThreadInput {
   parentHeight?: "0" | "1" | "2" | "3" | "5" | "10" | "20" | "80"
 }
 
+/** Calendly — Custom API Call */
+export interface CalendlyCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** ClickUp — Create Task */
 export interface ClickupCreateTaskInput {
   /** The ID of the ClickUp workspace (resolve via property options API) */
@@ -2083,6 +2107,52 @@ export interface DataTransformerBatchArrayInput {
   array: unknown[]
   /** Number of items per batch */
   batchSize: number
+}
+
+/** Datadog — Send Multiple logs */
+export interface DatadogSendMultipleLogsInput {
+  /** Logs to send to Datadog, must contain a `logs` key with an array of objects. Documentation: https://docs.datadoghq.com/api/latest/logs/#send-logs */
+  body: unknown
+}
+
+/** Datadog — Send One log */
+export interface DatadogSendOneLogInput {
+  /** The message to send to Datadog */
+  message: string
+  /** The DD source to send to Datadog */
+  ddsource?: string
+  /** The DD tags to send to Datadog, comma separated */
+  ddtags?: string
+  /** The hostname to send to Datadog */
+  hostname?: string
+  /** The service to send to Datadog */
+  service?: string
+  /** Additional properties to send to Datadog, in key-value pairs like status, level, etc. */
+  additionalProperties?: unknown
+}
+
+/** Datadog — Custom API Call */
+export interface DatadogCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Datetime — Parse Date */
@@ -7694,6 +7764,169 @@ export interface MondayMondayUploadFileToColumnInput {
   file_name: string
 }
 
+/** MongoDB — Find Documents */
+export interface MongodbFindDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** MongoDB query to filter documents (e.g., {"status": "active"}) */
+  query?: unknown
+  /** Fields to include or exclude (e.g., {"name": 1, "_id": 0}) */
+  projection?: unknown
+  /** Sort criteria (e.g., {"createdAt": -1}) */
+  sort?: unknown
+  /** Maximum number of documents to return */
+  limit?: number
+  /** Number of documents to skip */
+  skip?: number
+}
+
+/** MongoDB — Insert Documents */
+export interface MongodbInsertDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** Document(s) to insert. Can be a single document object or an array of documents. */
+  documents: unknown
+}
+
+/** MongoDB — Update Documents */
+export interface MongodbUpdateDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** MongoDB query to select documents to update (e.g., {"status": "pending"}) */
+  filter: unknown
+  /** MongoDB update operations (e.g., {"$set": {"status": "completed"}}) */
+  update: unknown
+  /** Insert a document if no documents match the filter */
+  upsert?: boolean
+}
+
+/** MongoDB — Delete Documents */
+export interface MongodbDeleteDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** MongoDB query to select documents to delete (e.g., {"status": "archived"}) */
+  filter: unknown
+}
+
+/** MongoDB — Find and Update Documents */
+export interface MongodbFindAndUpdateDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** MongoDB query to select documents to update (e.g., {"status": "pending"}) */
+  filter: unknown
+  /** MongoDB update operations (e.g., {"$set": {"status": "completed"}}) */
+  update: unknown
+  /** Insert a document if no documents match the filter */
+  upsert?: boolean
+  /** Return the documents after updates are applied */
+  returnUpdated?: boolean
+}
+
+/** MongoDB — Find and Replace Documents */
+export interface MongodbFindAndReplaceDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** MongoDB query to select documents to replace (e.g., {"_id": "123"}) */
+  filter: unknown
+  /** New document that will replace the matched documents */
+  replacement: unknown
+  /** Insert the document if no documents match the filter */
+  upsert?: boolean
+  /** Which version of the document to return (values: `before`, `after`) */
+  returnDocument?: "before" | "after"
+}
+
+/** MongoDB — Aggregate Documents */
+export interface MongodbAggregateDocumentsInput {
+  /** The MongoDB database to connect to (from your authentication) */
+  database?: string
+  /** Collection (resolve via property options API) */
+  collection: string
+  /** Array of aggregation stages (e.g., [{"$match": {"status": "active"}}, {"$group": {"_id": "$category", "count": {"$sum": 1}}}]) */
+  pipeline: unknown
+}
+
+/** MySQL — Find Rows */
+export interface MysqlFindRowsInput {
+  /**    **DO NOT** use dynamic input directly in the query string or column names.       Use **?** in the query and dynamic values in args/values for parameterized queries to prevent **SQL injection**. */
+  markdown?: string
+  /** Timezone for the MySQL server to use */
+  timezone?: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** SQL condition, can also include logic operators, etc. */
+  condition: string
+  /** Arguments can be used using ? in the condition */
+  args?: unknown[]
+  /** Specify the columns you want to select */
+  columns?: unknown[]
+}
+
+/** MySQL — Insert Row */
+export interface MysqlInsertRowInput {
+  /** Timezone for the MySQL server to use */
+  timezone?: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** Values */
+  values: Record<string, unknown>
+}
+
+/** MySQL — Update Row */
+export interface MysqlUpdateRowInput {
+  /** Timezone for the MySQL server to use */
+  timezone?: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** Values */
+  values: Record<string, unknown>
+  /** Search Column */
+  search_column: string
+  /** Search Value */
+  search_value: string
+}
+
+/** MySQL — Delete Row */
+export interface MysqlDeleteRowInput {
+  /**    **DO NOT** use dynamic input directly in the query string or column names.       Use **?** in the query and dynamic values in args/values for parameterized queries to prevent **SQL injection**. */
+  markdown?: string
+  /** Timezone for the MySQL server to use */
+  timezone?: string
+  /** Table (resolve via property options API) */
+  table: string
+  /** Search Column */
+  search_column: string
+  /** Search Value */
+  search_value: string
+}
+
+/** MySQL — Get Tables */
+export type MysqlGetTablesInput = Record<string, never>
+
+/** MySQL — Execute Query */
+export interface MysqlExecuteQueryInput {
+  /**    **DO NOT** use dynamic input directly in the query string or column names.       Use **?** in the query and dynamic values in args/values for parameterized queries to prevent **SQL injection**. */
+  markdown?: string
+  /** Timezone for the MySQL server to use */
+  timezone?: string
+  /** The query string to execute, use ? for arguments to avoid SQL injection. */
+  query: string
+  /** Arguments to use in the query, if any. Should be in the same order as the ? in the query string.. */
+  args?: unknown[]
+}
+
 /** Notion — Create Database Item */
 export interface NotionCreateDatabaseItemInput {
   /** Choose the Notion database you want to work with from your workspace (resolve via property options API) */
@@ -8822,6 +9055,22 @@ export interface PlausibleRemoveGuestInput {
   site_id: string
   /** Select a guest (resolve via property options API) */
   email: string
+}
+
+/** Postgres — Run Query */
+export interface PostgresRunQueryInput {
+  /**        **DO NOT** insert dynamic input directly into the query string. Instead, use $1, $2, $3 and add them in args for parameterized queries to prevent **SQL injection.** */
+  markdown?: string
+  /** Please use $1, $2, etc. for parameterized queries to avoid SQL injection. */
+  query: string
+  /** Arguments to be used in the query */
+  args?: unknown[]
+  /** An integer indicating the maximum number of milliseconds to wait for a query to complete before timing out. */
+  query_timeout?: number
+  /** An integer indicating the maximum number of milliseconds to wait for a connection to be established before timing out. */
+  connection_timeout_ms?: number
+  /** A string indicating the name of the client application connecting to the server. */
+  application_name?: string
 }
 
 /** PostHog — Create Event */
@@ -10308,6 +10557,213 @@ export interface SmtpSendEmailInput {
   attachments?: Array<{   file: string;   name?: string }>
 }
 
+/** Spotify — Search */
+export interface SpotifySearchInput {
+  /** The word or phrase you are searching for */
+  search_text: string
+  /** Object Types */
+  types: string[]
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Spotify — Get Playback State */
+export type SpotifyGetPlaybackStateInput = Record<string, never>
+
+/** Spotify — Play / Resume */
+export interface SpotifyPlayInput {
+  /** Device (resolve via property options API) */
+  device_id?: string
+  /** Spotify URI of the context to play (album, artist, playlist) */
+  context_uri?: string
+  /** List of spotify track uris to play */
+  tracks?: unknown[]
+  /** Position in milliseconds */
+  position_ms?: number
+}
+
+/** Spotify — Pause */
+export interface SpotifyPauseInput {
+  /** Device (resolve via property options API) */
+  device_id?: string
+}
+
+/** Spotify — Set Volume */
+export interface SpotifySetVolumeInput {
+  /** Volume from 0 to 100 */
+  volume: number
+  /** Device (resolve via property options API) */
+  device_id?: string
+}
+
+/** Spotify — Get Playlists */
+export interface SpotifyGetPlaylistsInput {
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** Fetches all playlists in a single request */
+  all?: boolean
+}
+
+/** Spotify — Get Playlist Info */
+export interface SpotifyGetPlaylistInfoInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+}
+
+/** Spotify — Get Playlist Items */
+export interface SpotifyGetPlaylistItemsInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** Fetches all items in a single request */
+  all?: boolean
+}
+
+/** Spotify — Get Saved Tracks */
+export interface SpotifyGetSavedTracksInput {
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** Fetches all items in a single request */
+  all?: boolean
+}
+
+/** Spotify — Create Playlist */
+export interface SpotifyCreatePlaylistInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Public */
+  public?: boolean
+  /** Collaborative */
+  collaborative?: boolean
+}
+
+/** Spotify — Update Playlist */
+export interface SpotifyUpdatePlaylistInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Public */
+  public?: boolean
+  /** Collaborative */
+  collaborative?: boolean
+}
+
+/** Spotify — Add items to playlist */
+export interface SpotifyAddPlaylistItemsInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+  /** URI's of the items to add */
+  items: unknown[]
+  /** Position */
+  position?: number
+}
+
+/** Spotify — Remove items from playlist */
+export interface SpotifyRemovePlaylistItemsInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+  /** URI's of the items to remove */
+  items: unknown[]
+}
+
+/** Spotify — Reorder playlist */
+export interface SpotifyReorderPlaylistInput {
+  /** Playlist (resolve via property options API) */
+  playlist_id: string
+  /** From Position */
+  from_position: number
+  /** To Position */
+  to_position: number
+  /** Amount of Items */
+  amount?: number
+}
+
+/** Spotify — Custom API Call */
+export interface SpotifyCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Stability AI — Text to Image */
+export interface StabilityAiTextToImageInput {
+  /** The text to transform in image. */
+  prompt: string
+  /** How strictly the diffusion process adheres to the prompt text (higher values keep your image closer to your prompt) (MIN:0; MAX:35) */
+  cfg_scale?: number
+  /** Height of the image in pixels. Must be in increments of 64 and >= 128 */
+  height?: number
+  /** Width of the image in pixels. Must be in increments of 64 and >= 128 */
+  width?: number
+  /** Number of images to generate (MAX:10) */
+  samples?: string
+  /** Number of diffusion steps to run (MIN:10; MAX:150) */
+  steps?: number
+  /** weight */
+  weight?: number
+  /** clip_guidance_preset (values: `NONE`, `FAST_BLUE`, `FAST_GREEN`, `SIMPLE`, `SLOW`, `SLOWER`, `SLOWEST`) */
+  clip_guidance_preset?: "NONE" | "FAST_BLUE" | "FAST_GREEN" | "SIMPLE" | "SLOW" | "SLOWER" | "SLOWEST"
+  /** Pass in a style preset to guide the image model towards a particular style. */
+  style_preset?: "enhance" | "anime" | "photographic" | "digital-art" | "comic-book" | "fantasy-art" | "line-art" | "analog-film" | "neon-punk" | "isometric" | "low-poly" | "origami" | "modeling-compound" | "cinematic" | "3d-model" | "pixel-art" | "tile-texture"
+  /** Engine ID (values: `stable-diffusion-xl-1024-v1-0`, `stable-diffusion-768-v2-1`, `stable-diffusion-512-v2-1`, `stable-diffusion-768-v2-0`, `stable-diffusion-512-v2-0`, `stable-diffusion-v1-5`, `stable-diffusion-v1`) */
+  engine_id: "stable-diffusion-xl-1024-v1-0" | "stable-diffusion-768-v2-1" | "stable-diffusion-512-v2-1" | "stable-diffusion-768-v2-0" | "stable-diffusion-512-v2-0" | "stable-diffusion-v1-5" | "stable-diffusion-v1"
+}
+
+/** Stability AI — Custom API Call */
+export interface StabilityAiCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Storage — Read File */
 export interface StorageReadFileInput {
   /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
@@ -10568,6 +11024,118 @@ export interface StripeFindInvoiceInput {
 
 /** Stripe — Custom API Call */
 export interface StripeCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Supabase — Upload File */
+export interface SupabaseUploadFileInput {
+  /** File path */
+  filePath: string
+  /** Bucket */
+  bucket: string
+  /** Base64 or URL */
+  file: string
+}
+
+/** Supabase — Create Row */
+export interface SupabaseCreateRowInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+  /** Enter the data for each column */
+  row_data: Record<string, unknown>
+  /** Whether to return the created row */
+  return_row?: boolean
+}
+
+/** Supabase — Update Row */
+export interface SupabaseUpdateRowInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+  /** How to identify rows to update (values: `eq`, `in`, `gt`) */
+  filter_type: "eq" | "in" | "gt"
+  /** Select the column to filter on (resolve via property options API) */
+  filter_column: string
+  /** The value to match against (not used for "in list" filter) */
+  filter_value?: string
+  /** List of values for "in list" filter type */
+  filter_values?: unknown[]
+  /** Select which columns to update (auto-generated fields excluded) */
+  update_data: Record<string, unknown>
+  /** Whether to count the number of updated rows */
+  count_updated?: boolean
+  /** Whether to return the updated rows data */
+  return_updated?: boolean
+}
+
+/** Supabase — Upsert Row */
+export interface SupabaseUpsertRowInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+  /** Select the unique column to determine duplicates (required for upsert to work) (resolve via property options API) */
+  on_conflict: string
+  /** Enter data for the row (conflict detection handled separately) */
+  row_data: Record<string, unknown>
+  /** Whether to count the number of upserted rows */
+  count_upserted?: boolean
+  /** Whether to return the upserted rows data */
+  return_upserted?: boolean
+}
+
+/** Supabase — Delete Rows */
+export interface SupabaseDeleteRowsInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+  /** How to filter rows for deletion */
+  filter_type: "eq" | "neq" | "in" | "gt" | "gte" | "lt" | "lte" | "is_null" | "is_not_null" | "like" | "ilike"
+  /** Select the column to filter on (resolve via property options API) */
+  filter_column: string
+  /** The value to match against (not used for null checks) */
+  filter_value?: string
+  /** List of values for "in" filter type */
+  filter_values?: unknown[]
+  /** Whether to count the number of deleted rows */
+  count_deleted?: boolean
+  /** Whether to return the deleted rows data */
+  return_deleted?: boolean
+}
+
+/** Supabase — Search Rows */
+export interface SupabaseSearchRowsInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+  /** Columns to return (comma-separated). Leave empty to return all columns. */
+  columns?: string
+  /** List of filters to apply */
+  filters?: Array<{   field: string;   operator: "eq" | "neq" | "gt" | "gte" | "lt" | "lte" | "like" | "ilike" | "is" | "in" | "contains" | "containedBy";   value: string }>
+  /** Page number for pagination (starts from 1) */
+  page?: number
+  /** Number of records per page (max 1000) */
+  pageSize?: number
+  /** Algorithm to use for counting rows (values: `exact`, `planned`, `estimated`) */
+  countOption?: "exact" | "planned" | "estimated"
+}
+
+/** Supabase — Custom API Call */
+export interface SupabaseCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -11118,6 +11686,118 @@ export interface WoocommerceFindProductInput {
 
 /** WooCommerce — Custom API Call */
 export interface WoocommerceCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** WordPress — Create Post */
+export interface WordpressCreatePostInput {
+  /** Title of the post about to be added */
+  title: string
+  /** Uses the WordPress Text Editor which supports HTML */
+  content: string
+  /** Slug */
+  slug?: string
+  /** Post publish date (ISO-8601) */
+  date?: string
+  /** URL of featured media */
+  featured_media_file?: string
+  /** Post tags */
+  tags?: string[]
+  /** Provide field name with value.You can find out field name from ACF plugin menu. */
+  acfFields?: Record<string, unknown>
+  /** Post categories */
+  categories?: string[]
+  /** Choose from one of your uploaded media files (resolve via property options API) */
+  featured_media?: string
+  /** Choose post status (values: `publish`, `future`, `draft`, `pending`, `private`, `trash`) */
+  status?: "publish" | "future" | "draft" | "pending" | "private" | "trash"
+  /** Uses the WordPress Text Editor which supports HTML */
+  excerpt?: string
+  /** Enable Comments */
+  comment_status?: boolean
+  /** Open to Pinging */
+  ping_status?: boolean
+}
+
+/** WordPress — Create Page */
+export interface WordpressCreatePageInput {
+  /** Title of the page about to be added */
+  title: string
+  /** Uses the WordPress Text Editor which supports HTML */
+  content: string
+  /** Slug */
+  slug?: string
+  /** Page publish date (ISO-8601) */
+  date?: string
+  /** Choose status (values: `publish`, `future`, `draft`, `pending`, `private`) */
+  status?: "publish" | "future" | "draft" | "pending" | "private"
+  /** Uses the WordPress Text Editor which supports HTML */
+  excerpt?: string
+  /** Enable Comments */
+  comment_status?: boolean
+  /** Open to Pinging */
+  ping_status?: boolean
+}
+
+/** WordPress — Update Post */
+export interface WordpressUpdatePostInput {
+  /** Post (resolve via property options API) */
+  post: string
+  /** Title of the post about to be added */
+  title?: string
+  /** Uses the WordPress Text Editor which supports HTML */
+  content?: string
+  /** Slug */
+  slug?: string
+  /** Post publish date (ISO-8601) */
+  date?: string
+  /** URL of featured media */
+  featured_media_file?: string
+  /** Post tags */
+  tags?: string[]
+  /** Provide field name with value.You can find out field name from ACF plugin menu. */
+  acfFields?: Record<string, unknown>
+  /** Post categories */
+  categories?: string[]
+  /** Choose from one of your uploaded media files (resolve via property options API) */
+  featured_media?: string
+  /** Choose post status (values: `publish`, `future`, `draft`, `pending`, `private`, `trash`) */
+  status?: "publish" | "future" | "draft" | "pending" | "private" | "trash"
+  /** Uses the WordPress Text Editor which supports HTML */
+  excerpt?: string
+  /** Enable Comments */
+  comment_status?: boolean
+  /** Open to Pinging */
+  ping_status?: boolean
+}
+
+/** WordPress — Get Post Details */
+export interface WordpressGetPostInput {
+  /** The ID of the post to get */
+  id: number
+}
+
+/** WordPress — Custom API Call */
+export interface WordpressCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -12243,6 +12923,7 @@ export interface IntegrationActionInputMap {
   'bluesky.repostPost': BlueskyRepostPostInput
   'bluesky.findPost': BlueskyFindPostInput
   'bluesky.findThread': BlueskyFindThreadInput
+  'calendly.custom_api_call': CalendlyCustomApiCallInput
   'clickup.create_task': ClickupCreateTaskInput
   'clickup.create_task_from_template': ClickupCreateTaskFromTemplateInput
   'clickup.create_folderless_list': ClickupCreateFolderlessListInput
@@ -12323,6 +13004,9 @@ export interface IntegrationActionInputMap {
   'data-transformer.merge_objects': DataTransformerMergeObjectsInput
   'data-transformer.filter_array': DataTransformerFilterArrayInput
   'data-transformer.batch_array': DataTransformerBatchArrayInput
+  'datadog.sendMultipleLogs': DatadogSendMultipleLogsInput
+  'datadog.sendOneLog': DatadogSendOneLogInput
+  'datadog.custom_api_call': DatadogCustomApiCallInput
   'datetime.parse_date': DatetimeParseDateInput
   'datetime.format_date': DatetimeFormatDateInput
   'datetime.date_math': DatetimeDateMathInput
@@ -12735,6 +13419,19 @@ export interface IntegrationActionInputMap {
   'monday.monday_update_column_values_of_item': MondayMondayUpdateColumnValuesOfItemInput
   'monday.monday_update_item_name': MondayMondayUpdateItemNameInput
   'monday.monday_upload_file_to_column': MondayMondayUploadFileToColumnInput
+  'mongodb.find_documents': MongodbFindDocumentsInput
+  'mongodb.insert_documents': MongodbInsertDocumentsInput
+  'mongodb.update_documents': MongodbUpdateDocumentsInput
+  'mongodb.delete_documents': MongodbDeleteDocumentsInput
+  'mongodb.find_and_update_documents': MongodbFindAndUpdateDocumentsInput
+  'mongodb.find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
+  'mongodb.aggregate_documents': MongodbAggregateDocumentsInput
+  'mysql.find_rows': MysqlFindRowsInput
+  'mysql.insert_row': MysqlInsertRowInput
+  'mysql.update_row': MysqlUpdateRowInput
+  'mysql.delete_row': MysqlDeleteRowInput
+  'mysql.get_tables': MysqlGetTablesInput
+  'mysql.execute_query': MysqlExecuteQueryInput
   'notion.create_database_item': NotionCreateDatabaseItemInput
   'notion.update_database_item': NotionUpdateDatabaseItemInput
   'notion.notion-find-database-item': NotionNotionFindDatabaseItemInput
@@ -12814,6 +13511,7 @@ export interface IntegrationActionInputMap {
   'plausible.list_guests': PlausibleListGuestsInput
   'plausible.invite_guest': PlausibleInviteGuestInput
   'plausible.remove_guest': PlausibleRemoveGuestInput
+  'postgres.run-query': PostgresRunQueryInput
   'posthog.create_event': PosthogCreateEventInput
   'posthog.create_project': PosthogCreateProjectInput
   'posthog.custom_api_call': PosthogCustomApiCallInput
@@ -12928,6 +13626,23 @@ export interface IntegrationActionInputMap {
   'smartsheet.find_attachment_by_row_id': SmartsheetFindAttachmentByRowIdInput
   'smartsheet.find_sheet_by_name': SmartsheetFindSheetByNameInput
   'smtp.send-email': SmtpSendEmailInput
+  'spotify.search': SpotifySearchInput
+  'spotify.get_playback_state': SpotifyGetPlaybackStateInput
+  'spotify.play': SpotifyPlayInput
+  'spotify.pause': SpotifyPauseInput
+  'spotify.set_volume': SpotifySetVolumeInput
+  'spotify.get_playlists': SpotifyGetPlaylistsInput
+  'spotify.get_playlist_info': SpotifyGetPlaylistInfoInput
+  'spotify.get_playlist_items': SpotifyGetPlaylistItemsInput
+  'spotify.get_saved_tracks': SpotifyGetSavedTracksInput
+  'spotify.create_playlist': SpotifyCreatePlaylistInput
+  'spotify.update_playlist': SpotifyUpdatePlaylistInput
+  'spotify.add_playlist_items': SpotifyAddPlaylistItemsInput
+  'spotify.remove_playlist_items': SpotifyRemovePlaylistItemsInput
+  'spotify.reorder_playlist': SpotifyReorderPlaylistInput
+  'spotify.custom_api_call': SpotifyCustomApiCallInput
+  'stability-ai.text-to-image': StabilityAiTextToImageInput
+  'stability-ai.custom_api_call': StabilityAiCustomApiCallInput
   'storage.read_file': StorageReadFileInput
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
@@ -12951,6 +13666,13 @@ export interface IntegrationActionInputMap {
   'stripe.retrieve_payment_intent': StripeRetrievePaymentIntentInput
   'stripe.find_invoice': StripeFindInvoiceInput
   'stripe.custom_api_call': StripeCustomApiCallInput
+  'supabase.upload-file': SupabaseUploadFileInput
+  'supabase.create_row': SupabaseCreateRowInput
+  'supabase.update_row': SupabaseUpdateRowInput
+  'supabase.upsert_row': SupabaseUpsertRowInput
+  'supabase.delete_rows': SupabaseDeleteRowsInput
+  'supabase.search_rows': SupabaseSearchRowsInput
+  'supabase.custom_api_call': SupabaseCustomApiCallInput
   'surveymonkey.custom_api_call': SurveymonkeyCustomApiCallInput
   'telegram-bot.send_text_message': TelegramBotSendTextMessageInput
   'telegram-bot.send_media': TelegramBotSendMediaInput
@@ -12990,6 +13712,11 @@ export interface IntegrationActionInputMap {
   'woocommerce.Find Customer': WoocommerceFindCustomerInput
   'woocommerce.Find Product': WoocommerceFindProductInput
   'woocommerce.custom_api_call': WoocommerceCustomApiCallInput
+  'wordpress.create_post': WordpressCreatePostInput
+  'wordpress.create_page': WordpressCreatePageInput
+  'wordpress.update_post': WordpressUpdatePostInput
+  'wordpress.get_post': WordpressGetPostInput
+  'wordpress.custom_api_call': WordpressCustomApiCallInput
   'wrike.create_task': WrikeCreateTaskInput
   'wrike.update_task': WrikeUpdateTaskInput
   'wrike.create_folder': WrikeCreateFolderInput
@@ -13111,6 +13838,9 @@ export interface IntegrationActionInputsByIntegration {
     'findPost': BlueskyFindPostInput
     'findThread': BlueskyFindThreadInput
   }
+  'calendly': {
+    'custom_api_call': CalendlyCustomApiCallInput
+  }
   'clickup': {
     'create_task': ClickupCreateTaskInput
     'create_task_from_template': ClickupCreateTaskFromTemplateInput
@@ -13206,6 +13936,11 @@ export interface IntegrationActionInputsByIntegration {
     'merge_objects': DataTransformerMergeObjectsInput
     'filter_array': DataTransformerFilterArrayInput
     'batch_array': DataTransformerBatchArrayInput
+  }
+  'datadog': {
+    'sendMultipleLogs': DatadogSendMultipleLogsInput
+    'sendOneLog': DatadogSendOneLogInput
+    'custom_api_call': DatadogCustomApiCallInput
   }
   'datetime': {
     'parse_date': DatetimeParseDateInput
@@ -13705,6 +14440,23 @@ export interface IntegrationActionInputsByIntegration {
     'monday_update_item_name': MondayMondayUpdateItemNameInput
     'monday_upload_file_to_column': MondayMondayUploadFileToColumnInput
   }
+  'mongodb': {
+    'find_documents': MongodbFindDocumentsInput
+    'insert_documents': MongodbInsertDocumentsInput
+    'update_documents': MongodbUpdateDocumentsInput
+    'delete_documents': MongodbDeleteDocumentsInput
+    'find_and_update_documents': MongodbFindAndUpdateDocumentsInput
+    'find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
+    'aggregate_documents': MongodbAggregateDocumentsInput
+  }
+  'mysql': {
+    'find_rows': MysqlFindRowsInput
+    'insert_row': MysqlInsertRowInput
+    'update_row': MysqlUpdateRowInput
+    'delete_row': MysqlDeleteRowInput
+    'get_tables': MysqlGetTablesInput
+    'execute_query': MysqlExecuteQueryInput
+  }
   'notion': {
     'create_database_item': NotionCreateDatabaseItemInput
     'update_database_item': NotionUpdateDatabaseItemInput
@@ -13795,6 +14547,9 @@ export interface IntegrationActionInputsByIntegration {
     'list_guests': PlausibleListGuestsInput
     'invite_guest': PlausibleInviteGuestInput
     'remove_guest': PlausibleRemoveGuestInput
+  }
+  'postgres': {
+    'run-query': PostgresRunQueryInput
   }
   'posthog': {
     'create_event': PosthogCreateEventInput
@@ -13934,6 +14689,27 @@ export interface IntegrationActionInputsByIntegration {
   'smtp': {
     'send-email': SmtpSendEmailInput
   }
+  'spotify': {
+    'search': SpotifySearchInput
+    'get_playback_state': SpotifyGetPlaybackStateInput
+    'play': SpotifyPlayInput
+    'pause': SpotifyPauseInput
+    'set_volume': SpotifySetVolumeInput
+    'get_playlists': SpotifyGetPlaylistsInput
+    'get_playlist_info': SpotifyGetPlaylistInfoInput
+    'get_playlist_items': SpotifyGetPlaylistItemsInput
+    'get_saved_tracks': SpotifyGetSavedTracksInput
+    'create_playlist': SpotifyCreatePlaylistInput
+    'update_playlist': SpotifyUpdatePlaylistInput
+    'add_playlist_items': SpotifyAddPlaylistItemsInput
+    'remove_playlist_items': SpotifyRemovePlaylistItemsInput
+    'reorder_playlist': SpotifyReorderPlaylistInput
+    'custom_api_call': SpotifyCustomApiCallInput
+  }
+  'stability-ai': {
+    'text-to-image': StabilityAiTextToImageInput
+    'custom_api_call': StabilityAiCustomApiCallInput
+  }
   'storage': {
     'read_file': StorageReadFileInput
     'write_file': StorageWriteFileInput
@@ -13960,6 +14736,15 @@ export interface IntegrationActionInputsByIntegration {
     'retrieve_payment_intent': StripeRetrievePaymentIntentInput
     'find_invoice': StripeFindInvoiceInput
     'custom_api_call': StripeCustomApiCallInput
+  }
+  'supabase': {
+    'upload-file': SupabaseUploadFileInput
+    'create_row': SupabaseCreateRowInput
+    'update_row': SupabaseUpdateRowInput
+    'upsert_row': SupabaseUpsertRowInput
+    'delete_rows': SupabaseDeleteRowsInput
+    'search_rows': SupabaseSearchRowsInput
+    'custom_api_call': SupabaseCustomApiCallInput
   }
   'surveymonkey': {
     'custom_api_call': SurveymonkeyCustomApiCallInput
@@ -14017,6 +14802,13 @@ export interface IntegrationActionInputsByIntegration {
     'Find Customer': WoocommerceFindCustomerInput
     'Find Product': WoocommerceFindProductInput
     'custom_api_call': WoocommerceCustomApiCallInput
+  }
+  'wordpress': {
+    'create_post': WordpressCreatePostInput
+    'create_page': WordpressCreatePageInput
+    'update_post': WordpressUpdatePostInput
+    'get_post': WordpressGetPostInput
+    'custom_api_call': WordpressCustomApiCallInput
   }
   'wrike': {
     'create_task': WrikeCreateTaskInput
