@@ -167,6 +167,110 @@ export interface AirtableCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Apollo — Match Person */
+export interface ApolloMatchPersonInput {
+  /**  The email address of the person to be matched */
+  email: string
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — Enrich Company */
+export interface ApolloEnrichCompanyInput {
+  /** Domain */
+  domain: string
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — News Articles Search */
+export interface ApolloNewsArticlesSearchInput {
+  /** The Apollo IDs for the companies you want to include in your search results. To find IDs, call the Organization Search endpoint. */
+  organization_ids: unknown[]
+  /** Filter your search to include only certain categories or sub-categories of news (e.g., hires, investment, contract) */
+  categories?: unknown[]
+  /** Lower bound of the date range (YYYY-MM-DD format) */
+  published_at_min?: string
+  /** Upper bound of the date range (YYYY-MM-DD format) */
+  published_at_max?: string
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — Organization Job Postings */
+export interface ApolloOrganizationJobPostingsInput {
+  /** The Apollo ID of the organization to get job postings for */
+  organization_id: string
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — Organization Search */
+export interface ApolloOrganizationSearchInput {
+  /** Search by organization name */
+  q_organization_name?: string
+  /** Filter by locations (e.g., texas, tokyo) */
+  organization_locations?: unknown[]
+  /** Exclude specific locations (e.g., minnesota) */
+  organization_not_locations?: unknown[]
+  /** Filter by employee count ranges (e.g., "1,10", "250,500") */
+  organization_num_employees_ranges?: unknown[]
+  /** Filter by specific organization IDs */
+  organization_ids?: unknown[]
+  /** Filter by organization domains */
+  q_organization_domains?: unknown[]
+  /** Filter by industry tag IDs */
+  organization_industry_tag_ids?: unknown[]
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — People Search */
+export interface ApolloPeopleSearchInput {
+  /** Search keywords for people */
+  q_keywords?: string
+  /** Filter by job titles (e.g., "CEO", "Sales Manager") */
+  person_titles?: unknown[]
+  /** Filter by person locations */
+  person_locations?: unknown[]
+  /** Filter by seniority levels (e.g., "senior", "manager", "director") */
+  person_seniorities?: unknown[]
+  /** Filter by specific organization IDs */
+  organization_ids?: unknown[]
+  /** Filter by organization employee count ranges (e.g., "1,10", "250,500") */
+  organization_num_employees_ranges?: unknown[]
+  /** Filter by organization domains */
+  q_organization_domains?: unknown[]
+  /** Filter by organization locations */
+  organization_locations?: unknown[]
+  /** Store the response in the project store for future use. */
+  cacheResponse?: boolean
+}
+
+/** Apollo — Custom API Call */
+export interface ApolloCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Asana — Create Task */
 export interface AsanaCreateTaskInput {
   /** Asana workspace to create the task in (resolve via property options API) */
@@ -187,6 +291,282 @@ export interface AsanaCreateTaskInput {
 
 /** Asana — Custom API Call */
 export interface AsanaCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Attio — Create Record */
+export interface AttioCreateRecordInput {
+  /** Object (resolve via property options API) */
+  objectTypeId: string
+  /** Object Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Update Record */
+export interface AttioUpdateRecordInput {
+  /** Object (resolve via property options API) */
+  objectTypeId: string
+  /** The unique identifier of the record to update. */
+  recordId: string
+  /** Object Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Find Record */
+export interface AttioFindRecordInput {
+  /** Object (resolve via property options API) */
+  objectTypeId: string
+  /** Object Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Create List Entry */
+export interface AttioCreateEntryInput {
+  /** List (resolve via property options API) */
+  listId: string
+  /** Parent Object (resolve via property options API) */
+  parentObjectId: string
+  /** Parent Record ID */
+  parentRecordId: string
+  /** List Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Update List Entry */
+export interface AttioUpdateEntryInput {
+  /** List (resolve via property options API) */
+  listId: string
+  /** The unique identifier of the entry to update. */
+  entryId: string
+  /** List Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Find List Entry */
+export interface AttioFindListEntryInput {
+  /** List (resolve via property options API) */
+  listId: string
+  /** List Attributes */
+  attributes?: Record<string, unknown>
+}
+
+/** Attio — Custom API Call */
+export interface AttioCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Bigcommerce — Create Customer */
+export interface BigcommerceCreateCustomerInput {
+  /** Customer email address */
+  email: string
+  /** Customer first name */
+  first_name: string
+  /** Customer last name */
+  last_name: string
+  /** Customer company name */
+  company?: string
+  /** Customer phone number */
+  phone?: string
+  /** Customer notes */
+  notes?: string
+}
+
+/** Bigcommerce — Create a Product */
+export interface BigcommerceCreateAProductInput {
+  /** Name of the product */
+  name: string
+  /** Type of product (values: `physical`, `digital`) */
+  type: "physical" | "digital"
+  /** Product SKU */
+  sku?: string
+  /** Product description */
+  description?: string
+  /** Product weight */
+  weight: number
+  /** Product price */
+  price: number
+  /** Brand ID */
+  brand_id?: number
+}
+
+/** Bigcommerce — Create Blog Post */
+export interface BigcommerceCreateBlogPostInput {
+  /** Blog post title */
+  title: string
+  /** Blog post content (HTML supported) */
+  body: string
+  /** Author name */
+  author?: string
+  /** URL for the public blog post. Example - /blog/welcome-bigcommerce/ */
+  url?: string
+  /** Published Date for the blog post. Example - Wed, 10 Aug 2022 15:39:15 -0500 */
+  published_date?: string
+  /** Description text for this blog post’s <meta/> element. */
+  meta_description?: string
+  /** Comma seperated (,) Keywords for this blog post’s <meta/> element. Eg welcome, bigcommerce */
+  meta_keywords?: string
+  /** Array of tags */
+  tags?: unknown[]
+  /** Whether the post is published */
+  is_published?: boolean
+}
+
+/** Bigcommerce — Create Customer Address */
+export interface BigcommerceCreateCustomerAddressInput {
+  /** Select the customer (resolve via property options API) */
+  customer_id: string
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Address Line 1 */
+  address1: string
+  /** Address Line 2 */
+  address2?: string
+  /** City */
+  city: string
+  /** State/Province */
+  state_or_province: string
+  /** Postal Code */
+  postal_code: string
+  /** ISO 3166-1 alpha-2 country code */
+  country_code: string
+  /** Phone */
+  phone?: string
+}
+
+/** Bigcommerce — Search Customer */
+export interface BigcommerceSearchCustomerInput {
+  /** Customer email to search for */
+  email?: string
+  /** Phone Number to search for */
+  phone?: string
+  /** Customer name to search for */
+  name?: string
+}
+
+/** Bigcommerce — Search Product */
+export interface BigcommerceSearchProductInput {
+  /** Product name to search for */
+  name?: string
+  /** Product SKU to search for */
+  sku?: string
+  /** Product Type (values: `physical`, `digital`) */
+  type?: "physical" | "digital"
+  /** Brand ID to search for */
+  brand_id?: string
+  /** Weight */
+  weight?: number
+  /** Price */
+  price?: number
+}
+
+/** Bigcommerce — Search Customer Address */
+export interface BigcommerceSearchCustomerAddressInput {
+  /** Select the customers */
+  customer_ids?: string[]
+  /** Customer name to search for */
+  name?: string
+}
+
+/** Bigcommerce — Find or Create Customer */
+export interface BigcommerceFindOrCreateCustomerInput {
+  /** Customer email address */
+  email: string
+  /** Customer first name */
+  first_name: string
+  /** Customer last name */
+  last_name: string
+  /** Customer company name */
+  company?: string
+  /** Customer phone number */
+  phone?: string
+  /** Customer notes */
+  notes?: string
+}
+
+/** Bigcommerce — Find or Create Product */
+export interface BigcommerceFindOrCreateProductInput {
+  /** Product Name */
+  name: string
+  /** SKU */
+  sku?: string
+  /** Product Type (values: `physical`, `digital`) */
+  type: "physical" | "digital"
+  /** Weight */
+  weight: number
+  /** Price */
+  price: number
+  /** Description */
+  description?: string
+  /** Brand ID */
+  brand_id?: number
+}
+
+/** Bigcommerce — Find or Create Customer’s Address */
+export interface BigcommerceFindOrCreateCustomersAddressInput {
+  /** Select the customer (resolve via property options API) */
+  customer_id: string
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Address Line 1 */
+  address1: string
+  /** Address Line 2 */
+  address2?: string
+  /** City */
+  city: string
+  /** State/Province */
+  state_or_province: string
+  /** Postal Code */
+  postal_code: string
+  /** ISO 3166-1 alpha-2 country code */
+  country_code: string
+  /** Phone */
+  phone?: string
+}
+
+/** Bigcommerce — Custom API Call */
+export interface BigcommerceCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -645,12 +1025,614 @@ export interface ClickupCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Close — Create Lead */
+export interface CloseCreateLeadInput {
+  /** The name of the lead/company. */
+  name: string
+  /** URL */
+  url?: string
+  /** Description */
+  description?: string
+  /** Array of contact details for this lead */
+  contacts?: Array<{   name: string;   title?: string;   officePhone?: string;   mobilePhone?: string;   homePhone?: string;   directPhone?: string;   faxPhone?: string;   otherPhone?: string;   officeEmail?: string;   homeEmail?: string;   directEmail?: string;   otherEmail?: string;   url?: string }>
+  /** Status (resolve via property options API) */
+  statusId?: string
+  /** Custom Fields */
+  customFields?: Record<string, unknown>
+}
+
+/** Close — Create Contact */
+export interface CloseCreateContactInput {
+  /** Lead (resolve via property options API) */
+  lead_id?: string
+  /** Name */
+  name: string
+  /** Title */
+  title?: string
+  /** Office Phone */
+  officePhone?: string
+  /** Mobile Phone */
+  mobilePhone?: string
+  /** Home Phone */
+  homePhone?: string
+  /** Direct Phone */
+  directPhone?: string
+  /** Fax Phone */
+  faxPhone?: string
+  /** Other Phone */
+  otherPhone?: string
+  /** Office Email */
+  officeEmail?: string
+  /** Home Email */
+  homeEmail?: string
+  /** Direct Email */
+  directEmail?: string
+  /** Other Email */
+  otherEmail?: string
+  /** URL */
+  url?: string
+  /** Custom Fields */
+  customFields?: Record<string, unknown>
+}
+
+/** Close — Find Lead */
+export interface CloseFindLeadInput {
+  /** Search Type (values: `name`, `contact_email`, `status`) */
+  search_type: "name" | "contact_email" | "status"
+  /** Search Query */
+  search_query: string
+  /** Match Type (values: `contains`, `exact`, `starts`, `ends`) */
+  match_type?: "contains" | "exact" | "starts" | "ends"
+}
+
+/** Close — Create Opportunity */
+export interface CloseCreateOpportunityInput {
+  /** Lead (resolve via property options API) */
+  lead_id?: string
+  /** Status (resolve via property options API) */
+  status_id: string
+  /** A descriptive name for the opportunity. */
+  name?: string
+  /** Additional details about the opportunity. */
+  note?: string
+  /** The probability of winning this opportunity (0-100). */
+  confidence?: number
+  /** Value */
+  value?: number
+  /** The period for the opportunity value. (values: `one_time`, `monthly`, `annual`) */
+  value_period?: "one_time" | "monthly" | "annual"
+  /** The ID of the contact associated with this opportunity. */
+  contact_id?: string
+  /** User (resolve via property options API) */
+  user_id?: string
+  /** Custom Fields */
+  custom_fields?: Record<string, unknown>
+}
+
+/** Close — Find Contact */
+export interface CloseFindContactInput {
+  /** Search Type (values: `name`, `email`, `phone`, `lead_id`) */
+  search_type: "name" | "email" | "phone" | "lead_id"
+  /** Search Query */
+  search_query: string
+  /** Match Type (values: `contains`, `exact`, `starts`, `ends`) */
+  match_type?: "contains" | "exact" | "starts" | "ends"
+}
+
+/** Close — Custom API Call */
+export interface CloseCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Code — Run Code */
 export interface CodeRunCodeInput {
   /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
   code: string
   /** Data to pass as the `inputs` variable inside the code */
   inputs?: unknown
+}
+
+/** Copper — Create Person */
+export interface CopperCreatePersonInput {
+  /** Full Name */
+  name: string
+  /** Emails */
+  emails: Array<{   email: string;   category: string }>
+  /** Phone Numbers */
+  phone_numbers?: Array<{   number: string;   category: string }>
+  /** Street */
+  address_street?: string
+  /** City */
+  address_city?: string
+  /** State/Region */
+  address_state?: string
+  /** Postal Code */
+  address_postal_code?: string
+  /** Country */
+  address_country?: string
+}
+
+/** Copper — Update Person */
+export interface CopperUpdatePersonInput {
+  /** select a person (resolve via property options API) */
+  personId: string
+  /** fields */
+  fields?: Record<string, unknown>
+}
+
+/** Copper — Create Lead */
+export interface CopperCreateLeadInput {
+  /** Full Name */
+  name: string
+  /** Email */
+  email: string
+  /** Category of the email address (e.g., work, personal) */
+  category: string
+  /** Phone Numbers */
+  phone_numbers?: Array<{   number: string;   category: string }>
+  /** Street */
+  address_street?: string
+  /** City */
+  address_city?: string
+  /** State/Region */
+  address_state?: string
+  /** Postal Code */
+  address_postal_code?: string
+  /** Country */
+  address_country?: string
+}
+
+/** Copper — Update Lead */
+export interface CopperUpdateLeadInput {
+  /** select a Lead (resolve via property options API) */
+  leadId: string
+  /** fields */
+  fields?: Record<string, unknown>
+}
+
+/** Copper — Convert Lead */
+export interface CopperConvertLeadInput {
+  /** select a Lead (resolve via property options API) */
+  leadId: string
+  /** select a Company (resolve via property options API) */
+  companyId?: string
+  /** select an Opportunity (resolve via property options API) */
+  opportunityId?: string
+}
+
+/** Copper — Create Company */
+export interface CopperCreateCompanyInput {
+  /** Full Name */
+  name: string
+  /** E.g. democompany.com */
+  email_domain?: string
+  /** Details */
+  details?: string
+  /** Phone Numbers */
+  phone_numbers?: Array<{   number: string;   category: string }>
+  /** Street */
+  address_street?: string
+  /** City */
+  address_city?: string
+  /** State/Region */
+  address_state?: string
+  /** Postal Code */
+  address_postal_code?: string
+  /** Country */
+  address_country?: string
+  /** select a primary contact (resolve via property options API) */
+  primaryContactId?: string
+}
+
+/** Copper — Update Company */
+export interface CopperUpdateCompanyInput {
+  /** select a Company (resolve via property options API) */
+  companyId: string
+  /** fields */
+  fields?: Record<string, unknown>
+  /** select a primary contact (resolve via property options API) */
+  primaryContactId?: string
+}
+
+/** Copper — Create Opportunity */
+export interface CopperCreateOpportunityInput {
+  /** The name of the opportunity */
+  name: string
+  /** select a Pipeline (resolve via property options API) */
+  pipelineId?: string
+  /** Select a stage (resolve via property options API) */
+  pipelineStageId?: string
+  /** select a primary contact (resolve via property options API) */
+  primaryContactId?: string
+}
+
+/** Copper — Update Opportunity */
+export interface CopperUpdateOpportunityInput {
+  /** select an Opportunity (resolve via property options API) */
+  opportunityId: string
+  /** updateFields */
+  updateFields?: Record<string, unknown>
+  /** select a Pipeline (resolve via property options API) */
+  pipelineId?: string
+  /** Select a stage (resolve via property options API) */
+  pipelineStageId?: string
+  /** select a primary contact (resolve via property options API) */
+  primaryContactId?: string
+}
+
+/** Copper — Create Project */
+export interface CopperCreateProjectInput {
+  /** The name of the project */
+  name: string
+  /** The details of the project */
+  details?: string
+}
+
+/** Copper — Update Project */
+export interface CopperUpdateProjectInput {
+  /** select a Project (resolve via property options API) */
+  projectId: string
+  /** updateFields */
+  updateFields?: Record<string, unknown>
+}
+
+/** Copper — Create Task */
+export interface CopperCreateTaskInput {
+  /** Task Name */
+  name: string
+  /** Details fo this task */
+  details?: string
+  /** Select activity Type (resolve via property options API) */
+  custom_activity_type_id: string
+  /** select a user to assign to (resolve via property options API) */
+  assigneeId?: string
+  /** Choose the type of Copper record this task should be linked to (e.g. Person, Company, Lead, Opportunity, or Project). (values: `person`, `company`, `lead`, `opportunity`, `project`) */
+  entity?: "person" | "company" | "lead" | "opportunity" | "project"
+  /** Select the specific record (from the chosen type above) that this task should be attached to. For example, pick the Person or Opportunity the task relates to. (resolve via property options API) */
+  entityItemId?: string
+  /** Enter date and time in 24-hour format, e.g. `2025-09-09 11:40` (11:40 AM) or `2025-09-09 13:00` (1:00 PM). */
+  due_date?: string
+  /** Enter date and time in 24-hour format, e.g. `2025-09-09 11:40` (11:40 AM) or `2025-09-09 13:00` (1:00 PM) */
+  reminder_date?: string
+  /** Priority (values: `None`, `Low`, `Medium`, `High`) */
+  priority?: "None" | "Low" | "Medium" | "High"
+  /** Tags */
+  tags?: Array<{   tag: string }>
+}
+
+/** Copper — Create Activity */
+export interface CopperCreateActivityInput {
+  /** Select parent entity (values: `person`, `company`, `lead`, `opportunity`, `project`, `task`) */
+  entity: "person" | "company" | "lead" | "opportunity" | "project" | "task"
+  /** Select Resource (resolve via property options API) */
+  entityItemId: string
+  /** The details of the project */
+  details?: string
+  /** Select activity Type (resolve via property options API) */
+  type: string
+}
+
+/** Copper — Search for an Activity */
+export interface CopperSearchForAnActivityInput {
+  /** Select parent entity (values: `person`, `company`, `lead`, `opportunity`, `project`, `task`) */
+  entity?: "person" | "company" | "lead" | "opportunity" | "project" | "task"
+  /** Select Resource (resolve via property options API) */
+  entityItemId?: string
+  /** Select activity Type */
+  activity_types?: string[]
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** 24-hour format, e.g. 2025-09-10 11:40. The timestamp of the earliest activity date. */
+  minimum_activity_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest activity date. */
+  maximum_activity_date?: string
+  /** (Optional) If set, search performance improves but duplicate activity logs may be returned */
+  full_result?: boolean
+}
+
+/** Copper — Search for a Person */
+export interface CopperSearchForAPersonInput {
+  /** Full name of the People to search for. */
+  name?: string
+  /** Phone Number of the People to search for. */
+  phone_number?: string
+  /** Emails of the People to search for. */
+  emails?: unknown[]
+  /** Select contact Type */
+  contact_type_ids?: string[]
+  /** select assignees */
+  assignee_ids?: string[]
+  /** select Companies */
+  company_ids?: string[]
+  /** select Opportunities */
+  opportunity_ids?: string[]
+  /** The city in which People must be located. */
+  city?: string
+  /** The state or province in which People must be located. */
+  state?: string
+  /** The postal code in which People must be located. */
+  postal_code?: string
+  /** The two character country code where People must be located. */
+  country?: string
+  /** Filter People to those that match at least one of the tags specified. */
+  tags?: unknown[]
+  /** Filter People to those that match at least one of the social accounts specified. */
+  socials?: unknown[]
+  /** Filter by followed state (values: `1`, `2`) */
+  followed?: "1" | "2"
+  /** The maximum age in seconds that People must be. */
+  age?: number
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** The field on which to sort the results */
+  sort_by?: "name" | "title" | "email" | "phone" | "date_modified" | "date_created" | "city" | "state" | "country" | "zip" | "socials"
+  /** The direction in which to sort the result (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** The minimum number of interactions People must have had. */
+  minimum_interaction_count?: number
+  /** The maximum number of interactions People must have had. */
+  maximum_interaction_count?: number
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date of the last interaction. */
+  minimum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date of the last interaction. */
+  maximum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date People are created. */
+  minimum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date People are Created. */
+  maximum_created_date?: string
+}
+
+/** Copper — Search for a Lead */
+export interface CopperSearchForALeadInput {
+  /** Full name of the Lead to search for. */
+  name?: string
+  /** Phone Number of the Lead to search for. */
+  phone_number?: string
+  /** Emails of the Lead to search for.	 */
+  emails?: string
+  /** select assignees */
+  assignee_ids?: string[]
+  /** Select lead status */
+  status_ids?: string[]
+  /** Select customer source. */
+  customer_source_ids?: string[]
+  /** The city in which Lead must be located. */
+  city?: string
+  /** The state or province in which Lead must be located. */
+  state?: string
+  /** The postal code in which Lead must be located. */
+  postal_code?: string
+  /** The two character country code where Lead must be located. */
+  country?: string
+  /** Filter Lead to those that match at least one of the tags specified. */
+  tags?: unknown[]
+  /** Filter Lead to those that match at least one of the social accounts specified. */
+  socials?: unknown[]
+  /** Filter by followed state (values: `1`, `2`) */
+  followed?: "1" | "2"
+  /** The maximum age in seconds that Lead must be. */
+  age?: number
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** The field on which to sort the results */
+  sort_by?: "name" | "company_name" | "title" | "value" | "email" | "phone" | "date_modified" | "date_created" | "city" | "state" | "country" | "zip" | "inactive_days" | "socials"
+  /** The direction in which to sort the result (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** Specify if response should contain converted leads. */
+  include_converted_leads?: boolean
+  /** The minimum monetary value Leads must have. */
+  minimum_monetary_value?: number
+  /** The maximum monetary value Leads must have. */
+  maximum_monetary_value?: number
+  /** The minimum number of interactions Lead must have had. */
+  minimum_interaction_count?: number
+  /** The maximum number of interactions Lead must have had. */
+  maximum_interaction_count?: number
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date of the last interaction. */
+  minimum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date of the last interaction. */
+  maximum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Lead are created. */
+  minimum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Lead are Created. */
+  maximum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Lead are Modified. */
+  minimum_modified_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Lead are Modified. */
+  maximum_modified_date?: string
+}
+
+/** Copper — Search for a Company */
+export interface CopperSearchForACompanyInput {
+  /** Full name of the Company to search for. */
+  name?: string
+  /** Phone Number of the Company to search for. */
+  phone_number?: string
+  /** Email Domain of the Company to search for. */
+  email_domains?: string
+  /** Select contact Type */
+  contact_type_ids?: string[]
+  /** select assignees */
+  assignee_ids?: string[]
+  /** The city in which Company must be located. */
+  city?: string
+  /** The state or province in which Company must be located. */
+  state?: string
+  /** The postal code in which Company must be located. */
+  postal_code?: string
+  /** The two character country code where Company must be located. */
+  country?: string
+  /** Filter Company to those that match at least one of the tags specified. */
+  tags?: unknown[]
+  /** Filter Company to those that match at least one of the social accounts specified. */
+  socials?: unknown[]
+  /** Filter by followed state (values: `1`, `2`) */
+  followed?: "1" | "2"
+  /** The maximum age in seconds that Company must be. */
+  age?: number
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** The field on which to sort the results */
+  sort_by?: "name" | "phone" | "contact" | "contact_first_name" | "contact_last_name" | "date_modified" | "date_created" | "email_domain" | "city" | "state" | "country" | "zip" | "assignee" | "contact_group" | "last_interaction" | "interaction_count" | "primary_website" | "socials"
+  /** The direction in which to sort the result (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** The minimum number of interactions Company must have had. */
+  minimum_interaction_count?: number
+  /** The maximum number of interactions Company must have had. */
+  maximum_interaction_count?: number
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date of the last interaction. */
+  minimum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date of the last interaction. */
+  maximum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Company are created. */
+  minimum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Company are Created. */
+  maximum_created_date?: string
+}
+
+/** Copper — Search for an Opportunity */
+export interface CopperSearchForAnOpportunityInput {
+  /** Full name of the Opportunity to search for. */
+  name?: string
+  /** select assignees */
+  assignee_ids?: string[]
+  /** select Companies */
+  company_ids?: string[]
+  /** Filter by Opportunity status */
+  status_ids?: string[]
+  /** Priority */
+  priorities?: string[]
+  /** select a Pipeline */
+  pipeline_ids?: string[]
+  /** Select a stage */
+  pipeline_stage_ids?: string[]
+  /** select primary contacts */
+  primary_contact_ids?: string[]
+  /** Select customer source. */
+  customer_source_ids?: string[]
+  /** Select loss reason. */
+  loss_reason_ids?: string[]
+  /** Filter People to those that match at least one of the tags specified. */
+  tags?: unknown[]
+  /** Filter by followed state (values: `1`, `2`) */
+  followed?: "1" | "2"
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** The field on which to sort the results */
+  sort_by?: "assignee" | "company_name" | "customer_source_id" | "date_created" | "date_modified" | "inactive_days" | "interaction_count" | "last_interaction" | "monetary_unit" | "monetary_value" | "name" | "primary_contact" | "priority" | "stage" | "status"
+  /** The direction in which to sort the result (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** The minimum monetary value Opportunities must have. */
+  minimum_monetary_value?: number
+  /** The maximum monetary value Opportunities must have. */
+  maximum_monetary_value?: number
+  /** The minimum number of interactions Opportunity must have had. */
+  minimum_interaction_count?: number
+  /** The maximum number of interactions Opportunity must have had. */
+  maximum_interaction_count?: number
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date close date. */
+  minimum_close_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date close date. */
+  maximum_close_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date of the last interaction. */
+  minimum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date of the last interaction. */
+  maximum_interaction_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date of a stage change. */
+  minimum_stage_change_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date of a stage change. */
+  maximum_stage_change_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Opportunity are created. */
+  minimum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Opportunity are Created. */
+  maximum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Opportunity are Modified. */
+  minimum_modified_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Opportunity are Modified. */
+  maximum_modified_date?: string
+}
+
+/** Copper — Search for a Project */
+export interface CopperSearchForAProjectInput {
+  /** Full name of the Opportunity to search for. */
+  name?: string
+  /** select assignees */
+  assignee_ids?: string[]
+  /** Filter by Opportunity status */
+  statuses?: string[]
+  /** Filter People to those that match at least one of the tags specified. */
+  tags?: unknown[]
+  /** Filter by followed state (values: `1`, `2`) */
+  followed?: "1" | "2"
+  /** Default 50. Max 200. */
+  page_size?: number
+  /** Page Number */
+  page_number?: number
+  /** The field on which to sort the results (values: `name`, `assigned_to`, `related_to`, `status`, `date_modified`, `date_created`) */
+  sort_by?: "name" | "assigned_to" | "related_to" | "status" | "date_modified" | "date_created"
+  /** The direction in which to sort the result (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Opportunity are created. */
+  minimum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Opportunity are Created. */
+  maximum_created_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the earliest date Opportunity are Modified. */
+  minimum_modified_date?: string
+  /** 24-hour format, e.g. 2025-09-10 13:00. The timestamp of the latest date Opportunity are Modified. */
+  maximum_modified_date?: string
+}
+
+/** Copper — Custom API Call */
+export interface CopperCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Discord — Send Message with Bot */
@@ -1009,6 +1991,222 @@ export interface FigmaPostCommentInput {
 
 /** Figma — Custom API Call */
 export interface FigmaCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Fillout Forms — Get Form Responses */
+export interface FilloutFormsGetFormResponsesInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Max number of submissions to retrieve (1-150). */
+  limit?: number
+  /** Filter submissions after this date (YYYY-MM-DDTHH:mm:ss.sssZ). */
+  afterDate?: string
+  /** Filter submissions before this date (YYYY-MM-DDTHH:mm:ss.sssZ). */
+  beforeDate?: string
+  /** Starting position for fetching submissions. */
+  offset?: number
+  /** By default, only finished submissions are returned. Select "In Progress" to get unfinished submissions instead. (values: `in_progress`) */
+  status?: "in_progress"
+  /** Include a link to edit the submission. */
+  includeEditLink?: boolean
+  /** Include preview responses. */
+  includePreview?: boolean
+  /** Sort order. (values: `asc`, `desc`) */
+  sort?: "asc" | "desc"
+  /** Filter for submissions containing this text. */
+  search?: string
+}
+
+/** Fillout Forms — Get Single Response */
+export interface FilloutFormsGetSingleResponseInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Select from the 50 most recent submissions for the chosen form. (resolve via property options API) */
+  submissionId: string
+  /** Include a link to edit the submission. */
+  includeEditLink?: boolean
+}
+
+/** Fillout Forms — Find Form by Title */
+export interface FilloutFormsFindFormByTitleInput {
+  /** The (partial or full) title of the form to search for. */
+  title: string
+}
+
+/** Fillout Forms — Custom API Call */
+export interface FilloutFormsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Formstack — Create Submission */
+export interface FormstackCreateSubmissionInput {
+  /** Forms  (resolve via property options API) */
+  form_id: string
+  /** Browser user agent to record */
+  user_agent?: string
+  /** IP address to record */
+  remote_addr?: string
+  /** Payment integration status */
+  payment_status?: string
+  /** Mark submission as read when created */
+  read?: boolean
+  /** Password for encrypted forms */
+  encryption_password?: string
+  /** Fill out the form fields */
+  form_fields: Record<string, unknown>
+}
+
+/** Formstack — Find Form by Name or ID */
+export interface FormstackFindFormByNameOrIdInput {
+  /** Enter form name or ID to search */
+  search_query: string
+  /** Organize results by folders */
+  include_folders?: boolean
+  /** Only exact name matches */
+  exact_match?: boolean
+}
+
+/** Formstack — Get Submission Details */
+export interface FormstackGetSubmissionDetailsInput {
+  /** Forms  (resolve via property options API) */
+  form_id: string
+  /** Submission (resolve via property options API) */
+  submission_id: string
+  /** Password for encrypted forms */
+  encryption_password?: string
+  /** Include IP, user agent, and location data */
+  include_metadata?: boolean
+}
+
+/** Formstack — Find Submission by Field Value */
+export interface FormstackFindSubmissionByFieldValueInput {
+  /** Value to search for (minimum 3 characters) */
+  search_value: string
+  /** Number of results per page (1-100) */
+  per_page?: number
+  /** Page number to return */
+  page?: number
+  /** Sort results by submission ID (values: `DESC`, `ASC`) */
+  sort_order?: "DESC" | "ASC"
+  /** Include form names in results */
+  include_form_names?: boolean
+}
+
+/** Formstack — Custom API Call */
+export interface FormstackCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Freshsales — Create Contact */
+export interface FreshsalesFreshsalesCreateContactInput {
+  /** First name of the contact */
+  first_name?: string
+  /** Last name of the contact */
+  last_name?: string
+  /** Designation of the contact in the account they belong to */
+  job_title?: string
+  /** Primary email address of the contact */
+  email: string
+  /** Work phone number of the contact */
+  work_number?: string
+  /** Mobile phone number of the contact */
+  mobile_number?: string
+  /** Address of the contact */
+  address?: string
+  /** City that the contact belongs to */
+  city?: string
+  /** State that the contact belongs to */
+  state?: string
+  /** Zipcode of the region that the contact belongs to */
+  zipcode?: string
+  /** Country that the contact belongs to */
+  country?: string
+  /** ID of the territory that the contact belongs to */
+  territory_id?: string
+  /** ID of the user to whom the contact has been assigned */
+  owner_id?: string
+  /** Status of subscription that the contact is in. */
+  subscription_status?: string
+  /** The medium that led your contact to your website/web app */
+  medium?: string
+  /** The campaign that led your contact to your web app. */
+  campaign_id?: string
+  /** The keywords that the contact used to reach your website/web app */
+  keyword?: string
+  /** Timezone that the contact belongs to */
+  time_zone?: string
+  /** Facebook username of the contact */
+  facebook?: string
+  /** Twitter username of the contact */
+  twitter?: string
+  /** LinkedIn account of the contact */
+  linkedin?: string
+  /** ID of the contact status that the contact belongs to */
+  contact_status_id?: string
+  /** ID of the primary account that the contact belongs to */
+  sales_account_id?: string
+}
+
+/** Freshsales — Custom API Call */
+export interface FreshsalesCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -1787,6 +2985,87 @@ export interface GoogleDriveCustomApiCallInput {
 
 /** Google Forms — Custom API Call */
 export interface GoogleFormsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Google Search Console — Search Analytics */
+export interface GoogleSearchConsoleSearchAnalyticsInput {
+  /** Site URL (resolve via property options API) */
+  siteUrl: string
+  /** The start date of the date range to query (in YYYY-MM-DD format). */
+  startDate: string
+  /** The end date of the date range to query (in YYYY-MM-DD format). */
+  endDate: string
+  /** The dimensions to group results by. For example: ["query", "page", "country", "device", "searchAppearance", "date"]. */
+  dimensions?: unknown[]
+  /** Optional filters to apply to the data. Filters can be used to restrict the results to a specific subset. */
+  filters?: Array<{   dimension: string;   operator: string;   expression: string }>
+  /** How data is aggregated. Options include "auto", "byPage", "byProperty". */
+  aggregationType?: string
+  /** The maximum number of rows to return. */
+  rowLimit?: number
+  /** The first row to return. Use this parameter to paginate results. */
+  startRow?: number
+}
+
+/** Google Search Console — List Sitemaps */
+export interface GoogleSearchConsoleListSitemapsInput {
+  /** Site URL (resolve via property options API) */
+  siteUrl: string
+}
+
+/** Google Search Console — Submit a Sitemap */
+export interface GoogleSearchConsoleSubmitSitemapInput {
+  /** Site URL (resolve via property options API) */
+  siteUrl: string
+  /** Sitemap Path */
+  feedpath: string
+}
+
+/** Google Search Console — List Sites */
+export type GoogleSearchConsoleListSitesInput = Record<string, never>
+
+/** Google Search Console — Add a Site */
+export interface GoogleSearchConsoleAddSiteInput {
+  /** Site URL */
+  siteUrl: string
+}
+
+/** Google Search Console — Delete a Site */
+export interface GoogleSearchConsoleDeleteSiteInput {
+  /** Site URL (resolve via property options API) */
+  siteUrl: string
+}
+
+/** Google Search Console — URL Inspection */
+export interface GoogleSearchConsoleUrlInspectionInput {
+  /** Site URL (resolve via property options API) */
+  siteUrl: string
+  /** URL to Inspect */
+  url: string
+}
+
+/** Google Search Console — Custom API Call */
+export interface GoogleSearchConsoleCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -3196,6 +4475,30 @@ export interface JiraCloudCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Jotform — Custom API Call */
+export interface JotformCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** KV Store — Put */
 export interface KvStorePutInput {
   /** The key to store the value under */
@@ -3338,6 +4641,220 @@ export interface LinearRawGraphqlQueryInput {
   query: string
   /** Parameters */
   variables?: Record<string, unknown>
+}
+
+/** Mailchimp — Add or Update Subscriber */
+export interface MailchimpAddMemberToListInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** Email address for the subscriber */
+  email_address: string
+  /** Status for new subscribers (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
+  status_if_new: "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional"
+  /** Type of email this member wants to receive (values: `html`, `text`) */
+  email_type?: "html" | "text"
+  /** Current status of subscriber (for updates) (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
+  status?: "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional"
+  /** First name of the subscriber */
+  first_name?: string
+  /** Last name of the subscriber */
+  last_name?: string
+  /** Subscriber language (e.g., "en", "es", "fr") */
+  language?: string
+  /** VIP status for subscriber */
+  vip?: boolean
+  /** Accept member data without merge field values even if required */
+  skip_merge_validation?: boolean
+}
+
+/** Mailchimp — Add Note to Subscriber */
+export interface MailchimpAddNoteToSubscriberInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** The email address of the subscriber to add a note to */
+  email: string
+  /** The note content to add to the subscriber */
+  note: string
+}
+
+/** Mailchimp — Add Subscriber to Tag */
+export interface MailchimpAddSubscriberToTagInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** The email address of the subscriber to add to the tag */
+  email: string
+  /** The name of the tag to add the subscriber to */
+  tag_name: string
+}
+
+/** Mailchimp — Remove Subscriber from Tag */
+export interface MailchimpRemoveSubscriberFromTagInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** The email address of the subscriber to remove from the tag */
+  email: string
+  /** The name of the tag to remove the subscriber from */
+  tag_name: string
+}
+
+/** Mailchimp — Update Member in an Audience (List) */
+export interface MailchimpUpdateMemberInListInput {
+  /** Email of the new contact */
+  email: string
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** Status (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
+  status: "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional"
+}
+
+/** Mailchimp — Create Campaign */
+export interface MailchimpCreateCampaignInput {
+  /** The type of campaign to create (values: `regular`, `plaintext`, `ab`, `rss`, `variate`) */
+  campaign_type: "regular" | "plaintext" | "ab" | "rss" | "variate"
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** The subject line for the campaign */
+  subject_line: string
+  /** The title of the campaign */
+  title: string
+  /** The name that will appear in the "From" field */
+  from_name: string
+  /** The email address that will appear in the "From" field */
+  from_email: string
+  /** The email address that will receive replies */
+  reply_to: string
+  /** The name that will appear in the "To" field (e.g., *|FNAME|*) */
+  to_name?: string
+  /** How the campaign content is put together (values: `template`, `html`, `url`, `multichannel`) */
+  content_type: "template" | "html" | "url" | "multichannel"
+  /** The URL where the campaign content is hosted (required if content_type is "url") */
+  content_url?: string
+  /** The ID of the template to use (required if content_type is "template") */
+  template_id?: string
+  /** The HTML content for the campaign (required if content_type is "html") */
+  html_content?: string
+}
+
+/** Mailchimp — Get Campaign Report */
+export interface MailchimpGetCampaignReportInput {
+  /** Select the campaign to get information for (resolve via property options API) */
+  campaign_id: string
+  /** Comma-separated list of fields to return (e.g., "opens.unique_opens,clicks.click_rate") */
+  fields?: string
+  /** Comma-separated list of fields to exclude (e.g., "timeseries,_links") */
+  exclude_fields?: string
+}
+
+/** Mailchimp — Create Audience */
+export interface MailchimpCreateAudienceInput {
+  /** The name of the list */
+  name: string
+  /** Company name for list contact information */
+  company: string
+  /** Street address for list contact information */
+  address1: string
+  /** Additional address information (optional) */
+  address2?: string
+  /** City for list contact information */
+  city: string
+  /** State or province for list contact information */
+  state?: string
+  /** ZIP or postal code for list contact information */
+  zip?: string
+  /** Country for list contact information */
+  country: string
+  /** Phone number for list contact information (optional) */
+  phone?: string
+  /** The permission reminder for the list */
+  permission_reminder: string
+  /** Default from name for campaigns */
+  from_name: string
+  /** Default from email address for campaigns */
+  from_email: string
+  /** Default subject line for campaigns */
+  subject: string
+  /** Default language for campaigns (e.g., "en", "es", "fr") */
+  language: string
+  /** Whether the list supports multiple email formats (HTML/plain text) */
+  email_type_option?: boolean
+  /** Whether campaigns use the Archive Bar in archives by default */
+  use_archive_bar?: boolean
+  /** Email address to send subscribe notifications to (optional) */
+  notify_on_subscribe?: string
+  /** Email address to send unsubscribe notifications to (optional) */
+  notify_on_unsubscribe?: string
+  /** Whether to require subscriber confirmation via email */
+  double_optin?: boolean
+  /** Whether the list has marketing permissions (GDPR) enabled */
+  marketing_permissions?: boolean
+}
+
+/** Mailchimp — Archive Subscriber */
+export interface MailchimpArchiveSubscriberInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** MD5 hash of the lowercase email address, email address, or contact_id */
+  subscriber_hash: string
+}
+
+/** Mailchimp — Unsubscribe Email */
+export interface MailchimpUnsubscribeEmailInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** Email address to unsubscribe */
+  email_address: string
+  /** Accept member data without merge field values even if required */
+  skip_merge_validation?: boolean
+  /** Ignore duplicates in the request */
+  skip_duplicate_check?: boolean
+  /** Change existing members subscription status */
+  update_existing?: boolean
+}
+
+/** Mailchimp — Find Campaign */
+export interface MailchimpFindCampaignInput {
+  /** Search terms to find campaigns */
+  query: string
+  /** Comma-separated list of fields to return */
+  fields?: string
+  /** Comma-separated list of fields to exclude */
+  exclude_fields?: string
+}
+
+/** Mailchimp — Find Customer */
+export interface MailchimpFindCustomerInput {
+  /** Select the e-commerce store (resolve via property options API) */
+  store_id: string
+  /** Email address to search for */
+  email_address: string
+  /** Comma-separated list of fields to return */
+  fields?: string
+  /** Comma-separated list of fields to exclude */
+  exclude_fields?: string
+  /** Number of records to return (max 1000) */
+  count?: number
+  /** Number of records to skip for pagination */
+  offset?: number
+}
+
+/** Mailchimp — Find Tag */
+export interface MailchimpFindTagInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** Search query to filter tags (optional - if empty, returns all tags) */
+  name?: string
+}
+
+/** Mailchimp — Find Subscriber */
+export interface MailchimpFindSubscriberInput {
+  /** Audience you want to add the contact to (resolve via property options API) */
+  list_id: string
+  /** Email address of the subscriber to search for */
+  email: string
+  /** Fields to include in the response (leave empty for all fields). Use dot notation for nested fields (e.g., "merge_fields.FNAME") */
+  include_fields?: unknown[]
+  /** Fields to exclude from the response. Use dot notation for nested fields */
+  exclude_fields?: unknown[]
 }
 
 /** Microsoft Teams — Create Channel */
@@ -3494,6 +5011,382 @@ export interface MicrosoftTeamsCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Mixpanel — Track Event */
+export interface MixpanelTrackEventInput {
+  /** A name for this Event. For example, 'Brand Mentioned in Tweet' or 'Payment Made'. */
+  event: string
+  /** A way to uniquely identify your users (or more generally, profiles). If you are sending Profiles to Mixpanel in addition to events, this property value should be identical to the Distinct ID property attached to the Profile so that you can connect events to people records. */
+  distinct_id?: string
+  /** Event Properties are bits of extra information that you send along with your Events describing the details of that action. They are usually specific to the Event they’re describing and don’t apply universally to other Events. Leveraging Event Properties allows you to conduct deeper analysis to better understand user behavior for a specific action. For example, a 'Song Added to Playlist' event could have 'Artist' and 'Playlist' as the properties. Properties are sent as key-value pairs where the key is the property name and the value is the property value. */
+  event_properties?: Record<string, unknown>
+}
+
+/** Mixpanel — Custom API Call */
+export interface MixpanelCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Mollie — Create Order */
+export interface MollieCreateOrderInput {
+  /** The order number for this order. We recommend each order number to be unique. */
+  orderNumber: string
+  /** A three-character ISO 4217 currency code (e.g. EUR, USD) */
+  currency: string
+  /** The total amount to charge (e.g. "10.00") */
+  amount: string
+  /** The order lines for the order */
+  lines: Array<{   type?: "physical" | "digital" | "shipping_fee" | "discount" | "store_credit" | "gift_card" | "surcharge";   name: string;   quantity: number;   unitPriceCurrency: string;   unitPriceValue: string;   totalAmountCurrency: string;   totalAmountValue: string;   vatRate?: string;   vatAmountCurrency?: string;   vatAmountValue?: string;   sku?: string;   discountAmountCurrency?: string;   discountAmountValue?: string;   imageUrl?: string;   productUrl?: string;   category?: "meal" | "eco" | "gift" | "sport_culture" }>
+  /** The title of the person (e.g. Mr., Mrs.) */
+  billingTitle?: string
+  /** The given name (first name) of the person */
+  billingGivenName: string
+  /** The family name (surname) of the person */
+  billingFamilyName: string
+  /** The name of the organization */
+  billingOrganizationName?: string
+  /** A street and street number */
+  billingStreetAndNumber: string
+  /** Any additional addressing details */
+  billingStreetAdditional?: string
+  /** A postal code */
+  billingPostalCode: string
+  /** Email address */
+  billingEmail: string
+  /** Phone number in E.164 format */
+  billingPhone?: string
+  /** City name */
+  billingCity: string
+  /** Region or state */
+  billingRegion?: string
+  /** A country code in ISO 3166-1 alpha-2 format */
+  billingCountry: string
+  /** Whether to include a separate shipping address */
+  includeShippingAddress?: boolean
+  /** The title of the person (e.g. Mr., Mrs.) */
+  shippingTitle?: string
+  /** The given name (first name) of the person */
+  shippingGivenName?: string
+  /** The family name (surname) of the person */
+  shippingFamilyName?: string
+  /** The name of the organization */
+  shippingOrganizationName?: string
+  /** A street and street number */
+  shippingStreetAndNumber?: string
+  /** Any additional addressing details */
+  shippingStreetAdditional?: string
+  /** A postal code */
+  shippingPostalCode?: string
+  /** Email address */
+  shippingEmail?: string
+  /** Phone number in E.164 format */
+  shippingPhone?: string
+  /** City name */
+  shippingCity?: string
+  /** Region or state */
+  shippingRegion?: string
+  /** A country code in ISO 3166-1 alpha-2 format */
+  shippingCountry?: string
+  /** The language to be used in the hosted payment pages */
+  locale: "en_US" | "en_GB" | "nl_NL" | "nl_BE" | "de_DE" | "de_AT" | "de_CH" | "fr_FR" | "fr_BE" | "es_ES" | "ca_ES" | "pt_PT" | "it_IT" | "nb_NO" | "sv_SE" | "fi_FI" | "da_DK" | "is_IS" | "hu_HU" | "pl_PL" | "lv_LV" | "lt_LT"
+  /** The URL your customer will be redirected to after the payment process */
+  redirectUrl?: string
+  /** The URL your customer will be redirected to when they cancel the payment */
+  cancelUrl?: string
+  /** The webhook URL where order status updates will be sent */
+  webhookUrl?: string
+  /** Specific payment method to use (optional) */
+  method?: "applepay" | "bancomatpay" | "bancontact" | "banktransfer" | "belfius" | "billie" | "creditcard" | "directdebit" | "eps" | "giftcard" | "ideal" | "in3" | "kbc" | "klarna" | "klarnapaylater" | "klarnapaynow" | "klarnasliceit" | "mybank" | "paypal" | "paysafecard" | "przelewy24" | "riverty" | "satispay" | "trustly" | "twint" | "voucher"
+  /** Restrict payment methods to those from the billing country only */
+  shopperCountryMustMatchBillingCountry?: boolean
+  /** The date the order should expire in YYYY-MM-DD format */
+  expiresAt?: string
+  /** The date of birth of the consumer in YYYY-MM-DD format */
+  consumerDateOfBirth?: string
+  /** Whether to create the order in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Create Payment Link */
+export interface MollieCreatePaymentLinkInput {
+  /** A short description of the payment link (max 255 characters) */
+  description: string
+  /** Whether to include a fixed amount or let customer enter amount */
+  includeAmount?: boolean
+  /** A three-character ISO 4217 currency code (e.g. EUR, USD) */
+  currency?: string
+  /** The amount to charge (e.g. "10.00") */
+  amount?: string
+  /** Whether to set a minimum amount (only when no fixed amount) */
+  includeMinimumAmount?: boolean
+  /** Currency for minimum amount */
+  minimumAmountCurrency?: string
+  /** The minimum amount (e.g. "5.00") */
+  minimumAmount?: string
+  /** URL to redirect customer after payment completion */
+  redirectUrl?: string
+  /** URL for payment status updates */
+  webhookUrl?: string
+  /** Whether to include detailed order line items */
+  includeLines?: boolean
+  /** Order line items (required for certain payment methods) */
+  lines?: Array<{   type?: "physical" | "digital" | "shipping_fee" | "discount" | "store_credit" | "gift_card" | "surcharge";   description: string;   quantity: number;   quantityUnit?: string;   unitPriceCurrency: string;   unitPriceValue: string;   totalAmountCurrency: string;   totalAmountValue: string;   vatRate?: string;   vatAmountCurrency?: string;   vatAmountValue?: string;   sku?: string;   discountAmountCurrency?: string;   discountAmountValue?: string;   imageUrl?: string;   productUrl?: string }>
+  /** Whether to include billing address details */
+  includeBillingAddress?: boolean
+  /** Title (e.g. Mr., Mrs.) */
+  billingTitle?: string
+  /** First name */
+  billingGivenName?: string
+  /** Last name */
+  billingFamilyName?: string
+  /** Organization name */
+  billingOrganizationName?: string
+  /** Street address with number */
+  billingStreetAndNumber?: string
+  /** Additional address details */
+  billingStreetAdditional?: string
+  /** Postal code */
+  billingPostalCode?: string
+  /** Email address */
+  billingEmail?: string
+  /** Phone in E.164 format */
+  billingPhone?: string
+  /** City name */
+  billingCity?: string
+  /** State or region */
+  billingRegion?: string
+  /** ISO 3166-1 alpha-2 country code */
+  billingCountry?: string
+  /** Whether to include shipping address details */
+  includeShippingAddress?: boolean
+  /** Title (e.g. Mr., Mrs.) */
+  shippingTitle?: string
+  /** First name */
+  shippingGivenName?: string
+  /** Last name */
+  shippingFamilyName?: string
+  /** Organization name */
+  shippingOrganizationName?: string
+  /** Street address with number */
+  shippingStreetAndNumber?: string
+  /** Additional address details */
+  shippingStreetAdditional?: string
+  /** Postal code */
+  shippingPostalCode?: string
+  /** Email address */
+  shippingEmail?: string
+  /** Phone in E.164 format */
+  shippingPhone?: string
+  /** City name */
+  shippingCity?: string
+  /** State or region */
+  shippingRegion?: string
+  /** ISO 3166-1 alpha-2 country code */
+  shippingCountry?: string
+  /** Allow multiple payments using the same link */
+  reusable?: boolean
+  /** Expiry date in ISO 8601 format (e.g. 2024-12-31T23:59:59Z) */
+  expiresAt?: string
+  /** Payment methods allowed for this link (empty = all enabled methods) */
+  allowedMethods?: string[]
+  /** Type of payment sequence (values: `oneoff`, `first`) */
+  sequenceType?: "oneoff" | "first"
+  /** Customer ID (only relevant for first sequence type) */
+  customerId?: string
+  /** Whether to create the payment link in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Create Payment */
+export interface MollieCreatePaymentInput {
+  /** Description of the payment (max 255 characters) */
+  description: string
+  /** A three-character ISO 4217 currency code (e.g. EUR, USD) */
+  currency: string
+  /** The amount to charge (e.g. "10.00") */
+  amount: string
+  /** URL to redirect customer after payment completion */
+  redirectUrl: string
+  /** URL to redirect customer when they cancel payment */
+  cancelUrl?: string
+  /** URL for payment status updates */
+  webhookUrl?: string
+  /** Whether to include detailed order line items */
+  includeLines?: boolean
+  /** Order line items (required for certain payment methods) */
+  lines?: Array<{   type?: "physical" | "digital" | "shipping_fee" | "discount" | "store_credit" | "gift_card" | "surcharge";   description: string;   quantity: number;   quantityUnit?: string;   unitPriceCurrency: string;   unitPriceValue: string;   totalAmountCurrency: string;   totalAmountValue: string;   vatRate?: string;   vatAmountCurrency?: string;   vatAmountValue?: string;   sku?: string;   discountAmountCurrency?: string;   discountAmountValue?: string;   imageUrl?: string;   productUrl?: string }>
+  /** Whether to include billing address details */
+  includeBillingAddress?: boolean
+  /** Title (e.g. Mr., Mrs.) */
+  billingTitle?: string
+  /** First name */
+  billingGivenName?: string
+  /** Last name */
+  billingFamilyName?: string
+  /** Organization name */
+  billingOrganizationName?: string
+  /** Street address with number */
+  billingStreetAndNumber?: string
+  /** Additional address details */
+  billingStreetAdditional?: string
+  /** Postal code */
+  billingPostalCode?: string
+  /** Email address */
+  billingEmail?: string
+  /** Phone in E.164 format */
+  billingPhone?: string
+  /** City name */
+  billingCity?: string
+  /** State or region */
+  billingRegion?: string
+  /** ISO 3166-1 alpha-2 country code */
+  billingCountry?: string
+  /** Whether to include shipping address details */
+  includeShippingAddress?: boolean
+  /** Title (e.g. Mr., Mrs.) */
+  shippingTitle?: string
+  /** First name */
+  shippingGivenName?: string
+  /** Last name */
+  shippingFamilyName?: string
+  /** Organization name */
+  shippingOrganizationName?: string
+  /** Street address with number */
+  shippingStreetAndNumber?: string
+  /** Additional address details */
+  shippingStreetAdditional?: string
+  /** Postal code */
+  shippingPostalCode?: string
+  /** Email address */
+  shippingEmail?: string
+  /** Phone in E.164 format */
+  shippingPhone?: string
+  /** City name */
+  shippingCity?: string
+  /** State or region */
+  shippingRegion?: string
+  /** ISO 3166-1 alpha-2 country code */
+  shippingCountry?: string
+  /** The language to be used in the hosted payment pages */
+  locale?: "en_US" | "en_GB" | "nl_NL" | "nl_BE" | "de_DE" | "de_AT" | "de_CH" | "fr_FR" | "fr_BE" | "es_ES" | "ca_ES" | "pt_PT" | "it_IT" | "nb_NO" | "sv_SE" | "fi_FI" | "da_DK" | "is_IS" | "hu_HU" | "pl_PL" | "lv_LV" | "lt_LT"
+  /** Specific payment method to use (optional) */
+  method?: "alma" | "applepay" | "bacs" | "bancomatpay" | "bancontact" | "banktransfer" | "belfius" | "billie" | "bizum" | "blik" | "creditcard" | "directdebit" | "eps" | "giftcard" | "ideal" | "in3" | "kbc" | "klarna" | "klarnapaylater" | "klarnapaynow" | "klarnasliceit" | "mbway" | "multibanco" | "mybank" | "paybybank" | "payconiq" | "paypal" | "paysafecard" | "pointofsale" | "przelewy24" | "riverty" | "satispay" | "swish" | "trustly" | "twint" | "voucher"
+  /** ISO 3166-1 alpha-2 country code to restrict payment methods */
+  restrictPaymentMethodsToCountry?: string
+  /** Type of payment sequence (values: `oneoff`, `first`, `recurring`) */
+  sequenceType?: "oneoff" | "first" | "recurring"
+  /** Customer ID (required for recurring payments) */
+  customerId?: string
+  /** Mandate ID (for recurring payments) */
+  mandateId?: string
+  /** When to capture the payment (values: `automatic`, `manual`) */
+  captureMode?: "automatic" | "manual"
+  /** Delay before automatic capture (e.g. "8 hours", "2 days") */
+  captureDelay?: string
+  /** Whether to create the payment in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Create Customer */
+export interface MollieCreateCustomerInput {
+  /** The full name of the customer */
+  name?: string
+  /** The email address of the customer */
+  email?: string
+  /** The language to be used in the hosted payment pages */
+  locale?: "en_US" | "en_GB" | "nl_NL" | "nl_BE" | "de_DE" | "de_AT" | "de_CH" | "fr_FR" | "fr_BE" | "es_ES" | "ca_ES" | "pt_PT" | "it_IT" | "nb_NO" | "sv_SE" | "fi_FI" | "da_DK" | "is_IS" | "hu_HU" | "pl_PL" | "lv_LV" | "lt_LT"
+  /** Additional data to save alongside the customer (JSON string) */
+  metadata?: string
+  /** Whether to create the customer in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Create Payment Refund */
+export interface MollieCreatePaymentRefundInput {
+  /** Select the payment to refund (resolve via property options API) */
+  paymentId: string
+  /** The description of the refund (max 255 characters) */
+  description?: string
+  /** A three-character ISO 4217 currency code (e.g. EUR, USD) */
+  currency: string
+  /** The amount to refund (e.g. "10.00") */
+  amount: string
+  /** Additional data to save alongside the refund (JSON string) */
+  metadata?: string
+  /** Whether to include external reference details */
+  includeExternalReference?: boolean
+  /** Type of external reference (values: `acquirer-reference`) */
+  externalReferenceType?: "acquirer-reference"
+  /** Unique reference from the payment provider */
+  externalReferenceId?: string
+  /** Pull back funds routed to connected merchants (full refund only) */
+  reverseRouting?: boolean
+  /** Specify detailed routing reversals for partial refunds */
+  includeRoutingReversals?: boolean
+  /** Detailed routing reversals for connected merchants */
+  routingReversals?: Array<{   amountCurrency: string;   amountValue: string;   sourceType: "organization";   organizationId: string }>
+  /** Whether to create the refund in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Search Order */
+export interface MollieSearchOrderInput {
+  /** Start the result set from this order ID onwards */
+  from?: string
+  /** Maximum number of orders to return (1-250, default: 50) */
+  limit?: number
+  /** Sort orders by creation date (values: `desc`, `asc`) */
+  sort?: "desc" | "asc"
+  /** Profile ID to retrieve orders for (optional) */
+  profileId?: string
+  /** Whether to search in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Search Payment */
+export interface MollieSearchPaymentInput {
+  /** Start the result set from this payment ID onwards */
+  from?: string
+  /** Maximum number of payments to return (1-250, default: 50) */
+  limit?: number
+  /** Sort payments by creation date (values: `desc`, `asc`) */
+  sort?: "desc" | "asc"
+  /** Profile ID to retrieve payments for (optional) */
+  profileId?: string
+  /** Whether to search in test mode */
+  testmode?: boolean
+}
+
+/** Mollie — Search Customer */
+export interface MollieSearchCustomerInput {
+  /** Start the result set from this customer ID onwards */
+  from?: string
+  /** Maximum number of customers to return (1-250, default: 50) */
+  limit?: number
+  /** Sort customers by creation date (values: `desc`, `asc`) */
+  sort?: "desc" | "asc"
+  /** Whether to search in test mode */
+  testmode?: boolean
 }
 
 /** monday.com — Create Column */
@@ -3860,6 +5753,1020 @@ export interface OpenaiCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Paywhirl — Cancel Subscription */
+export interface PaywhirlCancelSubscriptionInput {
+  /** Subscription ID */
+  subscription_id?: number
+  /** Customer ID (can be used instead of subscription_id) */
+  customer_id?: string
+}
+
+/** Paywhirl — Create Customer */
+export interface PaywhirlCreateCustomerInput {
+  /** First name */
+  first_name: string
+  /** Last name */
+  last_name: string
+  /** Email address */
+  email: string
+  /** Currency code (ex. USD, GBP, AUD, CAD, EUR, etc) */
+  currency: string
+  /** Password (leave blank to let customer assign via secure link in welcome email) */
+  password?: string
+  /** Phone number */
+  phone?: number
+  /** Street address */
+  address?: string
+  /** City */
+  city?: string
+  /** State / Region */
+  state?: string
+  /** Zip / Postal Code */
+  zip?: string
+  /** Country Code (ex. US, GB, CA, AU, etc) */
+  country?: string
+  /** PayWhirl ID of payment gateway to attach to customer. If left blank, first loaded gateway will be used. */
+  gateway_id?: string
+  /** Acquisition source (ex. google, bing, email, fall_campaign, etc) */
+  utm_source?: string
+  /** Acquisition medium (ex. CPC, banner, text_ad, etc) */
+  utm_medium?: string
+  /** Acquisition keyword */
+  utm_term?: string
+  /** Acquisition Ad Content */
+  utm_content?: string
+  /** Acquisition Ad Campaign */
+  utm_campaign?: string
+  /** Acquisition Ad Group */
+  utm_group?: string
+}
+
+/** Paywhirl — Get Customers */
+export interface PaywhirlGetCustomerInput {
+  /** Number of entries to return. Limit 100. */
+  limit?: number
+  /** Field to sort by. Default: id */
+  order_key?: string
+  /** Direction to order results (values: `asc`, `desc`) */
+  order_direction?: "asc" | "desc"
+  /** All customers returned will have an ID less than this value */
+  before_id?: number
+  /** All customers returned will have an ID greater than this value */
+  after_id?: number
+  /** Filter by keyword */
+  keyword?: string
+}
+
+/** Paywhirl — Get Customer Subscriptions */
+export interface PaywhirlSearchCustomersSubscriptionInput {
+  /** Customer ID */
+  customer_id: number
+  /** Filter by subscription status. Active (default) excludes canceled; Canceled shows only canceled; All shows all subscriptions. (values: `active`, `canceled`, `all`) */
+  status?: "active" | "canceled" | "all"
+}
+
+/** Paywhirl — Subscribe Customer */
+export interface PaywhirlSubscribeCustomerInput {
+  /** Customer ID */
+  customer_id: number
+  /** Plan ID */
+  plan_id: number
+  /** UNIX timestamp in the future (UTC timezone) */
+  trial_end?: number
+  /** ID of promo code to apply */
+  promo_id?: number
+  /** Quantity (Default: 1) */
+  quantity?: number
+}
+
+/** Paywhirl — Custom API Call */
+export interface PaywhirlCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Pipedrive — Add Follower */
+export interface PipedriveAddFollowerInput {
+  /** Follower (resolve via property options API) */
+  followerId: string
+  /** Type of object to add the follower to. (values: `deal`, `person`, `organization`, `product`) */
+  entity: "deal" | "person" | "organization" | "product"
+  /** ID of the object to add the follower to. */
+  entityId: string
+}
+
+/** Pipedrive — Retrieve a Note */
+export interface PipedriveGetNoteInput {
+  /** Note ID */
+  noteId: number
+}
+
+/** Pipedrive — Create Note */
+export interface PipedriveCreateNoteInput {
+  /** Content */
+  content: string
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId?: number
+  /** Pin note to deal? */
+  pinnedToDeal?: boolean
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** Pin note to person? */
+  pinnedToPerson?: boolean
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** Pin note to organization? */
+  pinnedToOrganization?: boolean
+  /** Lead ID */
+  leadId?: string
+  /** Pin note to lead? */
+  pinnedToLead?: boolean
+}
+
+/** Pipedrive — Add Labels to Person */
+export interface PipedriveAddLabelsToPersonInput {
+  /** You can use Find Person action to retrieve person ID. */
+  personId: number
+  /** Label */
+  labelIds: string[]
+}
+
+/** Pipedrive — Add Product to Deal */
+export interface PipedriveAddProductToDealInput {
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId: number
+  /** You can use Find Product action to retrieve product ID. */
+  productId: number
+  /** Price */
+  price: number
+  /** Quantity */
+  quantity: number
+  /** Discount */
+  discount?: number
+  /** Discount Type (values: `percentage`, `amount`) */
+  discountType?: "percentage" | "amount"
+  /** Comments */
+  comments?: string
+  /** Enable Product? */
+  enableProduct?: boolean
+  /** Tax Method (values: `exclusive`, `inclusive`, `none`) */
+  taxMethod?: "exclusive" | "inclusive" | "none"
+  /** Tax Percentage */
+  taxPercentage?: number
+}
+
+/** Pipedrive — Attach File */
+export interface PipedriveAttachFileInput {
+  /** File */
+  file: string
+  /** File Name */
+  fileName: string
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Product action to retrieve product ID. */
+  productId?: number
+  /** Activity ID */
+  activityId?: number
+}
+
+/** Pipedrive — Create Activity */
+export interface PipedriveCreateActivityInput {
+  /** Subject */
+  subject: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId?: number
+  /** Lead ID */
+  leadId?: string
+  /** Assign To (resolve via property options API) */
+  assignTo?: string
+  /** Activity Type (resolve via property options API) */
+  type?: string
+  /** Please enter date in YYYY-MM-DD format. */
+  dueDate?: string
+  /** Please enter time in HH:MM format. */
+  dueTime?: string
+  /** Please enter time in HH:MM format (e.g., "01:30" for 1 hour 30 minutes). */
+  duration?: string
+  /** Mark as Done? */
+  isDone?: boolean
+  /** Free or Busy (values: `free`, `busy`) */
+  busy?: "free" | "busy"
+  /** Note */
+  note?: string
+  /** Public Description */
+  publicDescription?: string
+}
+
+/** Pipedrive — Update Activity */
+export interface PipedriveUpdateActivityInput {
+  /** Activity ID */
+  activityId: number
+  /** Subject */
+  subject?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId?: number
+  /** Lead ID */
+  leadId?: string
+  /** Assign To (resolve via property options API) */
+  assignTo?: string
+  /** Activity Type (resolve via property options API) */
+  type?: string
+  /** Please enter date in YYYY-MM-DD format. */
+  dueDate?: string
+  /** Please enter time in HH:MM format. */
+  dueTime?: string
+  /** Please enter time in HH:MM format (e.g., "01:30" for 1 hour 30 minutes). */
+  duration?: string
+  /** Mark as Done? */
+  isDone?: boolean
+  /** Free or Busy (values: `free`, `busy`) */
+  busy?: "free" | "busy"
+  /** Note */
+  note?: string
+  /** Public Description */
+  publicDescription?: string
+}
+
+/** Pipedrive — Create Deal */
+export interface PipedriveCreateDealInput {
+  /** Title */
+  title: string
+  /** Creation Time */
+  creationTime?: string
+  /** Status (values: `open`, `won`, `lost`, `deleted`) */
+  status?: "open" | "won" | "lost" | "deleted"
+  /** If a stage is chosen above, the pipeline field will be ignored. (resolve via property options API) */
+  stageId?: string
+  /** Pipeline (resolve via property options API) */
+  pipelineId?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** Label */
+  labelIds?: string[]
+  /** Probability */
+  probability?: number
+  /** Please enter date in YYYY-MM-DD format. */
+  expectedCloseDate?: string
+  /** Value */
+  dealValue?: number
+  /** Please enter currency code (e.g., "USD", "EUR"). */
+  dealValueCurrency?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Update Deal */
+export interface PipedriveUpdateDealInput {
+  /** You can use Find Deal action to retrieve deal ID. */
+  dealId: number
+  /** Title */
+  title?: string
+  /** Creation Time */
+  creationTime?: string
+  /** Status (values: `open`, `won`, `lost`, `deleted`) */
+  status?: "open" | "won" | "lost" | "deleted"
+  /** If a stage is chosen above, the pipeline field will be ignored. (resolve via property options API) */
+  stageId?: string
+  /** Pipeline (resolve via property options API) */
+  pipelineId?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** Label */
+  labelIds?: string[]
+  /** Probability */
+  probability?: number
+  /** Please enter date in YYYY-MM-DD format. */
+  expectedCloseDate?: string
+  /** Value */
+  dealValue?: number
+  /** Please enter currency code (e.g., "USD", "EUR"). */
+  dealValueCurrency?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Create Lead */
+export interface PipedriveCreateLeadInput {
+  /** Title */
+  title: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** Label */
+  labelIds?: string[]
+  /** Please enter date in YYYY-MM-DD format. */
+  expectedCloseDate?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Channel (resolve via property options API) */
+  channel?: string
+  /** Lead Value Amount */
+  leadValue?: number
+  /** The currency of the lead value (e.g., "USD", "EUR"). */
+  leadValueCurrency?: string
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Update Lead */
+export interface PipedriveUpdateLeadInput {
+  /** Lead ID */
+  leadId: string
+  /** Title */
+  title?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** You can use Find Person action to retrieve person ID. */
+  personId?: number
+  /** Label */
+  labelIds?: string[]
+  /** Please enter date in YYYY-MM-DD format. */
+  expectedCloseDate?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Channel (resolve via property options API) */
+  channel?: string
+  /** Lead Value Amount */
+  leadValue?: number
+  /** The currency of the lead value (e.g., "USD", "EUR"). */
+  leadValueCurrency?: string
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Create Organization */
+export interface PipedriveCreateOrganizationInput {
+  /** Name */
+  name: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Label */
+  labelIds?: string[]
+  /** Address */
+  address?: string
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Update Organization */
+export interface PipedriveUpdateOrganizationInput {
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId: number
+  /** Name */
+  name?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Label */
+  labelIds?: string[]
+  /** Address */
+  address?: string
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Create Person */
+export interface PipedriveCreatePersonInput {
+  /** Name */
+  name?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** Email */
+  email?: unknown[]
+  /** Phone */
+  phone?: unknown[]
+  /** Label */
+  labelIds?: string[]
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Marketing opt-in status (values: `no_consent`, `unsubscribed`, `subscribed`, `archived`) */
+  marketing_status?: "no_consent" | "unsubscribed" | "subscribed" | "archived"
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Update Person */
+export interface PipedriveUpdatePersonInput {
+  /** You can use Find Person action to retrieve person ID. */
+  personId: number
+  /** Name */
+  name?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** You can use Find Organization action to retrieve org ID. */
+  organizationId?: number
+  /** Email */
+  email?: unknown[]
+  /** Phone */
+  phone?: unknown[]
+  /** Label */
+  labelIds?: string[]
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Marketing opt-in status (values: `no_consent`, `unsubscribed`, `subscribed`, `archived`) */
+  marketing_status?: "no_consent" | "unsubscribed" | "subscribed" | "archived"
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Create Product */
+export interface PipedriveCreateProductInput {
+  /** Name */
+  name: string
+  /** Code */
+  code?: string
+  /** Description */
+  description?: string
+  /** Unit */
+  unit?: string
+  /** Tax percentage */
+  tax?: number
+  /** Is Active ? */
+  isActive?: boolean
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Please enter currency code (e.g., "USD", "EUR"). */
+  currency?: string
+  /** Price */
+  price?: number
+  /** Cost */
+  cost?: number
+  /** Overhead Cost */
+  overheadCost?: number
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Update Product */
+export interface PipedriveUpdateProductInput {
+  /** Product ID */
+  id: string
+  /** Name */
+  name?: string
+  /** Code */
+  code?: string
+  /** Description */
+  description?: string
+  /** Unit */
+  unit?: string
+  /** Tax percentage */
+  tax?: number
+  /** Is Active ? */
+  isActive?: boolean
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Please enter currency code (e.g., "USD", "EUR"). */
+  currency?: string
+  /** Price */
+  price?: number
+  /** Cost */
+  cost?: number
+  /** Overhead Cost */
+  overheadCost?: number
+  /** Visible To (values: `1`, `3`) */
+  visibleTo?: 1 | 3
+  /** Custom Fields */
+  customfields?: Record<string, unknown>
+}
+
+/** Pipedrive — Find Deals Associated With Person */
+export interface PipedriveFindDealsAssociatedWithPersonInput {
+  /** You can use Find Person action to retrieve person ID. */
+  personId: number
+}
+
+/** Pipedrive — Find Product */
+export interface PipedriveFindProductInput {
+  /** Search Term */
+  searchTerm: string
+}
+
+/** Pipedrive — Find Products */
+export interface PipedriveFindProductsInput {
+  /** Field to search by (values: `name`, `code`) */
+  field: "name" | "code"
+  /** Field Value */
+  fieldValue: string
+}
+
+/** Pipedrive — Find Notes */
+export interface PipedriveFindNotesInput {
+  /** Search By (values: `deal_id`, `lead_id`, `person_id`, `org_id`) */
+  objectType: "deal_id" | "lead_id" | "person_id" | "org_id"
+  /** ID */
+  objectId: string
+}
+
+/** Pipedrive — Retrieve a Product */
+export interface PipedriveGetProductInput {
+  /** Product ID */
+  productId: number
+}
+
+/** Pipedrive — Find Organization */
+export interface PipedriveFindOrganizationInput {
+  /** Field to search by (resolve via property options API) */
+  searchField: string
+  /** Field Value */
+  searchFieldValue: Record<string, unknown>
+}
+
+/** Pipedrive — Find Person */
+export interface PipedriveFindPersonInput {
+  /** Field to search by (resolve via property options API) */
+  searchField: string
+  /** Field Value */
+  searchFieldValue: Record<string, unknown>
+}
+
+/** Pipedrive — Find Deal */
+export interface PipedriveFindDealInput {
+  /** Field to search by (resolve via property options API) */
+  searchField: string
+  /** Field Value */
+  searchFieldValue: Record<string, unknown>
+}
+
+/** Pipedrive — Find Activity */
+export interface PipedriveFindActivityInput {
+  /** Subject */
+  subject: string
+  /** Exact Match */
+  exactMatch?: boolean
+  /** Assign To (resolve via property options API) */
+  assignTo?: string
+  /** Activity Type (resolve via property options API) */
+  type?: string
+  /** Filter (resolve via property options API) */
+  filterId?: string
+  /** Status (values: `1`, `0`) */
+  status?: 1 | 0
+}
+
+/** Pipedrive — Find User */
+export interface PipedriveFindUserInput {
+  /** Field to search by (values: `name`, `email`) */
+  field: "name" | "email"
+  /** Field Value */
+  fieldValue: string
+}
+
+/** Pipedrive — Custom API Call */
+export interface PipedriveCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Plausible — List Teams */
+export type PlausibleListTeamsInput = Record<string, never>
+
+/** Plausible — List Sites */
+export type PlausibleListSitesInput = Record<string, never>
+
+/** Plausible — Get Site */
+export interface PlausibleGetSiteInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+}
+
+/** Plausible — Create Site */
+export interface PlausibleCreateSiteInput {
+  /** Domain of the site (must be globally unique) */
+  domain: string
+  /** Timezone name according to IANA database (e.g., Europe/London). Defaults to Etc/UTC */
+  timezone?: string
+  /** Select a team (resolve via property options API) */
+  team_id?: string
+  /** Enable tracking of 404 error pages */
+  track_404_pages?: boolean
+  /** Enable hash-based routing for single-page applications */
+  hash_based_routing?: boolean
+  /** Track clicks on outbound links */
+  outbound_links?: boolean
+  /** Track file downloads */
+  file_downloads?: boolean
+  /** Track form submissions */
+  form_submissions?: boolean
+}
+
+/** Plausible — Update Site */
+export interface PlausibleUpdateSiteInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** New domain name for the site (leave empty to keep current) */
+  new_domain?: string
+  /** Enable tracking of 404 error pages */
+  track_404_pages?: boolean
+  /** Enable hash-based routing for single-page applications */
+  hash_based_routing?: boolean
+  /** Track clicks on outbound links */
+  outbound_links?: boolean
+  /** Track file downloads */
+  file_downloads?: boolean
+  /** Track form submissions */
+  form_submissions?: boolean
+}
+
+/** Plausible — Delete Site */
+export interface PlausibleDeleteSiteInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+}
+
+/** Plausible — Create Shared Link */
+export interface PlausibleCreateSharedLinkInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Name of the shared link (e.g., Wordpress) */
+  name: string
+}
+
+/** Plausible — List Goals */
+export interface PlausibleListGoalsInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+}
+
+/** Plausible — Create Goal */
+export interface PlausibleCreateGoalInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Type of goal to create (values: `event`, `page`) */
+  goal_type: "event" | "page"
+  /** Name of the event (required if goal type is Event) */
+  event_name?: string
+  /** Page path to track (required if goal type is Page). Supports wildcards. */
+  page_path?: string
+  /** Custom display name for the goal in the dashboard */
+  display_name?: string
+}
+
+/** Plausible — Delete Goal */
+export interface PlausibleDeleteGoalInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Select a goal (resolve via property options API) */
+  goal_id: string
+}
+
+/** Plausible — List Custom Properties */
+export interface PlausibleListCustomPropertiesInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+}
+
+/** Plausible — Create Custom Property */
+export interface PlausibleCreateCustomPropertyInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Name of the custom property */
+  property: string
+}
+
+/** Plausible — Delete Custom Property */
+export interface PlausibleDeleteCustomPropertyInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Select a custom property (resolve via property options API) */
+  property: string
+}
+
+/** Plausible — List Guests */
+export interface PlausibleListGuestsInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+}
+
+/** Plausible — Invite Guest */
+export interface PlausibleInviteGuestInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Guest's email address */
+  email: string
+  /** Role to assign to the guest (values: `viewer`, `editor`) */
+  role: "viewer" | "editor"
+}
+
+/** Plausible — Remove Guest */
+export interface PlausibleRemoveGuestInput {
+  /** Select a site (resolve via property options API) */
+  site_id: string
+  /** Select a guest (resolve via property options API) */
+  email: string
+}
+
+/** PostHog — Create Event */
+export interface PosthogCreateEventInput {
+  /** The event name */
+  event: string
+  /** Event type (values: `alias`, `capture`, `screen`, `page`, `screen`) */
+  event_type: "alias" | "capture" | "screen" | "page" | "screen"
+  /** User's Distinct Id */
+  distinct_id: string
+  /** The event properties */
+  properties?: Record<string, unknown>
+  /** The event context, */
+  context?: Record<string, unknown>
+  /** The message id, */
+  message_id?: string
+  /** The event category. */
+  category?: string
+}
+
+/** PostHog — Create Project */
+export interface PosthogCreateProjectInput {
+  /** Project Name */
+  name?: string
+  /** Slack incoming webhook */
+  slack_incoming_webhook?: string
+  /** Whether to anonymize incoming IP addresses. */
+  anonymize_ips?: boolean
+  /** If this is a demo project */
+  is_demo?: boolean
+}
+
+/** PostHog — Custom API Call */
+export interface PosthogCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Quickbooks Online — Find Invoice */
+export interface QuickbooksFindInvoiceInput {
+  /** The document number (DocNumber) of the invoice to search for. */
+  invoice_number: string
+}
+
+/** Quickbooks Online — Find Customer */
+export interface QuickbooksFindCustomerInput {
+  /** The display name of the customer to search for. */
+  search_term: string
+}
+
+/** Quickbooks Online — Find Payment */
+export interface QuickbooksFindPaymentInput {
+  /** The ID of the customer to find payments for. */
+  customerId: string
+}
+
+/** Quickbooks Online — Create Invoice */
+export interface QuickbooksCreateInvoiceInput {
+  /** Customer (resolve via property options API) */
+  customerRef: string
+  /** Line items for the invoice */
+  lineItems: Array<{   description?: string;   amount: number;   detailType: "SalesItemLineDetail";   itemId: string;   quantity?: number;   unitPrice?: number }>
+  /** Specify whether the invoice should be emailed after creation. (values: `NotSet`, `NeedToSend`) */
+  emailStatus?: "NotSet" | "NeedToSend"
+  /** Email address to send the invoice to. Required if Email Status is "Needs To Be Sent". Overrides customer default. */
+  billEmail?: string
+  /** The date when the payment for the invoice is due. If not provided, default term from customer or company is used. */
+  dueDate?: string
+  /** Optional reference number for the invoice. If not provided, QuickBooks assigns the next sequential number. */
+  docNumber?: string
+  /** The date entered on the transaction. Defaults to the current date if not specified. */
+  txnDate?: string
+  /** Note to self. Does not appear on the invoice sent to the customer. */
+  privateNote?: string
+  /** Memo to be displayed on the invoice sent to the customer (appears on statement). */
+  customerMemo?: string
+}
+
+/** Quickbooks Online — Create Expense */
+export interface QuickbooksCreateExpenseInput {
+  /** The account from which the expense was paid. (resolve via property options API) */
+  accountRef: string
+  /** Payment Type (values: `Cash`, `Check`, `CreditCard`) */
+  paymentType: "Cash" | "Check" | "CreditCard"
+  /** Optional - The vendor the expense was paid to. (resolve via property options API) */
+  entityRef?: string
+  /** The date the expense occurred. */
+  txnDate?: string
+  /** Details of the expense (e.g., categories or items purchased). At least one line is required. */
+  lineItems: Array<{   amount: number;   description?: string;   detailType: "AccountBasedExpenseLineDetail";   expenseAccountId: string }>
+  /** Internal note about the expense. */
+  privateNote?: string
+}
+
+/** Quickbooks Online — Custom API Call */
+export interface QuickbooksCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Razorpay — Custom API Call */
+export interface RazorpayCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Razorpay — Create Payment Link */
+export interface RazorpayCreatePaymentLinkInput {
+  /** Amount */
+  amount: number
+  /** Currency */
+  currency: string
+  /** Reference ID */
+  reference_id?: string
+  /** Description */
+  description?: string
+  /** Customer Name */
+  customer_name?: string
+  /** Customer Contact */
+  customer_contact: string
+  /** Send notification via SMS */
+  notify_sms?: boolean
+  /** Customer Email */
+  customer_email?: string
+  /** Send notification via Email */
+  notify_email?: boolean
+  /** Notes */
+  metafield_notes?: string
+  /** Callback URL */
+  callback_url?: string
+  /** Callback Method */
+  callback_method?: string
+}
+
+/** Resend — Send Email */
+export interface ResendSendEmailInput {
+  /** Emails of the recipients */
+  to: unknown[]
+  /** Sender name */
+  from_name: string
+  /** Sender email */
+  from: string
+  /** List of emails in bcc */
+  bcc?: unknown[]
+  /** List of emails in cc */
+  cc?: unknown[]
+  /** Email to receive replies on (defaults to sender) */
+  reply_to?: string
+  /** Subject */
+  subject: string
+  /** Content Type (resolve via property options API) */
+  content_type: string
+  /** HTML is only allowed if you selected HTML as type */
+  content: string
+}
+
+/** Resend — Custom API Call */
+export interface ResendCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Salesforce — Add Contact to Campaign */
 export interface SalesforceAddContactToCampaignInput {
   /** Campaign (resolve via property options API) */
@@ -4168,6 +7075,72 @@ export interface SalesforceUpsertByExternalIdBulkInput {
 
 /** Salesforce — Custom API Call */
 export interface SalesforceCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Segment — Identify User */
+export interface SegmentIdentifyUserInput {
+  /** User ID */
+  userId: string
+  /** The traits to associate with the user */
+  traits: Record<string, unknown>
+}
+
+/** SendGrid — Send Email */
+export interface SendgridSendEmailInput {
+  /** Emails of the recipients */
+  to: unknown[]
+  /** Sender email, must be on your SendGrid */
+  from: string
+  /** Sender name */
+  from_name?: string
+  /** Email to receive replies on (defaults to sender) */
+  reply_to?: string
+  /** Subject */
+  subject: string
+  /** Content Type (resolve via property options API) */
+  content_type: string
+  /** HTML is only allowed if you selected HTML as type */
+  content: string
+}
+
+/** SendGrid — Send Dynamic Template */
+export interface SendgridSendDynamicTemplateInput {
+  /** Emails of the recipients */
+  to: unknown[]
+  /** Sender name */
+  from_name?: string
+  /** Sender email, must be on your SendGrid */
+  from: string
+  /** Dynamic template id */
+  template_id: string
+  /** Dynamic template data */
+  template_data: unknown
+  /** Email to receive replies on (defaults to sender) */
+  reply_to?: string
+}
+
+/** SendGrid — Custom API Call */
+export interface SendgridCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -4848,6 +7821,276 @@ export interface StorageListFilesInput {
   persistenceId?: string
 }
 
+/** Stripe — Create Customer */
+export interface StripeCreateCustomerInput {
+  /** Email */
+  email: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Phone */
+  phone?: string
+  /** Address Line 1 */
+  line1?: string
+  /** Postal Code */
+  postal_code?: string
+  /** City */
+  city?: string
+  /** State */
+  state?: string
+  /** Country */
+  country?: string
+}
+
+/** Stripe — Create Invoice */
+export interface StripeCreateInvoiceInput {
+  /** Stripe Customer ID */
+  customer_id: string
+  /** Currency for the invoice (e.g., USD) */
+  currency: string
+  /** Description for the invoice */
+  description?: string
+}
+
+/** Stripe — Search Customer */
+export interface StripeSearchCustomerInput {
+  /** Email */
+  email: string
+}
+
+/** Stripe — Search Subscriptions */
+export interface StripeSearchSubscriptionsInput {
+  /** Comma-separated list of price IDs to filter by (e.g., price_1ABC123, price_2DEF456) */
+  price_ids?: string
+  /** Filter by subscription status (values: ``, `active`, `past_due`, `unpaid`, `canceled`, `incomplete`, `incomplete_expired`, `trialing`, `paused`) */
+  status?: "" | "active" | "past_due" | "unpaid" | "canceled" | "incomplete" | "incomplete_expired" | "trialing" | "paused"
+  /** Filter by specific customer ID (optional) */
+  customer_id?: string
+  /** Filter subscriptions created after this date (YYYY-MM-DD format) */
+  created_after?: string
+  /** Filter subscriptions created before this date (YYYY-MM-DD format) */
+  created_before?: string
+  /** Maximum number of subscriptions to return (default: 100, set to 0 for all) */
+  limit?: number
+  /** Fetch all matching subscriptions (ignores limit, may take longer for large datasets) */
+  fetch_all?: boolean
+  /** Fetch detailed customer information for each subscription */
+  include_customer_details?: boolean
+}
+
+/** Stripe — Retrieve Customer */
+export interface StripeRetrieveCustomerInput {
+  /** ID */
+  id: string
+}
+
+/** Stripe — Update Customer */
+export interface StripeUpdateCustomerInput {
+  /** Customer (resolve via property options API) */
+  customer: string
+  /** Email */
+  email?: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Phone */
+  phone?: string
+  /** Address Line 1 */
+  line1?: string
+  /** Postal Code */
+  postal_code?: string
+  /** City */
+  city?: string
+  /** State */
+  state?: string
+  /** Country */
+  country?: string
+}
+
+/** Stripe — Create Payment (Payment Intent) */
+export interface StripeCreatePaymentIntentInput {
+  /** The amount to charge, in a decimal format (e.g., 10.50 for $10.50). */
+  amount: number
+  /** The three-letter ISO code for the currency. (values: `usd`, `eur`, `gbp`, `aud`, `cad`, `chf`, `cny`, `jpy`, `inr`, `sgd`) */
+  currency: "usd" | "eur" | "gbp" | "aud" | "cad" | "chf" | "cny" | "jpy" | "inr" | "sgd"
+  /** Customer (resolve via property options API) */
+  customer: string
+  /** The ID of the Payment Method to attach (e.g., `pm_...`). Required if you want to confirm the payment immediately. */
+  payment_method?: string
+  /** If true, Stripe will attempt to charge the provided payment method. A `Payment Method ID` is required. */
+  confirm?: boolean
+  /** The URL to redirect your customer back to after they authenticate their payment. Required when confirming the payment. */
+  return_url?: string
+  /** Description */
+  description?: string
+  /** The email address to send a receipt to. This will override the customer's email address. */
+  receipt_email?: string
+}
+
+/** Stripe — Create Product */
+export interface StripeCreateProductInput {
+  /** The product’s name, meant to be displayable to the customer. */
+  name: string
+  /** The product’s description, meant to be displayable to the customer. */
+  description?: string
+  /** Whether the product is currently available for purchase. Defaults to true. */
+  active?: boolean
+  /** A list of up to 8 URLs of images for this product. */
+  images?: unknown[]
+  /** A publicly-accessible online page for this product. */
+  url?: string
+  /** A set of key-value pairs to store additional information about the product. */
+  metadata?: unknown
+}
+
+/** Stripe — Create Price */
+export interface StripeCreatePriceInput {
+  /** Product (resolve via property options API) */
+  product: string
+  /** The price amount as a decimal, for example, 25.50 for $25.50. */
+  unit_amount: number
+  /** The three-letter ISO code for the currency. (values: `usd`, `eur`, `gbp`, `inr`, `aud`, `cad`, `chf`, `cny`, `jpy`, `sgd`) */
+  currency: "usd" | "eur" | "gbp" | "inr" | "aud" | "cad" | "chf" | "cny" | "jpy" | "sgd"
+  /** Specify the billing frequency. Select 'One-Time' for a single, non-recurring payment. (values: `one_time`, `day`, `week`, `month`, `year`) */
+  recurring_interval: "one_time" | "day" | "week" | "month" | "year"
+  /** The number of intervals between subscription billings (e.g., for billing every 3 months, set Interval to Monthly and Interval Count to 3). Only used for recurring prices. */
+  recurring_interval_count?: number
+}
+
+/** Stripe — Create Subscription */
+export interface StripeCreateSubscriptionInput {
+  /** Customer (resolve via property options API) */
+  customer: string
+  /** A list of prices to subscribe the customer to. */
+  items: Array<{   price: string;   quantity?: number }>
+  /** How to collect payment. 'charge_automatically' will try to bill the default payment method. 'send_invoice' will email an invoice. (values: `charge_automatically`, `send_invoice`) */
+  collection_method?: "charge_automatically" | "send_invoice"
+  /** Number of days before an invoice is due. Required if Collection Method is 'Send Invoice'. */
+  days_until_due?: number
+  /** Integer representing the number of trial days the customer receives before the subscription bills for the first time. */
+  trial_period_days?: number
+  /** ID of the default payment method for the subscription (e.g., `pm_...`). */
+  default_payment_method?: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** Stripe — Cancel Subscription */
+export interface StripeCancelSubscriptionInput {
+  /** Subscription (resolve via property options API) */
+  subscription: string
+  /** If true, the subscription remains active until the end of the current billing period. If false, it cancels immediately. */
+  cancel_at_period_end?: boolean
+}
+
+/** Stripe — Retrieve an Invoice */
+export interface StripeRetrieveInvoiceInput {
+  /** Invoice (resolve via property options API) */
+  invoice_id: string
+}
+
+/** Stripe — Retrieve a Payout */
+export interface StripeRetrievePayoutInput {
+  /** Payout (resolve via property options API) */
+  payout_id: string
+}
+
+/** Stripe — Create a Refund */
+export interface StripeCreateRefundInput {
+  /** Payment Intent (resolve via property options API) */
+  payment_intent: string
+  /** The amount to refund (e.g., 12.99). If left blank, a full refund will be issued. */
+  amount?: number
+  /** An optional reason for the refund. (values: `duplicate`, `fraudulent`, `requested_by_customer`) */
+  reason?: "duplicate" | "fraudulent" | "requested_by_customer"
+  /** A set of key-value pairs to store additional information about the refund. */
+  metadata?: unknown
+}
+
+/** Stripe — Create Payment Link */
+export interface StripeCreatePaymentLinkInput {
+  /** The products and quantities to include in the payment link. */
+  line_items: Array<{   price: string;   quantity: number }>
+  /** Controls the behavior after the purchase is complete. Defaults to showing Stripe's hosted confirmation page. (values: `hosted_confirmation`, `redirect`) */
+  after_completion_type?: "hosted_confirmation" | "redirect"
+  /** The URL to redirect the customer to after a successful purchase. Only used if the behavior is set to "Redirect to URL". */
+  after_completion_redirect_url?: string
+  /** Enables the user to enter a promotion code on the Payment Link page. */
+  allow_promotion_codes?: boolean
+  /** Describes whether Checkout should collect the customer’s billing address. (values: `auto`, `required`) */
+  billing_address_collection?: "auto" | "required"
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** Stripe — Deactivate Payment Link */
+export interface StripeDeactivatePaymentLinkInput {
+  /** Payment Link (resolve via property options API) */
+  payment_link_id: string
+}
+
+/** Stripe — Find Payment (by Payment Intent ID) */
+export interface StripeRetrievePaymentIntentInput {
+  /** Payment Intent (resolve via property options API) */
+  payment_intent_id: string
+}
+
+/** Stripe — Find Invoice */
+export interface StripeFindInvoiceInput {
+  /** Invoice (resolve via property options API) */
+  invoice_id: string
+}
+
+/** Stripe — Custom API Call */
+export interface StripeCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** SurveyMonkey — Custom API Call */
+export interface SurveymonkeyCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Telegram Bot — Send Text Message */
 export interface TelegramBotSendTextMessageInput {
   /**   **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found.**  */
@@ -5218,6 +8461,590 @@ export interface TypeformCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** WooCommerce — Create Customer */
+export interface WoocommerceCreateCustomerInput {
+  /** Enter the email */
+  email: string
+  /** Enter the first name */
+  first_name: string
+  /** Enter the last name */
+  last_name: string
+  /** Enter the username */
+  username: string
+  /** Enter the password */
+  password: string
+  /** Enter the street address */
+  street_address: string
+  /** Enter the city */
+  city: string
+  /** Enter the state */
+  state: string
+  /** Enter the postcode */
+  postcode: string
+  /** Enter the country */
+  country: string
+  /** Enter the phone */
+  phone: string
+}
+
+/** WooCommerce — Create Coupon */
+export interface WoocommerceCreateCouponInput {
+  /** Enter the coupon code */
+  code: string
+  /** Select the discount type (values: `fixed_cart`, `fixed_product`, `percent`, `percent_product`) */
+  discount_type: "fixed_cart" | "fixed_product" | "percent" | "percent_product"
+  /** Enter the amount */
+  amount: number
+  /** Enter the minimum amount */
+  minimum_amount: number
+}
+
+/** WooCommerce — Create Product */
+export interface WoocommerceCreateProductInput {
+  /** Enter the name */
+  name: string
+  /** Select the type (values: `simple`, `grouped`, `external`, `variable`) */
+  type: "simple" | "grouped" | "external" | "variable"
+  /** Enter the regular price */
+  regular_price: number
+  /** Enter the description */
+  description: string
+  /** Enter the short description */
+  short_description: string
+  /** Enter the category IDs (comma separated) */
+  categories: string
+  /** Enter the URLs of images you want to upload (comma separated) */
+  images: string
+}
+
+/** WooCommerce — Find Customer */
+export interface WoocommerceFindCustomerInput {
+  /** Enter the email */
+  email: string
+}
+
+/** WooCommerce — Find Product */
+export interface WoocommerceFindProductInput {
+  /** Enter the product ID */
+  id: string
+}
+
+/** WooCommerce — Custom API Call */
+export interface WoocommerceCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Xero — Create or Update Contact */
+export interface XeroXeroCreateContactInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** ID of the contact to create invoice for. */
+  contact_id?: string
+  /** Contact name, in full. */
+  name: string
+  /** Email address of the contact. */
+  email?: string
+}
+
+/** Xero — Create or Update Invoice */
+export interface XeroXeroCreateInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select an invoice (resolve via property options API) */
+  invoice_id?: string
+  /** Select a contact (resolve via property options API) */
+  contact_id?: string
+  /** Contact name, in full. */
+  name: string
+  /** Email address of the contact. */
+  email?: string
+  /** Invoice line items */
+  line_item: Record<string, unknown>
+  /** Date the invoice was created. Format example: 2019-03-11 */
+  date?: string
+  /** Due date of the invoice. Format example: 2019-03-11 */
+  due_date: string
+  /** Reference number of the Invoice */
+  reference?: string
+  /** Invoice Status (values: `DRAFT`, `SUBMITTED`, `AUTHORISED`, `DELETED`, `VOIDED`) */
+  status: "DRAFT" | "SUBMITTED" | "AUTHORISED" | "DELETED" | "VOIDED"
+}
+
+/** Xero — Allocate Credit Note to Invoice */
+export interface XeroXeroAllocateCreditNoteToInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a credit note to allocate from (resolve via property options API) */
+  credit_note_id: string
+  /** Select an invoice (resolve via property options API) */
+  invoice_id: string
+  /** The amount of the credit to allocate. */
+  amount: number
+  /** Date of allocation. Format: YYYY-MM-DD. Optional. */
+  date?: string
+}
+
+/** Xero — Create Bank Transfer */
+export interface XeroXeroCreateBankTransferInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a bank account (resolve via property options API) */
+  from_bank_account_id: string
+  /** Select a bank account (resolve via property options API) */
+  to_bank_account_id: string
+  /** Amount to transfer. Currencies must match between accounts. */
+  amount: number
+  /** YYYY-MM-DD. Defaults to today if not provided. */
+  date?: string
+  /** Reference for the transfer. */
+  reference?: string
+  /** Mark source account transaction as reconciled. */
+  from_is_reconciled?: boolean
+  /** Mark destination account transaction as reconciled. */
+  to_is_reconciled?: boolean
+}
+
+/** Xero — Create New Quote Draft */
+export interface XeroXeroCreateQuoteDraftInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** Date the quote was issued (YYYY-MM-DD). */
+  date: string
+  /** Date the quote expires (YYYY-MM-DD). */
+  expiry_date?: string
+  /** At minimum, provide a Description. */
+  line_item: Record<string, unknown>
+  /** Line Amount Types (values: `Exclusive`, `Inclusive`, `NoTax`) */
+  line_amount_types?: "Exclusive" | "Inclusive" | "NoTax"
+  /** Reference */
+  reference?: string
+  /** Quote Number */
+  quote_number?: string
+  /** Title */
+  title?: string
+  /** Summary */
+  summary?: string
+  /** Terms */
+  terms?: string
+  /** Status (values: `DRAFT`) */
+  status?: "DRAFT"
+}
+
+/** Xero — Send Sales Invoice by Email */
+export interface XeroXeroSendInvoiceEmailInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a sales invoice with a valid status for sending email (SUBMITTED, AUTHORISED, or PAID). (resolve via property options API) */
+  invoice_id: string
+}
+
+/** Xero — Create Bill */
+export interface XeroXeroCreateBillInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** At minimum, provide a Description. */
+  line_item: Record<string, unknown>
+  /** Date the bill was issued (YYYY-MM-DD). Optional. */
+  date?: string
+  /** Date the bill is due (YYYY-MM-DD). Optional. */
+  due_date?: string
+  /** Line Amount Types (values: `Exclusive`, `Inclusive`, `NoTax`) */
+  line_amount_types?: "Exclusive" | "Inclusive" | "NoTax"
+  /** Bill Number (Reference) */
+  invoice_number?: string
+  /** Status (values: `DRAFT`, `SUBMITTED`, `AUTHORISED`) */
+  status?: "DRAFT" | "SUBMITTED" | "AUTHORISED"
+}
+
+/** Xero — Create Payment */
+export interface XeroXeroCreatePaymentInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select an authorised invoice (sales or bill) to apply payment to. (resolve via property options API) */
+  invoice_id: string
+  /** Select a bank account (resolve via property options API) */
+  account_id: string
+  /** Payment amount (must be <= amount due). */
+  amount: number
+  /** YYYY-MM-DD. */
+  date: string
+  /** Reference */
+  reference?: string
+  /** Mark payment as reconciled (optional). */
+  is_reconciled?: boolean
+}
+
+/** Xero — Create Purchase Order */
+export interface XeroXeroCreatePurchaseOrderInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** At minimum, provide a Description. */
+  line_item: Record<string, unknown>
+  /** Date the purchase order was issued (YYYY-MM-DD). Optional. */
+  date?: string
+  /** Date goods are to be delivered (YYYY-MM-DD). Optional. */
+  delivery_date?: string
+  /** Line Amount Types (values: `Exclusive`, `Inclusive`, `NoTax`) */
+  line_amount_types?: "Exclusive" | "Inclusive" | "NoTax"
+  /** Purchase Order Number */
+  purchase_order_number?: string
+  /** Reference */
+  reference?: string
+  /** Select a branding theme (resolve via property options API) */
+  branding_theme_id?: string
+  /** Status (values: `DRAFT`, `SUBMITTED`, `AUTHORISED`, `BILLED`, `DELETED`) */
+  status?: "DRAFT" | "SUBMITTED" | "AUTHORISED" | "BILLED" | "DELETED"
+  /** Delivery Address */
+  delivery_address?: string
+  /** Attention To */
+  attention_to?: string
+  /** Telephone */
+  telephone?: string
+  /** Delivery Instructions */
+  delivery_instructions?: string
+  /** YYYY-MM-DD. Optional. */
+  expected_arrival_date?: string
+}
+
+/** Xero — Update Purchase Order */
+export interface XeroXeroUpdatePurchaseOrderInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a purchase order to update (resolve via property options API) */
+  purchase_order_id: string
+  /** Status (values: `DRAFT`, `SUBMITTED`, `AUTHORISED`, `BILLED`, `DELETED`) */
+  status?: "DRAFT" | "SUBMITTED" | "AUTHORISED" | "BILLED" | "DELETED"
+  /** Mark as Sent to Contact */
+  sent_to_contact?: boolean
+  /** Delivery Address */
+  delivery_address?: string
+  /** Attention To */
+  attention_to?: string
+  /** Telephone */
+  telephone?: string
+  /** Delivery Instructions */
+  delivery_instructions?: string
+  /** Expected Arrival Date (YYYY-MM-DD) */
+  expected_arrival_date?: string
+}
+
+/** Xero — Upload Attachment */
+export interface XeroXeroUploadAttachmentInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** The Xero resource to attach the file to. */
+  resource_type: "Invoices" | "CreditNotes" | "PurchaseOrders" | "Quotes" | "BankTransfers" | "BankTransactions" | "Contacts" | "Accounts" | "ManualJournals" | "Receipts" | "RepeatingInvoices"
+  /** Select the specific resource to attach the file to. (resolve via property options API) */
+  resource_id: string
+  /** The file to upload. Max 10MB per Xero limits. */
+  file: string
+  /** Optional file name to use in Xero. Avoid characters: < > : " / \ | ? * */
+  file_name?: string
+  /** MIME type of the file (e.g., image/png). If not set, will be inferred or default to application/octet-stream. */
+  content_type?: string
+  /** Only applicable to ACCREC invoices and ACCREC credit notes. Adds IncludeOnline=true query parameter. */
+  include_online?: boolean
+}
+
+/** Xero — Add Items to Existing Sales Invoice */
+export interface XeroXeroAddItemsToSalesInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select an invoice (resolve via property options API) */
+  invoice_id: string
+  /** Enable adding items to AUTHORISED invoices (Xero allows limited updates for paid/part-paid ACCREC). */
+  allow_authorised?: boolean
+  /** New Line Items */
+  new_line_items: Array<{   Description: string;   Quantity?: number;   UnitAmount?: number;   AccountCode?: string;   ItemCode?: string;   TaxType?: string;   DiscountRate?: number }>
+}
+
+/** Xero — Create Credit Note */
+export interface XeroXeroCreateCreditNoteInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Type (values: `ACCRECCREDIT`, `ACCPAYCREDIT`) */
+  type: "ACCRECCREDIT" | "ACCPAYCREDIT"
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** YYYY-MM-DD. Defaults to today if not provided. */
+  date?: string
+  /** Status (values: `DRAFT`, `AUTHORISED`) */
+  status?: "DRAFT" | "AUTHORISED"
+  /** Line Amount Types (values: `Exclusive`, `Inclusive`, `NoTax`) */
+  line_amount_types?: "Exclusive" | "Inclusive" | "NoTax"
+  /** Credit Note Number */
+  credit_note_number?: string
+  /** Reference (ACCRECCREDIT only) */
+  reference?: string
+  /** Currency Code */
+  currency_code?: string
+  /** Select a branding theme (resolve via property options API) */
+  branding_theme_id?: string
+  /** Add one or more line items. At minimum, each line needs a Description. */
+  line_items?: Array<{   Description: string;   Quantity?: number;   UnitAmount?: number;   AccountCode?: string;   ItemCode?: string;   TaxType?: string }>
+}
+
+/** Xero — Create Inventory Item */
+export interface XeroXeroCreateInventoryItemInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Item Code */
+  code: string
+  /** Name */
+  name?: string
+  /** Sales Description */
+  description?: string
+  /** Purchase Description */
+  purchase_description?: string
+  /** Is Sold */
+  is_sold?: boolean
+  /** Is Purchased */
+  is_purchased?: boolean
+  /** Sales Details */
+  sales_details?: Record<string, unknown>
+  /** Select an account (resolve via property options API) */
+  sales_account_id?: string
+  /** Purchase Details */
+  purchase_details?: Record<string, unknown>
+  /** Select an account (resolve via property options API) */
+  purchase_account_id?: string
+  /** Select an account (resolve via property options API) */
+  cogs_account_id?: string
+  /** Select an account (resolve via property options API) */
+  inventory_asset_account_id?: string
+}
+
+/** Xero — Create Project */
+export interface XeroXeroCreateProjectInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** Project Name */
+  name: string
+  /** Example: 2017-04-23T18:25:43.511Z */
+  deadline_utc?: string
+  /** Estimate Amount */
+  estimate_amount?: number
+}
+
+/** Xero — Update Sales Invoice */
+export interface XeroXeroUpdateSalesInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Enable updates for AUTHORISED invoices (Xero allows limited updates for paid/part-paid ACCREC). */
+  allow_authorised?: boolean
+  /** Select a sales invoice (ACCREC) with DRAFT or SUBMITTED status. (resolve via property options API) */
+  invoice_id: string
+  /** Reference */
+  reference?: string
+  /** Due Date (YYYY-MM-DD) */
+  due_date?: string
+  /** Invoice Number */
+  invoice_number?: string
+  /** Select a branding theme (resolve via property options API) */
+  branding_theme_id?: string
+  /** Source URL */
+  url?: string
+  /** Select a contact (resolve via property options API) */
+  contact_id?: string
+  /** Status (values: `DRAFT`, `SUBMITTED`, `AUTHORISED`, `VOIDED`, `DELETED`) */
+  status?: "DRAFT" | "SUBMITTED" | "AUTHORISED" | "VOIDED" | "DELETED"
+  /** Mark as Sent to Contact */
+  sent_to_contact?: boolean
+  /** If enabled, only the provided line_items will remain. If disabled, we will merge with current lines by updating matching LineItemID and appending new items. */
+  replace_all_line_items?: boolean
+  /** Line Items (updates/additions) */
+  line_items?: Array<{   LineItemID?: string;   Description?: string;   Quantity?: number;   UnitAmount?: number;   AccountCode?: string;   ItemCode?: string;   TaxType?: string;   DiscountRate?: number }>
+}
+
+/** Xero — Create Repeating Sales Invoice */
+export interface XeroXeroCreateRepeatingSalesInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id: string
+  /** Integer period (e.g., 1 every week, 2 every month). */
+  schedule_period: number
+  /** Schedule Unit (values: `WEEKLY`, `MONTHLY`) */
+  schedule_unit: "WEEKLY" | "MONTHLY"
+  /** Day number used with due date type (e.g., 20, 31). */
+  due_date: number
+  /** Due Date Type (resolve via property options API) */
+  due_date_type: string
+  /** Start Date (YYYY-MM-DD) */
+  start_date: string
+  /** End Date (YYYY-MM-DD) */
+  end_date?: string
+  /** Line Amount Types (values: `Exclusive`, `Inclusive`, `NoTax`) */
+  line_amount_types: "Exclusive" | "Inclusive" | "NoTax"
+  /** Select a currency code (resolve via property options API) */
+  currency_code: string
+  /** Status (values: `DRAFT`, `AUTHORISED`) */
+  status: "DRAFT" | "AUTHORISED"
+  /** Reference */
+  reference?: string
+  /** Select a branding theme (resolve via property options API) */
+  branding_theme_id?: string
+  /** Approved For Sending */
+  approved_for_sending?: boolean
+  /** Send Copy */
+  send_copy?: boolean
+  /** Mark As Sent */
+  mark_as_sent?: boolean
+  /** Include PDF */
+  include_pdf?: boolean
+  /** Line Items */
+  line_items: Array<{   Description: string;   Quantity?: number;   UnitAmount?: number;   AccountCode?: string;   ItemCode?: string;   TaxType?: string;   DiscountRate?: number }>
+}
+
+/** Xero — Find Contact */
+export interface XeroXeroFindContactInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Search By (values: `NAME`, `ACCOUNT_NUMBER`, `SEARCH_TERM`) */
+  search_by: "NAME" | "ACCOUNT_NUMBER" | "SEARCH_TERM"
+  /** Name, Account Number, or Search Term depending on Search By. */
+  value: string
+  /** Include Archived */
+  include_archived?: boolean
+  /** Recommended for broad searches (Search Term). Excludes heavy fields. */
+  summary_only?: boolean
+  /** Pagination page (optional). */
+  page?: number
+}
+
+/** Xero — Find Invoice */
+export interface XeroXeroFindInvoiceInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Search By (values: `INVOICE_NUMBER`, `REFERENCE`, `SEARCH_TERM`) */
+  search_by: "INVOICE_NUMBER" | "REFERENCE" | "SEARCH_TERM"
+  /** Invoice Number, Reference, or Search Term. */
+  value: string
+  /** Type Filter (values: `ACCREC`, `ACCPAY`) */
+  type_filter?: "ACCREC" | "ACCPAY"
+  /** Summary Only (faster, lighter) */
+  summary_only?: boolean
+  /** Page */
+  page?: number
+}
+
+/** Xero — Find Item */
+export interface XeroXeroFindItemInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Search By (values: `CODE`, `NAME`) */
+  search_by: "CODE" | "NAME"
+  /** Item Code or Name (exact match). */
+  value: string
+  /** e.g. Name or Name DESC */
+  order?: string
+}
+
+/** Xero — Find Purchase Order */
+export interface XeroXeroFindPurchaseOrderInput {
+  /** Organization (resolve via property options API) */
+  tenant_id: string
+  /** Select a contact (resolve via property options API) */
+  contact_id?: string
+  /** Search By (values: `NUMBER`, `REFERENCE`, `ID`) */
+  search_by: "NUMBER" | "REFERENCE" | "ID"
+  /** Number, Reference or ID depending on Search By. */
+  value: string
+  /** Statuses */
+  statuses?: string[]
+  /** Date From (YYYY-MM-DD) */
+  date_from?: string
+  /** Date To (YYYY-MM-DD) */
+  date_to?: string
+  /** Order (e.g., Date DESC) */
+  order?: string
+  /** Page */
+  page?: number
+  /** Page Size (1-1000) */
+  page_size?: number
+}
+
+/** Xero — Custom API Call */
+export interface XeroCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Zoho CRM — Read file */
+export interface ZohoCrmReadFileInput {
+  /** The full URL to use, including the base URL */
+  url: string
+}
+
+/** Zoho CRM — Custom API Call */
+export interface ZohoCrmCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 // ============================================================================
 // Action Input Type Map — maps integrationName.actionName to input types
 // ============================================================================
@@ -5237,8 +9064,33 @@ export interface IntegrationActionInputMap {
   'airtable.airtable_find_table': AirtableAirtableFindTableInput
   'airtable.airtable_get_base_schema': AirtableAirtableGetBaseSchemaInput
   'airtable.custom_api_call': AirtableCustomApiCallInput
+  'apollo.matchPerson': ApolloMatchPersonInput
+  'apollo.enrichCompany': ApolloEnrichCompanyInput
+  'apollo.newsArticlesSearch': ApolloNewsArticlesSearchInput
+  'apollo.organizationJobPostings': ApolloOrganizationJobPostingsInput
+  'apollo.organizationSearch': ApolloOrganizationSearchInput
+  'apollo.peopleSearch': ApolloPeopleSearchInput
+  'apollo.custom_api_call': ApolloCustomApiCallInput
   'asana.create_task': AsanaCreateTaskInput
   'asana.custom_api_call': AsanaCustomApiCallInput
+  'attio.create_record': AttioCreateRecordInput
+  'attio.update_record': AttioUpdateRecordInput
+  'attio.find_record': AttioFindRecordInput
+  'attio.create_entry': AttioCreateEntryInput
+  'attio.update_entry': AttioUpdateEntryInput
+  'attio.find_list_entry': AttioFindListEntryInput
+  'attio.custom_api_call': AttioCustomApiCallInput
+  'bigcommerce.createCustomer': BigcommerceCreateCustomerInput
+  'bigcommerce.createAProduct': BigcommerceCreateAProductInput
+  'bigcommerce.createBlogPost': BigcommerceCreateBlogPostInput
+  'bigcommerce.createCustomerAddress': BigcommerceCreateCustomerAddressInput
+  'bigcommerce.searchCustomer': BigcommerceSearchCustomerInput
+  'bigcommerce.searchProduct': BigcommerceSearchProductInput
+  'bigcommerce.searchCustomerAddress': BigcommerceSearchCustomerAddressInput
+  'bigcommerce.findOrCreateCustomer': BigcommerceFindOrCreateCustomerInput
+  'bigcommerce.findOrCreateProduct': BigcommerceFindOrCreateProductInput
+  'bigcommerce.findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
+  'bigcommerce.custom_api_call': BigcommerceCustomApiCallInput
   'clickup.create_task': ClickupCreateTaskInput
   'clickup.create_task_from_template': ClickupCreateTaskFromTemplateInput
   'clickup.create_folderless_list': ClickupCreateFolderlessListInput
@@ -5270,7 +9122,33 @@ export interface IntegrationActionInputMap {
   'clickup.get_accessible_custom_fields': ClickupGetAccessibleCustomFieldsInput
   'clickup.set_custom_fields_value': ClickupSetCustomFieldsValueInput
   'clickup.custom_api_call': ClickupCustomApiCallInput
+  'close.create_lead': CloseCreateLeadInput
+  'close.create_contact': CloseCreateContactInput
+  'close.find_lead': CloseFindLeadInput
+  'close.create_opportunity': CloseCreateOpportunityInput
+  'close.find_contact': CloseFindContactInput
+  'close.custom_api_call': CloseCustomApiCallInput
   'code.run_code': CodeRunCodeInput
+  'copper.createPerson': CopperCreatePersonInput
+  'copper.updatePerson': CopperUpdatePersonInput
+  'copper.createLead': CopperCreateLeadInput
+  'copper.updateLead': CopperUpdateLeadInput
+  'copper.convertLead': CopperConvertLeadInput
+  'copper.createCompany': CopperCreateCompanyInput
+  'copper.updateCompany': CopperUpdateCompanyInput
+  'copper.createOpportunity': CopperCreateOpportunityInput
+  'copper.updateOpportunity': CopperUpdateOpportunityInput
+  'copper.createProject': CopperCreateProjectInput
+  'copper.updateProject': CopperUpdateProjectInput
+  'copper.createTask': CopperCreateTaskInput
+  'copper.createActivity': CopperCreateActivityInput
+  'copper.searchForAnActivity': CopperSearchForAnActivityInput
+  'copper.searchForAPerson': CopperSearchForAPersonInput
+  'copper.searchForALead': CopperSearchForALeadInput
+  'copper.searchForACompany': CopperSearchForACompanyInput
+  'copper.searchForAnOpportunity': CopperSearchForAnOpportunityInput
+  'copper.searchForAProject': CopperSearchForAProjectInput
+  'copper.custom_api_call': CopperCustomApiCallInput
   'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
   'discord.send_message_webhook': DiscordSendMessageWebhookInput
   'discord.request_approval_message': DiscordRequestApprovalMessageInput
@@ -5305,6 +9183,17 @@ export interface IntegrationActionInputMap {
   'figma.get_comments': FigmaGetCommentsInput
   'figma.post_comment': FigmaPostCommentInput
   'figma.custom_api_call': FigmaCustomApiCallInput
+  'fillout-forms.getFormResponses': FilloutFormsGetFormResponsesInput
+  'fillout-forms.getSingleResponse': FilloutFormsGetSingleResponseInput
+  'fillout-forms.findFormByTitle': FilloutFormsFindFormByTitleInput
+  'fillout-forms.custom_api_call': FilloutFormsCustomApiCallInput
+  'formstack.createSubmission': FormstackCreateSubmissionInput
+  'formstack.findFormByNameOrId': FormstackFindFormByNameOrIdInput
+  'formstack.getSubmissionDetails': FormstackGetSubmissionDetailsInput
+  'formstack.findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
+  'formstack.custom_api_call': FormstackCustomApiCallInput
+  'freshsales.freshsales_create_contact': FreshsalesFreshsalesCreateContactInput
+  'freshsales.custom_api_call': FreshsalesCustomApiCallInput
   'github.github_create_issue': GithubGithubCreateIssueInput
   'github.getIssueInformation': GithubGetIssueInformationInput
   'github.createCommentOnAIssue': GithubCreateCommentOnAIssueInput
@@ -5359,6 +9248,14 @@ export interface IntegrationActionInputMap {
   'google-drive.trash_gdrive_file': GoogleDriveTrashGdriveFileInput
   'google-drive.custom_api_call': GoogleDriveCustomApiCallInput
   'google-forms.custom_api_call': GoogleFormsCustomApiCallInput
+  'google-search-console.search_analytics': GoogleSearchConsoleSearchAnalyticsInput
+  'google-search-console.list_sitemaps': GoogleSearchConsoleListSitemapsInput
+  'google-search-console.submit_sitemap': GoogleSearchConsoleSubmitSitemapInput
+  'google-search-console.list_sites': GoogleSearchConsoleListSitesInput
+  'google-search-console.add_site': GoogleSearchConsoleAddSiteInput
+  'google-search-console.delete_site': GoogleSearchConsoleDeleteSiteInput
+  'google-search-console.urlInspection': GoogleSearchConsoleUrlInspectionInput
+  'google-search-console.custom_api_call': GoogleSearchConsoleCustomApiCallInput
   'google-sheets.insert_row': GoogleSheetsInsertRowInput
   'google-sheets.google-sheets-insert-multiple-rows': GoogleSheetsGoogleSheetsInsertMultipleRowsInput
   'google-sheets.update_row': GoogleSheetsUpdateRowInput
@@ -5465,6 +9362,7 @@ export interface IntegrationActionInputMap {
   'jira-cloud.markdownToJiraFormat': JiraCloudMarkdownToJiraFormatInput
   'jira-cloud.get_issue': JiraCloudGetIssueInput
   'jira-cloud.custom_api_call': JiraCloudCustomApiCallInput
+  'jotform.custom_api_call': JotformCustomApiCallInput
   'kv-store.put': KvStorePutInput
   'kv-store.get': KvStoreGetInput
   'kv-store.delete': KvStoreDeleteInput
@@ -5476,6 +9374,20 @@ export interface IntegrationActionInputMap {
   'linear.linear_update_project': LinearLinearUpdateProjectInput
   'linear.linear_create_comment': LinearLinearCreateCommentInput
   'linear.rawGraphqlQuery': LinearRawGraphqlQueryInput
+  'mailchimp.add_member_to_list': MailchimpAddMemberToListInput
+  'mailchimp.add_note_to_subscriber': MailchimpAddNoteToSubscriberInput
+  'mailchimp.add_subscriber_to_tag': MailchimpAddSubscriberToTagInput
+  'mailchimp.remove_subscriber_from_tag': MailchimpRemoveSubscriberFromTagInput
+  'mailchimp.update_member_in_list': MailchimpUpdateMemberInListInput
+  'mailchimp.create_campaign': MailchimpCreateCampaignInput
+  'mailchimp.get_campaign_report': MailchimpGetCampaignReportInput
+  'mailchimp.create_audience': MailchimpCreateAudienceInput
+  'mailchimp.archive_subscriber': MailchimpArchiveSubscriberInput
+  'mailchimp.unsubscribe_email': MailchimpUnsubscribeEmailInput
+  'mailchimp.find_campaign': MailchimpFindCampaignInput
+  'mailchimp.find_customer': MailchimpFindCustomerInput
+  'mailchimp.find_tag': MailchimpFindTagInput
+  'mailchimp.find_subscriber': MailchimpFindSubscriberInput
   'microsoft-teams.microsoft_teams_create_channel': MicrosoftTeamsMicrosoftTeamsCreateChannelInput
   'microsoft-teams.microsoft_teams_send_channel_message': MicrosoftTeamsMicrosoftTeamsSendChannelMessageInput
   'microsoft-teams.microsoft_teams_send_chat_message': MicrosoftTeamsMicrosoftTeamsSendChatMessageInput
@@ -5490,6 +9402,16 @@ export interface IntegrationActionInputMap {
   'microsoft-teams.request_approval_in_channel': MicrosoftTeamsRequestApprovalInChannelInput
   'microsoft-teams.request_approval_direct_message': MicrosoftTeamsRequestApprovalDirectMessageInput
   'microsoft-teams.custom_api_call': MicrosoftTeamsCustomApiCallInput
+  'mixpanel.track_event': MixpanelTrackEventInput
+  'mixpanel.custom_api_call': MixpanelCustomApiCallInput
+  'mollie.create_order': MollieCreateOrderInput
+  'mollie.create_payment_link': MollieCreatePaymentLinkInput
+  'mollie.create_payment': MollieCreatePaymentInput
+  'mollie.create_customer': MollieCreateCustomerInput
+  'mollie.create_payment_refund': MollieCreatePaymentRefundInput
+  'mollie.search_order': MollieSearchOrderInput
+  'mollie.search_payment': MollieSearchPaymentInput
+  'mollie.search_customer': MollieSearchCustomerInput
   'monday.monday_create_column': MondayMondayCreateColumnInput
   'monday.monday_create_group': MondayMondayCreateGroupInput
   'monday.monday_create_item': MondayMondayCreateItemInput
@@ -5521,6 +9443,70 @@ export interface IntegrationActionInputMap {
   'openai.translate': OpenaiTranslateInput
   'openai.extract-structured-data': OpenaiExtractStructuredDataInput
   'openai.custom_api_call': OpenaiCustomApiCallInput
+  'paywhirl.cancelSubscription': PaywhirlCancelSubscriptionInput
+  'paywhirl.createCustomer': PaywhirlCreateCustomerInput
+  'paywhirl.getCustomer': PaywhirlGetCustomerInput
+  'paywhirl.searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
+  'paywhirl.subscribeCustomer': PaywhirlSubscribeCustomerInput
+  'paywhirl.custom_api_call': PaywhirlCustomApiCallInput
+  'pipedrive.add-follower': PipedriveAddFollowerInput
+  'pipedrive.get-note': PipedriveGetNoteInput
+  'pipedrive.create-note': PipedriveCreateNoteInput
+  'pipedrive.add-labels-to-person': PipedriveAddLabelsToPersonInput
+  'pipedrive.add-product-to-deal': PipedriveAddProductToDealInput
+  'pipedrive.attach-file': PipedriveAttachFileInput
+  'pipedrive.create-activity': PipedriveCreateActivityInput
+  'pipedrive.update-activity': PipedriveUpdateActivityInput
+  'pipedrive.create-deal': PipedriveCreateDealInput
+  'pipedrive.update-deal': PipedriveUpdateDealInput
+  'pipedrive.create-lead': PipedriveCreateLeadInput
+  'pipedrive.update-lead': PipedriveUpdateLeadInput
+  'pipedrive.create-organization': PipedriveCreateOrganizationInput
+  'pipedrive.update-organization': PipedriveUpdateOrganizationInput
+  'pipedrive.create-person': PipedriveCreatePersonInput
+  'pipedrive.update-person': PipedriveUpdatePersonInput
+  'pipedrive.create-product': PipedriveCreateProductInput
+  'pipedrive.update-product': PipedriveUpdateProductInput
+  'pipedrive.find-deals-associated-with-person': PipedriveFindDealsAssociatedWithPersonInput
+  'pipedrive.find-product': PipedriveFindProductInput
+  'pipedrive.find-products': PipedriveFindProductsInput
+  'pipedrive.find-notes': PipedriveFindNotesInput
+  'pipedrive.get-product': PipedriveGetProductInput
+  'pipedrive.find-organization': PipedriveFindOrganizationInput
+  'pipedrive.find-person': PipedriveFindPersonInput
+  'pipedrive.find-deal': PipedriveFindDealInput
+  'pipedrive.find-activity': PipedriveFindActivityInput
+  'pipedrive.find-user': PipedriveFindUserInput
+  'pipedrive.custom_api_call': PipedriveCustomApiCallInput
+  'plausible.list_teams': PlausibleListTeamsInput
+  'plausible.list_sites': PlausibleListSitesInput
+  'plausible.get_site': PlausibleGetSiteInput
+  'plausible.create_site': PlausibleCreateSiteInput
+  'plausible.update_site': PlausibleUpdateSiteInput
+  'plausible.delete_site': PlausibleDeleteSiteInput
+  'plausible.create_shared_link': PlausibleCreateSharedLinkInput
+  'plausible.list_goals': PlausibleListGoalsInput
+  'plausible.create_goal': PlausibleCreateGoalInput
+  'plausible.delete_goal': PlausibleDeleteGoalInput
+  'plausible.list_custom_properties': PlausibleListCustomPropertiesInput
+  'plausible.create_custom_property': PlausibleCreateCustomPropertyInput
+  'plausible.delete_custom_property': PlausibleDeleteCustomPropertyInput
+  'plausible.list_guests': PlausibleListGuestsInput
+  'plausible.invite_guest': PlausibleInviteGuestInput
+  'plausible.remove_guest': PlausibleRemoveGuestInput
+  'posthog.create_event': PosthogCreateEventInput
+  'posthog.create_project': PosthogCreateProjectInput
+  'posthog.custom_api_call': PosthogCustomApiCallInput
+  'quickbooks.find_invoice': QuickbooksFindInvoiceInput
+  'quickbooks.find_customer': QuickbooksFindCustomerInput
+  'quickbooks.find_payment': QuickbooksFindPaymentInput
+  'quickbooks.create_invoice': QuickbooksCreateInvoiceInput
+  'quickbooks.create_expense': QuickbooksCreateExpenseInput
+  'quickbooks.custom_api_call': QuickbooksCustomApiCallInput
+  'razorpay.custom_api_call': RazorpayCustomApiCallInput
+  'razorpay.create-payment-link': RazorpayCreatePaymentLinkInput
+  'resend.send_email': ResendSendEmailInput
+  'resend.custom_api_call': ResendCustomApiCallInput
   'salesforce.add_contact_to_campaign': SalesforceAddContactToCampaignInput
   'salesforce.add_file_to_record': SalesforceAddFileToRecordInput
   'salesforce.add_lead_to_campaign': SalesforceAddLeadToCampaignInput
@@ -5548,6 +9534,10 @@ export interface IntegrationActionInputMap {
   'salesforce.upsert_by_external_id': SalesforceUpsertByExternalIdInput
   'salesforce.upsert_by_external_id_bulk': SalesforceUpsertByExternalIdBulkInput
   'salesforce.custom_api_call': SalesforceCustomApiCallInput
+  'segment.identifyUser': SegmentIdentifyUserInput
+  'sendgrid.send_email': SendgridSendEmailInput
+  'sendgrid.send_dynamic_template': SendgridSendDynamicTemplateInput
+  'sendgrid.custom_api_call': SendgridCustomApiCallInput
   'shopify.adjust_inventory_level': ShopifyAdjustInventoryLevelInput
   'shopify.cancel_order': ShopifyCancelOrderInput
   'shopify.close_order': ShopifyCloseOrderInput
@@ -5605,6 +9595,26 @@ export interface IntegrationActionInputMap {
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
   'storage.list_files': StorageListFilesInput
+  'stripe.create_customer': StripeCreateCustomerInput
+  'stripe.create_invoice': StripeCreateInvoiceInput
+  'stripe.search_customer': StripeSearchCustomerInput
+  'stripe.search_subscriptions': StripeSearchSubscriptionsInput
+  'stripe.retrieve_customer': StripeRetrieveCustomerInput
+  'stripe.update_customer': StripeUpdateCustomerInput
+  'stripe.create_payment_intent': StripeCreatePaymentIntentInput
+  'stripe.create_product': StripeCreateProductInput
+  'stripe.create_price': StripeCreatePriceInput
+  'stripe.create_subscription': StripeCreateSubscriptionInput
+  'stripe.cancel_subscription': StripeCancelSubscriptionInput
+  'stripe.retrieve_invoice': StripeRetrieveInvoiceInput
+  'stripe.retrieve_payout': StripeRetrievePayoutInput
+  'stripe.create_refund': StripeCreateRefundInput
+  'stripe.create_payment_link': StripeCreatePaymentLinkInput
+  'stripe.deactivate_payment_link': StripeDeactivatePaymentLinkInput
+  'stripe.retrieve_payment_intent': StripeRetrievePaymentIntentInput
+  'stripe.find_invoice': StripeFindInvoiceInput
+  'stripe.custom_api_call': StripeCustomApiCallInput
+  'surveymonkey.custom_api_call': SurveymonkeyCustomApiCallInput
   'telegram-bot.send_text_message': TelegramBotSendTextMessageInput
   'telegram-bot.send_media': TelegramBotSendMediaInput
   'telegram-bot.get_chat_member': TelegramBotGetChatMemberInput
@@ -5632,6 +9642,36 @@ export interface IntegrationActionInputMap {
   'twilio.download_recording_media': TwilioDownloadRecordingMediaInput
   'twilio.custom_api_call': TwilioCustomApiCallInput
   'typeform.custom_api_call': TypeformCustomApiCallInput
+  'woocommerce.Create Customer': WoocommerceCreateCustomerInput
+  'woocommerce.Create Coupon': WoocommerceCreateCouponInput
+  'woocommerce.Create Product': WoocommerceCreateProductInput
+  'woocommerce.Find Customer': WoocommerceFindCustomerInput
+  'woocommerce.Find Product': WoocommerceFindProductInput
+  'woocommerce.custom_api_call': WoocommerceCustomApiCallInput
+  'xero.xero_create_contact': XeroXeroCreateContactInput
+  'xero.xero_create_invoice': XeroXeroCreateInvoiceInput
+  'xero.xero_allocate_credit_note_to_invoice': XeroXeroAllocateCreditNoteToInvoiceInput
+  'xero.xero_create_bank_transfer': XeroXeroCreateBankTransferInput
+  'xero.xero_create_quote_draft': XeroXeroCreateQuoteDraftInput
+  'xero.xero_send_invoice_email': XeroXeroSendInvoiceEmailInput
+  'xero.xero_create_bill': XeroXeroCreateBillInput
+  'xero.xero_create_payment': XeroXeroCreatePaymentInput
+  'xero.xero_create_purchase_order': XeroXeroCreatePurchaseOrderInput
+  'xero.xero_update_purchase_order': XeroXeroUpdatePurchaseOrderInput
+  'xero.xero_upload_attachment': XeroXeroUploadAttachmentInput
+  'xero.xero_add_items_to_sales_invoice': XeroXeroAddItemsToSalesInvoiceInput
+  'xero.xero_create_credit_note': XeroXeroCreateCreditNoteInput
+  'xero.xero_create_inventory_item': XeroXeroCreateInventoryItemInput
+  'xero.xero_create_project': XeroXeroCreateProjectInput
+  'xero.xero_update_sales_invoice': XeroXeroUpdateSalesInvoiceInput
+  'xero.xero_create_repeating_sales_invoice': XeroXeroCreateRepeatingSalesInvoiceInput
+  'xero.xero_find_contact': XeroXeroFindContactInput
+  'xero.xero_find_invoice': XeroXeroFindInvoiceInput
+  'xero.xero_find_item': XeroXeroFindItemInput
+  'xero.xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
+  'xero.custom_api_call': XeroCustomApiCallInput
+  'zoho-crm.read-file': ZohoCrmReadFileInput
+  'zoho-crm.custom_api_call': ZohoCrmCustomApiCallInput
 }
 
 export interface IntegrationActionInputsByIntegration {
@@ -5651,9 +9691,40 @@ export interface IntegrationActionInputsByIntegration {
     'airtable_get_base_schema': AirtableAirtableGetBaseSchemaInput
     'custom_api_call': AirtableCustomApiCallInput
   }
+  'apollo': {
+    'matchPerson': ApolloMatchPersonInput
+    'enrichCompany': ApolloEnrichCompanyInput
+    'newsArticlesSearch': ApolloNewsArticlesSearchInput
+    'organizationJobPostings': ApolloOrganizationJobPostingsInput
+    'organizationSearch': ApolloOrganizationSearchInput
+    'peopleSearch': ApolloPeopleSearchInput
+    'custom_api_call': ApolloCustomApiCallInput
+  }
   'asana': {
     'create_task': AsanaCreateTaskInput
     'custom_api_call': AsanaCustomApiCallInput
+  }
+  'attio': {
+    'create_record': AttioCreateRecordInput
+    'update_record': AttioUpdateRecordInput
+    'find_record': AttioFindRecordInput
+    'create_entry': AttioCreateEntryInput
+    'update_entry': AttioUpdateEntryInput
+    'find_list_entry': AttioFindListEntryInput
+    'custom_api_call': AttioCustomApiCallInput
+  }
+  'bigcommerce': {
+    'createCustomer': BigcommerceCreateCustomerInput
+    'createAProduct': BigcommerceCreateAProductInput
+    'createBlogPost': BigcommerceCreateBlogPostInput
+    'createCustomerAddress': BigcommerceCreateCustomerAddressInput
+    'searchCustomer': BigcommerceSearchCustomerInput
+    'searchProduct': BigcommerceSearchProductInput
+    'searchCustomerAddress': BigcommerceSearchCustomerAddressInput
+    'findOrCreateCustomer': BigcommerceFindOrCreateCustomerInput
+    'findOrCreateProduct': BigcommerceFindOrCreateProductInput
+    'findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
+    'custom_api_call': BigcommerceCustomApiCallInput
   }
   'clickup': {
     'create_task': ClickupCreateTaskInput
@@ -5688,8 +9759,38 @@ export interface IntegrationActionInputsByIntegration {
     'set_custom_fields_value': ClickupSetCustomFieldsValueInput
     'custom_api_call': ClickupCustomApiCallInput
   }
+  'close': {
+    'create_lead': CloseCreateLeadInput
+    'create_contact': CloseCreateContactInput
+    'find_lead': CloseFindLeadInput
+    'create_opportunity': CloseCreateOpportunityInput
+    'find_contact': CloseFindContactInput
+    'custom_api_call': CloseCustomApiCallInput
+  }
   'code': {
     'run_code': CodeRunCodeInput
+  }
+  'copper': {
+    'createPerson': CopperCreatePersonInput
+    'updatePerson': CopperUpdatePersonInput
+    'createLead': CopperCreateLeadInput
+    'updateLead': CopperUpdateLeadInput
+    'convertLead': CopperConvertLeadInput
+    'createCompany': CopperCreateCompanyInput
+    'updateCompany': CopperUpdateCompanyInput
+    'createOpportunity': CopperCreateOpportunityInput
+    'updateOpportunity': CopperUpdateOpportunityInput
+    'createProject': CopperCreateProjectInput
+    'updateProject': CopperUpdateProjectInput
+    'createTask': CopperCreateTaskInput
+    'createActivity': CopperCreateActivityInput
+    'searchForAnActivity': CopperSearchForAnActivityInput
+    'searchForAPerson': CopperSearchForAPersonInput
+    'searchForALead': CopperSearchForALeadInput
+    'searchForACompany': CopperSearchForACompanyInput
+    'searchForAnOpportunity': CopperSearchForAnOpportunityInput
+    'searchForAProject': CopperSearchForAProjectInput
+    'custom_api_call': CopperCustomApiCallInput
   }
   'discord': {
     'sendMessageWithBot': DiscordSendMessageWithBotInput
@@ -5730,6 +9831,23 @@ export interface IntegrationActionInputsByIntegration {
     'get_comments': FigmaGetCommentsInput
     'post_comment': FigmaPostCommentInput
     'custom_api_call': FigmaCustomApiCallInput
+  }
+  'fillout-forms': {
+    'getFormResponses': FilloutFormsGetFormResponsesInput
+    'getSingleResponse': FilloutFormsGetSingleResponseInput
+    'findFormByTitle': FilloutFormsFindFormByTitleInput
+    'custom_api_call': FilloutFormsCustomApiCallInput
+  }
+  'formstack': {
+    'createSubmission': FormstackCreateSubmissionInput
+    'findFormByNameOrId': FormstackFindFormByNameOrIdInput
+    'getSubmissionDetails': FormstackGetSubmissionDetailsInput
+    'findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
+    'custom_api_call': FormstackCustomApiCallInput
+  }
+  'freshsales': {
+    'freshsales_create_contact': FreshsalesFreshsalesCreateContactInput
+    'custom_api_call': FreshsalesCustomApiCallInput
   }
   'github': {
     'github_create_issue': GithubGithubCreateIssueInput
@@ -5796,6 +9914,16 @@ export interface IntegrationActionInputsByIntegration {
   }
   'google-forms': {
     'custom_api_call': GoogleFormsCustomApiCallInput
+  }
+  'google-search-console': {
+    'search_analytics': GoogleSearchConsoleSearchAnalyticsInput
+    'list_sitemaps': GoogleSearchConsoleListSitemapsInput
+    'submit_sitemap': GoogleSearchConsoleSubmitSitemapInput
+    'list_sites': GoogleSearchConsoleListSitesInput
+    'add_site': GoogleSearchConsoleAddSiteInput
+    'delete_site': GoogleSearchConsoleDeleteSiteInput
+    'urlInspection': GoogleSearchConsoleUrlInspectionInput
+    'custom_api_call': GoogleSearchConsoleCustomApiCallInput
   }
   'google-sheets': {
     'insert_row': GoogleSheetsInsertRowInput
@@ -5915,6 +10043,9 @@ export interface IntegrationActionInputsByIntegration {
     'get_issue': JiraCloudGetIssueInput
     'custom_api_call': JiraCloudCustomApiCallInput
   }
+  'jotform': {
+    'custom_api_call': JotformCustomApiCallInput
+  }
   'kv-store': {
     'put': KvStorePutInput
     'get': KvStoreGetInput
@@ -5929,6 +10060,22 @@ export interface IntegrationActionInputsByIntegration {
     'linear_update_project': LinearLinearUpdateProjectInput
     'linear_create_comment': LinearLinearCreateCommentInput
     'rawGraphqlQuery': LinearRawGraphqlQueryInput
+  }
+  'mailchimp': {
+    'add_member_to_list': MailchimpAddMemberToListInput
+    'add_note_to_subscriber': MailchimpAddNoteToSubscriberInput
+    'add_subscriber_to_tag': MailchimpAddSubscriberToTagInput
+    'remove_subscriber_from_tag': MailchimpRemoveSubscriberFromTagInput
+    'update_member_in_list': MailchimpUpdateMemberInListInput
+    'create_campaign': MailchimpCreateCampaignInput
+    'get_campaign_report': MailchimpGetCampaignReportInput
+    'create_audience': MailchimpCreateAudienceInput
+    'archive_subscriber': MailchimpArchiveSubscriberInput
+    'unsubscribe_email': MailchimpUnsubscribeEmailInput
+    'find_campaign': MailchimpFindCampaignInput
+    'find_customer': MailchimpFindCustomerInput
+    'find_tag': MailchimpFindTagInput
+    'find_subscriber': MailchimpFindSubscriberInput
   }
   'microsoft-teams': {
     'microsoft_teams_create_channel': MicrosoftTeamsMicrosoftTeamsCreateChannelInput
@@ -5945,6 +10092,20 @@ export interface IntegrationActionInputsByIntegration {
     'request_approval_in_channel': MicrosoftTeamsRequestApprovalInChannelInput
     'request_approval_direct_message': MicrosoftTeamsRequestApprovalDirectMessageInput
     'custom_api_call': MicrosoftTeamsCustomApiCallInput
+  }
+  'mixpanel': {
+    'track_event': MixpanelTrackEventInput
+    'custom_api_call': MixpanelCustomApiCallInput
+  }
+  'mollie': {
+    'create_order': MollieCreateOrderInput
+    'create_payment_link': MollieCreatePaymentLinkInput
+    'create_payment': MollieCreatePaymentInput
+    'create_customer': MollieCreateCustomerInput
+    'create_payment_refund': MollieCreatePaymentRefundInput
+    'search_order': MollieSearchOrderInput
+    'search_payment': MollieSearchPaymentInput
+    'search_customer': MollieSearchCustomerInput
   }
   'monday': {
     'monday_create_column': MondayMondayCreateColumnInput
@@ -5983,6 +10144,84 @@ export interface IntegrationActionInputsByIntegration {
     'extract-structured-data': OpenaiExtractStructuredDataInput
     'custom_api_call': OpenaiCustomApiCallInput
   }
+  'paywhirl': {
+    'cancelSubscription': PaywhirlCancelSubscriptionInput
+    'createCustomer': PaywhirlCreateCustomerInput
+    'getCustomer': PaywhirlGetCustomerInput
+    'searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
+    'subscribeCustomer': PaywhirlSubscribeCustomerInput
+    'custom_api_call': PaywhirlCustomApiCallInput
+  }
+  'pipedrive': {
+    'add-follower': PipedriveAddFollowerInput
+    'get-note': PipedriveGetNoteInput
+    'create-note': PipedriveCreateNoteInput
+    'add-labels-to-person': PipedriveAddLabelsToPersonInput
+    'add-product-to-deal': PipedriveAddProductToDealInput
+    'attach-file': PipedriveAttachFileInput
+    'create-activity': PipedriveCreateActivityInput
+    'update-activity': PipedriveUpdateActivityInput
+    'create-deal': PipedriveCreateDealInput
+    'update-deal': PipedriveUpdateDealInput
+    'create-lead': PipedriveCreateLeadInput
+    'update-lead': PipedriveUpdateLeadInput
+    'create-organization': PipedriveCreateOrganizationInput
+    'update-organization': PipedriveUpdateOrganizationInput
+    'create-person': PipedriveCreatePersonInput
+    'update-person': PipedriveUpdatePersonInput
+    'create-product': PipedriveCreateProductInput
+    'update-product': PipedriveUpdateProductInput
+    'find-deals-associated-with-person': PipedriveFindDealsAssociatedWithPersonInput
+    'find-product': PipedriveFindProductInput
+    'find-products': PipedriveFindProductsInput
+    'find-notes': PipedriveFindNotesInput
+    'get-product': PipedriveGetProductInput
+    'find-organization': PipedriveFindOrganizationInput
+    'find-person': PipedriveFindPersonInput
+    'find-deal': PipedriveFindDealInput
+    'find-activity': PipedriveFindActivityInput
+    'find-user': PipedriveFindUserInput
+    'custom_api_call': PipedriveCustomApiCallInput
+  }
+  'plausible': {
+    'list_teams': PlausibleListTeamsInput
+    'list_sites': PlausibleListSitesInput
+    'get_site': PlausibleGetSiteInput
+    'create_site': PlausibleCreateSiteInput
+    'update_site': PlausibleUpdateSiteInput
+    'delete_site': PlausibleDeleteSiteInput
+    'create_shared_link': PlausibleCreateSharedLinkInput
+    'list_goals': PlausibleListGoalsInput
+    'create_goal': PlausibleCreateGoalInput
+    'delete_goal': PlausibleDeleteGoalInput
+    'list_custom_properties': PlausibleListCustomPropertiesInput
+    'create_custom_property': PlausibleCreateCustomPropertyInput
+    'delete_custom_property': PlausibleDeleteCustomPropertyInput
+    'list_guests': PlausibleListGuestsInput
+    'invite_guest': PlausibleInviteGuestInput
+    'remove_guest': PlausibleRemoveGuestInput
+  }
+  'posthog': {
+    'create_event': PosthogCreateEventInput
+    'create_project': PosthogCreateProjectInput
+    'custom_api_call': PosthogCustomApiCallInput
+  }
+  'quickbooks': {
+    'find_invoice': QuickbooksFindInvoiceInput
+    'find_customer': QuickbooksFindCustomerInput
+    'find_payment': QuickbooksFindPaymentInput
+    'create_invoice': QuickbooksCreateInvoiceInput
+    'create_expense': QuickbooksCreateExpenseInput
+    'custom_api_call': QuickbooksCustomApiCallInput
+  }
+  'razorpay': {
+    'custom_api_call': RazorpayCustomApiCallInput
+    'create-payment-link': RazorpayCreatePaymentLinkInput
+  }
+  'resend': {
+    'send_email': ResendSendEmailInput
+    'custom_api_call': ResendCustomApiCallInput
+  }
   'salesforce': {
     'add_contact_to_campaign': SalesforceAddContactToCampaignInput
     'add_file_to_record': SalesforceAddFileToRecordInput
@@ -6011,6 +10250,14 @@ export interface IntegrationActionInputsByIntegration {
     'upsert_by_external_id': SalesforceUpsertByExternalIdInput
     'upsert_by_external_id_bulk': SalesforceUpsertByExternalIdBulkInput
     'custom_api_call': SalesforceCustomApiCallInput
+  }
+  'segment': {
+    'identifyUser': SegmentIdentifyUserInput
+  }
+  'sendgrid': {
+    'send_email': SendgridSendEmailInput
+    'send_dynamic_template': SendgridSendDynamicTemplateInput
+    'custom_api_call': SendgridCustomApiCallInput
   }
   'shopify': {
     'adjust_inventory_level': ShopifyAdjustInventoryLevelInput
@@ -6075,6 +10322,30 @@ export interface IntegrationActionInputsByIntegration {
     'delete_file': StorageDeleteFileInput
     'list_files': StorageListFilesInput
   }
+  'stripe': {
+    'create_customer': StripeCreateCustomerInput
+    'create_invoice': StripeCreateInvoiceInput
+    'search_customer': StripeSearchCustomerInput
+    'search_subscriptions': StripeSearchSubscriptionsInput
+    'retrieve_customer': StripeRetrieveCustomerInput
+    'update_customer': StripeUpdateCustomerInput
+    'create_payment_intent': StripeCreatePaymentIntentInput
+    'create_product': StripeCreateProductInput
+    'create_price': StripeCreatePriceInput
+    'create_subscription': StripeCreateSubscriptionInput
+    'cancel_subscription': StripeCancelSubscriptionInput
+    'retrieve_invoice': StripeRetrieveInvoiceInput
+    'retrieve_payout': StripeRetrievePayoutInput
+    'create_refund': StripeCreateRefundInput
+    'create_payment_link': StripeCreatePaymentLinkInput
+    'deactivate_payment_link': StripeDeactivatePaymentLinkInput
+    'retrieve_payment_intent': StripeRetrievePaymentIntentInput
+    'find_invoice': StripeFindInvoiceInput
+    'custom_api_call': StripeCustomApiCallInput
+  }
+  'surveymonkey': {
+    'custom_api_call': SurveymonkeyCustomApiCallInput
+  }
   'telegram-bot': {
     'send_text_message': TelegramBotSendTextMessageInput
     'send_media': TelegramBotSendMediaInput
@@ -6111,5 +10382,41 @@ export interface IntegrationActionInputsByIntegration {
   }
   'typeform': {
     'custom_api_call': TypeformCustomApiCallInput
+  }
+  'woocommerce': {
+    'Create Customer': WoocommerceCreateCustomerInput
+    'Create Coupon': WoocommerceCreateCouponInput
+    'Create Product': WoocommerceCreateProductInput
+    'Find Customer': WoocommerceFindCustomerInput
+    'Find Product': WoocommerceFindProductInput
+    'custom_api_call': WoocommerceCustomApiCallInput
+  }
+  'xero': {
+    'xero_create_contact': XeroXeroCreateContactInput
+    'xero_create_invoice': XeroXeroCreateInvoiceInput
+    'xero_allocate_credit_note_to_invoice': XeroXeroAllocateCreditNoteToInvoiceInput
+    'xero_create_bank_transfer': XeroXeroCreateBankTransferInput
+    'xero_create_quote_draft': XeroXeroCreateQuoteDraftInput
+    'xero_send_invoice_email': XeroXeroSendInvoiceEmailInput
+    'xero_create_bill': XeroXeroCreateBillInput
+    'xero_create_payment': XeroXeroCreatePaymentInput
+    'xero_create_purchase_order': XeroXeroCreatePurchaseOrderInput
+    'xero_update_purchase_order': XeroXeroUpdatePurchaseOrderInput
+    'xero_upload_attachment': XeroXeroUploadAttachmentInput
+    'xero_add_items_to_sales_invoice': XeroXeroAddItemsToSalesInvoiceInput
+    'xero_create_credit_note': XeroXeroCreateCreditNoteInput
+    'xero_create_inventory_item': XeroXeroCreateInventoryItemInput
+    'xero_create_project': XeroXeroCreateProjectInput
+    'xero_update_sales_invoice': XeroXeroUpdateSalesInvoiceInput
+    'xero_create_repeating_sales_invoice': XeroXeroCreateRepeatingSalesInvoiceInput
+    'xero_find_contact': XeroXeroFindContactInput
+    'xero_find_invoice': XeroXeroFindInvoiceInput
+    'xero_find_item': XeroXeroFindItemInput
+    'xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
+    'custom_api_call': XeroCustomApiCallInput
+  }
+  'zoho-crm': {
+    'read-file': ZohoCrmReadFileInput
+    'custom_api_call': ZohoCrmCustomApiCallInput
   }
 }
