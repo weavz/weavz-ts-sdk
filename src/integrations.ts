@@ -5177,6 +5177,206 @@ export interface HubspotCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Hugging Face — Document Question Answering */
+export interface HuggingFaceDocumentQuestionAnsweringInput {
+  /** Hugging Face document question answering model (values: `impira/layoutlm-document-qa`, `microsoft/layoutlmv3-base`, `nielsr/layoutlmv2-finetuned-docvqa`) */
+  model: "impira/layoutlm-document-qa" | "microsoft/layoutlmv3-base" | "nielsr/layoutlmv2-finetuned-docvqa"
+  /** Image of the document to analyze (invoice, contract, etc.) */
+  image: string
+  /** Question to ask about the document (e.g., 'What is the invoice total?') */
+  question: string
+  /** Number of top answers to return */
+  top_k?: number
+  /** Maximum length of predicted answers */
+  max_answer_len?: number
+  /** Whether to accept 'impossible' as an answer when no answer is found */
+  handle_impossible_answer?: boolean
+  /** Language to use for OCR text extraction (values: `en`, `es`, `fr`, `de`, `it`, `pt`) */
+  lang?: "en" | "es" | "fr" | "de" | "it" | "pt"
+  /** Use cached results if available */
+  use_cache?: boolean
+  /** Wait for model to load if not ready */
+  wait_for_model?: boolean
+}
+
+/** Hugging Face — Language Translation */
+export interface HuggingFaceLanguageTranslationInput {
+  /** Select a translation model or search from 7000+ available models (resolve via property options API) */
+  model: string
+  /** Alternative: Enter any Hugging Face translation model ID directly (e.g., Helsinki-NLP/opus-mt-ja-en) */
+  customModel?: string
+  /** The text content you want to translate */
+  text: string
+  /** Source language code (e.g., "en", "es", "fr"). Only needed for multilingual models that support multiple language pairs. */
+  sourceLanguage?: string
+  /** Target language code (e.g., "fr", "de", "zh"). Only needed for multilingual models that support multiple language pairs. */
+  targetLanguage?: string
+  /** Remove potential extra spaces in the translation output */
+  cleanUpSpaces?: boolean
+  /** Maximum length of the translated text (leave empty for default) */
+  maxLength?: number
+  /** Use cached results if available for faster responses */
+  useCache?: boolean
+  /** Wait for model to load if not immediately available */
+  waitForModel?: boolean
+}
+
+/** Hugging Face — Text Classification */
+export interface HuggingFaceTextClassificationInput {
+  /** Choose your classification approach (values: `zero-shot`, `pretrained`, `search`) */
+  classificationMode: "zero-shot" | "pretrained" | "search"
+  /** Model for classifying into your custom categories (values: `facebook/bart-large-mnli`, `sileod/deberta-v3-base-tasksource-nli`, `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`, `lxyuan/distilbert-base-multilingual-cased-sentiments-student`) */
+  zeroShotModel?: "facebook/bart-large-mnli" | "sileod/deberta-v3-base-tasksource-nli" | "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli" | "lxyuan/distilbert-base-multilingual-cased-sentiments-student"
+  /** Enter categories separated by commas (e.g., "customer support, sales inquiry, spam, billing question") */
+  customLabels?: string
+  /** Select a specialized pre-trained classification model (values: `cardiffnlp/twitter-roberta-base-sentiment-latest`, `distilbert/distilbert-base-uncased-finetuned-sst-2-english`, `nlptown/bert-base-multilingual-uncased-sentiment`, `ProsusAI/finbert`, `yiyanghkust/finbert-tone`, `facebook/roberta-hate-speech-dynabench-r4-target`, `tomh/toxigen_hatebert`, `Xuhui/ToxDect-roberta-large`, `atulgupta002/banking_customer_service_query_intent_classifier`, `wesleyacheng/sms-spam-classification-with-bert`) */
+  pretrainedModel?: "cardiffnlp/twitter-roberta-base-sentiment-latest" | "distilbert/distilbert-base-uncased-finetuned-sst-2-english" | "nlptown/bert-base-multilingual-uncased-sentiment" | "ProsusAI/finbert" | "yiyanghkust/finbert-tone" | "facebook/roberta-hate-speech-dynabench-r4-target" | "tomh/toxigen_hatebert" | "Xuhui/ToxDect-roberta-large" | "atulgupta002/banking_customer_service_query_intent_classifier" | "wesleyacheng/sms-spam-classification-with-bert"
+  /** Search from all available text classification models (resolve via property options API) */
+  searchModel?: string
+  /** The text content you want to classify */
+  text: string
+  /** Number of top predictions to return */
+  topK?: number
+  /** How to calculate confidence scores (values: `softmax`, `sigmoid`, `none`) */
+  functionToApply?: "softmax" | "sigmoid" | "none"
+  /** Use cached results for faster responses */
+  useCache?: boolean
+  /** Wait for model to load if not immediately available */
+  waitForModel?: boolean
+}
+
+/** Hugging Face — Text Summarization */
+export interface HuggingFaceTextSummarizationInput {
+  /** What type of content are you summarizing? (values: `news`, `email`, `meeting`, `general`, `medical`, `multilingual`, `search`) */
+  contentType: "news" | "email" | "meeting" | "general" | "medical" | "multilingual" | "search"
+  /** Select the best model for your content type (resolve via property options API) */
+  model: string
+  /** The long text content you want to summarize (most models work best with 512-1024 tokens) */
+  text: string
+  /** How long should the summary be? (values: `brief`, `medium`, `detailed`, `custom`) */
+  summaryLength?: "brief" | "medium" | "detailed" | "custom"
+  /** Minimum number of tokens for the summary */
+  customMinLength?: number
+  /** Maximum number of tokens for the summary */
+  customMaxLength?: number
+  /** Remove extra spaces and clean up formatting */
+  cleanUpSpaces?: boolean
+  /** How to handle text that exceeds model limits (values: `do_not_truncate`, `longest_first`, `only_first`, `only_second`) */
+  truncationStrategy?: "do_not_truncate" | "longest_first" | "only_first" | "only_second"
+  /** Use cached results for faster responses */
+  useCache?: boolean
+  /** Wait for model to load if not immediately available */
+  waitForModel?: boolean
+}
+
+/** Hugging Face — Chat Completion */
+export interface HuggingFaceChatCompletionInput {
+  /** What type of chat assistant are you building? (values: `faq`, `content`, `chat`, `search`) */
+  useCase: "faq" | "content" | "chat" | "search"
+  /** Select the best model for your use case (resolve via property options API) */
+  model: string
+  /** How do you want to build the conversation? (values: `single`, `multi`, `template`) */
+  conversationMode: "single" | "multi" | "template"
+  /** The user message or question to respond to */
+  userMessage?: string
+  /** Instructions for how the assistant should behave */
+  systemPrompt?: string
+  /** Previous messages in the conversation (for multi-turn chat) */
+  conversationHistory?: unknown[]
+  /** Pre-built templates for common business scenarios (values: `support`, `faq`, `writer`, `email`, `ecommerce`) */
+  template?: "support" | "faq" | "writer" | "email" | "ecommerce"
+  /** How long should the response be? (values: `brief`, `normal`, `detailed`, `custom`) */
+  responseLength?: "brief" | "normal" | "detailed" | "custom"
+  /** Maximum number of tokens to generate */
+  customMaxTokens?: number
+  /** How creative should responses be? (0.1 = focused, 1.0 = creative) */
+  temperature?: number
+  /** Controls response diversity (0.1 = focused, 1.0 = varied) */
+  topP?: number
+  /** Text sequences that will stop generation */
+  stopSequences?: unknown[]
+  /** Reduce repetitive responses (-2.0 to 2.0) */
+  frequencyPenalty?: number
+  /** Encourage diverse topics (-2.0 to 2.0) */
+  presencePenalty?: number
+  /** Use cached responses for identical requests */
+  useCache?: boolean
+  /** Wait for model to load if not immediately available */
+  waitForModel?: boolean
+}
+
+/** Hugging Face — Create Image */
+export interface HuggingFaceCreateImageInput {
+  /** What type of image generation do you need? (values: `speed`, `quality`, `business`, `search`) */
+  useCase: "speed" | "quality" | "business" | "search"
+  /** Select the best model for your use case (resolve via property options API) */
+  model: string
+  /** Describe the image you want to generate. Be specific about style, colors, composition, and details. */
+  prompt: string
+  /** Choose the dimensions for your image (values: `portrait`, `landscape`, `square`, `wide`, `custom`) */
+  aspectRatio?: "portrait" | "landscape" | "square" | "wide" | "custom"
+  /** Width in pixels (64-1024) */
+  customWidth?: number
+  /** Height in pixels (64-1024) */
+  customHeight?: number
+  /** Describe what you DON'T want in the image (blur, low quality, distorted, etc.) */
+  negativePrompt?: string
+  /** Balance between image quality and generation time (values: `fast`, `balanced`, `quality`, `maximum`, `custom`) */
+  qualitySettings?: "fast" | "balanced" | "quality" | "maximum" | "custom"
+  /** Number of denoising steps (1-100) */
+  customSteps?: number
+  /** How closely to follow the prompt (1-20). Higher values = more prompt adherence but may reduce creativity. */
+  guidanceScale?: number
+  /** Set a seed for reproducible results. Leave empty for random generation. */
+  seed?: number
+  /** Advanced: Choose the noise scheduler algorithm (values: `DPM++2MKarras`, `EulerA`, `DDIM`, `LMS`) */
+  scheduler?: "DPM++2MKarras" | "EulerA" | "DDIM" | "LMS"
+}
+
+/** Hugging Face — Object Detection */
+export interface HuggingFaceObjectDetectionInput {
+  /** What type of object detection do you need? (values: `general`, `documents`, `security`, `business`, `search`) */
+  useCase: "general" | "documents" | "security" | "business" | "search"
+  /** Select the best model for your detection task (resolve via property options API) */
+  model: string
+  /** Upload an image for object detection. Supports JPG, PNG, WebP formats. */
+  image: string
+  /** Minimum confidence score for detections (0.1-0.9). Higher values = fewer but more accurate detections. */
+  confidenceThreshold?: number
+  /** Maximum number of objects to detect (1-100) */
+  maxDetections?: number
+  /** How to handle detection results (values: `high_confidence`, `balanced`, `all_results`, `custom`) */
+  filterSettings?: "high_confidence" | "balanced" | "all_results" | "custom"
+  /** How to structure the detection results (values: `business`, `technical`, `analytics`, `comprehensive`) */
+  outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
+}
+
+/** Hugging Face — Image Classification */
+export interface HuggingFaceImageClassificationInput {
+  /** How do you want to classify your images? (values: `standard`, `zero_shot`) */
+  classificationMode: "standard" | "zero_shot"
+  /** What type of image classification do you need? (values: `moderation`, `general`, `people`, `creative`, `business`, `search`) */
+  useCase: "moderation" | "general" | "people" | "creative" | "business" | "search"
+  /** Select the best model for your use case (resolve via property options API) */
+  model: string
+  /** How do you want to provide the image? (values: `upload`, `url`) */
+  imageSource: "upload" | "url"
+  /** Upload an image file for classification (JPG, PNG, WebP) */
+  imageFile: string
+  /** URL of the image to classify */
+  imageUrl: string
+  /** Enter the categories you want to classify the image into (e.g., "dog", "cat", "bird") */
+  customCategories: unknown[]
+  /** Template for classification (advanced). Default: "This image shows {}" */
+  hypothesisTemplate?: string
+  /** Maximum number of classification results to return (1-20) */
+  topK?: number
+  /** Minimum confidence score for results (0.0-1.0) */
+  confidenceThreshold?: number
+  /** How to structure the classification results (values: `business`, `technical`, `analytics`, `comprehensive`) */
+  outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
+}
+
 /** IMAP — Mark Email as Read/Unread */
 export interface ImapMarkEmailReadInput {
   /** Select the parent folder containing the email. (resolve via property options API) */
@@ -13230,6 +13430,14 @@ export interface IntegrationActionInputMap {
   'hubspot.get-owner-by-id': HubspotGetOwnerByIdInput
   'hubspot.get-pipeline-stage-details': HubspotGetPipelineStageDetailsInput
   'hubspot.custom_api_call': HubspotCustomApiCallInput
+  'hugging-face.document_question_answering': HuggingFaceDocumentQuestionAnsweringInput
+  'hugging-face.language_translation': HuggingFaceLanguageTranslationInput
+  'hugging-face.text_classification': HuggingFaceTextClassificationInput
+  'hugging-face.text_summarization': HuggingFaceTextSummarizationInput
+  'hugging-face.chat_completion': HuggingFaceChatCompletionInput
+  'hugging-face.create_image': HuggingFaceCreateImageInput
+  'hugging-face.object_detection': HuggingFaceObjectDetectionInput
+  'hugging-face.image_classification': HuggingFaceImageClassificationInput
   'imap.mark_email_read': ImapMarkEmailReadInput
   'imap.copy_email': ImapCopyEmailInput
   'imap.move_email': ImapMoveEmailInput
@@ -14210,6 +14418,16 @@ export interface IntegrationActionInputsByIntegration {
     'get-owner-by-id': HubspotGetOwnerByIdInput
     'get-pipeline-stage-details': HubspotGetPipelineStageDetailsInput
     'custom_api_call': HubspotCustomApiCallInput
+  }
+  'hugging-face': {
+    'document_question_answering': HuggingFaceDocumentQuestionAnsweringInput
+    'language_translation': HuggingFaceLanguageTranslationInput
+    'text_classification': HuggingFaceTextClassificationInput
+    'text_summarization': HuggingFaceTextSummarizationInput
+    'chat_completion': HuggingFaceChatCompletionInput
+    'create_image': HuggingFaceCreateImageInput
+    'object_detection': HuggingFaceObjectDetectionInput
+    'image_classification': HuggingFaceImageClassificationInput
   }
   'imap': {
     'mark_email_read': ImapMarkEmailReadInput
