@@ -25,12 +25,14 @@ const { connections } = await client.connections.list()
 const result = await client.actions.execute('slack', 'send_channel_message', {
   input: { channel: '#general', text: 'Hello from Weavz!' },
   connectionExternalId: 'my-slack',
+  workspaceId: 'your-workspace-id',
 })
 
 // Create an MCP server
 const { server, bearerToken } = await client.mcpServers.create({
   name: 'My MCP Server',
   mode: 'TOOLS',
+  workspaceId: 'your-workspace-id',
 })
 ```
 
