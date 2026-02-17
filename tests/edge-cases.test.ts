@@ -71,23 +71,23 @@ afterAll(async () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Project Validation & Edge Cases
+// Workspace Validation & Edge Cases
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Project Edge Cases', () => {
-  let projectId: string
+describe('Workspace Edge Cases', () => {
+  let workspaceId: string
 
   it('should reject empty name', async () => {
-    await expect(client.projects.create({ name: '', slug: 'valid-slug' })).rejects.toThrow(WeavzError)
+    await expect(client.workspaces.create({ name: '', slug: 'valid-slug' })).rejects.toThrow(WeavzError)
   })
 
   it('should reject empty slug', async () => {
-    await expect(client.projects.create({ name: 'Valid', slug: '' })).rejects.toThrow(WeavzError)
+    await expect(client.workspaces.create({ name: 'Valid', slug: '' })).rejects.toThrow(WeavzError)
   })
 
   it('should reject slug with uppercase', async () => {
     try {
-      await client.projects.create({ name: 'Test', slug: 'Invalid-Slug' })
+      await client.workspaces.create({ name: 'Test', slug: 'Invalid-Slug' })
       // If it doesn't reject, clean up
     } catch (e) {
       expect(e).toBeInstanceOf(WeavzError)
@@ -96,30 +96,30 @@ describe('Project Edge Cases', () => {
 
   it('should reject slug with special characters', async () => {
     await expect(
-      client.projects.create({ name: 'Test', slug: 'invalid slug!' })
+      client.workspaces.create({ name: 'Test', slug: 'invalid slug!' })
     ).rejects.toThrow(WeavzError)
   })
 
   it('should reject slug starting with hyphen', async () => {
     await expect(
-      client.projects.create({ name: 'Test', slug: '-leading-hyphen' })
+      client.workspaces.create({ name: 'Test', slug: '-leading-hyphen' })
     ).rejects.toThrow(WeavzError)
   })
 
-  it('should create project with unicode name', async () => {
-    const result = await client.projects.create({
+  it('should create workspace with unicode name', async () => {
+    const result = await client.workspaces.create({
       name: 'Projet Spécial 日本語',
       slug: `unicode-name-${RAND}`,
     })
-    expect(result).toHaveProperty('project')
-    projectId = (result.project as any).id
-    cleanupStack.push(() => client.projects.delete(projectId))
-    expect((result.project as any).name).toBe('Projet Spécial 日本語')
+    expect(result).toHaveProperty('workspace')
+    workspaceId = (result.workspace as any).id
+    cleanupStack.push(() => client.workspaces.delete(workspaceId))
+    expect((result.workspace as any).name).toBe('Projet Spécial 日本語')
   })
 
-  it('should reject duplicate project slug', async () => {
+  it('should reject duplicate workspace slug', async () => {
     try {
-      await client.projects.create({ name: 'Duplicate', slug: `unicode-name-${RAND}` })
+      await client.workspaces.create({ name: 'Duplicate', slug: `unicode-name-${RAND}` })
       // Should have thrown
       expect(true).toBe(false)
     } catch (e) {
@@ -128,25 +128,25 @@ describe('Project Edge Cases', () => {
     }
   })
 
-  it('should list projects with pagination-like response', async () => {
-    const result = await client.projects.list()
-    expect(result).toHaveProperty('projects')
-    expect(Array.isArray(result.projects)).toBe(true)
+  it('should list workspaces with pagination-like response', async () => {
+    const result = await client.workspaces.list()
+    expect(result).toHaveProperty('workspaces')
+    expect(Array.isArray(result.workspaces)).toBe(true)
   })
 
-  it('should return error for non-existent project', async () => {
+  it('should return error for non-existent workspace', async () => {
     await expect(
-      client.projects.get('00000000-0000-0000-0000-000000000000')
+      client.workspaces.get('00000000-0000-0000-0000-000000000000')
     ).rejects.toThrow(WeavzError)
   })
 
-  it('should handle deleting already-deleted project gracefully', async () => {
-    // Create then delete a project
-    const created = await client.projects.create({ name: 'ToDelete', slug: `to-delete-${RAND}` })
-    const id = (created.project as any).id
-    await client.projects.delete(id)
+  it('should handle deleting already-deleted workspace gracefully', async () => {
+    // Create then delete a workspace
+    const created = await client.workspaces.create({ name: 'ToDelete', slug: `to-delete-${RAND}` })
+    const id = (created.workspace as any).id
+    await client.workspaces.delete(id)
     // Try to delete again
-    await expect(client.projects.delete(id)).rejects.toThrow(WeavzError)
+    await expect(client.workspaces.delete(id)).rejects.toThrow(WeavzError)
   })
 })
 
@@ -155,13 +155,13 @@ describe('Project Edge Cases', () => {
 // ────────────────────────────────────────────────────────────────────────────
 
 describe('Connection Edge Cases', () => {
-  let projectId: string
+  let workspaceId: string
   let connId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'Conn Edge', slug: `conn-edge-${RAND}` })
-    projectId = (p.project as any).id
-    cleanupStack.push(() => client.projects.delete(projectId))
+    const p = await client.workspaces.create({ name: 'Conn Edge', slug: `conn-edge-${RAND}` })
+    workspaceId = (p.workspace as any).id
+    cleanupStack.push(() => client.workspaces.delete(workspaceId))
   })
 
   it('should create SECRET_TEXT connection', async () => {
@@ -171,7 +171,7 @@ describe('Connection Edge Cases', () => {
       displayName: 'Edge Secret Text',
       integrationName: 'openai',
       secretText: 'sk-test-edge-12345',
-      projectId,
+      workspaceId,
     })
     expect(result).toHaveProperty('connection')
     connId = (result.connection as any).id
@@ -186,7 +186,7 @@ describe('Connection Edge Cases', () => {
         displayName: 'Duplicate',
         integrationName: 'openai',
         secretText: 'sk-test-dupe',
-        projectId,
+        workspaceId,
       })
       expect(true).toBe(false)
     } catch (e) {
@@ -202,7 +202,7 @@ describe('Connection Edge Cases', () => {
       displayName: 'Same ExtID Different Integration',
       integrationName: 'slack',
       secretText: 'sk-slack-test-edge',
-      projectId,
+      workspaceId,
     })
     expect(result).toHaveProperty('connection')
     const id = (result.connection as any).id
@@ -217,7 +217,7 @@ describe('Connection Edge Cases', () => {
       integrationName: 'http',
       username: 'testuser',
       password: 'testpass123',
-      projectId,
+      workspaceId,
     })
     expect(result).toHaveProperty('connection')
     const id = (result.connection as any).id
@@ -231,7 +231,7 @@ describe('Connection Edge Cases', () => {
       displayName: 'Edge Custom Auth',
       integrationName: 'http',
       props: { headerName: 'X-Custom-Token', headerValue: 'test-token-value' },
-      projectId,
+      workspaceId,
     })
     expect(result).toHaveProperty('connection')
     const id = (result.connection as any).id
@@ -257,7 +257,7 @@ describe('Connection Edge Cases', () => {
         displayName: 'Bad Integration',
         integrationName: 'nonexistent-integration-xyz',
         secretText: 'test',
-        projectId,
+        workspaceId,
       })
     } catch (e) {
       expect(e).toBeInstanceOf(WeavzError)
@@ -268,7 +268,7 @@ describe('Connection Edge Cases', () => {
     const result = await client.connections.resolve({
       integrationName: 'openai',
       externalId: 'edge-secret-1',
-      projectId,
+      workspaceId,
     })
     expect(result).toHaveProperty('connection')
     expect((result.connection as any).id).toBe(connId)
@@ -279,7 +279,7 @@ describe('Connection Edge Cases', () => {
       client.connections.resolve({
         integrationName: 'openai',
         externalId: 'does-not-exist-xyz',
-        projectId,
+        workspaceId,
       })
     ).rejects.toThrow(WeavzError)
   })
@@ -290,21 +290,21 @@ describe('Connection Edge Cases', () => {
 // ────────────────────────────────────────────────────────────────────────────
 
 describe('MCP Server Edge Cases', () => {
-  let projectId: string
+  let workspaceId: string
   let toolsServerId: string
   let codeServerId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'MCP Edge', slug: `mcp-edge-${RAND}` })
-    projectId = (p.project as any).id
-    cleanupStack.push(() => client.projects.delete(projectId))
+    const p = await client.workspaces.create({ name: 'MCP Edge', slug: `mcp-edge-${RAND}` })
+    workspaceId = (p.workspace as any).id
+    cleanupStack.push(() => client.workspaces.delete(workspaceId))
   })
 
   it('should create TOOLS mode server (default)', async () => {
     const result = await client.mcpServers.create({
       name: 'Edge Tools Server',
       description: 'Testing tools mode',
-      projectId,
+      workspaceId,
       mode: 'TOOLS',
     })
     expect(result).toHaveProperty('server')
@@ -319,7 +319,7 @@ describe('MCP Server Edge Cases', () => {
     const result = await client.mcpServers.create({
       name: 'Edge Code Server',
       description: 'Testing code mode',
-      projectId,
+      workspaceId,
       mode: 'CODE',
     })
     expect(result).toHaveProperty('server')
@@ -441,7 +441,7 @@ describe('MCP Server Edge Cases', () => {
     // Create a disposable server
     const s = await client.mcpServers.create({
       name: 'Mode Switch Server',
-      projectId,
+      workspaceId,
       mode: 'TOOLS',
     })
     const id = (s.server as any).id
@@ -476,25 +476,25 @@ describe('MCP Server Edge Cases', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Project Integration Edge Cases
+// Workspace Integration Edge Cases
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Project Integration Edge Cases', () => {
+describe('Workspace Integration Edge Cases', () => {
   let connId: string
-  let projectId: string
+  let workspaceId: string
 
   beforeAll(async () => {
-    const p = await client.projects.create({ name: 'ProjInt Edge', slug: `projint-edge-${RAND}` })
-    projectId = (p.project as any).id
-    cleanupStack.push(() => client.projects.delete(projectId))
+    const p = await client.workspaces.create({ name: 'WsInt Edge', slug: `wsint-edge-${RAND}` })
+    workspaceId = (p.workspace as any).id
+    cleanupStack.push(() => client.workspaces.delete(workspaceId))
 
     const c = await client.connections.create({
       type: 'SECRET_TEXT',
-      externalId: 'projint-edge-conn',
-      displayName: 'ProjInt Edge Conn',
+      externalId: 'wsint-edge-conn',
+      displayName: 'WsInt Edge Conn',
       integrationName: 'github',
       secretText: 'ghp_testtoken123',
-      projectId,
+      workspaceId,
     })
     connId = (c.connection as any).id
     cleanupStack.push(() => client.connections.delete(connId))
@@ -502,7 +502,7 @@ describe('Project Integration Edge Cases', () => {
 
   it('should reject fixed strategy without connectionId', async () => {
     try {
-      await client.projects.addIntegration(projectId, {
+      await client.workspaces.addIntegration(workspaceId, {
         integrationName: 'github',
         connectionStrategy: 'fixed',
       })
@@ -514,7 +514,7 @@ describe('Project Integration Edge Cases', () => {
   })
 
   it('should add fixed strategy integration with connectionId', async () => {
-    const result = await client.projects.addIntegration(projectId, {
+    const result = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'github',
       connectionStrategy: 'fixed',
       connectionId: connId,
@@ -523,37 +523,37 @@ describe('Project Integration Edge Cases', () => {
     expect((result.integration as any).connectionStrategy).toBe('fixed')
     expect((result.integration as any).connectionId).toBe(connId)
     const integrationId = (result.integration as any).id
-    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+    cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
   })
 
-  it('should update existing project integration strategy', async () => {
+  it('should update existing workspace integration strategy', async () => {
     // Create per_user, then update to per_user_with_fallback
-    const created = await client.projects.addIntegration(projectId, {
+    const created = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'slack',
       connectionStrategy: 'per_user',
     })
     const integrationId = (created.integration as any).id
-    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+    cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
 
-    const updated = await client.projects.updateIntegration(projectId, integrationId, {
+    const updated = await client.workspaces.updateIntegration(workspaceId, integrationId, {
       connectionStrategy: 'per_user_with_fallback',
     })
     expect((updated.integration as any).connectionStrategy).toBe('per_user_with_fallback')
   })
 
   it('should add per_user integration for different integration', async () => {
-    const result = await client.projects.addIntegration(projectId, {
+    const result = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'notion',
       connectionStrategy: 'per_user',
     })
     expect(result).toHaveProperty('integration')
     expect((result.integration as any).integrationName).toBe('notion')
     const integrationId = (result.integration as any).id
-    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+    cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
   })
 
   it('should add integration with custom alias', async () => {
-    const result = await client.projects.addIntegration(projectId, {
+    const result = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'openai',
       alias: 'openai-primary',
       connectionStrategy: 'per_user',
@@ -561,29 +561,29 @@ describe('Project Integration Edge Cases', () => {
     expect(result).toHaveProperty('integration')
     expect((result.integration as any).alias).toBe('openai-primary')
     const integrationId = (result.integration as any).id
-    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+    cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
   })
 
-  it('should remove a project integration', async () => {
-    const created = await client.projects.addIntegration(projectId, {
+  it('should remove a workspace integration', async () => {
+    const created = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'discord',
       connectionStrategy: 'per_user',
     })
     const integrationId = (created.integration as any).id
 
-    const result = await client.projects.removeIntegration(projectId, integrationId)
+    const result = await client.workspaces.removeIntegration(workspaceId, integrationId)
     expect(result).toHaveProperty('deleted', true)
     expect(result).toHaveProperty('id', integrationId)
   })
 
-  it('should list project integrations and verify structure', async () => {
-    const result = await client.projects.listIntegrations(projectId)
+  it('should list workspace integrations and verify structure', async () => {
+    const result = await client.workspaces.listIntegrations(workspaceId)
     expect(result).toHaveProperty('integrations')
     expect(result).toHaveProperty('total')
     expect(Array.isArray(result.integrations)).toBe(true)
     expect(result.integrations.length).toBeGreaterThan(0)
 
-    // Each project integration should have basic fields
+    // Each workspace integration should have basic fields
     const first = result.integrations[0] as any
     expect(first).toHaveProperty('id')
     expect(first).toHaveProperty('integrationName')
@@ -591,18 +591,18 @@ describe('Project Integration Edge Cases', () => {
   })
 
   it('should add integration with display name', async () => {
-    const created = await client.projects.addIntegration(projectId, {
+    const created = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'http',
       connectionStrategy: 'per_user',
       displayName: 'HTTP Service',
     })
     const integrationId = (created.integration as any).id
-    cleanupStack.push(() => client.projects.removeIntegration(projectId, integrationId))
+    cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
 
     expect((created.integration as any).displayName).toBe('HTTP Service')
 
     // Update display name
-    const updated = await client.projects.updateIntegration(projectId, integrationId, {
+    const updated = await client.workspaces.updateIntegration(workspaceId, integrationId, {
       displayName: 'Updated HTTP Service',
     })
     expect((updated.integration as any).displayName).toBe('Updated HTTP Service')
@@ -844,7 +844,7 @@ describe('Error Shape Consistency', () => {
 
   it('validation errors should include error details', async () => {
     try {
-      await client.projects.create({ name: '', slug: '' })
+      await client.workspaces.create({ name: '', slug: '' })
     } catch (e) {
       expect(e).toBeInstanceOf(WeavzError)
       const err = e as WeavzError

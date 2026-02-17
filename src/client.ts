@@ -21,9 +21,9 @@ interface RequestOptions {
   params?: Record<string, string | number | boolean | undefined>
 }
 
-export interface ProjectIntegration {
+export interface WorkspaceIntegration {
   id: string
-  projectId: string
+  workspaceId: string
   integrationName: string
   alias: string
   connectionStrategy: 'fixed' | 'per_user' | 'per_user_with_fallback'
@@ -38,7 +38,7 @@ export interface ProjectIntegration {
 export interface InputPartial {
   id: string
   orgId: string
-  projectId: string
+  workspaceId: string
   integrationName: string
   actionName?: string | null
   name: string
@@ -83,23 +83,23 @@ class OrganizationsResource extends BaseResource {
   }
 }
 
-class ProjectsResource extends BaseResource {
+class WorkspacesResource extends BaseResource {
   list() {
-    return this._get<{ projects: unknown[]; total: number }>('/api/v1/projects')
+    return this._get<{ workspaces: unknown[]; total: number }>('/api/v1/workspaces')
   }
   create(data: { name: string; slug: string }) {
-    return this._post<{ project: unknown }>('/api/v1/projects', data)
+    return this._post<{ workspace: unknown }>('/api/v1/workspaces', data)
   }
   get(id: string) {
-    return this._get<{ project: unknown }>(`/api/v1/projects/${id}`)
+    return this._get<{ workspace: unknown }>(`/api/v1/workspaces/${id}`)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/projects/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${id}`)
   }
-  listIntegrations(projectId: string) {
-    return this._get<{ integrations: ProjectIntegration[]; total: number }>(`/api/v1/projects/${projectId}/integrations`)
+  listIntegrations(workspaceId: string) {
+    return this._get<{ integrations: WorkspaceIntegration[]; total: number }>(`/api/v1/workspaces/${workspaceId}/integrations`)
   }
-  addIntegration(projectId: string, data: {
+  addIntegration(workspaceId: string, data: {
     integrationName: string
     alias?: string
     connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
@@ -108,9 +108,9 @@ class ProjectsResource extends BaseResource {
     enabledActions?: string[]
     sortOrder?: number
   }) {
-    return this._post<{ integration: ProjectIntegration }>(`/api/v1/projects/${projectId}/integrations`, data)
+    return this._post<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations`, data)
   }
-  updateIntegration(projectId: string, id: string, data: {
+  updateIntegration(workspaceId: string, id: string, data: {
     alias?: string
     connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
     connectionId?: string | null
@@ -118,10 +118,10 @@ class ProjectsResource extends BaseResource {
     enabledActions?: string[] | null
     sortOrder?: number
   }) {
-    return this._patch<{ integration: ProjectIntegration }>(`/api/v1/projects/${projectId}/integrations/${id}`, data)
+    return this._patch<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations/${id}`, data)
   }
-  removeIntegration(projectId: string, id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/projects/${projectId}/integrations/${id}`)
+  removeIntegration(workspaceId: string, id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${workspaceId}/integrations/${id}`)
   }
 }
 
@@ -137,9 +137,9 @@ class ConnectionsResource extends BaseResource {
     externalId: string
     displayName: string
     integrationName: string
-    projectId?: string
+    workspaceId?: string
     endUserId?: string
-    scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
+    scope?: 'ORGANIZATION' | 'WORKSPACE' | 'USER'
     secretText?: string
     username?: string
     password?: string
@@ -156,7 +156,7 @@ class ConnectionsResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
-  resolve(data: { integrationName: string; projectId: string; externalId?: string; endUserId?: string }) {
+  resolve(data: { integrationName: string; workspaceId: string; externalId?: string; endUserId?: string }) {
     return this._post<{ connection: unknown }>('/api/v1/connections/resolve', data)
   }
 }
@@ -187,9 +187,9 @@ class ConnectResource extends BaseResource {
     integrationName: string
     connectionName: string
     externalId: string
-    projectId: string
+    workspaceId: string
     endUserId?: string
-    scope?: 'ORGANIZATION' | 'PROJECT' | 'USER'
+    scope?: 'ORGANIZATION' | 'WORKSPACE' | 'USER'
     successRedirectUri?: string
     errorRedirectUri?: string
   }) {
@@ -266,7 +266,7 @@ class WebhookSecretsResource extends BaseResource {
 
 class ActionsResource extends BaseResource {
   execute(integrationName: string, actionName: string, options: {
-    projectId: string
+    workspaceId: string
     input?: Record<string, unknown>
     connectionExternalId?: string
     endUserId?: string
@@ -278,7 +278,7 @@ class ActionsResource extends BaseResource {
       actionName,
       input: options.input ?? {},
       connectionExternalId: options.connectionExternalId,
-      projectId: options.projectId,
+      workspaceId: options.workspaceId,
       endUserId: options.endUserId,
       integrationAlias: options.integrationAlias,
       partialIds: options.partialIds,
@@ -294,7 +294,7 @@ class TriggersResource extends BaseResource {
     integrationName: string
     triggerName: string
     callbackUrl: string
-    projectId: string
+    workspaceId: string
     callbackHeaders?: Record<string, string>
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
@@ -319,7 +319,7 @@ class McpServersResource extends BaseResource {
   }
   create(data: {
     name: string
-    projectId: string
+    workspaceId: string
     description?: string
     createdBy?: string
     mode?: 'TOOLS' | 'CODE'
@@ -373,11 +373,11 @@ class McpServersResource extends BaseResource {
   getDeclarations(serverId: string, integrationOrAlias: string) {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
   }
-  syncFromProject(id: string, data?: {
+  syncFromWorkspace(id: string, data?: {
     aliases?: string[]
     actions?: Record<string, string[]>
   }) {
-    return this._post<{ tools: unknown[]; added: number }>(`/api/v1/mcp/servers/${id}/sync-from-project`, data)
+    return this._post<{ tools: unknown[]; added: number }>(`/api/v1/mcp/servers/${id}/sync-from-workspace`, data)
   }
 }
 
@@ -388,7 +388,7 @@ class ApiKeysResource extends BaseResource {
   create(data: {
     name: string
     expiresAt?: string
-    permissions?: { scope: 'org' } | { scope: 'project'; projectIds: string[] }
+    permissions?: { scope: 'org' } | { scope: 'workspace'; workspaceIds: string[] }
   }) {
     return this._post<{ apiKey: unknown; plainKey: string }>('/api/v1/api-keys', data)
   }
@@ -412,12 +412,12 @@ class MembersResource extends BaseResource {
   }
 }
 
-class ProjectMembersResource extends BaseResource {
-  create(data: { projectId: string; memberId: string; role?: 'admin' | 'member' }) {
-    return this._post<{ projectMember: unknown }>('/api/v1/project-members', data)
+class WorkspaceMembersResource extends BaseResource {
+  create(data: { workspaceId: string; memberId: string; role?: 'admin' | 'member' }) {
+    return this._post<{ workspaceMember: unknown }>('/api/v1/workspace-members', data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/project-members/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspace-members/${id}`)
   }
 }
 
@@ -433,7 +433,7 @@ class IntegrationsResource extends BaseResource {
     actionName?: string
     triggerName?: string
     connectionExternalId?: string
-    projectId?: string
+    workspaceId?: string
     endUserId?: string
     input?: Record<string, unknown>
     searchValue?: string
@@ -445,7 +445,7 @@ class IntegrationsResource extends BaseResource {
     actionName?: string
     triggerName?: string
     connectionExternalId?: string
-    projectId?: string
+    workspaceId?: string
     endUserId?: string
     input?: Record<string, unknown>
   }) {
@@ -463,14 +463,14 @@ class ActivityResource extends BaseResource {
 }
 
 class PartialsResource extends BaseResource {
-  list(params: { projectId: string; integrationName?: string; actionName?: string }) {
+  list(params: { workspaceId: string; integrationName?: string; actionName?: string }) {
     return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
   }
   get(id: string) {
     return this._get<{ partial: InputPartial }>(`/api/v1/partials/${id}`)
   }
   create(data: {
-    projectId: string
+    workspaceId: string
     integrationName: string
     name: string
     actionName?: string | null
@@ -503,7 +503,7 @@ class PartialsResource extends BaseResource {
 
 export interface EndUser {
   id: string
-  projectId: string
+  workspaceId: string
   externalId?: string | null
   displayName?: string | null
   email?: string | null
@@ -516,7 +516,7 @@ export interface EndUser {
 
 class EndUsersResource extends BaseResource {
   create(data: {
-    projectId: string
+    workspaceId: string
     externalId: string
     displayName?: string
     email?: string
@@ -524,7 +524,7 @@ class EndUsersResource extends BaseResource {
   }) {
     return this._post<{ endUser: EndUser }>('/api/v1/end-users', data)
   }
-  list(params: { projectId: string }) {
+  list(params: { workspaceId: string }) {
     return this._get<{ endUsers: EndUser[]; total: number }>('/api/v1/end-users', params)
   }
   get(id: string) {
@@ -574,7 +574,7 @@ export class WeavzClient {
   private readonly maxRetries: number
 
   readonly organizations: OrganizationsResource
-  readonly projects: ProjectsResource
+  readonly workspaces: WorkspacesResource
   readonly connections: ConnectionsResource
   readonly connect: ConnectResource
   readonly oauthApps: OAuthAppsResource
@@ -585,7 +585,7 @@ export class WeavzClient {
   readonly mcpServers: McpServersResource
   readonly apiKeys: ApiKeysResource
   readonly members: MembersResource
-  readonly projectMembers: ProjectMembersResource
+  readonly workspaceMembers: WorkspaceMembersResource
   readonly integrations: IntegrationsResource
   readonly activity: ActivityResource
   readonly partials: PartialsResource
@@ -599,7 +599,7 @@ export class WeavzClient {
     this.maxRetries = options.maxRetries ?? 2
 
     this.organizations = new OrganizationsResource(this)
-    this.projects = new ProjectsResource(this)
+    this.workspaces = new WorkspacesResource(this)
     this.connections = new ConnectionsResource(this)
     this.connect = new ConnectResource(this)
     this.oauthApps = new OAuthAppsResource(this)
@@ -610,7 +610,7 @@ export class WeavzClient {
     this.mcpServers = new McpServersResource(this)
     this.apiKeys = new ApiKeysResource(this)
     this.members = new MembersResource(this)
-    this.projectMembers = new ProjectMembersResource(this)
+    this.workspaceMembers = new WorkspaceMembersResource(this)
     this.integrations = new IntegrationsResource(this)
     this.activity = new ActivityResource(this)
     this.partials = new PartialsResource(this)

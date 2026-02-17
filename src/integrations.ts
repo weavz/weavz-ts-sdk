@@ -5894,7 +5894,7 @@ export interface KvStorePutInput {
   key: string
   /** The value to store (any JSON-serializable value) */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -5902,7 +5902,7 @@ export interface KvStorePutInput {
 export interface KvStoreGetInput {
   /** The key to retrieve */
   key: string
-  /** Optional external persistence ID to scope the store. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -5910,7 +5910,7 @@ export interface KvStoreGetInput {
 export interface KvStoreDeleteInput {
   /** The key to delete */
   key: string
-  /** Optional external persistence ID to scope the store. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -5920,7 +5920,7 @@ export interface KvStoreAddToListInput {
   key: string
   /** The value to append to the list */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -5930,7 +5930,7 @@ export interface KvStoreRemoveFromListInput {
   key: string
   /** The value to remove from the list */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -6714,7 +6714,7 @@ export interface MicrosoftOnedriveCustomApiCallInput {
 
 /** Microsoft OneNote — Create Notebook */
 export interface MicrosoftOnenoteCreateNotebookInput {
-  /** The name of the notebook. Must be unique and cannot contain more than 128 characters or the following characters: ?*/:<>|'"%~ */
+  /** The name of the notebook. Must be unique and cannot contain more than 128 characters or the following characters: ?*\/:<>|'"%~ */
   displayName: string
 }
 
@@ -6722,7 +6722,7 @@ export interface MicrosoftOnenoteCreateNotebookInput {
 export interface MicrosoftOnenoteCreateSectionInput {
   /** The notebook to create the section in. (resolve via property options API) */
   notebook_id: string
-  /** The name of the section. Must be unique within the notebook and cannot contain more than 50 characters or the following characters: ?*/:<>|&#''%~ */
+  /** The name of the section. Must be unique within the notebook and cannot contain more than 50 characters or the following characters: ?*\/:<>|&#''%~ */
   displayName: string
 }
 
@@ -6990,7 +6990,7 @@ export interface MicrosoftSharepointMicrosoftSharepointCreateFolderInput {
   siteId: string
   /** Drive (resolve via property options API) */
   driveId: string
-  /** Parent folder,like "/demo/" or "/docs/assignment/".Leave it default if you want to create folder at the root (**/**) level. */
+  /** Parent folder,like "/demo/" or "/docs/assignment/".Leave it default if you want to create folder at the root (**\/**) level. */
   parentFolder: string
   /** Folder Name */
   folderName: string
@@ -10968,7 +10968,7 @@ export interface StabilityAiCustomApiCallInput {
 export interface StorageReadFileInput {
   /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
   path: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -10980,7 +10980,7 @@ export interface StorageWriteFileInput {
   content: string
   /** MIME type (e.g. "application/json", "text/plain") */
   contentType?: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -10988,7 +10988,7 @@ export interface StorageWriteFileInput {
 export interface StorageDeleteFileInput {
   /** File path to delete */
   path: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 
@@ -10996,7 +10996,7 @@ export interface StorageDeleteFileInput {
 export interface StorageListFilesInput {
   /** Path prefix to filter files (e.g. "data/" to list all files in data folder). Leave empty for all files. */
   prefix?: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to project-bound storage. */
+  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
   persistenceId?: string
 }
 

@@ -20,10 +20,10 @@ let apiKeyPlain: string
 let apiKeyId: string
 
 // Track resources for cleanup
-let createdProjectId: string
+let createdWorkspaceId: string
 let createdConnectionId: string
 let createdMcpServerId: string
-let createdProjectIntegrationId: string
+let createdWorkspaceIntegrationId: string
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   const headers: Record<string, string> = {
@@ -77,7 +77,7 @@ beforeAll(async () => {
 afterAll(async () => {
   // Cleanup in reverse order
   try {
-    if (createdProjectIntegrationId) await client.projects.removeIntegration(createdProjectId, createdProjectIntegrationId)
+    if (createdWorkspaceIntegrationId) await client.workspaces.removeIntegration(createdWorkspaceId, createdWorkspaceIntegrationId)
   } catch {}
   try {
     if (createdMcpServerId) await client.mcpServers.delete(createdMcpServerId)
@@ -86,7 +86,7 @@ afterAll(async () => {
     if (createdConnectionId) await client.connections.delete(createdConnectionId)
   } catch {}
   try {
-    if (createdProjectId) await client.projects.delete(createdProjectId)
+    if (createdWorkspaceId) await client.workspaces.delete(createdWorkspaceId)
   } catch {}
   try {
     if (apiKeyId) {
@@ -122,31 +122,31 @@ describe('API Keys', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Projects
+// Workspaces
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Projects', () => {
-  it('should create a project', async () => {
-    const result = await client.projects.create({
-      name: 'SDK Test Project',
-      slug: 'sdk-test-project',
+describe('Workspaces', () => {
+  it('should create a workspace', async () => {
+    const result = await client.workspaces.create({
+      name: 'SDK Test Workspace',
+      slug: 'sdk-test-workspace',
     })
-    expect(result).toHaveProperty('project')
-    expect((result.project as any).name).toBe('SDK Test Project')
-    expect((result.project as any).slug).toBe('sdk-test-project')
-    createdProjectId = (result.project as any).id
+    expect(result).toHaveProperty('workspace')
+    expect((result.workspace as any).name).toBe('SDK Test Workspace')
+    expect((result.workspace as any).slug).toBe('sdk-test-workspace')
+    createdWorkspaceId = (result.workspace as any).id
   })
 
-  it('should list projects', async () => {
-    const result = await client.projects.list()
-    expect(result).toHaveProperty('projects')
-    expect(result.projects.length).toBeGreaterThan(0)
+  it('should list workspaces', async () => {
+    const result = await client.workspaces.list()
+    expect(result).toHaveProperty('workspaces')
+    expect(result.workspaces.length).toBeGreaterThan(0)
   })
 
-  it('should get a specific project', async () => {
-    const result = await client.projects.get(createdProjectId)
-    expect(result).toHaveProperty('project')
-    expect((result.project as any).id).toBe(createdProjectId)
+  it('should get a specific workspace', async () => {
+    const result = await client.workspaces.get(createdWorkspaceId)
+    expect(result).toHaveProperty('workspace')
+    expect((result.workspace as any).id).toBe(createdWorkspaceId)
   })
 })
 
@@ -187,7 +187,7 @@ describe('Connections', () => {
       displayName: 'SDK Test Connection',
       integrationName: 'openai',
       secretText: 'sk-test-fake-key-12345',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
     })
     expect(result).toHaveProperty('connection')
     expect((result.connection as any).displayName).toBe('SDK Test Connection')
@@ -204,7 +204,7 @@ describe('Connections', () => {
     const result = await client.connections.resolve({
       integrationName: 'openai',
       externalId: 'sdk-test-ext-id',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
     })
     expect(result).toHaveProperty('connection')
     expect((result.connection as any).id).toBe(createdConnectionId)
@@ -212,30 +212,30 @@ describe('Connections', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Project Integrations
+// Workspace Integrations
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Project Integrations', () => {
-  it('should add an integration to a project', async () => {
-    const result = await client.projects.addIntegration(createdProjectId, {
+describe('Workspace Integrations', () => {
+  it('should add an integration to a workspace', async () => {
+    const result = await client.workspaces.addIntegration(createdWorkspaceId, {
       integrationName: 'slack',
       connectionStrategy: 'per_user',
     })
     expect(result).toHaveProperty('integration')
     expect((result.integration as any).integrationName).toBe('slack')
     expect((result.integration as any).connectionStrategy).toBe('per_user')
-    createdProjectIntegrationId = (result.integration as any).id
+    createdWorkspaceIntegrationId = (result.integration as any).id
   })
 
-  it('should list project integrations', async () => {
-    const result = await client.projects.listIntegrations(createdProjectId)
+  it('should list workspace integrations', async () => {
+    const result = await client.workspaces.listIntegrations(createdWorkspaceId)
     expect(result).toHaveProperty('integrations')
     expect(result).toHaveProperty('total')
     expect(result.integrations.length).toBeGreaterThan(0)
   })
 
-  it('should update a project integration', async () => {
-    const result = await client.projects.updateIntegration(createdProjectId, createdProjectIntegrationId, {
+  it('should update a workspace integration', async () => {
+    const result = await client.workspaces.updateIntegration(createdWorkspaceId, createdWorkspaceIntegrationId, {
       connectionStrategy: 'per_user_with_fallback',
     })
     expect(result).toHaveProperty('integration')
@@ -252,7 +252,7 @@ describe('Input Partials', () => {
 
   it('should create an input partial', async () => {
     const result = await client.partials.create({
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       integrationName: 'openai',
       name: 'SDK Test Partial',
       description: 'Test partial from SDK tests',
@@ -269,7 +269,7 @@ describe('Input Partials', () => {
   })
 
   it('should list partials for a project', async () => {
-    const result = await client.partials.list({ projectId: createdProjectId })
+    const result = await client.partials.list({ workspaceId: createdWorkspaceId })
     expect(result).toHaveProperty('partials')
     expect(result).toHaveProperty('total')
     expect(result.partials.length).toBeGreaterThan(0)
@@ -277,7 +277,7 @@ describe('Input Partials', () => {
   })
 
   it('should list partials filtered by integrationName', async () => {
-    const result = await client.partials.list({ projectId: createdProjectId, integrationName: 'openai' })
+    const result = await client.partials.list({ workspaceId: createdWorkspaceId, integrationName: 'openai' })
     expect(result.partials.length).toBeGreaterThan(0)
     expect(result.partials.every(p => p.integrationName === 'openai')).toBe(true)
   })
@@ -340,7 +340,7 @@ describe('MCP Servers', () => {
     const result = await client.mcpServers.create({
       name: 'SDK Test Server',
       description: 'Integration test server',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       mode: 'TOOLS',
     })
     expect(result).toHaveProperty('server')
@@ -489,7 +489,7 @@ describe('endUserId Parameter', () => {
       displayName: 'endUserId Test Connection',
       integrationName: 'openai',
       secretText: 'sk-test-enduser-key',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       endUserId: 'end-user-ts-001',
     })
     expect(result).toHaveProperty('connection')
@@ -508,14 +508,14 @@ describe('endUserId Parameter', () => {
       displayName: 'Resolve endUserId Test',
       integrationName: 'openai',
       secretText: 'sk-test-resolve-enduser',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       endUserId: 'end-user-ts-002',
     })
 
     const result = await client.connections.resolve({
       integrationName: 'openai',
       externalId: 'sdk-resolve-enduser',
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       endUserId: 'end-user-ts-002',
     })
     expect(result).toHaveProperty('connection')
@@ -527,20 +527,20 @@ describe('endUserId Parameter', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Project-Scoped API Keys
+// Workspace-Scoped API Keys
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('Project-Scoped API Keys', () => {
-  it('should create a project-scoped API key', async () => {
+describe('Workspace-Scoped API Keys', () => {
+  it('should create a workspace-scoped API key', async () => {
     const result = await client.apiKeys.create({
-      name: 'project-scoped-test-key',
-      permissions: { scope: 'project', projectIds: [createdProjectId] },
+      name: 'workspace-scoped-test-key',
+      permissions: { scope: 'workspace', workspaceIds: [createdWorkspaceId] },
     })
     expect(result).toHaveProperty('plainKey')
     expect(result.plainKey).toMatch(/^wvz_/)
     expect((result.apiKey as any).permissions).toEqual({
-      scope: 'project',
-      projectIds: [createdProjectId],
+      scope: 'workspace',
+      workspaceIds: [createdWorkspaceId],
     })
 
     // Cleanup
@@ -557,7 +557,7 @@ describe('End Users', () => {
 
   it('should create an end user', async () => {
     const result = await client.endUsers.create({
-      projectId: createdProjectId,
+      workspaceId: createdWorkspaceId,
       externalId: `sdk-eu-${Date.now()}`,
       displayName: 'SDK Test End User',
       email: 'sdk-enduser@example.com',
@@ -572,7 +572,7 @@ describe('End Users', () => {
   })
 
   it('should list end users by project', async () => {
-    const result = await client.endUsers.list({ projectId: createdProjectId })
+    const result = await client.endUsers.list({ workspaceId: createdWorkspaceId })
     expect(result).toHaveProperty('endUsers')
     expect(result).toHaveProperty('total')
     expect(result.endUsers.length).toBeGreaterThan(0)
@@ -641,12 +641,12 @@ describe('Error Handling', () => {
   })
 
   it('should throw WeavzError on not found', async () => {
-    await expect(client.projects.get('nonexistent-id')).rejects.toThrow(WeavzError)
+    await expect(client.workspaces.get('nonexistent-id')).rejects.toThrow(WeavzError)
   })
 
   it('should throw WeavzError on validation error', async () => {
     await expect(
-      client.projects.create({ name: '', slug: '' })
+      client.workspaces.create({ name: '', slug: '' })
     ).rejects.toThrow(WeavzError)
   })
 })
