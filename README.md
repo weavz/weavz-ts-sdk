@@ -40,17 +40,20 @@ The client provides namespaced access to all API resources:
 
 | Resource | Methods |
 |----------|---------|
-| `client.projects` | `list()`, `create()`, `get()`, `delete()`, `listIntegrations()`, `addIntegration()`, `updateIntegration()`, `removeIntegration()` |
+| `client.workspaces` | `list()`, `create()`, `get()`, `delete()`, `listIntegrations()`, `addIntegration()`, `updateIntegration()`, `removeIntegration()` |
 | `client.connections` | `list()`, `create()`, `delete()`, `resolve()` |
 | `client.actions` | `execute()` |
 | `client.triggers` | `list()`, `enable()`, `disable()`, `test()` |
-| `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()`, `syncFromProject()` |
+| `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()`, `syncFromWorkspace()` |
 | `client.apiKeys` | `list()`, `create()`, `delete()` |
 | `client.members` | `list()`, `create()`, `update()`, `delete()` |
 | `client.integrations` | `list()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
 | `client.oauthApps` | `list()`, `create()`, `delete()` |
 | `client.webhookSecrets` | `list()`, `create()`, `delete()` |
 | `client.activity` | `list()` |
+| `client.endUsers` | `create()`, `list()`, `get()`, `update()`, `delete()`, `createConnectToken()`, `invite()` |
+| `client.partials` | `list()`, `get()`, `create()`, `update()`, `delete()` |
+| `client.invitations` | `send()`, `list()`, `revoke()`, `accept()` |
 
 ## Error Handling
 
