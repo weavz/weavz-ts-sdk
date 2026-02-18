@@ -5894,24 +5894,30 @@ export interface KvStorePutInput {
   key: string
   /** The value to store (any JSON-serializable value) */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** KV Store — Get */
 export interface KvStoreGetInput {
   /** The key to retrieve */
   key: string
-  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** KV Store — Delete */
 export interface KvStoreDeleteInput {
   /** The key to delete */
   key: string
-  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** KV Store — Add to List */
@@ -5920,8 +5926,10 @@ export interface KvStoreAddToListInput {
   key: string
   /** The value to append to the list */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** KV Store — Remove from List */
@@ -5930,8 +5938,10 @@ export interface KvStoreRemoveFromListInput {
   key: string
   /** The value to remove from the list */
   value: unknown
-  /** Optional external persistence ID to scope the store. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** Linear — Create Issue */
@@ -10968,8 +10978,10 @@ export interface StabilityAiCustomApiCallInput {
 export interface StorageReadFileInput {
   /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
   path: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** Storage — Write File */
@@ -10980,24 +10992,30 @@ export interface StorageWriteFileInput {
   content: string
   /** MIME type (e.g. "application/json", "text/plain") */
   contentType?: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** Storage — Delete File */
 export interface StorageDeleteFileInput {
   /** File path to delete */
   path: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** Storage — List Files */
 export interface StorageListFilesInput {
   /** Path prefix to filter files (e.g. "data/" to list all files in data folder). Leave empty for all files. */
   prefix?: string
-  /** Optional external persistence ID to scope storage. If omitted, defaults to workspace-bound storage. */
-  persistenceId?: string
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
 }
 
 /** Stripe — Create Customer */
