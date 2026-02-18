@@ -417,67 +417,6 @@ describe('Triggers', () => {
 })
 
 // ────────────────────────────────────────────────────────────────────────────
-// Activity
-// ────────────────────────────────────────────────────────────────────────────
-
-describe('Activity', () => {
-  it('should list activity events', async () => {
-    const result = await client.activity.list()
-    expect(result).toHaveProperty('events')
-    expect(result).toHaveProperty('total')
-    expect(Array.isArray(result.events)).toBe(true)
-  })
-})
-
-// ────────────────────────────────────────────────────────────────────────────
-// OAuth Apps
-// ────────────────────────────────────────────────────────────────────────────
-
-describe('OAuth Apps', () => {
-  let oauthAppId: string
-
-  it('should list OAuth apps', async () => {
-    const result = await client.oauthApps.list()
-    expect(result).toHaveProperty('apps')
-    expect(Array.isArray(result.apps)).toBe(true)
-  })
-
-  it('should create and delete an OAuth app', async () => {
-    const result = await client.oauthApps.create({
-      integrationName: 'github',
-      clientId: 'test-client-id',
-      clientSecret: 'test-client-secret',
-    })
-    expect(result).toHaveProperty('app')
-    oauthAppId = (result.app as any).id
-
-    const delResult = await client.oauthApps.delete(oauthAppId)
-    expect(delResult).toHaveProperty('deleted', true)
-  })
-})
-
-// ────────────────────────────────────────────────────────────────────────────
-// Webhook Secrets
-// ────────────────────────────────────────────────────────────────────────────
-
-describe('Webhook Secrets', () => {
-  it('should list webhook secrets', async () => {
-    const result = await client.webhookSecrets.list()
-    expect(result).toHaveProperty('secrets')
-    expect(Array.isArray(result.secrets)).toBe(true)
-  })
-
-  it('should create a webhook secret', async () => {
-    const result = await client.webhookSecrets.create({
-      integrationName: 'slack',
-      secret: 'test-webhook-secret-12345',
-    })
-    expect(result).toHaveProperty('success', true)
-    expect(result).toHaveProperty('integrationName', 'slack')
-  })
-})
-
-// ────────────────────────────────────────────────────────────────────────────
 // endUserId Parameter
 // ────────────────────────────────────────────────────────────────────────────
 

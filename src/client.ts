@@ -74,15 +74,6 @@ class BaseResource {
   }
 }
 
-class OrganizationsResource extends BaseResource {
-  get(id: string) {
-    return this._get<{ org: unknown }>(`/api/v1/orgs/${id}`)
-  }
-  update(id: string, data: { name?: string; slug?: string }) {
-    return this._patch<{ org: unknown }>(`/api/v1/orgs/${id}`, data)
-  }
-}
-
 class WorkspacesResource extends BaseResource {
   list() {
     return this._get<{ workspaces: unknown[]; total: number }>('/api/v1/workspaces')
@@ -161,26 +152,6 @@ class ConnectionsResource extends BaseResource {
   }
 }
 
-class OAuthAppsResource extends BaseResource {
-  list() {
-    return this._get<{ apps: unknown[] }>('/api/v1/oauth-apps')
-  }
-  create(data: {
-    integrationName: string
-    clientId: string
-    clientSecret: string
-    authUrl?: string
-    tokenUrl?: string
-    scope?: string
-    extraParams?: Record<string, string>
-  }) {
-    return this._post<{ app: unknown }>('/api/v1/oauth-apps', data)
-  }
-  delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/oauth-apps/${id}`)
-  }
-}
-
 class ConnectResource extends BaseResource {
   /** Create a connect session token for the hosted connect flow */
   createToken(data: {
@@ -242,25 +213,6 @@ class ConnectResource extends BaseResource {
 
       window.addEventListener('message', handler)
     })
-  }
-}
-
-class OAuthResource extends BaseResource {
-  /** Refresh an OAuth2 connection token */
-  refresh(externalId: string) {
-    return this._post<{ connection: unknown; refreshed: boolean }>('/api/v1/oauth/refresh', { externalId })
-  }
-}
-
-class WebhookSecretsResource extends BaseResource {
-  list() {
-    return this._get<{ secrets: unknown[] }>('/api/v1/webhook-secrets')
-  }
-  create(data: { integrationName: string; secret: string }) {
-    return this._post<{ secret: unknown }>('/api/v1/webhook-secrets', data)
-  }
-  delete(id: string, integrationName: string) {
-    return this._del<{ deleted: boolean; integrationName: string }>(`/api/v1/webhook-secrets/${id}`, { integrationName })
   }
 }
 
@@ -456,12 +408,6 @@ class IntegrationsResource extends BaseResource {
   }
 }
 
-class ActivityResource extends BaseResource {
-  list(params?: { limit?: number; offset?: number; type?: string; integrationName?: string; since?: string }) {
-    return this._get<{ events: unknown[]; total: number }>('/api/v1/activity', params as Record<string, string | number | boolean | undefined>)
-  }
-}
-
 class PartialsResource extends BaseResource {
   list(params: { workspaceId: string; integrationName?: string; actionName?: string }) {
     return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
@@ -573,13 +519,9 @@ export class WeavzClient {
   private readonly timeout: number
   private readonly maxRetries: number
 
-  readonly organizations: OrganizationsResource
   readonly workspaces: WorkspacesResource
   readonly connections: ConnectionsResource
   readonly connect: ConnectResource
-  readonly oauthApps: OAuthAppsResource
-  readonly oauth: OAuthResource
-  readonly webhookSecrets: WebhookSecretsResource
   readonly actions: ActionsResource
   readonly triggers: TriggersResource
   readonly mcpServers: McpServersResource
@@ -587,7 +529,6 @@ export class WeavzClient {
   readonly members: MembersResource
   readonly workspaceMembers: WorkspaceMembersResource
   readonly integrations: IntegrationsResource
-  readonly activity: ActivityResource
   readonly partials: PartialsResource
   readonly invitations: InvitationsResource
   readonly endUsers: EndUsersResource
@@ -598,13 +539,9 @@ export class WeavzClient {
     this.timeout = options.timeout ?? 30_000
     this.maxRetries = options.maxRetries ?? 2
 
-    this.organizations = new OrganizationsResource(this)
     this.workspaces = new WorkspacesResource(this)
     this.connections = new ConnectionsResource(this)
     this.connect = new ConnectResource(this)
-    this.oauthApps = new OAuthAppsResource(this)
-    this.oauth = new OAuthResource(this)
-    this.webhookSecrets = new WebhookSecretsResource(this)
     this.actions = new ActionsResource(this)
     this.triggers = new TriggersResource(this)
     this.mcpServers = new McpServersResource(this)
@@ -612,7 +549,6 @@ export class WeavzClient {
     this.members = new MembersResource(this)
     this.workspaceMembers = new WorkspaceMembersResource(this)
     this.integrations = new IntegrationsResource(this)
-    this.activity = new ActivityResource(this)
     this.partials = new PartialsResource(this)
     this.invitations = new InvitationsResource(this)
     this.endUsers = new EndUsersResource(this)
