@@ -325,12 +325,6 @@ class McpServersResource extends BaseResource {
   getDeclarations(serverId: string, integrationOrAlias: string) {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
   }
-  syncFromWorkspace(id: string, data?: {
-    aliases?: string[]
-    actions?: Record<string, string[]>
-  }) {
-    return this._post<{ tools: unknown[]; added: number }>(`/api/v1/mcp/servers/${id}/sync-from-workspace`, data)
-  }
 }
 
 class ApiKeysResource extends BaseResource {
