@@ -85,6 +85,382 @@ export interface ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromLi
   contactId: string
 }
 
+/** Acuity Health — List Patients */
+export interface AcuityHealthListPatientsInput {
+  /** Search by name or identifier */
+  search?: string
+  /** Status (values: `active`, `inactive`, `all`) */
+  status?: "active" | "inactive" | "all"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Acuity Health — Create Patient */
+export interface AcuityHealthCreatePatientInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Format: YYYY-MM-DD */
+  dateOfBirth?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Gender (values: `male`, `female`, `other`, `prefer_not_to_say`) */
+  gender?: "male" | "female" | "other" | "prefer_not_to_say"
+  /** Address */
+  address?: string
+}
+
+/** Acuity Health — List Encounters */
+export interface AcuityHealthListEncountersInput {
+  /** Filter by patient */
+  patientId?: string
+  /** Filter from date (YYYY-MM-DD) */
+  startDate?: string
+  /** Filter until date (YYYY-MM-DD) */
+  endDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Acuity Health — Custom API Call */
+export interface AcuityHealthCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Acuity Scheduling — Add Blocked Off Time */
+export interface AcuitySchedulingAddBlockedTimeInput {
+  /** The start date and time for the block (ISO 8601 format). */
+  start: string
+  /** The end date and time for the block (ISO 8601 format). */
+  end: string
+  /** The numeric ID of the calendar to add this block to. (resolve via property options API) */
+  calendarID: string
+  /** Optional notes for the blocked off time. */
+  notes?: string
+}
+
+/** Acuity Scheduling — Create Appointment */
+export interface AcuitySchedulingCreateAppointmentInput {
+  /** Date and time of the appointment. */
+  datetime: string
+  /** Select the type of appointment. (resolve via property options API) */
+  appointmentTypeID: string
+  /** Client's first name. */
+  firstName: string
+  /** Client's last name. */
+  lastName: string
+  /** Client's email address. (Optional if booking as admin). */
+  email?: string
+  /** Client's phone number. */
+  phone?: string
+  /** Client's timezone (e.g., America/New_York). Required for accurate availability checking. */
+  timezone: string
+  /** Set to true to book as an admin. Disables availability/attribute validations, allows setting notes, and makes Calendar ID required. */
+  adminBooking?: boolean
+  /** Numeric ID of the calendar. Required if booking as admin. If not provided, Acuity tries to find an available calendar automatically for non-admin bookings. (resolve via property options API) */
+  calendarID?: string
+  /** If true, confirmation emails or SMS will not be sent. */
+  noEmail?: boolean
+  /** Package or coupon certificate code. */
+  certificate?: string
+  /** Appointment notes. Only settable if booking as admin. */
+  notes?: string
+  /** Indicates whether the client has explicitly given permission to receive SMS messages. */
+  smsOptIn?: boolean
+  /** Select addons for the appointment. Addons are filtered by selected Appointment Type if available. */
+  addonIDs?: string[]
+  /** Apply a label to the appointment. The API currently supports one label. (resolve via property options API) */
+  labelId?: string
+}
+
+/** Acuity Scheduling — Create Client */
+export interface AcuitySchedulingCreateClientInput {
+  /** Client's first name. */
+  firstName: string
+  /** Client's last name. */
+  lastName: string
+  /** Client's phone number. */
+  phone?: string
+  /** Client's email address. */
+  email?: string
+  /** Notes about the client. */
+  notes?: string
+}
+
+/** Acuity Scheduling — Reschedule Appointment */
+export interface AcuitySchedulingRescheduleAppointmentInput {
+  /** The ID of the appointment to reschedule. */
+  id: number
+  /** Select the type of appointment (used for finding new available slots). (resolve via property options API) */
+  appointmentTypeID: string
+  /** New Date and time of the appointment. */
+  datetime: string
+  /** Client's timezone (e.g., America/New_York). */
+  timezone: string
+  /** Numeric ID of the new calendar to reschedule to. If blank, stays on current calendar. Submit 0 to auto-assign. (resolve via property options API) */
+  calendarID?: string
+  /** Set to true to reschedule as an admin. Disables availability validations. */
+  adminReschedule?: boolean
+  /** If true, rescheduling emails or SMS will not be sent. */
+  noEmail?: boolean
+}
+
+/** Acuity Scheduling — Update Client */
+export interface AcuitySchedulingUpdateClientInput {
+  /** The current first name of the client to update. */
+  currentFirstName: string
+  /** The current last name of the client to update. */
+  currentLastName: string
+  /** The current phone number of the client to update. Helps identify the client if names are not unique. */
+  currentPhone?: string
+  /** Client's new first name. Leave blank to keep current. */
+  newFirstName?: string
+  /** Client's new last name. Leave blank to keep current. */
+  newLastName?: string
+  /** Client's new email address. Leave blank to keep current. */
+  newEmail?: string
+  /** Client's new phone number. Leave blank to keep current. */
+  newPhone?: string
+  /** New notes about the client. Leave blank to keep current. */
+  newNotes?: string
+}
+
+/** Acuity Scheduling — Find Appointment(s) */
+export interface AcuitySchedulingFindAppointmentInput {
+  /** Filter appointments by client first name. */
+  firstName?: string
+  /** Filter appointments by client last name. */
+  lastName?: string
+  /** Filter appointments by client e-mail address. */
+  email?: string
+  /** Filter appointments by client phone number. URL encode '+' if using country codes (e.g., %2B1234567890). */
+  phone?: string
+  /** Only get appointments on or after this date. */
+  minDate?: string
+  /** Only get appointments on or before this date. */
+  maxDate?: string
+  /** Show only appointments on the calendar with this ID. (resolve via property options API) */
+  calendarID?: string
+  /** Show only appointments of this type. (resolve via property options API) */
+  appointmentTypeID?: string
+  /** Filter by appointment status. (values: `scheduled`, `canceled`, `all`) */
+  status?: "scheduled" | "canceled" | "all"
+  /** Maximum number of results to return (default 100). */
+  maxResults?: number
+  /** Sort direction for the results. (values: `DESC`, `ASC`) */
+  direction?: "DESC" | "ASC"
+}
+
+/** Acuity Scheduling — Find Client */
+export interface AcuitySchedulingFindClientInput {
+  /** Filter client list by first name, last name, or phone number. */
+  search: string
+}
+
+/** Acuity Scheduling — Custom API Call */
+export interface AcuitySchedulingCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** ADP — List Workers */
+export interface AdpListWorkersInput {
+  /** Maximum number of workers to return */
+  top?: number
+  /** Number of records to skip for pagination */
+  skip?: number
+}
+
+/** ADP — Get Worker */
+export interface AdpGetWorkerInput {
+  /** The unique associate OID of the worker */
+  associateOid: string
+}
+
+/** ADP — List Work Assignments */
+export interface AdpListWorkAssignmentsInput {
+  /** The unique associate OID of the worker */
+  associateOid: string
+}
+
+/** ADP — List Pay Statements */
+export interface AdpListPayStatementsInput {
+  /** The unique associate OID of the worker */
+  associateOid: string
+}
+
+/** Adyen — List Payment Methods */
+export interface AdyenListPaymentMethodsInput {
+  /** ISO 3166-1 alpha-2 country code (e.g., US, NL) */
+  countryCode: string
+  /** ISO 4217 currency code (e.g., USD, EUR) */
+  currency: string
+  /** Amount in minor units (e.g., 1000 = $10.00) */
+  amount: number
+  /** Channel (values: `Web`, `iOS`, `Android`) */
+  channel?: "Web" | "iOS" | "Android"
+}
+
+/** Adyen — Create Payment */
+export interface AdyenCreatePaymentInput {
+  /** Amount in minor units (e.g., 1000 = $10.00) */
+  amount: number
+  /** ISO 4217 currency code (e.g., USD, EUR) */
+  currency: string
+  /** Unique payment reference */
+  reference: string
+  /** e.g., scheme, ideal, paypal */
+  paymentMethodType: string
+  /** URL to redirect after payment */
+  returnUrl: string
+  /** ISO 3166-1 alpha-2 country code */
+  countryCode?: string
+}
+
+/** Adyen — Submit Payment Details */
+export interface AdyenGetPaymentDetailsInput {
+  /** The paymentData value from the /payments response */
+  paymentData: string
+  /** JSON object with redirect result or additional payment details */
+  details: string
+}
+
+/** Adyen — Create Payment Link */
+export interface AdyenCreatePaymentLinkInput {
+  /** Amount in minor units (e.g., 1000 = $10.00) */
+  amount: number
+  /** ISO 4217 currency code */
+  currency: string
+  /** Unique payment reference */
+  reference: string
+  /** Description shown to the shopper */
+  description?: string
+  /** Country Code */
+  countryCode?: string
+}
+
+/** AfterShip — Create Tracking */
+export interface AftershipCreateTrackingInput {
+  /** Tracking Number */
+  trackingNumber: string
+  /** Carrier slug (e.g., usps, ups, fedex, dhl). Leave empty for auto-detection. */
+  slug?: string
+  /** Shipment title or order ID */
+  title?: string
+  /** Customer Name */
+  customerName?: string
+  /** Order Number */
+  orderNumber?: string
+  /** Comma-separated emails for notifications */
+  emails?: string
+}
+
+/** AfterShip — Get Tracking */
+export interface AftershipGetTrackingInput {
+  /** Carrier slug (e.g., usps, ups, fedex) */
+  slug: string
+  /** Tracking Number */
+  trackingNumber: string
+}
+
+/** AfterShip — List Trackings */
+export interface AftershipListTrackingsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Status Tag (values: `Pending`, `InfoReceived`, `InTransit`, `OutForDelivery`, `AttemptFail`, `Delivered`, `AvailableForPickup`, `Exception`, `Expired`) */
+  tag?: "Pending" | "InfoReceived" | "InTransit" | "OutForDelivery" | "AttemptFail" | "Delivered" | "AvailableForPickup" | "Exception" | "Expired"
+  /** Filter by carrier slug */
+  slug?: string
+  /** ISO 8601 date (e.g., 2025-01-01T00:00:00+00:00) */
+  createdAtMin?: string
+}
+
+/** AfterShip — Delete Tracking */
+export interface AftershipDeleteTrackingInput {
+  /** Carrier Slug */
+  slug: string
+  /** Tracking Number */
+  trackingNumber: string
+}
+
+/** AfterShip — Custom API Call */
+export interface AftershipCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Ahrefs — Get Backlinks */
+export interface AhrefsGetBacklinksInput {
+  /** Domain or URL to get backlinks for */
+  target: string
+  /** Mode (values: `domain`, `exact`, `prefix`, `subdomains`) */
+  mode?: "domain" | "exact" | "prefix" | "subdomains"
+  /** Limit */
+  limit?: number
+}
+
+/** Ahrefs — Get Organic Keywords */
+export interface AhrefsGetOrganicKeywordsInput {
+  /** Domain to analyze */
+  target: string
+  /** Two-letter country code (e.g., us, gb) */
+  country?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Ahrefs — Get Domain Rating */
+export interface AhrefsGetDomainRatingInput {
+  /** Target Domain */
+  target: string
+}
+
+/** Ahrefs — Custom API Call */
+export interface AhrefsCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** AI Toolkit — Extract Structured Data */
 export interface AiToolkitExtractStructuredDataInput {
   /** Text to extract data from */
@@ -287,6 +663,270 @@ export interface AirtableCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Amazon S3 — Upload File */
+export interface AmazonS3UploadFileInput {
+  /** File */
+  file: string
+  /** The File Name to use, if not set the API will try to figure out the file name. */
+  fileName?: string
+  /** ACL (values: `private`, `public-read`, `public-read-write`, `authenticated-read`, `aws-exec-read`, `bucket-owner-read`, `bucket-owner-full-control`) */
+  acl?: "private" | "public-read" | "public-read-write" | "authenticated-read" | "aws-exec-read" | "bucket-owner-read" | "bucket-owner-full-control"
+  /** Content Type of the uploaded file, if not set the API will try to figure out the content type. */
+  type?: string
+}
+
+/** Amazon S3 — Read File */
+export interface AmazonS3ReadFileInput {
+  /** The key of the file to read */
+  key: string
+}
+
+/** Amazon S3 — Generate signed URL */
+export interface AmazonS3GenerateSignedUrlInput {
+  /** The path/filename of the file to get */
+  key: string
+  /** How long the URL should remain valid (in minutes). */
+  expiresIn: number
+}
+
+/** Amazon S3 — Move File */
+export interface AmazonS3MoveFileInput {
+  /** The key of the file to move */
+  fileKey: string
+  /** The key of the folder to move the file to */
+  folderKey: string
+}
+
+/** Amazon S3 — Delete File */
+export interface AmazonS3DeleteFileInput {
+  /** The key of the file to delete. */
+  key: string
+}
+
+/** Amazon S3 — List Files */
+export interface AmazonS3ListFilesInput {
+  /** The folder path to list files from (e.g., "folder/"). Leave empty to list from root. */
+  prefix?: string
+  /** Maximum number of files to return (1-1000) */
+  maxKeys?: number
+}
+
+/** Amazon S3 — Decrypt PGP File */
+export interface AmazonS3DecryptPgpFileInput {
+  /** The key (path) of the encrypted file in S3 */
+  key: string
+  /** The ARN of the secret in AWS Secrets Manager containing the PGP private key */
+  secretArn: string
+  /** Optional ARN of the secret in AWS Secrets Manager containing the passphrase for the private key (if the key is encrypted) */
+  passphraseArn?: string
+  /** The AWS region where the Secrets Manager secret is stored (defaults to S3 region if not provided) */
+  secretsManagerRegion?: string
+}
+
+/** Amazon SES — Send Email */
+export interface AmazonSesSendEmailInput {
+  /** Verified sender email address (resolve via property options API) */
+  fromEmailAddress: string
+  /** Recipient email addresses */
+  toAddresses: unknown[]
+  /** Carbon copy recipients */
+  ccAddresses?: unknown[]
+  /** Blind carbon copy recipients */
+  bccAddresses?: unknown[]
+  /** Email subject line */
+  subject: string
+  /** Choose email format (values: `html`, `text`) */
+  bodyFormat: "html" | "text"
+  /** HTML email content (auto-generates text version) */
+  htmlBody?: string
+  /** Plain text email content */
+  textBody?: string
+  /** Reply-to email addresses */
+  replyToAddresses?: unknown[]
+  /** Email address for bounce notifications */
+  returnPath?: string
+  /** SES configuration set for tracking (resolve via property options API) */
+  configurationSetName?: string
+  /** Key-value pairs for email tracking and analytics */
+  emailTags?: Record<string, unknown>
+  /** ARN for sending authorization (advanced) */
+  sourceArn?: string
+  /** ARN for return path authorization (advanced) */
+  returnPathArn?: string
+}
+
+/** Amazon SES — Create Email Template */
+export interface AmazonSesCreateEmailTemplateInput {
+  /** Unique template name (letters, numbers, underscores, hyphens only) */
+  templateName: string
+  /** Choose template format (values: `html`, `text`, `both`) */
+  templateFormat: "html" | "text" | "both"
+  /** Email subject (use {{variable}} for dynamic content) */
+  subjectPart: string
+  /** HTML email content with variables like {{firstName}} */
+  htmlPart?: string
+  /** Plain text email content with variables like {{firstName}} */
+  textPart?: string
+  /** Verify template name is unique before creating */
+  checkExisting?: boolean
+  /** Test data for template variables (optional preview) */
+  sampleData?: Record<string, unknown>
+}
+
+/** Amazon SES — Send Templated Email */
+export interface AmazonSesSendTemplatedEmailInput {
+  /** Verified sender email address (resolve via property options API) */
+  fromEmailAddress: string
+  /** Select template to use for this email (resolve via property options API) */
+  templateName: string
+  /** Data to replace template variables (e.g., {"firstName": "John", "company": "Acme"}) */
+  templateData: Record<string, unknown>
+  /** Recipient email addresses */
+  toAddresses: unknown[]
+  /** Carbon copy recipients */
+  ccAddresses?: unknown[]
+  /** Blind carbon copy recipients */
+  bccAddresses?: unknown[]
+  /** Reply-to email addresses */
+  replyToAddresses?: unknown[]
+  /** Email address for bounce notifications */
+  returnPath?: string
+  /** SES configuration set for tracking (resolve via property options API) */
+  configurationSetName?: string
+  /** Key-value pairs for email tracking and analytics */
+  emailTags?: Record<string, unknown>
+  /** ARN for sending authorization (advanced) */
+  sourceArn?: string
+  /** ARN for return path authorization (advanced) */
+  returnPathArn?: string
+}
+
+/** Amazon SES — Update Email Template */
+export interface AmazonSesUpdateEmailTemplateInput {
+  /** Select template to modify (resolve via property options API) */
+  templateName: string
+  /** Pre-fill fields with existing template content */
+  loadCurrentContent?: boolean
+  /** Choose template format (values: `html`, `text`, `both`) */
+  templateFormat: "html" | "text" | "both"
+  /** Email subject (use {{variable}} for dynamic content) */
+  subjectPart: string
+  /** HTML email content with variables like {{firstName}} */
+  htmlPart?: string
+  /** Plain text email content with variables like {{firstName}} */
+  textPart?: string
+  /** Keep existing HTML/text content if not provided */
+  preserveUnspecified?: boolean
+  /** Test data for template variables (optional preview) */
+  sampleData?: Record<string, unknown>
+}
+
+/** Amazon SES — Create Custom Verification Email Template */
+export interface AmazonSesCreateCustomVerificationEmailTemplateInput {
+  /** Unique template name (letters, numbers, underscores, hyphens only) */
+  templateName: string
+  /** Verified sender email address (resolve via property options API) */
+  fromEmailAddress: string
+  /** Email subject for verification messages */
+  templateSubject: string
+  /** HTML content for verification email (must include verification link) */
+  templateContent: string
+  /** URL to redirect users after successful verification */
+  successRedirectionURL: string
+  /** URL to redirect users if verification fails */
+  failureRedirectionURL: string
+  /** Verify template name is unique before creating */
+  checkExisting?: boolean
+  /** Check that redirect URLs are properly formatted */
+  validateUrls?: boolean
+}
+
+/** Amazon SES — Send Custom Verification Email */
+export interface AmazonSesSendCustomVerificationEmailInput {
+  /** Email address to verify and add to identities */
+  emailAddress: string
+  /** Select custom verification email template (resolve via property options API) */
+  templateName: string
+  /** SES configuration set for tracking (optional) (resolve via property options API) */
+  configurationSetName?: string
+  /** Check email address format before sending */
+  validateEmailFormat?: boolean
+  /** Warn if email is already a verified identity */
+  checkExistingIdentity?: boolean
+}
+
+/** Amazon SES — Update Custom Verification Email Template */
+export interface AmazonSesUpdateCustomVerificationEmailTemplateInput {
+  /** Select custom verification template to modify (resolve via property options API) */
+  templateName: string
+  /** Pre-fill fields with existing template content */
+  loadCurrentContent?: boolean
+  /** Verified sender email address (resolve via property options API) */
+  fromEmailAddress: string
+  /** Email subject for verification messages */
+  templateSubject: string
+  /** HTML content for verification email (must include verification link) */
+  templateContent: string
+  /** URL to redirect users after successful verification */
+  successRedirectionURL: string
+  /** URL to redirect users if verification fails */
+  failureRedirectionURL: string
+  /** Keep existing values if fields are empty */
+  preserveUnspecified?: boolean
+  /** Check that redirect URLs are properly formatted */
+  validateUrls?: boolean
+}
+
+/** Amazon SQS — Send Message */
+export interface AmazonSqsSendMessageInput {
+  /** The URL of the SQS queue */
+  queueUrl: string
+  /** The body of the message */
+  messageBody: string
+}
+
+/** Amplitude — Track Event */
+export interface AmplitudeTrackEventInput {
+  /** Unique user identifier (min 5 characters) */
+  userId?: string
+  /** Unique device identifier (min 5 characters) */
+  deviceId?: string
+  /** Event Type */
+  eventType: string
+  /** Event Properties */
+  eventProperties?: unknown
+  /** User Properties */
+  userProperties?: unknown
+}
+
+/** Amplitude — Identify User */
+export interface AmplitudeIdentifyUserInput {
+  /** User ID */
+  userId: string
+  /** Properties to set on the user via $set operator */
+  userProperties: unknown
+}
+
+/** Amplitude — Get User Activity */
+export interface AmplitudeGetUserActivityInput {
+  /** Your Amplitude Secret Key (for Dashboard API) */
+  secretKey: string
+  /** User ID */
+  userId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Amplitude — Custom API Call */
+export interface AmplitudeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Anthropic Claude — Ask Claude */
 export interface ClaudeAskClaudeInput {
   /** The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code. (values: `claude-opus-4-5-20251101`, `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805`, `claude-sonnet-4-20250514`, `claude-3-haiku-20240307`, `claude-3-5-haiku-latest`) */
@@ -455,6 +1095,98 @@ export interface ApolloCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** AppFolio — List Properties */
+export interface AppfolioListPropertiesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination */
+  pageCursor?: string
+  /** Filter by property type (e.g., residential, commercial) */
+  propertyType?: string
+}
+
+/** AppFolio — List Tenants */
+export interface AppfolioListTenantsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination */
+  pageCursor?: string
+  /** Status (values: `current`, `past`, `future`) */
+  status?: "current" | "past" | "future"
+}
+
+/** AppFolio — List Leases */
+export interface AppfolioListLeasesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination */
+  pageCursor?: string
+  /** Filter by property ID */
+  propertyId?: string
+}
+
+/** AppFolio — Custom API Call */
+export interface AppfolioCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Appwrite — List Databases */
+export interface AppwriteListDatabasesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Appwrite — List Documents */
+export interface AppwriteListDocumentsInput {
+  /** Database ID */
+  databaseId: string
+  /** Collection ID */
+  collectionId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Appwrite — Create Document */
+export interface AppwriteCreateDocumentInput {
+  /** Database ID */
+  databaseId: string
+  /** Collection ID */
+  collectionId: string
+  /** Custom ID or "unique()" for auto-generated */
+  documentId: string
+  /** JSON object with document fields */
+  data: string
+}
+
+/** Appwrite — Get Document */
+export interface AppwriteGetDocumentInput {
+  /** Database ID */
+  databaseId: string
+  /** Collection ID */
+  collectionId: string
+  /** Document ID */
+  documentId: string
+}
+
+/** Appwrite — List Users */
+export interface AppwriteListUsersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Search term for filtering users */
+  search?: string
+}
+
 /** Asana — Create Task */
 export interface AsanaCreateTaskInput {
   /** Asana workspace to create the task in (resolve via property options API) */
@@ -497,28 +1229,66 @@ export interface AsanaCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Ashby — List Candidates */
+export interface AshbyListCandidatesInput {
+  /** Pagination cursor from a previous response */
+  cursor?: string
+  /** Number of candidates to return (max 100) */
+  limit?: number
+}
+
+/** Ashby — Get Candidate */
+export interface AshbyGetCandidateInput {
+  /** Candidate ID */
+  candidateId: string
+}
+
+/** Ashby — Create Candidate */
+export interface AshbyCreateCandidateInput {
+  /** Full Name */
+  name: string
+  /** Email Address */
+  email?: string
+  /** Phone Number */
+  phone?: string
+  /** LinkedIn URL */
+  linkedInUrl?: string
+  /** The ID of the candidate source (e.g., LinkedIn, Referral) */
+  sourceId?: string
+}
+
+/** Ashby — List Jobs */
+export interface AshbyListJobsInput {
+  /** Pagination cursor from a previous response */
+  cursor?: string
+  /** Include unpublished/confidential jobs */
+  includeUnpublished?: boolean
+}
+
+/** Ashby — Get Job */
+export interface AshbyGetJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** Ashby — List Applications */
+export interface AshbyListApplicationsInput {
+  /** Pagination cursor from a previous response */
+  cursor?: string
+  /** Filter applications by job ID */
+  jobId?: string
+  /** Filter by application status (values: `Active`, `Hired`, `Archived`) */
+  status?: "Active" | "Hired" | "Archived"
+}
+
 /** Ashby — Custom API Call */
 export interface AshbyCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** RPC endpoint name (e.g. candidate.list, job.info) */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** AssemblyAI — Upload File */
@@ -733,6 +1503,56 @@ export interface AssemblyaiCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Athenahealth — List Patients */
+export interface AthenahealthListPatientsInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Department ID */
+  departmentId?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Athenahealth — Get Patient */
+export interface AthenahealthGetPatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** Athenahealth — List Appointments */
+export interface AthenahealthListAppointmentsInput {
+  /** Filter by department */
+  departmentId: string
+  /** Start date in MM/DD/YYYY format */
+  startDate?: string
+  /** End date in MM/DD/YYYY format */
+  endDate?: string
+  /** Provider ID */
+  providerId?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Athenahealth — List Providers */
+export interface AthenahealthListProvidersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Athenahealth — List Departments */
+export interface AthenahealthListDepartmentsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
 /** Attio — Create Record */
 export interface AttioCreateRecordInput {
   /** Object (resolve via property options API) */
@@ -813,28 +1633,288 @@ export interface AttioCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Auth0 — List Users */
+export interface Auth0ListUsersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** v3 (default) or v2 */
+  searchEngine?: string
+  /** Lucene query string to search users */
+  q?: string
+}
+
+/** Auth0 — Get User */
+export interface Auth0GetUserInput {
+  /** The Auth0 user ID (e.g., auth0|123456) */
+  userId: string
+}
+
+/** Auth0 — Create User */
+export interface Auth0CreateUserInput {
+  /** Email */
+  email: string
+  /** Password */
+  password: string
+  /** The name of the database connection (e.g., Username-Password-Authentication) */
+  connection: string
+  /** Name */
+  name?: string
+  /** Email Verified */
+  emailVerified?: boolean
+}
+
+/** Auth0 — List Roles */
+export interface Auth0ListRolesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Auth0 — List Connections */
+export interface Auth0ListConnectionsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** AWS S3 — List Objects */
+export interface AwsS3ListObjectsInput {
+  /** Filter objects by prefix (e.g., folder/) */
+  prefix?: string
+  /** Max Keys */
+  maxKeys?: number
+  /** Delimiter for grouping (e.g., /) */
+  delimiter?: string
+  /** Token for pagination */
+  continuationToken?: string
+}
+
+/** AWS S3 — Get Object */
+export interface AwsS3GetObjectInput {
+  /** The key (path) of the object to retrieve */
+  key: string
+}
+
+/** AWS S3 — Put Object */
+export interface AwsS3PutObjectInput {
+  /** The key (path) for the uploaded object */
+  key: string
+  /** The content to upload (text or JSON) */
+  content: string
+  /** Content Type */
+  contentType?: string
+}
+
+/** AWS S3 — Delete Object */
+export interface AwsS3DeleteObjectInput {
+  /** The key (path) of the object to delete */
+  key: string
+}
+
+/** AWS S3 — Head Object */
+export interface AwsS3HeadObjectInput {
+  /** The key (path) of the object */
+  key: string
+}
+
+/** AWS SES — Send Email */
+export interface AwsSesSendEmailInput {
+  /** Sender email address (must be verified in SES) */
+  from: string
+  /** Recipient email addresses */
+  to: unknown[]
+  /** CC email addresses */
+  cc?: unknown[]
+  /** BCC email addresses */
+  bcc?: unknown[]
+  /** Email subject line */
+  subject: string
+  /** Email body in HTML format */
+  htmlBody?: string
+  /** Email body in plain text format */
+  textBody?: string
+  /** Reply-to email addresses */
+  replyTo?: unknown[]
+}
+
+/** AWS SES — List Email Identities */
+export interface AwsSesListIdentitiesInput {
+  /** Number of results per page */
+  pageSize?: number
+  /** Pagination token from previous response */
+  nextToken?: string
+}
+
+/** AWS SES — Get Email Identity */
+export interface AwsSesGetEmailIdentityInput {
+  /** Email address or domain to get details for */
+  identity: string
+}
+
+/** AWS SES — Get Account Details */
+export type AwsSesGetAccountInput = Record<string, never>
+
+/** Azure Blob Storage — List Containers */
+export interface AzureBlobStorageListContainersInput {
+  /** Whether to include deleted containers in the list */
+  includeDeleted?: boolean
+  /** Whether to include system containers in the list */
+  includeSystem?: boolean
+  /** Filter containers by prefix */
+  prefix?: string
+}
+
+/** Azure Blob Storage — Create Container */
+export interface AzureBlobStorageCreateContainerInput {
+  /** The name for the newly created container */
+  containerName: string
+}
+
+/** Azure Blob Storage — Delete Container */
+export interface AzureBlobStorageDeleteContainerInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+}
+
+/** Azure Blob Storage — List Blobs */
+export interface AzureBlobStorageListBlobsInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** Whether to include snapshots in the list */
+  includeSnapshots?: boolean
+  /** Filter blobs by prefix */
+  prefix?: string
+}
+
+/** Azure Blob Storage — Create Blob */
+export interface AzureBlobStorageCreateBlobInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** The name of the blob to create */
+  blobName: string
+  /** The file to upload as a blob */
+  file: string
+  /** Optional tags to associate with the blob */
+  tags?: Record<string, unknown>
+}
+
+/** Azure Blob Storage — Read Blob */
+export interface AzureBlobStorageReadBlobInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** The name of the blob to read */
+  blobName: string
+}
+
+/** Azure Blob Storage — Delete Blob */
+export interface AzureBlobStorageDeleteBlobInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** The name of the blob to create */
+  blobName: string
+}
+
+/** Azure Blob Storage — Add Tags to Blob */
+export interface AzureBlobStorageAddTagsToBlobInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** The name of the blob to add tags to */
+  blobName: string
+  /** The tags to add to the blob */
+  tags?: Record<string, unknown>
+  /** Whether to keep existing tags on the blob */
+  keepExistingTags?: boolean
+}
+
+/** Azure Blob Storage — Find Blobs */
+export interface AzureBlobStorageFindBlobsInput {
+  /** Select the container (resolve via property options API) */
+  container: string
+  /** The tags to filter blobs by */
+  tags: Record<string, unknown>
+}
+
+/** Azure OpenAI — Ask GPT */
+export interface AzureOpenaiAskGptInput {
+  /** The name of your model deployment. */
+  deploymentId: string
+  /** Question */
+  prompt: string
+  /** Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive. */
+  temperature?: number
+  /** The maximum number of tokens to generate. Requests can use up to 2,048 or 4,096 tokens shared between prompt and completion depending on the model. Don't set the value to maximum and leave some tokens for the input. (One token is roughly 4 characters for normal English text) */
+  maxTokens: number
+  /** An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. */
+  topP?: number
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. */
+  frequencyPenalty?: number
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the mode's likelihood to talk about new topics. */
+  presencePenalty?: number
+  /** A memory key that will keep the chat history shared across runs and flows. Keep it empty to leave ChatGPT without memory of previous messages. */
+  memoryKey?: string
+  /** Array of roles to specify more accurate response */
+  roles?: unknown
+}
+
+/** BambooHR — List Employees */
+export type BamboohrListEmployeesInput = Record<string, never>
+
+/** BambooHR — Get Employee */
+export interface BamboohrGetEmployeeInput {
+  /** Employee ID */
+  employeeId: string
+  /** Comma-separated list of fields to include (e.g. firstName,lastName,workEmail,department) */
+  fields?: string
+}
+
+/** BambooHR — Create Employee */
+export interface BamboohrCreateEmployeeInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Work Email */
+  workEmail?: string
+  /** Hire date in YYYY-MM-DD format */
+  hireDate?: string
+  /** Department */
+  department?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Location */
+  location?: string
+}
+
+/** BambooHR — Update Employee */
+export interface BamboohrUpdateEmployeeInput {
+  /** Employee ID */
+  employeeId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Work Email */
+  workEmail?: string
+  /** Department */
+  department?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Location */
+  location?: string
+}
+
 /** BambooHR — Custom API Call */
 export interface BamboohrCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /employees/directory) */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Baserow — Create Row */
@@ -1023,6 +2103,48 @@ export interface BeehiivCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Better Stack — List Monitors */
+export interface BetterStackListMonitorsInput {
+  /** Per Page */
+  perPage?: number
+}
+
+/** Better Stack — Create Monitor */
+export interface BetterStackCreateMonitorInput {
+  /** The URL to monitor */
+  url: string
+  /** A human-readable name for the monitor */
+  pronounceableName?: string
+  /** Monitor Type (values: `status`, `expected_status_code`, `keyword`, `keyword_absence`, `ping`, `tcp`, `udp`, `smtp`, `pop`, `imap`) */
+  monitorType?: "status" | "expected_status_code" | "keyword" | "keyword_absence" | "ping" | "tcp" | "udp" | "smtp" | "pop" | "imap"
+  /** How often to check the URL (e.g. 30, 60, 120, 180, 300) */
+  checkFrequency?: number
+  /** Email address to notify when monitor is down */
+  email?: string
+}
+
+/** Better Stack — List Incidents */
+export interface BetterStackListIncidentsInput {
+  /** Per Page */
+  perPage?: number
+}
+
+/** Better Stack — Get Incident */
+export interface BetterStackGetIncidentInput {
+  /** Incident ID */
+  incidentId: string
+}
+
+/** Better Stack — Custom API Call */
+export interface BetterStackCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Bigcommerce — Create Customer */
@@ -1221,6 +2343,54 @@ export interface BigcommerceCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Bird — Send SMS */
+export interface MessagebirdSendSmsInput {
+  /** The phone number to send the message to (with country code) */
+  recipient: string
+  /** The body of the SMS message */
+  message: string
+  /** Your own identifier for the message (optional) */
+  reference?: string
+  /** Message to be sent at a specific datetime eg. 2025-04-27T15:08:18.613Z. If not set, the message will be sent immediately. */
+  scheduledFor?: string
+}
+
+/** Bird — List Messages */
+export interface MessagebirdListMessagesInput {
+  /** The status of the messages to filter by (select "All" for all statuses) */
+  status: "all" | "pending" | "accepted" | "rejected" | "processing" | "scheduled" | "sent" | "sending_failed" | "delivered" | "delivery_failed" | "deleted" | "skipped"
+  /** The start date and time (in UTC) to filter messages */
+  startAt: string
+  /** The end date and time (in UTC) to filter messages, should not exceed 7 days from start date */
+  endAt: string
+  /** Token for pagination to fetch next set of results after 1000 messages */
+  pageToken?: string
+}
+
+/** Bird — Custom API Call */
+export interface MessagebirdCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Bitbucket — List Repositories */
 export interface BitbucketListRepositoriesInput {
   /** Workspace slug or UUID */
@@ -1341,8 +2511,66 @@ export interface BlueskyFindThreadInput {
   parentHeight?: "0" | "1" | "2" | "3" | "5" | "10" | "20" | "80"
 }
 
+/** Box — List Folder Items */
+export interface BoxListFolderItemsInput {
+  /** The ID of the folder to list items from. Use "0" for the root folder. */
+  folderId?: string
+  /** Limit */
+  limit?: number
+  /** Pagination offset */
+  offset?: number
+}
+
+/** Box — Get File Info */
+export interface BoxGetFileInfoInput {
+  /** File ID */
+  fileId: string
+}
+
+/** Box — Create Folder */
+export interface BoxCreateFolderInput {
+  /** Folder Name */
+  name: string
+  /** ID of the parent folder. Use "0" for the root folder. */
+  parentId?: string
+}
+
+/** Box — Search */
+export interface BoxSearchInput {
+  /** Search Query */
+  query: string
+  /** Limit */
+  limit?: number
+  /** Limit search to files or folders (values: ``, `file`, `folder`) */
+  type?: "" | "file" | "folder"
+}
+
+/** Box — Delete File */
+export interface BoxDeleteFileInput {
+  /** File ID */
+  fileId: string
+}
+
 /** Box — Custom API Call */
 export interface BoxCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /files/123) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Brave Search — Web Search */
+export interface BraveSearchWebSearchInput {
+  /** The search query */
+  query: string
+  /** Number of results (1-20) */
+  count?: number
+}
+
+/** Brave Search — Custom API Call */
+export interface BraveSearchCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -1409,28 +2637,519 @@ export interface BrevoSendSmsInput {
   content: string
 }
 
+/** Buffer — Create Post */
+export interface BufferCreatePostInput {
+  /** Array of profile IDs to post to */
+  profileIds: unknown
+  /** The post content */
+  text: string
+  /** ISO 8601 date to schedule (leave empty to add to queue) */
+  scheduledAt?: string
+  /** Media attachment object with link, description, picture fields */
+  media?: unknown
+}
+
+/** Buffer — List Profiles */
+export type BufferListProfilesInput = Record<string, never>
+
+/** Buffer — Get Post */
+export interface BufferGetPostInput {
+  /** Update ID */
+  updateId: string
+}
+
+/** Buffer — List Updates */
+export interface BufferListUpdatesInput {
+  /** Profile ID */
+  profileId: string
+  /** Status (values: `pending`, `sent`) */
+  status: "pending" | "sent"
+  /** Count */
+  count?: number
+}
+
+/** Buffer — Custom API Call */
+export interface BufferCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Bugsnag — List Errors */
+export interface BugsnagListErrorsInput {
+  /** Project ID */
+  projectId: string
+  /** Sort By (values: `last_seen`, `first_seen`, `users`, `events`) */
+  sort?: "last_seen" | "first_seen" | "users" | "events"
+  /** Direction (values: `desc`, `asc`) */
+  direction?: "desc" | "asc"
+  /** Per Page */
+  perPage?: number
+}
+
+/** Bugsnag — Get Error */
+export interface BugsnagGetErrorInput {
+  /** Project ID */
+  projectId: string
+  /** Error ID */
+  errorId: string
+}
+
+/** Bugsnag — List Projects */
+export interface BugsnagListProjectsInput {
+  /** Organization ID */
+  organizationId: string
+  /** Per Page */
+  perPage?: number
+}
+
+/** Bugsnag — List Organizations */
+export interface BugsnagListOrganizationsInput {
+  /** Per Page */
+  perPage?: number
+}
+
+/** Bugsnag — Custom API Call */
+export interface BugsnagCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /projects/{project_id}/errors) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Buildium — List Rental Properties */
+export interface BuildiumListPropertiesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Buildium — Get Rental Property */
+export interface BuildiumGetPropertyInput {
+  /** Property ID */
+  propertyId: string
+}
+
+/** Buildium — List Leases */
+export interface BuildiumListLeasesInput {
+  /** Comma-separated property IDs to filter by */
+  propertyIds?: string
+  /** Lease Status (values: `Active`, `Past`, `Future`) */
+  leaseStatuses?: "Active" | "Past" | "Future"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Buildium — List Tenants */
+export interface BuildiumListTenantsInput {
+  /** Lease Status (values: `Active`, `Past`, `Future`) */
+  unitAgreementStatuses?: "Active" | "Past" | "Future"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Buildkite — List Builds */
+export interface BuildkiteListBuildsInput {
+  /** Organization Slug */
+  organization: string
+  /** Filter by pipeline slug */
+  pipeline?: string
+  /** State (values: `running`, `scheduled`, `passed`, `failed`, `blocked`, `canceled`, `canceling`, `skipped`, `not_run`, `finished`) */
+  state?: "running" | "scheduled" | "passed" | "failed" | "blocked" | "canceled" | "canceling" | "skipped" | "not_run" | "finished"
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Buildkite — Get Build */
+export interface BuildkiteGetBuildInput {
+  /** Organization Slug */
+  organization: string
+  /** Pipeline Slug */
+  pipeline: string
+  /** Build Number */
+  buildNumber: number
+}
+
+/** Buildkite — Create Build */
+export interface BuildkiteCreateBuildInput {
+  /** Organization Slug */
+  organization: string
+  /** Pipeline Slug */
+  pipeline: string
+  /** The commit SHA to build (use HEAD for latest) */
+  commit: string
+  /** The branch to build */
+  branch: string
+  /** Build message */
+  message?: string
+  /** Key-value pairs of environment variables */
+  env?: unknown
+}
+
+/** Buildkite — List Pipelines */
+export interface BuildkiteListPipelinesInput {
+  /** Organization Slug */
+  organization: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Buildkite — Custom API Call */
+export interface BuildkiteCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /organizations/my-org/pipelines) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Calendly — List Event Types */
+export interface CalendlyListEventTypesInput {
+  /** Active (values: ``, `true`, `false`) */
+  active?: "" | "true" | "false"
+  /** Count */
+  count?: number
+}
+
+/** Calendly — Get Event Type */
+export interface CalendlyGetEventTypeInput {
+  /** Event Type UUID */
+  eventTypeUuid: string
+}
+
+/** Calendly — List Scheduled Events */
+export interface CalendlyListScheduledEventsInput {
+  /** Count */
+  count?: number
+  /** Status (values: ``, `active`, `canceled`) */
+  status?: "" | "active" | "canceled"
+  /** ISO 8601 datetime (e.g. 2024-01-01T00:00:00Z) */
+  minStartTime?: string
+  /** ISO 8601 datetime (e.g. 2024-12-31T23:59:59Z) */
+  maxStartTime?: string
+}
+
+/** Calendly — Get Event */
+export interface CalendlyGetEventInput {
+  /** Event UUID */
+  eventUuid: string
+}
+
+/** Calendly — Get Event Invitees */
+export interface CalendlyGetEventInviteesInput {
+  /** Event UUID */
+  eventUuid: string
+  /** Count */
+  count?: number
+  /** Status (values: ``, `active`, `canceled`) */
+  status?: "" | "active" | "canceled"
+}
+
 /** Calendly — Custom API Call */
 export interface CalendlyCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
+}
+
+/** Campaign Monitor — Add Subscriber */
+export interface CampaignMonitorAddSubscriberToListInput {
+  /** Client Account (resolve via property options API) */
+  clientId: string
+  /** List ID (resolve via property options API) */
+  listId: string
+  /** Email Address */
+  email: string
+  /** Name */
+  name?: string
+  /** Phone */
+  phone?: string
+  /** Whether the subscriber has consented to tracking. (values: `Yes`, `No`, `Unchanged`) */
+  consentToTrack: "Yes" | "No" | "Unchanged"
+  /** Whether the subscriber has consented to send SMS. (values: `Yes`, `No`, `Unchanged`) */
+  consentToSendSms?: "Yes" | "No" | "Unchanged"
+  /** If true, the subscriber will be resubscribed if they previously unsubscribed. */
+  resubscribe?: boolean
+  /** Custom Fields */
+  fields: Record<string, unknown>
+}
+
+/** Campaign Monitor — Update Subscriber */
+export interface CampaignMonitorUpdateSubscriberDetailsInput {
+  /** Client Account (resolve via property options API) */
+  clientId: string
+  /** List ID (resolve via property options API) */
+  listId: string
+  /** Email Address */
+  email: string
+  /** Name */
+  name?: string
+  /** Phone */
+  phone?: string
+  /** Whether the subscriber has consented to tracking. (values: `Yes`, `No`, `Unchanged`) */
+  consentToTrack?: "Yes" | "No" | "Unchanged"
+  /** Whether the subscriber has consented to send SMS. (values: `Yes`, `No`, `Unchanged`) */
+  consentToSendSms?: "Yes" | "No" | "Unchanged"
+  /** If true, the subscriber will be resubscribed if they previously unsubscribed. */
+  resubscribe?: boolean
+  /** Custom Fields */
+  fields: Record<string, unknown>
+}
+
+/** Campaign Monitor — Unsubscribe Subscriber */
+export interface CampaignMonitorUnsubscribeSubscriberInput {
+  /** Client Account (resolve via property options API) */
+  clientId: string
+  /** List ID (resolve via property options API) */
+  listId: string
+  /** The email address of the subscriber to unsubscribe. */
+  email: string
+}
+
+/** Campaign Monitor — Find Subscriber */
+export interface CampaignMonitorFindSubscriberInput {
+  /** Client Account (resolve via property options API) */
+  clientId: string
+  /** List ID (resolve via property options API) */
+  listId: string
+  /** The email address of the subscriber to find */
+  email: string
+}
+
+/** Canvas LMS — List Courses */
+export interface CanvasLmsListCoursesInput {
+  /** Enrollment State (values: `active`, `completed`, `invited_or_pending`) */
+  enrollmentState?: "active" | "completed" | "invited_or_pending"
+  /** Per Page */
+  perPage?: number
+}
+
+/** Canvas LMS — Get Course */
+export interface CanvasLmsGetCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Canvas LMS — List Assignments */
+export interface CanvasLmsListAssignmentsInput {
+  /** Course ID */
+  courseId: string
+  /** Per Page */
+  perPage?: number
+}
+
+/** Canvas LMS — List Students */
+export interface CanvasLmsListStudentsInput {
+  /** Course ID */
+  courseId: string
+  /** Per Page */
+  perPage?: number
+}
+
+/** Capsule CRM — Create Contact */
+export interface CapsuleCrmCreateContactInput {
+  /** The type of contact to create. (values: `person`, `organisation`) */
+  type: "person" | "organisation"
+  /** Details */
+  contactFields: Record<string, unknown>
+  /** About */
+  about?: string
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Team (resolve via property options API) */
+  teamId?: string
+  /** Tags */
+  tags?: string[]
+  /** Custom Fields */
+  customFields: Record<string, unknown>
+  /** Email Addresses */
+  emailAddresses?: Array<{   type?: "Home" | "Work";   address: string }>
+  /** Phone Numbers */
+  phoneNumbers?: Array<{   type?: "Home" | "Work" | "Mobile" | "Fax" | "Direct";   number: string }>
+  /** Addresses */
+  addresses?: Array<{   type?: "Home" | "Postal" | "Office" | "Billing" | "Shipping";   street?: string;   city?: string;   state?: string;   country?: string;   zip?: string }>
+  /** Websites */
+  websites?: Array<{   type?: "Home" | "Work";   service: "URL" | "SKYPE" | "TWITTER" | "LINKED_IN" | "FACEBOOK" | "XING" | "FEED" | "GOOGLE_PLUS" | "FLICKR" | "GITHUB" | "YOUTUBE" | "INSTAGRAM" | "PINTEREST";   address: string }>
+}
+
+/** Capsule CRM — Update Contact */
+export interface CapsuleCrmUpdateContactInput {
+  /** The contact (Person or Organisation) to select. (resolve via property options API) */
+  contact_id: string
+  /** Details */
+  contactFields: Record<string, unknown>
+  /** The user to assign the task to. (resolve via property options API) */
+  ownerId?: string
+  /** The team to assign the contact to. (resolve via property options API) */
+  teamId?: string
+  /** Update the biography or description for the contact. */
+  about?: string
+  /** Addresses */
+  addresses?: Record<string, unknown>
+  /** Websites */
+  websites?: Record<string, unknown>
+  /** Email Addresses */
+  emailAddresses?: Record<string, unknown>
+  /** Phone Numbers */
+  phoneNumbers?: Record<string, unknown>
+}
+
+/** Capsule CRM — Create Opportunity */
+export interface CapsuleCrmCreateOpportunityInput {
+  /** Party (resolve via property options API) */
+  partyId: string
+  /** A short description of the opportunity. */
+  name: string
+  /** More details about the opportunity. */
+  description?: string
+  /** Milestone (resolve via property options API) */
+  milestoneId: string
+  /** The currency for the opportunity value (e.g., USD, GBP). */
+  currency?: string
+  /** The numerical value of the opportunity. */
+  amount?: number
+  /** The expected closing date for the opportunity. */
+  expectedCloseOn?: string
+  /** The probability of winning the opportunity. */
+  probability?: number
+  /** The basis of the duration of the opportunity. (values: `FIXED`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`) */
+  durationBasis?: "FIXED" | "HOUR" | "DAY" | "WEEK" | "MONTH" | "QUARTER" | "YEAR"
+  /** The duration of the opportunity. */
+  duration?: number
+  /** The user the opportunity is assigned to. (resolve via property options API) */
+  ownerId?: string
+  /** The team the opportunity is assigned to. (resolve via property options API) */
+  teamId?: string
+  /** Tags */
+  tags?: string[]
+  /** Custom Fields */
+  customFields: Record<string, unknown>
+}
+
+/** Capsule CRM — Create Project */
+export interface CapsuleCrmCreateProjectInput {
+  /** The main contact for this project. (resolve via property options API) */
+  partyId: string
+  /** The name of this project. */
+  name: string
+  /** The description of this project. */
+  description?: string
+  /** An optional link to the opportunity that this project was created to support. (resolve via property options API) */
+  opportunityId?: string
+  /** The stage that this project is on. (resolve via property options API) */
+  stageId?: string
+  /** The status of the project. (values: `OPEN`, `CLOSED`) */
+  status?: "OPEN" | "CLOSED"
+  /** The expected close date of this project. */
+  expectedCloseOn?: string
+  /** The user this project is assigned to. (resolve via property options API) */
+  ownerId?: string
+  /** The team this project is assigned to. (resolve via property options API) */
+  teamId?: string
+  /** An array of tags that are added to this project. */
+  tags?: string[]
+  /** An array of custom fields that are defined for this project. */
+  customFields?: Record<string, unknown>
+}
+
+/** Capsule CRM — Create Task */
+export interface CapsuleCrmCreateTaskInput {
+  /** A short description of the task. */
+  description: string
+  /** The date when this task is due. */
+  dueOn: string
+  /** More details about the task. */
+  detail?: string
+  /** The time when this task is due (e.g., 18:00:00). Note: The time is in the user's timezone. */
+  dueTime?: string
+  /** The entity this task is linked to. Only one can be selected. (values: `party`, `opportunity`, `project`) */
+  linkTo?: "party" | "opportunity" | "project"
+  /** Linked Entity */
+  linkedEntityId?: Record<string, unknown>
+  /** The category of this task. (resolve via property options API) */
+  categoryId?: string
+  /** The user this task is assigned to. (resolve via property options API) */
+  ownerId?: string
+}
+
+/** Capsule CRM — Update Opportunity */
+export interface CapsuleCrmUpdateOpportunityInput {
+  /** Opportunity (resolve via property options API) */
+  opportunityId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Milestone (resolve via property options API) */
+  milestoneId?: string
+  /** Currency */
+  currency?: string
+  /** Amount */
+  amount?: number
+  /** Expected Close Date */
+  expectedCloseOn?: string
+  /** Probability */
+  probability?: number
+  /** Duration Basis (values: `FIXED`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`) */
+  durationBasis?: "FIXED" | "HOUR" | "DAY" | "WEEK" | "MONTH" | "QUARTER" | "YEAR"
+  /** Duration */
+  duration?: number
+  /** Owner (resolve via property options API) */
+  ownerId?: string
+  /** Team (resolve via property options API) */
+  teamId?: string
+  /** Tags */
+  tags?: Record<string, unknown>
+  /** Custom Fields */
+  customFields?: Record<string, unknown>
+}
+
+/** Capsule CRM — Add Note to Entity */
+export interface CapsuleCrmAddNoteToEntityInput {
+  /** The body of the note. */
+  content: string
+  /** The type of entity to add the note to. (values: `party`, `opportunity`, `project`) */
+  entityType: "party" | "opportunity" | "project"
+  /** Entity */
+  entityId: Record<string, unknown>
+  /** The activity type for this entry. Defaults to "Note". (resolve via property options API) */
+  activityTypeId?: string
+}
+
+/** Capsule CRM — Find Contact */
+export interface CapsuleCrmFindContactInput {
+  /** The value to search for (e.g., a name or email). */
+  term: string
+}
+
+/** Capsule CRM — Find Project */
+export interface CapsuleCrmFindProjectInput {
+  /** The structured filter query. See the [documentation](https://capsulecrm.com/developer/api-v2/filters/) for examples. */
+  filter: unknown
+}
+
+/** Capsule CRM — Find Opportunity */
+export interface CapsuleCrmFindOpportunityInput {
+  /** The structured filter query. See the [documentation](https://capsulecrm.com/developer/api-v2/filters/) for examples. */
+  filter: unknown
 }
 
 /** Chargebee — List Subscriptions */
@@ -1457,6 +3176,431 @@ export interface ChargebeeListCustomersInput {
 export interface ChargebeeListInvoicesInput {
   /** Limit */
   limit?: number
+}
+
+/** ChromaDB — List Collections */
+export interface ChromadbListCollectionsInput {
+  /** Tenant */
+  tenant?: string
+  /** Database */
+  database?: string
+  /** Limit */
+  limit?: number
+}
+
+/** ChromaDB — Create Collection */
+export interface ChromadbCreateCollectionInput {
+  /** Tenant */
+  tenant?: string
+  /** Database */
+  database?: string
+  /** Collection Name */
+  name: string
+  /** Optional collection metadata as JSON */
+  metadata?: unknown
+}
+
+/** ChromaDB — Add Documents */
+export interface ChromadbAddDocumentsInput {
+  /** Tenant */
+  tenant?: string
+  /** Database */
+  database?: string
+  /** The UUID of the collection */
+  collectionId: string
+  /** Array of unique string IDs for each document */
+  ids: unknown
+  /** Array of document strings */
+  documents?: unknown
+  /** Array of embedding vectors */
+  embeddings?: unknown
+  /** Array of metadata objects for each document */
+  metadatas?: unknown
+}
+
+/** ChromaDB — Query Collection */
+export interface ChromadbQueryCollectionInput {
+  /** Tenant */
+  tenant?: string
+  /** Database */
+  database?: string
+  /** The UUID of the collection */
+  collectionId: string
+  /** Array of query embedding vectors */
+  queryEmbeddings: unknown
+  /** Number of Results */
+  nResults?: number
+  /** Optional metadata filter as JSON */
+  where?: unknown
+  /** Array of fields to include: ["documents", "metadatas", "distances", "embeddings"] */
+  include?: unknown
+}
+
+/** Circle — List Spaces */
+export interface CircleListSpacesInput {
+  /** Your Circle community ID */
+  communityId: string
+}
+
+/** Circle — List Members */
+export interface CircleListMembersInput {
+  /** Community ID */
+  communityId: string
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** Circle — Create Post */
+export interface CircleCreatePostInput {
+  /** Community ID */
+  communityId: string
+  /** Space ID */
+  spaceId: string
+  /** The post title */
+  name: string
+  /** The post body content (HTML supported) */
+  body: string
+  /** Status (values: `published`, `draft`) */
+  status?: "published" | "draft"
+}
+
+/** Circle — List Posts */
+export interface CircleListPostsInput {
+  /** Community ID */
+  communityId: string
+  /** Space ID */
+  spaceId: string
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** CircleCI — List Pipelines */
+export interface CircleciListPipelinesInput {
+  /** Project slug in the form vcs-slug/org-name/repo-name (e.g., gh/myorg/myrepo) */
+  projectSlug: string
+  /** Filter by branch name */
+  branch?: string
+  /** Token for pagination */
+  pageToken?: string
+}
+
+/** CircleCI — Get Pipeline */
+export interface CircleciGetPipelineInput {
+  /** The pipeline UUID */
+  pipelineId: string
+}
+
+/** CircleCI — Trigger Pipeline */
+export interface CircleciTriggerPipelineInput {
+  /** Project slug in the form vcs-slug/org-name/repo-name (e.g., gh/myorg/myrepo) */
+  projectSlug: string
+  /** The branch to run the pipeline on */
+  branch?: string
+  /** The tag to run the pipeline on */
+  tag?: string
+  /** Key-value pairs of pipeline parameters */
+  parameters?: unknown
+}
+
+/** CircleCI — List Workflows */
+export interface CircleciListWorkflowsInput {
+  /** The pipeline UUID */
+  pipelineId: string
+  /** Token for pagination */
+  pageToken?: string
+}
+
+/** CircleCI — Custom API Call */
+export interface CircleciCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /project/gh/org/repo/pipeline) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** ClassDojo — List Classes */
+export type ClassdojoListClassesInput = Record<string, never>
+
+/** ClassDojo — List Students */
+export interface ClassdojoListStudentsInput {
+  /** Class ID */
+  classId: string
+}
+
+/** ClassDojo — Post Story */
+export interface ClassdojoPostStoryInput {
+  /** Class ID */
+  classId: string
+  /** The text content of the story post */
+  body: string
+  /** Post Type (values: `text`, `announcement`) */
+  type?: "text" | "announcement"
+}
+
+/** ClassDojo — Custom API Call */
+export interface ClassdojoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** ClickFunnels — Create Opportunity */
+export interface ClickfunnelsCreateOpportunityInput {
+  /** The name or title of the opportunity. */
+  name: string
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** Select a pipeline (resolve via property options API) */
+  pipelineId: string
+  /** Select a pipeline stage. (resolve via property options API) */
+  pipelineStageId: string
+  /** Select a contact (resolve via property options API) */
+  contactId: string
+  /** Select an assignee on your team (resolve via property options API) */
+  assigneeId?: string
+  /** The potential value of this opportunity in the default currency of the workspace */
+  value?: number
+  /** The expected close date for the opportunity. */
+  closedAt?: string
+}
+
+/** ClickFunnels — Apply Tag to Contact */
+export interface ClickfunnelsApplyTagToContactInput {
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** Select a contact (resolve via property options API) */
+  contactId: string
+  /** Select a tag to apply (resolve via property options API) */
+  tagId: string
+}
+
+/** ClickFunnels — Remove Tag From Contact */
+export interface ClickfunnelsRemoveTagFromContactInput {
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** Select a contact (resolve via property options API) */
+  contactId: string
+  /** Select a tag (resolve via property options API) */
+  tagId: string
+}
+
+/** ClickFunnels — Enroll a Contact Into a Course */
+export interface ClickfunnelsEnrollAContactIntoACourseInput {
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** Select a course (resolve via property options API) */
+  courseId: string
+  /** Select a contact (resolve via property options API) */
+  contactId: string
+}
+
+/** ClickFunnels — Update or Create Contact */
+export interface ClickfunnelsUpdateOrCreateContactInput {
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** The contact's email address. This is used to find and (update/create) the contact. */
+  emailAddress: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** Select tags to apply */
+  tagIds?: string[]
+  /** A key-value object for custom contact data. Keys that are default properties on the Contact resource or variations of it will result in an error. E.g., first_name, First Name, etc. are not valid inputs. */
+  customAttributes?: Record<string, unknown>
+}
+
+/** ClickFunnels — Search Contacts */
+export interface ClickfunnelsSearchContactsInput {
+  /** Select the team (resolve via property options API) */
+  teamId: string
+  /** Select the workspace (resolve via property options API) */
+  workspaceId: string
+  /** Filter contacts by either email or id */
+  searchTerm: string
+}
+
+/** ClickFunnels — Custom API Call */
+export interface ClickfunnelsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** ClickSend SMS — Send SMS */
+export interface ClicksendSendSmsInput {
+  /** Messages */
+  messages: Array<{   to: string;   body: string;   from?: string;   custom_string?: string;   country?: string;   message_expiry?: number;   priority?: boolean }>
+}
+
+/** ClickSend SMS — Send MMS */
+export interface ClicksendSendMmsInput {
+  /** The phone number (with country code, e.g., +1234567890) */
+  to: string
+  /** The body of the message to send */
+  body: string
+  /** Subject */
+  subject: string
+  /** From (resolve via property options API) */
+  from: string
+  /** The URL of the media file to send (image, video, etc.) */
+  media_url: string
+}
+
+/** ClickSend SMS — Create Contact */
+export interface ClicksendCreateContactInput {
+  /** Contact List ID (resolve via property options API) */
+  contact_list_id: string
+  /** The phone number of the contact */
+  phone_number: string
+  /** The email address of the contact */
+  email?: string
+  /** The first name of the contact */
+  first_name?: string
+  /** The last name of the contact */
+  last_name?: string
+  /** The company name of the contact */
+  company_name?: string
+  /** The first line of the address */
+  address_line_1?: string
+  /** The second line of the address */
+  address_line_2?: string
+  /** The city of the contact */
+  city?: string
+  /** The state/province of the contact */
+  state?: string
+  /** The postal code of the contact */
+  postal_code?: string
+  /** The country of the contact */
+  country?: string
+}
+
+/** ClickSend SMS — Update Contact */
+export interface ClicksendUpdateContactInput {
+  /** Contact List ID (resolve via property options API) */
+  contact_list_id: string
+  /** Contact ID (resolve via property options API) */
+  contact_id: string
+  /** The phone number of the contact */
+  phone_number?: string
+  /** The email address of the contact */
+  email?: string
+  /** The first name of the contact */
+  first_name?: string
+  /** The last name of the contact */
+  last_name?: string
+  /** The company name of the contact */
+  company_name?: string
+  /** The first line of the address */
+  address_line_1?: string
+  /** The second line of the address */
+  address_line_2?: string
+  /** The city of the contact */
+  city?: string
+  /** The state/province of the contact */
+  state?: string
+  /** The postal code of the contact */
+  postal_code?: string
+  /** The country of the contact */
+  country?: string
+}
+
+/** ClickSend SMS — Delete Contact */
+export interface ClicksendDeleteContactInput {
+  /** Contact List ID (resolve via property options API) */
+  contact_list_id: string
+  /** Contact ID (resolve via property options API) */
+  contact_id: string
+}
+
+/** ClickSend SMS — Create Contact List */
+export interface ClicksendCreateContactListInput {
+  /** List Name */
+  list_name: string
+}
+
+/** ClickSend SMS — Find Contact by Email */
+export interface ClicksendFindContactByEmailInput {
+  /** Contact List ID (resolve via property options API) */
+  contact_list_id: string
+  /** The email address */
+  email: string
+}
+
+/** ClickSend SMS — Find Contact by Phone */
+export interface ClicksendFindContactByPhoneInput {
+  /** Contact List ID (resolve via property options API) */
+  contact_list_id: string
+  /** The phone number (with country code, e.g., +1234567890) */
+  phone_number: string
+}
+
+/** ClickSend SMS — Find Contact List */
+export interface ClicksendFindContactListsInput {
+  /** Search by list name. */
+  search: string
+}
+
+/** ClickSend SMS — Custom API Call */
+export interface ClicksendCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** ClickUp — Create Task */
@@ -1895,6 +4039,36 @@ export interface ClickupCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Clio — List Matters */
+export interface ClioListMattersInput {
+  /** Status (values: `open`, `closed`, `pending`) */
+  status?: "open" | "closed" | "pending"
+  /** Limit */
+  limit?: number
+}
+
+/** Clio — Get Matter */
+export interface ClioGetMatterInput {
+  /** Matter ID */
+  matterId: string
+}
+
+/** Clio — List Contacts */
+export interface ClioListContactsInput {
+  /** Contact Type (values: `Person`, `Company`) */
+  type?: "Person" | "Company"
+  /** Limit */
+  limit?: number
+}
+
+/** Clio — List Activities */
+export interface ClioListActivitiesInput {
+  /** Filter by matter ID */
+  matterId?: string
+  /** Limit */
+  limit?: number
+}
+
 /** Clockify — Create Task */
 export interface ClockifyCreateTaskInput {
   /** Workspace (resolve via property options API) */
@@ -2127,6 +4301,100 @@ export interface CloseCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** CloudConvert — Create Conversion Job */
+export interface CloudconvertCreateJobInput {
+  /** URL of the file to convert */
+  fileUrl: string
+  /** Input file format (e.g. "pdf", "docx", "jpg") */
+  inputFormat: string
+  /** Desired output format (e.g. "png", "pdf", "mp4") */
+  outputFormat: string
+  /** Optional output filename without extension */
+  filename?: string
+}
+
+/** CloudConvert — Get Job */
+export interface CloudconvertGetJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** CloudConvert — List Jobs */
+export interface CloudconvertListJobsInput {
+  /** Filter by Status (values: ``, `waiting`, `processing`, `finished`, `error`) */
+  status?: "" | "waiting" | "processing" | "finished" | "error"
+  /** Per Page */
+  perPage?: number
+}
+
+/** CloudConvert — Custom API Call */
+export interface CloudconvertCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Cloudflare — List Zones */
+export interface CloudflareListZonesInput {
+  /** Filter by domain name (e.g., "example.com") */
+  name?: string
+  /** Status (values: `active`, `pending`, `initializing`, `moved`, `deleted`) */
+  status?: "active" | "pending" | "initializing" | "moved" | "deleted"
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** Cloudflare — List DNS Records */
+export interface CloudflareListDnsRecordsInput {
+  /** Zone ID */
+  zoneId: string
+  /** Record Type (values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `NS`, `SRV`, `CAA`) */
+  type?: "A" | "AAAA" | "CNAME" | "MX" | "TXT" | "NS" | "SRV" | "CAA"
+  /** Filter by record name */
+  name?: string
+  /** Per Page */
+  perPage?: number
+}
+
+/** Cloudflare — Create DNS Record */
+export interface CloudflareCreateDnsRecordInput {
+  /** Zone ID */
+  zoneId: string
+  /** Record Type (values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `NS`, `SRV`) */
+  type: "A" | "AAAA" | "CNAME" | "MX" | "TXT" | "NS" | "SRV"
+  /** DNS record name (e.g., "example.com") */
+  name: string
+  /** DNS record content (e.g., IP address) */
+  content: string
+  /** Time to live in seconds (1 = automatic) */
+  ttl?: number
+  /** Whether the record is proxied through Cloudflare */
+  proxied?: boolean
+  /** Priority for MX/SRV records */
+  priority?: number
+}
+
+/** Cloudflare — Purge Cache */
+export interface CloudflarePurgeCacheInput {
+  /** Zone ID */
+  zoneId: string
+  /** Purge all cached files for the zone */
+  purgeEverything?: boolean
+  /** URLs of specific files to purge (if not purging everything) */
+  files?: unknown[]
+}
+
+/** Cloudflare — List Workers */
+export interface CloudflareListWorkersInput {
+  /** Your Cloudflare account ID */
+  accountId: string
+}
+
 /** Cloudinary — List Resources */
 export interface CloudinaryListResourcesInput {
   /** Resource Type (values: `image`, `video`, `raw`) */
@@ -2247,12 +4515,116 @@ export interface CodaCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Codacy — List Repositories */
+export interface CodacyListRepositoriesInput {
+  /** Git Provider (values: `gh`, `gl`, `bb`) */
+  provider: "gh" | "gl" | "bb"
+  /** Organization Name */
+  organization: string
+  /** Pagination cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Codacy — Get Repository Quality */
+export interface CodacyGetQualityInput {
+  /** Git Provider (values: `gh`, `gl`, `bb`) */
+  provider: "gh" | "gl" | "bb"
+  /** Organization Name */
+  organization: string
+  /** Repository Name */
+  repository: string
+}
+
+/** Codacy — List Issues */
+export interface CodacyListIssuesInput {
+  /** Git Provider (values: `gh`, `gl`, `bb`) */
+  provider: "gh" | "gl" | "bb"
+  /** Organization Name */
+  organization: string
+  /** Repository Name */
+  repository: string
+  /** Pagination cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Codacy — Custom API Call */
+export interface CodacyCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /organizations/gh/myorg/repositories) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Code — Run Code */
 export interface CodeRunCodeInput {
   /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
   code: string
   /** Data to pass as the `inputs` variable inside the code */
   inputs?: unknown
+}
+
+/** Cognito Forms — Create Entry */
+export interface CognitoFormsCreateEntryInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Fields */
+  entryData: Record<string, unknown>
+}
+
+/** Cognito Forms — Update Entry */
+export interface CognitoFormsUpdateEntryInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Enter the ID of the entry you want to update. */
+  entryId: string
+  /** Fields */
+  entryData: Record<string, unknown>
+}
+
+/** Cognito Forms — Delete Entry */
+export interface CognitoFormsDeleteEntryInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Enter the ID of the entry to delete. */
+  entryId: string
+}
+
+/** Cognito Forms — Get Entry */
+export interface CognitoFormsGetEntryInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Enter the ID of the entry to retrieve. */
+  entryId: string
+}
+
+/** Cognito Forms — Custom API Call */
+export interface CognitoFormsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Cohere — Chat */
@@ -3273,6 +5645,74 @@ export interface CopperCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Courier — Send Message */
+export interface CourierSendMessageInput {
+  /** The user or profile ID to send the message to */
+  recipientId: string
+  /** The notification template (event) ID to use */
+  templateId: string
+  /** Optional data payload to merge into the template */
+  data?: unknown
+  /** Optional email address override for the recipient */
+  email?: string
+}
+
+/** Courier — List Messages */
+export interface CourierListMessagesInput {
+  /** Pagination cursor for the next page */
+  cursor?: string
+}
+
+/** Courier — Get Message */
+export interface CourierGetMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Courier — Get Profile */
+export interface CourierGetProfileInput {
+  /** User ID */
+  userId: string
+}
+
+/** Crates.io — Search Crates */
+export interface CratesIoSearchCratesInput {
+  /** Search Query */
+  query: string
+  /** Results Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+  /** Sort By (values: `relevance`, `downloads`, `recent-downloads`, `recent-updates`, `new`) */
+  sort?: "relevance" | "downloads" | "recent-downloads" | "recent-updates" | "new"
+}
+
+/** Crates.io — Get Crate */
+export interface CratesIoGetCrateInput {
+  /** Crate Name */
+  name: string
+}
+
+/** Crates.io — Get Crate Versions */
+export interface CratesIoGetCrateVersionsInput {
+  /** Crate Name */
+  name: string
+  /** Results Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** Crates.io — Custom API Call */
+export interface CratesIoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /crates/serde) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Crisp — Add Note to Conversation */
 export interface CrispAddNoteInput {
   /** You can obtain website ID by navigating to Settings -> Workspace Settings -> Setup & Integrations. */
@@ -3365,6 +5805,51 @@ export interface CrispCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Customer.io — Identify Person */
+export interface CustomerIoIdentifyPersonInput {
+  /** Unique identifier for the customer */
+  identifier: string
+  /** Email */
+  email?: string
+  /** Additional customer attributes as JSON */
+  attributes?: unknown
+}
+
+/** Customer.io — Track Event */
+export interface CustomerIoTrackEventInput {
+  /** Customer ID */
+  identifier: string
+  /** Event Name */
+  eventName: string
+  /** Additional event data as JSON */
+  data?: unknown
+}
+
+/** Customer.io — Send Email */
+export interface CustomerIoSendEmailInput {
+  /** Transactional Message ID */
+  transactionalMessageId: string
+  /** To Email */
+  to: string
+  /** Customer identifiers (e.g., {"id": "123"}) */
+  identifiers: unknown
+  /** Data to populate the email template */
+  messageData?: unknown
+}
+
+/** Customer.io — List Segments */
+export type CustomerIoListSegmentsInput = Record<string, never>
+
+/** Customer.io — Custom API Call */
+export interface CustomerIoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Data Transformer — Transform JSON */
@@ -3491,6 +5976,57 @@ export interface DatetimeIsBusinessHoursInput {
   workDays?: unknown[]
 }
 
+/** DatoCMS — List Item Types (Models) */
+export type DatocmsListItemTypesInput = Record<string, never>
+
+/** DatoCMS — List Items (Records) */
+export interface DatocmsListItemsInput {
+  /** The ID of the content model (item type) to query records for */
+  itemTypeId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Field to order by (e.g., created_at_DESC, updated_at_ASC) */
+  orderBy?: string
+  /** Field name to filter by (optional) */
+  filterByField?: string
+  /** Value to filter by (optional) */
+  filterByValue?: string
+}
+
+/** DatoCMS — Get Item (Record) */
+export interface DatocmsGetItemInput {
+  /** Item ID */
+  itemId: string
+}
+
+/** DatoCMS — Create Item (Record) */
+export interface DatocmsCreateItemInput {
+  /** The ID of the content model to create the record in */
+  itemTypeId: string
+  /** Record field values as a JSON object (e.g., {"title": "Hello", "body": "World"}) */
+  attributes: unknown
+}
+
+/** DatoCMS — Update Item (Record) */
+export interface DatocmsUpdateItemInput {
+  /** Item ID */
+  itemId: string
+  /** Fields to update as a JSON object (e.g., {"title": "Updated Title"}) */
+  attributes: unknown
+}
+
+/** DatoCMS — Custom API Call */
+export interface DatocmsCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Deel — List Contracts */
 export interface DeelListContractsInput {
   /** Limit */
@@ -3564,6 +6100,244 @@ export interface DeepgramTextToSpeechInput {
 
 /** Deepgram — Custom API Call */
 export interface DeepgramCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Deepgram — Transcribe Audio */
+export interface DeepgramCustomTranscribeAudioInput {
+  /** URL of the audio file to transcribe */
+  audioUrl: string
+  /** Model (values: `nova-2`, `nova`, `enhanced`, `base`) */
+  model?: "nova-2" | "nova" | "enhanced" | "base"
+  /** BCP-47 language code (e.g., en-US) */
+  language?: string
+  /** Add punctuation to transcript */
+  punctuate?: boolean
+  /** Identify different speakers */
+  diarize?: boolean
+  /** Generate a summary of the audio */
+  summarize?: boolean
+}
+
+/** Deepgram — Transcribe from URL */
+export interface DeepgramCustomTranscribeUrlInput {
+  /** Audio URL */
+  url: string
+  /** Query parameters as JSON (e.g., {"model": "nova-2", "smart_format": true}) */
+  options?: unknown
+}
+
+/** Deepgram — Get Transcript */
+export interface DeepgramCustomGetTranscriptInput {
+  /** The ID of the transcription request */
+  requestId: string
+}
+
+/** Deepgram — Custom API Call */
+export interface DeepgramCustomCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** DeepL — Translate text */
+export interface DeeplTranslateTextInput {
+  /** Text to be translated. Only UTF-8-encoded plain text is supported. */
+  text: string
+  /** The language into which the text should be translated. */
+  target_lang: "BG" | "CS" | "DA" | "DE" | "EL" | "EN-GB" | "EN-US" | "ES" | "ET" | "FI" | "FR" | "HU" | "ID" | "IT" | "JA" | "KO" | "LT" | "LV" | "NB" | "NL" | "PL" | "PT-BR" | "PT-PT" | "RO" | "RU" | "SK" | "SL" | "SV" | "TR" | "UK" | "ZH"
+  /** Language of the text to be translated */
+  source_lang?: "BG" | "CS" | "DA" | "DE" | "EL" | "EN" | "ES" | "ET" | "FI" | "FR" | "HU" | "ID" | "IT" | "JA" | "KO" | "LT" | "LV" | "NB" | "NL" | "PL" | "PT" | "RO" | "RU" | "SK" | "SL" | "SV" | "TR" | "UK" | "ZH"
+  /** Sets whether the translation engine should first split the input into sentences. For text translations where tag_handling is not set to html, the default value is 1, meaning the engine splits on punctuation and on newlines. (values: `0`, `1`, `nonewlines`) */
+  split_sentences?: "0" | "1" | "nonewlines"
+  /** Sets whether the translation engine should respect the original formatting, even if it would usually correct some aspects. (values: `true`, `false`) */
+  preserve_formatting?: true | false
+  /** Sets whether the translated text should lean towards formal or informal language. (values: `default`, `more`, `less`, `prefer_more`, `prefer_less`) */
+  formality?: "default" | "more" | "less" | "prefer_more" | "prefer_less"
+  /** Specify the glossary to use for the translation. */
+  glossary_id?: string
+  /** Sets which kind of tags should be handled. (values: `xml`, `html`) */
+  tag_handling?: "xml" | "html"
+  /** The automatic detection of the XML structure won't yield best results in all XML files. (values: `true`, `false`) */
+  outline_detection?: true | false
+  /** Comma-separated list of XML or HTML tags. */
+  non_splitting_tags?: string
+  /** Comma-separated list of XML or HTML tags. */
+  splitting_tags?: string
+  /** Comma-separated list of XML or HTML tags. */
+  ignore_tags?: string
+}
+
+/** DeepL — Custom API Call */
+export interface DeeplCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** DeepSeek — Ask Deepseek */
+export interface DeepseekAskDeepseekInput {
+  /** The model which will generate the completion. (resolve via property options API) */
+  model: string
+  /** Question */
+  prompt: string
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. */
+  frequencyPenalty?: number
+  /** The maximum number of tokens to generate. Possible values are between 1 and 8192. */
+  maxTokens: number
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the mode's likelihood to talk about new topics. */
+  presencePenalty?: number
+  /** The format of the response. IMPORTANT: When using JSON Output, you must also instruct the model to produce JSON yourself (values: `text`, `json_object`) */
+  responseFormat: "text" | "json_object"
+  /** Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive. Between 0 and 2. We generally recommend altering this or top_p but not both. */
+  temperature?: number
+  /** An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. Values <=1. We generally recommend altering this or temperature but not both. */
+  topP?: number
+  /** A memory key that will keep the chat history shared across runs and flows. Keep it empty to leave Deepseek without memory of previous messages. */
+  memoryKey?: string
+  /** Array of roles to specify more accurate response */
+  roles?: unknown
+}
+
+/** DigitalOcean — List All Domains */
+export interface DigitalOceanListDomainsInput {
+  /** Number of domains to return per page (1-200). */
+  per_page?: number
+  /** Which page of results to return. */
+  page?: number
+}
+
+/** DigitalOcean — Create Domain */
+export interface DigitalOceanCreateDomainInput {
+  /** The domain name (e.g., example.com). */
+  name: string
+  /** Optional IP address to create an A record pointing to the apex domain. */
+  ip_address?: string
+}
+
+/** DigitalOcean — Get Domain */
+export interface DigitalOceanGetDomainInput {
+  /** The domain name to retrieve (e.g., example.com). */
+  domain_name: string
+}
+
+/** DigitalOcean — Delete Domain */
+export interface DigitalOceanDeleteDomainInput {
+  /** The domain name to delete (e.g., example.com). */
+  domain_name: string
+}
+
+/** DigitalOcean — List All Droplets */
+export interface DigitalOceanListDropletsInput {
+  /** Number of Droplets to return per page (1-200). */
+  per_page?: number
+  /** Which page of results to return. */
+  page?: number
+  /** Filter Droplets by a specific tag. Cannot be combined with Name or Type. */
+  tag_name?: string
+  /** Filter by exact Droplet name (case-insensitive). Cannot be combined with Tag Name. */
+  name?: string
+  /** Filter by Droplet type. Cannot be combined with Tag Name. (values: `droplets`, `gpus`) */
+  type?: "droplets" | "gpus"
+}
+
+/** DigitalOcean — Get Droplet */
+export interface DigitalOceanGetDropletInput {
+  /** Select the Droplet to retrieve. (resolve via property options API) */
+  droplet_id: string
+}
+
+/** DigitalOcean — Create Droplet */
+export interface DigitalOceanCreateDropletInput {
+  /** Create a single Droplet or multiple Droplets at once. (values: `single`, `multiple`) */
+  creation_mode: "single" | "multiple"
+  /** Name for the Droplet (e.g., example.com). */
+  name: string
+  /** Names for multiple Droplets (up to 10). */
+  names: unknown[]
+  /** Region to deploy the Droplet. (resolve via property options API) */
+  region?: string
+  /** Droplet size (CPU, RAM, disk). (resolve via property options API) */
+  size: string
+  /** Base image for the Droplet. (resolve via property options API) */
+  image: string
+  /** SSH keys to embed in the Droplet. */
+  ssh_keys?: string[]
+  /** VPC network for the Droplet. (resolve via property options API) */
+  vpc_uuid?: string
+  /** Enable automated backups. */
+  backups?: boolean
+  /** Enable IPv6 networking. */
+  ipv6?: boolean
+  /** Install the DigitalOcean monitoring agent. */
+  monitoring?: boolean
+  /** Tags to apply to the Droplet. */
+  tags?: unknown[]
+  /** Cloud-init script or user data (max 64 KiB). */
+  user_data?: string
+  /** Install agent for web console access. */
+  with_droplet_agent?: boolean
+}
+
+/** DigitalOcean — Delete Droplet */
+export interface DigitalOceanDeleteDropletInput {
+  /** Select the Droplet to delete. (resolve via property options API) */
+  droplet_id: string
+}
+
+/** DigitalOcean — List Database Clusters */
+export interface DigitalOceanListDatabaseClustersInput {
+  /** Filter database clusters by a specific tag. */
+  tag_name?: string
+}
+
+/** DigitalOcean — List Database Events */
+export interface DigitalOceanListDatabaseEventsInput {
+  /** Select the database cluster. (resolve via property options API) */
+  database_cluster_uuid: string
+}
+
+/** DigitalOcean — Custom API Call */
+export interface DigitalOceanCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -3824,6 +6598,58 @@ export interface DiscourseCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Docker Hub — List Repositories */
+export interface DockerHubListRepositoriesInput {
+  /** Docker Hub username or organization name */
+  namespace: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** Docker Hub — List Tags */
+export interface DockerHubListTagsInput {
+  /** Docker Hub username or organization name */
+  namespace: string
+  /** Repository name */
+  repository: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** Docker Hub — Get Tag */
+export interface DockerHubGetTagInput {
+  /** Namespace */
+  namespace: string
+  /** Repository */
+  repository: string
+  /** Tag Name */
+  tag: string
+}
+
+/** Docker Hub — Search Images */
+export interface DockerHubSearchImagesInput {
+  /** Search Query */
+  query: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** Docker Hub — Custom API Call */
+export interface DockerHubCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /repositories/{namespace}/{repo}/tags/) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Docusign — List envelopes */
 export interface DocusignListEnvelopesInput {
   /** Account ID */
@@ -3881,6 +6707,157 @@ export interface DocusignCustomApiCallInput {
   /** Follow redirects */
   followRedirects?: boolean
 }
+
+/** Doodle — Create Poll */
+export interface DoodleCreatePollInput {
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** Array of date/time options: [{start: "2025-01-15T09:00:00Z", end: "2025-01-15T10:00:00Z"}, ...] */
+  options: unknown
+  /** Location */
+  location?: string
+  /** Deadline for responses in ISO 8601 format */
+  deadline?: string
+  /** Hide participant responses from each other */
+  hidden?: boolean
+}
+
+/** Doodle — List Polls */
+export interface DoodleListPollsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Doodle — Get Poll */
+export interface DoodleGetPollInput {
+  /** Poll ID */
+  pollId: string
+}
+
+/** Doodle — Custom API Call */
+export interface DoodleCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Doxy.me — Create Room */
+export interface DoxyMeCreateRoomInput {
+  /** Display name for the room */
+  name: string
+  /** URL-friendly room identifier */
+  slug?: string
+  /** Enable Waiting Room */
+  waitingRoomEnabled?: boolean
+}
+
+/** Doxy.me — Get Room */
+export interface DoxyMeGetRoomInput {
+  /** Room ID */
+  roomId: string
+}
+
+/** Doxy.me — List Rooms */
+export interface DoxyMeListRoomsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Doxy.me — Custom API Call */
+export interface DoxyMeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Drata — List Controls */
+export interface DrataListControlsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Drata — List Personnel */
+export interface DrataListPersonnelInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Drata — List Vendors */
+export interface DrataListVendorsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Drata — List Risks */
+export interface DrataListRisksInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Drata — List Assets */
+export interface DrataListAssetsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** DrChrono — List Patients */
+export interface DrchronoListPatientsInput {
+  /** Filter by first name */
+  firstName?: string
+  /** Filter by last name */
+  lastName?: string
+  /** Filter by doctor ID */
+  doctor?: string
+}
+
+/** DrChrono — Get Patient */
+export interface DrchronoGetPatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** DrChrono — List Appointments */
+export interface DrchronoListAppointmentsInput {
+  /** Filter by date (YYYY-MM-DD) */
+  date?: string
+  /** End date for range query (YYYY-MM-DD). Used with Date as start */
+  dateRange?: string
+  /** Filter by doctor ID */
+  doctor?: string
+  /** Filter by patient ID */
+  patient?: string
+  /** Filter by office ID */
+  office?: string
+}
+
+/** DrChrono — List Offices */
+export interface DrchronoListOfficesInput {
+  /** Filter by doctor ID */
+  doctor?: string
+}
+
+/** DrChrono — List Doctors */
+export type DrchronoListDoctorsInput = Record<string, never>
 
 /** Drip — Apply a tag to subscriber */
 export interface DripApplyTagToSubscriberInput {
@@ -4122,6 +7099,365 @@ export interface DropboxCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Dropbox Sign — List Signature Requests */
+export interface DropboxSignListSignatureRequestsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Search by title or signer email */
+  query?: string
+}
+
+/** Dropbox Sign — Get Signature Request */
+export interface DropboxSignGetSignatureRequestInput {
+  /** Signature Request ID */
+  signatureRequestId: string
+}
+
+/** Dropbox Sign — Send Signature Request */
+export interface DropboxSignSendSignatureRequestInput {
+  /** Title */
+  title: string
+  /** Email subject line */
+  subject?: string
+  /** Message for signers */
+  message?: string
+  /** Signer Email */
+  signerEmail: string
+  /** Signer Name */
+  signerName: string
+  /** URL of the document to sign */
+  fileUrl: string
+  /** Send in test mode (no charges) */
+  testMode?: boolean
+}
+
+/** Dropbox Sign — Cancel Signature Request */
+export interface DropboxSignCancelSignatureRequestInput {
+  /** Signature Request ID */
+  signatureRequestId: string
+}
+
+/** Dub — Create Link */
+export interface DubCreateLinkInput {
+  /** The URL to shorten */
+  url: string
+  /** The domain to use for the short link (e.g. dub.sh) */
+  domain?: string
+  /** Custom slug for the short link */
+  key?: string
+  /** Title of the link */
+  title?: string
+  /** Description of the link */
+  description?: string
+  /** Array of tag IDs to assign to the link */
+  tags?: unknown[]
+  /** External ID for the link (useful for deduplication) */
+  externalId?: string
+}
+
+/** Dub — Get Link */
+export interface DubGetLinkInput {
+  /** The ID of the link to retrieve */
+  linkId: string
+}
+
+/** Dub — List Links */
+export interface DubListLinksInput {
+  /** Filter links by domain */
+  domain?: string
+  /** Filter links by tag ID */
+  tagId?: string
+  /** Search term to filter links */
+  search?: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Dub — Update Link */
+export interface DubUpdateLinkInput {
+  /** The ID of the link to update */
+  linkId: string
+  /** New destination URL */
+  url?: string
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+  /** Archive the link */
+  archived?: boolean
+}
+
+/** Dub — Custom API Call */
+export interface DubCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /links) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Dwolla — List Customers */
+export interface DwollaListCustomersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Search by first name, last name, or email */
+  search?: string
+}
+
+/** Dwolla — Create Customer */
+export interface DwollaCreateCustomerInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email: string
+  /** Business Name */
+  businessName?: string
+}
+
+/** Dwolla — Create Transfer */
+export interface DwollaCreateTransferInput {
+  /** Full Dwolla URL of the source funding source */
+  sourceUrl: string
+  /** Full Dwolla URL of the destination funding source */
+  destinationUrl: string
+  /** Transfer amount (e.g., 10.00) */
+  amount: string
+  /** Currency */
+  currency?: string
+}
+
+/** Dwolla — List Transfers */
+export interface DwollaListTransfersInput {
+  /** Full Dwolla URL of the customer */
+  customerUrl: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** EasyPost — Create Shipment */
+export interface EasypostCreateShipmentInput {
+  /** From Name */
+  fromName: string
+  /** From Street */
+  fromStreet1: string
+  /** From City */
+  fromCity: string
+  /** From State */
+  fromState: string
+  /** From ZIP */
+  fromZip: string
+  /** From Country */
+  fromCountry?: string
+  /** To Name */
+  toName: string
+  /** To Street */
+  toStreet1: string
+  /** To City */
+  toCity: string
+  /** To State */
+  toState: string
+  /** To ZIP */
+  toZip: string
+  /** To Country */
+  toCountry?: string
+  /** Parcel Length (in) */
+  length: number
+  /** Parcel Width (in) */
+  width: number
+  /** Parcel Height (in) */
+  height: number
+  /** Parcel Weight (oz) */
+  weight: number
+}
+
+/** EasyPost — Buy Shipment */
+export interface EasypostBuyShipmentInput {
+  /** The shipment ID (e.g., shp_...) */
+  shipmentId: string
+  /** The selected rate ID from shipment rates */
+  rateId: string
+}
+
+/** EasyPost — List Trackers */
+export interface EasypostListTrackersInput {
+  /** Page Size */
+  pageSize?: number
+}
+
+/** EasyPost — Create Address */
+export interface EasypostCreateAddressInput {
+  /** Name */
+  name?: string
+  /** Company */
+  company?: string
+  /** Street 1 */
+  street1: string
+  /** Street 2 */
+  street2?: string
+  /** City */
+  city: string
+  /** State */
+  state: string
+  /** ZIP Code */
+  zip: string
+  /** Country */
+  country?: string
+  /** Verify Address */
+  verify?: boolean
+}
+
+/** eBay — Search Items */
+export interface EbaySearchItemsInput {
+  /** Keywords to search for */
+  query: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Comma-separated eBay category IDs to filter */
+  categoryIds?: string
+  /** Sort By (values: `BEST_MATCH`, `price`, `-price`, `newlyListed`, `endingSoonest`) */
+  sort?: "BEST_MATCH" | "price" | "-price" | "newlyListed" | "endingSoonest"
+  /** Filter string (e.g., price:[50..100],priceCurrency:USD) */
+  filter?: string
+}
+
+/** eBay — Get Item */
+export interface EbayGetItemInput {
+  /** eBay item ID (e.g., v1|123456789|0) */
+  itemId: string
+}
+
+/** eBay — List Orders */
+export interface EbayListOrdersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Filter string (e.g., orderfulfillmentstatus:{NOT_STARTED|IN_PROGRESS}) */
+  filter?: string
+}
+
+/** eBay — Custom API Call */
+export interface EbayCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Ecwid — List Products */
+export interface EcwidListProductsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Search products by keyword */
+  keyword?: string
+  /** Enabled Only */
+  enabled?: boolean
+}
+
+/** Ecwid — Get Product */
+export interface EcwidGetProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Ecwid — List Orders */
+export interface EcwidListOrdersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Fulfillment Status (values: `AWAITING_PROCESSING`, `PROCESSING`, `SHIPPED`, `DELIVERED`, `WILL_NOT_DELIVER`, `RETURNED`, `READY_FOR_PICKUP`) */
+  fulfillmentStatus?: "AWAITING_PROCESSING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "WILL_NOT_DELIVER" | "RETURNED" | "READY_FOR_PICKUP"
+  /** ISO 8601 date (e.g., 2025-01-01) */
+  createdFrom?: string
+}
+
+/** Ecwid — Get Order */
+export interface EcwidGetOrderInput {
+  /** Order Number */
+  orderNumber: string
+}
+
+/** Ecwid — Update Order */
+export interface EcwidUpdateOrderInput {
+  /** Order Number */
+  orderNumber: string
+  /** Fulfillment Status (values: `AWAITING_PROCESSING`, `PROCESSING`, `SHIPPED`, `DELIVERED`, `WILL_NOT_DELIVER`, `RETURNED`, `READY_FOR_PICKUP`) */
+  fulfillmentStatus?: "AWAITING_PROCESSING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "WILL_NOT_DELIVER" | "RETURNED" | "READY_FOR_PICKUP"
+  /** Tracking Number */
+  trackingNumber?: string
+}
+
+/** Ecwid — Custom API Call */
+export interface EcwidCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Elasticsearch — Search */
+export interface ElasticsearchSearchInput {
+  /** Index name or pattern (e.g., my-index or my-index-*) */
+  index: string
+  /** Elasticsearch query DSL as JSON (e.g., {"match": {"field": "value"}}) */
+  query: string
+  /** Maximum number of results to return */
+  size?: number
+  /** Starting offset for pagination */
+  from?: number
+  /** Sort criteria as JSON array */
+  sort?: string
+}
+
+/** Elasticsearch — Index Document */
+export interface ElasticsearchIndexDocumentInput {
+  /** Index */
+  index: string
+  /** Optional document ID; auto-generated if not provided */
+  documentId?: string
+  /** JSON object with document fields */
+  document: string
+}
+
+/** Elasticsearch — Get Document */
+export interface ElasticsearchGetDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+}
+
+/** Elasticsearch — Delete Document */
+export interface ElasticsearchDeleteDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+}
+
+/** Elasticsearch — List Indices */
+export type ElasticsearchListIndicesInput = Record<string, never>
+
 /** ElevenLabs — Text to Speech */
 export interface ElevenlabsElevenlabsTextToSpeechInput {
   /** Model (resolve via property options API) */
@@ -4156,6 +7492,312 @@ export interface ElevenlabsCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** EmailOctopus — Add / Update Contact */
+export interface EmailoctopusAddOrUpdateContactInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The contact's email address. */
+  email_address: string
+  /** The contact's custom fields. */
+  fields: Record<string, unknown>
+  /** Tags to associate with the contact. Existing tags will not be removed. */
+  tags?: unknown[]
+  /** The status of the contact. (values: `subscribed`, `unsubscribed`, `pending`) */
+  status?: "subscribed" | "unsubscribed" | "pending"
+}
+
+/** EmailOctopus — Unsubscribe Contact */
+export interface EmailoctopusUnsubscribeContactInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The email address of the contact to unsubscribe. */
+  email_address: string
+}
+
+/** EmailOctopus — Update Contact's Email Address */
+export interface EmailoctopusUpdateContactEmailInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The contact's current email address used to find them. */
+  current_email_address: string
+  /** The new email address for the contact. */
+  new_email_address: string
+}
+
+/** EmailOctopus — Add Tag to Contact */
+export interface EmailoctopusAddTagToContactInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The contact's email address. */
+  email_address: string
+  /** The tags to add to the contact. */
+  tags: unknown[]
+}
+
+/** EmailOctopus — Remove Tag from Contact */
+export interface EmailoctopusRemoveTagFromContactInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The email address of the contact to modify. */
+  email_address: string
+  /** The tags to remove from the contact. */
+  tags: unknown[]
+}
+
+/** EmailOctopus — Create List */
+export interface EmailoctopusCreateListInput {
+  /** The name for the new list. */
+  name: string
+}
+
+/** EmailOctopus — Find Contact */
+export interface EmailoctopusFindContactInput {
+  /** The mailing list to use. (resolve via property options API) */
+  list_id: string
+  /** The email address of the contact to find. */
+  email_address: string
+}
+
+/** EmailOctopus — Custom API Call */
+export interface EmailoctopusCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Etsy — List Listings */
+export interface EtsyListListingsInput {
+  /** Etsy shop ID (numeric) */
+  shopId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort By (values: `created`, `price`, `updated`, `score`) */
+  sortOn?: "created" | "price" | "updated" | "score"
+}
+
+/** Etsy — Get Listing */
+export interface EtsyGetListingInput {
+  /** Listing ID */
+  listingId: string
+}
+
+/** Etsy — Create Listing */
+export interface EtsyCreateListingInput {
+  /** Shop ID */
+  shopId: string
+  /** Title */
+  title: string
+  /** Description */
+  description: string
+  /** Price in your shop currency */
+  price: number
+  /** Quantity */
+  quantity: number
+  /** Etsy taxonomy (category) ID */
+  taxonomyId: number
+  /** Who Made (values: `i_did`, `someone_else`, `collective`) */
+  whoMade: "i_did" | "someone_else" | "collective"
+  /** When Made (values: `made_to_order`, `2020_2025`, `2010_2019`, `before_2010`) */
+  whenMade: "made_to_order" | "2020_2025" | "2010_2019" | "before_2010"
+  /** Whether this is a craft supply */
+  isSupply?: boolean
+}
+
+/** Etsy — List Receipts (Orders) */
+export interface EtsyListReceiptsInput {
+  /** Shop ID */
+  shopId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Filter receipts created after this timestamp */
+  minCreated?: number
+  /** Was Paid */
+  wasPaid?: boolean
+}
+
+/** Etsy — Custom API Call */
+export interface EtsyCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Exa — Get Contents */
+export interface ExaGetContentsInput {
+  /** Array of URLs to crawl */
+  urls: unknown[]
+  /** If true, returns full page text. If false, disables text return. */
+  text?: boolean
+  /** Options for livecrawling pages. (values: `never`, `fallback`, `always`, `auto`) */
+  livecrawl?: "never" | "fallback" | "always" | "auto"
+  /** Timeout for livecrawling in milliseconds. */
+  livecrawlTimeout?: number
+  /** Number of subpages to crawl. */
+  subpages?: number
+  /** Keyword(s) to find specific subpages. */
+  subpageTarget?: string
+}
+
+/** Exa — Ask AI */
+export interface ExaGenerateAnswerInput {
+  /** Ask a question to get summarized answers from the web. */
+  query: string
+  /** If true, includes full text content from the search results */
+  text?: boolean
+  /** Choose the Exa model to use for the answer. (values: `exa`, `exa-pro`) */
+  model: "exa" | "exa-pro"
+}
+
+/** Exa — Perform Search */
+export interface ExaPerformSearchInput {
+  /** Search query to find related articles and data. */
+  query: string
+  /** Type of search to perform. (values: `auto`, `keyword`, `neural`) */
+  type?: "auto" | "keyword" | "neural"
+  /** Category of data to focus the search on. (values: `company`, `research paper`, `news`, `pdf`, `github`, `tweet`, `personal site`, `linkedin profile`, `financial report`) */
+  category?: "company" | "research paper" | "news" | "pdf" | "github" | "tweet" | "personal site" | "linkedin profile" | "financial report"
+  /** Number of results to return (max 100). */
+  numResults?: number
+  /** Limit results to only these domains. */
+  includeDomains?: unknown[]
+  /** Exclude results from these domains. */
+  excludeDomains?: unknown[]
+  /** Only include results crawled after this ISO date. */
+  startCrawlDate?: string
+  /** Only include results crawled before this ISO date. */
+  endCrawlDate?: string
+  /** Only include results published after this ISO date. */
+  startPublishedDate?: string
+  /** Only include results published before this ISO date. */
+  endPublishedDate?: string
+  /** Strings that must be present in the text of results. */
+  includeText?: unknown[]
+  /** Strings that must not be present in the text of results. */
+  excludeText?: unknown[]
+}
+
+/** Exa — Find Similar Links */
+export interface ExaFindSimilarLinksInput {
+  /** Reference URL to find semantically similar links. */
+  url: string
+  /** Number of results to return (max 100). */
+  numResults?: number
+  /** List of domains to include in results. */
+  includeDomains?: unknown[]
+  /** List of domains to exclude from results. */
+  excludeDomains?: unknown[]
+  /** Include links crawled after this date (ISO format). */
+  startCrawlDate?: string
+  /** Include links crawled before this date (ISO format). */
+  endCrawlDate?: string
+  /** Only include links published after this date (ISO format). */
+  startPublishedDate?: string
+  /** Only include links published before this date (ISO format). */
+  endPublishedDate?: string
+  /** Strings that must be present in the webpage text (max 1 string of up to 5 words). */
+  includeText?: unknown[]
+  /** Strings that must not be present in the webpage text (max 1 string of up to 5 words). */
+  excludeText?: unknown[]
+}
+
+/** Exa — Custom API Call */
+export interface ExaCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Facebook Ads — List Campaigns */
+export interface FacebookAdsListCampaignsInput {
+  /** The ad account ID (e.g., act_123456) */
+  adAccountId: string
+  /** Limit */
+  limit?: number
+  /** Comma-separated fields to return (e.g., name,status,objective) */
+  fields?: string
+}
+
+/** Facebook Ads — Get Campaign */
+export interface FacebookAdsGetCampaignInput {
+  /** Campaign ID */
+  campaignId: string
+  /** Comma-separated fields to return */
+  fields?: string
+}
+
+/** Facebook Ads — List Ad Sets */
+export interface FacebookAdsListAdsetsInput {
+  /** The ad account ID (e.g., act_123456) */
+  adAccountId: string
+  /** Limit */
+  limit?: number
+  /** Comma-separated fields to return */
+  fields?: string
+}
+
+/** Facebook Ads — Get Ad Insights */
+export interface FacebookAdsGetAdInsightsInput {
+  /** Ad account, campaign, ad set, or ad ID */
+  objectId: string
+  /** Date Preset (values: `today`, `yesterday`, `last_7d`, `last_14d`, `last_30d`, `last_90d`, `this_month`, `last_month`) */
+  datePreset?: "today" | "yesterday" | "last_7d" | "last_14d" | "last_30d" | "last_90d" | "this_month" | "last_month"
+  /** Comma-separated metrics (e.g., impressions,clicks,spend,cpc) */
+  fields?: string
+  /** Level (values: `account`, `campaign`, `adset`, `ad`) */
+  level?: "account" | "campaign" | "adset" | "ad"
+}
+
+/** Facebook Ads — List Ads */
+export interface FacebookAdsListAdsInput {
+  /** The ad account ID (e.g., act_123456) */
+  adAccountId: string
+  /** Limit */
+  limit?: number
+  /** Comma-separated fields to return */
+  fields?: string
+}
+
 /** Facebook Pages — Create Page Post */
 export interface FacebookPagesCreatePostInput {
   /** Page (resolve via property options API) */
@@ -4186,6 +7828,36 @@ export interface FacebookPagesCreateVideoPostInput {
   title?: string
   /** Description */
   description?: string
+}
+
+/** Fellow.ai — Get AI Note */
+export interface FellowGetNoteInput {
+  /** Note ID */
+  noteId: string
+}
+
+/** Fellow.ai — Custom API Call */
+export interface FellowCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Figma — Get File */
@@ -4294,6 +7966,268 @@ export interface FilloutFormsCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Firebase — List Documents */
+export interface FirebaseListDocumentsInput {
+  /** Path to the collection (e.g., "users" or "users/uid123/orders") */
+  collectionPath: string
+  /** Maximum number of documents to return */
+  pageSize?: number
+  /** Token for pagination (from previous response) */
+  pageToken?: string
+  /** Field path to order results by */
+  orderBy?: string
+}
+
+/** Firebase — Get Document */
+export interface FirebaseGetDocumentInput {
+  /** Full path to the document (e.g., "users/uid123") */
+  documentPath: string
+}
+
+/** Firebase — Create Document */
+export interface FirebaseCreateDocumentInput {
+  /** Path to the collection (e.g., "users" or "users/uid123/orders") */
+  collectionPath: string
+  /** Optional custom document ID. If not provided, Firestore auto-generates one */
+  documentId?: string
+  /** Document fields in Firestore value format (e.g., {"name": {"stringValue": "John"}, "age": {"integerValue": "30"}}) */
+  fields: Record<string, unknown>
+}
+
+/** Firebase — Run Query */
+export interface FirebaseRunQueryInput {
+  /** The collection to query (e.g., "users") */
+  collectionId: string
+  /** Parent document path for subcollections (leave empty for root collections) */
+  parentPath?: string
+  /** Structured query filter (e.g., {"fieldFilter": {"field": {"fieldPath": "status"}, "op": "EQUAL", "value": {"stringValue": "active"}}}) */
+  where?: Record<string, unknown>
+  /** Array of ordering objects (e.g., [{"field": {"fieldPath": "createdAt"}, "direction": "DESCENDING"}]) */
+  orderBy?: unknown[]
+  /** Maximum number of results to return */
+  limit?: number
+}
+
+/** Firebase — Delete Document */
+export interface FirebaseDeleteDocumentInput {
+  /** Full path to the document (e.g., "users/uid123") */
+  documentPath: string
+}
+
+/** Firecrawl — Scrape Website */
+export interface FirecrawlScrapeInput {
+  /** The webpage URL to scrape. */
+  url: string
+  /** Maximum time to wait for the page to load (in milliseconds). */
+  timeout?: number
+  /** Enable to perform a sequence of actions on the page before scraping (like clicking buttons, filling forms, etc.). See [Firecrawl Actions Documentation](https://docs.firecrawl.dev/api-reference/endpoint/scrape#body-actions) for details on available actions and their parameters. */
+  useActions?: boolean
+  /** Properties for actions that will be performed on the page. */
+  actionProperties?: Record<string, unknown>
+  /** Choose what format you want your output in. (resolve via property options API) */
+  formats: string
+  /** Prompt for extracting data. */
+  extractPrompt?: Record<string, unknown>
+  /** Data schema type. */
+  extractMode?: Record<string, unknown>
+  /** Data Definition */
+  extractSchema?: Record<string, unknown>
+}
+
+/** Firecrawl — Extract Structured Data */
+export interface FirecrawlExtractInput {
+  /** Add one or more URLs to extract data from. */
+  urls: Array<{   url: string }>
+  /** Describe what information you want to extract. */
+  prompt?: string
+  /** Enable web search to find additional context. */
+  enableWebSearch?: boolean
+  /** Timeout in seconds after which the task will be cancelled */
+  timeout?: number
+  /** For complex schema, you can use advanced mode. (values: `simple`, `advanced`) */
+  mode: "simple" | "advanced"
+  /** Data Definition */
+  schema: Record<string, unknown>
+}
+
+/** Firecrawl — Crawl */
+export interface FirecrawlCrawlInput {
+  /** The base URL to start crawling from. */
+  url: string
+  /** Describe what information you want to extract. */
+  prompt?: string
+  /** Maximum number of pages to crawl. Default limit is 10. */
+  limit?: number
+  /** Choose what format you want your output in. (resolve via property options API) */
+  formats: string
+  /** Only return the main content of the page, excluding headers, navs, footers, etc. */
+  onlyMainContent?: boolean
+  /** Data schema type. */
+  extractMode?: Record<string, unknown>
+  /** Data Definition */
+  extractSchema?: Record<string, unknown>
+  /** Timeout in seconds after which the task will be cancelled */
+  timeout?: number
+  /** Enable to send crawl results to a webhook URL. */
+  useWebhook?: boolean
+  /** Properties for webhook configuration. */
+  webhookProperties?: Record<string, unknown>
+}
+
+/** Firecrawl — Crawl Results */
+export interface FirecrawlCrawlResultsInput {
+  /** The ID of the crawl job to check. */
+  crawlId: string
+}
+
+/** Firecrawl — Map Websites */
+export interface FirecrawlMapInput {
+  /** The webpage URL to start scraping from. */
+  url: string
+  /** Include and crawl pages from subdomains of the target website (e.g., blog.example.com, shop.example.com) in addition to the main domain. */
+  subdomain?: boolean
+  /** Maximum number of links to return (max: 100,000) */
+  limit?: number
+}
+
+/** Firecrawl — Custom API Call */
+export interface FirecrawlCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Fly.io — List Apps */
+export interface FlyIoListAppsInput {
+  /** The organization slug to filter apps */
+  orgSlug: string
+}
+
+/** Fly.io — List Machines */
+export interface FlyIoListMachinesInput {
+  /** App Name */
+  appName: string
+}
+
+/** Fly.io — Get Machine */
+export interface FlyIoGetMachineInput {
+  /** App Name */
+  appName: string
+  /** Machine ID */
+  machineId: string
+}
+
+/** Fly.io — Create Machine */
+export interface FlyIoCreateMachineInput {
+  /** App Name */
+  appName: string
+  /** Optional name for the machine */
+  name?: string
+  /** Region to deploy in (e.g., iad, sjc, lhr) */
+  region?: string
+  /** Container image URI to deploy */
+  image: string
+  /** Number of CPUs */
+  cpus?: number
+  /** Memory in megabytes */
+  memoryMb?: number
+  /** Create the machine without starting it */
+  skipLaunch?: boolean
+}
+
+/** Follow Up Boss — List People */
+export interface FollowUpBossListPeopleInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort By (values: `created`, `updated`, `lastActivity`) */
+  sort?: "created" | "updated" | "lastActivity"
+}
+
+/** Follow Up Boss — Get Person */
+export interface FollowUpBossGetPersonInput {
+  /** Person ID */
+  personId: string
+}
+
+/** Follow Up Boss — Create Person */
+export interface FollowUpBossCreatePersonInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Lead source (e.g., Website, Zillow) */
+  source?: string
+  /** Tags */
+  tags?: unknown[]
+}
+
+/** Follow Up Boss — List Events */
+export interface FollowUpBossListEventsInput {
+  /** Filter events by person ID */
+  personId?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Formbricks — List Surveys */
+export interface FormbricksListSurveysInput {
+  /** Limit */
+  limit?: number
+  /** Number of surveys to skip for pagination */
+  skip?: number
+}
+
+/** Formbricks — Get Survey */
+export interface FormbricksGetSurveyInput {
+  /** Survey ID */
+  surveyId: string
+}
+
+/** Formbricks — Get Responses */
+export interface FormbricksGetResponsesInput {
+  /** Survey ID */
+  surveyId: string
+  /** Limit */
+  limit?: number
+  /** Number of responses to skip for pagination */
+  skip?: number
+}
+
+/** Formbricks — Custom API Call */
+export interface FormbricksCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API endpoint path (e.g., /management/surveys) */
+  path: string
+  /** Request body (for POST/PUT/PATCH) */
+  body?: unknown
 }
 
 /** Formstack — Create Submission */
@@ -4837,6 +8771,122 @@ export interface FrontUpdateLinkInput {
   external_url?: string
 }
 
+/** FTP/SFTP — Create File from Text */
+export interface SftpCreateFileInput {
+  /** File Path */
+  fileName: string
+  /** File content */
+  fileContent: string
+}
+
+/** FTP/SFTP — Upload File */
+export interface SftpUploadFileInput {
+  /** The path on the sftp server to store the file. e.g. `./myfolder/test.mp3` */
+  fileName: string
+  /** File content */
+  fileContent: string
+}
+
+/** FTP/SFTP — Read File Content */
+export interface SftpReadFileContentInput {
+  /** File Path */
+  filePath: string
+}
+
+/** FTP/SFTP — Delete file */
+export interface SftpDeleteFileInput {
+  /** The path of the file to delete e.g. `./myfolder/test.mp3` */
+  filePath: string
+}
+
+/** FTP/SFTP — Create Folder */
+export interface SftpCreateFolderInput {
+  /** The new folder path e.g. `./myfolder`. For FTP/FTPS, it will create nested folders if necessary. */
+  folderPath: string
+  /** For SFTP only: Create parent directories if they do not exist */
+  recursive?: boolean
+}
+
+/** FTP/SFTP — Delete Folder */
+export interface SftpDeleteFolderInput {
+  /** The path of the folder to delete e.g. `./myfolder` */
+  folderPath: string
+  /** Enable this option to delete the folder and all its contents, including subfolders and files. */
+  recursive?: boolean
+}
+
+/** FTP/SFTP — List Folder Contents */
+export interface SftpListFolderContentsInput {
+  /** The path of the folder to list e.g. `./myfolder` */
+  directoryPath: string
+}
+
+/** FTP/SFTP — Rename File or Folder */
+export interface SftpRenameFileOrFolderInput {
+  /** Depending on the server you can also use this to move a file to another directory, as long as the directory exists. */
+  information?: string
+  /** The path of the file or folder to rename e.g. `./myfolder/test.mp3` */
+  oldPath: string
+  /** The new path of the file or folder e.g. `./myfolder/new-name.mp3` */
+  newPath: string
+}
+
+/** Gainsight — List Companies */
+export interface GainsightListCompaniesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Comma-separated field names to return (e.g., Name,Arr,Status) */
+  fields?: string
+}
+
+/** Gainsight — Get Company */
+export interface GainsightGetCompanyInput {
+  /** Company GSID */
+  companyId: string
+  /** Comma-separated field names to return */
+  fields?: string
+}
+
+/** Gainsight — List Relationships */
+export interface GainsightListRelationshipsInput {
+  /** Relationship Type Name */
+  relationshipType: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Gainsight — List CTAs */
+export interface GainsightListCtasInput {
+  /** Status (values: `OPEN`, `CLOSED_WON`, `CLOSED_LOST`, `SNOOZED`) */
+  status?: "OPEN" | "CLOSED_WON" | "CLOSED_LOST" | "SNOOZED"
+  /** Limit */
+  limit?: number
+  /** Page Number */
+  pageNumber?: number
+}
+
+/** Gainsight — List People */
+export interface GainsightListPeopleInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Comma-separated field names to return */
+  fields?: string
+}
+
+/** GCloud Pub/Sub — Publish to topic */
+export interface GcloudPubsubPublishToTopicInput {
+  /** Message */
+  message: Record<string, unknown>
+  /** Topic (resolve via property options API) */
+  topic: string
+}
+
 /** Ghost — List Posts */
 export interface GhostListPostsInput {
   /** Limit */
@@ -4865,6 +8915,60 @@ export interface GhostCreatePostInput {
 export interface GhostListMembersInput {
   /** Limit */
   limit?: number
+}
+
+/** GitBook — List Spaces */
+export interface GitbookListSpacesInput {
+  /** The ID of the organization */
+  organizationId: string
+  /** Pagination token for next page */
+  page?: string
+  /** Number of results per page (max 1000) */
+  limit?: number
+}
+
+/** GitBook — Get Space */
+export interface GitbookGetSpaceInput {
+  /** Space ID */
+  spaceId: string
+}
+
+/** GitBook — Get Page */
+export interface GitbookGetPageInput {
+  /** Space ID */
+  spaceId: string
+  /** Page ID */
+  pageId: string
+}
+
+/** GitBook — Search Content */
+export interface GitbookSearchContentInput {
+  /** Organization ID */
+  organizationId: string
+  /** Search Query */
+  query: string
+}
+
+/** GitBook — List Collections */
+export interface GitbookListCollectionsInput {
+  /** Organization ID */
+  organizationId: string
+  /** Pagination token for next page */
+  page?: string
+  /** Number of results per page (max 1000) */
+  limit?: number
+  /** Include nested collections */
+  nested?: boolean
+}
+
+/** GitBook — Custom API Call */
+export interface GitbookCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /spaces/{spaceId}) */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** GitHub — Create Issue */
@@ -5452,6 +9556,292 @@ export interface GoogleCalendarCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Google Chat — Send a Message */
+export interface GooglechatSendAMessageInput {
+  /** Select a Space (resolve via property options API) */
+  spaceId: string
+  /** The message content to send. Supports basic formatting like *bold*, _italic_, and @mentions. */
+  text: string
+  /** Select a thread to reply to, leave empty for new thread (resolve via property options API) */
+  thread?: string
+  /** How to handle replies when thread ID is provided. (values: `REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD`, `REPLY_MESSAGE_OR_FAIL`) */
+  messageReplyOption?: "REPLY_MESSAGE_FALLBACK_TO_NEW_THREAD" | "REPLY_MESSAGE_OR_FAIL"
+  /** Optional unique ID for this message (auto-generated if empty). Useful for deduplication. */
+  customMessageId?: string
+  /** Send this message privately to a specific user. Requires app authentication. */
+  isPrivate?: boolean
+  /** Select the user who can view this private message. (resolve via property options API) */
+  privateMessageViewer?: string
+}
+
+/** Google Chat — Get Direct Message Details */
+export interface GooglechatGetDirectMessageDetailsInput {
+  /** Select a Direct Message (resolve via property options API) */
+  directMessageId: string
+}
+
+/** Google Chat — Add a Space Member */
+export interface GooglechatAddASpaceMemberInput {
+  /** Select a Space (resolve via property options API) */
+  spaceId: string
+  /** Select a person (resolve via property options API) */
+  personId: string
+}
+
+/** Google Chat — Get Message Details */
+export interface GooglechatGetMessageDetailsInput {
+  /** The full resource name of the message. Format: spaces/{space}/messages/{message} */
+  name: string
+}
+
+/** Google Chat — Search Messages */
+export interface GooglechatSearchMessagesInput {
+  /** Select a Space (resolve via property options API) */
+  spaceId: string
+  /** Search for messages containing this text */
+  keyword: string
+  /** Maximum number of messages to return */
+  limit?: number
+}
+
+/** Google Chat — Find Member */
+export interface GooglechatFindMemberInput {
+  /** Select a Space (resolve via property options API) */
+  spaceId: string
+  /** The email address of the member to find */
+  email: string
+}
+
+/** Google Classroom — List Courses */
+export interface GoogleClassroomListCoursesInput {
+  /** Filter by course state (values: `ACTIVE`, `ARCHIVED`, `PROVISIONED`, `DECLINED`) */
+  courseStates?: "ACTIVE" | "ARCHIVED" | "PROVISIONED" | "DECLINED"
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google Classroom — Get Course */
+export interface GoogleClassroomGetCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Google Classroom — List Students */
+export interface GoogleClassroomListStudentsInput {
+  /** Course ID */
+  courseId: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google Classroom — Create Coursework */
+export interface GoogleClassroomCreateCourseworkInput {
+  /** Course ID */
+  courseId: string
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** Work Type (values: `ASSIGNMENT`, `SHORT_ANSWER_QUESTION`, `MULTIPLE_CHOICE_QUESTION`) */
+  workType: "ASSIGNMENT" | "SHORT_ANSWER_QUESTION" | "MULTIPLE_CHOICE_QUESTION"
+  /** Max Points */
+  maxPoints?: number
+  /** State (values: `PUBLISHED`, `DRAFT`) */
+  state?: "PUBLISHED" | "DRAFT"
+}
+
+/** Google Classroom — List Submissions */
+export interface GoogleClassroomListSubmissionsInput {
+  /** Course ID */
+  courseId: string
+  /** Coursework ID */
+  courseWorkId: string
+  /** Filter by submission state (values: `NEW`, `CREATED`, `TURNED_IN`, `RETURNED`, `RECLAIMED_BY_STUDENT`) */
+  states?: "NEW" | "CREATED" | "TURNED_IN" | "RETURNED" | "RECLAIMED_BY_STUDENT"
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Google Classroom — Custom API Call */
+export interface GoogleClassroomCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Google Cloud Storage — Create Bucket */
+export interface GoogleCloudStorageCreateBucketInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Unique name for your bucket (must be globally unique, 3-63 characters) */
+  name: string
+  /** Location */
+  location?: "US" | "EU" | "ASIA" | "us-central1" | "us-east1" | "us-east4" | "us-west1" | "us-west2" | "us-west3" | "us-west4" | "us-south1" | "europe-central2" | "europe-north1" | "europe-southwest1" | "europe-west1" | "europe-west2" | "europe-west3" | "europe-west4" | "europe-west6" | "europe-west8" | "europe-west9" | "asia-east1" | "asia-east2" | "asia-northeast1" | "asia-northeast2" | "asia-northeast3" | "asia-south1" | "asia-south2" | "asia-southeast1" | "asia-southeast2" | "australia-southeast1" | "australia-southeast2" | "northamerica-northeast1" | "northamerica-northeast2" | "southamerica-east1" | "southamerica-west1"
+  /** Storage Class (values: `STANDARD`, `NEARLINE`, `COLDLINE`, `ARCHIVE`, `MULTI_REGIONAL`, `REGIONAL`, `DURABLE_REDUCED_AVAILABILITY`) */
+  storageClass?: "STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE" | "MULTI_REGIONAL" | "REGIONAL" | "DURABLE_REDUCED_AVAILABILITY"
+  /** Enable Versioning */
+  versioning?: boolean
+  /** Uniform Bucket Level Access */
+  uniformBucketLevelAccess?: boolean
+  /** Key-value pairs for bucket labels */
+  labels?: Record<string, unknown>
+}
+
+/** Google Cloud Storage — Delete Empty Bucket */
+export interface GoogleCloudStorageDeleteEmptyBucketInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+}
+
+/** Google Cloud Storage — Clone Object */
+export interface GoogleCloudStorageCloneObjectInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  sourceBucket: string
+  /** Object (resolve via property options API) */
+  sourceObject: string
+  /** Bucket (resolve via property options API) */
+  destBucket: string
+  /** Name for the copied object (must be valid object name) */
+  destObject: string
+  /** Optional metadata and properties to override in the copied object (contentType, cacheControl, contentDisposition, etc.) */
+  metadataOverrides?: Record<string, unknown>
+}
+
+/** Google Cloud Storage — Delete Object */
+export interface GoogleCloudStorageDeleteObjectInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** Object (resolve via property options API) */
+  object: string
+  /** Optional generation number for versioned objects (permanently deletes a specific revision) */
+  generation?: number
+}
+
+/** Google Cloud Storage — Search Objects */
+export interface GoogleCloudStorageSearchObjectsInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** Filter objects whose names begin with this prefix */
+  prefix?: string
+  /** Glob pattern to filter results (e.g., "folder/*", "backup-*.txt") */
+  matchGlob?: string
+  /** Delimiter for hierarchical listing (commonly "/") */
+  delimiter?: string
+  /** Include empty folders and managed folders in results */
+  includeFoldersAsPrefixes?: boolean
+  /** List all versions of objects as distinct results */
+  versions?: boolean
+  /** Token for pagination (from previous response) */
+  pageToken?: string
+  /** Maximum number of objects to return (recommended: ≤1000) */
+  maxResults?: number
+}
+
+/** Google Cloud Storage — Search Buckets */
+export interface GoogleCloudStorageSearchBucketsInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Filter buckets whose names begin with this prefix */
+  prefix?: string
+  /** Include soft-deleted bucket versions in results */
+  includeSoftDeleted?: boolean
+  /** Set of properties to return (values: `noAcl`, `full`) */
+  projection?: "noAcl" | "full"
+  /** Token for pagination (from previous response) */
+  pageToken?: string
+  /** Maximum number of buckets to return */
+  maxResults?: number
+}
+
+/** Google Cloud Storage — Create Object ACL */
+export interface GoogleCloudStorageCreateObjectAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** Object (resolve via property options API) */
+  object: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+  /** Role (values: `READER`, `OWNER`) */
+  role: "READER" | "OWNER"
+  /** Optional generation number for versioned objects */
+  generation?: number
+}
+
+/** Google Cloud Storage — Delete Object ACL */
+export interface GoogleCloudStorageDeleteObjectAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** Object (resolve via property options API) */
+  object: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+  /** Optional generation number for versioned objects */
+  generation?: number
+}
+
+/** Google Cloud Storage — Create Bucket ACL */
+export interface GoogleCloudStorageCreateBucketAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+  /** Role (values: `READER`, `WRITER`, `OWNER`) */
+  role: "READER" | "WRITER" | "OWNER"
+}
+
+/** Google Cloud Storage — Delete Bucket ACL */
+export interface GoogleCloudStorageDeleteBucketAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+}
+
+/** Google Cloud Storage — Create Bucket Default Object ACL */
+export interface GoogleCloudStorageCreateBucketDefaultObjectAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+  /** Role (values: `READER`, `OWNER`) */
+  role: "READER" | "OWNER"
+}
+
+/** Google Cloud Storage — Delete Bucket Default Object ACL */
+export interface GoogleCloudStorageDeleteBucketDefaultObjectAclInput {
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Bucket (resolve via property options API) */
+  bucket: string
+  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  entity: string
+}
+
 /** Google Contacts — Add Contact */
 export interface GoogleContactsAddContactInput {
   /** The first name of the contact */
@@ -5526,6 +9916,76 @@ export interface GoogleContactsCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Google Docs — Create Document */
+export interface GoogleDocsCreateDocumentInput {
+  /** Document Title */
+  title: string
+  /** Document Content */
+  body: string
+}
+
+/** Google Docs — Edit template file */
+export interface GoogleDocsCreateDocumentBasedOnTemplateInput {
+  /** The ID of the file to replace the values */
+  template: string
+  /** Dont include the placeholder format "[[]]" or "{{}}", only the key name and its value */
+  values: Record<string, unknown>
+  /** Key: Image ID (get it manually from the Read File Action), Value: Image URL */
+  images: Record<string, unknown>
+  /** Choose the format of placeholders in your template (values: `{{KEY}}`, `[[KEY]]`, `{KEY}`, `[KEY]`) */
+  placeholder_format: "{{KEY}}" | "[[KEY]]" | "{KEY}" | "[KEY]"
+}
+
+/** Google Docs — Read Document */
+export interface GoogleDocsReadDocumentInput {
+  /** The ID of the document to read */
+  documentId: string
+}
+
+/** Google Docs — Find Document */
+export interface GoogleDocsGoogleDocsFindDocumentInput {
+  /** Document Name */
+  name: string
+  /** Folder (resolve via property options API) */
+  folderId?: string
+  /** Create a new document if not found? */
+  createIfNotFound?: boolean
+  /** New Document Properties */
+  newDocumentProps?: Record<string, unknown>
+}
+
+/** Google Docs — Custom API Call */
+export interface GoogleDocsCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Google Docs — Append text to google docs */
+export interface GoogleDocsAppendTextInput {
+  /** The text to append to the document */
+  text: string
+  /** The ID of the document to append text to */
+  documentId: string
 }
 
 /** Google Drive — Create new folder */
@@ -5716,28 +10176,46 @@ export interface GoogleDriveCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Google Forms — List Forms */
+export interface GoogleFormsListFormsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Token for pagination */
+  pageToken?: string
+}
+
+/** Google Forms — Get Form */
+export interface GoogleFormsGetFormInput {
+  /** The ID of the form */
+  formId: string
+}
+
+/** Google Forms — Get Responses */
+export interface GoogleFormsGetResponsesInput {
+  /** Form ID */
+  formId: string
+  /** Page Size */
+  pageSize?: number
+  /** Token for pagination */
+  pageToken?: string
+}
+
+/** Google Forms — Get Response */
+export interface GoogleFormsGetResponseInput {
+  /** Form ID */
+  formId: string
+  /** Response ID */
+  responseId: string
+}
+
 /** Google Forms — Custom API Call */
 export interface GoogleFormsCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API endpoint path (e.g., /forms/{formId}/responses) */
+  path: string
+  /** Request body (for POST/PUT/PATCH) */
+  body?: unknown
 }
 
 /** Google Gemini — Generate Content */
@@ -6223,6 +10701,52 @@ export interface GoogleSheetsCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Google Slides — Get Presentation */
+export interface GoogleSlidesGetPresentationInput {
+  /** The ID of the presentation */
+  presentation_id: string
+}
+
+/** Google Slides — Refresh Sheets Charts */
+export interface GoogleSlidesRefreshSheetsChartsInput {
+  /** The ID of the presentation, between /d and /edit */
+  presentation_id: string
+}
+
+/** Google Slides — Generate from template */
+export interface GoogleSlidesGenerateFromTemplateInput {
+  /** The ID of the templated presentation */
+  template_presentation_id: string
+  /** Choose the format of placeholders in your template (values: `{{}}`, `[[]]`) */
+  placeholder_format: "{{}}" | "[[]]"
+  /** Table Data */
+  table_data: Record<string, unknown>
+}
+
+/** Google Slides — Custom API Call */
+export interface GoogleSlidesCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Google Tasks — Add Task */
 export interface GoogleTasksAddTaskInput {
   /** Tasks List (resolve via property options API) */
@@ -6261,6 +10785,111 @@ export interface GoogleTasksCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Gorgias — List Tickets */
+export interface GorgiasListTicketsInput {
+  /** Limit */
+  limit?: number
+  /** Order By (values: `created_datetime:desc`, `created_datetime:asc`, `updated_datetime:desc`, `updated_datetime:asc`) */
+  order_by?: "created_datetime:desc" | "created_datetime:asc" | "updated_datetime:desc" | "updated_datetime:asc"
+}
+
+/** Gorgias — Get Ticket */
+export interface GorgiasGetTicketInput {
+  /** Ticket ID */
+  ticketId: string
+}
+
+/** Gorgias — Create Ticket */
+export interface GorgiasCreateTicketInput {
+  /** Subject */
+  subject?: string
+  /** Customer Email */
+  customerEmail: string
+  /** The ticket message content (text or HTML) */
+  messageBody: string
+  /** Channel (values: `email`, `chat`, `internal-note`) */
+  channel?: "email" | "chat" | "internal-note"
+}
+
+/** Gorgias — List Customers */
+export interface GorgiasListCustomersInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Grafana — List Dashboards */
+export interface GrafanaListDashboardsInput {
+  /** Optional search term to filter dashboards */
+  query?: string
+  /** Filter dashboards by tag */
+  tag?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Grafana — Get Dashboard */
+export interface GrafanaGetDashboardInput {
+  /** The unique identifier of the dashboard */
+  uid: string
+}
+
+/** Grafana — Create Alert Rule */
+export interface GrafanaCreateAlertRuleInput {
+  /** Name of the alert rule */
+  title: string
+  /** The rule group this alert belongs to */
+  ruleGroup: string
+  /** UID of the folder to store the rule in */
+  folderUID: string
+  /** Reference to the condition query (e.g., B) */
+  condition: string
+  /** How long the condition must be true before firing (e.g., 5m) */
+  forDuration?: string
+  /** Array of query objects with refId, datasourceUid, and model */
+  data: unknown
+  /** Key-value labels for the alert rule */
+  labels?: Record<string, unknown>
+  /** Key-value annotations (e.g., summary, description) */
+  annotations?: Record<string, unknown>
+}
+
+/** Grafana — List Alert Rules */
+export type GrafanaListAlertsInput = Record<string, never>
+
+/** Grafana — Custom API Call */
+export interface GrafanaCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /api/dashboards/uid/abc123) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** GraphQL — Send Request */
+export interface GraphqlSendRequestInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** URL */
+  url: string
+  /** Query params */
+  queryParams: Record<string, unknown>
+  /** Headers */
+  headers: Record<string, unknown>
+  /** Query */
+  query: string
+  /** Variables */
+  variables?: unknown
+  /** Use a proxy for this request */
+  use_proxy?: boolean
+  /** Proxy Settings */
+  proxy_settings?: Record<string, unknown>
+  /** Timeout(in seconds) */
+  timeout?: number
+  /** No Error on Failure */
+  failsafe?: boolean
+}
+
 /** Greenhouse — List Candidates */
 export interface GreenhouseListCandidatesInput {
   /** Per Page */
@@ -6291,6 +10920,82 @@ export interface GreenhouseListApplicationsInput {
   status?: "active" | "rejected" | "hired"
   /** Per Page */
   perPage?: number
+}
+
+/** Grist — Create Record */
+export interface GristGristCreateRecordInput {
+  /** Workspace (resolve via property options API) */
+  workspace_id: string
+  /** Document (resolve via property options API) */
+  document_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** Table Columns */
+  table_columns: Record<string, unknown>
+}
+
+/** Grist — Search Record */
+export interface GristGristSearchRecordInput {
+  /** Workspace (resolve via property options API) */
+  workspace_id: string
+  /** Document (resolve via property options API) */
+  document_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** Column (resolve via property options API) */
+  column: string
+  /** Enter the search text. The search operation is case sensitive, exact text match, and supports column-type Text only. */
+  value: string
+}
+
+/** Grist — Update Record */
+export interface GristGristUpdateRecordInput {
+  /** Workspace (resolve via property options API) */
+  workspace_id: string
+  /** Document (resolve via property options API) */
+  document_id: string
+  /** Table (resolve via property options API) */
+  table_id: string
+  /** Record ID */
+  record_id: number
+  /** Table Columns */
+  table_columns: Record<string, unknown>
+}
+
+/** Grist — Upload Attachment to Document */
+export interface GristGristUploadAttachmentsToDocumentInput {
+  /** Workspace (resolve via property options API) */
+  workspace_id: string
+  /** Document (resolve via property options API) */
+  document_id: string
+  /** Attachment */
+  attachment: string
+  /** In case you want to change the name of the attachment. */
+  attachment_name?: string
+}
+
+/** Grist — Custom API Call */
+export interface GristCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Groq — Ask AI */
@@ -6615,6 +11320,125 @@ export interface HashEncodeGenerateUuidInput {
   count?: number
 }
 
+/** HashiCorp Vault — Read Secret */
+export interface VaultReadSecretInput {
+  /** Secrets engine mount path (e.g., secret) */
+  mountPath: string
+  /** Path to the secret within the mount (e.g., myapp/config) */
+  secretPath: string
+  /** KV Version (values: `1`, `2`) */
+  kvVersion?: "1" | "2"
+}
+
+/** HashiCorp Vault — Write Secret */
+export interface VaultWriteSecretInput {
+  /** Secrets engine mount path (e.g., secret) */
+  mountPath: string
+  /** Path to the secret within the mount (e.g., myapp/config) */
+  secretPath: string
+  /** JSON object with the secret data (e.g., {"username":"admin","password":"s3cr3t"}) */
+  data: string
+  /** KV Version (values: `1`, `2`) */
+  kvVersion?: "1" | "2"
+}
+
+/** HashiCorp Vault — List Secrets */
+export interface VaultListSecretsInput {
+  /** Secrets engine mount path (e.g., secret) */
+  mountPath: string
+  /** Path to list keys from (leave empty for root) */
+  secretPath?: string
+  /** KV Version (values: `1`, `2`) */
+  kvVersion?: "1" | "2"
+}
+
+/** HashiCorp Vault — Get Health */
+export type VaultGetHealthInput = Record<string, never>
+
+/** HashiCorp Vault — Delete Secret */
+export interface VaultDeleteSecretInput {
+  /** Secrets engine mount path (e.g., secret) */
+  mountPath: string
+  /** Path to the secret to delete */
+  secretPath: string
+  /** KV Version (values: `1`, `2`) */
+  kvVersion?: "1" | "2"
+}
+
+/** Heap — Track Event */
+export interface HeapTrackEventInput {
+  /** The user identifier (email or user ID) */
+  identity: string
+  /** Event Name */
+  event: string
+  /** Additional event properties */
+  properties?: unknown
+  /** ISO 8601 timestamp (defaults to now) */
+  timestamp?: string
+}
+
+/** Heap — Add User Properties */
+export interface HeapAddUserPropertiesInput {
+  /** The user identifier (email or user ID) */
+  identity: string
+  /** User properties to set as JSON */
+  properties: unknown
+}
+
+/** Heap — Custom API Call */
+export interface HeapCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** HelloSign — Send Signature Request */
+export interface HellosignSendSignatureRequestInput {
+  /** Title */
+  title: string
+  /** Email subject line */
+  subject?: string
+  /** Message for signers */
+  message?: string
+  /** Signer Email */
+  signerEmail: string
+  /** Signer Name */
+  signerName: string
+  /** URL of the document to sign */
+  fileUrl: string
+  /** Send in test mode (no charges) */
+  testMode?: boolean
+}
+
+/** HelloSign — Get Signature Request */
+export interface HellosignGetSignatureRequestInput {
+  /** Signature Request ID */
+  signatureRequestId: string
+}
+
+/** HelloSign — List Signature Requests */
+export interface HellosignListSignatureRequestsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Search by title or signer email */
+  query?: string
+}
+
+/** HelloSign — Custom API Call */
+export interface HellosignCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Help Scout — Create Conversation */
 export interface HelpScoutCreateConversationInput {
   /** Mailbox (resolve via property options API) */
@@ -6763,6 +11587,100 @@ export interface HelpScoutCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** HeyGen — Create Video from Template */
+export interface HeygenCreateVideoFromTemplateInput {
+  /** Select the template to generate the video. (resolve via property options API) */
+  templateId: string
+  /** Title of the generated video. */
+  title: string
+  /** Enable Captions */
+  caption?: boolean
+  /** Include GIF Preview */
+  includeGif?: boolean
+  /** Enable Public Sharing */
+  enableSharing?: boolean
+  /** Select the folder to store the video. (resolve via property options API) */
+  folderId?: string
+  /** Select the Brand Voice to apply to the video. (resolve via property options API) */
+  brandVoiceId?: string
+  /** Webhook URL to notify when video rendering is complete. */
+  callbackUrl?: string
+  /** Video Width */
+  dimensionWidth?: number
+  /** Video Height */
+  dimensionHeight?: number
+  /** Template Varriables */
+  variables?: Record<string, unknown>
+}
+
+/** HeyGen — Retrieve Translated Video Status */
+export interface HeygenRetrieveTranslatedVideoStatusInput {
+  /** The ID of the translated video to check the status for. */
+  videoId: string
+}
+
+/** HeyGen — Retrieve Video Status */
+export interface HeygenRetrieveVideoStatusInput {
+  /** The ID of the video to retrieve the status for. */
+  videoId: string
+}
+
+/** HeyGen — Retrieve Sharable Video URL */
+export interface HeygenRetrieveSharableVideoUrlInput {
+  /** The ID of the video to generate a shareable URL for. */
+  videoId: string
+}
+
+/** HeyGen — Upload an Asset */
+export interface HeygenUploadAssetInput {
+  /** The file to upload (JPEG, PNG, MP4, WEBM, or MPEG). */
+  file: string
+}
+
+/** HeyGen — Translate Video */
+export interface HeygenTranslateVideoInput {
+  /** URL of the video file to be translated. Supports direct URLs, Google Drive, and YouTube. */
+  videoUrl: string
+  /** Optional title of the translated video. */
+  title?: string
+  /** Select the language for video translation. (resolve via property options API) */
+  outputLanguage: string
+  /** Only translate the audio without modifying faces. */
+  translateAudioOnly?: boolean
+  /** Number of speakers in the video (if applicable). */
+  speakerNum?: number
+  /** Select the Brand Voice to apply to the video. (resolve via property options API) */
+  brandVoiceId?: string
+  /** Custom ID returned in webhook callback. */
+  callbackId?: string
+  /** URL to notify when translation is complete. */
+  callbackUrl?: string
+}
+
+/** HeyGen — Custom API Call */
+export interface HeygenCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** HiBob — List Employees */
 export type HibobListEmployeesInput = Record<string, never>
 
@@ -6772,11 +11690,703 @@ export interface HibobGetEmployeeInput {
   employeeId: string
 }
 
-/** HiBob — List Time Off Requests */
-export type HibobListTimeOffInput = Record<string, never>
+/** HiBob — List Who's Out */
+export interface HibobListTimeOffInput {
+  /** Start date (YYYY-MM-DD) */
+  from: string
+  /** End date (YYYY-MM-DD) */
+  to: string
+}
 
 /** HiBob — List Company Lists */
 export type HibobListCompanyListsInput = Record<string, never>
+
+/** Hotjar — List Surveys */
+export interface HotjarListSurveysInput {
+  /** Site ID */
+  siteId: string
+}
+
+/** Hotjar — Get Survey Responses */
+export interface HotjarGetSurveyResponsesInput {
+  /** Site ID */
+  siteId: string
+  /** Survey ID */
+  surveyId: string
+  /** Limit */
+  limit?: number
+  /** Include question details in the response */
+  withQuestions?: boolean
+}
+
+/** Hotjar — List Sites */
+export type HotjarListSitesInput = Record<string, never>
+
+/** Hotjar — Custom API Call */
+export interface HotjarCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Housecall Pro — Create Customer */
+export interface HousecallProCreateCustomerInput {
+  /** At least one of: First Name, Last Name, Email, Mobile Number, Home Number, Work Number is required. */
+  info?: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Mobile Number */
+  mobile_number?: string
+  /** Home Number */
+  home_number?: string
+  /** Work Number */
+  work_number?: string
+  /** Company */
+  company?: string
+  /** Will the customer receive notifications */
+  notifications_enabled?: boolean
+  /** Lead Source */
+  lead_source?: string
+  /** Notes */
+  notes?: string
+  /** Array of tags to assign to the customer */
+  tags?: unknown[]
+  /** Array of address objects */
+  addresses?: unknown[]
+}
+
+/** Housecall Pro — Get Customers */
+export interface HousecallProGetCustomersInput {
+  /** Page number for pagination (starts from 1) */
+  page?: number
+  /** Number of customers per page (max 100) */
+  page_size?: number
+  /** Search customers by name, email, mobile number, and address */
+  q?: string
+  /** Expand related data */
+  expand?: string[]
+  /** IDs of locations from which to pull customers */
+  location_ids?: unknown[]
+  /** The customer attribute by which to sort the results (values: `created_at`, `updated_at`, `last_name`) */
+  sort_by?: "created_at" | "updated_at" | "last_name"
+  /** The order of sorting (ascending or descending) (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+}
+
+/** Housecall Pro — Get Customer */
+export interface HousecallProGetCustomerInput {
+  /** The ID of the customer to retrieve. */
+  customer_id: string
+  /** Expand related data */
+  expand?: string[]
+}
+
+/** Housecall Pro — Update Customer */
+export interface HousecallProUpdateCustomerInput {
+  /** The ID of the customer to update. */
+  customer_id: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Mobile Number */
+  mobile_number?: string
+  /** Home Number */
+  home_number?: string
+  /** Work Number */
+  work_number?: string
+  /** Company */
+  company?: string
+  /** Notes */
+  notes?: string
+  /** Array of tags to assign to the customer (replaces existing tags) */
+  tags?: unknown[]
+  /** Will the customer receive notifications */
+  notifications_enabled?: boolean
+  /** Lead Source */
+  lead_source?: string
+  /** Array of address objects (if provided, each address must include an id) */
+  addresses?: unknown[]
+}
+
+/** Housecall Pro — Get All of a Customer's Addresses */
+export interface HousecallProGetCustomerAddressesInput {
+  /** The ID of the customer */
+  customer_id: string
+  /** Paginated page number */
+  page?: number
+  /** Number of addresses returned per page */
+  page_size?: number
+  /** Address attribute to sort by (values: `created_at`, `updated_at`) */
+  sort_by?: "created_at" | "updated_at"
+  /** Ascending or descending (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+}
+
+/** Housecall Pro — Create an Address on a Customer */
+export interface HousecallProCreateCustomerAddressInput {
+  /** The ID of the customer to add address to */
+  customer_id: string
+  /** Street address */
+  street: string
+  /** Additional street address line */
+  street_line_2?: string
+  /** City */
+  city: string
+  /** State */
+  state: string
+  /** ZIP code */
+  zip: string
+  /** Country */
+  country: string
+  /** Latitude (one of number) */
+  latitude?: number
+  /** Longitude (one of number) */
+  longitude?: number
+}
+
+/** Housecall Pro — Get a Customer's Address */
+export interface HousecallProGetCustomerAddressInput {
+  /** The ID of the customer */
+  customer_id: string
+  /** The ID of the address */
+  address_id: string
+}
+
+/** Housecall Pro — Create Job */
+export interface HousecallProCreateJobInput {
+  /** The ID of the customer this job is for */
+  customer_id: string
+  /** The ID of the address for this job */
+  address_id: string
+  /** Invoice number must be unique across all of a company's jobs. If left blank, one will be automatically generated. */
+  invoice_number?: number
+  /** Start time of job in ISO8601 format (e.g., 2021-01-14T20:14:00) */
+  scheduled_start?: string
+  /** End time of job in ISO8601 format (e.g., 2021-01-14T21:14:00) */
+  scheduled_end?: string
+  /** Integer value in minutes of arrival window */
+  arrival_window?: number
+  /** Array of employee IDs to assign to the job */
+  assigned_employee_ids?: unknown[]
+  /** Array of tags to assign to the job */
+  tags?: unknown[]
+  /** Lead Source */
+  lead_source?: string
+  /** Notes */
+  notes?: string
+  /** Array of line items for the job */
+  line_items?: unknown[]
+  /** Pricing form object with fields and options (use UUIDs from GET price form endpoint) */
+  pricing_form?: unknown
+  /** Job fields object (e.g., job_type_id, business_unit_id) */
+  job_fields?: unknown
+}
+
+/** Housecall Pro — Get Jobs */
+export interface HousecallProGetJobsInput {
+  /** Filters jobs by a single customer ID */
+  customer_id?: string
+  /** Array of employee IDs to filter jobs */
+  employee_ids?: unknown[]
+  /** Array of strings to expand response body */
+  expand?: string[]
+  /** IDs of locations to retrieve jobs from */
+  location_ids?: unknown[]
+  /** The paginated page number */
+  page?: number
+  /** The number of jobs returned per page */
+  page_size?: number
+  /** Filters jobs with a starting time greater than or equal to the date sent */
+  scheduled_start_min?: string
+  /** Filters jobs with a starting time less than or equal to the date sent */
+  scheduled_start_max?: string
+  /** Filters jobs with an end time greater than or equal to the date sent */
+  scheduled_end_min?: string
+  /** Filters jobs with an end time less than or equal to the date sent */
+  scheduled_end_max?: string
+  /** The attribute to sort the results by (values: `created_at`, `updated_at`, `invoice_number`, `id`, `description`, `work_status`) */
+  sort_by?: "created_at" | "updated_at" | "invoice_number" | "id" | "description" | "work_status"
+  /** The sorting order (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** Filters jobs by their work status. If empty, returns jobs from all statuses */
+  work_status?: string[]
+}
+
+/** Housecall Pro — Get a Job */
+export interface HousecallProGetJobInput {
+  /** The ID of the job to retrieve */
+  job_id: string
+  /** Expand related data (attachments, appointments) */
+  expand?: string[]
+}
+
+/** Housecall Pro — Update Job Schedule */
+export interface HousecallProUpdateJobScheduleInput {
+  /** The ID of the job to update schedule for */
+  job_id: string
+  /** Start time of job in ISO8601 format (e.g., 2021-01-14T20:14:00) */
+  start_time: string
+  /** End time of job in ISO8601 format (e.g., 2021-01-14T21:14:00) */
+  end_time: string
+  /** Integer value in minutes of arrival window */
+  arrival_window_in_minutes?: number
+  /** Notify the customer of the update schedule */
+  notify?: boolean
+  /** Notify the pros of the update schedule */
+  notify_pro?: boolean
+  /** Expand related entities */
+  expand?: string[]
+  /** Array of employee objects with employee_id */
+  dispatched_employees?: unknown[]
+}
+
+/** Housecall Pro — Delete Job Schedule */
+export interface HousecallProDeleteJobScheduleInput {
+  /** The ID of the job to delete schedule from. */
+  job_id: string
+}
+
+/** Housecall Pro — Create appointment */
+export interface HousecallProCreateJobAppointmentInput {
+  /** The ID of the job */
+  job_id: string
+  /** Start time of job appointment in iso8601 */
+  start_time: string
+  /** End time of job appointment in iso8601 */
+  end_time: string
+  /** Integer value in minutes of arrival window */
+  arrival_window_minutes?: number
+  /** List of pros ids to be assign in appointment */
+  dispatched_employees_ids: unknown[]
+}
+
+/** Housecall Pro — Get Appointments */
+export interface HousecallProGetJobAppointmentsInput {
+  /** The ID of the job */
+  job_id: string
+}
+
+/** Housecall Pro — Update Appointment */
+export interface HousecallProUpdateJobAppointmentInput {
+  /** The ID of the appointment */
+  appointment_id: string
+  /** The ID of the job */
+  job_id: string
+  /** Start time of job appointment in iso8601 */
+  start_time: string
+  /** End time of job appointment in iso8601 */
+  end_time: string
+  /** Integer value in minutes of arrival window */
+  arrival_window_minutes?: number
+  /** List of pros ids to be assign in appointment */
+  dispatched_employees_ids: unknown[]
+}
+
+/** Housecall Pro — Delete appointment */
+export interface HousecallProDeleteJobAppointmentInput {
+  /** The ID of the appointment */
+  appointment_id: string
+  /** The ID of the job */
+  job_id: string
+}
+
+/** Housecall Pro — Add job note */
+export interface HousecallProAddJobNoteInput {
+  /** The ID of the job */
+  job_id: string
+  /** The content of the note */
+  content: string
+}
+
+/** Housecall Pro — Delete job note */
+export interface HousecallProDeleteJobNoteInput {
+  /** The ID of the job */
+  job_id: string
+  /** The ID of the note to delete */
+  note_id: string
+}
+
+/** Housecall Pro — Add an attachment to a job */
+export interface HousecallProAddJobAttachmentInput {
+  /** The ID of the job to add attachment to */
+  job_id: string
+  /** The file to upload */
+  file: string
+}
+
+/** Housecall Pro — Add a line item to a job */
+export interface HousecallProAddJobLineItemInput {
+  /** The ID of the job */
+  job_id: string
+  /** The name of the line item */
+  name: string
+  /** The description of the line item */
+  description?: string
+  /** The unit price of the line item */
+  unit_price?: number
+  /** The unit cost of the line item */
+  unit_cost?: number
+  /** The number of items being sold. This can be a float up to two decimal places */
+  quantity?: number
+  /** The type of tax or surcharge (values: `material`, `labor`, `flat_quantity`, `fixed_discount`, `percent_discount`) */
+  tax_surcharge_type?: "material" | "labor" | "flat_quantity" | "fixed_discount" | "percent_discount"
+  /** The kind of line item (values: `material`, `labor`, `flat_quantity`, `fixed_discount`, `percent_discount`) */
+  kind?: "material" | "labor" | "flat_quantity" | "fixed_discount" | "percent_discount"
+  /** Whether the line item is taxable */
+  taxable?: boolean
+  /** The ID of the service line */
+  service_line_id?: string
+  /** The type of service line (values: `custom_place`, `organization`, `pricebok_material`) */
+  service_line_type?: "custom_place" | "organization" | "pricebok_material"
+}
+
+/** Housecall Pro — Update a single line item for a job */
+export interface HousecallProUpdateJobLineItemInput {
+  /** The ID of the job */
+  job_id: string
+  /** The ID of the line item */
+  id: string
+  /** The ID of the service line */
+  service_line_id?: string
+  /** The type of service line (values: `custom_place`, `organization`, `pricebok_material`) */
+  service_line_type?: "custom_place" | "organization" | "pricebok_material"
+  /** The name of the line item */
+  name?: string
+  /** The unit price of the line item */
+  unit_price?: number
+  /** The unit cost of the line item */
+  unit_cost?: number
+  /** The number of items being sold */
+  quantity?: number
+  /** The kind of line item (values: `material`, `labor`, `flat_quantity`, `fixed_discount`, `percent_discount`) */
+  kind?: "material" | "labor" | "flat_quantity" | "fixed_discount" | "percent_discount"
+  /** Whether the line item is taxable */
+  taxable?: boolean
+  /** The description of the line item */
+  description?: string
+}
+
+/** Housecall Pro — Delete a single line item for a job */
+export interface HousecallProDeleteJobLineItemInput {
+  /** The ID of the job */
+  job_id: string
+  /** The ID of the line item to delete */
+  id: string
+}
+
+/** Housecall Pro — Lists all line items for a job */
+export interface HousecallProGetJobLineItemsInput {
+  /** The ID of the job */
+  job_id: string
+}
+
+/** Housecall Pro — Add job tag */
+export interface HousecallProAddJobTagInput {
+  /** The ID of the job */
+  job_id: string
+  /** The ID of the tag to add */
+  tag_id: string
+}
+
+/** Housecall Pro — Remove job tag */
+export interface HousecallProRemoveJobTagInput {
+  /** The ID of the job */
+  job_id: string
+  /** The ID of the tag to remove */
+  tag_id: string
+}
+
+/** Housecall Pro — Create Job Link */
+export interface HousecallProCreateJobLinkInput {
+  /** The ID of the job */
+  job_id: string
+  /** The title of the link */
+  title: string
+  /** The URL of the link */
+  url: string
+}
+
+/** Housecall Pro — Get Job Invoices */
+export interface HousecallProGetJobInvoicesInput {
+  /** The ID of the job to retrieve invoices for */
+  job_id: string
+}
+
+/** Housecall Pro — Lists all job input materials for a job */
+export interface HousecallProGetJobInputMaterialsInput {
+  /** The ID of the job */
+  job_id: string
+}
+
+/** Housecall Pro — Bulk update a job's line items */
+export interface HousecallProBulkUpdateJobLineItemsInput {
+  /** The ID of the job */
+  job_id: string
+  /** Array of line items to update */
+  line_items: unknown[]
+  /** Append line items to the job */
+  append_line_items?: boolean
+}
+
+/** Housecall Pro — Bulk update a job's input materials */
+export interface HousecallProBulkUpdateJobInputMaterialsInput {
+  /** The ID of the job */
+  job_id: string
+  /** Array of job input materials to update */
+  job_input_materials: unknown[]
+}
+
+/** Housecall Pro — Dispatch job to employees */
+export interface HousecallProDispatchJobToEmployeesInput {
+  /** The ID of the job to dispatch */
+  job_id: string
+  /** Array of employees with employee_id to dispatch to */
+  dispatched_employees: unknown[]
+}
+
+/** Housecall Pro — Lock Job */
+export interface HousecallProLockJobInput {
+  /** The ID of the job to lock */
+  job_id: string
+}
+
+/** Housecall Pro — Lock Jobs */
+export interface HousecallProLockJobsInput {
+  /** Lock jobs starting from this date/time */
+  starting_at: string
+  /** Lock jobs until this date/time */
+  ending_at: string
+}
+
+/** Housecall Pro — Create estimate */
+export interface HousecallProCreateEstimateInput {
+  /** Unique estimate number. If blank, one will be automatically generated. */
+  estimate_number?: number
+  /** Note Message */
+  message?: string
+  /** Customer ID */
+  customer_id?: string
+  /** Assigned Employee IDs */
+  assigned_employee_ids?: unknown[]
+  /** Address ID */
+  address_id?: string
+  /** Address object with fields: street, street_line_2, city, state, zip */
+  address?: unknown
+  /** Schedule object with fields: start_time, end_time, arrival_window_in_minutes, notify_customer */
+  schedule?: unknown
+  /** Estimate fields object with: job_type_id, business_unit_id */
+  estimate_fields?: unknown
+  /** Each option object corresponds to an estimate option to create. */
+  options?: unknown[]
+  /** Advanced: provide raw fields merged into the request body. */
+  additional_fields?: unknown
+}
+
+/** Housecall Pro — Get estimate by ID */
+export interface HousecallProGetEstimateInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Expand */
+  expand?: string[]
+}
+
+/** Housecall Pro — Get estimates */
+export interface HousecallProGetEstimatesInput {
+  /** Filter estimates by a single customer ID */
+  customer_id?: string
+  /** Filter estimates by assigned employee IDs */
+  employee_ids?: unknown[]
+  /** Array of strings to expand response body */
+  expand?: string[]
+  /** IDs of locations to retrieve estimates from */
+  location_ids?: unknown[]
+  /** The paginated page number */
+  page?: number
+  /** The number of estimates returned per page */
+  page_size?: number
+  /** Filters estimates with an end time less than or equal to the date sent */
+  scheduled_end_max?: string
+  /** Filters estimates with an end time greater than or equal to the date sent */
+  scheduled_end_min?: string
+  /** Filters estimates with a starting time less than or equal to the date sent */
+  scheduled_start_max?: string
+  /** Filters estimates with a starting time greater than or equal to the date sent */
+  scheduled_start_min?: string
+  /** The attribute to sort the results by (values: `created_at`, `updated_at`, `id`) */
+  sort_by?: "created_at" | "updated_at" | "id"
+  /** The sorting order (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** Filters estimates by their work status */
+  work_status?: string[]
+}
+
+/** Housecall Pro — Create estimate option note */
+export interface HousecallProCreateEstimateOptionNoteInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Option ID */
+  option_id: string
+  /** Content */
+  content: string
+}
+
+/** Housecall Pro — Delete estimate option note */
+export interface HousecallProDeleteEstimateOptionNoteInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Option ID */
+  option_id: string
+  /** Note ID */
+  note_id: string
+}
+
+/** Housecall Pro — Create estimate option attachment */
+export interface HousecallProCreateEstimateOptionAttachmentInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Option ID */
+  option_id: string
+  /** File */
+  file: string
+}
+
+/** Housecall Pro — Create estimate option link */
+export interface HousecallProCreateEstimateOptionLinkInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Option ID */
+  option_id: string
+  /** Title */
+  title: string
+  /** URL */
+  url: string
+}
+
+/** Housecall Pro — Update estimate option schedule */
+export interface HousecallProUpdateEstimateOptionScheduleInput {
+  /** Estimate ID */
+  estimate_id: string
+  /** Option ID */
+  option_id: string
+  /** Start Time */
+  start_time: string
+  /** End Time */
+  end_time: string
+  /** Arrival Window (minutes) */
+  arrival_window_in_minutes: number
+  /** Notify Customer */
+  notify: boolean
+  /** Notify Pro */
+  notify_pro: boolean
+  /** Expand */
+  expand?: string[]
+  /** Array of objects with employee_id */
+  dispatched_employees?: unknown[]
+}
+
+/** Housecall Pro — Create Lead */
+export interface HousecallProCreateLeadInput {
+  /** Either the ID of customer required */
+  customer_id: string
+  /** Either the ID of customer required */
+  customer?: Record<string, unknown>
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Will the customer receive notifications */
+  notifications_enabled?: boolean
+  /** Mobile Number */
+  mobile_number?: string
+  /** Home Number */
+  home_number?: string
+  /** Work Number */
+  work_number?: string
+  /** Lead Source */
+  lead_source?: string
+  /** Notes */
+  notes?: string
+  /** Tags */
+  tags?: unknown[]
+  /** Addresses */
+  addresses?: unknown[]
+  /** Assigned Employees */
+  assigned_employees?: unknown[]
+}
+
+/** Housecall Pro — Get Lead */
+export interface HousecallProGetLeadInput {
+  /** Lead ID */
+  id: string
+}
+
+/** Housecall Pro — Get Leads */
+export interface HousecallProGetLeadsInput {
+  /** Filter leads by a single customer ID (String) */
+  customer_id?: string
+  /** Filter leads by a list of employee IDs (String array) */
+  employee_ids?: unknown[]
+  /** Filter leads by a single lead_source */
+  lead_source?: string
+  /** If a location you want to get from / If a Company-kit header is set, location_ids will be ignored */
+  location_ids?: unknown[]
+  /** Paginated page number */
+  page?: number
+  /** Number of leads returned per page */
+  page_size?: number
+  /** Attribute to sort by */
+  sort_by?: string
+  /** Allowed values: asc, desc */
+  sort_direction?: string
+  /** Filter leads by status */
+  status?: string
+  /** Filter leads by a list of tags */
+  tag_ids?: unknown[]
+}
+
+/** Housecall Pro — Convert Lead to Estimate or Job */
+export interface HousecallProConvertLeadToEstimateOrJobInput {
+  /** Lead ID */
+  id: string
+  /** The type to convert the lead to. Must be either 'estimate' or 'job' */
+  type: string
+}
+
+/** Housecall Pro — Custom API Call */
+export interface HousecallProCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
 
 /** HTTP — Send HTTP request */
 export interface HttpSendRequestInput {
@@ -7576,6 +13186,144 @@ export interface HuggingFaceImageClassificationInput {
   outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
 }
 
+/** Hunter.io — Find Email */
+export interface HunterIoFindEmailInput {
+  /** The company domain (e.g. stripe.com) */
+  domain: string
+  /** The person's first name */
+  firstName: string
+  /** The person's last name */
+  lastName: string
+  /** The company name (optional, used to improve accuracy) */
+  company?: string
+}
+
+/** Hunter.io — Verify Email */
+export interface HunterIoVerifyEmailInput {
+  /** The email address to verify */
+  email: string
+}
+
+/** Hunter.io — Domain Search */
+export interface HunterIoDomainSearchInput {
+  /** The company domain to search (e.g. stripe.com) */
+  domain: string
+  /** Maximum number of results to return (max 100) */
+  limit?: number
+  /** Number of results to skip for pagination */
+  offset?: number
+  /** Filter by email type (values: ``, `personal`, `generic`) */
+  type?: "" | "personal" | "generic"
+  /** Filter by seniority level (e.g. junior, senior, executive) */
+  seniority?: string
+  /** Filter by department (e.g. sales, marketing, engineering) */
+  department?: string
+}
+
+/** Hunter.io — Custom API Call */
+export interface HunterIoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /domain-search) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Ideogram — Generate Image */
+export interface IdeogramGenerateImageInput {
+  /** The text prompt for image generation */
+  prompt: string
+  /** Aspect Ratio (values: `ASPECT_1_1`, `ASPECT_16_9`, `ASPECT_9_16`, `ASPECT_4_3`, `ASPECT_3_4`, `ASPECT_3_2`, `ASPECT_2_3`) */
+  aspectRatio?: "ASPECT_1_1" | "ASPECT_16_9" | "ASPECT_9_16" | "ASPECT_4_3" | "ASPECT_3_4" | "ASPECT_3_2" | "ASPECT_2_3"
+  /** Model (values: `V_2`, `V_2_TURBO`) */
+  model?: "V_2" | "V_2_TURBO"
+  /** Number of Images */
+  numImages?: number
+  /** Negative Prompt */
+  negativePrompt?: string
+}
+
+/** Ideogram — Remix Image */
+export interface IdeogramRemixImageInput {
+  /** URL of the source image to remix */
+  imageUrl: string
+  /** Text prompt for the remix */
+  prompt: string
+  /** How closely to follow the source image (0-100) */
+  imageWeight?: number
+  /** Aspect Ratio (values: `ASPECT_1_1`, `ASPECT_16_9`, `ASPECT_9_16`) */
+  aspectRatio?: "ASPECT_1_1" | "ASPECT_16_9" | "ASPECT_9_16"
+}
+
+/** Ideogram — Describe Image */
+export interface IdeogramDescribeImageInput {
+  /** URL of the image to describe */
+  imageUrl: string
+}
+
+/** Ideogram — Custom API Call */
+export interface IdeogramCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** iManage — Search Documents */
+export interface ImanageSearchDocumentsInput {
+  /** Search term for document name or content */
+  query: string
+  /** Library to search within */
+  libraryId?: string
+  /** Limit */
+  limit?: number
+}
+
+/** iManage — Get Document */
+export interface ImanageGetDocumentInput {
+  /** Library ID */
+  libraryId: string
+  /** Document ID */
+  documentId: string
+}
+
+/** iManage — Upload Document */
+export interface ImanageUploadDocumentInput {
+  /** Library ID */
+  libraryId: string
+  /** Folder ID */
+  folderId: string
+  /** Document Name */
+  name: string
+  /** e.g. docx, pdf, xlsx */
+  extension: string
+  /** Description */
+  description?: string
+  /** iManage document class */
+  documentClass?: string
+}
+
+/** iManage — List Workspaces */
+export interface ImanageListWorkspacesInput {
+  /** Library ID */
+  libraryId: string
+  /** Limit */
+  limit?: number
+}
+
+/** iManage — Custom API Call */
+export interface ImanageCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** IMAP — Mark Email as Read/Unread */
 export interface ImapMarkEmailReadInput {
   /** Select the parent folder containing the email. (resolve via property options API) */
@@ -7614,6 +13362,108 @@ export interface ImapDeleteEmailInput {
   uid: number
   /**  **Permanent Deletion:**  This action permanently deletes the email. This action cannot be undone. To move an email to the Trash folder, use the Move Email action instead.  */
   permanentDeletionNotice?: string
+}
+
+/** Infobip — Send SMS */
+export interface InfobipSendSmsInput {
+  /** Sender ID or phone number */
+  from: string
+  /** Recipient phone number in international format (e.g. 14151234567) */
+  to: string
+  /** Text content of the SMS message */
+  text: string
+  /** Optional webhook URL for delivery reports */
+  notifyUrl?: string
+}
+
+/** Infobip — Send Email */
+export interface InfobipSendEmailInput {
+  /** Sender email address */
+  from: string
+  /** Recipient email address */
+  to: string
+  /** Subject */
+  subject: string
+  /** Plain text body of the email */
+  text?: string
+  /** HTML body of the email */
+  html?: string
+}
+
+/** Infobip — Get Delivery Report */
+export interface InfobipGetDeliveryReportInput {
+  /** Filter by bulk ID (optional) */
+  bulkId?: string
+  /** Filter by message ID (optional) */
+  messageId?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Infobip — Custom API Call */
+export interface InfobipCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Insightly — Create Record */
+export interface InsightlyCreateRecordInput {
+  /** Your Insightly pod (e.g., "na1", "eu1"). Find this in your API URL: https://api.{pod}.insightly.com */
+  pod: string
+  /** Select the type of record to create (values: `Contacts`, `Leads`, `Opportunities`, `Organisations`, `Projects`, `Tasks`, `Events`, `Products`, `Quotations`) */
+  objectName: "Contacts" | "Leads" | "Opportunities" | "Organisations" | "Projects" | "Tasks" | "Events" | "Products" | "Quotations"
+  /** Fields */
+  fields: Record<string, unknown>
+}
+
+/** Insightly — Update Record */
+export interface InsightlyUpdateRecordInput {
+  /** Your Insightly pod (e.g., "na1", "eu1"). Find this in your API URL: https://api.{pod}.insightly.com */
+  pod: string
+  /** Select the type of object that contains the record you want to update (values: `Contacts`, `Leads`, `Opportunities`, `Organisations`, `Projects`, `Tasks`, `Events`, `Products`, `Quotations`) */
+  objectName: "Contacts" | "Leads" | "Opportunities" | "Organisations" | "Projects" | "Tasks" | "Events" | "Products" | "Quotations"
+  /** Select the record to update (resolve via property options API) */
+  recordId: string
+  /** The new field values to update. */
+  fields: Record<string, unknown>
+}
+
+/** Insightly — Get Record */
+export interface InsightlyGetRecordInput {
+  /** Your Insightly pod (e.g., "na1", "eu1"). Find this in your API URL: https://api.{pod}.insightly.com */
+  pod: string
+  /** Select the type of record to retrieve (values: `Contacts`, `Leads`, `Opportunities`, `Organisations`, `Projects`, `Tasks`, `Events`, `Products`, `Quotations`) */
+  objectName: "Contacts" | "Leads" | "Opportunities" | "Organisations" | "Projects" | "Tasks" | "Events" | "Products" | "Quotations"
+  /** Select the record to retrieve (resolve via property options API) */
+  recordId: string
+}
+
+/** Insightly — Delete Record */
+export interface InsightlyDeleteRecordInput {
+  /** Your Insightly pod (e.g., "na1", "eu1"). Find this in your API URL: https://api.{pod}.insightly.com */
+  pod: string
+  /** Select the type of record to delete (values: `Contacts`, `Leads`, `Opportunities`, `Organisations`, `Projects`, `Tasks`, `Events`, `Products`, `Quotations`) */
+  objectName: "Contacts" | "Leads" | "Opportunities" | "Organisations" | "Projects" | "Tasks" | "Events" | "Products" | "Quotations"
+  /** Select the record to delete (resolve via property options API) */
+  recordId: string
+}
+
+/** Insightly — Find Records */
+export interface InsightlyFindRecordsInput {
+  /** Your Insightly pod (e.g., "na1", "eu1"). */
+  pod: string
+  /** Select the type of records to find (values: `Contacts`, `Leads`, `Opportunities`, `Organisations`, `Projects`, `Tasks`, `Events`, `Products`, `Quotations`) */
+  objectName: "Contacts" | "Leads" | "Opportunities" | "Organisations" | "Projects" | "Tasks" | "Events" | "Products" | "Quotations"
+  /** Select the field to search by (resolve via property options API) */
+  fieldName: string
+  /** The value to search for */
+  fieldValue: string
+  /** Maximum number of records to return */
+  top?: number
 }
 
 /** Instagram for Business — Upload Photo */
@@ -7887,6 +13737,176 @@ export interface IntercomCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** IPinfo — Lookup IP */
+export interface IpinfoLookupIpInput {
+  /** The IPv4 or IPv6 address to look up. Leave empty to look up your own IP. */
+  ip?: string
+  /** Request a specific field only (e.g. country, city, org). Leave empty for full response. */
+  field?: string
+}
+
+/** IPinfo — Get ASN Details */
+export interface IpinfoGetAsnInput {
+  /** The ASN to look up (e.g. AS15169 for Google) */
+  asn: string
+}
+
+/** IPinfo — Custom API Call */
+export interface IpinfoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /8.8.8.8/json) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** JazzHR — List Applicants */
+export interface JazzhrListApplicantsInput {
+  /** Page number (results limited to 100 per page) */
+  page?: number
+  /** Filter by applicant name */
+  name?: string
+  /** Filter by city */
+  city?: string
+  /** Filter by job ID */
+  jobId?: string
+}
+
+/** JazzHR — Get Applicant */
+export interface JazzhrGetApplicantInput {
+  /** The ID of the applicant to retrieve */
+  applicantId: string
+}
+
+/** JazzHR — List Jobs */
+export interface JazzhrListJobsInput {
+  /** Page number (results limited to 100 per page) */
+  page?: number
+  /** Status (values: `open`, `closed`, `draft`, `on_hold`) */
+  status?: "open" | "closed" | "draft" | "on_hold"
+}
+
+/** JazzHR — Get Job */
+export interface JazzhrGetJobInput {
+  /** The ID of the job to retrieve */
+  jobId: string
+}
+
+/** JazzHR — List Activities */
+export interface JazzhrListActivitiesInput {
+  /** Page number (results limited to 100 per page) */
+  page?: number
+}
+
+/** Jina AI — Extract Webpage Content */
+export interface JinaAiExtractWebpageContentInput {
+  /** The URL of the webpage to extract content from. */
+  url: string
+  /** Format of the extracted content - how the webpage should be returned. (values: `default`, `markdown`, `html`, `text`, `screenshot`, `pageshot`) */
+  format: "default" | "markdown" | "html" | "text" | "screenshot" | "pageshot"
+  /** Remove all images from the response. */
+  remove_all_images?: boolean
+  /** Create a "Buttons & Links" section at the end to help downstream LLMs or web agents navigate the page. (values: `none`, `true`, `all`) */
+  links_summary?: "none" | "true" | "all"
+  /** Create an "Images" section at the end, giving downstream LLMs an overview of all visuals on the page. (values: `none`, `true`, `all`) */
+  images_summary?: "none" | "true" | "all"
+  /** When enabled, the requested URL won't be cached and tracked on our server. */
+  do_not_track?: boolean
+  /** Processes content from all embedded iframes in the DOM tree. */
+  iframe_extraction?: boolean
+  /** Extracts content from all Shadow DOM roots in the document. */
+  shadow_dom_extraction?: boolean
+  /** Choose whether to resolve to the final destination URL after following all redirects. Enable to follow the full redirect chain. */
+  follow_redirect?: boolean
+  /** All infrastructure and data processing operations reside entirely within EU jurisdiction. */
+  eu_compliance?: boolean
+  /** Return response in JSON format containing URL, title, content, and timestamp (if available). */
+  json_response?: boolean
+  /** Maximum page load wait time in seconds (0 means use default timeout, set a value if the default browser engine is too slow on simple webpages). */
+  timeout_seconds?: number
+  /** List of CSS selectors to target specific page elements (e.g., "body, .main-content, #article"). */
+  css_selector?: string
+  /** CSS selectors to wait for before returning results (e.g., "#dynamic-content, .lazy-loaded"). */
+  wait_for_selector?: string
+  /** CSS selectors for elements to remove from the results (e.g., "header, footer, .ads, #sidebar"). */
+  exclude_selector?: string
+}
+
+/** Jina AI — Web Search Summarization */
+export interface JinaAiWebSearchSummarizationInput {
+  /** The search query to perform. */
+  query: string
+  /** Visit every URL in the search result and return the full content using Reader. Toggle on to enable more Reader-specific options. */
+  read_full_content?: boolean
+  /** The response will be in JSON format, containing the URL, title, content, and timestamp (if available). In Search mode, it returns a list of five entries, each following the described JSON structure. */
+  json_response?: boolean
+  /** This will fetch the favicon of each URL in the SERP and include them in the response as image URI, useful for UI rendering. */
+  fetch_favicons?: boolean
+  /** The country to use for the search. It's a two-letter country code. */
+  preferred_country?: "Default" | "US" | "CA" | "MX" | "GB" | "DE" | "FR" | "JP" | "CN" | "IN" | "BR" | "AU" | "IT" | "ES" | "KR" | "NL" | "CH" | "SE" | "IE" | "SG" | "IL" | "SA" | "ZA" | "AE"
+  /** From where you want the search query to originate. It is recommended to specify location at the city level in order to simulate a real user's search. */
+  preferred_location?: string
+  /** The language to use for the search. It's a two-letter language code. */
+  preferred_language?: "Default" | "en" | "es" | "fr" | "de" | "ja" | "zh-cn" | "hi" | "pt" | "it" | "ko" | "nl" | "ar" | "sv" | "iw" | "af"
+  /** The result offset. It skips the given number of results. It's used for pagination. */
+  pagination?: number
+  /** Returns the search results only from the specified website or domain. By default it searches the entire web. */
+  in_site_search?: string
+  /** Our API caches URL contents for a certain amount of time. Set it to true to ignore the cached result and fetch the content from the URL directly. */
+  bypass_cached_content?: boolean
+  /** All infrastructure and data processing operations reside entirely within EU jurisdiction. */
+  eu_compliance?: boolean
+}
+
+/** Jina AI — DeepSearch Query */
+export interface JinaAiDeepsearchQueryInput {
+  /** Model (values: `jina-deepsearch-v1`) */
+  model: "jina-deepsearch-v1"
+  /** Prompt */
+  prompt: string
+  /** Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response. (values: `low`, `medium`, `high`) */
+  reasoning_effort?: "low" | "medium" | "high"
+  /** This determines the maximum number of tokens allowed for DeepSearch process. Larger budgets can improve response quality by enabling more exhaustive search for complex queries. */
+  budget_tokens?: number
+  /** The maximum number of retries for solving a problem in DeepSearch process. A larger value allows DeepSearch to retry solving the problem by using different reasoning approaches and strategies. */
+  max_attempts?: number
+  /** Forces the model to take further thinking/search steps even when the query seems trivial. Useful if you're using DeepSearch in scenarios where you're certain the query always needs DeepSearch, rather than for trivial questions. */
+  no_direct_answer?: boolean
+  /** The maximum number of URLs to include in the final answer/chunk. URLs are sorted by relevance and other important factors. */
+  max_returned_urls?: number
+  /** JSON schema for structured output format. Example: { "type": "json_schema", "json_schema": { "type": "object", "properties": { "numerical_answer_only": { "type": "number" } } } } */
+  response_format?: unknown
+  /** A list of domains that are given a higher priority for content retrieval. Useful for domain-specific, high-quality sources that provide valuable content. */
+  boost_hostnames?: string
+  /** A list of domains to be strictly excluded from content retrieval. Typically used to filter out known spam, low-quality, or irrelevant websites. */
+  bad_hostnames?: string
+  /** A list of domains to be exclusively included in content retrieval. All other domains will be ignored. Useful for domain-specific searches. */
+  only_hostnames?: string
+}
+
+/** Jina AI — Classify Text or Image */
+export interface JinaAiClassifyContentInput {
+  /** The model to use for classification. (values: `jina-clip-v2`, `jina-embeddings-v3`, `jina-clip-v1`) */
+  model: "jina-clip-v2" | "jina-embeddings-v3" | "jina-clip-v1"
+  /** Text or image URL to classify. URLs will be treated as images, other strings as text. */
+  input: string
+  /** The labels to classify the content into. */
+  labels: unknown[]
+}
+
+/** Jina AI — Train Custom Classifier */
+export interface JinaAiTrainCustomClassifierInput {
+  /** The base model to use for training. (values: `jina-clip-v2`, `jina-embeddings-v3`, `jina-clip-v1`) */
+  model: "jina-clip-v2" | "jina-embeddings-v3" | "jina-clip-v1"
+  /** Visibility of the trained model. (values: `private`, `public`) */
+  access: "private" | "public"
+  /** Number of training iterations to perform. */
+  num_iters?: number
+  /** Training Data */
+  training_data: Array<{   type: "text" | "image";   input: string;   label: string }>
+}
+
 /** Jira Cloud — Create Issue */
 export interface JiraCloudCreateIssueInput {
   /** Project ID or Key (resolve via property options API) */
@@ -8063,8 +14083,194 @@ export interface JiraCloudCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Jotform — Custom API Call */
+/** JotForm — List Forms */
+export interface JotformListFormsInput {
+  /** Limit */
+  limit?: number
+  /** Number of forms to skip for pagination */
+  offset?: number
+  /** Order By (values: `created_at`, `updated_at`, `title`) */
+  orderBy?: "created_at" | "updated_at" | "title"
+}
+
+/** JotForm — Get Form */
+export interface JotformGetFormInput {
+  /** Form ID */
+  formId: string
+}
+
+/** JotForm — Get Submissions */
+export interface JotformGetSubmissionsInput {
+  /** Form ID */
+  formId: string
+  /** Limit */
+  limit?: number
+  /** Number of submissions to skip */
+  offset?: number
+  /** Order By (values: `created_at`, `updated_at`) */
+  orderBy?: "created_at" | "updated_at"
+}
+
+/** JotForm — Create Submission */
+export interface JotformCreateSubmissionInput {
+  /** Form ID */
+  formId: string
+  /** Form field answers as key-value pairs. Keys should be field names (e.g., {"q1_name": "John", "q2_email": "john@example.com"}) */
+  submissionData: Record<string, unknown>
+}
+
+/** JotForm — Custom API Call */
 export interface JotformCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** API endpoint path (e.g., /user/forms) */
+  path: string
+  /** Request body (for POST/PUT) */
+  body?: unknown
+}
+
+/** JumpCloud — List System Users */
+export interface JumpcloudListSystemUsersInput {
+  /** Limit */
+  limit?: number
+  /** Number of records to skip for pagination */
+  skip?: number
+  /** Search by username, email, or name */
+  search?: string
+}
+
+/** JumpCloud — Get System User */
+export interface JumpcloudGetSystemUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** JumpCloud — List Systems */
+export interface JumpcloudListSystemsInput {
+  /** Limit */
+  limit?: number
+  /** Skip */
+  skip?: number
+}
+
+/** JumpCloud — List User Groups */
+export interface JumpcloudListUserGroupsInput {
+  /** Limit */
+  limit?: number
+  /** Skip */
+  skip?: number
+}
+
+/** Kajabi — List Products */
+export interface KajabiListProductsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Kajabi — List Members */
+export interface KajabiListMembersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter by email address */
+  email?: string
+}
+
+/** Kajabi — Get Member */
+export interface KajabiGetMemberInput {
+  /** Member ID */
+  memberId: string
+}
+
+/** Kajabi — List Offers */
+export interface KajabiListOffersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Kajabi — Custom API Call */
+export interface KajabiCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Kareo — List Patients */
+export interface KareoListPatientsInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Practice Name */
+  practiceName?: string
+}
+
+/** Kareo — Get Patient */
+export interface KareoGetPatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** Kareo — List Appointments */
+export interface KareoListAppointmentsInput {
+  /** Filter from date (YYYY-MM-DD) */
+  startDate?: string
+  /** Filter until date (YYYY-MM-DD) */
+  endDate?: string
+  /** Practice Name */
+  practiceName?: string
+}
+
+/** Kareo — Create Appointment */
+export interface KareoCreateAppointmentInput {
+  /** Patient ID */
+  patientId: string
+  /** Provider ID */
+  providerId: string
+  /** Appointment start (YYYY-MM-DDTHH:mm:ss) */
+  startDate: string
+  /** Appointment end (YYYY-MM-DDTHH:mm:ss) */
+  endDate: string
+  /** Notes */
+  notes?: string
+  /** Practice Name */
+  practiceName: string
+}
+
+/** Kareo — Custom API Call */
+export interface KareoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Kissflow — Download Attachment from Form Field */
+export interface KissflowDownloadAttachmentFromFormFieldInput {
+  /** Process ID */
+  processId: string
+  /** Instance ID */
+  instanceId: string
+  /** Activity Instance ID */
+  activityInstanceId: string
+  /** Field ID */
+  fieldId: string
+  /** Attachment ID */
+  attachmentId: string
+}
+
+/** Kissflow — Custom API Call */
+export interface KissflowCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -8118,6 +14324,166 @@ export type KlaviyoListListsInput = Record<string, never>
 export interface KlaviyoListCampaignsInput {
   /** Filter string (e.g., equals(messages.channel,'email')) */
   filter?: string
+}
+
+/** Knock — Trigger Workflow */
+export interface KnockTriggerWorkflowInput {
+  /** The key of the workflow to trigger */
+  workflowKey: string
+  /** Array of recipient user IDs or objects (max 1000) */
+  recipients: unknown
+  /** Optional data payload to pass to the workflow */
+  data?: unknown
+  /** Optional actor user ID who triggered the workflow */
+  actor?: string
+  /** Optional tenant identifier */
+  tenant?: string
+}
+
+/** Knock — List Users */
+export interface KnockListUsersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Pagination cursor for next page */
+  after?: string
+}
+
+/** Knock — Get User */
+export interface KnockGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Knock — List Messages */
+export interface KnockListMessagesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Status (values: `queued`, `sent`, `delivered`, `bounced`, `undelivered`) */
+  status?: "queued" | "sent" | "delivered" | "bounced" | "undelivered"
+  /** After Cursor */
+  after?: string
+}
+
+/** Kommo — Find Lead */
+export interface KommoFindLeadInput {
+  /** Search query (Searches through the filled fields of the lead). */
+  query: string
+}
+
+/** Kommo — Update Contact */
+export interface KommoUpdateContactInput {
+  /** Contact (resolve via property options API) */
+  contactId?: string
+  /** Full Name */
+  name?: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Unique identified of a responsible user (resolve via property options API) */
+  responsible_user_id?: string
+  /** List of tag names or IDs to add. */
+  tags_to_add?: unknown[]
+  /** List of tag names or IDs to remove. */
+  tags_to_delete?: unknown[]
+}
+
+/** Kommo — Create New Lead */
+export interface KommoCreateLeadInput {
+  /** Lead Name */
+  name: string
+  /** Price */
+  price?: number
+  /** Pipeline (resolve via property options API) */
+  pipelineId: string
+  /** Status (resolve via property options API) */
+  statusId: string
+  /** Unique identified of a responsible user (resolve via property options API) */
+  responsible_user_id?: string
+  /** Loss Reason (resolve via property options API) */
+  loss_reason_id?: string
+  /** List of tags to add. */
+  tags_to_add?: unknown[]
+}
+
+/** Kommo — Update Lead */
+export interface KommoUpdateLeadInput {
+  /** Lead (resolve via property options API) */
+  leadId: string
+  /** Name */
+  name?: string
+  /** Price */
+  price?: number
+  /** Pipeline (resolve via property options API) */
+  pipelineId?: string
+  /** Status (resolve via property options API) */
+  statusId?: string
+  /** Unique identified of a responsible user (resolve via property options API) */
+  responsible_user_id?: string
+  /** Loss Reason (resolve via property options API) */
+  loss_reason_id?: string
+  /** Tags to Add */
+  tags_to_add?: unknown[]
+  /** Tags to Delete */
+  tags_to_delete?: unknown[]
+}
+
+/** Kommo — Create New Contact */
+export interface KommoCreateContactInput {
+  /** Full Name */
+  name: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Unique identified of a responsible user (resolve via property options API) */
+  responsible_user_id?: string
+  /** Tags to Add */
+  tags_to_add?: unknown[]
+}
+
+/** Kommo — Find Contact */
+export interface KommoFindContactInput {
+  /** Search query (Searches through the filled fields of the contact). */
+  query: string
+}
+
+/** Kommo — Find Company */
+export interface KommoFindCompanyInput {
+  /** Search query (Searches through the filled fields of the company). */
+  query: string
+}
+
+/** Kommo — Custom API Call */
+export interface KommoCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** KV Store — Put */
@@ -8176,6 +14542,570 @@ export interface KvStoreRemoveFromListInput {
   externalId?: string
 }
 
+/** kvCORE — List Leads */
+export interface KvcoreListLeadsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search leads by name, email, or phone */
+  query?: string
+}
+
+/** kvCORE — Get Lead */
+export interface KvcoreGetLeadInput {
+  /** Lead ID */
+  leadId: string
+}
+
+/** kvCORE — Create Lead */
+export interface KvcoreCreateLeadInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Lead source (e.g., Website, Zillow) */
+  source?: string
+  /** Comma-separated tags */
+  tags?: string
+}
+
+/** kvCORE — List Properties */
+export interface KvcoreListPropertiesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** kvCORE — Custom API Call */
+export interface KvcoreCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** LangChain (LangSmith) — List Runs */
+export interface LangchainListRunsInput {
+  /** Filter runs by project name */
+  projectName?: string
+  /** Run Type (values: ``, `chain`, `llm`, `tool`, `retriever`) */
+  runType?: "" | "chain" | "llm" | "tool" | "retriever"
+  /** Filter by execution order (1 = top-level) */
+  executionOrder?: number
+  /** Limit */
+  limit?: number
+}
+
+/** LangChain (LangSmith) — Get Run */
+export interface LangchainGetRunInput {
+  /** Run ID */
+  runId: string
+}
+
+/** LangChain (LangSmith) — List Projects */
+export interface LangchainListProjectsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** LangChain (LangSmith) — List Datasets */
+export interface LangchainListDatasetsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** LangChain (LangSmith) — Custom API Call */
+export interface LangchainCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Langfuse — List Traces */
+export interface LangfuseListTracesInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Filter by user ID */
+  userId?: string
+  /** Filter by trace name */
+  name?: string
+}
+
+/** Langfuse — Get Trace */
+export interface LangfuseGetTraceInput {
+  /** Trace ID */
+  traceId: string
+}
+
+/** Langfuse — List Generations */
+export interface LangfuseListGenerationsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Filter by generation name */
+  name?: string
+  /** Filter by trace ID */
+  traceId?: string
+}
+
+/** Langfuse — Score Trace */
+export interface LangfuseScoreTraceInput {
+  /** Trace ID */
+  traceId: string
+  /** Name of the score (e.g., accuracy, relevance) */
+  name: string
+  /** Numeric score value */
+  value: number
+  /** Optional comment for the score */
+  comment?: string
+}
+
+/** LangSmith — List Runs */
+export interface LangsmithListRunsInput {
+  /** Filter runs by project (session) ID */
+  projectId?: string
+  /** Filter by execution order (1 = top-level) */
+  executionOrder?: number
+  /** Limit */
+  limit?: number
+}
+
+/** LangSmith — Get Run */
+export interface LangsmithGetRunInput {
+  /** Run ID */
+  runId: string
+}
+
+/** LangSmith — List Datasets */
+export interface LangsmithListDatasetsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** LangSmith — List Projects */
+export interface LangsmithListProjectsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Later — Create Post */
+export interface LaterCreatePostInput {
+  /** The social profile ID to post to */
+  profileId: string
+  /** The post caption/text */
+  caption: string
+  /** ISO 8601 date to schedule the post */
+  scheduledAt?: string
+  /** URL of the media to attach */
+  mediaUrl?: string
+}
+
+/** Later — List Posts */
+export interface LaterListPostsInput {
+  /** Profile ID */
+  profileId?: string
+  /** Status (values: `scheduled`, `published`, `draft`) */
+  status?: "scheduled" | "published" | "draft"
+  /** Limit */
+  limit?: number
+}
+
+/** Later — List Profiles */
+export type LaterListProfilesInput = Record<string, never>
+
+/** Later — Custom API Call */
+export interface LaterCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** LeadConnector — Create Contact */
+export interface LeadConnectorCreateContactInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Company Name */
+  companyName?: string
+  /** Website */
+  website?: string
+  /** Tags */
+  tags?: string[]
+  /** Source */
+  source?: string
+  /** When using a dynamic value, make sure to use the ISO-2 country code, and not the country name. (resolve via property options API) */
+  country?: string
+  /** City */
+  city?: string
+  /** State */
+  state?: string
+  /** Address */
+  address?: string
+  /** Postal Code */
+  postalCode?: string
+  /** Time Zone (resolve via property options API) */
+  timezone?: string
+}
+
+/** LeadConnector — Update Contact */
+export interface LeadConnectorUpdateContactInput {
+  /** The ID of the contact. */
+  id: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Company Name */
+  companyName?: string
+  /** Website */
+  website?: string
+  /** Tags */
+  tags?: string[]
+  /** Source */
+  source?: string
+  /** When using a dynamic value, make sure to use the ISO-2 country code, and not the country name. (resolve via property options API) */
+  country?: string
+  /** City */
+  city?: string
+  /** State */
+  state?: string
+  /** Address */
+  address?: string
+  /** Postal Code */
+  postalCode?: string
+  /** Time Zone (resolve via property options API) */
+  timezone?: string
+}
+
+/** LeadConnector — Add Contact to Campaign */
+export interface LeadConnectorAddContactToCampaignInput {
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Campaign (resolve via property options API) */
+  campaign: string
+}
+
+/** LeadConnector — Add Contact to Workflow */
+export interface LeadConnectorAddContactToWorkflowInput {
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Workflow (resolve via property options API) */
+  workflow: string
+}
+
+/** LeadConnector — Add Note to Contact */
+export interface LeadConnectorAddNoteToContactInput {
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Note */
+  note: string
+  /** User (resolve via property options API) */
+  user: string
+}
+
+/** LeadConnector — Search Contacts */
+export interface LeadConnectorSearchContactsInput {
+  /** The value you want to search for. */
+  query: string
+}
+
+/** LeadConnector — Create Opportunity */
+export interface LeadConnectorCreateOpportunityInput {
+  /** The ID of the pipeline to use. (resolve via property options API) */
+  pipeline: string
+  /** The stage of the pipeline to use. (resolve via property options API) */
+  stage: string
+  /** Title */
+  title: string
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Status (resolve via property options API) */
+  status: string
+  /** Assigned To (resolve via property options API) */
+  assignedTo?: string
+  /** Monetary Value */
+  monetaryValue?: number
+}
+
+/** LeadConnector — Update Opportunity */
+export interface LeadConnectorUpdateOpportunityInput {
+  /** The ID of the pipeline to use. (resolve via property options API) */
+  pipeline: string
+  /** Opportunity (resolve via property options API) */
+  opportunity: string
+  /** The stage of the pipeline to use. (resolve via property options API) */
+  stage?: string
+  /** Title */
+  title?: string
+  /** The contact to use. (resolve via property options API) */
+  contact?: string
+  /** Status (resolve via property options API) */
+  status?: string
+  /** Assigned To (resolve via property options API) */
+  assignedTo?: string
+  /** Monetary Value */
+  monetaryValue?: number
+}
+
+/** LeadConnector — Create Task */
+export interface LeadConnectorCreateTaskInput {
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Title */
+  title: string
+  /** Due Date */
+  dueDate: string
+  /** Description */
+  description?: string
+  /** Assigned To (resolve via property options API) */
+  assignedTo?: string
+  /** Completed */
+  completed: boolean
+}
+
+/** LeadConnector — Update Task */
+export interface LeadConnectorUpdateTaskInput {
+  /** The contact to use. (resolve via property options API) */
+  contact: string
+  /** Task (resolve via property options API) */
+  task: string
+  /** Title */
+  title?: string
+  /** Due Date */
+  dueDate?: string
+  /** Description */
+  description?: string
+  /** Assigned To (resolve via property options API) */
+  assignedTo?: string
+  /** Completed */
+  completed?: boolean
+}
+
+/** LeadConnector — Custom API Call */
+export interface LeadConnectorCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Lemlist — Mark Lead From One Campaign as Interested */
+export interface LemlistMarkLeadFromOneCampaignAsInterestedInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to mark as interested. */
+  email: string
+}
+
+/** Lemlist — Mark Lead From One Campaign as Not Interested */
+export interface LemlistMarkLeadFromOneCampaignAsNotInterestedInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to mark as not interested. */
+  email: string
+}
+
+/** Lemlist — Mark Lead From All Campaign as Interested */
+export interface LemlistMarkLeadFromAllCampaignAsInterestedInput {
+  /** The email of the lead to mark as interested. */
+  email: string
+}
+
+/** Lemlist — Mark Lead From All Campaigns as Not Interested */
+export interface LemlistMarkLeadFromAllCampaignsAsNotInterestedInput {
+  /** The email of the lead to mark as not interested. */
+  email: string
+}
+
+/** Lemlist — Pause Lead From All or Specific Campaigns */
+export interface LemlistPauseLeadFromAllOrSpecificCampaignsInput {
+  /** Select a campaign (optional) (resolve via property options API) */
+  campaignId?: string
+  /** The email of the lead to pause. */
+  email: string
+}
+
+/** Lemlist — Resume Lead From All or Specific Campaigns */
+export interface LemlistResumeLeadFromAllOrSpecificCampaignsInput {
+  /** Select a campaign (optional) (resolve via property options API) */
+  campaignId?: string
+  /** The email of the lead to resume. */
+  email: string
+}
+
+/** Lemlist — Remove Lead From Unsubscribe List */
+export interface LemlistRemoveLeadFromUnsubscribeListInput {
+  /** The email of the lead to remove from the unsubscribe list. */
+  email: string
+}
+
+/** Lemlist — Remove Lead from A Campaign */
+export interface LemlistRemoveLeadFromACampaignInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to remove. */
+  email: string
+}
+
+/** Lemlist — Unsubscribe a Lead */
+export interface LemlistUnsubscribeALeadInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to unsubscribe. */
+  email: string
+}
+
+/** Lemlist — Add Lead To A Campaign */
+export interface LemlistAddLeadToACampaignInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to add */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Picture URL */
+  picture?: string
+  /** Phone */
+  phone?: string
+  /** LinkedIn URL */
+  linkedinUrl?: string
+  /** Company Name */
+  companyName?: string
+  /** Company Domain */
+  companyDomain?: string
+  /** Icebreaker */
+  icebreaker?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Avoid adding the lead if it already exists in any campaign */
+  deduplicate?: boolean
+  /** Run LinkedIn enrichment for this lead */
+  linkedinEnrichment?: boolean
+  /** Try to find a verified email for this lead */
+  findEmail?: boolean
+  /** Verify the lead’s email using debounce */
+  verifyEmail?: boolean
+  /** Try to find a phone number for this lead */
+  findPhone?: boolean
+}
+
+/** Lemlist — Update Lead From Campaign */
+export interface LemlistUpdateLeadFromCampaignInput {
+  /** Select a campaign (resolve via property options API) */
+  campaignId: string
+  /** The email of the lead to update. */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Picture URL */
+  picture?: string
+  /** Phone */
+  phone?: string
+  /** LinkedIn URL */
+  linkedinUrl?: string
+  /** Company Name */
+  companyName?: string
+  /** Company Domain */
+  companyDomain?: string
+  /** Icebreaker */
+  icebreaker?: string
+  /** Job Title */
+  jobTitle?: string
+}
+
+/** Lemlist — Search Lead */
+export interface LemlistSearchLeadInput {
+  /** Select a campaign (optional) (resolve via property options API) */
+  campaignId?: string
+  /** The email of the lead to look up */
+  email: string
+}
+
+/** Leonardo AI — Generate Image */
+export interface LeonardoAiGenerateImageInput {
+  /** The text prompt for image generation */
+  prompt: string
+  /** The model to use for generation (leave empty for default) */
+  modelId?: string
+  /** Width */
+  width?: number
+  /** Height */
+  height?: number
+  /** Number of Images */
+  numImages?: number
+  /** Negative Prompt */
+  negativePrompt?: string
+}
+
+/** Leonardo AI — Get Generation */
+export interface LeonardoAiGetGenerationInput {
+  /** Generation ID */
+  generationId: string
+}
+
+/** Leonardo AI — List Models */
+export type LeonardoAiListModelsInput = Record<string, never>
+
+/** Leonardo AI — Custom API Call */
+export interface LeonardoAiCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Lever — Get opportunity */
 export interface LeverGetOpportunityInput {
   /** Opportunity ID */
@@ -8226,6 +15156,76 @@ export interface LeverAddFeedbackToOpportunityInput {
 
 /** Lever — Custom API Call */
 export interface LeverCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** LibreTranslate — Translate Text */
+export interface LibretranslateTranslateTextInput {
+  /** Text to translate */
+  text: string
+  /** Source language code (e.g. "en", "fr") or "auto" for auto-detection */
+  source: string
+  /** Target language code (e.g. "es", "de") */
+  target: string
+  /** LibreTranslate instance URL (default: https://libretranslate.com) */
+  baseUrl?: string
+}
+
+/** LibreTranslate — Detect Language */
+export interface LibretranslateDetectLanguageInput {
+  /** Text to detect language of */
+  text: string
+  /** LibreTranslate instance URL (default: https://libretranslate.com) */
+  baseUrl?: string
+}
+
+/** LibreTranslate — List Languages */
+export interface LibretranslateListLanguagesInput {
+  /** LibreTranslate instance URL (default: https://libretranslate.com) */
+  baseUrl?: string
+}
+
+/** LibreTranslate — Custom API Call */
+export interface LibretranslateCustomApiCallInput {
+  /** LibreTranslate instance URL (default: https://libretranslate.com) */
+  baseUrl?: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Line Bot — Push Message */
+export interface LinePushMessageInput {
+  /** The user id can be obtained from the webhook payload */
+  userId: string
+  /** Text */
+  text: string
+}
+
+/** Line Bot — Custom API Call */
+export interface LineCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -8400,6 +15400,207 @@ export interface LinkedinCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** LinkedIn Ads — List Ad Accounts */
+export interface LinkedinAdsListAdAccountsInput {
+  /** Count */
+  count?: number
+  /** Pagination start index */
+  start?: number
+}
+
+/** LinkedIn Ads — List Campaigns */
+export interface LinkedinAdsListCampaignsInput {
+  /** The numeric ad account ID */
+  adAccountId: string
+  /** Count */
+  count?: number
+  /** Pagination start index */
+  start?: number
+}
+
+/** LinkedIn Ads — Get Campaign */
+export interface LinkedinAdsGetCampaignInput {
+  /** Campaign ID */
+  campaignId: string
+}
+
+/** LinkedIn Ads — Get Ad Analytics */
+export interface LinkedinAdsGetAdAnalyticsInput {
+  /** Ad account URN (e.g., urn:li:sponsoredAccount:123456) */
+  accounts: string
+  /** Start date in YYYY-MM-DD format */
+  dateRangeStart: string
+  /** End date in YYYY-MM-DD format */
+  dateRangeEnd: string
+  /** Time Granularity (values: `DAILY`, `MONTHLY`, `ALL`) */
+  timeGranularity?: "DAILY" | "MONTHLY" | "ALL"
+  /** Pivot (values: `ACCOUNT`, `CAMPAIGN`, `CREATIVE`, `CAMPAIGN_GROUP`) */
+  pivot?: "ACCOUNT" | "CAMPAIGN" | "CREATIVE" | "CAMPAIGN_GROUP"
+}
+
+/** LinkedIn Ads — List Campaign Groups */
+export interface LinkedinAdsListCampaignGroupsInput {
+  /** The numeric ad account ID */
+  adAccountId: string
+  /** Count */
+  count?: number
+}
+
+/** Loom — List Videos */
+export interface LoomListVideosInput {
+  /** Page number for pagination */
+  page?: number
+  /** Number of results per page */
+  perPage?: number
+}
+
+/** Loom — Get Video */
+export interface LoomGetVideoInput {
+  /** The ID of the Loom recording */
+  recordingId: string
+}
+
+/** Loom — Update Video */
+export interface LoomUpdateVideoInput {
+  /** The ID of the Loom recording to update */
+  recordingId: string
+  /** New title for the recording */
+  title?: string
+  /** New description for the recording */
+  description?: string
+}
+
+/** Loom — Delete Video */
+export interface LoomDeleteVideoInput {
+  /** The ID of the Loom recording to delete */
+  recordingId: string
+}
+
+/** Loom — List Folders */
+export type LoomListFoldersInput = Record<string, never>
+
+/** Loops — Send Event */
+export interface LoopsSendEventInput {
+  /** Contact email address */
+  email?: string
+  /** Contact user ID */
+  userId?: string
+  /** Event Name */
+  eventName: string
+  /** Additional properties for the event */
+  eventProperties?: unknown
+}
+
+/** Loops — Create Contact */
+export interface LoopsCreateContactInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** User ID */
+  userId?: string
+  /** Source */
+  source?: string
+  /** Object mapping list IDs to true/false */
+  mailingLists?: unknown
+}
+
+/** Loops — Update Contact */
+export interface LoopsUpdateContactInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Additional contact properties to update */
+  properties?: unknown
+}
+
+/** Loops — Send Transactional Email */
+export interface LoopsSendTransactionalInput {
+  /** Transactional Email ID */
+  transactionalId: string
+  /** Recipient Email */
+  email: string
+  /** Variables to populate in the email template */
+  dataVariables?: unknown
+  /** Whether to add the recipient as a contact */
+  addToAudience?: boolean
+}
+
+/** Loops — Custom API Call */
+export interface LoopsCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Magento — List Products */
+export interface MagentoListProductsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Current Page */
+  currentPage?: number
+  /** Filter products by name */
+  searchTerm?: string
+}
+
+/** Magento — Get Product */
+export interface MagentoGetProductInput {
+  /** SKU */
+  sku: string
+}
+
+/** Magento — Create Product */
+export interface MagentoCreateProductInput {
+  /** SKU */
+  sku: string
+  /** Product Name */
+  name: string
+  /** Price */
+  price: number
+  /** Product Type (values: `simple`, `configurable`, `virtual`, `downloadable`) */
+  typeId?: "simple" | "configurable" | "virtual" | "downloadable"
+  /** Default is 4 for most stores */
+  attributeSetId?: number
+  /** Status (values: `1`, `2`) */
+  status?: "1" | "2"
+  /** Weight */
+  weight?: number
+}
+
+/** Magento — List Orders */
+export interface MagentoListOrdersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Current Page */
+  currentPage?: number
+  /** Filter by order status (e.g., pending, processing, complete) */
+  status?: string
+}
+
+/** Magento — Get Order */
+export interface MagentoGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Magento — Custom API Call */
+export interface MagentoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Mailchimp — Add or Update Subscriber */
@@ -8616,6 +15817,170 @@ export interface MailchimpFindSubscriberInput {
   exclude_fields?: unknown[]
 }
 
+/** MailerLite — Add Subscriber to a Group */
+export interface MailerLiteAddSubscriberToGroupInput {
+  /** Subscriber ID (resolve via property options API) */
+  subscriberId: string
+  /** Group ID (resolve via property options API) */
+  subscriberGroupId: string
+}
+
+/** MailerLite — Add or Update subscriber */
+export interface MailerLiteAddOrUpdateSubscriberInput {
+  /** Email of the new contact */
+  email: string
+  /** Fields */
+  subscriberFields: Record<string, unknown>
+  /** If empty, status Active is used by default. (values: `active`, `unsubscribed`, `unconfirmed`, `bounced`, `junk`) */
+  status?: "active" | "unsubscribed" | "unconfirmed" | "bounced" | "junk"
+  /** Group IDs */
+  subscriberGroupId?: string[]
+  /** Subscribed On */
+  subscribed_at?: string
+  /** Opt-in Date */
+  opted_in_at?: string
+  /** Signup IP address */
+  ip_address?: string
+  /** Opt-in IP address */
+  optin_ip?: string
+}
+
+/** MailerLite — Find a Subscriber */
+export interface MailerLiteFindSubscriberInput {
+  /** Subscriber ID or Email */
+  searchValue: string
+}
+
+/** MailerLite — Remove Subscriber from a Group */
+export interface MailerLiteRemoveSubscriberFromGroupInput {
+  /** Subscriber ID (resolve via property options API) */
+  subscriberId: string
+  /** Group ID (resolve via property options API) */
+  subscriberGroupId: string
+}
+
+/** MailerLite — Custom API Call */
+export interface MailerLiteCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Mailjet — Send Email */
+export interface MailjetSendEmailInput {
+  /** Sender email, must be verified in Mailjet */
+  fromEmail: string
+  /** From (Name) */
+  fromName?: string
+  /** Emails of recipients */
+  toEmails: unknown[]
+  /** Subject */
+  subject: string
+  /** Text part */
+  textPart?: string
+  /** HTML part */
+  htmlPart?: string
+  /** Template Id (number) defined in Mailjet */
+  templateId?: number
+  /** Template variables */
+  templateVariables?: Record<string, unknown>
+}
+
+/** Manychat — Add Tag to User */
+export interface ManychatAddTagToUserInput {
+  /** Please refer [Manychat Guide](https://help.manychat.com/hc/en-us/articles/14959510331420-How-to-generate-a-token-for-the-Manychat-API-and-where-to-get-parameters#h_01JCR55RJ0B0PQW6HDW6RW0A42) to obtain user/contact ID. */
+  subscriberId: number
+  /** Tag (resolve via property options API) */
+  tagId: string
+}
+
+/** Manychat — Create Subscriber */
+export interface ManychatCreateSubscriberInput {
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name?: string
+  /** Fill in at least one field: phone or email or whatsapp phone. */
+  phone?: string
+  /** Fill in at least one field: phone or email or whatsapp phone. */
+  whatsapp_phone?: string
+  /** Fill in at least one field: phone or email or whatsapp phone. */
+  email?: string
+  /** Gender */
+  gender?: string
+  /** SMS Opt-in */
+  has_opt_in_sms?: boolean
+  /** Email Opt-in */
+  has_opt_in_email?: boolean
+  /** The consent phrase provided by the subscriber. */
+  consent_phrase?: string
+}
+
+/** Manychat — Find User by Custom Field */
+export interface ManychatFindUserByCustomFieldInput {
+  /** Custom Field (resolve via property options API) */
+  field: string
+  /** The value to search for. */
+  value: string
+}
+
+/** Manychat — Find User by Name */
+export interface ManychatFindUserByNameInput {
+  /** Provide user's full name to search. */
+  name: string
+}
+
+/** Manychat — Remove Tag from User */
+export interface ManychatRemoveTagFromUserInput {
+  /** Please refer [Manychat Guide](https://help.manychat.com/hc/en-us/articles/14959510331420-How-to-generate-a-token-for-the-Manychat-API-and-where-to-get-parameters#h_01JCR55RJ0B0PQW6HDW6RW0A42) to obtain user/contact ID. */
+  subscriberId: number
+  /** Tag (resolve via property options API) */
+  tagId: string
+}
+
+/** Manychat — Send Content to User */
+export interface ManychatSendContentToUserInput {
+  /** Please refer [Manychat Guide](https://help.manychat.com/hc/en-us/articles/14959510331420-How-to-generate-a-token-for-the-Manychat-API-and-where-to-get-parameters#h_01JCR55RJ0B0PQW6HDW6RW0A42) to obtain user/contact ID. */
+  subscriber_id: number
+  /** The platform to send the content to. (values: `facebook`, `instagram`, `whatsapp`, `telegram`) */
+  platform?: "facebook" | "instagram" | "whatsapp" | "telegram"
+  /** The type of content to send. (values: `text`, `image`, `video`, `audio`, `file`) */
+  content_type: "text" | "image" | "video" | "audio" | "file"
+  /** The text content to send. Required when content type is Text. */
+  text_content?: string
+  /** URL of the media to send (image, video, audio, or file). Required for media content types. */
+  media_url?: string
+  /** The tag to use for the message. (values: `ACCOUNT_UPDATE`, `CONFIRMED_EVENT_UPDATE`, `HUMAN_AGENT`, `POST_PURCHASE_UPDATE`, `BUSINESS_PRODUCTIVITY`) */
+  message_tag?: "ACCOUNT_UPDATE" | "CONFIRMED_EVENT_UPDATE" | "HUMAN_AGENT" | "POST_PURCHASE_UPDATE" | "BUSINESS_PRODUCTIVITY"
+}
+
+/** Manychat — Set Custom Field */
+export interface ManychatSetCustomFieldInput {
+  /** Please refer [Manychat Guide](https://help.manychat.com/hc/en-us/articles/14959510331420-How-to-generate-a-token-for-the-Manychat-API-and-where-to-get-parameters#h_01JCR55RJ0B0PQW6HDW6RW0A42) to obtain user/contact ID. */
+  subscriber_id: number
+  /** Custom Field (resolve via property options API) */
+  field_id: string
+  /** Field Value */
+  field_value: Record<string, unknown>
+}
+
 /** Mastodon — Post Status */
 export interface MastodonPostStatusInput {
   /** The text of your status */
@@ -8626,6 +15991,424 @@ export interface MastodonPostStatusInput {
 
 /** Mastodon — Custom API Call */
 export interface MastodonCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Mattermost — Send Message */
+export interface MattermostSendMessageInput {
+  /** The channel to send the message to, get that ID by clicking on info near start call butto */
+  channel_id: string
+  /** The text of the message to send */
+  text: string
+}
+
+/** Mattermost — Custom API Call */
+export interface MattermostCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** MeisterTask — Create Label */
+export interface MeistertaskCreateLabelInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Label Name */
+  name: string
+  /** Hex color code (e.g., #FF0000) */
+  color?: string
+}
+
+/** MeisterTask — Create Task Label */
+export interface MeistertaskCreateTaskLabelInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Task (resolve via property options API) */
+  task_id: string
+  /** Label (resolve via property options API) */
+  label: string
+}
+
+/** MeisterTask — Create Attachment */
+export interface MeistertaskCreateAttachmentInput {
+  /** Task (resolve via property options API) */
+  task_id: string
+  /** URL of the file to attach */
+  file_url: string
+  /** Attachment Name */
+  name?: string
+}
+
+/** MeisterTask — Create Task */
+export interface MeistertaskCreateTaskInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Section (resolve via property options API) */
+  section: string
+  /** Task Name */
+  name: string
+  /** Notes */
+  notes?: string
+  /** Person (resolve via property options API) */
+  assigned_to?: string
+  /** Due Date */
+  due_date?: string
+}
+
+/** MeisterTask — Update Task */
+export interface MeistertaskUpdateTaskInput {
+  /** Project (resolve via property options API) */
+  Project: string
+  /** Task (resolve via property options API) */
+  task_id: string
+  /** Task Name */
+  name?: string
+  /** Notes */
+  notes?: string
+  /** Status (values: `1`, `2`, `18`) */
+  status?: 1 | 2 | 18
+  /** Person (resolve via property options API) */
+  assigned_to?: string
+  /** Due Date */
+  due_date?: string
+}
+
+/** MeisterTask — Find Attachment */
+export interface MeistertaskFindAttachmentInput {
+  /** Task (resolve via property options API) */
+  task_id: string
+  /** Attachment Name */
+  name?: string
+}
+
+/** MeisterTask — Find Label */
+export interface MeistertaskFindLabelInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Label Name */
+  name: string
+}
+
+/** MeisterTask — Find Person */
+export interface MeistertaskFindPersonInput {
+  /** Person ID */
+  person_id: number
+}
+
+/** MeisterTask — Find Task */
+export interface MeistertaskFindTaskInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Section (resolve via property options API) */
+  section: string
+  /** Task Name */
+  name?: string
+}
+
+/** MeisterTask — Find or Create Attachment */
+export interface MeistertaskFindOrCreateAttachmentInput {
+  /** Task (resolve via property options API) */
+  task_id: string
+  /** Attachment Name */
+  name: string
+  /** URL of the file to attach (used if creating) */
+  file_url: string
+}
+
+/** MeisterTask — Find or Create Task */
+export interface MeistertaskFindOrCreateTaskInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Section (resolve via property options API) */
+  section: string
+  /** Task Name */
+  name: string
+  /** Notes for the task (used if creating) */
+  notes?: string
+  /** Person (resolve via property options API) */
+  assigned_to?: string
+  /** Due date for the task (used if creating) */
+  due_date?: string
+}
+
+/** MeisterTask — Find or Create Label */
+export interface MeistertaskFindOrCreateLabelInput {
+  /** Project (resolve via property options API) */
+  project: string
+  /** Label Name */
+  name: string
+  /** Hex color code (e.g., #FF0000) - used if creating */
+  color?: string
+}
+
+/** MeisterTask — Custom API Call */
+export interface MeistertaskCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Metabase — Get question */
+export interface MetabaseGetQuestionInput {
+  /** Metabase question ID */
+  questionId: string
+  /** Parameters (slug name -> value) */
+  parameters?: Record<string, unknown>
+}
+
+/** Metabase — Get Question PNG Preview */
+export interface MetabaseGetQuestionPngPreviewInput {
+  /** Metabase question ID */
+  questionId: string
+}
+
+/** Metabase — Get Dashboard Questions */
+export interface MetabaseGetDashboardQuestionsInput {
+  /** Metabase Dashboard ID */
+  dashboardId: string
+  /** Dashboard parameters to apply to all questions */
+  parameters?: Record<string, unknown>
+}
+
+/** Metabase — Embed question */
+export interface MetabaseEmbedQuestionInput {
+  /** Metabase question ID */
+  questionId: string
+  /** Whether to enable embedding for this question */
+  enableEmbedding: boolean
+  /** Configure how each parameter should be handled in the embed */
+  parameterSettings?: Record<string, unknown>
+}
+
+/** Microsoft 365 Planner — Create Plan */
+export interface Microsoft365PlannerCreatePlanInput {
+  /** Select the Grroup (resolve via property options API) */
+  groupId: string
+  /** The title of the plan */
+  title: string
+}
+
+/** Microsoft 365 Planner — Create Bucket */
+export interface Microsoft365PlannerCreateBucketInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** The name of the bucket to be created */
+  name: string
+  /** Hint used to order items of this type in a list. The format is defined as outlined here: https://learn.microsoft.com/en-us/graph/api/resources/planner-order-hint-format?view=graph-rest-1.0 */
+  orderHint?: string
+}
+
+/** Microsoft 365 Planner — Create Task */
+export interface Microsoft365PlannerCreateTaskInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the bucket (resolve via property options API) */
+  bucketId?: string
+  /** The title of the task to be created */
+  title: string
+  /** Select users to assign the task to. If left empty, the task will be unassigned. */
+  assignments?: string[]
+  /** The due date and time for the task */
+  dueDateTime?: string
+  /** The completion percentage of the task (0-100) */
+  percentComplete?: number
+  /** The priority of the task between 0 and 10, with the increasing value being lower priority (0 has the highest priority and 10 has the lowest priority). */
+  priority?: number
+  /** The start date and time for the task */
+  startDateTime?: string
+}
+
+/** Microsoft 365 Planner — Delete Bucket */
+export interface Microsoft365PlannerDeleteBucketInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the bucket (resolve via property options API) */
+  id: string
+}
+
+/** Microsoft 365 Planner — Delete Task */
+export interface Microsoft365PlannerDeleteTaskInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the task (resolve via property options API) */
+  id: string
+}
+
+/** Microsoft 365 Planner — Update Plan */
+export interface Microsoft365PlannerUpdatePlanInput {
+  /** Select the plan (resolve via property options API) */
+  id: string
+  /** The new title of the plan */
+  title: string
+}
+
+/** Microsoft 365 Planner — Update Bucket */
+export interface Microsoft365PlannerUpdateBucketInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the bucket (resolve via property options API) */
+  id: string
+  /** The new name of the bucket */
+  name?: string
+  /** Hint used to order items of this type in a list. The format is defined as outlined here: https://learn.microsoft.com/en-us/graph/api/resources/planner-order-hint-format?view=graph-rest-1.0 */
+  orderHint?: string
+}
+
+/** Microsoft 365 Planner — Update Task */
+export interface Microsoft365PlannerUpdateTaskInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the task (resolve via property options API) */
+  id: string
+  /** The new title of the task */
+  title?: string
+  /** Select users to assign the task to. If left empty, the task will be unassigned. */
+  assignments?: string[]
+  /** The due date and time for the task */
+  dueDateTime?: string
+  /** The completion percentage of the task (0-100) */
+  percentComplete?: number
+  /** The priority of the task between 0 and 10, with the increasing value being lower priority (0 has the highest priority and 10 has the lowest priority). */
+  priority?: number
+  /** The start date and time for the task */
+  startDateTime?: string
+}
+
+/** Microsoft 365 Planner — Find a Plan */
+export interface Microsoft365PlannerFindAPlanInput {
+  /** The title of the plan to search for */
+  title: string
+}
+
+/** Microsoft 365 Planner — Get a Bucket */
+export interface Microsoft365PlannerGetABucketInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** Select the bucket (resolve via property options API) */
+  bucketId: string
+}
+
+/** Microsoft 365 Planner — Find Task */
+export interface Microsoft365PlannerFindTaskInput {
+  /** Select the plan (resolve via property options API) */
+  planId: string
+  /** The title of the task to search for */
+  title: string
+}
+
+/** Microsoft 365 Planner — Custom API Call */
+export interface Microsoft365PlannerCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft Dynamics CRM — Create Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput {
+  /** Select or map the entity for which you want to create the record. (resolve via property options API) */
+  entityType: string
+  /** Entity Fields */
+  fields: Record<string, unknown>
+}
+
+/** Microsoft Dynamics CRM — Delete Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput {
+  /** Select or map the entity name whose records you want to delete. (resolve via property options API) */
+  entityType: string
+  /** Record ID (resolve via property options API) */
+  recordId: string
+}
+
+/** Microsoft Dynamics CRM — Get Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmGetRecordInput {
+  /** Select or map the entity name whose records you want to retrieve. (resolve via property options API) */
+  entityType: string
+  /** Record ID (resolve via property options API) */
+  recordId: string
+}
+
+/** Microsoft Dynamics CRM — Update Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput {
+  /** Select or map the entity for which you want to update the record. (resolve via property options API) */
+  entityType: string
+  /** Record ID (resolve via property options API) */
+  recordId: string
+  /** Entity Fields */
+  fields: Record<string, unknown>
+}
+
+/** Microsoft Dynamics CRM — Custom API Call */
+export interface MicrosoftDynamicsCrmCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -9308,6 +17091,52 @@ export interface MicrosoftOutlookCalendarListEventsInput {
 
 /** Microsoft Outlook Calendar — Custom API Call */
 export interface MicrosoftOutlookCalendarCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Microsoft Power BI — Create Dataset */
+export interface MicrosoftPowerBiCreateDatasetInput {
+  /** Name of the dataset to create */
+  dataset_name: string
+  /** The mode of the dataset (values: `Push`, `Streaming`, `PushStreaming`) */
+  mode: "Push" | "Streaming" | "PushStreaming"
+  /** Define the tables and their columns for the dataset (JSON format) */
+  tables: unknown
+}
+
+/** Microsoft Power BI — Push Rows to Dataset Table */
+export interface MicrosoftPowerBiPushRowsToDatasetTableInput {
+  /** Select a dataset. (resolve via property options API) */
+  dataset_id: string
+  /** Select a table (resolve via property options API) */
+  table_name: string
+  /** JSON object containing the rows to add to the table. Each row must match your table schema. */
+  rows: unknown
+  /** Skip refreshing the dataset after pushing data (only applies to Push and PushStreaming modes) */
+  skip_refresh?: boolean
+}
+
+/** Microsoft Power BI — Custom API Call */
+export interface MicrosoftPowerBiCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -10454,6 +18283,55 @@ export interface MongodbAggregateDocumentsInput {
   pipeline: unknown
 }
 
+/** Moodle — List Courses */
+export type MoodleListCoursesInput = Record<string, never>
+
+/** Moodle — Get Course */
+export interface MoodleGetCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Moodle — List Users */
+export interface MoodleListUsersInput {
+  /** Search By (values: `email`, `username`, `firstname`, `lastname`) */
+  key: "email" | "username" | "firstname" | "lastname"
+  /** Search Value */
+  value: string
+}
+
+/** Moodle — Create User */
+export interface MoodleCreateUserInput {
+  /** Username */
+  username: string
+  /** Password */
+  password: string
+  /** First Name */
+  firstname: string
+  /** Last Name */
+  lastname: string
+  /** Email */
+  email: string
+}
+
+/** Moodle — Get Grades */
+export interface MoodleGetGradesInput {
+  /** Course ID */
+  courseId: string
+  /** Optional user ID to filter grades */
+  userId?: string
+}
+
+/** Moodle — Custom API Call */
+export interface MoodleCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** The wsfunction name (e.g., core_course_get_courses) */
+  path: string
+  /** Extra query parameters as key-value pairs */
+  body?: unknown
+}
+
 /** Mux — List Assets */
 export interface MuxListAssetsInput {
   /** Limit */
@@ -10478,6 +18356,56 @@ export interface MuxCreateAssetInput {
 
 /** Mux — List Live Streams */
 export type MuxListLiveStreamsInput = Record<string, never>
+
+/** MyCase — List Cases */
+export interface MycaseListCasesInput {
+  /** Status (values: `open`, `closed`) */
+  status?: "open" | "closed"
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** MyCase — Get Case */
+export interface MycaseGetCaseInput {
+  /** Case ID */
+  caseId: string
+}
+
+/** MyCase — List Contacts */
+export interface MycaseListContactsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** MyCase — Create Contact */
+export interface MycaseCreateContactInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Company Name */
+  companyName?: string
+  /** Contact Type (values: `person`, `company`) */
+  contactType?: "person" | "company"
+}
+
+/** MyCase — Custom API Call */
+export interface MycaseCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
 
 /** MySQL — Find Rows */
 export interface MysqlFindRowsInput {
@@ -10630,6 +18558,74 @@ export interface NetsuiteCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** NocoDB — Create a Record */
+export interface NocodbNocodbCreateRecordInput {
+  /** For self-hosted instances,select "No Workspace". (resolve via property options API) */
+  workspaceId?: string
+  /** Base ID (resolve via property options API) */
+  baseId: string
+  /** Table ID (resolve via property options API) */
+  tableId: string
+  /** Table Columns */
+  tableColumns: Record<string, unknown>
+}
+
+/** NocoDB — Delete a Record */
+export interface NocodbNocodbDeleteRecordInput {
+  /** For self-hosted instances,select "No Workspace". (resolve via property options API) */
+  workspaceId?: string
+  /** Base ID (resolve via property options API) */
+  baseId: string
+  /** Table ID (resolve via property options API) */
+  tableId: string
+  /** Record ID */
+  recordId: number
+}
+
+/** NocoDB — Update a Record */
+export interface NocodbNocodbUpdateRecordInput {
+  /** For self-hosted instances,select "No Workspace". (resolve via property options API) */
+  workspaceId?: string
+  /** Base ID (resolve via property options API) */
+  baseId: string
+  /** Table ID (resolve via property options API) */
+  tableId: string
+  /** Record ID */
+  recordId: number
+  /** Table Columns */
+  tableColumns: Record<string, unknown>
+}
+
+/** NocoDB — Get a Record */
+export interface NocodbNocodbGetRecordInput {
+  /** For self-hosted instances,select "No Workspace". (resolve via property options API) */
+  workspaceId?: string
+  /** Base ID (resolve via property options API) */
+  baseId: string
+  /** Table ID (resolve via property options API) */
+  tableId: string
+  /** Record ID */
+  recordId: number
+}
+
+/** NocoDB — Search Records */
+export interface NocodbNocodbSearchRecordsInput {
+  /** For self-hosted instances,select "No Workspace". (resolve via property options API) */
+  workspaceId?: string
+  /** Base ID (resolve via property options API) */
+  baseId: string
+  /** Table ID (resolve via property options API) */
+  tableId: string
+  /** Allows you to specify the fields that you wish to include in your API response. By default, all the fields are included in the response. */
+  columnId?: string[]
+  /** Enables you to define specific conditions for filtering records.See docs [here](https://docs.nocodb.com/0.109.7/developer-resources/rest-apis/#comparison-operators). */
+  whereCondition?: string
+  /** Enables you to set a limit on the number of records you want to retrieve. */
+  limit: number
+  /** Comma separated field names without space.Example: **field1,-field2** will sort the records first by 'field1' in ascending order and then by 'field2' in descending order. */
+  sort?: string
+}
+
 /** Notion — Create Database Item */
 export interface NotionCreateDatabaseItemInput {
   /** Choose the Notion database you want to work with from your workspace (resolve via property options API) */
@@ -10756,6 +18752,164 @@ export interface NotionCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Novu — Trigger Event */
+export interface NovuTriggerEventInput {
+  /** The trigger identifier of the workflow template */
+  name: string
+  /** The subscriber ID to notify */
+  subscriberId: string
+  /** Optional email for the subscriber */
+  email?: string
+  /** JSON object with template variables */
+  payload?: string
+}
+
+/** Novu — List Subscribers */
+export interface NovuListSubscribersInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Novu — Create Subscriber */
+export interface NovuCreateSubscriberInput {
+  /** Unique subscriber identifier */
+  subscriberId: string
+  /** Email */
+  email?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+}
+
+/** Novu — Get Subscriber */
+export interface NovuGetSubscriberInput {
+  /** Subscriber ID */
+  subscriberId: string
+}
+
+/** Novu — List Notifications */
+export interface NovuListNotificationsInput {
+  /** Page */
+  page?: number
+  /** Filter by channel (e.g., email, sms, push, in_app) */
+  channels?: string
+}
+
+/** npm Registry — Search Packages */
+export interface NpmRegistrySearchPackagesInput {
+  /** Text to search for (supports keywords like author:name, scope:name) */
+  text: string
+  /** Results Per Page */
+  size?: number
+  /** Offset for pagination */
+  from?: number
+}
+
+/** npm Registry — Get Package */
+export interface NpmRegistryGetPackageInput {
+  /** Full package name (e.g., express or @scope/name) */
+  name: string
+}
+
+/** npm Registry — Get Downloads */
+export interface NpmRegistryGetDownloadsInput {
+  /** Package Name */
+  name: string
+  /** Period (values: `last-day`, `last-week`, `last-month`, `last-year`) */
+  period?: "last-day" | "last-week" | "last-month" | "last-year"
+}
+
+/** npm Registry — Custom API Call */
+export interface NpmRegistryCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Base URL (values: `https://registry.npmjs.org`, `https://api.npmjs.org`) */
+  baseUrl: "https://registry.npmjs.org" | "https://api.npmjs.org"
+  /** API path (e.g., /-/v1/search?text=express) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Odoo — Get contacts */
+export interface OdooGetContactsInput {
+  /** Select which contact type to get (values: `false`, `true`) */
+  type: false | true
+  /** Would you like to search any specific name? */
+  name?: string
+}
+
+/** Odoo — Create contact */
+export interface OdooCreateContactInput {
+  /** Contact Name */
+  name: string
+  /** Contact Phone */
+  phone: string
+  /** Contact E-mail */
+  email: string
+  /** Company Name */
+  company: string
+  /** Job Title */
+  title: string
+}
+
+/** Odoo — Create company */
+export interface OdooCreateCompanyInput {
+  /** Company Name */
+  name: string
+  /** Company Phone */
+  phone: string
+  /** Company E-mail */
+  email: string
+}
+
+/** Odoo — Custom Search and read records */
+export interface OdooGetRecordsInput {
+  /** Model name. e.g.: res.partner */
+  model: string
+  /** A domain is a list of criteria, each criterion being a triple of (field_name, operator, value). See https://www.odoo.com/documentation/17.0/developer/reference/backend/orm.html#reference-orm-domains for details. */
+  domain?: unknown
+  /** Returns the requested fields of the records. When undefined, returns all fields. */
+  fields?: unknown[]
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Odoo — Custom Create Record */
+export interface OdooCreateRecordInput {
+  /** Model name. e.g.: res.partner */
+  model: string
+  /** JSON object of field names and their corresponding values */
+  fields: unknown
+}
+
+/** Odoo — Custom Update Record */
+export interface OdooUpdateRecordInput {
+  /** Model name. e.g.: res.partner */
+  model: string
+  /** ID of the record to update */
+  recordId: number
+  /** JSON object of field names and their corresponding values */
+  fields: unknown
+}
+
+/** Odoo — Custom API Call */
+export interface OdooCustomOdooApiCallInput {
+  /** The Odoo model to interact with (e.g., res.partner, product.product) */
+  model: string
+  /** The method to call on the model (e.g., search_read, create, write) (values: `read`, `search_read`, `search_count`, `search`, `create`, `write`, `unlink`, `fields_get`) */
+  method: "read" | "search_read" | "search_count" | "search" | "create" | "write" | "unlink" | "fields_get"
+  /** method_params */
+  method_params: Record<string, unknown>
+}
+
 /** Okta — List Users */
 export interface OktaListUsersInput {
   /** Limit */
@@ -10778,6 +18932,114 @@ export interface OktaListGroupsInput {
 export interface OktaListApplicationsInput {
   /** Limit */
   limit?: number
+}
+
+/** Oncehub — Find Contact */
+export interface OncehubFindContactInput {
+  /** Filter contacts by email address */
+  email: string
+}
+
+/** Oncehub — Create Contact */
+export interface OncehubCreateContactInput {
+  /** First name of the contact */
+  first_name: string
+  /** Last name of the contact */
+  last_name: string
+  /** Email address of the contact (at least email or mobile_phone required) */
+  email?: string
+  /** Mobile phone number in E.164 format (at least email or mobile_phone required) */
+  mobile_phone?: string
+  /** Phone number in E.164 format */
+  phone?: string
+  /** Company name */
+  company?: string
+  /** Job title of the contact */
+  job_title?: string
+  /** Street address */
+  street_address?: string
+  /** City of the contact */
+  city?: string
+  /** State or province */
+  state?: string
+  /** Postal code */
+  post_code?: string
+  /** Country of the contact */
+  country?: string
+  /** Size of the contact's company */
+  company_size?: string
+  /** Number of employees */
+  employees?: number
+  /** Salutation (e.g., Mr., Ms., Dr.) */
+  salutation?: string
+  /** Status of the contact (values: `Qualified`, `Sales qualified`, `Marketing qualified`, `Disqualified`) */
+  status?: "Qualified" | "Sales qualified" | "Marketing qualified" | "Disqualified"
+}
+
+/** Oncehub — Custom API Call */
+export interface OncehubCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** OneSignal — Send Notification */
+export interface OnesignalSendNotificationInput {
+  /** Your OneSignal app ID */
+  appId: string
+  /** The notification message content */
+  contents: string
+  /** The notification title */
+  headings?: string
+  /** Comma-separated segments (e.g., Subscribed Users, Active Users) */
+  includedSegments?: string
+  /** Comma-separated player IDs to target specific devices */
+  includePlayerIds?: string
+}
+
+/** OneSignal — List Notifications */
+export interface OnesignalListNotificationsInput {
+  /** App ID */
+  appId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** OneSignal — List Devices */
+export interface OnesignalListDevicesInput {
+  /** App ID */
+  appId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** OneSignal — Get Notification */
+export interface OnesignalGetNotificationInput {
+  /** App ID */
+  appId: string
+  /** Notification ID */
+  notificationId: string
 }
 
 /** OpenAI — Ask ChatGPT */
@@ -10908,6 +19170,206 @@ export interface OpenaiCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** OpenRouter — Ask LLM */
+export interface OpenRouterAskLmmInput {
+  /** The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code. (resolve via property options API) */
+  model: string
+  /** The prompt to send to the model. */
+  prompt: string
+  /** Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive. */
+  temperature?: number
+  /** The maximum number of tokens to generate. Requests can use up to 2,048 or 4,096 tokens shared between prompt and completion, don't set the value to maximum and leave some tokens for the input. The exact limit varies by model. (One token is roughly 4 characters for normal English text) */
+  maxTokens?: number
+  /** An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. */
+  topP?: number
+}
+
+/** OpenRouter — Custom API Call */
+export interface OpenRouterCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** OpenWeather — Get Current Weather */
+export interface OpenweatherGetCurrentWeatherInput {
+  /** City name (e.g. London). Use this OR lat/lon, not both. */
+  city?: string
+  /** Latitude coordinate. Use with Longitude. */
+  lat?: number
+  /** Longitude coordinate. Use with Latitude. */
+  lon?: number
+  /** Units (values: `standard`, `metric`, `imperial`) */
+  units?: "standard" | "metric" | "imperial"
+  /** Language code for weather description (e.g. en, es, fr) */
+  lang?: string
+}
+
+/** OpenWeather — Get 5-Day Forecast */
+export interface OpenweatherGetForecastInput {
+  /** City name (e.g. London). Use this OR lat/lon, not both. */
+  city?: string
+  /** Latitude coordinate. Use with Longitude. */
+  lat?: number
+  /** Longitude coordinate. Use with Latitude. */
+  lon?: number
+  /** Units (values: `standard`, `metric`, `imperial`) */
+  units?: "standard" | "metric" | "imperial"
+  /** Number of timestamps to return (max 40, default: all) */
+  cnt?: number
+  /** Language code for weather description (e.g. en, es, fr) */
+  lang?: string
+}
+
+/** OpenWeather — Custom API Call */
+export interface OpenweatherCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /weather) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** OpsGenie — Create Alert */
+export interface OpsgenieCreateAlertInput {
+  /** Alert message (max 130 characters) */
+  message: string
+  /** Client-defined identifier for the alert, used for deduplication */
+  alias?: string
+  /** Detailed description of the alert */
+  description?: string
+  /** Priority (values: `P1`, `P2`, `P3`, `P4`, `P5`) */
+  priority?: "P1" | "P2" | "P3" | "P4" | "P5"
+  /** Comma-separated list of tags */
+  tags?: string
+  /** Source of the alert */
+  source?: string
+}
+
+/** OpsGenie — List Alerts */
+export interface OpsgenieListAlertsInput {
+  /** Search query to filter alerts (OpsGenie query syntax) */
+  query?: string
+  /** Maximum number of alerts to return (max 100) */
+  limit?: number
+  /** Sort By (values: `createdAt`, `updatedAt`) */
+  sort?: "createdAt" | "updatedAt"
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** OpsGenie — Get Alert */
+export interface OpsgenieGetAlertInput {
+  /** Alert ID or Alias */
+  identifier: string
+  /** Identifier Type (values: `id`, `alias`, `tiny`) */
+  identifierType?: "id" | "alias" | "tiny"
+}
+
+/** OpsGenie — Close Alert */
+export interface OpsgenieCloseAlertInput {
+  /** Alert ID or Alias */
+  identifier: string
+  /** Identifier Type (values: `id`, `alias`, `tiny`) */
+  identifierType?: "id" | "alias" | "tiny"
+  /** Additional note for the close action */
+  note?: string
+}
+
+/** OpsGenie — Acknowledge Alert */
+export interface OpsgenieAcknowledgeAlertInput {
+  /** Alert ID or Alias */
+  identifier: string
+  /** Identifier Type (values: `id`, `alias`, `tiny`) */
+  identifierType?: "id" | "alias" | "tiny"
+  /** Additional note for the acknowledgement */
+  note?: string
+}
+
+/** OpsGenie — Custom API Call */
+export interface OpsgenieCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /alerts) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Outline — List Documents */
+export interface OutlineListDocumentsInput {
+  /** Filter by collection */
+  collectionId?: string
+  /** Sort By (values: `updatedAt`, `createdAt`, `title`) */
+  sort?: "updatedAt" | "createdAt" | "title"
+  /** Direction (values: `ASC`, `DESC`) */
+  direction?: "ASC" | "DESC"
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Outline — Get Document */
+export interface OutlineGetDocumentInput {
+  /** UUID or URL ID of the document */
+  id: string
+}
+
+/** Outline — Create Document */
+export interface OutlineCreateDocumentInput {
+  /** Title */
+  title: string
+  /** Document content in Markdown format */
+  text: string
+  /** Collection to place the document in */
+  collectionId: string
+  /** Optional parent document for nesting */
+  parentDocumentId?: string
+  /** Publish the document immediately */
+  publish?: boolean
+}
+
+/** Outline — Search Documents */
+export interface OutlineSearchInput {
+  /** Search Query */
+  query: string
+  /** Filter search to a specific collection */
+  collectionId?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Outline — Custom API Call */
+export interface OutlineCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /api/documents.list) */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Outreach — List Prospects */
@@ -11183,6 +19645,222 @@ export interface PandadocCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Paperform — Delete Form Submission */
+export interface PaperformDeleteFormSubmissionInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Form Submission ID */
+  submissionId: string
+}
+
+/** Paperform — Delete Partial Form Submission */
+export interface PaperformDeletePartialFormSubmissionInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Partial Submission ID (resolve via property options API) */
+  partialSubmissionId: string
+}
+
+/** Paperform — Create Form Coupon */
+export interface PaperformCreateFormCouponInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Coupon Code */
+  code: string
+  /** Whether the coupon is enabled or not. */
+  enabled?: boolean
+  /** The target of the coupon. (values: `price`, `subscription`) */
+  target?: "price" | "subscription"
+  /** Choose between amount or percentage discount. (values: `amount`, `percentage`) */
+  discountType: "amount" | "percentage"
+  /** Discount Amount */
+  discountAmount?: number
+  /** Discount Percentage */
+  discountPercentage?: number
+  /** The date and time when the coupon expires. */
+  expiresAt?: string
+}
+
+/** Paperform — Update Form Coupon */
+export interface PaperformUpdateFormCouponInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Coupon (resolve via property options API) */
+  couponCode: string
+  /** Whether the coupon is enabled or not */
+  enabled?: boolean
+  /** The target of the coupon. (values: `price`, `subscription`) */
+  target?: "price" | "subscription"
+  /** Choose between amount or percentage discount. (values: `amount`, `percentage`) */
+  discountType?: "amount" | "percentage"
+  /** Discount Amount */
+  discountAmount?: number
+  /** Discount Percentage */
+  discountPercentage?: number
+  /** The date and time when the coupon expires. */
+  expiresAt?: string
+}
+
+/** Paperform — Delete Form Coupon */
+export interface PaperformDeleteFormCouponInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Coupon (resolve via property options API) */
+  couponCode: string
+}
+
+/** Paperform — Create Form Product */
+export interface PaperformCreateFormProductInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Product Field (resolve via property options API) */
+  productFieldKey: string
+  /** Product Name */
+  name: string
+  /** Product SKU */
+  sku: string
+  /** Product Price */
+  price: number
+  /** Product quantity */
+  quantity?: number
+  /** Minimum Quantity */
+  minimum?: number
+  /** Maximum Quantity */
+  maximum?: number
+  /** Discountable ? */
+  discountable?: boolean
+  /** URL of the product image */
+  imageUrl?: string
+  /** Width of the product image in pixels */
+  imageWidth?: number
+  /** Height of the product image in pixels (optional) */
+  imageHeight?: number
+}
+
+/** Paperform — Update Form Product */
+export interface PaperformUpdateFormProductInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Product (resolve via property options API) */
+  productSku: string
+  /** Product Name */
+  name?: string
+  /** Product Price */
+  price?: number
+  /** Product quantity */
+  quantity?: number
+  /** Minimum Quantity */
+  minimum?: number
+  /** Maximum Quantity */
+  maximum?: number
+  /** Discountable ? */
+  discountable?: boolean
+  /** URL of the product image */
+  imageUrl?: string
+  /** Width of the product image in pixels. */
+  imageWidth?: number
+  /** Height of the product image in pixels (optional). */
+  imageHeight?: number
+}
+
+/** Paperform — Delete Form Product */
+export interface PaperformDeleteFormProductInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** Product (resolve via property options API) */
+  productSku: string
+}
+
+/** Paperform — Create Space */
+export interface PaperformCreateSpaceInput {
+  /** Space Name */
+  name: string
+}
+
+/** Paperform — Update Space */
+export interface PaperformUpdateSpaceInput {
+  /** Space (resolve via property options API) */
+  spaceId: string
+  /** Space Name */
+  name: string
+}
+
+/** Paperform — Find Form Product */
+export interface PaperformFindFormProductInput {
+  /** Select the form to search products in (resolve via property options API) */
+  formId: string
+  /** Form Product Name */
+  search: string
+}
+
+/** Paperform — Find Form */
+export interface PaperformFindFormInput {
+  /** Form Title */
+  search: string
+}
+
+/** Paperform — Find Space */
+export interface PaperformFindSpaceInput {
+  /** Space Name */
+  search: string
+}
+
+/** Paperform — Custom API Call */
+export interface PaperformCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Paylocity — List Employees */
+export interface PaylocityListEmployeesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Number */
+  pageNumber?: number
+}
+
+/** Paylocity — Get Employee */
+export interface PaylocityGetEmployeeInput {
+  /** Employee ID */
+  employeeId: string
+}
+
+/** Paylocity — List Earnings */
+export interface PaylocityListEarningsInput {
+  /** Employee ID */
+  employeeId: string
+}
+
+/** Paylocity — Get Company Codes */
+export interface PaylocityGetCompanyCodesInput {
+  /** The code resource to retrieve (e.g., costCenter1, costCenter2, costCenter3, department, employeeStatus, ethnicity, gender, jobTitle, maritalStatus, payGrade, state, workersCompCode) */
+  codeResource: string
+}
+
+/** Paylocity — Get Employee Benefits */
+export interface PaylocityGetEmployeeBenefitsInput {
+  /** Employee ID */
+  employeeId: string
+}
+
 /** Paywhirl — Cancel Subscription */
 export interface PaywhirlCancelSubscriptionInput {
   /** Subscription ID */
@@ -11291,6 +19969,56 @@ export interface PaywhirlCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** PDF.co — HTML to PDF */
+export interface PdfCoHtmlToPdfInput {
+  /** HTML string to convert to PDF (use this or URL, not both) */
+  html?: string
+  /** URL of a webpage to convert to PDF (use this or HTML, not both) */
+  url?: string
+  /** Name of the output PDF file (e.g. result.pdf) */
+  name?: string
+  /** Page margins in CSS format (e.g. 10mm 20mm 10mm 20mm) */
+  margins?: string
+  /** Paper Size (values: `Letter`, `A4`, `A3`, `Legal`) */
+  paperSize?: "Letter" | "A4" | "A3" | "Legal"
+  /** Orientation (values: `Portrait`, `Landscape`) */
+  orientation?: "Portrait" | "Landscape"
+  /** Run the conversion asynchronously */
+  async?: boolean
+}
+
+/** PDF.co — Merge PDFs */
+export interface PdfCoMergePdfsInput {
+  /** Array of PDF file URLs to merge (in order) */
+  urls: unknown[]
+  /** Name of the output merged PDF (e.g. merged.pdf) */
+  name?: string
+  /** Run the merge asynchronously */
+  async?: boolean
+}
+
+/** PDF.co — Extract Text */
+export interface PdfCoExtractTextInput {
+  /** URL of the PDF file to extract text from */
+  url: string
+  /** Page range to extract (e.g. 0-1 for first two pages, leave empty for all) */
+  pages?: string
+  /** Password if the PDF is protected */
+  password?: string
+  /** Run the extraction asynchronously */
+  async?: boolean
+}
+
+/** PDF.co — Custom API Call */
+export interface PdfCoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /pdf/merge) */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Perplexity AI — Ask AI */
@@ -12186,6 +20914,362 @@ export interface PlausibleRemoveGuestInput {
   email: string
 }
 
+/** Plivo — Send SMS */
+export interface PlivoSendSmsInput {
+  /** Plivo phone number to send from (E.164 format, e.g. +14151234567) */
+  src: string
+  /** Recipient phone number (E.164 format, e.g. +14159876543) */
+  dst: string
+  /** Text content of the SMS */
+  text: string
+}
+
+/** Plivo — List Messages */
+export interface PlivoListMessagesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Direction (values: ``, `inbound`, `outbound`) */
+  messageDirection?: "" | "inbound" | "outbound"
+}
+
+/** Plivo — Get Message */
+export interface PlivoGetMessageInput {
+  /** Message UUID */
+  messageUuid: string
+}
+
+/** Plivo — Custom API Call */
+export interface PlivoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path relative to /v1/Account/{authId} (e.g. "/Message/") */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Podia — List Products */
+export interface PodiaListProductsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter by product type (values: ``, `online_course`, `digital_download`, `coaching`, `webinar`, `community`) */
+  type?: "" | "online_course" | "digital_download" | "coaching" | "webinar" | "community"
+}
+
+/** Podia — List Customers */
+export interface PodiaListCustomersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter by email address */
+  email?: string
+}
+
+/** Podia — Get Customer */
+export interface PodiaGetCustomerInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** Podia — List Orders */
+export interface PodiaListOrdersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter orders by customer ID */
+  customerId?: string
+}
+
+/** Podia — Custom API Call */
+export interface PodiaCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Podio — Create Item */
+export interface PodioCreateItemInput {
+  /** Select an organization to filter apps by workspace. Leave empty to see all apps. (resolve via property options API) */
+  orgId?: string
+  /** Select a workspace to filter apps. Leave empty to see all apps in the organization. (resolve via property options API) */
+  spaceId?: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** The external id of the item. This can be used to hold a reference to the item in an external system. */
+  externalId?: string
+  /** Configure values for the fields in the selected app */
+  appFields: Record<string, unknown>
+  /** Advanced: Use this for complex field configurations. Format: {"field_id": {"value": "content"}}. Only use if the dynamic fields above don't meet your needs. */
+  legacyFields?: Record<string, unknown>
+  /** Temporary files that have been uploaded and should be attached to this item */
+  fileIds?: unknown[]
+  /** The tags to put on the item */
+  tags?: unknown[]
+  /** Optional reminder on this item. Format: {"remind_delta": minutes_before_due_date} */
+  reminder?: Record<string, unknown>
+  /** The recurrence for the task, if any. Format: {"name": "weekly|monthly|yearly", "config": {...}, "step": 1, "until": "date"} */
+  recurrence?: Record<string, unknown>
+  /** The linked account to use for the meeting */
+  linkedAccountId?: number
+  /** The reference for the new item, if any. Format: {"type": "item", "id": reference_id} */
+  ref?: Record<string, unknown>
+  /** If false, webhooks and integrations will not be triggered for this operation */
+  hook?: boolean
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+}
+
+/** Podio — Update Item */
+export interface PodioUpdateItemInput {
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** Select a Podio item (resolve via property options API) */
+  itemId: string
+  /** Configure values for the fields you want to update in the selected app */
+  appFields?: Record<string, unknown>
+  /** The revision of the item that is being updated. Optional for conflict detection. */
+  revision?: number
+  /** The new external_id of the item */
+  externalId?: string
+  /** Manual field configuration using field_id or external_id as keys. Use this for advanced scenarios or when dynamic fields are not sufficient. */
+  legacyFields?: Record<string, unknown>
+  /** The list of attachments */
+  fileIds?: unknown[]
+  /** The list of tags */
+  tags?: unknown[]
+  /** Optional reminder on this item. Format: {"remind_delta": minutes_before_due_date} */
+  reminder?: Record<string, unknown>
+  /** The recurrence for the task, if any. Format: {"name": "weekly|monthly|yearly", "config": {...}, "step": 1, "until": "date"} */
+  recurrence?: Record<string, unknown>
+  /** The linked account to use for meetings */
+  linkedAccountId?: number
+  /** The reference of the item. Format: {"type": "reference_type", "id": reference_id} */
+  ref?: Record<string, unknown>
+  /** If false, webhooks and integrations will not be triggered for this operation */
+  hook?: boolean
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+}
+
+/** Podio — Create Task */
+export interface PodioCreateTaskInput {
+  /** The description or text of the task */
+  text: string
+  /** Additional description for the task */
+  description?: string
+  /** Whether the task should be private (only creator, assignee and assignor can see it) */
+  private?: boolean
+  /** Due date in local time (date only) */
+  dueDate?: string
+  /** Due time in local time (HH:MM:SS format, e.g., "14:30:00") */
+  dueTime?: string
+  /** Complete due date and time in UTC. Alternative to separate date/time fields. */
+  dueOn?: string
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** The type of object to reference (resolve via property options API) */
+  refType?: string
+  /** Select the specific object to reference (resolve via property options API) */
+  refId?: string
+  /** Who is responsible for this task. Can be a user ID (number) or contact identifier object with type and id. */
+  responsible?: Record<string, unknown>
+  /** List of file IDs to attach to this task */
+  fileIds?: unknown[]
+  /** List of label names in text form */
+  labels?: unknown[]
+  /** List of label IDs (alternative to text labels) */
+  labelIds?: unknown[]
+  /** Reminder settings. Format: {"remind_delta": minutes_before_due_date} */
+  reminder?: Record<string, unknown>
+  /** Recurring task settings. Format: {"name": "weekly|monthly|yearly", "config": {...}, "step": 1, "until": "date"} */
+  recurrence?: Record<string, unknown>
+  /** External system identifier for this task */
+  externalId?: string
+  /** If false, webhooks and integrations will not be triggered for this operation */
+  hook?: boolean
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+}
+
+/** Podio — Update Task */
+export interface PodioUpdateTaskInput {
+  /** Select a Podio task (resolve via property options API) */
+  taskId: string
+  /** The updated text (title) for the task */
+  text?: string
+  /** The updated description for the task */
+  description?: string
+  /** The new due date for the task (in users timezone) */
+  dueDate?: string
+  /** The new due time for the task in local timezone (HH:MM:SS format, e.g., "14:30:00") */
+  dueTime?: string
+  /** Whether the task should be private (only creator, assignee and assignor can see it) */
+  private?: boolean
+  /** Mark the task as completed or not completed */
+  completed?: boolean
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** The type of object to reference (resolve via property options API) */
+  refType?: string
+  /** Select the specific object to reference (resolve via property options API) */
+  refId?: string
+  /** The user ID of the person responsible for this task */
+  responsible?: number
+  /** The labels for the task. Either a list of label ids or label texts */
+  labels?: unknown[]
+  /** The list of files that should be attached to the task */
+  fileIds?: unknown[]
+  /** Optional reminder on this task. Format: {"remind_delta": minutes_before_due_date}. If empty, existing reminder is deleted. */
+  reminder?: Record<string, unknown>
+  /** If false, webhooks and integrations will not be triggered for this operation */
+  hook?: boolean
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+}
+
+/** Podio — Attach File */
+export interface PodioAttachFileInput {
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** Select a file from the space (resolve via property options API) */
+  fileId: string
+  /** What type of object to attach the file to (resolve via property options API) */
+  refType: string
+  /** Select the specific object to reference (resolve via property options API) */
+  refId?: string
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+}
+
+/** Podio — Create Comment */
+export interface PodioCreateCommentInput {
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** What type of object to comment on (resolve via property options API) */
+  type: string
+  /** Select the specific object to comment on (resolve via property options API) */
+  id: string
+  /** The content of your comment */
+  value: string
+  /** Optional external identifier for the comment */
+  externalId?: string
+  /** Select files from the space to attach to this comment (enter file IDs from the space) */
+  fileIds?: unknown[]
+  /** ID of a previously created embedded link */
+  embedId?: number
+  /** URL to embed in the comment */
+  embedUrl?: string
+  /** Automatically invite mentioned users to the workspace if they lack access */
+  alertInvite?: boolean
+  /** If true, notifications will not be triggered and the object will not appear in activity streams */
+  silent?: boolean
+  /** If false, webhooks and integrations will not be triggered for this operation */
+  hook?: boolean
+}
+
+/** Podio — Create Status Update */
+export interface PodioCreateStatusInput {
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** What would you like to share? */
+  value: string
+  /** File IDs to attach to this status update (enter file IDs from the space) */
+  fileIds?: unknown[]
+  /** ID of a previously created embedded link */
+  embedId?: number
+  /** URL to embed in the status update */
+  embedUrl?: string
+  /** Create a poll with your status. Format: {"text": "Question?", "options": ["Option 1", "Option 2"]} */
+  question?: Record<string, unknown>
+  /** Automatically invite mentioned users to the workspace if they lack access */
+  alertInvite?: boolean
+}
+
+/** Podio — Find Item */
+export interface PodioFindItemInput {
+  /** How to find the item (resolve via property options API) */
+  searchType: string
+  /** The specific item ID to retrieve */
+  itemId?: number
+  /** Select a Podio item (resolve via property options API) */
+  selectedItem: string
+  /** Mark any new notifications on this item as viewed */
+  markAsViewed?: boolean
+  /** Select a Podio organization (resolve via property options API) */
+  orgId: string
+  /** Select a Podio workspace (resolve via property options API) */
+  spaceId: string
+  /** Select a Podio app (resolve via property options API) */
+  appId: string
+  /** Filter criteria as JSON object. Use field external_id as keys. */
+  filters?: Record<string, unknown>
+  /** Maximum number of results to return (1-500, default: 20) */
+  limit?: number
+  /** Number of results to skip for pagination (default: 0) */
+  offset?: number
+  /** Field to sort results by (e.g., "created_on", "last_edit_on") */
+  sortBy?: string
+  /** Sort results in descending order */
+  sortDesc?: boolean
+}
+
+/** Podio — Find Task */
+export interface PodioFindTaskInput {
+  /** Select a Podio task (resolve via property options API) */
+  taskId: string
+}
+
+/** Podio — Custom API Call */
+export interface PodioCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Postgres — Run Query */
 export interface PostgresRunQueryInput {
   /**        **DO NOT** insert dynamic input directly into the query string. Instead, use $1, $2, $3 and add them in args for parameterized queries to prevent **SQL injection.** */
@@ -12254,6 +21338,420 @@ export interface PosthogCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** PowerSchool — List Students */
+export interface PowerschoolListStudentsInput {
+  /** Filter by school ID (leave empty for all district students) */
+  schoolId?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+  /** Select additional data to include */
+  expansions?: string[]
+}
+
+/** PowerSchool — Get Student */
+export interface PowerschoolGetStudentInput {
+  /** Student ID */
+  studentId: string
+  /** Select additional data to include */
+  expansions?: string[]
+}
+
+/** PowerSchool — List Courses */
+export interface PowerschoolListCoursesInput {
+  /** Filter by school ID (leave empty for all district courses) */
+  schoolId?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** PowerSchool — Get Attendance */
+export interface PowerschoolGetAttendanceInput {
+  /** Student ID */
+  studentId: string
+  /** Start date (YYYY-MM-DD) */
+  startDate?: string
+  /** End date (YYYY-MM-DD) */
+  endDate?: string
+}
+
+/** PowerSchool — Custom API Call */
+export interface PowerschoolCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path relative to /ws/v1 (e.g., /district/student) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** PracticePanther — List Matters */
+export interface PracticePantherListMattersInput {
+  /** Status (values: `Open`, `Closed`, `Pending`) */
+  status?: "Open" | "Closed" | "Pending"
+  /** Limit */
+  limit?: number
+}
+
+/** PracticePanther — Get Matter */
+export interface PracticePantherGetMatterInput {
+  /** Matter ID */
+  matterId: string
+}
+
+/** PracticePanther — List Contacts */
+export interface PracticePantherListContactsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** PracticePanther — Create Contact */
+export interface PracticePantherCreateContactInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Company Name */
+  companyName?: string
+}
+
+/** PracticePanther — List Tasks */
+export interface PracticePantherListTasksInput {
+  /** Filter tasks by matter */
+  matterId?: string
+  /** Status (values: `Pending`, `Completed`) */
+  status?: "Pending" | "Completed"
+  /** Limit */
+  limit?: number
+}
+
+/** PracticePanther — Custom API Call */
+export interface PracticePantherCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Prismic — Query Documents */
+export interface PrismicQueryDocumentsInput {
+  /** Prismic query predicate (e.g., [[at(document.type, "blog_post")]]) */
+  query?: string
+  /** Number of results per page (max 100) */
+  pageSize?: number
+  /** Page number to retrieve */
+  page?: number
+  /** Order results (e.g., [document.first_publication_date desc]) */
+  orderings?: string
+}
+
+/** Prismic — Get Document by ID */
+export interface PrismicGetDocumentByIdInput {
+  /** The ID of the document to retrieve */
+  documentId: string
+}
+
+/** Prismic — Get Document by UID */
+export interface PrismicGetDocumentByUidInput {
+  /** The custom type of the document (e.g., "blog_post") */
+  type: string
+  /** The UID of the document */
+  uid: string
+}
+
+/** Prismic — Get Documents by Type */
+export interface PrismicGetDocumentsByTypeInput {
+  /** The custom type to filter by (e.g., "blog_post", "page") */
+  type: string
+  /** Number of results per page (max 100) */
+  pageSize?: number
+  /** Page number to retrieve */
+  page?: number
+}
+
+/** Procore — List Projects */
+export interface ProcoreListProjectsInput {
+  /** The Procore company ID */
+  companyId: string
+}
+
+/** Procore — Get Project */
+export interface ProcoreGetProjectInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Procore — List RFIs */
+export interface ProcoreListRfisInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Procore — List Submittals */
+export interface ProcoreListSubmittalsInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Propertyware — List Units */
+export interface PropertywareListUnitsInput {
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** ISO 8601 date to filter units updated after this date */
+  lastUpdatedFrom?: string
+}
+
+/** Propertyware — List Tenants */
+export interface PropertywareListTenantsInput {
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** Include Deactivated */
+  includeDeactivated?: boolean
+}
+
+/** Propertyware — List Work Orders */
+export interface PropertywareListWorkOrdersInput {
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+  /** Filter by status (e.g., Open, Closed) */
+  status?: string
+  /** ISO 8601 date to filter work orders updated after this date */
+  lastUpdatedFrom?: string
+}
+
+/** Propertyware — Custom API Call */
+export interface PropertywareCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Pulumi — List Stacks */
+export interface PulumiListStacksInput {
+  /** Filter by organization name */
+  organization?: string
+  /** Filter by project name */
+  project?: string
+  /** Token for paginating results */
+  continuationToken?: string
+}
+
+/** Pulumi — Get Stack */
+export interface PulumiGetStackInput {
+  /** Organization */
+  organization: string
+  /** Project */
+  project: string
+  /** Stack Name */
+  stack: string
+}
+
+/** Pulumi — List Updates */
+export interface PulumiListUpdatesInput {
+  /** Organization */
+  organization: string
+  /** Project */
+  project: string
+  /** Stack Name */
+  stack: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Pulumi — Custom API Call */
+export interface PulumiCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /api/user/stacks) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Qdrant — Add points to collection */
+export interface QdrantAddPointsToCollectionInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** Embeddings (= vectors) for the points */
+  embeddings: string
+  /** The ids of the embeddings for the points. If not provided, the ids will be generated automatically */
+  embeddingsIds?: unknown[]
+  /** The calculation method helps to rank vectors when you want to find the closest points, the method to use depends on the model who's created the embeddings, see the documentation of your model (values: `Cosine`, `Euclid`, `Dot`) */
+  distance: "Cosine" | "Euclid" | "Dot"
+  /** Please follow [payload documentation](https://qdrant.tech/documentation/concepts/payload/) to add additional information to the points. */
+  payload?: unknown
+  /** Define where points will be stored (values: `Disk`, `Memory`) */
+  storage?: "Disk" | "Memory"
+}
+
+/** Qdrant — Get Collection List */
+export type QdrantCollectionListInput = Record<string, never>
+
+/** Qdrant — Get Collection Infos */
+export interface QdrantCollectionInfosInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+}
+
+/** Qdrant — Delete Collection */
+export interface QdrantDeleteCollectionInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+}
+
+/** Qdrant — Delete Points */
+export interface QdrantDeletePointsInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** The method to use to get the points (values: `Ids`, `Filtering`) */
+  getPointsBy: "Ids" | "Filtering"
+  /** The infos to select points */
+  infosToGetPoint: Record<string, unknown>
+}
+
+/** Qdrant — Get Points */
+export interface QdrantGetPointsInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** The method to use to get the points (values: `Ids`, `Filtering`) */
+  getPointsBy: "Ids" | "Filtering"
+  /** The infos to select points */
+  infosToGetPoint: Record<string, unknown>
+}
+
+/** Qdrant — Search Points */
+export interface QdrantSearchPointsInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** The vector (= embedding) you want to search for. */
+  vector: string
+  /** If the point have this property in his payload it will be selected */
+  must?: Record<string, unknown>
+  /** If the point have this property in his payload it will not be selected */
+  must_not?: Record<string, unknown>
+  /** The vector (= embedding) you want to be the farthest. */
+  negativeVector?: string
+  /** The max number of results you want to get. */
+  limitResult?: number
+}
+
+/** Qdrant — Create Collection */
+export interface QdrantCustomCreateCollectionInput {
+  /** Collection Name */
+  collectionName: string
+  /** Dimension of the vectors */
+  vectorSize: number
+  /** Distance Metric (values: `Cosine`, `Euclid`, `Dot`, `Manhattan`) */
+  distance?: "Cosine" | "Euclid" | "Dot" | "Manhattan"
+}
+
+/** Qdrant — Upsert Points */
+export interface QdrantCustomUpsertPointsInput {
+  /** Collection Name */
+  collectionName: string
+  /** Array of points: [{id: 1, vector: [0.1, ...], payload: {...}}, ...] */
+  points: unknown
+  /** Wait for the operation to be applied */
+  wait?: boolean
+}
+
+/** Qdrant — Search Points */
+export interface QdrantCustomSearchPointsInput {
+  /** Collection Name */
+  collectionName: string
+  /** The query vector as an array of floats */
+  vector: unknown
+  /** Limit */
+  limit?: number
+  /** Optional payload filter as JSON */
+  filter?: unknown
+  /** Include payload in results */
+  withPayload?: boolean
+  /** Include vectors in results */
+  withVector?: boolean
+  /** Minimum score threshold */
+  scoreThreshold?: number
+}
+
+/** Qdrant — Delete Points */
+export interface QdrantCustomDeletePointsInput {
+  /** Collection Name */
+  collectionName: string
+  /** Array of point IDs to delete */
+  pointIds?: unknown
+  /** Payload filter to select points for deletion */
+  filter?: unknown
+  /** Wait for the operation to be applied */
+  wait?: boolean
+}
+
+/** Qdrant — List Collections */
+export type QdrantCustomListCollectionsInput = Record<string, never>
+
+/** Qdrant — Custom API Call */
+export interface QdrantCustomCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** QR Code — Generate QR Code */
+export interface QrCodeGenerateQrCodeInput {
+  /** The text or URL to encode in the QR code */
+  data: string
+  /** Width x height in pixels (e.g. "200x200") */
+  size?: string
+  /** Output image format (values: `png`, `svg`, `eps`) */
+  format?: "png" | "svg" | "eps"
+  /** Foreground color in hex without # (e.g. "000000" for black) */
+  color?: string
+  /** Background color in hex without # (e.g. "ffffff" for white) */
+  bgcolor?: string
+  /** Margin around the QR code (in pixels) */
+  margin?: number
+  /** QR code error correction level (values: `L`, `M`, `Q`, `H`) */
+  errorCorrectionLevel?: "L" | "M" | "Q" | "H"
+}
+
+/** QR Code — Custom API Call */
+export interface QrCodeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Quickbooks Online — Find Invoice */
@@ -12336,6 +21834,61 @@ export interface QuickbooksCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** RabbitMQ — sendMessageToExchange */
+export interface RabbitmqSendMessageToExchangeInput {
+  /** The name of the exchange to send the message to */
+  exchange: string
+  /** The routing key to use when sending the message */
+  routingKey?: string
+  /** The data to send */
+  data: unknown
+}
+
+/** RabbitMQ — sendMessageToQueue */
+export interface RabbitmqSendMessageToQueueInput {
+  /** The name of the exchange to send the message to */
+  queue: string
+  /** The data to send */
+  data: unknown
+}
+
+/** Railway — List Projects */
+export type RailwayListProjectsInput = Record<string, never>
+
+/** Railway — List Services */
+export interface RailwayListServicesInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Railway — Get Deployments */
+export interface RailwayGetDeploymentsInput {
+  /** Project ID */
+  projectId: string
+  /** Service ID */
+  serviceId: string
+  /** Environment ID */
+  environmentId?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Railway — Redeploy Service */
+export interface RailwayRedeployInput {
+  /** Service ID */
+  serviceId: string
+  /** Environment ID */
+  environmentId: string
+}
+
+/** Railway — Custom API Call */
+export interface RailwayCustomApiCallInput {
+  /** The GraphQL query or mutation string */
+  query: string
+  /** Variables for the GraphQL query */
+  variables?: unknown
+}
+
 /** Razorpay — Custom API Call */
 export interface RazorpayCustomApiCallInput {
   /** url */
@@ -12386,6 +21939,91 @@ export interface RazorpayCreatePaymentLinkInput {
   callback_url?: string
   /** Callback Method */
   callback_method?: string
+}
+
+/** Reclaim AI — List Tasks */
+export interface ReclaimAiListTasksInput {
+  /** Status (values: ``, `NEW`, `SCHEDULED`, `IN_PROGRESS`, `COMPLETE`, `CANCELLED`) */
+  status?: "" | "NEW" | "SCHEDULED" | "IN_PROGRESS" | "COMPLETE" | "CANCELLED"
+}
+
+/** Reclaim AI — Create Task */
+export interface ReclaimAiCreateTaskInput {
+  /** Title */
+  title: string
+  /** Additional notes or description */
+  notes?: string
+  /** Minimum time block size in minutes */
+  minChunkSize?: number
+  /** Maximum time block size in minutes */
+  maxChunkSize?: number
+  /** Total hours needed for the task */
+  timeNeeded?: number
+  /** Due date in ISO 8601 format */
+  dueDate?: string
+  /** Priority (values: `P1`, `P2`, `P3`, `P4`) */
+  priority?: "P1" | "P2" | "P3" | "P4"
+}
+
+/** Reclaim AI — Get Habits */
+export type ReclaimAiGetHabitsInput = Record<string, never>
+
+/** Reclaim AI — List Events */
+export interface ReclaimAiListEventsInput {
+  /** Start date in ISO 8601 format */
+  start?: string
+  /** End date in ISO 8601 format */
+  end?: string
+}
+
+/** Reclaim AI — Custom API Call */
+export interface ReclaimAiCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Recurly — List Accounts */
+export interface RecurlyListAccountsInput {
+  /** Limit */
+  limit?: number
+  /** Sort order (asc or desc) */
+  order?: string
+  /** Filter by state (active, closed, past_due) */
+  state?: string
+}
+
+/** Recurly — List Subscriptions */
+export interface RecurlyListSubscriptionsInput {
+  /** Limit */
+  limit?: number
+  /** Filter by state (active, canceled, expired, future, in_trial, live, past_due) */
+  state?: string
+}
+
+/** Recurly — Get Subscription */
+export interface RecurlyGetSubscriptionInput {
+  /** Subscription UUID */
+  subscriptionId: string
+}
+
+/** Recurly — List Invoices */
+export interface RecurlyListInvoicesInput {
+  /** Limit */
+  limit?: number
+  /** Filter by state (pending, processing, past_due, paid, failed, voided) */
+  state?: string
+  /** Filter by type (charge, credit, legacy) */
+  type?: string
+}
+
+/** Recurly — Get Account */
+export interface RecurlyGetAccountInput {
+  /** Account code or UUID */
+  accountId: string
 }
 
 /** Reddit — Retrieve Post */
@@ -12484,6 +22122,36 @@ export interface RedditCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Render — List Services */
+export interface RenderListServicesInput {
+  /** Service Type (values: `web_service`, `static_site`, `private_service`, `background_worker`, `cron_job`) */
+  type?: "web_service" | "static_site" | "private_service" | "background_worker" | "cron_job"
+  /** Limit */
+  limit?: number
+}
+
+/** Render — Get Service */
+export interface RenderGetServiceInput {
+  /** Service ID */
+  serviceId: string
+}
+
+/** Render — List Deploys */
+export interface RenderListDeploysInput {
+  /** Service ID */
+  serviceId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Render — Create Deploy */
+export interface RenderCreateDeployInput {
+  /** Service ID */
+  serviceId: string
+  /** Whether to clear the build cache for this deploy (values: `do_not_clear`, `clear`) */
+  clearCache?: "do_not_clear" | "clear"
+}
+
 /** Replicate — Create Prediction */
 export interface ReplicateCreatePredictionInput {
   /** Model version ID (owner/model:version) or model name for official models */
@@ -12547,6 +22215,28 @@ export interface ResendCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Retool — Trigger Workflow */
+export interface RetoolTriggerWorkflowInput {
+  /** The UUID of the workflow to trigger */
+  workflowId: string
+  /** The API key for the workflow webhook trigger (starts with retool_wk_) */
+  workflowApiKey: string
+  /** JSON payload to send to the workflow (accessible via startTrigger.data) */
+  payload?: Record<string, unknown>
+}
+
+/** Retool — List Resources */
+export type RetoolListResourcesInput = Record<string, never>
+
+/** Retool — List Folders */
+export type RetoolListFoldersInput = Record<string, never>
+
+/** Retool — List Users */
+export type RetoolListUsersInput = Record<string, never>
+
+/** Retool — List Groups */
+export type RetoolListGroupsInput = Record<string, never>
+
 /** RingCentral — Send SMS */
 export interface RingcentralSendSmsInput {
   /** Your RingCentral phone number */
@@ -12589,6 +22279,141 @@ export type RipplingListDepartmentsInput = Record<string, never>
 
 /** Rippling — List Work Locations */
 export type RipplingListWorkLocationsInput = Record<string, never>
+
+/** Rocket.Chat — Send Message */
+export interface RocketChatSendMessageInput {
+  /** The channel or DM room ID */
+  roomId: string
+  /** Message Text */
+  text: string
+  /** Optional display name alias */
+  alias?: string
+  /** Optional emoji avatar (e.g., :robot:) */
+  emoji?: string
+}
+
+/** Rocket.Chat — List Channels */
+export interface RocketChatListChannelsInput {
+  /** Count */
+  count?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Rocket.Chat — Get Channel */
+export interface RocketChatGetChannelInput {
+  /** The channel ID */
+  roomId?: string
+  /** The channel name (alternative to ID) */
+  roomName?: string
+}
+
+/** Rocket.Chat — Custom API Call */
+export interface RocketChatCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Rollbar — List Items */
+export interface RollbarListItemsInput {
+  /** Status (values: `active`, `resolved`, `muted`) */
+  status?: "active" | "resolved" | "muted"
+  /** Level (values: `critical`, `error`, `warning`, `info`, `debug`) */
+  level?: "critical" | "error" | "warning" | "info" | "debug"
+  /** Filter by environment (e.g., production) */
+  environment?: string
+  /** Page */
+  page?: number
+}
+
+/** Rollbar — Get Item */
+export interface RollbarGetItemInput {
+  /** The item counter number */
+  counter: number
+}
+
+/** Rollbar — List Occurrences */
+export interface RollbarListOccurrencesInput {
+  /** The item counter number */
+  itemCounter: number
+  /** Page */
+  page?: number
+}
+
+/** Rollbar — List Projects */
+export type RollbarListProjectsInput = Record<string, never>
+
+/** Rollbar — Custom API Call */
+export interface RollbarCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /items/?status=active) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Runway — Generate Video */
+export interface RunwayGenerateVideoInput {
+  /** Model (values: `gen3a_turbo`, `gen3a`) */
+  model?: "gen3a_turbo" | "gen3a"
+  /** Text prompt for video generation */
+  promptText: string
+  /** URL of a source image (for image-to-video) */
+  imageUrl?: string
+  /** Duration (values: `5`, `10`) */
+  duration?: "5" | "10"
+  /** Add Runway watermark */
+  watermark?: boolean
+}
+
+/** Runway — Get Task */
+export interface RunwayGetTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Runway — List Assets */
+export interface RunwayListAssetsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Runway — Custom API Call */
+export interface RunwayCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Saleor — Raw GraphQL query */
+export interface SaleorRawGraphqlQueryInput {
+  /** Query */
+  query: string
+  /** Parameters */
+  variables?: Record<string, unknown>
+}
+
+/** Saleor — Get an order */
+export interface SaleorGetOrderInput {
+  /** The ID of the order */
+  orderId: string
+}
+
+/** Saleor — Add Order Note */
+export interface SaleorAddOrderNoteInput {
+  /** The ID of the order */
+  orderId: string
+  /** The content of the note */
+  message: string
+}
 
 /** Salesforce — Add Contact to Campaign */
 export interface SalesforceAddContactToCampaignInput {
@@ -12953,12 +22778,174 @@ export interface SalesloftCreatePersonInput {
 /** SalesLoft — List Cadences */
 export type SalesloftListCadencesInput = Record<string, never>
 
+/** Sanity — Query (GROQ) */
+export interface SanityQueryInput {
+  /** The GROQ query to execute (e.g., *[_type == "post"]) */
+  query: string
+  /** Optional query parameters as a JSON object */
+  params?: string
+}
+
+/** Sanity — Create Document */
+export interface SanityCreateDocumentInput {
+  /** The _type of the document to create */
+  type: string
+  /** Optional custom document ID */
+  documentId?: string
+  /** JSON object with the document fields */
+  body: string
+}
+
+/** Sanity — Update Document */
+export interface SanityUpdateDocumentInput {
+  /** Document ID */
+  documentId: string
+  /** JSON object with fields to set */
+  set?: string
+  /** JSON array of field names to unset */
+  unset?: string
+}
+
+/** Sanity — Delete Document */
+export interface SanityDeleteDocumentInput {
+  /** Document ID */
+  documentId: string
+}
+
+/** Schoology — List Courses */
+export interface SchoologyListCoursesInput {
+  /** Start Index */
+  start?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Schoology — List Sections */
+export interface SchoologyListSectionsInput {
+  /** Course ID */
+  courseId: string
+  /** Start Index */
+  start?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Schoology — List Assignments */
+export interface SchoologyListAssignmentsInput {
+  /** Section ID */
+  sectionId: string
+  /** Start Index */
+  start?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Schoology — Create Assignment */
+export interface SchoologyCreateAssignmentInput {
+  /** Section ID */
+  sectionId: string
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** Due date in YYYY-MM-DD format */
+  dueDate?: string
+  /** Max Points */
+  maxPoints?: number
+  /** Type (values: `assignment`, `discussion`, `assessment`) */
+  type?: "assignment" | "discussion" | "assessment"
+}
+
+/** Schoology — Custom API Call */
+export interface SchoologyCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** ScreenshotOne — Take Screenshot */
+export interface ScreenshotOneTakeScreenshotInput {
+  /** The webpage URL to screenshot */
+  url: string
+  /** Format (values: `png`, `jpg`, `webp`, `pdf`) */
+  format?: "png" | "jpg" | "webp" | "pdf"
+  /** Browser viewport width in pixels (default: 1920) */
+  viewportWidth?: number
+  /** Browser viewport height in pixels (default: 1080) */
+  viewportHeight?: number
+  /** Device scale factor / pixel density (1 or 2) */
+  deviceScaleFactor?: number
+  /** Capture the full scrollable page */
+  fullPage?: boolean
+  /** Delay in milliseconds before taking the screenshot */
+  delay?: number
+  /** Block ads on the page */
+  blockAds?: boolean
+  /** Enable dark mode for the screenshot */
+  darkMode?: boolean
+  /** Cache the screenshot result */
+  cache?: boolean
+}
+
+/** ScreenshotOne — Custom API Call */
+export interface ScreenshotOneCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /take) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Segment — Identify User */
 export interface SegmentIdentifyUserInput {
   /** User ID */
   userId: string
   /** The traits to associate with the user */
   traits: Record<string, unknown>
+}
+
+/** SEMrush — Get Domain Overview */
+export interface SemrushGetDomainOverviewInput {
+  /** Domain to analyze (e.g., example.com) */
+  domain: string
+  /** Regional database code (e.g., us, uk, de) */
+  database?: string
+  /** Display Limit */
+  displayLimit?: number
+}
+
+/** SEMrush — Get Organic Keywords */
+export interface SemrushGetOrganicKeywordsInput {
+  /** Domain */
+  domain: string
+  /** Database */
+  database?: string
+  /** Display Limit */
+  displayLimit?: number
+}
+
+/** SEMrush — Get Backlinks */
+export interface SemrushGetBacklinksInput {
+  /** Domain or URL to analyze */
+  target: string
+  /** Display Limit */
+  displayLimit?: number
+  /** Target Type (values: `root_domain`, `url`) */
+  targetType?: "root_domain" | "url"
+}
+
+/** SEMrush — Custom API Call */
+export interface SemrushCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path with query parameters (key param will be added automatically) */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** SendGrid — Send Email */
@@ -13019,6 +23006,80 @@ export interface SendgridCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** SendPulse — Add Subscriber */
+export interface SendpulseAddSubscriberInput {
+  /** Select one of your SendPulse mailing lists (resolve via property options API) */
+  mailingListId: string
+  /** Subscriber email address */
+  email: string
+  /** Optional subscriber variables (e.g., name, phone) */
+  variables?: Record<string, unknown>
+  /** Optional tag IDs to assign */
+  tags?: unknown[]
+}
+
+/** SendPulse — Change Variable for Subscriber */
+export interface SendpulseChangeVariableForSubscriberInput {
+  /** Select one of your SendPulse mailing lists (resolve via property options API) */
+  mailingListId: string
+  /** Subscriber email address */
+  email: string
+  /** Select variable to update (resolve via property options API) */
+  variableName: string
+  /** New value for the variable */
+  variableValue: string
+}
+
+/** SendPulse — Delete Contact */
+export interface SendpulseDeleteContactInput {
+  /** Email address to delete from all mailing lists */
+  email: string
+}
+
+/** SendPulse — Unsubscribe User */
+export interface SendpulseUnsubscribeUserInput {
+  /** Select one of your SendPulse mailing lists (resolve via property options API) */
+  mailingListId: string
+  /** Email addresses to unsubscribe (max 100) */
+  emails: unknown[]
+}
+
+/** SendPulse — Update Subscriber */
+export interface SendpulseUpdateSubscriberInput {
+  /** Select one of your SendPulse mailing lists (resolve via property options API) */
+  mailingListId: string
+  /** Email address of the subscriber to update */
+  email: string
+  /** New phone number (optional) */
+  phone?: string
+  /** Subscriber variables to update (e.g., name, custom fields) */
+  variables?: Record<string, unknown>
+}
+
+/** SendPulse — Custom API Call */
+export interface SendpulseCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Sentry — List Projects */
 export interface SentryListProjectsInput {
   /** Organization Slug */
@@ -13052,6 +23113,275 @@ export interface SentryListEventsInput {
   /** Issue ID */
   issueId: string
 }
+
+/** ServiceNow — Create Record */
+export interface ServiceNowCreateRecordInput {
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Field names and values for the new record */
+  fields: Record<string, unknown>
+  /** How to format the response data (values: `false`, `true`, `all`) */
+  sysparm_display_value?: "false" | "true" | "all"
+  /** Specific fields to include in response (optional) */
+  sysparm_fields?: unknown[]
+  /** Treat input values as display names instead of IDs */
+  sysparm_input_display_value?: boolean
+  /** View context for returned fields (values: `desktop`, `mobile`, `both`) */
+  sysparm_view?: "desktop" | "mobile" | "both"
+}
+
+/** ServiceNow — Update Record */
+export interface ServiceNowUpdateRecordInput {
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Select a record from the table (resolve via property options API) */
+  record: string
+  /** Enter the sys_id directly if not found in dropdown */
+  manual_sys_id?: string
+  /** Field names and new values to update */
+  fields: Record<string, unknown>
+  /** How to format the response data (values: `false`, `true`, `all`) */
+  sysparm_display_value?: "false" | "true" | "all"
+  /** Specific fields to include in response (optional) */
+  sysparm_fields?: unknown[]
+  /** Treat input values as display names instead of IDs */
+  sysparm_input_display_value?: boolean
+  /** View context for returned fields (values: `desktop`, `mobile`, `both`) */
+  sysparm_view?: "desktop" | "mobile" | "both"
+}
+
+/** ServiceNow — Get Record */
+export interface ServiceNowGetRecordInput {
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Select a record from the table (resolve via property options API) */
+  record: string
+  /** Enter the sys_id directly if not found in dropdown */
+  manual_sys_id?: string
+  /** How to format the response data (values: `false`, `true`, `all`) */
+  sysparm_display_value?: "false" | "true" | "all"
+  /** Exclude API links for reference fields */
+  sysparm_exclude_reference_link?: boolean
+  /** Specific fields to include in response (optional) */
+  sysparm_fields?: unknown[]
+  /** Include records from all domains */
+  sysparm_query_no_domain?: boolean
+  /** View context for returned fields (values: `desktop`, `mobile`, `both`) */
+  sysparm_view?: "desktop" | "mobile" | "both"
+}
+
+/** ServiceNow — Find Records */
+export interface ServiceNowFindRecordInput {
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Encoded query string (e.g., state=1^priority=1) */
+  query: string
+  /** Maximum records to return */
+  limit?: number
+  /** Specific fields to include in response (optional) */
+  fields?: unknown[]
+  /** How to format the response data (values: `false`, `true`, `all`) */
+  sysparm_display_value?: "false" | "true" | "all"
+  /** Exclude API links for reference fields */
+  sysparm_exclude_reference_link?: boolean
+  /** Include records from all domains */
+  sysparm_query_no_domain?: boolean
+  /** View context for returned fields (values: `desktop`, `mobile`, `both`) */
+  sysparm_view?: "desktop" | "mobile" | "both"
+}
+
+/** ServiceNow — Attach File to Record */
+export interface ServiceNowAttachFileToRecordInput {
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Select a record from the table (resolve via property options API) */
+  record: string
+  /** Enter the sys_id directly if not found in dropdown */
+  manual_sys_id?: string
+  /** Name for the attachment */
+  file_name: string
+  /** File content type */
+  content_type: "application/pdf" | "application/vnd.openxmlformats-officedocument.wordprocessingml.document" | "application/msword" | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" | "application/vnd.ms-excel" | "application/vnd.openxmlformats-officedocument.presentationml.presentation" | "application/vnd.ms-powerpoint" | "text/plain" | "text/csv" | "application/json" | "application/xml" | "application/zip" | "image/png" | "image/jpeg" | "image/gif" | "image/svg+xml" | "image/bmp" | "image/tiff" | "*/*" | "application/octet-stream"
+  /** Base64 encoded file content (use this OR file path) */
+  fileBase64?: string
+  /** Path to file on local system (use this OR base64) */
+  filePath?: string
+  /** Encryption context sys_id to restrict file access */
+  encryption_context?: string
+}
+
+/** ServiceNow — Find File */
+export interface ServiceNowFindFileInput {
+  /** List attachments or download a file (values: `list`, `download`) */
+  action_type: "list" | "download"
+  /** ServiceNow table to work with (resolve via property options API) */
+  table: string
+  /** Select a record from the table (resolve via property options API) */
+  record: string
+  /** Record sys_id (for listing attachments) */
+  manual_sys_id?: string
+  /** Filter attachments by filename (optional) */
+  filename?: string
+  /** Attachment sys_id to download */
+  attachment_sys_id?: string
+  /** File type to accept when downloading */
+  accept_type?: "*/*" | "image/*" | "image/jpeg" | "image/png" | "image/gif" | "image/svg+xml" | "application/pdf" | "application/vnd.openxmlformats-officedocument.wordprocessingml.document" | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" | "text/plain" | "application/json" | "application/zip"
+  /** Format for returned file data (values: `base64`, `buffer`, `metadata`) */
+  return_format?: "base64" | "buffer" | "metadata"
+}
+
+/** ServiceTitan — List Jobs */
+export interface ServiceTitanListJobsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 date (e.g., 2024-01-01) */
+  createdOnOrAfter?: string
+}
+
+/** ServiceTitan — Get Job */
+export interface ServiceTitanGetJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** ServiceTitan — List Customers */
+export interface ServiceTitanListCustomersInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Active Status (values: ``, `true`, `false`) */
+  active?: "" | "true" | "false"
+}
+
+/** ServiceTitan — List Invoices */
+export interface ServiceTitanListInvoicesInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 date (e.g., 2024-01-01) */
+  createdOnOrAfter?: string
+}
+
+/** Shippo — Create Shipment */
+export interface ShippoCreateShipmentInput {
+  /** From Name */
+  addressFromName: string
+  /** From Street */
+  addressFromStreet: string
+  /** From City */
+  addressFromCity: string
+  /** From State */
+  addressFromState: string
+  /** From ZIP */
+  addressFromZip: string
+  /** ISO 2-letter country code (e.g., US) */
+  addressFromCountry: string
+  /** To Name */
+  addressToName: string
+  /** To Street */
+  addressToStreet: string
+  /** To City */
+  addressToCity: string
+  /** To State */
+  addressToState: string
+  /** To ZIP */
+  addressToZip: string
+  /** ISO 2-letter country code (e.g., US) */
+  addressToCountry: string
+  /** Parcel Length (in) */
+  parcelLength: number
+  /** Parcel Width (in) */
+  parcelWidth: number
+  /** Parcel Height (in) */
+  parcelHeight: number
+  /** Parcel Weight (oz) */
+  parcelWeight: number
+  /** Process shipment asynchronously */
+  async?: boolean
+}
+
+/** Shippo — Get Shipment */
+export interface ShippoGetShipmentInput {
+  /** Shipment ID */
+  shipmentId: string
+}
+
+/** Shippo — List Rates */
+export interface ShippoListRatesInput {
+  /** Shipment object ID to get rates for */
+  shipmentId: string
+}
+
+/** Shippo — Create Label (Transaction) */
+export interface ShippoCreateLabelInput {
+  /** Rate object ID to purchase */
+  rateId: string
+  /** Label File Type (values: `PDF`, `PNG`, `PDF_4x6`, `ZPLII`) */
+  labelFileType?: "PDF" | "PNG" | "PDF_4x6" | "ZPLII"
+  /** Process transaction asynchronously */
+  async?: boolean
+}
+
+/** Shippo — Custom API Call */
+export interface ShippoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** ShipStation — List Orders */
+export interface ShipstationListOrdersInput {
+  /** Filter by status (awaiting_payment, awaiting_shipment, shipped, on_hold, cancelled) */
+  orderStatus?: string
+  /** Filter by order number */
+  orderNumber?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** ShipStation — Get Order */
+export interface ShipstationGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** ShipStation — List Shipments */
+export interface ShipstationListShipmentsInput {
+  /** Filter by order ID */
+  orderId?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** ShipStation — Create Label */
+export interface ShipstationCreateLabelInput {
+  /** Order ID */
+  orderId: number
+  /** Carrier code (e.g., stamps_com, fedex, ups) */
+  carrierCode: string
+  /** Service code (e.g., usps_priority_mail) */
+  serviceCode: string
+  /** Package code (e.g., package) */
+  packageCode: string
+  /** Weight object as JSON, e.g., {"value": 24, "units": "ounces"} */
+  weight: string
+  /** Create a test label */
+  testLabel?: boolean
+}
+
+/** ShipStation — List Carriers */
+export type ShipstationListCarriersInput = Record<string, never>
 
 /** Shopify — Adjust Inventory Level */
 export interface ShopifyAdjustInventoryLevelInput {
@@ -13353,6 +23683,150 @@ export interface ShopifyCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Short.io — Create Link */
+export interface ShortIoCreateLinkInput {
+  /** The long URL to shorten */
+  originalURL: string
+  /** Your Short.io domain (e.g. mysite.short.gy) */
+  domain: string
+  /** Custom slug for the short link (auto-generated if empty) */
+  path?: string
+  /** Title */
+  title?: string
+  /** Tags */
+  tags?: unknown[]
+  /** Allow creating duplicate links for the same URL */
+  allowDuplicates?: boolean
+}
+
+/** Short.io — Get Link */
+export interface ShortIoGetLinkInput {
+  /** The ID string of the link to retrieve */
+  linkId: string
+}
+
+/** Short.io — List Links */
+export interface ShortIoListLinksInput {
+  /** Your Short.io domain */
+  domain: string
+  /** Limit */
+  limit?: number
+  /** Filter links created before this date (ISO 8601) */
+  beforeDate?: string
+  /** Search term to filter links */
+  search?: string
+}
+
+/** Short.io — Custom API Call */
+export interface ShortIoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /links) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Sierra Interactive — List Leads */
+export interface SierraInteractiveListLeadsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Field to sort by (e.g., createdDate, lastActivityDate) */
+  sortBy?: string
+}
+
+/** Sierra Interactive — Create Lead */
+export interface SierraInteractiveCreateLeadInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email: string
+  /** Phone */
+  phone?: string
+  /** Lead source */
+  source?: string
+  /** Lead Type (values: `Buyer`, `Seller`, `Both`) */
+  leadType?: "Buyer" | "Seller" | "Both"
+  /** Email of the agent to assign */
+  assignTo?: string
+}
+
+/** Sierra Interactive — List Properties */
+export interface SierraInteractiveListPropertiesInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Sierra Interactive — Custom API Call */
+export interface SierraInteractiveCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** SimplePractice — List Clients */
+export interface SimplePracticeListClientsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Status (values: `active`, `archived`, `all`) */
+  status?: "active" | "archived" | "all"
+}
+
+/** SimplePractice — Get Client */
+export interface SimplePracticeGetClientInput {
+  /** Client ID */
+  clientId: string
+}
+
+/** SimplePractice — List Appointments */
+export interface SimplePracticeListAppointmentsInput {
+  /** Filter by client */
+  clientId?: string
+  /** Filter from date (YYYY-MM-DD) */
+  startDate?: string
+  /** Filter until date (YYYY-MM-DD) */
+  endDate?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** SimplePractice — Create Appointment */
+export interface SimplePracticeCreateAppointmentInput {
+  /** Client ID */
+  clientId: string
+  /** ISO 8601 format (e.g. 2025-01-15T10:00:00Z) */
+  startDate: string
+  /** ISO 8601 format (e.g. 2025-01-15T11:00:00Z) */
+  endDate: string
+  /** Type of appointment */
+  appointmentType?: string
+  /** Notes */
+  notes?: string
+}
+
+/** SimplePractice — Custom API Call */
+export interface SimplePracticeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Slack — Add Reaction to Message */
@@ -13675,6 +24149,48 @@ export interface SlackCustomApiCallInput {
   useUserToken: boolean
 }
 
+/** Slite — List Notes */
+export interface SliteListNotesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Slite — Get Note */
+export interface SliteGetNoteInput {
+  /** Note ID */
+  noteId: string
+}
+
+/** Slite — Create Note */
+export interface SliteCreateNoteInput {
+  /** Title */
+  title: string
+  /** Note content in Markdown format */
+  markdown: string
+  /** ID of the parent note or channel */
+  parentNoteId?: string
+}
+
+/** Slite — Search Notes */
+export interface SliteSearchInput {
+  /** Search Query */
+  query: string
+  /** Limit */
+  limit?: number
+}
+
+/** Slite — Custom API Call */
+export interface SliteCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Smartsheet — Add Row to Sheet */
 export interface SmartsheetAddRowToSheetInput {
   /** Select a sheet (resolve via property options API) */
@@ -13787,6 +24303,40 @@ export interface SmartsheetFindSheetByNameInput {
   sort_by?: "name" | "created_desc" | "created_asc" | "modified_desc" | "modified_asc" | "access"
 }
 
+/** Smokeball — List Matters */
+export interface SmokeballListMattersInput {
+  /** Status (values: `Open`, `Closed`, `Pending`, `Deleted`) */
+  status?: "Open" | "Closed" | "Pending" | "Deleted"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Smokeball — Get Matter */
+export interface SmokeballGetMatterInput {
+  /** Matter ID */
+  matterId: string
+}
+
+/** Smokeball — List Contacts */
+export interface SmokeballListContactsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Smokeball — Custom API Call */
+export interface SmokeballCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** SMTP — Send Email */
 export interface SmtpSendEmailInput {
   /** From Email */
@@ -13850,6 +24400,66 @@ export interface SnowflakeInsertRowInput {
   /** Rows */
   table_column_values: Record<string, unknown>
 }
+
+/** Snyk — List Organizations */
+export type SnykListOrgsInput = Record<string, never>
+
+/** Snyk — List Projects */
+export interface SnykListProjectsInput {
+  /** Organization ID */
+  orgId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Snyk — Get Project */
+export interface SnykGetProjectInput {
+  /** Organization ID */
+  orgId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Snyk — Get Project Issues */
+export interface SnykGetProjectIssuesInput {
+  /** Organization ID */
+  orgId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** SonarQube — List Projects */
+export interface SonarqubeListProjectsInput {
+  /** Filter projects by name or key */
+  query?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** SonarQube — Get Measures */
+export interface SonarqubeGetMeasuresInput {
+  /** The project key (e.g., my-project) */
+  component: string
+  /** Comma-separated metric keys (e.g., ncloc,bugs,vulnerabilities,code_smells,coverage) */
+  metricKeys: string
+}
+
+/** SonarQube — Search Issues */
+export interface SonarqubeSearchIssuesInput {
+  /** The project key to search issues in */
+  componentKeys: string
+  /** Severity (values: `BLOCKER`, `CRITICAL`, `MAJOR`, `MINOR`, `INFO`) */
+  severities?: "BLOCKER" | "CRITICAL" | "MAJOR" | "MINOR" | "INFO"
+  /** Status (values: `OPEN`, `CONFIRMED`, `REOPENED`, `RESOLVED`, `CLOSED`) */
+  statuses?: "OPEN" | "CONFIRMED" | "REOPENED" | "RESOLVED" | "CLOSED"
+  /** Page Size */
+  pageSize?: number
+}
+
+/** SonarQube — List Quality Gates */
+export type SonarqubeListQualityGatesInput = Record<string, never>
 
 /** Spotify — Search */
 export interface SpotifySearchInput {
@@ -14010,6 +24620,100 @@ export interface SpotifyCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Sprout Social — Create Post */
+export interface SproutSocialCreatePostInput {
+  /** Your Sprout Social customer ID */
+  customerId: string
+  /** Array of profile IDs to post to */
+  profileIds: unknown
+  /** The post content */
+  text: string
+  /** ISO 8601 date to schedule */
+  scheduledAt?: string
+}
+
+/** Sprout Social — List Posts */
+export interface SproutSocialListPostsInput {
+  /** Customer ID */
+  customerId: string
+  /** Array of profile IDs to filter by */
+  profileIds?: unknown
+  /** Limit */
+  limit?: number
+}
+
+/** Sprout Social — List Profiles */
+export interface SproutSocialListProfilesInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** Sprout Social — Get Analytics */
+export interface SproutSocialGetAnalyticsInput {
+  /** Customer ID */
+  customerId: string
+  /** Array of profile IDs */
+  profileIds: unknown
+  /** Array of metric names (e.g., ["impressions", "engagements"]) */
+  metrics: unknown
+  /** Start date in YYYY-MM-DD format */
+  startDate: string
+  /** End date in YYYY-MM-DD format */
+  endDate: string
+}
+
+/** Sprout Social — Custom API Call */
+export interface SproutSocialCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Spruce — Send Message */
+export interface SpruceSendMessageInput {
+  /** ID of existing conversation (leave empty to send to phone/email) */
+  conversationId?: string
+  /** Internal endpoint to send from */
+  fromEndpointId: string
+  /** Recipient phone number (used if no conversation ID) */
+  toPhone?: string
+  /** Recipient email (used if no conversation ID) */
+  toEmail?: string
+  /** Message Text */
+  text: string
+  /** Channel (values: `secure`, `sms`, `email`) */
+  channel?: "secure" | "sms" | "email"
+}
+
+/** Spruce — List Conversations */
+export interface SpruceListConversationsInput {
+  /** Status (values: `open`, `closed`, `all`) */
+  status?: "open" | "closed" | "all"
+  /** Order By (values: `last_message`, `created`) */
+  orderBy?: "last_message" | "created"
+  /** Limit */
+  limit?: number
+}
+
+/** Spruce — Get Conversation */
+export interface SpruceGetConversationInput {
+  /** Conversation ID */
+  conversationId: string
+}
+
+/** Spruce — Custom API Call */
+export interface SpruceCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Stability AI — Text to Image */
 export interface StabilityAiTextToImageInput {
   /** The text to transform in image. */
@@ -14100,6 +24804,55 @@ export interface StorageListFilesInput {
   scope?: "workspace" | "end_user" | "external"
   /** Custom identifier for external scope (only when "External ID Bound" selected). */
   externalId?: string
+}
+
+/** Storyblok — List Spaces */
+export type StoryblokListSpacesInput = Record<string, never>
+
+/** Storyblok — List Stories */
+export interface StoryblokListStoriesInput {
+  /** Space ID */
+  spaceId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter stories by name */
+  searchTerm?: string
+  /** Filter by tag */
+  withTag?: string
+}
+
+/** Storyblok — Get Story */
+export interface StoryblokGetStoryInput {
+  /** Space ID */
+  spaceId: string
+  /** Story ID */
+  storyId: string
+}
+
+/** Storyblok — Create Story */
+export interface StoryblokCreateStoryInput {
+  /** Space ID */
+  spaceId: string
+  /** Story name */
+  name: string
+  /** URL slug for the story */
+  slug: string
+  /** JSON object with content fields and component type */
+  content: string
+  /** ID of the parent folder */
+  parentId?: string
+  /** Publish the story immediately */
+  publish?: boolean
+}
+
+/** Storyblok — Delete Story */
+export interface StoryblokDeleteStoryInput {
+  /** Space ID */
+  spaceId: string
+  /** Story ID */
+  storyId: string
 }
 
 /** Strapi — List Entries */
@@ -14496,28 +25249,447 @@ export interface SupabaseCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** SurveyMonkey — List Surveys */
+export interface SurveymonkeyListSurveysInput {
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** SurveyMonkey — Get Survey */
+export interface SurveymonkeyGetSurveyInput {
+  /** Survey ID */
+  surveyId: string
+}
+
+/** SurveyMonkey — Get Responses */
+export interface SurveymonkeyGetResponsesInput {
+  /** Survey ID */
+  surveyId: string
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+  /** Filter responses created after this date-time (ISO 8601) */
+  startCreatedAt?: string
+  /** Filter responses created before this date-time (ISO 8601) */
+  endCreatedAt?: string
+}
+
+/** SurveyMonkey — Get Response Details */
+export interface SurveymonkeyGetResponseDetailsInput {
+  /** Survey ID */
+  surveyId: string
+  /** Response ID */
+  responseId: string
+}
+
 /** SurveyMonkey — Custom API Call */
 export interface SurveymonkeyCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API endpoint path (e.g., /surveys) */
+  path: string
+  /** Request body (for POST/PUT/PATCH) */
+  body?: unknown
+}
+
+/** Synthesia — Create Video */
+export interface SynthesiaCreateVideoInput {
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** The text the avatar will speak */
+  scriptText: string
+  /** The avatar to use (leave empty for default) */
+  avatarId?: string
+  /** Language code (e.g., en-US) */
+  language?: string
+  /** Hex color for background (e.g., #FFFFFF) */
+  background?: string
+  /** URL to receive webhook when video is ready */
+  callbackUrl?: string
+}
+
+/** Synthesia — Get Video */
+export interface SynthesiaGetVideoInput {
+  /** Video ID */
+  videoId: string
+}
+
+/** Synthesia — List Videos */
+export interface SynthesiaListVideosInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Synthesia — List Avatars */
+export type SynthesiaListAvatarsInput = Record<string, never>
+
+/** Synthesia — Custom API Call */
+export interface SynthesiaCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
+}
+
+/** Tavily — Search */
+export interface TavilySearchInput {
+  /** The search query you want to execute with Tavily. */
+  query: string
+  /** The depth of the search. It can be "basic" or "advanced". (values: `basic`, `advanced`) */
+  search_depth?: "basic" | "advanced"
+  /** The category of the search. This will determine which of our agents will be used for the search. (values: `general`, `news`) */
+  topic?: "general" | "news"
+  /** The number of days back from the current date to include in the search results. Only available when using the "news" search topic. Default is 3. */
+  days?: number
+  /** The time range back from the current date to include in the search results. (values: `day`, `week`, `month`, `year`, `d`, `w`, `m`, `y`) */
+  time_range?: "day" | "week" | "month" | "year" | "d" | "w" | "m" | "y"
+  /** The maximum number of search results to return. */
+  max_results?: number
+  /** Include a list of query-related images in the response. */
+  include_images?: boolean
+  /** When include_images is set to True, this option adds descriptive text for each image. */
+  include_image_descriptions?: boolean
+  /** Include a short answer to original query, generated by an LLM based on Tavily's search results. */
+  include_answer?: boolean
+  /** Include the cleaned and parsed HTML content of each search result. */
+  include_raw_content?: boolean
+  /** A list of domains to specifically include in the search results. */
+  include_domains?: unknown[]
+  /** A list of domains to specifically exclude from the search results. */
+  exclude_domains?: unknown[]
+}
+
+/** Tavily — Extract Content */
+export interface TavilyExtractInput {
+  /** The URLs you want to extract with Tavily. */
+  urls: unknown[]
+  /** Include a list of images extracted from the URLs in the response. */
+  include_images?: boolean
+}
+
+/** Teachable — List Courses */
+export interface TeachableListCoursesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Teachable — Get Course */
+export interface TeachableGetCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Teachable — List Users */
+export interface TeachableListUsersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter users by email address */
+  email?: string
+  /** Filter users by name */
+  name?: string
+}
+
+/** Teachable — List Enrollments */
+export interface TeachableListEnrollmentsInput {
+  /** Course ID */
+  courseId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Teachable — Get User Courses */
+export interface TeachableGetUserCoursesInput {
+  /** User ID */
+  userId: string
+}
+
+/** Teamwork — Create Project */
+export interface TeamworkCreateProjectInput {
+  /** The name of the project. */
+  name: string
+  /** A description for the project. */
+  description?: string
+  /** The company to associate the project with. (resolve via property options API) */
+  companyId: string
+  /** The category to assign the project to. (resolve via property options API) */
+  'category-id'?: string
+  /** Tags to associate with the project. */
+  tagIds?: string[]
+  /** The start date of the project. */
+  'start-date'?: string
+  /** The end date of the project. */
+  'end-date'?: string
+  /** The user to assign as the project owner. (resolve via property options API) */
+  projectOwnerId?: string
+  /** Custom fields for this project. */
+  customFields?: Record<string, unknown>
+}
+
+/** Teamwork — Create Task List */
+export interface TeamworkCreateTaskListInput {
+  /** The project to create the task list in. (resolve via property options API) */
+  projectId: string
+  /** The name of the task list. */
+  name: string
+  /** A description for the task list. */
+  description?: string
+  /** Set to true to make the task list private. */
+  private?: boolean
+  /** The default priority for new tasks in this list. (values: ``, `low`, `medium`, `high`) */
+  priority?: "" | "low" | "medium" | "high"
+  /** Default tags for new tasks in this list. */
+  tags?: string[]
+}
+
+/** Teamwork — Create Task */
+export interface TeamworkCreateTaskInput {
+  /** The project to create the task in. (resolve via property options API) */
+  projectId: string
+  /** The task list to add the task to. (resolve via property options API) */
+  tasklistId: string
+  /** The content of the task. */
+  content: string
+  /** The users responsible for the task. */
+  'responsible-party-id'?: string[]
+  /** The start date of the task. */
+  'start-date'?: string
+  /** The due date of the task. */
+  'due-date'?: string
+  /** A description for the task. */
+  description?: string
+  /** The priority of the task. (values: ``, `low`, `medium`, `high`) */
+  priority?: "" | "low" | "medium" | "high"
+  /** Tags to associate with the task. */
+  tagIds?: string[]
+  /** A file to attach to the task. */
+  attachment?: string
+  /** Custom fields for this task. */
+  customFields?: Record<string, unknown>
+}
+
+/** Teamwork — Mark Task Complete */
+export interface TeamworkMarkTaskCompleteInput {
+  /** The task to mark as complete. (resolve via property options API) */
+  taskId: string
+}
+
+/** Teamwork — Create Company */
+export interface TeamworkCreateCompanyInput {
+  /** Name of the company. */
+  name: string
+  /** Company's website address. */
+  website?: string
+  /** Primary address line. */
+  addressOne?: string
+  /** Secondary address line. */
+  addressTwo?: string
+  /** City name. */
+  city?: string
+  /** State or province. */
+  state?: string
+  /** Postal or zip code. */
+  zip?: string
+  /** 2-letter ISO country code (e.g., US, GB). */
+  countrycode?: string
+  /** Primary phone number. */
+  phone?: string
+  /** Fax number. */
+  fax?: string
+  /** Primary email address. */
+  emailOne?: string
+  /** Secondary email address. */
+  emailTwo?: string
+  /** Tertiary email address. */
+  emailThree?: string
+  /** Public company profile or 'About Us' text. */
+  profile?: string
+  /** Notes visible only to internal users. */
+  privateNotes?: string
+  /** Custom fields for this company. */
+  customFields?: Record<string, unknown>
+}
+
+/** Teamwork — Create Person */
+export interface TeamworkCreatePersonInput {
+  /** The user's first name. */
+  'first-name': string
+  /** The user's last name. */
+  'last-name': string
+  /** The user's email address. */
+  'email-address': string
+  /** The type of user to create. (values: `account`, `collaborator`, `contact`) */
+  'user-type': "account" | "collaborator" | "contact"
+  /** The company to associate the user with. (resolve via property options API) */
+  'company-id'?: string
+  /** Send an invitation email to the new user. */
+  sendInvite?: boolean
+  /** The user's job title. */
+  title?: string
+}
+
+/** Teamwork — Update Task */
+export interface TeamworkUpdateTaskInput {
+  /** The task to update. (resolve via property options API) */
+  taskId: string
+  /** The new content of the task. */
+  content?: string
+  /** The new description for the task. */
+  description?: string
+  /** The new users responsible for the task. */
+  'responsible-party-id'?: string[]
+  /** The new start date of the task. */
+  'start-date'?: string
+  /** The new due date of the task. */
+  'due-date'?: string
+  /** The new priority of the task. (values: ``, `low`, `medium`, `high`) */
+  priority?: "" | "low" | "medium" | "high"
+  /** New tags to associate with the task. */
+  tagIds?: string[]
+}
+
+/** Teamwork — Create Task Comment */
+export interface TeamworkCreateTaskCommentInput {
+  /** The task to add a comment to. (resolve via property options API) */
+  taskId: string
+  /** The content of the comment. */
+  body: string
+  /** A file to attach to the comment. */
+  attachment?: string
+  /** Who to notify about this comment. (values: ``, `true`, `all`) */
+  notify?: "" | "true" | "all"
+  /** Set to true to make the comment private. */
+  isprivate?: boolean
+}
+
+/** Teamwork — Create Time Entry on Task */
+export interface TeamworkCreateTimeEntryOnTaskInput {
+  /** Task (resolve via property options API) */
+  taskId: string
+  /** Date of the time entry (yyyy-mm-dd) */
+  date: string
+  /** Time of the entry (hh:mm:ss) */
+  time?: string
+  /** Hours */
+  hours: number
+  /** Duration in minutes */
+  minutes: number
+  /** Description */
+  description?: string
+  /** Is Billable */
+  isBillable?: boolean
+}
+
+/** Teamwork — Create Expense */
+export interface TeamworkCreateExpenseInput {
+  /** The project to log the expense against. (resolve via property options API) */
+  'project-id': string
+  /** The name of the expense. */
+  name: string
+  /** The cost of the expense. */
+  cost: number
+  /** The date of the expense. */
+  date: string
+  /** A description for the expense. */
+  description?: string
+}
+
+/** Teamwork — Upload File to Project */
+export interface TeamworkUploadFileToProjectInput {
+  /** The project to upload the file to. (resolve via property options API) */
+  projectId: string
+  /** The file to upload. */
+  file: string
+  /** A description for the file. */
+  description?: string
+  /** The category to assign the file to. (resolve via property options API) */
+  categoryId?: string
+  /** Set to true to make the file private. */
+  private?: boolean
+}
+
+/** Teamwork — Create Message Reply */
+export interface TeamworkCreateMessageReplyInput {
+  /** The message to reply to. (resolve via property options API) */
+  messageId: string
+  /** The content of the reply. */
+  body: string
+  /** Notify all project users of this reply. */
+  notify?: boolean
+}
+
+/** Teamwork — Create Milestone */
+export interface TeamworkCreateMilestoneInput {
+  /** The project to create the milestone in. (resolve via property options API) */
+  projectId: string
+  /** The title of the milestone. */
+  title: string
+  /** The due date of the milestone. */
+  deadline: string
+  /** The users responsible for the milestone. */
+  'responsible-party-ids': string[]
+  /** A description for the milestone. */
+  description?: string
+  /** Notify responsible parties about the milestone. */
+  notify?: boolean
+  /** Set to true to make the milestone private. */
+  private?: boolean
+}
+
+/** Teamwork — Add People to Project */
+export interface TeamworkAddPeopleToProjectInput {
+  /** The project to add people to. (resolve via property options API) */
+  projectId: string
+  /** The users to add to the project. */
+  userIdList: string[]
+}
+
+/** Teamwork — Find Task */
+export interface TeamworkFindTaskInput {
+  /** The keyword to search for. */
+  searchTerm: string
+  /** Limit the search to a specific project. (resolve via property options API) */
+  projectId?: string
+}
+
+/** Teamwork — Find Company */
+export interface TeamworkFindCompanyInput {
+  /** The name or domain to search for. */
+  searchTerm: string
+  /** Limit the search to a specific project. (resolve via property options API) */
+  projectId?: string
+}
+
+/** Teamwork — Find Milestone */
+export interface TeamworkFindMilestoneInput {
+  /** The name or due date to search for. */
+  searchTerm: string
+  /** Limit the search to a specific project. (resolve via property options API) */
+  projectId?: string
+}
+
+/** Teamwork — Find Notebook / Notebook Comment */
+export interface TeamworkFindNotebookOrCommentInput {
+  /** The type of item to search for. (values: `notebooks`, `notebookComments`) */
+  searchFor: "notebooks" | "notebookComments"
+  /** The keyword to search for. */
+  searchTerm: string
+  /** Limit the search to a specific project. (resolve via property options API) */
+  projectId?: string
 }
 
 /** Telegram Bot — Send Text Message */
@@ -14632,6 +25804,374 @@ export interface TelegramBotCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Telnyx — Send Message */
+export interface TelnyxSendMessageInput {
+  /** Sending phone number (E.164 format) or messaging profile ID */
+  from: string
+  /** Recipient phone number in E.164 format */
+  to: string
+  /** Message Text */
+  text: string
+  /** Optional messaging profile ID to use */
+  messagingProfileId?: string
+}
+
+/** Telnyx — List Messaging Profiles */
+export interface TelnyxListMessagingProfilesInput {
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Telnyx — List Phone Numbers */
+export interface TelnyxListPhoneNumbersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Status (values: `active`, `purchase-pending`, `port-pending`, `deleted`) */
+  status?: "active" | "purchase-pending" | "port-pending" | "deleted"
+}
+
+/** Telnyx — Create Call */
+export interface TelnyxCreateCallInput {
+  /** The connection ID to use for the call */
+  connectionId: string
+  /** Phone number or SIP URI to dial */
+  to: string
+  /** Phone number to use as caller ID (E.164 format) */
+  from: string
+}
+
+/** Terraform Cloud — List Workspaces */
+export interface TerraformCloudListWorkspacesInput {
+  /** Organization Name */
+  organization: string
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+  /** Search by Name */
+  searchName?: string
+}
+
+/** Terraform Cloud — Get Run */
+export interface TerraformCloudGetRunInput {
+  /** The run ID (e.g., run-abc123) */
+  runId: string
+}
+
+/** Terraform Cloud — Create Run */
+export interface TerraformCloudCreateRunInput {
+  /** The workspace ID (e.g., ws-abc123) */
+  workspaceId: string
+  /** Description for this run */
+  message?: string
+  /** Automatically apply after a successful plan */
+  autoApply?: boolean
+  /** Whether this is a destroy run */
+  isDestroy?: boolean
+}
+
+/** Terraform Cloud — List Runs */
+export interface TerraformCloudListRunsInput {
+  /** The workspace ID (e.g., ws-abc123) */
+  workspaceId: string
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Terraform Cloud — Custom API Call */
+export interface TerraformCloudCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g., /organizations/my-org/workspaces) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Thinkific — List Courses */
+export interface ThinkificListCoursesInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Thinkific — Get Course */
+export interface ThinkificGetCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Thinkific — List Enrollments */
+export interface ThinkificListEnrollmentsInput {
+  /** Filter by course ID */
+  courseId?: string
+  /** Filter by user ID */
+  userId?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Thinkific — Create Enrollment */
+export interface ThinkificCreateEnrollmentInput {
+  /** Course ID */
+  courseId: string
+  /** User ID */
+  userId: string
+  /** Enrollment activation date (ISO 8601, e.g., 2025-01-15T00:00:00Z). Defaults to now. */
+  activatedAt?: string
+}
+
+/** Thinkific — List Users */
+export interface ThinkificListUsersInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Filter users by email */
+  email?: string
+}
+
+/** Thinkific — Custom API Call */
+export interface ThinkificCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** TickTick — Create Task */
+export interface TicktickCreateTaskInput {
+  /** The list to create the task in. (resolve via property options API) */
+  projectId: string
+  /** Task Title */
+  title: string
+  /** Task Content */
+  content?: string
+  /** Description of the checklist, often used with subtasks (items). */
+  desc?: string
+  /** Start Date */
+  startDate?: string
+  /** Due Date */
+  dueDate?: string
+  /** Priority (values: `0`, `1`, `3`, `5`) */
+  priority?: 0 | 1 | 3 | 5
+}
+
+/** TickTick — Update Task */
+export interface TicktickUpdateTaskInput {
+  /** The list to update the task in. (resolve via property options API) */
+  projectId: string
+  /** The ID of the task to update. (resolve via property options API) */
+  taskId: string
+  /** Title */
+  title?: string
+  /** Content */
+  content?: string
+  /** New description of the checklist items. Replaces existing. */
+  desc?: string
+  /** Start Date */
+  startDate?: string
+  /** Due Date */
+  dueDate?: string
+  /** Priority (values: `0`, `1`, `3`, `5`) */
+  priority?: 0 | 1 | 3 | 5
+}
+
+/** TickTick — Get Task */
+export interface TicktickGetTaskInput {
+  /** The list the task belongs to. (resolve via property options API) */
+  projectId: string
+  /** The ID of the task to retrieve. (resolve via property options API) */
+  taskId: string
+}
+
+/** TickTick — Delete Task */
+export interface TicktickDeleteTaskInput {
+  /** The list the task belongs to. (resolve via property options API) */
+  projectId: string
+  /** The ID of the task to delete. (resolve via property options API) */
+  taskId: string
+}
+
+/** TickTick — Complete Task */
+export interface TicktickCompleteTaskInput {
+  /** List (resolve via property options API) */
+  projectId: string
+  /** The ID of the task to complete. (resolve via property options API) */
+  taskId: string
+}
+
+/** TickTick — Find Task */
+export interface TicktickFindTaskInput {
+  /** The list to search within. (resolve via property options API) */
+  projectId: string
+  /** Task Title */
+  title: string
+  /** Select how the title should be matched. (values: `contains`, `exact`) */
+  matchType: "contains" | "exact"
+}
+
+/** TickTick — Get Task List */
+export interface TicktickGetProjectInput {
+  /** Select the list to retrieve details for. */
+  projectId: string
+}
+
+/** TickTick — Custom API Call */
+export interface TicktickCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** TidyCal — List Bookings */
+export interface TidycalListBookingsInput {
+  /** Page */
+  page?: number
+  /** Filter (values: ``, `upcoming`, `past`) */
+  upcoming?: "" | "upcoming" | "past"
+}
+
+/** TidyCal — Get Booking */
+export interface TidycalGetBookingInput {
+  /** Booking ID */
+  bookingId: string
+}
+
+/** TidyCal — List Booking Types */
+export interface TidycalListBookingTypesInput {
+  /** Page */
+  page?: number
+}
+
+/** TidyCal — Custom API Call */
+export interface TidycalCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** TikTok Ads — List Campaigns */
+export interface TiktokAdsListCampaignsInput {
+  /** The ID of the advertiser account */
+  advertiserId: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** TikTok Ads — Get Campaign */
+export interface TiktokAdsGetCampaignInput {
+  /** Advertiser ID */
+  advertiserId: string
+  /** List of campaign IDs to retrieve */
+  campaignIds: unknown[]
+}
+
+/** TikTok Ads — List Ad Groups */
+export interface TiktokAdsListAdGroupsInput {
+  /** Advertiser ID */
+  advertiserId: string
+  /** Filter by campaign ID */
+  campaignId?: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** TikTok Ads — Get Ad Report */
+export interface TiktokAdsGetAdReportInput {
+  /** Advertiser ID */
+  advertiserId: string
+  /** Granularity of the report data (values: `AUCTION_ADVERTISER`, `AUCTION_CAMPAIGN`, `AUCTION_ADGROUP`, `AUCTION_AD`) */
+  dataLevel: "AUCTION_ADVERTISER" | "AUCTION_CAMPAIGN" | "AUCTION_ADGROUP" | "AUCTION_AD"
+  /** Start date in YYYY-MM-DD format */
+  startDate: string
+  /** End date in YYYY-MM-DD format */
+  endDate: string
+  /** Metrics to include (e.g., "spend", "impressions", "clicks", "ctr", "cpc", "conversions") */
+  metrics: unknown[]
+  /** Dimensions for grouping (e.g., "campaign_id", "adgroup_id", "stat_time_day") */
+  dimensions?: unknown[]
+  /** Page Size */
+  pageSize?: number
+}
+
+/** TimeSolv — List Time Entries */
+export interface TimesolvListTimeEntriesInput {
+  /** Filter by matter */
+  matterId?: string
+  /** Filter entries from this date (YYYY-MM-DD) */
+  startDate?: string
+  /** Filter entries until this date (YYYY-MM-DD) */
+  endDate?: string
+  /** Limit */
+  limit?: number
+}
+
+/** TimeSolv — Create Time Entry */
+export interface TimesolvCreateTimeEntryInput {
+  /** Matter ID */
+  matterId: string
+  /** Entry date (YYYY-MM-DD) */
+  date: string
+  /** Number of hours */
+  hours: number
+  /** Work description */
+  description?: string
+  /** Hourly rate */
+  rate?: number
+  /** Billable */
+  billable?: boolean
+}
+
+/** TimeSolv — List Matters */
+export interface TimesolvListMattersInput {
+  /** Status (values: `active`, `inactive`, `all`) */
+  status?: "active" | "inactive" | "all"
+  /** Limit */
+  limit?: number
+}
+
+/** TimeSolv — Custom API Call */
+export interface TimesolvCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Todoist — Create Task */
@@ -14815,6 +26355,44 @@ export interface TrelloDeleteCardAttachmentInput {
   attachment_id: string
 }
 
+/** Trustpilot — List Reviews */
+export interface TrustpilotListReviewsInput {
+  /** Trustpilot business unit ID */
+  businessUnitId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Star Rating (values: `1`, `2`, `3`, `4`, `5`) */
+  stars?: "1" | "2" | "3" | "4" | "5"
+  /** Order By (values: `createdat.desc`, `createdat.asc`, `stars.desc`, `stars.asc`) */
+  orderBy?: "createdat.desc" | "createdat.asc" | "stars.desc" | "stars.asc"
+}
+
+/** Trustpilot — Get Review */
+export interface TrustpilotGetReviewInput {
+  /** Review ID */
+  reviewId: string
+}
+
+/** Trustpilot — Reply to Review */
+export interface TrustpilotReplyToReviewInput {
+  /** Review ID */
+  reviewId: string
+  /** Reply Message */
+  message: string
+}
+
+/** Trustpilot — Custom API Call */
+export interface TrustpilotCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Twilio — Send SMS */
 export interface TwilioSendSmsInput {
   /** The phone number to send the message from (resolve via property options API) */
@@ -14889,28 +26467,62 @@ export interface TwilioCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Twitch — Get User */
+export interface TwitchGetUserInput {
+  /** Twitch username/login to look up. Leave blank to get the authenticated user. */
+  login?: string
+  /** Twitch user ID to look up */
+  userId?: string
+}
+
+/** Twitch — Get Channel Info */
+export interface TwitchGetChannelInfoInput {
+  /** The numeric user ID of the broadcaster/channel */
+  broadcasterId: string
+}
+
+/** Twitch — Get Streams */
+export interface TwitchGetStreamsInput {
+  /** Filter by Twitch username */
+  userLogin?: string
+  /** Filter by Twitch user ID */
+  userId?: string
+  /** Filter streams by game/category name */
+  gameName?: string
+  /** Limit */
+  first?: number
+}
+
+/** Twitch — Get Clips */
+export interface TwitchGetClipsInput {
+  /** Get clips from this broadcaster */
+  broadcasterId?: string
+  /** Get clips for this game */
+  gameId?: string
+  /** Get a specific clip by ID */
+  clipId?: string
+  /** Limit */
+  first?: number
+}
+
+/** Twitch — Search Channels */
+export interface TwitchSearchChannelsInput {
+  /** Search Query */
+  query: string
+  /** Live Only (values: `false`, `true`) */
+  liveOnly?: "false" | "true"
+  /** Limit */
+  first?: number
+}
+
 /** Twitch — Custom API Call */
 export interface TwitchCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Twitter — Create Tweet */
@@ -14939,28 +26551,204 @@ export interface TwitterCreateReplyInput {
   image_3?: string
 }
 
+/** Typeform — List Forms */
+export interface TypeformListFormsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+  /** Search forms by title */
+  search?: string
+}
+
+/** Typeform — Get Form */
+export interface TypeformGetFormInput {
+  /** Form ID */
+  formId: string
+}
+
+/** Typeform — Get Responses */
+export interface TypeformGetResponsesInput {
+  /** Form ID */
+  formId: string
+  /** Page Size */
+  pageSize?: number
+  /** Retrieve responses submitted since this date-time (ISO 8601) */
+  since?: string
+  /** Retrieve responses submitted until this date-time (ISO 8601) */
+  until?: string
+  /** Sort (values: `submitted_at,desc`, `submitted_at,asc`) */
+  sort?: "submitted_at,desc" | "submitted_at,asc"
+}
+
+/** Typeform — Get Response */
+export interface TypeformGetResponseInput {
+  /** Form ID */
+  formId: string
+  /** Response Token */
+  responseToken: string
+}
+
 /** Typeform — Custom API Call */
 export interface TypeformCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API endpoint path (e.g., /forms) */
+  path: string
+  /** Request body (for POST/PUT/PATCH) */
+  body?: unknown
+}
+
+/** UptimeRobot — List Monitors */
+export interface UptimeRobotListMonitorsInput {
+  /** Include Logs (values: `0`, `1`) */
+  logs?: "0" | "1"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** UptimeRobot — Get Monitor */
+export interface UptimeRobotGetMonitorInput {
+  /** The ID of the monitor to retrieve */
+  monitorId: string
+  /** Include Logs (values: `0`, `1`) */
+  logs?: "0" | "1"
+}
+
+/** UptimeRobot — Create Monitor */
+export interface UptimeRobotCreateMonitorInput {
+  /** A human-readable name for the monitor */
+  friendlyName: string
+  /** The URL or IP address to monitor */
+  url: string
+  /** Monitor Type (values: `1`, `2`, `3`, `4`, `5`) */
+  type: "1" | "2" | "3" | "4" | "5"
+  /** How often to check the monitor (minimum 60) */
+  interval?: number
+}
+
+/** UptimeRobot — Custom API Call */
+export interface UptimeRobotCustomApiCallInput {
+  /** The UptimeRobot API endpoint (e.g. "getMonitors", "newMonitor") */
+  endpoint: string
+  /** Additional parameters to include in the request body (api_key is added automatically) */
+  body?: unknown
+}
+
+/** Vanta — List Vulnerabilities */
+export interface VantaListVulnerabilitiesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Filter for vulnerabilities with an available fix */
+  isFixAvailable?: boolean
+}
+
+/** Vanta — List Tests */
+export interface VantaListTestsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Status Filter (values: `FAILING`, `PASSING`, `DISABLED`) */
+  statusFilter?: "FAILING" | "PASSING" | "DISABLED"
+}
+
+/** Vanta — List Integrations */
+export interface VantaListIntegrationsInput {
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Vanta — List Test Results */
+export interface VantaListTestResultsInput {
+  /** Test ID */
+  testId: string
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Vercel — List Projects */
+export interface VercelListProjectsInput {
+  /** Optional team ID to scope the request */
+  teamId?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Vercel — Get Project */
+export interface VercelGetProjectInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Team ID */
+  teamId?: string
+}
+
+/** Vercel — List Deployments */
+export interface VercelListDeploymentsInput {
+  /** Filter by project ID */
+  projectId?: string
+  /** Team ID */
+  teamId?: string
+  /** Limit */
+  limit?: number
+  /** Filter by state (e.g., READY, ERROR, BUILDING, QUEUED, CANCELED) */
+  state?: string
+  /** Filter by target (production or preview) */
+  target?: string
+}
+
+/** Vercel — Create Deployment */
+export interface VercelCreateDeploymentInput {
+  /** Project Name */
+  name: string
+  /** Deployment target: production or preview */
+  target?: string
+  /** JSON object with repo, ref, type, etc. */
+  gitSource?: string
+  /** Team ID */
+  teamId?: string
+}
+
+/** Vercel — Get Deployment */
+export interface VercelGetDeploymentInput {
+  /** Deployment ID or URL */
+  idOrUrl: string
+  /** Team ID */
+  teamId?: string
+}
+
+/** Vidyard — List Videos */
+export interface VidyardListVideosInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Vidyard — Get Video */
+export interface VidyardGetVideoInput {
+  /** Video ID */
+  videoId: string
+}
+
+/** Vidyard — Get Analytics */
+export interface VidyardGetAnalyticsInput {
+  /** Video ID */
+  videoId: string
+  /** Start date in YYYY-MM-DD format */
+  startDate?: string
+  /** End date in YYYY-MM-DD format */
+  endDate?: string
+}
+
+/** Vidyard — Custom API Call */
+export interface VidyardCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Vimeo — Upload Video */
@@ -15033,6 +26821,418 @@ export interface VimeoCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Vonage — Send SMS */
+export interface VonageSendSmsInput {
+  /** Sender name or number */
+  from: string
+  /** Recipient phone number in E.164 format */
+  to: string
+  /** Message Text */
+  text: string
+}
+
+/** Vonage — Send Verification */
+export interface VonageSendVerificationInput {
+  /** Phone number in E.164 format */
+  number: string
+  /** Brand name shown in the verification message */
+  brand: string
+  /** Length of the verification code (4 or 6) */
+  codeLength?: number
+}
+
+/** Vonage — Check Verification */
+export interface VonageCheckVerificationInput {
+  /** The request_id returned from the verification request */
+  requestId: string
+  /** The verification code entered by the user */
+  code: string
+}
+
+/** Vonage — Cancel Verification */
+export interface VonageCancelVerificationInput {
+  /** The request_id to cancel */
+  requestId: string
+}
+
+/** VTEX — Get Product By ID */
+export interface VtexGetProductByIdInput {
+  /** The product ID */
+  productId: number
+}
+
+/** VTEX — Create New Product */
+export interface VtexCreateProductInput {
+  /** Name */
+  Name: string
+  /** Title */
+  Title: string
+  /** Description */
+  Description: string
+  /** Brand ID */
+  BrandId: number
+  /** Category ID */
+  CategoryId: number
+  /** Link ID */
+  LinkId?: string
+  /** Ref ID */
+  RefId?: string
+  /** Set the product ID */
+  Id?: number
+  /** Is Visible */
+  IsVisible?: boolean
+  /** Short Description */
+  DescriptionShort?: string
+  /** Release Date */
+  ReleaseDate?: string
+  /** Similar words */
+  KeyWords?: string
+  /** Is Active */
+  IsActive?: boolean
+  /** Tax Code */
+  TaxCode?: string
+  /** Metatag description */
+  MetaTagDescription?: string
+  /** Show Without Stock */
+  ShowWithoutStock?: boolean
+  /** Score */
+  Score?: number
+}
+
+/** VTEX — Update a Product */
+export interface VtexUpdateProductInput {
+  /** Set the product ID */
+  productId: number
+  /** Name */
+  Name: string
+  /** Title */
+  Title: string
+  /** Description */
+  Description: string
+  /** Brand ID */
+  BrandId: number
+  /** Category ID */
+  CategoryId: number
+  /** DepartmentId */
+  DepartmentId: number
+  /** Link ID */
+  LinkId?: string
+  /** Ref ID */
+  RefId?: string
+  /** Brand Name */
+  BrandName?: string
+  /** Is Visible */
+  IsVisible?: boolean
+  /** Short Description */
+  DescriptionShort?: string
+  /** Release Date */
+  ReleaseDate?: string
+  /** Similar words */
+  KeyWords?: string
+  /** Is Active */
+  IsActive?: boolean
+  /** Tax Code */
+  TaxCode?: string
+  /** Metatag description */
+  MetaTagDescription?: string
+  /** Show Without Stock */
+  ShowWithoutStock?: boolean
+  /** Score */
+  Score?: number
+}
+
+/** VTEX — Get Brand List */
+export type VtexGetBrandListInput = Record<string, never>
+
+/** VTEX — Get Brand By ID */
+export interface VtexGetBrandByIdInput {
+  /** The Brand ID */
+  BrandId: number
+}
+
+/** VTEX — Create new Brand */
+export interface VtexCreateBrandInput {
+  /** Name */
+  Name: string
+  /** Site Title */
+  SiteTitle?: string
+  /** Link ID */
+  LinkId?: string
+  /** Set the brand ID */
+  Id?: number
+  /** Text */
+  Text?: string
+  /** Menu Home */
+  MenuHome?: boolean
+  /** Similar words */
+  Keywords?: string
+  /** Active */
+  Active?: boolean
+  /** Score */
+  Score?: number
+}
+
+/** VTEX — Update Brand */
+export interface VtexUpdateBrandInput {
+  /** Set the brand ID */
+  Id: number
+  /** Name */
+  Name: string
+  /** Site Title */
+  SiteTitle: string
+  /** Link ID */
+  LinkId: string
+  /** Text */
+  Text: string
+  /** Menu Home */
+  MenuHome: boolean
+  /** Similar words */
+  Keywords: string
+  /** Active */
+  Active: boolean
+  /** Score */
+  Score: number
+}
+
+/** VTEX — Delete Brand */
+export interface VtexDeleteBrandInput {
+  /** The Brand ID */
+  brandId: number
+}
+
+/** VTEX — Get Category */
+export interface VtexGetCategoryByIdInput {
+  /** The Category ID */
+  categoryId?: number
+}
+
+/** VTEX — Get SKU By Product ID */
+export interface VtexGetSkuByProductIdInput {
+  /** The Product ID */
+  productId: number
+}
+
+/** VTEX — Create New Sku */
+export interface VtexCreateSkuInput {
+  /** ID of the product to be associated with this SKU */
+  ProductId: number
+  /** Name the variation of the product */
+  Name: string
+  /** Package Height */
+  PackagedHeight: number
+  /** Package Length */
+  PackagedLength: number
+  /** Package Width */
+  PackagedWidth: number
+  /** Package Weight (Kg) */
+  PackagedWeightKg: number
+  /** Is Active */
+  IsActive?: boolean
+  /** Is Kit */
+  IsKit?: boolean
+  /** Set the Sku ID */
+  Id?: number
+}
+
+/** VTEX — Create New Sku File */
+export interface VtexCreateSkuFileInput {
+  /** Set the Sku ID */
+  SkuId: number
+  /** Image Url */
+  Url: string
+  /** Image Name */
+  Name: string
+  /** Is Main Image */
+  IsMain: boolean
+  /** Image Label */
+  Label?: string
+  /** General text of the image */
+  Text?: string
+}
+
+/** VTEX — Get Client List */
+export type VtexGetClientListInput = Record<string, never>
+
+/** VTEX — Get Client By ID */
+export interface VtexGetClientByIdInput {
+  /** The Client ID */
+  clientId: number
+}
+
+/** VTEX — Get Order By ID */
+export interface VtexGetOrderByIdInput {
+  /** The Order ID */
+  OrderId: number
+}
+
+/** VTEX — Get Orders List */
+export interface VtexGetOrderListInput {
+  /** From (Year) */
+  fromYear: number
+  /** To (Year) */
+  toYear: string
+  /** From (Month) */
+  fromMonth?: string
+  /** To (Month) */
+  toMonth?: string
+  /** From (Day) */
+  fromDay?: string
+  /** To (Day) */
+  toDay?: string
+}
+
+/** VTEX — Custom API Call */
+export interface VtexCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Weaviate — List Collections */
+export type WeaviateListCollectionsInput = Record<string, never>
+
+/** Weaviate — Create Object */
+export interface WeaviateCreateObjectInput {
+  /** The name of the collection (class) to add the object to */
+  className: string
+  /** The object properties as a JSON object */
+  properties: unknown
+  /** Optional vector embedding as an array of floats */
+  vector?: unknown
+}
+
+/** Weaviate — Get Object */
+export interface WeaviateGetObjectInput {
+  /** Collection Name */
+  className: string
+  /** The UUID of the object */
+  objectId: string
+}
+
+/** Weaviate — Search Objects */
+export interface WeaviateSearchObjectsInput {
+  /** Collection Name */
+  className: string
+  /** The query vector as an array of floats */
+  vector: unknown
+  /** Limit */
+  limit?: number
+  /** Comma-separated list of property fields to return */
+  fields: string
+}
+
+/** Weaviate (Custom) — Create Class */
+export interface WeaviateCustomCreateClassInput {
+  /** Name for the new collection (must start with uppercase) */
+  className: string
+  /** Description */
+  description?: string
+  /** Array of property definitions: [{name: "title", dataType: ["text"]}, ...] */
+  properties?: unknown
+  /** Module name (e.g., text2vec-openai) */
+  vectorizer?: string
+}
+
+/** Weaviate (Custom) — Add Objects */
+export interface WeaviateCustomAddObjectsInput {
+  /** Class Name */
+  className: string
+  /** Object properties as JSON */
+  properties: unknown
+  /** Optional vector embedding as array of floats */
+  vector?: unknown
+  /** Optional UUID for the object */
+  id?: string
+}
+
+/** Weaviate (Custom) — Search Objects */
+export interface WeaviateCustomSearchObjectsInput {
+  /** Class Name */
+  className: string
+  /** Comma-separated property fields to return */
+  fields: string
+  /** Query vector as array of floats (for vector search) */
+  nearVector?: unknown
+  /** Text concepts for semantic search: {"concepts": ["example"]} */
+  nearText?: unknown
+  /** Limit */
+  limit?: number
+  /** Filter object as JSON */
+  where?: unknown
+}
+
+/** Weaviate (Custom) — List Classes */
+export type WeaviateCustomListClassesInput = Record<string, never>
+
+/** Weaviate (Custom) — Custom API Call */
+export interface WeaviateCustomCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Webex — List Rooms */
+export interface WebexListRoomsInput {
+  /** Max Results */
+  max?: number
+  /** Room Type (values: ``, `direct`, `group`) */
+  type?: "" | "direct" | "group"
+}
+
+/** Webex — Create Message */
+export interface WebexCreateMessageInput {
+  /** Room ID */
+  roomId: string
+  /** Plain text message */
+  text?: string
+  /** Markdown-formatted message */
+  markdown?: string
+}
+
+/** Webex — List People */
+export interface WebexListPeopleInput {
+  /** Filter by display name */
+  displayName?: string
+  /** Filter by email address */
+  email?: string
+  /** Max Results */
+  max?: number
+}
+
+/** Webex — Get Person */
+export interface WebexGetPersonInput {
+  /** The unique ID of the person (use "me" for the authenticated user) */
+  personId: string
+}
+
+/** Webex — List Messages */
+export interface WebexListMessagesInput {
+  /** Room ID */
+  roomId: string
+  /** Max Results */
+  max?: number
 }
 
 /** Webflow — Create Collection Item */
@@ -15193,6 +27393,43 @@ export interface WhatsappSendTemplateMessageInput {
   message_template_id: string
   /** Template Fields */
   message_template_fields: Record<string, unknown>
+}
+
+/** Wise — List Profiles */
+export type WiseListProfilesInput = Record<string, never>
+
+/** Wise — Create Quote */
+export interface WiseCreateQuoteInput {
+  /** Personal or business profile ID */
+  profileId: string
+  /** ISO 4217 code (e.g., USD) */
+  sourceCurrency: string
+  /** ISO 4217 code (e.g., EUR) */
+  targetCurrency: string
+  /** Amount to send (provide either source or target amount) */
+  sourceAmount?: number
+  /** Amount to receive (provide either source or target amount) */
+  targetAmount?: number
+}
+
+/** Wise — List Transfers */
+export interface WiseListTransfersInput {
+  /** Profile ID */
+  profileId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Status (values: `incoming_payment_waiting`, `processing`, `funds_converted`, `outgoing_payment_sent`, `cancelled`, `funds_refunded`, `bounced_back`) */
+  status?: "incoming_payment_waiting" | "processing" | "funds_converted" | "outgoing_payment_sent" | "cancelled" | "funds_refunded" | "bounced_back"
+}
+
+/** Wise — Get Exchange Rate */
+export interface WiseGetExchangeRateInput {
+  /** ISO 4217 code (e.g., USD) */
+  source: string
+  /** ISO 4217 code (e.g., EUR) */
+  target: string
 }
 
 /** WooCommerce — Create Customer */
@@ -15377,6 +27614,86 @@ export interface WordpressGetPostInput {
 
 /** WordPress — Custom API Call */
 export interface WordpressCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Workable — Get Candidate */
+export interface WorkableGetCandidateInput {
+  /** Candidate's Id */
+  id: string
+}
+
+/** Workable — Get Members */
+export interface WorkableGetMembersInput {
+  /** Default is 50 */
+  limit?: number
+  /** Filter for member of specified role */
+  role?: string
+  /** Shortcode of specific job */
+  shortcode?: string
+  /** Filter for specific member by email */
+  email?: string
+  /** Filter for members of specified name (Exact Match) */
+  name?: string
+}
+
+/** Workable — Get Job */
+export interface WorkableGetJobInput {
+  /** Shortcode of specific job */
+  shortcode: string
+}
+
+/** Workable — Get Stages */
+export interface WorkableGetStagesInput {
+  /** Shortcode of specific job */
+  shortcode: string
+}
+
+/** Workable — Move Candidate */
+export interface WorkableMoveCandidateInput {
+  /** Id of candidate */
+  id: string
+  /** This person's Id is used to move the candidate to the next stage */
+  member_id: string
+  /** Slug of stage target should be moved to */
+  target_stage: string
+}
+
+/** Workable — Rate candidate */
+export interface WorkableRateCandidateInput {
+  /** Id of candidate */
+  id: string
+  /** Id of member that is adding the rating */
+  member_id: string
+  /** Comment about the scoring of the candidate */
+  comment: string
+  /** Select scale to rate candidate on (values: `thumbs`, `stars`, `numbers`) */
+  scale: "thumbs" | "stars" | "numbers"
+  /** Thumbs scale: 0-2, Stars scale: 0-4, Numbers scale: 0-9 */
+  grade: number
+}
+
+/** Workable — Custom API Call */
+export interface WorkableCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -16051,28 +28368,120 @@ export interface XeroCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** XML — Convert JSON to XML */
+export interface XmlConvertJsonToXmlInput {
+  /** JSON */
+  json: unknown
+  /** Field to add your tag's attributes */
+  attributes_key?: string
+  /** Add XML header */
+  header?: boolean
+}
+
+/** Yotpo — List Reviews */
+export interface YotpoListReviewsInput {
+  /** Page */
+  page?: number
+  /** Count */
+  count?: number
+  /** ISO 8601 date to filter reviews (e.g., 2025-01-01) */
+  since?: string
+}
+
+/** Yotpo — Get Review */
+export interface YotpoGetReviewInput {
+  /** Review ID */
+  reviewId: string
+}
+
+/** Yotpo — Create Review Request */
+export interface YotpoCreateReviewRequestInput {
+  /** Customer Email */
+  email: string
+  /** Customer Name */
+  name: string
+  /** Order ID */
+  orderId: string
+  /** Product Name */
+  productName?: string
+  /** Product URL */
+  productUrl?: string
+  /** Product Image URL */
+  productImageUrl?: string
+}
+
+/** Yotpo — Custom API Call */
+export interface YotpoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** YouTube — Search Videos */
+export interface YoutubeSearchVideosInput {
+  /** Search Query */
+  query: string
+  /** Max Results */
+  maxResults?: number
+  /** Order By (values: `relevance`, `date`, `rating`, `viewCount`, `title`) */
+  order?: "relevance" | "date" | "rating" | "viewCount" | "title"
+  /** Token for next page of results */
+  pageToken?: string
+}
+
+/** YouTube — Get Video */
+export interface YoutubeGetVideoInput {
+  /** Video ID */
+  videoId: string
+}
+
+/** YouTube — List Playlists */
+export interface YoutubeListPlaylistsInput {
+  /** Max Results */
+  maxResults?: number
+  /** Token for next page of results */
+  pageToken?: string
+}
+
+/** YouTube — Create Playlist */
+export interface YoutubeCreatePlaylistInput {
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** Privacy Status (values: `public`, `private`, `unlisted`) */
+  privacyStatus?: "public" | "private" | "unlisted"
+}
+
+/** YouTube — Add Video to Playlist */
+export interface YoutubeAddToPlaylistInput {
+  /** Playlist ID */
+  playlistId: string
+  /** Video ID */
+  videoId: string
+  /** Position in the playlist (0-based). Leave blank to add at end. */
+  position?: number
+}
+
+/** YouTube — List Channel Videos */
+export interface YoutubeListChannelVideosInput {
+  /** Max Results */
+  maxResults?: number
+  /** Token for next page of results */
+  pageToken?: string
+}
+
 /** YouTube — Custom API Call */
 export interface YoutubeCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Zendesk — Create Ticket */
@@ -16425,8 +28834,305 @@ export interface ZendeskCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** ZeroBounce — Validate Email */
+export interface ZerobounceValidateEmailInput {
+  /** The email address to validate */
+  email: string
+  /** The IP address the email sign-up was from (optional, for additional scoring) */
+  ipAddress?: string
+}
+
+/** ZeroBounce — Get Credits */
+export type ZerobounceGetCreditsInput = Record<string, never>
+
+/** ZeroBounce — Custom API Call */
+export interface ZerobounceCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /validate) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Zillow — Get Property */
+export interface ZillowGetPropertyInput {
+  /** The Zillow Property ID. Find it in the URL of a Zillow listing. */
+  zpid?: string
+  /** Full property address (alternative to zpid) */
+  address?: string
+}
+
+/** Zillow — Search Properties */
+export interface ZillowSearchPropertiesInput {
+  /** City, neighborhood, zip code, or address (e.g., "Austin, TX") */
+  location: string
+  /** Page */
+  page?: number
+  /** Status (values: `forSale`, `forRent`, `recentlySold`) */
+  status?: "forSale" | "forRent" | "recentlySold"
+  /** Min Price */
+  minPrice?: number
+  /** Max Price */
+  maxPrice?: number
+  /** Min Bedrooms */
+  beds?: number
+  /** Min Bathrooms */
+  baths?: number
+  /** Comma-separated types: Houses, Townhomes, Apartments, Condos */
+  homeType?: string
+}
+
+/** Zillow — Custom API Call */
+export interface ZillowCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Zocdoc — List Appointments */
+export interface ZocdocListAppointmentsInput {
+  /** Filter by provider */
+  providerId?: string
+  /** Filter from date (YYYY-MM-DD) */
+  startDate?: string
+  /** Filter until date (YYYY-MM-DD) */
+  endDate?: string
+  /** Status (values: `scheduled`, `completed`, `cancelled`) */
+  status?: "scheduled" | "completed" | "cancelled"
+  /** Limit */
+  limit?: number
+}
+
+/** Zocdoc — Get Provider */
+export interface ZocdocGetProviderInput {
+  /** Provider ID */
+  providerId: string
+}
+
+/** Zocdoc — List Providers */
+export interface ZocdocListProvidersInput {
+  /** Filter by specialty */
+  specialty?: string
+  /** Filter by location (city, state, or zip) */
+  location?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Zocdoc — Custom API Call */
+export interface ZocdocCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Zoho Books — List Invoices */
+export interface ZohoBooksListInvoicesInput {
+  /** Your Zoho Books organization ID */
+  organizationId: string
+  /** Status (values: ``, `draft`, `sent`, `overdue`, `paid`, `void`) */
+  status?: "" | "draft" | "sent" | "overdue" | "paid" | "void"
+  /** Page */
+  page?: number
+}
+
+/** Zoho Books — Get Invoice */
+export interface ZohoBooksGetInvoiceInput {
+  /** Organization ID */
+  organizationId: string
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** Zoho Books — Create Invoice */
+export interface ZohoBooksCreateInvoiceInput {
+  /** Organization ID */
+  organizationId: string
+  /** Customer ID */
+  customerId: string
+  /** Invoice date in YYYY-MM-DD format */
+  invoiceDate?: string
+  /** Payment due date in YYYY-MM-DD format */
+  dueDate?: string
+  /** Array of line items: [{"item_id": "...", "quantity": 1, "rate": 100}] */
+  lineItems: unknown
+  /** Notes */
+  notes?: string
+}
+
+/** Zoho Books — List Contacts */
+export interface ZohoBooksListContactsInput {
+  /** Organization ID */
+  organizationId: string
+  /** Contact Type (values: ``, `customer`, `vendor`) */
+  contactType?: "" | "customer" | "vendor"
+  /** Page */
+  page?: number
+}
+
+/** Zoho Books — Get Contact */
+export interface ZohoBooksGetContactInput {
+  /** Organization ID */
+  organizationId: string
+  /** Contact ID */
+  contactId: string
+}
+
+/** Zoho Books — Create Contact */
+export interface ZohoBooksCreateContactInput {
+  /** Organization ID */
+  organizationId: string
+  /** Contact Name */
+  contactName: string
+  /** Contact Type (values: `customer`, `vendor`) */
+  contactType?: "customer" | "vendor"
+  /** Company Name */
+  companyName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** ISO currency code (e.g., USD, EUR) */
+  currencyCode?: string
+}
+
 /** Zoho Books — Custom API Call */
 export interface ZohoBooksCustomApiCallInput {
+  /** Organization ID */
+  organizationId: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /invoices) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Zoho Campaigns — Create Campaign */
+export interface ZohoCampaignsCreateCampaignInput {
+  /** A name to your campaign */
+  campaignname: string
+  /** Sender email address for the campaign */
+  from_email: string
+  /** The subject line of the campaign */
+  subject: string
+  /** Select the mailing lists */
+  list_details: string[]
+  /** Public URL containing the HTML content for your campaign */
+  content_url?: string
+  /** Select the topic (resolve via property options API) */
+  topicId?: string
+}
+
+/** Zoho Campaigns — Clone Campaign */
+export interface ZohoCampaignsCloneCampaignInput {
+  /** Select the campaign (resolve via property options API) */
+  campaignkey: string
+  /** New name for the cloned campaign */
+  campaignname?: string
+  /** New subject line for the cloned campaign */
+  subject?: string
+  /** Sender name for the cloned campaign */
+  from_name?: string
+  /** Sender email address for the cloned campaign */
+  from_add?: string
+  /** Reply-to email address for the cloned campaign */
+  reply_to?: string
+  /** Email encoding type (e.g., UTF-8) */
+  encode_type?: string
+}
+
+/** Zoho Campaigns — Send Campaign */
+export interface ZohoCampaignsSendCampaignInput {
+  /** Select the campaign (resolve via property options API) */
+  campaignkey: string
+}
+
+/** Zoho Campaigns — Add/Update Contact */
+export interface ZohoCampaignsAddUpdateContactInput {
+  /** Select the mailing list (resolve via property options API) */
+  listkey: string
+  /** Information about the contact */
+  contactinfo: Record<string, unknown>
+  /** Contact source can be added. */
+  source?: string
+  /** Select the topic (resolve via property options API) */
+  topic_id?: string
+}
+
+/** Zoho Campaigns — Add Tag to Contact */
+export interface ZohoCampaignsAddTagToContactInput {
+  /** Select the tag to associate with the contact (resolve via property options API) */
+  tagName: string
+  /** Email address of the contact to tag */
+  lead_email: string
+}
+
+/** Zoho Campaigns — Remove Tag */
+export interface ZohoCampaignsRemoveTagInput {
+  /** Select the tag to associate with the contact (resolve via property options API) */
+  tagName: string
+  /** Email address of the contact to remove the tag from */
+  lead_email: string
+}
+
+/** Zoho Campaigns — Unsubscribe Contact */
+export interface ZohoCampaignsUnsubscribeContactInput {
+  /** Select the mailing list (resolve via property options API) */
+  listkey: string
+  /** Information about the contact */
+  contactinfo: Record<string, unknown>
+  /** Select the topic (resolve via property options API) */
+  topic_id?: string
+}
+
+/** Zoho Campaigns — Add Contact to Mailing List */
+export interface ZohoCampaignsAddContactToMailingListInput {
+  /** Select the mailing list (resolve via property options API) */
+  listkey: string
+  /** Contacts email addresses to be added to the mailing list (maximum 10 emails) */
+  emails: unknown[]
+}
+
+/** Zoho Campaigns — Find Contact */
+export interface ZohoCampaignsFindContactInput {
+  /** Select the mailing list (resolve via property options API) */
+  listkey: string
+  /** Email of the contact to be found (partial matches supported) */
+  contactEmail: string
+  /** Filter contacts by status (values: `active`, `recent`, `most recent`, `unsub`, `bounce`) */
+  status: "active" | "recent" | "most recent" | "unsub" | "bounce"
+  /** Sort order for results (values: `asc`, `desc`) */
+  sort: "asc" | "desc"
+  /** Starting index for pagination (optional, default: 1) */
+  fromindex?: number
+  /** Number of contacts to retrieve (optional, default: all) */
+  range?: number
+}
+
+/** Zoho Campaigns — Find Campaign */
+export interface ZohoCampaignsFindCampaignInput {
+  /** Name of the campaign to be found (partial matches supported) */
+  campaignName: string
+  /** Filter campaigns by status (optional) */
+  status?: "all" | "all campaigns" | "drafts" | "scheduled" | "inprogress" | "sent" | "stopped" | "canceled" | "tobereviewed" | "reviewed" | "paused" | "intesting"
+  /** Sort order for results (optional) (values: `asc`, `desc`) */
+  sort?: "asc" | "desc"
+  /** Starting index for pagination (optional, default: 1) */
+  fromindex?: number
+  /** Number of campaigns to retrieve (optional, default: 5) */
+  range?: number
+}
+
+/** Zoho Campaigns — Custom API Call */
+export interface ZohoCampaignsCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -16457,6 +29163,276 @@ export interface ZohoCrmReadFileInput {
 
 /** Zoho CRM — Custom API Call */
 export interface ZohoCrmCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Zoho Desk — List tickets. */
+export interface ZohoDeskListTicketsInput {
+  /** Organization (resolve via property options API) */
+  orgId: string
+  /** Additional information related to the tickets. */
+  include?: string[]
+}
+
+/** Zoho Desk — Create Ticket */
+export interface ZohoDeskCreateTicketInput {
+  /** Organization (resolve via property options API) */
+  orgId: string
+  /** Department (resolve via property options API) */
+  departmentId: string
+  /** ID of the contact raising the ticket */
+  contactId?: string
+  /** Subject of the ticket */
+  subject: string
+  /** Description of the issue in the ticket */
+  description: string
+  /** Email address of the contact raising the ticket */
+  email?: string
+  /** Phone number of the contact raising the ticket */
+  phone?: string
+  /** Status of the ticket (values: `Open`, `On Hold`, `Escalated`, `Closed`) */
+  status?: "Open" | "On Hold" | "Escalated" | "Closed"
+  /** Priority of the ticket (values: `Low`, `Medium`, `High`, `Urgent`) */
+  priority?: "Low" | "Medium" | "High" | "Urgent"
+  /** Category of the ticket */
+  category?: string
+  /** Sub-category of the ticket */
+  subCategory?: string
+  /** Due date for the ticket (ISO format) */
+  dueDate?: string
+  /** Channel through which the ticket is created (values: `Email`, `Phone`, `Chat`, `Web`, `Social`) */
+  channel?: "Email" | "Phone" | "Chat" | "Web" | "Social"
+  /** ID of the agent to whom the ticket is assigned */
+  assigneeId?: string
+  /** ID of the product to which the ticket belongs */
+  productId?: string
+  /** Classification of the ticket */
+  classification?: string
+  /** Language of the ticket */
+  language?: string
+  /** Array of skill IDs associated with the ticket */
+  entitySkills?: unknown[]
+  /** Custom fields in the ticket */
+  customFields?: Record<string, unknown>
+}
+
+/** Zoho Desk — Find Contact */
+export interface ZohoDeskFindContactInput {
+  /** Organization (resolve via property options API) */
+  orgId: string
+  /** Email */
+  email: string
+}
+
+/** Zoho Desk — Custom API Call */
+export interface ZohoDeskCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+  /** Select organization ID to include in auth headers. (resolve via property options API) */
+  orgId?: string
+}
+
+/** Zoho Invoice — List Invoices */
+export interface ZohoInvoiceListInvoicesInput {
+  /** Your Zoho Invoice organization ID */
+  organizationId: string
+  /** Status (values: ``, `draft`, `sent`, `overdue`, `paid`, `void`) */
+  status?: "" | "draft" | "sent" | "overdue" | "paid" | "void"
+  /** Page */
+  page?: number
+  /** Sort By (values: `created_time`, `last_modified_time`, `invoice_number`, `due_date`) */
+  sortColumn?: "created_time" | "last_modified_time" | "invoice_number" | "due_date"
+}
+
+/** Zoho Invoice — Get Invoice */
+export interface ZohoInvoiceGetInvoiceInput {
+  /** Organization ID */
+  organizationId: string
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** Zoho Invoice — Create Invoice */
+export interface ZohoInvoiceCreateInvoiceInput {
+  /** Organization ID */
+  organizationId: string
+  /** Customer ID */
+  customerId: string
+  /** Invoice date in YYYY-MM-DD format */
+  invoiceDate?: string
+  /** Payment due date in YYYY-MM-DD format */
+  dueDate?: string
+  /** Array of line items: [{"item_id": "...", "quantity": 1, "rate": 100}] */
+  lineItems: unknown
+  /** Notes */
+  notes?: string
+  /** Terms & Conditions */
+  termsAndConditions?: string
+}
+
+/** Zoho Invoice — Send Invoice */
+export interface ZohoInvoiceSendInvoiceInput {
+  /** Organization ID */
+  organizationId: string
+  /** Invoice ID */
+  invoiceId: string
+  /** Comma-separated email addresses to send to (leave blank to use contact email) */
+  toMailIds?: string
+  /** Email Subject */
+  subject?: string
+  /** Email Body */
+  body?: string
+}
+
+/** Zoho Invoice — List Customers */
+export interface ZohoInvoiceListCustomersInput {
+  /** Organization ID */
+  organizationId: string
+  /** Page */
+  page?: number
+  /** Search by contact name or email */
+  searchText?: string
+}
+
+/** Zoho Invoice — Custom API Call */
+export interface ZohoInvoiceCustomApiCallInput {
+  /** Organization ID */
+  organizationId: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path (e.g. /invoices) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Zoho Mail — Get Email Details */
+export interface ZohoMailGetEmailDetailsInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to retrieve. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Mark Email as Read */
+export interface ZohoMailMarkEmailAsReadInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to mark as read. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Mark Emai as Unread */
+export interface ZohoMailMarkEmailAsUnreadInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to mark as unread. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Archive Email */
+export interface ZohoMailArchiveEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to archive. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Unarchive Email */
+export interface ZohoMailUnarchiveEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to unarchive. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Move Email to Folder */
+export interface ZohoMailMoveEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Current Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to move. (resolve via property options API) */
+  messageId: string
+  /** Select the folder to move the email to. (resolve via property options API) */
+  destfolderId: string
+}
+
+/** Zoho Mail — Send Email */
+export interface ZohoMailSendEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** From Email Address (resolve via property options API) */
+  fromAddress: string
+  /** Recipient's email address. */
+  toAddress: string
+  /** Subject */
+  subject: string
+  /** Mail Format (values: `html`, `plaintext`) */
+  mailFormat: "html" | "plaintext"
+  /** HTML or plain text content of the email. */
+  content: string
+  /** CC recipient's email address. */
+  ccAddress?: string
+  /** BCC recipient's email address. */
+  bccAddress?: string
+  /** Ask for Read Receipt (values: `yes`, `no`) */
+  askReceipt?: "yes" | "no"
+  /** Attachment */
+  attachment?: string
+  /** In case you want to change the name of the attachment. */
+  attachmentName?: string
+}
+
+/** Zoho Mail — Custom API Call */
+export interface ZohoMailCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -16567,6 +29543,44 @@ export interface ZoomCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Zuora — Create Invoice */
+export interface ZuoraCreateInvoiceInput {
+  /** The number of the customer account associated with the invoice. */
+  accountNumber: string
+  /** Whether invoices are automatically picked up for processing in the corresponding payment run. */
+  autoPay?: boolean
+  /** Comments */
+  comments?: string
+  /** Provide YYYY-MM-DD format. */
+  dueDate: string
+  /** Provide YYYY-MM-DD format. */
+  invoiceDate: string
+  /** Invoice Items */
+  invoiceItems?: Array<{   productRatePlanChargeId: string;   amount: number;   description?: string;   purchaseOrderNumber?: string;   quantity?: string;   serviceStartDate: string;   serviceEndDate?: string }>
+  /** Status (values: `Draft`, `Posted`) */
+  status?: "Draft" | "Posted"
+}
+
+/** Zuora — Find Customer Account */
+export interface ZuoraFindAccountInput {
+  /** Account Name */
+  name: string
+}
+
+/** Zuora — Find Product Rate Plan */
+export interface ZuoraFindProductRatePlanInput {
+  /** i.e. StealthCo Premium */
+  name: string
+  /** Product ID */
+  productid: string
+}
+
+/** Zuora — Find Product */
+export interface ZuoraFindProductInput {
+  /** Product SKU */
+  sku: string
+}
+
 // ============================================================================
 // Action Input Type Map — maps integrationName.actionName to input types
 // ============================================================================
@@ -16579,6 +29593,35 @@ export interface IntegrationActionInputMap {
   'activecampaign.activecampaign_update_account': ActivecampaignActivecampaignUpdateAccountInput
   'activecampaign.activecampaign_update_contact': ActivecampaignActivecampaignUpdateContactInput
   'activecampaign.activecampaign_subscribe_or_unsubscribe_contact_from_list': ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromListInput
+  'acuity-health.list_patients': AcuityHealthListPatientsInput
+  'acuity-health.create_patient': AcuityHealthCreatePatientInput
+  'acuity-health.list_encounters': AcuityHealthListEncountersInput
+  'acuity-health.custom_api_call': AcuityHealthCustomApiCallInput
+  'acuity-scheduling.add_blocked_time': AcuitySchedulingAddBlockedTimeInput
+  'acuity-scheduling.create_appointment': AcuitySchedulingCreateAppointmentInput
+  'acuity-scheduling.create_client': AcuitySchedulingCreateClientInput
+  'acuity-scheduling.reschedule_appointment': AcuitySchedulingRescheduleAppointmentInput
+  'acuity-scheduling.update_client': AcuitySchedulingUpdateClientInput
+  'acuity-scheduling.find_appointment': AcuitySchedulingFindAppointmentInput
+  'acuity-scheduling.find_client': AcuitySchedulingFindClientInput
+  'acuity-scheduling.custom_api_call': AcuitySchedulingCustomApiCallInput
+  'adp.list_workers': AdpListWorkersInput
+  'adp.get_worker': AdpGetWorkerInput
+  'adp.list_work_assignments': AdpListWorkAssignmentsInput
+  'adp.list_pay_statements': AdpListPayStatementsInput
+  'adyen.list_payment_methods': AdyenListPaymentMethodsInput
+  'adyen.create_payment': AdyenCreatePaymentInput
+  'adyen.get_payment_details': AdyenGetPaymentDetailsInput
+  'adyen.create_payment_link': AdyenCreatePaymentLinkInput
+  'aftership.create_tracking': AftershipCreateTrackingInput
+  'aftership.get_tracking': AftershipGetTrackingInput
+  'aftership.list_trackings': AftershipListTrackingsInput
+  'aftership.delete_tracking': AftershipDeleteTrackingInput
+  'aftership.custom_api_call': AftershipCustomApiCallInput
+  'ahrefs.get_backlinks': AhrefsGetBacklinksInput
+  'ahrefs.get_organic_keywords': AhrefsGetOrganicKeywordsInput
+  'ahrefs.get_domain_rating': AhrefsGetDomainRatingInput
+  'ahrefs.custom_api_call': AhrefsCustomApiCallInput
   'ai-toolkit.extract_structured_data': AiToolkitExtractStructuredDataInput
   'ai-toolkit.classify_text': AiToolkitClassifyTextInput
   'ai-toolkit.transform_data': AiToolkitTransformDataInput
@@ -16597,6 +29640,25 @@ export interface IntegrationActionInputMap {
   'airtable.airtable_find_table': AirtableAirtableFindTableInput
   'airtable.airtable_get_base_schema': AirtableAirtableGetBaseSchemaInput
   'airtable.custom_api_call': AirtableCustomApiCallInput
+  'amazon-s3.upload-file': AmazonS3UploadFileInput
+  'amazon-s3.read-file': AmazonS3ReadFileInput
+  'amazon-s3.generate-signed-url': AmazonS3GenerateSignedUrlInput
+  'amazon-s3.moveFile': AmazonS3MoveFileInput
+  'amazon-s3.deleteFile': AmazonS3DeleteFileInput
+  'amazon-s3.list-files': AmazonS3ListFilesInput
+  'amazon-s3.decrypt-pgp-file': AmazonS3DecryptPgpFileInput
+  'amazon-ses.send_email': AmazonSesSendEmailInput
+  'amazon-ses.create_email_template': AmazonSesCreateEmailTemplateInput
+  'amazon-ses.send_templated_email': AmazonSesSendTemplatedEmailInput
+  'amazon-ses.update_email_template': AmazonSesUpdateEmailTemplateInput
+  'amazon-ses.create_custom_verification_email_template': AmazonSesCreateCustomVerificationEmailTemplateInput
+  'amazon-ses.send_custom_verification_email': AmazonSesSendCustomVerificationEmailInput
+  'amazon-ses.update_custom_verification_email_template': AmazonSesUpdateCustomVerificationEmailTemplateInput
+  'amazon-sqs.sendMessage': AmazonSqsSendMessageInput
+  'amplitude.track_event': AmplitudeTrackEventInput
+  'amplitude.identify_user': AmplitudeIdentifyUserInput
+  'amplitude.get_user_activity': AmplitudeGetUserActivityInput
+  'amplitude.custom_api_call': AmplitudeCustomApiCallInput
   'claude.ask_claude': ClaudeAskClaudeInput
   'claude.extract-structured-data': ClaudeExtractStructuredDataInput
   'claude.custom_api_call': ClaudeCustomApiCallInput
@@ -16607,8 +29669,23 @@ export interface IntegrationActionInputMap {
   'apollo.organizationSearch': ApolloOrganizationSearchInput
   'apollo.peopleSearch': ApolloPeopleSearchInput
   'apollo.custom_api_call': ApolloCustomApiCallInput
+  'appfolio.list_properties': AppfolioListPropertiesInput
+  'appfolio.list_tenants': AppfolioListTenantsInput
+  'appfolio.list_leases': AppfolioListLeasesInput
+  'appfolio.custom_api_call': AppfolioCustomApiCallInput
+  'appwrite.list_databases': AppwriteListDatabasesInput
+  'appwrite.list_documents': AppwriteListDocumentsInput
+  'appwrite.create_document': AppwriteCreateDocumentInput
+  'appwrite.get_document': AppwriteGetDocumentInput
+  'appwrite.list_users': AppwriteListUsersInput
   'asana.create_task': AsanaCreateTaskInput
   'asana.custom_api_call': AsanaCustomApiCallInput
+  'ashby.list_candidates': AshbyListCandidatesInput
+  'ashby.get_candidate': AshbyGetCandidateInput
+  'ashby.create_candidate': AshbyCreateCandidateInput
+  'ashby.list_jobs': AshbyListJobsInput
+  'ashby.get_job': AshbyGetJobInput
+  'ashby.list_applications': AshbyListApplicationsInput
   'ashby.custom_api_call': AshbyCustomApiCallInput
   'assemblyai.uploadFile': AssemblyaiUploadFileInput
   'assemblyai.transcribe': AssemblyaiTranscribeInput
@@ -16624,6 +29701,11 @@ export interface IntegrationActionInputMap {
   'assemblyai.getLemurResponse': AssemblyaiGetLemurResponseInput
   'assemblyai.purgeLemurRequestData': AssemblyaiPurgeLemurRequestDataInput
   'assemblyai.custom_api_call': AssemblyaiCustomApiCallInput
+  'athenahealth.list_patients': AthenahealthListPatientsInput
+  'athenahealth.get_patient': AthenahealthGetPatientInput
+  'athenahealth.list_appointments': AthenahealthListAppointmentsInput
+  'athenahealth.list_providers': AthenahealthListProvidersInput
+  'athenahealth.list_departments': AthenahealthListDepartmentsInput
   'attio.create_record': AttioCreateRecordInput
   'attio.update_record': AttioUpdateRecordInput
   'attio.find_record': AttioFindRecordInput
@@ -16631,6 +29713,34 @@ export interface IntegrationActionInputMap {
   'attio.update_entry': AttioUpdateEntryInput
   'attio.find_list_entry': AttioFindListEntryInput
   'attio.custom_api_call': AttioCustomApiCallInput
+  'auth0.list_users': Auth0ListUsersInput
+  'auth0.get_user': Auth0GetUserInput
+  'auth0.create_user': Auth0CreateUserInput
+  'auth0.list_roles': Auth0ListRolesInput
+  'auth0.list_connections': Auth0ListConnectionsInput
+  'aws-s3.list_objects': AwsS3ListObjectsInput
+  'aws-s3.get_object': AwsS3GetObjectInput
+  'aws-s3.put_object': AwsS3PutObjectInput
+  'aws-s3.delete_object': AwsS3DeleteObjectInput
+  'aws-s3.head_object': AwsS3HeadObjectInput
+  'aws-ses.send_email': AwsSesSendEmailInput
+  'aws-ses.list_identities': AwsSesListIdentitiesInput
+  'aws-ses.get_email_identity': AwsSesGetEmailIdentityInput
+  'aws-ses.get_account': AwsSesGetAccountInput
+  'azure-blob-storage.listContainers': AzureBlobStorageListContainersInput
+  'azure-blob-storage.createContainer': AzureBlobStorageCreateContainerInput
+  'azure-blob-storage.deleteContainer': AzureBlobStorageDeleteContainerInput
+  'azure-blob-storage.listBlobs': AzureBlobStorageListBlobsInput
+  'azure-blob-storage.createBlob': AzureBlobStorageCreateBlobInput
+  'azure-blob-storage.readBlob': AzureBlobStorageReadBlobInput
+  'azure-blob-storage.deleteBlob': AzureBlobStorageDeleteBlobInput
+  'azure-blob-storage.addTagsToBlob': AzureBlobStorageAddTagsToBlobInput
+  'azure-blob-storage.findBlobs': AzureBlobStorageFindBlobsInput
+  'azure-openai.ask_gpt': AzureOpenaiAskGptInput
+  'bamboohr.list_employees': BamboohrListEmployeesInput
+  'bamboohr.get_employee': BamboohrGetEmployeeInput
+  'bamboohr.create_employee': BamboohrCreateEmployeeInput
+  'bamboohr.update_employee': BamboohrUpdateEmployeeInput
   'bamboohr.custom_api_call': BamboohrCustomApiCallInput
   'baserow.baserow_create_row': BaserowBaserowCreateRowInput
   'baserow.baserow_delete_row': BaserowBaserowDeleteRowInput
@@ -16644,6 +29754,11 @@ export interface IntegrationActionInputMap {
   'beehiiv.list_automations': BeehiivListAutomationsInput
   'beehiiv.list_posts': BeehiivListPostsInput
   'beehiiv.custom_api_call': BeehiivCustomApiCallInput
+  'better-stack.list_monitors': BetterStackListMonitorsInput
+  'better-stack.create_monitor': BetterStackCreateMonitorInput
+  'better-stack.list_incidents': BetterStackListIncidentsInput
+  'better-stack.get_incident': BetterStackGetIncidentInput
+  'better-stack.custom_api_call': BetterStackCustomApiCallInput
   'bigcommerce.createCustomer': BigcommerceCreateCustomerInput
   'bigcommerce.createAProduct': BigcommerceCreateAProductInput
   'bigcommerce.createBlogPost': BigcommerceCreateBlogPostInput
@@ -16655,6 +29770,9 @@ export interface IntegrationActionInputMap {
   'bigcommerce.findOrCreateProduct': BigcommerceFindOrCreateProductInput
   'bigcommerce.findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
   'bigcommerce.custom_api_call': BigcommerceCustomApiCallInput
+  'messagebird.send-sms': MessagebirdSendSmsInput
+  'messagebird.listMessages': MessagebirdListMessagesInput
+  'messagebird.custom_api_call': MessagebirdCustomApiCallInput
   'bitbucket.list_repositories': BitbucketListRepositoriesInput
   'bitbucket.get_repository': BitbucketGetRepositoryInput
   'bitbucket.list_pull_requests': BitbucketListPullRequestsInput
@@ -16665,16 +29783,99 @@ export interface IntegrationActionInputMap {
   'bluesky.repostPost': BlueskyRepostPostInput
   'bluesky.findPost': BlueskyFindPostInput
   'bluesky.findThread': BlueskyFindThreadInput
+  'box.list_folder_items': BoxListFolderItemsInput
+  'box.get_file_info': BoxGetFileInfoInput
+  'box.create_folder': BoxCreateFolderInput
+  'box.search': BoxSearchInput
+  'box.delete_file': BoxDeleteFileInput
   'box.custom_api_call': BoxCustomApiCallInput
+  'brave-search.web_search': BraveSearchWebSearchInput
+  'brave-search.custom_api_call': BraveSearchCustomApiCallInput
   'brevo.send_email': BrevoSendEmailInput
   'brevo.list_contacts': BrevoListContactsInput
   'brevo.create_contact': BrevoCreateContactInput
   'brevo.send_sms': BrevoSendSmsInput
+  'buffer.create_post': BufferCreatePostInput
+  'buffer.list_profiles': BufferListProfilesInput
+  'buffer.get_post': BufferGetPostInput
+  'buffer.list_updates': BufferListUpdatesInput
+  'buffer.custom_api_call': BufferCustomApiCallInput
+  'bugsnag.list_errors': BugsnagListErrorsInput
+  'bugsnag.get_error': BugsnagGetErrorInput
+  'bugsnag.list_projects': BugsnagListProjectsInput
+  'bugsnag.list_organizations': BugsnagListOrganizationsInput
+  'bugsnag.custom_api_call': BugsnagCustomApiCallInput
+  'buildium.list_properties': BuildiumListPropertiesInput
+  'buildium.get_property': BuildiumGetPropertyInput
+  'buildium.list_leases': BuildiumListLeasesInput
+  'buildium.list_tenants': BuildiumListTenantsInput
+  'buildkite.list_builds': BuildkiteListBuildsInput
+  'buildkite.get_build': BuildkiteGetBuildInput
+  'buildkite.create_build': BuildkiteCreateBuildInput
+  'buildkite.list_pipelines': BuildkiteListPipelinesInput
+  'buildkite.custom_api_call': BuildkiteCustomApiCallInput
+  'calendly.list_event_types': CalendlyListEventTypesInput
+  'calendly.get_event_type': CalendlyGetEventTypeInput
+  'calendly.list_scheduled_events': CalendlyListScheduledEventsInput
+  'calendly.get_event': CalendlyGetEventInput
+  'calendly.get_event_invitees': CalendlyGetEventInviteesInput
   'calendly.custom_api_call': CalendlyCustomApiCallInput
+  'campaign-monitor.add_subscriber_to_list': CampaignMonitorAddSubscriberToListInput
+  'campaign-monitor.update_subscriber_details': CampaignMonitorUpdateSubscriberDetailsInput
+  'campaign-monitor.unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
+  'campaign-monitor.find_subscriber': CampaignMonitorFindSubscriberInput
+  'canvas-lms.list_courses': CanvasLmsListCoursesInput
+  'canvas-lms.get_course': CanvasLmsGetCourseInput
+  'canvas-lms.list_assignments': CanvasLmsListAssignmentsInput
+  'canvas-lms.list_students': CanvasLmsListStudentsInput
+  'capsule-crm.create_contact': CapsuleCrmCreateContactInput
+  'capsule-crm.update_contact': CapsuleCrmUpdateContactInput
+  'capsule-crm.create_opportunity': CapsuleCrmCreateOpportunityInput
+  'capsule-crm.create_project': CapsuleCrmCreateProjectInput
+  'capsule-crm.create_task': CapsuleCrmCreateTaskInput
+  'capsule-crm.update_opportunity': CapsuleCrmUpdateOpportunityInput
+  'capsule-crm.add_note_to_entity': CapsuleCrmAddNoteToEntityInput
+  'capsule-crm.find_contact': CapsuleCrmFindContactInput
+  'capsule-crm.find_project': CapsuleCrmFindProjectInput
+  'capsule-crm.find_opportunity': CapsuleCrmFindOpportunityInput
   'chargebee.list_subscriptions': ChargebeeListSubscriptionsInput
   'chargebee.get_subscription': ChargebeeGetSubscriptionInput
   'chargebee.list_customers': ChargebeeListCustomersInput
   'chargebee.list_invoices': ChargebeeListInvoicesInput
+  'chromadb.list_collections': ChromadbListCollectionsInput
+  'chromadb.create_collection': ChromadbCreateCollectionInput
+  'chromadb.add_documents': ChromadbAddDocumentsInput
+  'chromadb.query_collection': ChromadbQueryCollectionInput
+  'circle.list_spaces': CircleListSpacesInput
+  'circle.list_members': CircleListMembersInput
+  'circle.create_post': CircleCreatePostInput
+  'circle.list_posts': CircleListPostsInput
+  'circleci.list_pipelines': CircleciListPipelinesInput
+  'circleci.get_pipeline': CircleciGetPipelineInput
+  'circleci.trigger_pipeline': CircleciTriggerPipelineInput
+  'circleci.list_workflows': CircleciListWorkflowsInput
+  'circleci.custom_api_call': CircleciCustomApiCallInput
+  'classdojo.list_classes': ClassdojoListClassesInput
+  'classdojo.list_students': ClassdojoListStudentsInput
+  'classdojo.post_story': ClassdojoPostStoryInput
+  'classdojo.custom_api_call': ClassdojoCustomApiCallInput
+  'clickfunnels.createOpportunity': ClickfunnelsCreateOpportunityInput
+  'clickfunnels.applyTagToContact': ClickfunnelsApplyTagToContactInput
+  'clickfunnels.removeTagFromContact': ClickfunnelsRemoveTagFromContactInput
+  'clickfunnels.enrollAContactIntoACourse': ClickfunnelsEnrollAContactIntoACourseInput
+  'clickfunnels.updateOrCreateContact': ClickfunnelsUpdateOrCreateContactInput
+  'clickfunnels.searchContacts': ClickfunnelsSearchContactsInput
+  'clickfunnels.custom_api_call': ClickfunnelsCustomApiCallInput
+  'clicksend.send_sms': ClicksendSendSmsInput
+  'clicksend.send_mms': ClicksendSendMmsInput
+  'clicksend.create_contact': ClicksendCreateContactInput
+  'clicksend.update_contact': ClicksendUpdateContactInput
+  'clicksend.delete_contact': ClicksendDeleteContactInput
+  'clicksend.create_contact_list': ClicksendCreateContactListInput
+  'clicksend.find_contact_by_email': ClicksendFindContactByEmailInput
+  'clicksend.find_contact_by_phone': ClicksendFindContactByPhoneInput
+  'clicksend.find_contact_lists': ClicksendFindContactListsInput
+  'clicksend.custom_api_call': ClicksendCustomApiCallInput
   'clickup.create_task': ClickupCreateTaskInput
   'clickup.create_task_from_template': ClickupCreateTaskFromTemplateInput
   'clickup.create_folderless_list': ClickupCreateFolderlessListInput
@@ -16706,6 +29907,10 @@ export interface IntegrationActionInputMap {
   'clickup.get_accessible_custom_fields': ClickupGetAccessibleCustomFieldsInput
   'clickup.set_custom_fields_value': ClickupSetCustomFieldsValueInput
   'clickup.custom_api_call': ClickupCustomApiCallInput
+  'clio.list_matters': ClioListMattersInput
+  'clio.get_matter': ClioGetMatterInput
+  'clio.list_contacts': ClioListContactsInput
+  'clio.list_activities': ClioListActivitiesInput
   'clockify.create-task': ClockifyCreateTaskInput
   'clockify.create-time-entry': ClockifyCreateTimeEntryInput
   'clockify.start-timer': ClockifyStartTimerInput
@@ -16720,6 +29925,15 @@ export interface IntegrationActionInputMap {
   'close.create_opportunity': CloseCreateOpportunityInput
   'close.find_contact': CloseFindContactInput
   'close.custom_api_call': CloseCustomApiCallInput
+  'cloudconvert.create_job': CloudconvertCreateJobInput
+  'cloudconvert.get_job': CloudconvertGetJobInput
+  'cloudconvert.list_jobs': CloudconvertListJobsInput
+  'cloudconvert.custom_api_call': CloudconvertCustomApiCallInput
+  'cloudflare.list_zones': CloudflareListZonesInput
+  'cloudflare.list_dns_records': CloudflareListDnsRecordsInput
+  'cloudflare.create_dns_record': CloudflareCreateDnsRecordInput
+  'cloudflare.purge_cache': CloudflarePurgeCacheInput
+  'cloudflare.list_workers': CloudflareListWorkersInput
   'cloudinary.list_resources': CloudinaryListResourcesInput
   'cloudinary.get_resource': CloudinaryGetResourceInput
   'cloudinary.delete_resource': CloudinaryDeleteResourceInput
@@ -16731,7 +29945,16 @@ export interface IntegrationActionInputMap {
   'coda.list-tables': CodaListTablesInput
   'coda.get-table': CodaGetTableInput
   'coda.custom_api_call': CodaCustomApiCallInput
+  'codacy.list_repositories': CodacyListRepositoriesInput
+  'codacy.get_quality': CodacyGetQualityInput
+  'codacy.list_issues': CodacyListIssuesInput
+  'codacy.custom_api_call': CodacyCustomApiCallInput
   'code.run_code': CodeRunCodeInput
+  'cognito-forms.create_entry': CognitoFormsCreateEntryInput
+  'cognito-forms.update_entry': CognitoFormsUpdateEntryInput
+  'cognito-forms.delete_entry': CognitoFormsDeleteEntryInput
+  'cognito-forms.get_entry': CognitoFormsGetEntryInput
+  'cognito-forms.custom_api_call': CognitoFormsCustomApiCallInput
   'cohere.chat': CohereChatInput
   'cohere.embed': CohereEmbedInput
   'cohere.rerank': CohereRerankInput
@@ -16799,6 +30022,14 @@ export interface IntegrationActionInputMap {
   'copper.searchForAnOpportunity': CopperSearchForAnOpportunityInput
   'copper.searchForAProject': CopperSearchForAProjectInput
   'copper.custom_api_call': CopperCustomApiCallInput
+  'courier.send_message': CourierSendMessageInput
+  'courier.list_messages': CourierListMessagesInput
+  'courier.get_message': CourierGetMessageInput
+  'courier.get_profile': CourierGetProfileInput
+  'crates-io.search_crates': CratesIoSearchCratesInput
+  'crates-io.get_crate': CratesIoGetCrateInput
+  'crates-io.get_crate_versions': CratesIoGetCrateVersionsInput
+  'crates-io.custom_api_call': CratesIoCustomApiCallInput
   'crisp.add_note': CrispAddNoteInput
   'crisp.create_conversation': CrispCreateConversationInput
   'crisp.create_update_contact': CrispCreateUpdateContactInput
@@ -16806,6 +30037,11 @@ export interface IntegrationActionInputMap {
   'crisp.find_conversation': CrispFindConversationInput
   'crisp.find_user_profile': CrispFindUserProfileInput
   'crisp.custom_api_call': CrispCustomApiCallInput
+  'customer-io.identify_person': CustomerIoIdentifyPersonInput
+  'customer-io.track_event': CustomerIoTrackEventInput
+  'customer-io.send_email': CustomerIoSendEmailInput
+  'customer-io.list_segments': CustomerIoListSegmentsInput
+  'customer-io.custom_api_call': CustomerIoCustomApiCallInput
   'data-transformer.transform_json': DataTransformerTransformJsonInput
   'data-transformer.merge_objects': DataTransformerMergeObjectsInput
   'data-transformer.filter_array': DataTransformerFilterArrayInput
@@ -16817,6 +30053,12 @@ export interface IntegrationActionInputMap {
   'datetime.format_date': DatetimeFormatDateInput
   'datetime.date_math': DatetimeDateMathInput
   'datetime.is_business_hours': DatetimeIsBusinessHoursInput
+  'datocms.list_item_types': DatocmsListItemTypesInput
+  'datocms.list_items': DatocmsListItemsInput
+  'datocms.get_item': DatocmsGetItemInput
+  'datocms.create_item': DatocmsCreateItemInput
+  'datocms.update_item': DatocmsUpdateItemInput
+  'datocms.custom_api_call': DatocmsCustomApiCallInput
   'deel.list_contracts': DeelListContractsInput
   'deel.get_contract': DeelGetContractInput
   'deel.list_people': DeelListPeopleInput
@@ -16826,6 +30068,24 @@ export interface IntegrationActionInputMap {
   'deepgram.list_projects': DeepgramListProjectsInput
   'deepgram.text_to_speech': DeepgramTextToSpeechInput
   'deepgram.custom_api_call': DeepgramCustomApiCallInput
+  'deepgram-custom.transcribe_audio': DeepgramCustomTranscribeAudioInput
+  'deepgram-custom.transcribe_url': DeepgramCustomTranscribeUrlInput
+  'deepgram-custom.get_transcript': DeepgramCustomGetTranscriptInput
+  'deepgram-custom.custom_api_call': DeepgramCustomCustomApiCallInput
+  'deepl.translate_text': DeeplTranslateTextInput
+  'deepl.custom_api_call': DeeplCustomApiCallInput
+  'deepseek.ask_deepseek': DeepseekAskDeepseekInput
+  'digital-ocean.list_domains': DigitalOceanListDomainsInput
+  'digital-ocean.create_domain': DigitalOceanCreateDomainInput
+  'digital-ocean.get_domain': DigitalOceanGetDomainInput
+  'digital-ocean.delete_domain': DigitalOceanDeleteDomainInput
+  'digital-ocean.list_droplets': DigitalOceanListDropletsInput
+  'digital-ocean.get_droplet': DigitalOceanGetDropletInput
+  'digital-ocean.create_droplet': DigitalOceanCreateDropletInput
+  'digital-ocean.delete_droplet': DigitalOceanDeleteDropletInput
+  'digital-ocean.list_database_clusters': DigitalOceanListDatabaseClustersInput
+  'digital-ocean.list_database_events': DigitalOceanListDatabaseEventsInput
+  'digital-ocean.custom_api_call': DigitalOceanCustomApiCallInput
   'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
   'discord.send_message_webhook': DiscordSendMessageWebhookInput
   'discord.request_approval_message': DiscordRequestApprovalMessageInput
@@ -16848,10 +30108,33 @@ export interface IntegrationActionInputMap {
   'discourse.add_users_to_group': DiscourseAddUsersToGroupInput
   'discourse.send_private_message': DiscourseSendPrivateMessageInput
   'discourse.custom_api_call': DiscourseCustomApiCallInput
+  'docker-hub.list_repositories': DockerHubListRepositoriesInput
+  'docker-hub.list_tags': DockerHubListTagsInput
+  'docker-hub.get_tag': DockerHubGetTagInput
+  'docker-hub.search_images': DockerHubSearchImagesInput
+  'docker-hub.custom_api_call': DockerHubCustomApiCallInput
   'docusign.listEnvelopes': DocusignListEnvelopesInput
   'docusign.getEnvelope': DocusignGetEnvelopeInput
   'docusign.getDocument': DocusignGetDocumentInput
   'docusign.custom_api_call': DocusignCustomApiCallInput
+  'doodle.create_poll': DoodleCreatePollInput
+  'doodle.list_polls': DoodleListPollsInput
+  'doodle.get_poll': DoodleGetPollInput
+  'doodle.custom_api_call': DoodleCustomApiCallInput
+  'doxy-me.create_room': DoxyMeCreateRoomInput
+  'doxy-me.get_room': DoxyMeGetRoomInput
+  'doxy-me.list_rooms': DoxyMeListRoomsInput
+  'doxy-me.custom_api_call': DoxyMeCustomApiCallInput
+  'drata.list_controls': DrataListControlsInput
+  'drata.list_personnel': DrataListPersonnelInput
+  'drata.list_vendors': DrataListVendorsInput
+  'drata.list_risks': DrataListRisksInput
+  'drata.list_assets': DrataListAssetsInput
+  'drchrono.list_patients': DrchronoListPatientsInput
+  'drchrono.get_patient': DrchronoGetPatientInput
+  'drchrono.list_appointments': DrchronoListAppointmentsInput
+  'drchrono.list_offices': DrchronoListOfficesInput
+  'drchrono.list_doctors': DrchronoListDoctorsInput
   'drip.apply_tag_to_subscriber': DripApplyTagToSubscriberInput
   'drip.add_subscriber_to_campaign': DripAddSubscriberToCampaignInput
   'drip.upsert_subscriber': DripUpsertSubscriberInput
@@ -16870,11 +30153,68 @@ export interface IntegrationActionInputMap {
   'dropbox.copy_dropbox_folder': DropboxCopyDropboxFolderInput
   'dropbox.list_dropbox_folder': DropboxListDropboxFolderInput
   'dropbox.custom_api_call': DropboxCustomApiCallInput
+  'dropbox-sign.list_signature_requests': DropboxSignListSignatureRequestsInput
+  'dropbox-sign.get_signature_request': DropboxSignGetSignatureRequestInput
+  'dropbox-sign.send_signature_request': DropboxSignSendSignatureRequestInput
+  'dropbox-sign.cancel_signature_request': DropboxSignCancelSignatureRequestInput
+  'dub.create_link': DubCreateLinkInput
+  'dub.get_link': DubGetLinkInput
+  'dub.list_links': DubListLinksInput
+  'dub.update_link': DubUpdateLinkInput
+  'dub.custom_api_call': DubCustomApiCallInput
+  'dwolla.list_customers': DwollaListCustomersInput
+  'dwolla.create_customer': DwollaCreateCustomerInput
+  'dwolla.create_transfer': DwollaCreateTransferInput
+  'dwolla.list_transfers': DwollaListTransfersInput
+  'easypost.create_shipment': EasypostCreateShipmentInput
+  'easypost.buy_shipment': EasypostBuyShipmentInput
+  'easypost.list_trackers': EasypostListTrackersInput
+  'easypost.create_address': EasypostCreateAddressInput
+  'ebay.search_items': EbaySearchItemsInput
+  'ebay.get_item': EbayGetItemInput
+  'ebay.list_orders': EbayListOrdersInput
+  'ebay.custom_api_call': EbayCustomApiCallInput
+  'ecwid.list_products': EcwidListProductsInput
+  'ecwid.get_product': EcwidGetProductInput
+  'ecwid.list_orders': EcwidListOrdersInput
+  'ecwid.get_order': EcwidGetOrderInput
+  'ecwid.update_order': EcwidUpdateOrderInput
+  'ecwid.custom_api_call': EcwidCustomApiCallInput
+  'elasticsearch.search': ElasticsearchSearchInput
+  'elasticsearch.index_document': ElasticsearchIndexDocumentInput
+  'elasticsearch.get_document': ElasticsearchGetDocumentInput
+  'elasticsearch.delete_document': ElasticsearchDeleteDocumentInput
+  'elasticsearch.list_indices': ElasticsearchListIndicesInput
   'elevenlabs.elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
   'elevenlabs.custom_api_call': ElevenlabsCustomApiCallInput
+  'emailoctopus.add_or_update_contact': EmailoctopusAddOrUpdateContactInput
+  'emailoctopus.unsubscribe_contact': EmailoctopusUnsubscribeContactInput
+  'emailoctopus.update_contact_email': EmailoctopusUpdateContactEmailInput
+  'emailoctopus.add_tag_to_contact': EmailoctopusAddTagToContactInput
+  'emailoctopus.remove_tag_from_contact': EmailoctopusRemoveTagFromContactInput
+  'emailoctopus.create_list': EmailoctopusCreateListInput
+  'emailoctopus.find_contact': EmailoctopusFindContactInput
+  'emailoctopus.custom_api_call': EmailoctopusCustomApiCallInput
+  'etsy.list_listings': EtsyListListingsInput
+  'etsy.get_listing': EtsyGetListingInput
+  'etsy.create_listing': EtsyCreateListingInput
+  'etsy.list_receipts': EtsyListReceiptsInput
+  'etsy.custom_api_call': EtsyCustomApiCallInput
+  'exa.get_contents': ExaGetContentsInput
+  'exa.generate_answer': ExaGenerateAnswerInput
+  'exa.perform_search': ExaPerformSearchInput
+  'exa.find_similar_links': ExaFindSimilarLinksInput
+  'exa.custom_api_call': ExaCustomApiCallInput
+  'facebook-ads.list_campaigns': FacebookAdsListCampaignsInput
+  'facebook-ads.get_campaign': FacebookAdsGetCampaignInput
+  'facebook-ads.list_adsets': FacebookAdsListAdsetsInput
+  'facebook-ads.get_ad_insights': FacebookAdsGetAdInsightsInput
+  'facebook-ads.list_ads': FacebookAdsListAdsInput
   'facebook-pages.create_post': FacebookPagesCreatePostInput
   'facebook-pages.create_photo_post': FacebookPagesCreatePhotoPostInput
   'facebook-pages.create_video_post': FacebookPagesCreateVideoPostInput
+  'fellow.get-note': FellowGetNoteInput
+  'fellow.custom_api_call': FellowCustomApiCallInput
   'figma.get_file': FigmaGetFileInput
   'figma.get_comments': FigmaGetCommentsInput
   'figma.post_comment': FigmaPostCommentInput
@@ -16883,6 +30223,29 @@ export interface IntegrationActionInputMap {
   'fillout-forms.getSingleResponse': FilloutFormsGetSingleResponseInput
   'fillout-forms.findFormByTitle': FilloutFormsFindFormByTitleInput
   'fillout-forms.custom_api_call': FilloutFormsCustomApiCallInput
+  'firebase.list_documents': FirebaseListDocumentsInput
+  'firebase.get_document': FirebaseGetDocumentInput
+  'firebase.create_document': FirebaseCreateDocumentInput
+  'firebase.run_query': FirebaseRunQueryInput
+  'firebase.delete_document': FirebaseDeleteDocumentInput
+  'firecrawl.scrape': FirecrawlScrapeInput
+  'firecrawl.extract': FirecrawlExtractInput
+  'firecrawl.crawl': FirecrawlCrawlInput
+  'firecrawl.crawlResults': FirecrawlCrawlResultsInput
+  'firecrawl.map': FirecrawlMapInput
+  'firecrawl.custom_api_call': FirecrawlCustomApiCallInput
+  'fly-io.list_apps': FlyIoListAppsInput
+  'fly-io.list_machines': FlyIoListMachinesInput
+  'fly-io.get_machine': FlyIoGetMachineInput
+  'fly-io.create_machine': FlyIoCreateMachineInput
+  'follow-up-boss.list_people': FollowUpBossListPeopleInput
+  'follow-up-boss.get_person': FollowUpBossGetPersonInput
+  'follow-up-boss.create_person': FollowUpBossCreatePersonInput
+  'follow-up-boss.list_events': FollowUpBossListEventsInput
+  'formbricks.list_surveys': FormbricksListSurveysInput
+  'formbricks.get_survey': FormbricksGetSurveyInput
+  'formbricks.get_responses': FormbricksGetResponsesInput
+  'formbricks.custom_api_call': FormbricksCustomApiCallInput
   'formstack.createSubmission': FormstackCreateSubmissionInput
   'formstack.findFormByNameOrId': FormstackFindFormByNameOrIdInput
   'formstack.getSubmissionDetails': FormstackGetSubmissionDetailsInput
@@ -16921,10 +30284,30 @@ export interface IntegrationActionInputMap {
   'front.updateContact': FrontUpdateContactInput
   'front.updateConversation': FrontUpdateConversationInput
   'front.updateLink': FrontUpdateLinkInput
+  'sftp.create_file': SftpCreateFileInput
+  'sftp.upload_file': SftpUploadFileInput
+  'sftp.read_file_content': SftpReadFileContentInput
+  'sftp.deleteFile': SftpDeleteFileInput
+  'sftp.createFolder': SftpCreateFolderInput
+  'sftp.deleteFolder': SftpDeleteFolderInput
+  'sftp.listFolderContents': SftpListFolderContentsInput
+  'sftp.renameFileOrFolder': SftpRenameFileOrFolderInput
+  'gainsight.list_companies': GainsightListCompaniesInput
+  'gainsight.get_company': GainsightGetCompanyInput
+  'gainsight.list_relationships': GainsightListRelationshipsInput
+  'gainsight.list_ctas': GainsightListCtasInput
+  'gainsight.list_people': GainsightListPeopleInput
+  'gcloud-pubsub.publish_to_topic': GcloudPubsubPublishToTopicInput
   'ghost.list_posts': GhostListPostsInput
   'ghost.get_post': GhostGetPostInput
   'ghost.create_post': GhostCreatePostInput
   'ghost.list_members': GhostListMembersInput
+  'gitbook.list_spaces': GitbookListSpacesInput
+  'gitbook.get_space': GitbookGetSpaceInput
+  'gitbook.get_page': GitbookGetPageInput
+  'gitbook.search_content': GitbookSearchContentInput
+  'gitbook.list_collections': GitbookListCollectionsInput
+  'gitbook.custom_api_call': GitbookCustomApiCallInput
   'github.github_create_issue': GithubGithubCreateIssueInput
   'github.getIssueInformation': GithubGetIssueInformationInput
   'github.createCommentOnAIssue': GithubCreateCommentOnAIssueInput
@@ -16968,10 +30351,40 @@ export interface IntegrationActionInputMap {
   'google-calendar.google_calendar_find_busy_free_periods': GoogleCalendarGoogleCalendarFindBusyFreePeriodsInput
   'google-calendar.google_calendar_get_event_by_id': GoogleCalendarGoogleCalendarGetEventByIdInput
   'google-calendar.custom_api_call': GoogleCalendarCustomApiCallInput
+  'googlechat.sendAMessage': GooglechatSendAMessageInput
+  'googlechat.getDirectMessageDetails': GooglechatGetDirectMessageDetailsInput
+  'googlechat.addASpaceMember': GooglechatAddASpaceMemberInput
+  'googlechat.getMessageDetails': GooglechatGetMessageDetailsInput
+  'googlechat.searchMessages': GooglechatSearchMessagesInput
+  'googlechat.findMember': GooglechatFindMemberInput
+  'google-classroom.list_courses': GoogleClassroomListCoursesInput
+  'google-classroom.get_course': GoogleClassroomGetCourseInput
+  'google-classroom.list_students': GoogleClassroomListStudentsInput
+  'google-classroom.create_coursework': GoogleClassroomCreateCourseworkInput
+  'google-classroom.list_submissions': GoogleClassroomListSubmissionsInput
+  'google-classroom.custom_api_call': GoogleClassroomCustomApiCallInput
+  'google-cloud-storage.create_bucket': GoogleCloudStorageCreateBucketInput
+  'google-cloud-storage.delete_empty_bucket': GoogleCloudStorageDeleteEmptyBucketInput
+  'google-cloud-storage.clone_object': GoogleCloudStorageCloneObjectInput
+  'google-cloud-storage.delete_object': GoogleCloudStorageDeleteObjectInput
+  'google-cloud-storage.search_objects': GoogleCloudStorageSearchObjectsInput
+  'google-cloud-storage.search_buckets': GoogleCloudStorageSearchBucketsInput
+  'google-cloud-storage.create_object_acl': GoogleCloudStorageCreateObjectAclInput
+  'google-cloud-storage.delete_object_acl': GoogleCloudStorageDeleteObjectAclInput
+  'google-cloud-storage.create_bucket_acl': GoogleCloudStorageCreateBucketAclInput
+  'google-cloud-storage.delete_bucket_acl': GoogleCloudStorageDeleteBucketAclInput
+  'google-cloud-storage.create_bucket_default_object_acl': GoogleCloudStorageCreateBucketDefaultObjectAclInput
+  'google-cloud-storage.delete_bucket_default_object_acl': GoogleCloudStorageDeleteBucketDefaultObjectAclInput
   'google-contacts.add_contact': GoogleContactsAddContactInput
   'google-contacts.update_contact': GoogleContactsUpdateContactInput
   'google-contacts.search_contact': GoogleContactsSearchContactInput
   'google-contacts.custom_api_call': GoogleContactsCustomApiCallInput
+  'google-docs.create_document': GoogleDocsCreateDocumentInput
+  'google-docs.create_document_based_on_template': GoogleDocsCreateDocumentBasedOnTemplateInput
+  'google-docs.read_document': GoogleDocsReadDocumentInput
+  'google-docs.google-docs-find-document': GoogleDocsGoogleDocsFindDocumentInput
+  'google-docs.custom_api_call': GoogleDocsCustomApiCallInput
+  'google-docs.append_text': GoogleDocsAppendTextInput
   'google-drive.create_new_gdrive_folder': GoogleDriveCreateNewGdriveFolderInput
   'google-drive.create_new_gdrive_file': GoogleDriveCreateNewGdriveFileInput
   'google-drive.upload_gdrive_file': GoogleDriveUploadGdriveFileInput
@@ -16988,6 +30401,10 @@ export interface IntegrationActionInputMap {
   'google-drive.delete_gdrive_file': GoogleDriveDeleteGdriveFileInput
   'google-drive.trash_gdrive_file': GoogleDriveTrashGdriveFileInput
   'google-drive.custom_api_call': GoogleDriveCustomApiCallInput
+  'google-forms.list_forms': GoogleFormsListFormsInput
+  'google-forms.get_form': GoogleFormsGetFormInput
+  'google-forms.get_responses': GoogleFormsGetResponsesInput
+  'google-forms.get_response': GoogleFormsGetResponseInput
   'google-forms.custom_api_call': GoogleFormsCustomApiCallInput
   'google-gemini.generate_content': GoogleGeminiGenerateContentInput
   'google-gemini.generate_content_with_filesearch': GoogleGeminiGenerateContentWithFilesearchInput
@@ -17024,12 +30441,31 @@ export interface IntegrationActionInputMap {
   'google-sheets.create-column': GoogleSheetsCreateColumnInput
   'google-sheets.export_sheet': GoogleSheetsExportSheetInput
   'google-sheets.custom_api_call': GoogleSheetsCustomApiCallInput
+  'google-slides.get_presentation': GoogleSlidesGetPresentationInput
+  'google-slides.refresh_sheets_charts': GoogleSlidesRefreshSheetsChartsInput
+  'google-slides.generate_from_template': GoogleSlidesGenerateFromTemplateInput
+  'google-slides.custom_api_call': GoogleSlidesCustomApiCallInput
   'google-tasks.add_task': GoogleTasksAddTaskInput
   'google-tasks.custom_api_call': GoogleTasksCustomApiCallInput
+  'gorgias.list_tickets': GorgiasListTicketsInput
+  'gorgias.get_ticket': GorgiasGetTicketInput
+  'gorgias.create_ticket': GorgiasCreateTicketInput
+  'gorgias.list_customers': GorgiasListCustomersInput
+  'grafana.list_dashboards': GrafanaListDashboardsInput
+  'grafana.get_dashboard': GrafanaGetDashboardInput
+  'grafana.create_alert_rule': GrafanaCreateAlertRuleInput
+  'grafana.list_alerts': GrafanaListAlertsInput
+  'grafana.custom_api_call': GrafanaCustomApiCallInput
+  'graphql.send_request': GraphqlSendRequestInput
   'greenhouse.list_candidates': GreenhouseListCandidatesInput
   'greenhouse.get_candidate': GreenhouseGetCandidateInput
   'greenhouse.list_jobs': GreenhouseListJobsInput
   'greenhouse.list_applications': GreenhouseListApplicationsInput
+  'grist.grist-create-record': GristGristCreateRecordInput
+  'grist.grist-search-record': GristGristSearchRecordInput
+  'grist.grist-update-record': GristGristUpdateRecordInput
+  'grist.grist-upload-attachments-to-document': GristGristUploadAttachmentsToDocumentInput
+  'grist.custom_api_call': GristCustomApiCallInput
   'groq.ask-ai': GroqAskAiInput
   'groq.transcribe-audio': GroqTranscribeAudioInput
   'groq.translate-audio': GroqTranslateAudioInput
@@ -17053,6 +30489,18 @@ export interface IntegrationActionInputMap {
   'hash-encode.encode': HashEncodeEncodeInput
   'hash-encode.decode': HashEncodeDecodeInput
   'hash-encode.generate_uuid': HashEncodeGenerateUuidInput
+  'vault.read_secret': VaultReadSecretInput
+  'vault.write_secret': VaultWriteSecretInput
+  'vault.list_secrets': VaultListSecretsInput
+  'vault.get_health': VaultGetHealthInput
+  'vault.delete_secret': VaultDeleteSecretInput
+  'heap.track_event': HeapTrackEventInput
+  'heap.add_user_properties': HeapAddUserPropertiesInput
+  'heap.custom_api_call': HeapCustomApiCallInput
+  'hellosign.send_signature_request': HellosignSendSignatureRequestInput
+  'hellosign.get_signature_request': HellosignGetSignatureRequestInput
+  'hellosign.list_signature_requests': HellosignListSignatureRequestsInput
+  'hellosign.custom_api_call': HellosignCustomApiCallInput
   'help-scout.create_conversation': HelpScoutCreateConversationInput
   'help-scout.send_reply': HelpScoutSendReplyInput
   'help-scout.add_note': HelpScoutAddNoteInput
@@ -17062,10 +30510,67 @@ export interface IntegrationActionInputMap {
   'help-scout.find_customer': HelpScoutFindCustomerInput
   'help-scout.find_user': HelpScoutFindUserInput
   'help-scout.custom_api_call': HelpScoutCustomApiCallInput
+  'heygen.create-video-from-template': HeygenCreateVideoFromTemplateInput
+  'heygen.retrieve-translated-video-status': HeygenRetrieveTranslatedVideoStatusInput
+  'heygen.retrieve_video_status': HeygenRetrieveVideoStatusInput
+  'heygen.retrieve_sharable_video_url': HeygenRetrieveSharableVideoUrlInput
+  'heygen.upload_asset': HeygenUploadAssetInput
+  'heygen.translate_video': HeygenTranslateVideoInput
+  'heygen.custom_api_call': HeygenCustomApiCallInput
   'hibob.list_employees': HibobListEmployeesInput
   'hibob.get_employee': HibobGetEmployeeInput
   'hibob.list_time_off': HibobListTimeOffInput
   'hibob.list_company_lists': HibobListCompanyListsInput
+  'hotjar.list_surveys': HotjarListSurveysInput
+  'hotjar.get_survey_responses': HotjarGetSurveyResponsesInput
+  'hotjar.list_sites': HotjarListSitesInput
+  'hotjar.custom_api_call': HotjarCustomApiCallInput
+  'housecall-pro.create_customer': HousecallProCreateCustomerInput
+  'housecall-pro.get_customers': HousecallProGetCustomersInput
+  'housecall-pro.get_customer': HousecallProGetCustomerInput
+  'housecall-pro.update_customer': HousecallProUpdateCustomerInput
+  'housecall-pro.get_customer_addresses': HousecallProGetCustomerAddressesInput
+  'housecall-pro.create_customer_address': HousecallProCreateCustomerAddressInput
+  'housecall-pro.get_customer_address': HousecallProGetCustomerAddressInput
+  'housecall-pro.create_job': HousecallProCreateJobInput
+  'housecall-pro.get_jobs': HousecallProGetJobsInput
+  'housecall-pro.get_job': HousecallProGetJobInput
+  'housecall-pro.update_job_schedule': HousecallProUpdateJobScheduleInput
+  'housecall-pro.delete_job_schedule': HousecallProDeleteJobScheduleInput
+  'housecall-pro.create_job_appointment': HousecallProCreateJobAppointmentInput
+  'housecall-pro.get_job_appointments': HousecallProGetJobAppointmentsInput
+  'housecall-pro.update_job_appointment': HousecallProUpdateJobAppointmentInput
+  'housecall-pro.delete_job_appointment': HousecallProDeleteJobAppointmentInput
+  'housecall-pro.add_job_note': HousecallProAddJobNoteInput
+  'housecall-pro.delete_job_note': HousecallProDeleteJobNoteInput
+  'housecall-pro.add_job_attachment': HousecallProAddJobAttachmentInput
+  'housecall-pro.add_job_line_item': HousecallProAddJobLineItemInput
+  'housecall-pro.update_job_line_item': HousecallProUpdateJobLineItemInput
+  'housecall-pro.delete_job_line_item': HousecallProDeleteJobLineItemInput
+  'housecall-pro.get_job_line_items': HousecallProGetJobLineItemsInput
+  'housecall-pro.add_job_tag': HousecallProAddJobTagInput
+  'housecall-pro.remove_job_tag': HousecallProRemoveJobTagInput
+  'housecall-pro.create_job_link': HousecallProCreateJobLinkInput
+  'housecall-pro.get_job_invoices': HousecallProGetJobInvoicesInput
+  'housecall-pro.get_job_input_materials': HousecallProGetJobInputMaterialsInput
+  'housecall-pro.bulk_update_job_line_items': HousecallProBulkUpdateJobLineItemsInput
+  'housecall-pro.bulk_update_job_input_materials': HousecallProBulkUpdateJobInputMaterialsInput
+  'housecall-pro.dispatch_job_to_employees': HousecallProDispatchJobToEmployeesInput
+  'housecall-pro.lock_job': HousecallProLockJobInput
+  'housecall-pro.lock_jobs': HousecallProLockJobsInput
+  'housecall-pro.create_estimate': HousecallProCreateEstimateInput
+  'housecall-pro.get_estimate': HousecallProGetEstimateInput
+  'housecall-pro.get_estimates': HousecallProGetEstimatesInput
+  'housecall-pro.create_estimate_option_note': HousecallProCreateEstimateOptionNoteInput
+  'housecall-pro.delete_estimate_option_note': HousecallProDeleteEstimateOptionNoteInput
+  'housecall-pro.create_estimate_option_attachment': HousecallProCreateEstimateOptionAttachmentInput
+  'housecall-pro.create_estimate_option_link': HousecallProCreateEstimateOptionLinkInput
+  'housecall-pro.update_estimate_option_schedule': HousecallProUpdateEstimateOptionScheduleInput
+  'housecall-pro.create_lead': HousecallProCreateLeadInput
+  'housecall-pro.get_lead': HousecallProGetLeadInput
+  'housecall-pro.get_leads': HousecallProGetLeadsInput
+  'housecall-pro.convert_lead_to_estimate_or_job': HousecallProConvertLeadToEstimateOrJobInput
+  'housecall-pro.custom_api_call': HousecallProCustomApiCallInput
   'http.send_request': HttpSendRequestInput
   'hubspot.add_contact_to_list': HubspotAddContactToListInput
   'hubspot.add-contact-to-workflow': HubspotAddContactToWorkflowInput
@@ -17120,10 +30625,32 @@ export interface IntegrationActionInputMap {
   'hugging-face.create_image': HuggingFaceCreateImageInput
   'hugging-face.object_detection': HuggingFaceObjectDetectionInput
   'hugging-face.image_classification': HuggingFaceImageClassificationInput
+  'hunter-io.find_email': HunterIoFindEmailInput
+  'hunter-io.verify_email': HunterIoVerifyEmailInput
+  'hunter-io.domain_search': HunterIoDomainSearchInput
+  'hunter-io.custom_api_call': HunterIoCustomApiCallInput
+  'ideogram.generate_image': IdeogramGenerateImageInput
+  'ideogram.remix_image': IdeogramRemixImageInput
+  'ideogram.describe_image': IdeogramDescribeImageInput
+  'ideogram.custom_api_call': IdeogramCustomApiCallInput
+  'imanage.search_documents': ImanageSearchDocumentsInput
+  'imanage.get_document': ImanageGetDocumentInput
+  'imanage.upload_document': ImanageUploadDocumentInput
+  'imanage.list_workspaces': ImanageListWorkspacesInput
+  'imanage.custom_api_call': ImanageCustomApiCallInput
   'imap.mark_email_read': ImapMarkEmailReadInput
   'imap.copy_email': ImapCopyEmailInput
   'imap.move_email': ImapMoveEmailInput
   'imap.delete_email': ImapDeleteEmailInput
+  'infobip.send_sms': InfobipSendSmsInput
+  'infobip.send_email': InfobipSendEmailInput
+  'infobip.get_delivery_report': InfobipGetDeliveryReportInput
+  'infobip.custom_api_call': InfobipCustomApiCallInput
+  'insightly.create_record': InsightlyCreateRecordInput
+  'insightly.update_record': InsightlyUpdateRecordInput
+  'insightly.get_record': InsightlyGetRecordInput
+  'insightly.delete_record': InsightlyDeleteRecordInput
+  'insightly.find_records': InsightlyFindRecordsInput
   'instagram-business.upload_photo': InstagramBusinessUploadPhotoInput
   'instagram-business.upload_reel': InstagramBusinessUploadReelInput
   'intercom.add-note-to-user': IntercomAddNoteToUserInput
@@ -17147,6 +30674,19 @@ export interface IntegrationActionInputMap {
   'intercom.list-all-tags': IntercomListAllTagsInput
   'intercom.get-conversation': IntercomGetConversationInput
   'intercom.custom_api_call': IntercomCustomApiCallInput
+  'ipinfo.lookup_ip': IpinfoLookupIpInput
+  'ipinfo.get_asn': IpinfoGetAsnInput
+  'ipinfo.custom_api_call': IpinfoCustomApiCallInput
+  'jazzhr.list_applicants': JazzhrListApplicantsInput
+  'jazzhr.get_applicant': JazzhrGetApplicantInput
+  'jazzhr.list_jobs': JazzhrListJobsInput
+  'jazzhr.get_job': JazzhrGetJobInput
+  'jazzhr.list_activities': JazzhrListActivitiesInput
+  'jina-ai.extract_webpage_content': JinaAiExtractWebpageContentInput
+  'jina-ai.web_search_summarization': JinaAiWebSearchSummarizationInput
+  'jina-ai.deepsearch_query': JinaAiDeepsearchQueryInput
+  'jina-ai.classify_content': JinaAiClassifyContentInput
+  'jina-ai.train_custom_classifier': JinaAiTrainCustomClassifierInput
   'jira-cloud.create_issue': JiraCloudCreateIssueInput
   'jira-cloud.update_issue': JiraCloudUpdateIssueInput
   'jira-cloud.find-user': JiraCloudFindUserInput
@@ -17163,23 +30703,110 @@ export interface IntegrationActionInputMap {
   'jira-cloud.markdownToJiraFormat': JiraCloudMarkdownToJiraFormatInput
   'jira-cloud.get_issue': JiraCloudGetIssueInput
   'jira-cloud.custom_api_call': JiraCloudCustomApiCallInput
+  'jotform.list_forms': JotformListFormsInput
+  'jotform.get_form': JotformGetFormInput
+  'jotform.get_submissions': JotformGetSubmissionsInput
+  'jotform.create_submission': JotformCreateSubmissionInput
   'jotform.custom_api_call': JotformCustomApiCallInput
+  'jumpcloud.list_system_users': JumpcloudListSystemUsersInput
+  'jumpcloud.get_system_user': JumpcloudGetSystemUserInput
+  'jumpcloud.list_systems': JumpcloudListSystemsInput
+  'jumpcloud.list_user_groups': JumpcloudListUserGroupsInput
+  'kajabi.list_products': KajabiListProductsInput
+  'kajabi.list_members': KajabiListMembersInput
+  'kajabi.get_member': KajabiGetMemberInput
+  'kajabi.list_offers': KajabiListOffersInput
+  'kajabi.custom_api_call': KajabiCustomApiCallInput
+  'kareo.list_patients': KareoListPatientsInput
+  'kareo.get_patient': KareoGetPatientInput
+  'kareo.list_appointments': KareoListAppointmentsInput
+  'kareo.create_appointment': KareoCreateAppointmentInput
+  'kareo.custom_api_call': KareoCustomApiCallInput
+  'kissflow.downloadAttachmentFromFormField': KissflowDownloadAttachmentFromFormFieldInput
+  'kissflow.custom_api_call': KissflowCustomApiCallInput
   'klaviyo.list_profiles': KlaviyoListProfilesInput
   'klaviyo.get_profile': KlaviyoGetProfileInput
   'klaviyo.create_event': KlaviyoCreateEventInput
   'klaviyo.list_lists': KlaviyoListListsInput
   'klaviyo.list_campaigns': KlaviyoListCampaignsInput
+  'knock.trigger_workflow': KnockTriggerWorkflowInput
+  'knock.list_users': KnockListUsersInput
+  'knock.get_user': KnockGetUserInput
+  'knock.list_messages': KnockListMessagesInput
+  'kommo.find_lead': KommoFindLeadInput
+  'kommo.update_contact': KommoUpdateContactInput
+  'kommo.create_lead': KommoCreateLeadInput
+  'kommo.update_lead': KommoUpdateLeadInput
+  'kommo.create_contact': KommoCreateContactInput
+  'kommo.find_contact': KommoFindContactInput
+  'kommo.find_company': KommoFindCompanyInput
+  'kommo.custom_api_call': KommoCustomApiCallInput
   'kv-store.put': KvStorePutInput
   'kv-store.get': KvStoreGetInput
   'kv-store.delete': KvStoreDeleteInput
   'kv-store.add_to_list': KvStoreAddToListInput
   'kv-store.remove_from_list': KvStoreRemoveFromListInput
+  'kvcore.list_leads': KvcoreListLeadsInput
+  'kvcore.get_lead': KvcoreGetLeadInput
+  'kvcore.create_lead': KvcoreCreateLeadInput
+  'kvcore.list_properties': KvcoreListPropertiesInput
+  'kvcore.custom_api_call': KvcoreCustomApiCallInput
+  'langchain.list_runs': LangchainListRunsInput
+  'langchain.get_run': LangchainGetRunInput
+  'langchain.list_projects': LangchainListProjectsInput
+  'langchain.list_datasets': LangchainListDatasetsInput
+  'langchain.custom_api_call': LangchainCustomApiCallInput
+  'langfuse.list_traces': LangfuseListTracesInput
+  'langfuse.get_trace': LangfuseGetTraceInput
+  'langfuse.list_generations': LangfuseListGenerationsInput
+  'langfuse.score_trace': LangfuseScoreTraceInput
+  'langsmith.list_runs': LangsmithListRunsInput
+  'langsmith.get_run': LangsmithGetRunInput
+  'langsmith.list_datasets': LangsmithListDatasetsInput
+  'langsmith.list_projects': LangsmithListProjectsInput
+  'later.create_post': LaterCreatePostInput
+  'later.list_posts': LaterListPostsInput
+  'later.list_profiles': LaterListProfilesInput
+  'later.custom_api_call': LaterCustomApiCallInput
+  'lead-connector.create_contact': LeadConnectorCreateContactInput
+  'lead-connector.update_contact': LeadConnectorUpdateContactInput
+  'lead-connector.add_contact_to_campaign': LeadConnectorAddContactToCampaignInput
+  'lead-connector.add_contact_to_workflow': LeadConnectorAddContactToWorkflowInput
+  'lead-connector.add_note_to_contact': LeadConnectorAddNoteToContactInput
+  'lead-connector.search_contacts': LeadConnectorSearchContactsInput
+  'lead-connector.create_opportunity': LeadConnectorCreateOpportunityInput
+  'lead-connector.update_opportunity': LeadConnectorUpdateOpportunityInput
+  'lead-connector.create_task': LeadConnectorCreateTaskInput
+  'lead-connector.update_task': LeadConnectorUpdateTaskInput
+  'lead-connector.custom_api_call': LeadConnectorCustomApiCallInput
+  'lemlist.markLeadFromOneCampaignAsInterested': LemlistMarkLeadFromOneCampaignAsInterestedInput
+  'lemlist.markLeadFromOneCampaignAsNotInterested': LemlistMarkLeadFromOneCampaignAsNotInterestedInput
+  'lemlist.markLeadFromAllCampaignAsInterested': LemlistMarkLeadFromAllCampaignAsInterestedInput
+  'lemlist.markLeadFromAllCampaignsAsNotInterested': LemlistMarkLeadFromAllCampaignsAsNotInterestedInput
+  'lemlist.pauseLeadFromAllOrSpecificCampaigns': LemlistPauseLeadFromAllOrSpecificCampaignsInput
+  'lemlist.resumeLeadFromAllOrSpecificCampaigns': LemlistResumeLeadFromAllOrSpecificCampaignsInput
+  'lemlist.removeLeadFromUnsubscribeList': LemlistRemoveLeadFromUnsubscribeListInput
+  'lemlist.removeLeadFromACampaign': LemlistRemoveLeadFromACampaignInput
+  'lemlist.unsubscribeALead': LemlistUnsubscribeALeadInput
+  'lemlist.addLeadToACampaign': LemlistAddLeadToACampaignInput
+  'lemlist.updateLeadFromCampaign': LemlistUpdateLeadFromCampaignInput
+  'lemlist.searchLead': LemlistSearchLeadInput
+  'leonardo-ai.generate_image': LeonardoAiGenerateImageInput
+  'leonardo-ai.get_generation': LeonardoAiGetGenerationInput
+  'leonardo-ai.list_models': LeonardoAiListModelsInput
+  'leonardo-ai.custom_api_call': LeonardoAiCustomApiCallInput
   'lever.getOpportunity': LeverGetOpportunityInput
   'lever.updateOpportunityStage': LeverUpdateOpportunityStageInput
   'lever.listOpportunityForms': LeverListOpportunityFormsInput
   'lever.listOpportunityFeedback': LeverListOpportunityFeedbackInput
   'lever.addFeedbackToOpportunity': LeverAddFeedbackToOpportunityInput
   'lever.custom_api_call': LeverCustomApiCallInput
+  'libretranslate.translate_text': LibretranslateTranslateTextInput
+  'libretranslate.detect_language': LibretranslateDetectLanguageInput
+  'libretranslate.list_languages': LibretranslateListLanguagesInput
+  'libretranslate.custom_api_call': LibretranslateCustomApiCallInput
+  'line.push_message': LinePushMessageInput
+  'line.custom_api_call': LineCustomApiCallInput
   'linear.linear_create_issue': LinearLinearCreateIssueInput
   'linear.linear_update_issue': LinearLinearUpdateIssueInput
   'linear.linear_create_project': LinearLinearCreateProjectInput
@@ -17189,6 +30816,27 @@ export interface IntegrationActionInputMap {
   'linkedin.create_share_update': LinkedinCreateShareUpdateInput
   'linkedin.create_company_update': LinkedinCreateCompanyUpdateInput
   'linkedin.custom_api_call': LinkedinCustomApiCallInput
+  'linkedin-ads.list_ad_accounts': LinkedinAdsListAdAccountsInput
+  'linkedin-ads.list_campaigns': LinkedinAdsListCampaignsInput
+  'linkedin-ads.get_campaign': LinkedinAdsGetCampaignInput
+  'linkedin-ads.get_ad_analytics': LinkedinAdsGetAdAnalyticsInput
+  'linkedin-ads.list_campaign_groups': LinkedinAdsListCampaignGroupsInput
+  'loom.list_videos': LoomListVideosInput
+  'loom.get_video': LoomGetVideoInput
+  'loom.update_video': LoomUpdateVideoInput
+  'loom.delete_video': LoomDeleteVideoInput
+  'loom.list_folders': LoomListFoldersInput
+  'loops.send_event': LoopsSendEventInput
+  'loops.create_contact': LoopsCreateContactInput
+  'loops.update_contact': LoopsUpdateContactInput
+  'loops.send_transactional': LoopsSendTransactionalInput
+  'loops.custom_api_call': LoopsCustomApiCallInput
+  'magento.list_products': MagentoListProductsInput
+  'magento.get_product': MagentoGetProductInput
+  'magento.create_product': MagentoCreateProductInput
+  'magento.list_orders': MagentoListOrdersInput
+  'magento.get_order': MagentoGetOrderInput
+  'magento.custom_api_call': MagentoCustomApiCallInput
   'mailchimp.add_member_to_list': MailchimpAddMemberToListInput
   'mailchimp.add_note_to_subscriber': MailchimpAddNoteToSubscriberInput
   'mailchimp.add_subscriber_to_tag': MailchimpAddSubscriberToTagInput
@@ -17203,8 +30851,57 @@ export interface IntegrationActionInputMap {
   'mailchimp.find_customer': MailchimpFindCustomerInput
   'mailchimp.find_tag': MailchimpFindTagInput
   'mailchimp.find_subscriber': MailchimpFindSubscriberInput
+  'mailer-lite.add_subscriber_to_group': MailerLiteAddSubscriberToGroupInput
+  'mailer-lite.add_or_update_subscriber': MailerLiteAddOrUpdateSubscriberInput
+  'mailer-lite.find_subscriber': MailerLiteFindSubscriberInput
+  'mailer-lite.remove_subscriber_from_group': MailerLiteRemoveSubscriberFromGroupInput
+  'mailer-lite.custom_api_call': MailerLiteCustomApiCallInput
+  'mailjet.send_email': MailjetSendEmailInput
+  'manychat.addTagToUser': ManychatAddTagToUserInput
+  'manychat.createSubscriber': ManychatCreateSubscriberInput
+  'manychat.findUserByCustomField': ManychatFindUserByCustomFieldInput
+  'manychat.findUserByName': ManychatFindUserByNameInput
+  'manychat.removeTagFromUser': ManychatRemoveTagFromUserInput
+  'manychat.sendContentToUser': ManychatSendContentToUserInput
+  'manychat.setCustomField': ManychatSetCustomFieldInput
   'mastodon.post_status': MastodonPostStatusInput
   'mastodon.custom_api_call': MastodonCustomApiCallInput
+  'mattermost.send_message': MattermostSendMessageInput
+  'mattermost.custom_api_call': MattermostCustomApiCallInput
+  'meistertask.create_label': MeistertaskCreateLabelInput
+  'meistertask.create_task_label': MeistertaskCreateTaskLabelInput
+  'meistertask.create_attachment': MeistertaskCreateAttachmentInput
+  'meistertask.create_task': MeistertaskCreateTaskInput
+  'meistertask.update_task': MeistertaskUpdateTaskInput
+  'meistertask.find_attachment': MeistertaskFindAttachmentInput
+  'meistertask.find_label': MeistertaskFindLabelInput
+  'meistertask.find_person': MeistertaskFindPersonInput
+  'meistertask.find_task': MeistertaskFindTaskInput
+  'meistertask.find_or_create_attachment': MeistertaskFindOrCreateAttachmentInput
+  'meistertask.find_or_create_task': MeistertaskFindOrCreateTaskInput
+  'meistertask.find_or_create_label': MeistertaskFindOrCreateLabelInput
+  'meistertask.custom_api_call': MeistertaskCustomApiCallInput
+  'metabase.getQuestion': MetabaseGetQuestionInput
+  'metabase.getQuestionPngPreview': MetabaseGetQuestionPngPreviewInput
+  'metabase.getDashboardQuestions': MetabaseGetDashboardQuestionsInput
+  'metabase.embedQuestion': MetabaseEmbedQuestionInput
+  'microsoft-365-planner.createPlan': Microsoft365PlannerCreatePlanInput
+  'microsoft-365-planner.createBucket': Microsoft365PlannerCreateBucketInput
+  'microsoft-365-planner.createTask': Microsoft365PlannerCreateTaskInput
+  'microsoft-365-planner.deleteBucket': Microsoft365PlannerDeleteBucketInput
+  'microsoft-365-planner.deleteTask': Microsoft365PlannerDeleteTaskInput
+  'microsoft-365-planner.updatePlan': Microsoft365PlannerUpdatePlanInput
+  'microsoft-365-planner.updateBucket': Microsoft365PlannerUpdateBucketInput
+  'microsoft-365-planner.updateTask': Microsoft365PlannerUpdateTaskInput
+  'microsoft-365-planner.findAPlan': Microsoft365PlannerFindAPlanInput
+  'microsoft-365-planner.getABucket': Microsoft365PlannerGetABucketInput
+  'microsoft-365-planner.findTask': Microsoft365PlannerFindTaskInput
+  'microsoft-365-planner.custom_api_call': Microsoft365PlannerCustomApiCallInput
+  'microsoft-dynamics-crm.dynamics_crm_create_record': MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput
+  'microsoft-dynamics-crm.dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
+  'microsoft-dynamics-crm.dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
+  'microsoft-dynamics-crm.dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
+  'microsoft-dynamics-crm.custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
   'microsoft-excel-365.append_row': MicrosoftExcel365AppendRowInput
   'microsoft-excel-365.append_multiple_rows': MicrosoftExcel365AppendMultipleRowsInput
   'microsoft-excel-365.get_worksheets': MicrosoftExcel365GetWorksheetsInput
@@ -17263,6 +30960,9 @@ export interface IntegrationActionInputMap {
   'microsoft-outlook-calendar.delete_event': MicrosoftOutlookCalendarDeleteEventInput
   'microsoft-outlook-calendar.list_events': MicrosoftOutlookCalendarListEventsInput
   'microsoft-outlook-calendar.custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
+  'microsoft-power-bi.create_dataset': MicrosoftPowerBiCreateDatasetInput
+  'microsoft-power-bi.push_rows_to_dataset_table': MicrosoftPowerBiPushRowsToDatasetTableInput
+  'microsoft-power-bi.custom_api_call': MicrosoftPowerBiCustomApiCallInput
   'microsoft-sharepoint.microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
   'microsoft-sharepoint.microsoft_sharepoint_create_list': MicrosoftSharepointMicrosoftSharepointCreateListInput
   'microsoft-sharepoint.microsoft_sharepoint_create_list_item': MicrosoftSharepointMicrosoftSharepointCreateListItemInput
@@ -17335,10 +31035,21 @@ export interface IntegrationActionInputMap {
   'mongodb.find_and_update_documents': MongodbFindAndUpdateDocumentsInput
   'mongodb.find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
   'mongodb.aggregate_documents': MongodbAggregateDocumentsInput
+  'moodle.list_courses': MoodleListCoursesInput
+  'moodle.get_course': MoodleGetCourseInput
+  'moodle.list_users': MoodleListUsersInput
+  'moodle.create_user': MoodleCreateUserInput
+  'moodle.get_grades': MoodleGetGradesInput
+  'moodle.custom_api_call': MoodleCustomApiCallInput
   'mux.list_assets': MuxListAssetsInput
   'mux.get_asset': MuxGetAssetInput
   'mux.create_asset': MuxCreateAssetInput
   'mux.list_live_streams': MuxListLiveStreamsInput
+  'mycase.list_cases': MycaseListCasesInput
+  'mycase.get_case': MycaseGetCaseInput
+  'mycase.list_contacts': MycaseListContactsInput
+  'mycase.create_contact': MycaseCreateContactInput
+  'mycase.custom_api_call': MycaseCustomApiCallInput
   'mysql.find_rows': MysqlFindRowsInput
   'mysql.insert_row': MysqlInsertRowInput
   'mysql.update_row': MysqlUpdateRowInput
@@ -17354,6 +31065,11 @@ export interface IntegrationActionInputMap {
   'netsuite.runSuiteQL': NetsuiteRunSuiteQLInput
   'netsuite.executeDataset': NetsuiteExecuteDatasetInput
   'netsuite.custom_api_call': NetsuiteCustomApiCallInput
+  'nocodb.nocodb-create-record': NocodbNocodbCreateRecordInput
+  'nocodb.nocodb-delete-record': NocodbNocodbDeleteRecordInput
+  'nocodb.nocodb-update-record': NocodbNocodbUpdateRecordInput
+  'nocodb.nocodb-get-record': NocodbNocodbGetRecordInput
+  'nocodb.nocodb-search-records': NocodbNocodbSearchRecordsInput
   'notion.create_database_item': NotionCreateDatabaseItemInput
   'notion.update_database_item': NotionUpdateDatabaseItemInput
   'notion.notion-find-database-item': NotionNotionFindDatabaseItemInput
@@ -17367,10 +31083,33 @@ export interface IntegrationActionInputMap {
   'notion.get_page_comments': NotionGetPageCommentsInput
   'notion.find_page': NotionFindPageInput
   'notion.custom_api_call': NotionCustomApiCallInput
+  'novu.trigger_event': NovuTriggerEventInput
+  'novu.list_subscribers': NovuListSubscribersInput
+  'novu.create_subscriber': NovuCreateSubscriberInput
+  'novu.get_subscriber': NovuGetSubscriberInput
+  'novu.list_notifications': NovuListNotificationsInput
+  'npm-registry.search_packages': NpmRegistrySearchPackagesInput
+  'npm-registry.get_package': NpmRegistryGetPackageInput
+  'npm-registry.get_downloads': NpmRegistryGetDownloadsInput
+  'npm-registry.custom_api_call': NpmRegistryCustomApiCallInput
+  'odoo.get_contacts': OdooGetContactsInput
+  'odoo.create_contact': OdooCreateContactInput
+  'odoo.create_company': OdooCreateCompanyInput
+  'odoo.get_records': OdooGetRecordsInput
+  'odoo.create_record': OdooCreateRecordInput
+  'odoo.update_record': OdooUpdateRecordInput
+  'odoo.custom_odoo_api_call': OdooCustomOdooApiCallInput
   'okta.list_users': OktaListUsersInput
   'okta.get_user': OktaGetUserInput
   'okta.list_groups': OktaListGroupsInput
   'okta.list_applications': OktaListApplicationsInput
+  'oncehub.findContact': OncehubFindContactInput
+  'oncehub.createContact': OncehubCreateContactInput
+  'oncehub.custom_api_call': OncehubCustomApiCallInput
+  'onesignal.send_notification': OnesignalSendNotificationInput
+  'onesignal.list_notifications': OnesignalListNotificationsInput
+  'onesignal.list_devices': OnesignalListDevicesInput
+  'onesignal.get_notification': OnesignalGetNotificationInput
   'openai.ask_chatgpt': OpenaiAskChatgptInput
   'openai.ask_assistant': OpenaiAskAssistantInput
   'openai.generate_image': OpenaiGenerateImageInput
@@ -17380,6 +31119,22 @@ export interface IntegrationActionInputMap {
   'openai.translate': OpenaiTranslateInput
   'openai.extract-structured-data': OpenaiExtractStructuredDataInput
   'openai.custom_api_call': OpenaiCustomApiCallInput
+  'open-router.ask-lmm': OpenRouterAskLmmInput
+  'open-router.custom_api_call': OpenRouterCustomApiCallInput
+  'openweather.get_current_weather': OpenweatherGetCurrentWeatherInput
+  'openweather.get_forecast': OpenweatherGetForecastInput
+  'openweather.custom_api_call': OpenweatherCustomApiCallInput
+  'opsgenie.create_alert': OpsgenieCreateAlertInput
+  'opsgenie.list_alerts': OpsgenieListAlertsInput
+  'opsgenie.get_alert': OpsgenieGetAlertInput
+  'opsgenie.close_alert': OpsgenieCloseAlertInput
+  'opsgenie.acknowledge_alert': OpsgenieAcknowledgeAlertInput
+  'opsgenie.custom_api_call': OpsgenieCustomApiCallInput
+  'outline.list_documents': OutlineListDocumentsInput
+  'outline.get_document': OutlineGetDocumentInput
+  'outline.create_document': OutlineCreateDocumentInput
+  'outline.search': OutlineSearchInput
+  'outline.custom_api_call': OutlineCustomApiCallInput
   'outreach.list_prospects': OutreachListProspectsInput
   'outreach.get_prospect': OutreachGetProspectInput
   'outreach.create_prospect': OutreachCreateProspectInput
@@ -17401,12 +31156,35 @@ export interface IntegrationActionInputMap {
   'pandadoc.getDocumentDetails': PandadocGetDocumentDetailsInput
   'pandadoc.downloadDocument': PandadocDownloadDocumentInput
   'pandadoc.custom_api_call': PandadocCustomApiCallInput
+  'paperform.deleteFormSubmission': PaperformDeleteFormSubmissionInput
+  'paperform.deletePartialFormSubmission': PaperformDeletePartialFormSubmissionInput
+  'paperform.createFormCoupon': PaperformCreateFormCouponInput
+  'paperform.updateFormCoupon': PaperformUpdateFormCouponInput
+  'paperform.deleteFormCoupon': PaperformDeleteFormCouponInput
+  'paperform.createFormProduct': PaperformCreateFormProductInput
+  'paperform.updateFormProduct': PaperformUpdateFormProductInput
+  'paperform.deleteFormProduct': PaperformDeleteFormProductInput
+  'paperform.createSpace': PaperformCreateSpaceInput
+  'paperform.updateSpace': PaperformUpdateSpaceInput
+  'paperform.findFormProduct': PaperformFindFormProductInput
+  'paperform.findForm': PaperformFindFormInput
+  'paperform.findSpace': PaperformFindSpaceInput
+  'paperform.custom_api_call': PaperformCustomApiCallInput
+  'paylocity.list_employees': PaylocityListEmployeesInput
+  'paylocity.get_employee': PaylocityGetEmployeeInput
+  'paylocity.list_earnings': PaylocityListEarningsInput
+  'paylocity.get_company_codes': PaylocityGetCompanyCodesInput
+  'paylocity.get_employee_benefits': PaylocityGetEmployeeBenefitsInput
   'paywhirl.cancelSubscription': PaywhirlCancelSubscriptionInput
   'paywhirl.createCustomer': PaywhirlCreateCustomerInput
   'paywhirl.getCustomer': PaywhirlGetCustomerInput
   'paywhirl.searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
   'paywhirl.subscribeCustomer': PaywhirlSubscribeCustomerInput
   'paywhirl.custom_api_call': PaywhirlCustomApiCallInput
+  'pdf-co.html_to_pdf': PdfCoHtmlToPdfInput
+  'pdf-co.merge_pdfs': PdfCoMergePdfsInput
+  'pdf-co.extract_text': PdfCoExtractTextInput
+  'pdf-co.custom_api_call': PdfCoCustomApiCallInput
   'perplexity-ai.ask-ai': PerplexityAiAskAiInput
   'personio.list_employees': PersonioListEmployeesInput
   'personio.get_employee': PersonioGetEmployeeInput
@@ -17471,18 +31249,96 @@ export interface IntegrationActionInputMap {
   'plausible.list_guests': PlausibleListGuestsInput
   'plausible.invite_guest': PlausibleInviteGuestInput
   'plausible.remove_guest': PlausibleRemoveGuestInput
+  'plivo.send_sms': PlivoSendSmsInput
+  'plivo.list_messages': PlivoListMessagesInput
+  'plivo.get_message': PlivoGetMessageInput
+  'plivo.custom_api_call': PlivoCustomApiCallInput
+  'podia.list_products': PodiaListProductsInput
+  'podia.list_customers': PodiaListCustomersInput
+  'podia.get_customer': PodiaGetCustomerInput
+  'podia.list_orders': PodiaListOrdersInput
+  'podia.custom_api_call': PodiaCustomApiCallInput
+  'podio.create_item': PodioCreateItemInput
+  'podio.update_item': PodioUpdateItemInput
+  'podio.create_task': PodioCreateTaskInput
+  'podio.update_task': PodioUpdateTaskInput
+  'podio.attach_file': PodioAttachFileInput
+  'podio.create_comment': PodioCreateCommentInput
+  'podio.create_status': PodioCreateStatusInput
+  'podio.find_item': PodioFindItemInput
+  'podio.find_task': PodioFindTaskInput
+  'podio.custom_api_call': PodioCustomApiCallInput
   'postgres.run-query': PostgresRunQueryInput
   'posthog.create_event': PosthogCreateEventInput
   'posthog.create_project': PosthogCreateProjectInput
   'posthog.custom_api_call': PosthogCustomApiCallInput
+  'powerschool.list_students': PowerschoolListStudentsInput
+  'powerschool.get_student': PowerschoolGetStudentInput
+  'powerschool.list_courses': PowerschoolListCoursesInput
+  'powerschool.get_attendance': PowerschoolGetAttendanceInput
+  'powerschool.custom_api_call': PowerschoolCustomApiCallInput
+  'practice-panther.list_matters': PracticePantherListMattersInput
+  'practice-panther.get_matter': PracticePantherGetMatterInput
+  'practice-panther.list_contacts': PracticePantherListContactsInput
+  'practice-panther.create_contact': PracticePantherCreateContactInput
+  'practice-panther.list_tasks': PracticePantherListTasksInput
+  'practice-panther.custom_api_call': PracticePantherCustomApiCallInput
+  'prismic.query_documents': PrismicQueryDocumentsInput
+  'prismic.get_document_by_id': PrismicGetDocumentByIdInput
+  'prismic.get_document_by_uid': PrismicGetDocumentByUidInput
+  'prismic.get_documents_by_type': PrismicGetDocumentsByTypeInput
+  'procore.list_projects': ProcoreListProjectsInput
+  'procore.get_project': ProcoreGetProjectInput
+  'procore.list_rfis': ProcoreListRfisInput
+  'procore.list_submittals': ProcoreListSubmittalsInput
+  'propertyware.list_units': PropertywareListUnitsInput
+  'propertyware.list_tenants': PropertywareListTenantsInput
+  'propertyware.list_work_orders': PropertywareListWorkOrdersInput
+  'propertyware.custom_api_call': PropertywareCustomApiCallInput
+  'pulumi.list_stacks': PulumiListStacksInput
+  'pulumi.get_stack': PulumiGetStackInput
+  'pulumi.list_updates': PulumiListUpdatesInput
+  'pulumi.custom_api_call': PulumiCustomApiCallInput
+  'qdrant.add_points_to_collection': QdrantAddPointsToCollectionInput
+  'qdrant.collection_list': QdrantCollectionListInput
+  'qdrant.collection_infos': QdrantCollectionInfosInput
+  'qdrant.delete_collection': QdrantDeleteCollectionInput
+  'qdrant.delete_points': QdrantDeletePointsInput
+  'qdrant.get_points': QdrantGetPointsInput
+  'qdrant.search_points': QdrantSearchPointsInput
+  'qdrant-custom.create_collection': QdrantCustomCreateCollectionInput
+  'qdrant-custom.upsert_points': QdrantCustomUpsertPointsInput
+  'qdrant-custom.search_points': QdrantCustomSearchPointsInput
+  'qdrant-custom.delete_points': QdrantCustomDeletePointsInput
+  'qdrant-custom.list_collections': QdrantCustomListCollectionsInput
+  'qdrant-custom.custom_api_call': QdrantCustomCustomApiCallInput
+  'qr-code.generate_qr_code': QrCodeGenerateQrCodeInput
+  'qr-code.custom_api_call': QrCodeCustomApiCallInput
   'quickbooks.find_invoice': QuickbooksFindInvoiceInput
   'quickbooks.find_customer': QuickbooksFindCustomerInput
   'quickbooks.find_payment': QuickbooksFindPaymentInput
   'quickbooks.create_invoice': QuickbooksCreateInvoiceInput
   'quickbooks.create_expense': QuickbooksCreateExpenseInput
   'quickbooks.custom_api_call': QuickbooksCustomApiCallInput
+  'rabbitmq.sendMessageToExchange': RabbitmqSendMessageToExchangeInput
+  'rabbitmq.sendMessageToQueue': RabbitmqSendMessageToQueueInput
+  'railway.list_projects': RailwayListProjectsInput
+  'railway.list_services': RailwayListServicesInput
+  'railway.get_deployments': RailwayGetDeploymentsInput
+  'railway.redeploy': RailwayRedeployInput
+  'railway.custom_api_call': RailwayCustomApiCallInput
   'razorpay.custom_api_call': RazorpayCustomApiCallInput
   'razorpay.create-payment-link': RazorpayCreatePaymentLinkInput
+  'reclaim-ai.list_tasks': ReclaimAiListTasksInput
+  'reclaim-ai.create_task': ReclaimAiCreateTaskInput
+  'reclaim-ai.get_habits': ReclaimAiGetHabitsInput
+  'reclaim-ai.list_events': ReclaimAiListEventsInput
+  'reclaim-ai.custom_api_call': ReclaimAiCustomApiCallInput
+  'recurly.list_accounts': RecurlyListAccountsInput
+  'recurly.list_subscriptions': RecurlyListSubscriptionsInput
+  'recurly.get_subscription': RecurlyGetSubscriptionInput
+  'recurly.list_invoices': RecurlyListInvoicesInput
+  'recurly.get_account': RecurlyGetAccountInput
   'reddit.retrieveRedditPost': RedditRetrieveRedditPostInput
   'reddit.getRedditPostDetails': RedditGetRedditPostDetailsInput
   'reddit.createRedditPost': RedditCreateRedditPostInput
@@ -17493,11 +31349,20 @@ export interface IntegrationActionInputMap {
   'reddit.deleteRedditPost': RedditDeleteRedditPostInput
   'reddit.deleteRedditComment': RedditDeleteRedditCommentInput
   'reddit.custom_api_call': RedditCustomApiCallInput
+  'render.list_services': RenderListServicesInput
+  'render.get_service': RenderGetServiceInput
+  'render.list_deploys': RenderListDeploysInput
+  'render.create_deploy': RenderCreateDeployInput
   'replicate.create_prediction': ReplicateCreatePredictionInput
   'replicate.get_prediction': ReplicateGetPredictionInput
   'replicate.list_models': ReplicateListModelsInput
   'resend.send_email': ResendSendEmailInput
   'resend.custom_api_call': ResendCustomApiCallInput
+  'retool.trigger_workflow': RetoolTriggerWorkflowInput
+  'retool.list_resources': RetoolListResourcesInput
+  'retool.list_folders': RetoolListFoldersInput
+  'retool.list_users': RetoolListUsersInput
+  'retool.list_groups': RetoolListGroupsInput
   'ringcentral.send_sms': RingcentralSendSmsInput
   'ringcentral.get_call_log': RingcentralGetCallLogInput
   'ringcentral.list_extensions': RingcentralListExtensionsInput
@@ -17505,6 +31370,22 @@ export interface IntegrationActionInputMap {
   'rippling.get_employee': RipplingGetEmployeeInput
   'rippling.list_departments': RipplingListDepartmentsInput
   'rippling.list_work_locations': RipplingListWorkLocationsInput
+  'rocket-chat.send_message': RocketChatSendMessageInput
+  'rocket-chat.list_channels': RocketChatListChannelsInput
+  'rocket-chat.get_channel': RocketChatGetChannelInput
+  'rocket-chat.custom_api_call': RocketChatCustomApiCallInput
+  'rollbar.list_items': RollbarListItemsInput
+  'rollbar.get_item': RollbarGetItemInput
+  'rollbar.list_occurrences': RollbarListOccurrencesInput
+  'rollbar.list_projects': RollbarListProjectsInput
+  'rollbar.custom_api_call': RollbarCustomApiCallInput
+  'runway.generate_video': RunwayGenerateVideoInput
+  'runway.get_task': RunwayGetTaskInput
+  'runway.list_assets': RunwayListAssetsInput
+  'runway.custom_api_call': RunwayCustomApiCallInput
+  'saleor.rawGraphqlQuery': SaleorRawGraphqlQueryInput
+  'saleor.getOrder': SaleorGetOrderInput
+  'saleor.addOrderNote': SaleorAddOrderNoteInput
   'salesforce.add_contact_to_campaign': SalesforceAddContactToCampaignInput
   'salesforce.add_file_to_record': SalesforceAddFileToRecordInput
   'salesforce.add_lead_to_campaign': SalesforceAddLeadToCampaignInput
@@ -17536,15 +31417,56 @@ export interface IntegrationActionInputMap {
   'salesloft.get_person': SalesloftGetPersonInput
   'salesloft.create_person': SalesloftCreatePersonInput
   'salesloft.list_cadences': SalesloftListCadencesInput
+  'sanity.query': SanityQueryInput
+  'sanity.create_document': SanityCreateDocumentInput
+  'sanity.update_document': SanityUpdateDocumentInput
+  'sanity.delete_document': SanityDeleteDocumentInput
+  'schoology.list_courses': SchoologyListCoursesInput
+  'schoology.list_sections': SchoologyListSectionsInput
+  'schoology.list_assignments': SchoologyListAssignmentsInput
+  'schoology.create_assignment': SchoologyCreateAssignmentInput
+  'schoology.custom_api_call': SchoologyCustomApiCallInput
+  'screenshot-one.take_screenshot': ScreenshotOneTakeScreenshotInput
+  'screenshot-one.custom_api_call': ScreenshotOneCustomApiCallInput
   'segment.identifyUser': SegmentIdentifyUserInput
+  'semrush.get_domain_overview': SemrushGetDomainOverviewInput
+  'semrush.get_organic_keywords': SemrushGetOrganicKeywordsInput
+  'semrush.get_backlinks': SemrushGetBacklinksInput
+  'semrush.custom_api_call': SemrushCustomApiCallInput
   'sendgrid.send_email': SendgridSendEmailInput
   'sendgrid.send_dynamic_template': SendgridSendDynamicTemplateInput
   'sendgrid.custom_api_call': SendgridCustomApiCallInput
+  'sendpulse.add-subscriber': SendpulseAddSubscriberInput
+  'sendpulse.change-variable-for-subscriber': SendpulseChangeVariableForSubscriberInput
+  'sendpulse.delete-contact': SendpulseDeleteContactInput
+  'sendpulse.unsubscribe-user': SendpulseUnsubscribeUserInput
+  'sendpulse.update-subscriber': SendpulseUpdateSubscriberInput
+  'sendpulse.custom_api_call': SendpulseCustomApiCallInput
   'sentry.list_projects': SentryListProjectsInput
   'sentry.list_issues': SentryListIssuesInput
   'sentry.get_issue': SentryGetIssueInput
   'sentry.resolve_issue': SentryResolveIssueInput
   'sentry.list_events': SentryListEventsInput
+  'service-now.create_record': ServiceNowCreateRecordInput
+  'service-now.update_record': ServiceNowUpdateRecordInput
+  'service-now.get_record': ServiceNowGetRecordInput
+  'service-now.find_record': ServiceNowFindRecordInput
+  'service-now.attach_file_to_record': ServiceNowAttachFileToRecordInput
+  'service-now.find_file': ServiceNowFindFileInput
+  'service-titan.list_jobs': ServiceTitanListJobsInput
+  'service-titan.get_job': ServiceTitanGetJobInput
+  'service-titan.list_customers': ServiceTitanListCustomersInput
+  'service-titan.list_invoices': ServiceTitanListInvoicesInput
+  'shippo.create_shipment': ShippoCreateShipmentInput
+  'shippo.get_shipment': ShippoGetShipmentInput
+  'shippo.list_rates': ShippoListRatesInput
+  'shippo.create_label': ShippoCreateLabelInput
+  'shippo.custom_api_call': ShippoCustomApiCallInput
+  'shipstation.list_orders': ShipstationListOrdersInput
+  'shipstation.get_order': ShipstationGetOrderInput
+  'shipstation.list_shipments': ShipstationListShipmentsInput
+  'shipstation.create_label': ShipstationCreateLabelInput
+  'shipstation.list_carriers': ShipstationListCarriersInput
   'shopify.adjust_inventory_level': ShopifyAdjustInventoryLevelInput
   'shopify.cancel_order': ShopifyCancelOrderInput
   'shopify.close_order': ShopifyCloseOrderInput
@@ -17572,6 +31494,19 @@ export interface IntegrationActionInputMap {
   'shopify.update_product': ShopifyUpdateProductInput
   'shopify.upload_product_image': ShopifyUploadProductImageInput
   'shopify.custom_api_call': ShopifyCustomApiCallInput
+  'short-io.create_link': ShortIoCreateLinkInput
+  'short-io.get_link': ShortIoGetLinkInput
+  'short-io.list_links': ShortIoListLinksInput
+  'short-io.custom_api_call': ShortIoCustomApiCallInput
+  'sierra-interactive.list_leads': SierraInteractiveListLeadsInput
+  'sierra-interactive.create_lead': SierraInteractiveCreateLeadInput
+  'sierra-interactive.list_properties': SierraInteractiveListPropertiesInput
+  'sierra-interactive.custom_api_call': SierraInteractiveCustomApiCallInput
+  'simple-practice.list_clients': SimplePracticeListClientsInput
+  'simple-practice.get_client': SimplePracticeGetClientInput
+  'simple-practice.list_appointments': SimplePracticeListAppointmentsInput
+  'simple-practice.create_appointment': SimplePracticeCreateAppointmentInput
+  'simple-practice.custom_api_call': SimplePracticeCustomApiCallInput
   'slack.slack-add-reaction-to-message': SlackSlackAddReactionToMessageInput
   'slack.send_direct_message': SlackSendDirectMessageInput
   'slack.send_channel_message': SlackSendChannelMessageInput
@@ -17598,16 +31533,33 @@ export interface IntegrationActionInputMap {
   'slack.get-message': SlackGetMessageInput
   'slack.invite-user-to-channel': SlackInviteUserToChannelInput
   'slack.custom_api_call': SlackCustomApiCallInput
+  'slite.list_notes': SliteListNotesInput
+  'slite.get_note': SliteGetNoteInput
+  'slite.create_note': SliteCreateNoteInput
+  'slite.search': SliteSearchInput
+  'slite.custom_api_call': SliteCustomApiCallInput
   'smartsheet.add_row_to_sheet': SmartsheetAddRowToSheetInput
   'smartsheet.update_row': SmartsheetUpdateRowInput
   'smartsheet.attach_file_to_row': SmartsheetAttachFileToRowInput
   'smartsheet.find_rows_by_query': SmartsheetFindRowsByQueryInput
   'smartsheet.find_attachment_by_row_id': SmartsheetFindAttachmentByRowIdInput
   'smartsheet.find_sheet_by_name': SmartsheetFindSheetByNameInput
+  'smokeball.list_matters': SmokeballListMattersInput
+  'smokeball.get_matter': SmokeballGetMatterInput
+  'smokeball.list_contacts': SmokeballListContactsInput
+  'smokeball.custom_api_call': SmokeballCustomApiCallInput
   'smtp.send-email': SmtpSendEmailInput
   'snowflake.runQuery': SnowflakeRunQueryInput
   'snowflake.runMultipleQueries': SnowflakeRunMultipleQueriesInput
   'snowflake.insert-row': SnowflakeInsertRowInput
+  'snyk.list_orgs': SnykListOrgsInput
+  'snyk.list_projects': SnykListProjectsInput
+  'snyk.get_project': SnykGetProjectInput
+  'snyk.get_project_issues': SnykGetProjectIssuesInput
+  'sonarqube.list_projects': SonarqubeListProjectsInput
+  'sonarqube.get_measures': SonarqubeGetMeasuresInput
+  'sonarqube.search_issues': SonarqubeSearchIssuesInput
+  'sonarqube.list_quality_gates': SonarqubeListQualityGatesInput
   'spotify.search': SpotifySearchInput
   'spotify.get_playback_state': SpotifyGetPlaybackStateInput
   'spotify.play': SpotifyPlayInput
@@ -17623,12 +31575,26 @@ export interface IntegrationActionInputMap {
   'spotify.remove_playlist_items': SpotifyRemovePlaylistItemsInput
   'spotify.reorder_playlist': SpotifyReorderPlaylistInput
   'spotify.custom_api_call': SpotifyCustomApiCallInput
+  'sprout-social.create_post': SproutSocialCreatePostInput
+  'sprout-social.list_posts': SproutSocialListPostsInput
+  'sprout-social.list_profiles': SproutSocialListProfilesInput
+  'sprout-social.get_analytics': SproutSocialGetAnalyticsInput
+  'sprout-social.custom_api_call': SproutSocialCustomApiCallInput
+  'spruce.send_message': SpruceSendMessageInput
+  'spruce.list_conversations': SpruceListConversationsInput
+  'spruce.get_conversation': SpruceGetConversationInput
+  'spruce.custom_api_call': SpruceCustomApiCallInput
   'stability-ai.text-to-image': StabilityAiTextToImageInput
   'stability-ai.custom_api_call': StabilityAiCustomApiCallInput
   'storage.read_file': StorageReadFileInput
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
   'storage.list_files': StorageListFilesInput
+  'storyblok.list_spaces': StoryblokListSpacesInput
+  'storyblok.list_stories': StoryblokListStoriesInput
+  'storyblok.get_story': StoryblokGetStoryInput
+  'storyblok.create_story': StoryblokCreateStoryInput
+  'storyblok.delete_story': StoryblokDeleteStoryInput
   'strapi.list_entries': StrapiListEntriesInput
   'strapi.get_entry': StrapiGetEntryInput
   'strapi.create_entry': StrapiCreateEntryInput
@@ -17659,7 +31625,41 @@ export interface IntegrationActionInputMap {
   'supabase.delete_rows': SupabaseDeleteRowsInput
   'supabase.search_rows': SupabaseSearchRowsInput
   'supabase.custom_api_call': SupabaseCustomApiCallInput
+  'surveymonkey.list_surveys': SurveymonkeyListSurveysInput
+  'surveymonkey.get_survey': SurveymonkeyGetSurveyInput
+  'surveymonkey.get_responses': SurveymonkeyGetResponsesInput
+  'surveymonkey.get_response_details': SurveymonkeyGetResponseDetailsInput
   'surveymonkey.custom_api_call': SurveymonkeyCustomApiCallInput
+  'synthesia.create_video': SynthesiaCreateVideoInput
+  'synthesia.get_video': SynthesiaGetVideoInput
+  'synthesia.list_videos': SynthesiaListVideosInput
+  'synthesia.list_avatars': SynthesiaListAvatarsInput
+  'synthesia.custom_api_call': SynthesiaCustomApiCallInput
+  'tavily.search': TavilySearchInput
+  'tavily.extract': TavilyExtractInput
+  'teachable.list_courses': TeachableListCoursesInput
+  'teachable.get_course': TeachableGetCourseInput
+  'teachable.list_users': TeachableListUsersInput
+  'teachable.list_enrollments': TeachableListEnrollmentsInput
+  'teachable.get_user_courses': TeachableGetUserCoursesInput
+  'teamwork.create_project': TeamworkCreateProjectInput
+  'teamwork.create_task_list': TeamworkCreateTaskListInput
+  'teamwork.create_task': TeamworkCreateTaskInput
+  'teamwork.mark_task_complete': TeamworkMarkTaskCompleteInput
+  'teamwork.create_company': TeamworkCreateCompanyInput
+  'teamwork.create_person': TeamworkCreatePersonInput
+  'teamwork.update_task': TeamworkUpdateTaskInput
+  'teamwork.create_task_comment': TeamworkCreateTaskCommentInput
+  'teamwork.create_time_entry_on_task': TeamworkCreateTimeEntryOnTaskInput
+  'teamwork.create_expense': TeamworkCreateExpenseInput
+  'teamwork.upload_file_to_project': TeamworkUploadFileToProjectInput
+  'teamwork.create_message_reply': TeamworkCreateMessageReplyInput
+  'teamwork.create_milestone': TeamworkCreateMilestoneInput
+  'teamwork.add_people_to_project': TeamworkAddPeopleToProjectInput
+  'teamwork.find_task': TeamworkFindTaskInput
+  'teamwork.find_company': TeamworkFindCompanyInput
+  'teamwork.find_milestone': TeamworkFindMilestoneInput
+  'teamwork.find_notebook_or_comment': TeamworkFindNotebookOrCommentInput
   'telegram-bot.send_text_message': TelegramBotSendTextMessageInput
   'telegram-bot.send_media': TelegramBotSendMediaInput
   'telegram-bot.get_chat_member': TelegramBotGetChatMemberInput
@@ -17667,6 +31667,41 @@ export interface IntegrationActionInputMap {
   'telegram-bot.create_invite_link': TelegramBotCreateInviteLinkInput
   'telegram-bot.request_approval_message': TelegramBotRequestApprovalMessageInput
   'telegram-bot.custom_api_call': TelegramBotCustomApiCallInput
+  'telnyx.send_message': TelnyxSendMessageInput
+  'telnyx.list_messaging_profiles': TelnyxListMessagingProfilesInput
+  'telnyx.list_phone_numbers': TelnyxListPhoneNumbersInput
+  'telnyx.create_call': TelnyxCreateCallInput
+  'terraform-cloud.list_workspaces': TerraformCloudListWorkspacesInput
+  'terraform-cloud.get_run': TerraformCloudGetRunInput
+  'terraform-cloud.create_run': TerraformCloudCreateRunInput
+  'terraform-cloud.list_runs': TerraformCloudListRunsInput
+  'terraform-cloud.custom_api_call': TerraformCloudCustomApiCallInput
+  'thinkific.list_courses': ThinkificListCoursesInput
+  'thinkific.get_course': ThinkificGetCourseInput
+  'thinkific.list_enrollments': ThinkificListEnrollmentsInput
+  'thinkific.create_enrollment': ThinkificCreateEnrollmentInput
+  'thinkific.list_users': ThinkificListUsersInput
+  'thinkific.custom_api_call': ThinkificCustomApiCallInput
+  'ticktick.create_task': TicktickCreateTaskInput
+  'ticktick.update_task': TicktickUpdateTaskInput
+  'ticktick.get_task': TicktickGetTaskInput
+  'ticktick.delete_task': TicktickDeleteTaskInput
+  'ticktick.complete_task': TicktickCompleteTaskInput
+  'ticktick.find_task': TicktickFindTaskInput
+  'ticktick.get_project': TicktickGetProjectInput
+  'ticktick.custom_api_call': TicktickCustomApiCallInput
+  'tidycal.list_bookings': TidycalListBookingsInput
+  'tidycal.get_booking': TidycalGetBookingInput
+  'tidycal.list_booking_types': TidycalListBookingTypesInput
+  'tidycal.custom_api_call': TidycalCustomApiCallInput
+  'tiktok-ads.list_campaigns': TiktokAdsListCampaignsInput
+  'tiktok-ads.get_campaign': TiktokAdsGetCampaignInput
+  'tiktok-ads.list_ad_groups': TiktokAdsListAdGroupsInput
+  'tiktok-ads.get_ad_report': TiktokAdsGetAdReportInput
+  'timesolv.list_time_entries': TimesolvListTimeEntriesInput
+  'timesolv.create_time_entry': TimesolvCreateTimeEntryInput
+  'timesolv.list_matters': TimesolvListMattersInput
+  'timesolv.custom_api_call': TimesolvCustomApiCallInput
   'todoist.create_task': TodoistCreateTaskInput
   'todoist.update_task': TodoistUpdateTaskInput
   'todoist.find_task': TodoistFindTaskInput
@@ -17683,21 +31718,86 @@ export interface IntegrationActionInputMap {
   'trello.add_card_attachment': TrelloAddCardAttachmentInput
   'trello.get_card_attachment': TrelloGetCardAttachmentInput
   'trello.delete_card_attachment': TrelloDeleteCardAttachmentInput
+  'trustpilot.list_reviews': TrustpilotListReviewsInput
+  'trustpilot.get_review': TrustpilotGetReviewInput
+  'trustpilot.reply_to_review': TrustpilotReplyToReviewInput
+  'trustpilot.custom_api_call': TrustpilotCustomApiCallInput
   'twilio.send_sms': TwilioSendSmsInput
   'twilio.phone_number_lookup': TwilioPhoneNumberLookupInput
   'twilio.make_call': TwilioMakeCallInput
   'twilio.get_message': TwilioGetMessageInput
   'twilio.download_recording_media': TwilioDownloadRecordingMediaInput
   'twilio.custom_api_call': TwilioCustomApiCallInput
+  'twitch.get_user': TwitchGetUserInput
+  'twitch.get_channel_info': TwitchGetChannelInfoInput
+  'twitch.get_streams': TwitchGetStreamsInput
+  'twitch.get_clips': TwitchGetClipsInput
+  'twitch.search_channels': TwitchSearchChannelsInput
   'twitch.custom_api_call': TwitchCustomApiCallInput
   'twitter.create-tweet': TwitterCreateTweetInput
   'twitter.create-reply': TwitterCreateReplyInput
+  'typeform.list_forms': TypeformListFormsInput
+  'typeform.get_form': TypeformGetFormInput
+  'typeform.get_responses': TypeformGetResponsesInput
+  'typeform.get_response': TypeformGetResponseInput
   'typeform.custom_api_call': TypeformCustomApiCallInput
+  'uptime-robot.list_monitors': UptimeRobotListMonitorsInput
+  'uptime-robot.get_monitor': UptimeRobotGetMonitorInput
+  'uptime-robot.create_monitor': UptimeRobotCreateMonitorInput
+  'uptime-robot.custom_api_call': UptimeRobotCustomApiCallInput
+  'vanta.list_vulnerabilities': VantaListVulnerabilitiesInput
+  'vanta.list_tests': VantaListTestsInput
+  'vanta.list_integrations': VantaListIntegrationsInput
+  'vanta.list_test_results': VantaListTestResultsInput
+  'vercel.list_projects': VercelListProjectsInput
+  'vercel.get_project': VercelGetProjectInput
+  'vercel.list_deployments': VercelListDeploymentsInput
+  'vercel.create_deployment': VercelCreateDeploymentInput
+  'vercel.get_deployment': VercelGetDeploymentInput
+  'vidyard.list_videos': VidyardListVideosInput
+  'vidyard.get_video': VidyardGetVideoInput
+  'vidyard.get_analytics': VidyardGetAnalyticsInput
+  'vidyard.custom_api_call': VidyardCustomApiCallInput
   'vimeo.upload_video': VimeoUploadVideoInput
   'vimeo.delete_video': VimeoDeleteVideoInput
   'vimeo.add_video_to_showcase': VimeoAddVideoToShowcaseInput
   'vimeo.add_video_to_folder': VimeoAddVideoToFolderInput
   'vimeo.custom_api_call': VimeoCustomApiCallInput
+  'vonage.send_sms': VonageSendSmsInput
+  'vonage.send_verification': VonageSendVerificationInput
+  'vonage.check_verification': VonageCheckVerificationInput
+  'vonage.cancel_verification': VonageCancelVerificationInput
+  'vtex.get-product-by-id': VtexGetProductByIdInput
+  'vtex.create-product': VtexCreateProductInput
+  'vtex.Update-product': VtexUpdateProductInput
+  'vtex.get-brand-list': VtexGetBrandListInput
+  'vtex.get-brand-by-id': VtexGetBrandByIdInput
+  'vtex.create-brand': VtexCreateBrandInput
+  'vtex.update-brand': VtexUpdateBrandInput
+  'vtex.delete-brand': VtexDeleteBrandInput
+  'vtex.get-category-by-id': VtexGetCategoryByIdInput
+  'vtex.get-sku-by-product-id': VtexGetSkuByProductIdInput
+  'vtex.create-sku': VtexCreateSkuInput
+  'vtex.create-sku-file': VtexCreateSkuFileInput
+  'vtex.get-client-list': VtexGetClientListInput
+  'vtex.get-client-by-id': VtexGetClientByIdInput
+  'vtex.get-order-by-id': VtexGetOrderByIdInput
+  'vtex.get-order-list': VtexGetOrderListInput
+  'vtex.custom_api_call': VtexCustomApiCallInput
+  'weaviate.list_collections': WeaviateListCollectionsInput
+  'weaviate.create_object': WeaviateCreateObjectInput
+  'weaviate.get_object': WeaviateGetObjectInput
+  'weaviate.search_objects': WeaviateSearchObjectsInput
+  'weaviate-custom.create_class': WeaviateCustomCreateClassInput
+  'weaviate-custom.add_objects': WeaviateCustomAddObjectsInput
+  'weaviate-custom.search_objects': WeaviateCustomSearchObjectsInput
+  'weaviate-custom.list_classes': WeaviateCustomListClassesInput
+  'weaviate-custom.custom_api_call': WeaviateCustomCustomApiCallInput
+  'webex.list_rooms': WebexListRoomsInput
+  'webex.create_message': WebexCreateMessageInput
+  'webex.list_people': WebexListPeopleInput
+  'webex.get_person': WebexGetPersonInput
+  'webex.list_messages': WebexListMessagesInput
   'webflow.create_collection_item': WebflowCreateCollectionItemInput
   'webflow.delete_collection_item': WebflowDeleteCollectionItemInput
   'webflow.update_collection_item': WebflowUpdateCollectionItemInput
@@ -17711,6 +31811,10 @@ export interface IntegrationActionInputMap {
   'whatsapp.sendMessage': WhatsappSendMessageInput
   'whatsapp.sendMedia': WhatsappSendMediaInput
   'whatsapp.send-template-message': WhatsappSendTemplateMessageInput
+  'wise.list_profiles': WiseListProfilesInput
+  'wise.create_quote': WiseCreateQuoteInput
+  'wise.list_transfers': WiseListTransfersInput
+  'wise.get_exchange_rate': WiseGetExchangeRateInput
   'woocommerce.Create Customer': WoocommerceCreateCustomerInput
   'woocommerce.Create Coupon': WoocommerceCreateCouponInput
   'woocommerce.Create Product': WoocommerceCreateProductInput
@@ -17722,6 +31826,13 @@ export interface IntegrationActionInputMap {
   'wordpress.update_post': WordpressUpdatePostInput
   'wordpress.get_post': WordpressGetPostInput
   'wordpress.custom_api_call': WordpressCustomApiCallInput
+  'workable.getCandidate': WorkableGetCandidateInput
+  'workable.getMembers': WorkableGetMembersInput
+  'workable.getJob': WorkableGetJobInput
+  'workable.getStages': WorkableGetStagesInput
+  'workable.moveCandidate': WorkableMoveCandidateInput
+  'workable.rateCandidate': WorkableRateCandidateInput
+  'workable.custom_api_call': WorkableCustomApiCallInput
   'workday.list_workers': WorkdayListWorkersInput
   'workday.get_worker': WorkdayGetWorkerInput
   'wrike.create_task': WrikeCreateTaskInput
@@ -17755,6 +31866,17 @@ export interface IntegrationActionInputMap {
   'xero.xero_find_item': XeroXeroFindItemInput
   'xero.xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
   'xero.custom_api_call': XeroCustomApiCallInput
+  'xml.convert-json-to-xml': XmlConvertJsonToXmlInput
+  'yotpo.list_reviews': YotpoListReviewsInput
+  'yotpo.get_review': YotpoGetReviewInput
+  'yotpo.create_review_request': YotpoCreateReviewRequestInput
+  'yotpo.custom_api_call': YotpoCustomApiCallInput
+  'youtube.search_videos': YoutubeSearchVideosInput
+  'youtube.get_video': YoutubeGetVideoInput
+  'youtube.list_playlists': YoutubeListPlaylistsInput
+  'youtube.create_playlist': YoutubeCreatePlaylistInput
+  'youtube.add_to_playlist': YoutubeAddToPlaylistInput
+  'youtube.list_channel_videos': YoutubeListChannelVideosInput
   'youtube.custom_api_call': YoutubeCustomApiCallInput
   'zendesk.create-ticket': ZendeskCreateTicketInput
   'zendesk.update-ticket': ZendeskUpdateTicketInput
@@ -17768,12 +31890,61 @@ export interface IntegrationActionInputMap {
   'zendesk.find-tickets': ZendeskFindTicketsInput
   'zendesk.find-user': ZendeskFindUserInput
   'zendesk.custom_api_call': ZendeskCustomApiCallInput
+  'zerobounce.validate_email': ZerobounceValidateEmailInput
+  'zerobounce.get_credits': ZerobounceGetCreditsInput
+  'zerobounce.custom_api_call': ZerobounceCustomApiCallInput
+  'zillow.get_property': ZillowGetPropertyInput
+  'zillow.search_properties': ZillowSearchPropertiesInput
+  'zillow.custom_api_call': ZillowCustomApiCallInput
+  'zocdoc.list_appointments': ZocdocListAppointmentsInput
+  'zocdoc.get_provider': ZocdocGetProviderInput
+  'zocdoc.list_providers': ZocdocListProvidersInput
+  'zocdoc.custom_api_call': ZocdocCustomApiCallInput
+  'zoho-books.list_invoices': ZohoBooksListInvoicesInput
+  'zoho-books.get_invoice': ZohoBooksGetInvoiceInput
+  'zoho-books.create_invoice': ZohoBooksCreateInvoiceInput
+  'zoho-books.list_contacts': ZohoBooksListContactsInput
+  'zoho-books.get_contact': ZohoBooksGetContactInput
+  'zoho-books.create_contact': ZohoBooksCreateContactInput
   'zoho-books.custom_api_call': ZohoBooksCustomApiCallInput
+  'zoho-campaigns.createCampaign': ZohoCampaignsCreateCampaignInput
+  'zoho-campaigns.cloneCampaign': ZohoCampaignsCloneCampaignInput
+  'zoho-campaigns.sendCampaign': ZohoCampaignsSendCampaignInput
+  'zoho-campaigns.addUpdateContact': ZohoCampaignsAddUpdateContactInput
+  'zoho-campaigns.addTagToContact': ZohoCampaignsAddTagToContactInput
+  'zoho-campaigns.removeTag': ZohoCampaignsRemoveTagInput
+  'zoho-campaigns.unsubscribeContact': ZohoCampaignsUnsubscribeContactInput
+  'zoho-campaigns.addContactToMailingList': ZohoCampaignsAddContactToMailingListInput
+  'zoho-campaigns.findContact': ZohoCampaignsFindContactInput
+  'zoho-campaigns.findCampaign': ZohoCampaignsFindCampaignInput
+  'zoho-campaigns.custom_api_call': ZohoCampaignsCustomApiCallInput
   'zoho-crm.read-file': ZohoCrmReadFileInput
   'zoho-crm.custom_api_call': ZohoCrmCustomApiCallInput
+  'zoho-desk.list_tickets': ZohoDeskListTicketsInput
+  'zoho-desk.create_ticket': ZohoDeskCreateTicketInput
+  'zoho-desk.find-contact': ZohoDeskFindContactInput
+  'zoho-desk.custom_api_call': ZohoDeskCustomApiCallInput
+  'zoho-invoice.list_invoices': ZohoInvoiceListInvoicesInput
+  'zoho-invoice.get_invoice': ZohoInvoiceGetInvoiceInput
+  'zoho-invoice.create_invoice': ZohoInvoiceCreateInvoiceInput
+  'zoho-invoice.send_invoice': ZohoInvoiceSendInvoiceInput
+  'zoho-invoice.list_customers': ZohoInvoiceListCustomersInput
+  'zoho-invoice.custom_api_call': ZohoInvoiceCustomApiCallInput
+  'zoho-mail.get_email_details': ZohoMailGetEmailDetailsInput
+  'zoho-mail.mark_email_as_read': ZohoMailMarkEmailAsReadInput
+  'zoho-mail.mark_email_as_unread': ZohoMailMarkEmailAsUnreadInput
+  'zoho-mail.archive_email': ZohoMailArchiveEmailInput
+  'zoho-mail.unarchive_email': ZohoMailUnarchiveEmailInput
+  'zoho-mail.move_email': ZohoMailMoveEmailInput
+  'zoho-mail.send_email': ZohoMailSendEmailInput
+  'zoho-mail.custom_api_call': ZohoMailCustomApiCallInput
   'zoom.zoom_create_meeting': ZoomZoomCreateMeetingInput
   'zoom.zoom_create_meeting_registrant': ZoomZoomCreateMeetingRegistrantInput
   'zoom.custom_api_call': ZoomCustomApiCallInput
+  'zuora.create-invoice': ZuoraCreateInvoiceInput
+  'zuora.find-account': ZuoraFindAccountInput
+  'zuora.find-product-rate-plan': ZuoraFindProductRatePlanInput
+  'zuora.find-product': ZuoraFindProductInput
 }
 
 export interface IntegrationActionInputsByIntegration {
@@ -17785,6 +31956,47 @@ export interface IntegrationActionInputsByIntegration {
     'activecampaign_update_account': ActivecampaignActivecampaignUpdateAccountInput
     'activecampaign_update_contact': ActivecampaignActivecampaignUpdateContactInput
     'activecampaign_subscribe_or_unsubscribe_contact_from_list': ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromListInput
+  }
+  'acuity-health': {
+    'list_patients': AcuityHealthListPatientsInput
+    'create_patient': AcuityHealthCreatePatientInput
+    'list_encounters': AcuityHealthListEncountersInput
+    'custom_api_call': AcuityHealthCustomApiCallInput
+  }
+  'acuity-scheduling': {
+    'add_blocked_time': AcuitySchedulingAddBlockedTimeInput
+    'create_appointment': AcuitySchedulingCreateAppointmentInput
+    'create_client': AcuitySchedulingCreateClientInput
+    'reschedule_appointment': AcuitySchedulingRescheduleAppointmentInput
+    'update_client': AcuitySchedulingUpdateClientInput
+    'find_appointment': AcuitySchedulingFindAppointmentInput
+    'find_client': AcuitySchedulingFindClientInput
+    'custom_api_call': AcuitySchedulingCustomApiCallInput
+  }
+  'adp': {
+    'list_workers': AdpListWorkersInput
+    'get_worker': AdpGetWorkerInput
+    'list_work_assignments': AdpListWorkAssignmentsInput
+    'list_pay_statements': AdpListPayStatementsInput
+  }
+  'adyen': {
+    'list_payment_methods': AdyenListPaymentMethodsInput
+    'create_payment': AdyenCreatePaymentInput
+    'get_payment_details': AdyenGetPaymentDetailsInput
+    'create_payment_link': AdyenCreatePaymentLinkInput
+  }
+  'aftership': {
+    'create_tracking': AftershipCreateTrackingInput
+    'get_tracking': AftershipGetTrackingInput
+    'list_trackings': AftershipListTrackingsInput
+    'delete_tracking': AftershipDeleteTrackingInput
+    'custom_api_call': AftershipCustomApiCallInput
+  }
+  'ahrefs': {
+    'get_backlinks': AhrefsGetBacklinksInput
+    'get_organic_keywords': AhrefsGetOrganicKeywordsInput
+    'get_domain_rating': AhrefsGetDomainRatingInput
+    'custom_api_call': AhrefsCustomApiCallInput
   }
   'ai-toolkit': {
     'extract_structured_data': AiToolkitExtractStructuredDataInput
@@ -17808,6 +32020,33 @@ export interface IntegrationActionInputsByIntegration {
     'airtable_get_base_schema': AirtableAirtableGetBaseSchemaInput
     'custom_api_call': AirtableCustomApiCallInput
   }
+  'amazon-s3': {
+    'upload-file': AmazonS3UploadFileInput
+    'read-file': AmazonS3ReadFileInput
+    'generate-signed-url': AmazonS3GenerateSignedUrlInput
+    'moveFile': AmazonS3MoveFileInput
+    'deleteFile': AmazonS3DeleteFileInput
+    'list-files': AmazonS3ListFilesInput
+    'decrypt-pgp-file': AmazonS3DecryptPgpFileInput
+  }
+  'amazon-ses': {
+    'send_email': AmazonSesSendEmailInput
+    'create_email_template': AmazonSesCreateEmailTemplateInput
+    'send_templated_email': AmazonSesSendTemplatedEmailInput
+    'update_email_template': AmazonSesUpdateEmailTemplateInput
+    'create_custom_verification_email_template': AmazonSesCreateCustomVerificationEmailTemplateInput
+    'send_custom_verification_email': AmazonSesSendCustomVerificationEmailInput
+    'update_custom_verification_email_template': AmazonSesUpdateCustomVerificationEmailTemplateInput
+  }
+  'amazon-sqs': {
+    'sendMessage': AmazonSqsSendMessageInput
+  }
+  'amplitude': {
+    'track_event': AmplitudeTrackEventInput
+    'identify_user': AmplitudeIdentifyUserInput
+    'get_user_activity': AmplitudeGetUserActivityInput
+    'custom_api_call': AmplitudeCustomApiCallInput
+  }
   'claude': {
     'ask_claude': ClaudeAskClaudeInput
     'extract-structured-data': ClaudeExtractStructuredDataInput
@@ -17822,11 +32061,30 @@ export interface IntegrationActionInputsByIntegration {
     'peopleSearch': ApolloPeopleSearchInput
     'custom_api_call': ApolloCustomApiCallInput
   }
+  'appfolio': {
+    'list_properties': AppfolioListPropertiesInput
+    'list_tenants': AppfolioListTenantsInput
+    'list_leases': AppfolioListLeasesInput
+    'custom_api_call': AppfolioCustomApiCallInput
+  }
+  'appwrite': {
+    'list_databases': AppwriteListDatabasesInput
+    'list_documents': AppwriteListDocumentsInput
+    'create_document': AppwriteCreateDocumentInput
+    'get_document': AppwriteGetDocumentInput
+    'list_users': AppwriteListUsersInput
+  }
   'asana': {
     'create_task': AsanaCreateTaskInput
     'custom_api_call': AsanaCustomApiCallInput
   }
   'ashby': {
+    'list_candidates': AshbyListCandidatesInput
+    'get_candidate': AshbyGetCandidateInput
+    'create_candidate': AshbyCreateCandidateInput
+    'list_jobs': AshbyListJobsInput
+    'get_job': AshbyGetJobInput
+    'list_applications': AshbyListApplicationsInput
     'custom_api_call': AshbyCustomApiCallInput
   }
   'assemblyai': {
@@ -17845,6 +32103,13 @@ export interface IntegrationActionInputsByIntegration {
     'purgeLemurRequestData': AssemblyaiPurgeLemurRequestDataInput
     'custom_api_call': AssemblyaiCustomApiCallInput
   }
+  'athenahealth': {
+    'list_patients': AthenahealthListPatientsInput
+    'get_patient': AthenahealthGetPatientInput
+    'list_appointments': AthenahealthListAppointmentsInput
+    'list_providers': AthenahealthListProvidersInput
+    'list_departments': AthenahealthListDepartmentsInput
+  }
   'attio': {
     'create_record': AttioCreateRecordInput
     'update_record': AttioUpdateRecordInput
@@ -17854,7 +32119,45 @@ export interface IntegrationActionInputsByIntegration {
     'find_list_entry': AttioFindListEntryInput
     'custom_api_call': AttioCustomApiCallInput
   }
+  'auth0': {
+    'list_users': Auth0ListUsersInput
+    'get_user': Auth0GetUserInput
+    'create_user': Auth0CreateUserInput
+    'list_roles': Auth0ListRolesInput
+    'list_connections': Auth0ListConnectionsInput
+  }
+  'aws-s3': {
+    'list_objects': AwsS3ListObjectsInput
+    'get_object': AwsS3GetObjectInput
+    'put_object': AwsS3PutObjectInput
+    'delete_object': AwsS3DeleteObjectInput
+    'head_object': AwsS3HeadObjectInput
+  }
+  'aws-ses': {
+    'send_email': AwsSesSendEmailInput
+    'list_identities': AwsSesListIdentitiesInput
+    'get_email_identity': AwsSesGetEmailIdentityInput
+    'get_account': AwsSesGetAccountInput
+  }
+  'azure-blob-storage': {
+    'listContainers': AzureBlobStorageListContainersInput
+    'createContainer': AzureBlobStorageCreateContainerInput
+    'deleteContainer': AzureBlobStorageDeleteContainerInput
+    'listBlobs': AzureBlobStorageListBlobsInput
+    'createBlob': AzureBlobStorageCreateBlobInput
+    'readBlob': AzureBlobStorageReadBlobInput
+    'deleteBlob': AzureBlobStorageDeleteBlobInput
+    'addTagsToBlob': AzureBlobStorageAddTagsToBlobInput
+    'findBlobs': AzureBlobStorageFindBlobsInput
+  }
+  'azure-openai': {
+    'ask_gpt': AzureOpenaiAskGptInput
+  }
   'bamboohr': {
+    'list_employees': BamboohrListEmployeesInput
+    'get_employee': BamboohrGetEmployeeInput
+    'create_employee': BamboohrCreateEmployeeInput
+    'update_employee': BamboohrUpdateEmployeeInput
     'custom_api_call': BamboohrCustomApiCallInput
   }
   'baserow': {
@@ -17873,6 +32176,13 @@ export interface IntegrationActionInputsByIntegration {
     'list_posts': BeehiivListPostsInput
     'custom_api_call': BeehiivCustomApiCallInput
   }
+  'better-stack': {
+    'list_monitors': BetterStackListMonitorsInput
+    'create_monitor': BetterStackCreateMonitorInput
+    'list_incidents': BetterStackListIncidentsInput
+    'get_incident': BetterStackGetIncidentInput
+    'custom_api_call': BetterStackCustomApiCallInput
+  }
   'bigcommerce': {
     'createCustomer': BigcommerceCreateCustomerInput
     'createAProduct': BigcommerceCreateAProductInput
@@ -17885,6 +32195,11 @@ export interface IntegrationActionInputsByIntegration {
     'findOrCreateProduct': BigcommerceFindOrCreateProductInput
     'findOrCreateCustomersAddress': BigcommerceFindOrCreateCustomersAddressInput
     'custom_api_call': BigcommerceCustomApiCallInput
+  }
+  'messagebird': {
+    'send-sms': MessagebirdSendSmsInput
+    'listMessages': MessagebirdListMessagesInput
+    'custom_api_call': MessagebirdCustomApiCallInput
   }
   'bitbucket': {
     'list_repositories': BitbucketListRepositoriesInput
@@ -17901,7 +32216,16 @@ export interface IntegrationActionInputsByIntegration {
     'findThread': BlueskyFindThreadInput
   }
   'box': {
+    'list_folder_items': BoxListFolderItemsInput
+    'get_file_info': BoxGetFileInfoInput
+    'create_folder': BoxCreateFolderInput
+    'search': BoxSearchInput
+    'delete_file': BoxDeleteFileInput
     'custom_api_call': BoxCustomApiCallInput
+  }
+  'brave-search': {
+    'web_search': BraveSearchWebSearchInput
+    'custom_api_call': BraveSearchCustomApiCallInput
   }
   'brevo': {
     'send_email': BrevoSendEmailInput
@@ -17909,14 +32233,116 @@ export interface IntegrationActionInputsByIntegration {
     'create_contact': BrevoCreateContactInput
     'send_sms': BrevoSendSmsInput
   }
+  'buffer': {
+    'create_post': BufferCreatePostInput
+    'list_profiles': BufferListProfilesInput
+    'get_post': BufferGetPostInput
+    'list_updates': BufferListUpdatesInput
+    'custom_api_call': BufferCustomApiCallInput
+  }
+  'bugsnag': {
+    'list_errors': BugsnagListErrorsInput
+    'get_error': BugsnagGetErrorInput
+    'list_projects': BugsnagListProjectsInput
+    'list_organizations': BugsnagListOrganizationsInput
+    'custom_api_call': BugsnagCustomApiCallInput
+  }
+  'buildium': {
+    'list_properties': BuildiumListPropertiesInput
+    'get_property': BuildiumGetPropertyInput
+    'list_leases': BuildiumListLeasesInput
+    'list_tenants': BuildiumListTenantsInput
+  }
+  'buildkite': {
+    'list_builds': BuildkiteListBuildsInput
+    'get_build': BuildkiteGetBuildInput
+    'create_build': BuildkiteCreateBuildInput
+    'list_pipelines': BuildkiteListPipelinesInput
+    'custom_api_call': BuildkiteCustomApiCallInput
+  }
   'calendly': {
+    'list_event_types': CalendlyListEventTypesInput
+    'get_event_type': CalendlyGetEventTypeInput
+    'list_scheduled_events': CalendlyListScheduledEventsInput
+    'get_event': CalendlyGetEventInput
+    'get_event_invitees': CalendlyGetEventInviteesInput
     'custom_api_call': CalendlyCustomApiCallInput
+  }
+  'campaign-monitor': {
+    'add_subscriber_to_list': CampaignMonitorAddSubscriberToListInput
+    'update_subscriber_details': CampaignMonitorUpdateSubscriberDetailsInput
+    'unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
+    'find_subscriber': CampaignMonitorFindSubscriberInput
+  }
+  'canvas-lms': {
+    'list_courses': CanvasLmsListCoursesInput
+    'get_course': CanvasLmsGetCourseInput
+    'list_assignments': CanvasLmsListAssignmentsInput
+    'list_students': CanvasLmsListStudentsInput
+  }
+  'capsule-crm': {
+    'create_contact': CapsuleCrmCreateContactInput
+    'update_contact': CapsuleCrmUpdateContactInput
+    'create_opportunity': CapsuleCrmCreateOpportunityInput
+    'create_project': CapsuleCrmCreateProjectInput
+    'create_task': CapsuleCrmCreateTaskInput
+    'update_opportunity': CapsuleCrmUpdateOpportunityInput
+    'add_note_to_entity': CapsuleCrmAddNoteToEntityInput
+    'find_contact': CapsuleCrmFindContactInput
+    'find_project': CapsuleCrmFindProjectInput
+    'find_opportunity': CapsuleCrmFindOpportunityInput
   }
   'chargebee': {
     'list_subscriptions': ChargebeeListSubscriptionsInput
     'get_subscription': ChargebeeGetSubscriptionInput
     'list_customers': ChargebeeListCustomersInput
     'list_invoices': ChargebeeListInvoicesInput
+  }
+  'chromadb': {
+    'list_collections': ChromadbListCollectionsInput
+    'create_collection': ChromadbCreateCollectionInput
+    'add_documents': ChromadbAddDocumentsInput
+    'query_collection': ChromadbQueryCollectionInput
+  }
+  'circle': {
+    'list_spaces': CircleListSpacesInput
+    'list_members': CircleListMembersInput
+    'create_post': CircleCreatePostInput
+    'list_posts': CircleListPostsInput
+  }
+  'circleci': {
+    'list_pipelines': CircleciListPipelinesInput
+    'get_pipeline': CircleciGetPipelineInput
+    'trigger_pipeline': CircleciTriggerPipelineInput
+    'list_workflows': CircleciListWorkflowsInput
+    'custom_api_call': CircleciCustomApiCallInput
+  }
+  'classdojo': {
+    'list_classes': ClassdojoListClassesInput
+    'list_students': ClassdojoListStudentsInput
+    'post_story': ClassdojoPostStoryInput
+    'custom_api_call': ClassdojoCustomApiCallInput
+  }
+  'clickfunnels': {
+    'createOpportunity': ClickfunnelsCreateOpportunityInput
+    'applyTagToContact': ClickfunnelsApplyTagToContactInput
+    'removeTagFromContact': ClickfunnelsRemoveTagFromContactInput
+    'enrollAContactIntoACourse': ClickfunnelsEnrollAContactIntoACourseInput
+    'updateOrCreateContact': ClickfunnelsUpdateOrCreateContactInput
+    'searchContacts': ClickfunnelsSearchContactsInput
+    'custom_api_call': ClickfunnelsCustomApiCallInput
+  }
+  'clicksend': {
+    'send_sms': ClicksendSendSmsInput
+    'send_mms': ClicksendSendMmsInput
+    'create_contact': ClicksendCreateContactInput
+    'update_contact': ClicksendUpdateContactInput
+    'delete_contact': ClicksendDeleteContactInput
+    'create_contact_list': ClicksendCreateContactListInput
+    'find_contact_by_email': ClicksendFindContactByEmailInput
+    'find_contact_by_phone': ClicksendFindContactByPhoneInput
+    'find_contact_lists': ClicksendFindContactListsInput
+    'custom_api_call': ClicksendCustomApiCallInput
   }
   'clickup': {
     'create_task': ClickupCreateTaskInput
@@ -17951,6 +32377,12 @@ export interface IntegrationActionInputsByIntegration {
     'set_custom_fields_value': ClickupSetCustomFieldsValueInput
     'custom_api_call': ClickupCustomApiCallInput
   }
+  'clio': {
+    'list_matters': ClioListMattersInput
+    'get_matter': ClioGetMatterInput
+    'list_contacts': ClioListContactsInput
+    'list_activities': ClioListActivitiesInput
+  }
   'clockify': {
     'create-task': ClockifyCreateTaskInput
     'create-time-entry': ClockifyCreateTimeEntryInput
@@ -17969,6 +32401,19 @@ export interface IntegrationActionInputsByIntegration {
     'find_contact': CloseFindContactInput
     'custom_api_call': CloseCustomApiCallInput
   }
+  'cloudconvert': {
+    'create_job': CloudconvertCreateJobInput
+    'get_job': CloudconvertGetJobInput
+    'list_jobs': CloudconvertListJobsInput
+    'custom_api_call': CloudconvertCustomApiCallInput
+  }
+  'cloudflare': {
+    'list_zones': CloudflareListZonesInput
+    'list_dns_records': CloudflareListDnsRecordsInput
+    'create_dns_record': CloudflareCreateDnsRecordInput
+    'purge_cache': CloudflarePurgeCacheInput
+    'list_workers': CloudflareListWorkersInput
+  }
   'cloudinary': {
     'list_resources': CloudinaryListResourcesInput
     'get_resource': CloudinaryGetResourceInput
@@ -17984,8 +32429,21 @@ export interface IntegrationActionInputsByIntegration {
     'get-table': CodaGetTableInput
     'custom_api_call': CodaCustomApiCallInput
   }
+  'codacy': {
+    'list_repositories': CodacyListRepositoriesInput
+    'get_quality': CodacyGetQualityInput
+    'list_issues': CodacyListIssuesInput
+    'custom_api_call': CodacyCustomApiCallInput
+  }
   'code': {
     'run_code': CodeRunCodeInput
+  }
+  'cognito-forms': {
+    'create_entry': CognitoFormsCreateEntryInput
+    'update_entry': CognitoFormsUpdateEntryInput
+    'delete_entry': CognitoFormsDeleteEntryInput
+    'get_entry': CognitoFormsGetEntryInput
+    'custom_api_call': CognitoFormsCustomApiCallInput
   }
   'cohere': {
     'chat': CohereChatInput
@@ -18066,6 +32524,18 @@ export interface IntegrationActionInputsByIntegration {
     'searchForAProject': CopperSearchForAProjectInput
     'custom_api_call': CopperCustomApiCallInput
   }
+  'courier': {
+    'send_message': CourierSendMessageInput
+    'list_messages': CourierListMessagesInput
+    'get_message': CourierGetMessageInput
+    'get_profile': CourierGetProfileInput
+  }
+  'crates-io': {
+    'search_crates': CratesIoSearchCratesInput
+    'get_crate': CratesIoGetCrateInput
+    'get_crate_versions': CratesIoGetCrateVersionsInput
+    'custom_api_call': CratesIoCustomApiCallInput
+  }
   'crisp': {
     'add_note': CrispAddNoteInput
     'create_conversation': CrispCreateConversationInput
@@ -18074,6 +32544,13 @@ export interface IntegrationActionInputsByIntegration {
     'find_conversation': CrispFindConversationInput
     'find_user_profile': CrispFindUserProfileInput
     'custom_api_call': CrispCustomApiCallInput
+  }
+  'customer-io': {
+    'identify_person': CustomerIoIdentifyPersonInput
+    'track_event': CustomerIoTrackEventInput
+    'send_email': CustomerIoSendEmailInput
+    'list_segments': CustomerIoListSegmentsInput
+    'custom_api_call': CustomerIoCustomApiCallInput
   }
   'data-transformer': {
     'transform_json': DataTransformerTransformJsonInput
@@ -18092,6 +32569,14 @@ export interface IntegrationActionInputsByIntegration {
     'date_math': DatetimeDateMathInput
     'is_business_hours': DatetimeIsBusinessHoursInput
   }
+  'datocms': {
+    'list_item_types': DatocmsListItemTypesInput
+    'list_items': DatocmsListItemsInput
+    'get_item': DatocmsGetItemInput
+    'create_item': DatocmsCreateItemInput
+    'update_item': DatocmsUpdateItemInput
+    'custom_api_call': DatocmsCustomApiCallInput
+  }
   'deel': {
     'list_contracts': DeelListContractsInput
     'get_contract': DeelGetContractInput
@@ -18104,6 +32589,32 @@ export interface IntegrationActionInputsByIntegration {
     'list_projects': DeepgramListProjectsInput
     'text_to_speech': DeepgramTextToSpeechInput
     'custom_api_call': DeepgramCustomApiCallInput
+  }
+  'deepgram-custom': {
+    'transcribe_audio': DeepgramCustomTranscribeAudioInput
+    'transcribe_url': DeepgramCustomTranscribeUrlInput
+    'get_transcript': DeepgramCustomGetTranscriptInput
+    'custom_api_call': DeepgramCustomCustomApiCallInput
+  }
+  'deepl': {
+    'translate_text': DeeplTranslateTextInput
+    'custom_api_call': DeeplCustomApiCallInput
+  }
+  'deepseek': {
+    'ask_deepseek': DeepseekAskDeepseekInput
+  }
+  'digital-ocean': {
+    'list_domains': DigitalOceanListDomainsInput
+    'create_domain': DigitalOceanCreateDomainInput
+    'get_domain': DigitalOceanGetDomainInput
+    'delete_domain': DigitalOceanDeleteDomainInput
+    'list_droplets': DigitalOceanListDropletsInput
+    'get_droplet': DigitalOceanGetDropletInput
+    'create_droplet': DigitalOceanCreateDropletInput
+    'delete_droplet': DigitalOceanDeleteDropletInput
+    'list_database_clusters': DigitalOceanListDatabaseClustersInput
+    'list_database_events': DigitalOceanListDatabaseEventsInput
+    'custom_api_call': DigitalOceanCustomApiCallInput
   }
   'discord': {
     'sendMessageWithBot': DiscordSendMessageWithBotInput
@@ -18131,11 +32642,44 @@ export interface IntegrationActionInputsByIntegration {
     'send_private_message': DiscourseSendPrivateMessageInput
     'custom_api_call': DiscourseCustomApiCallInput
   }
+  'docker-hub': {
+    'list_repositories': DockerHubListRepositoriesInput
+    'list_tags': DockerHubListTagsInput
+    'get_tag': DockerHubGetTagInput
+    'search_images': DockerHubSearchImagesInput
+    'custom_api_call': DockerHubCustomApiCallInput
+  }
   'docusign': {
     'listEnvelopes': DocusignListEnvelopesInput
     'getEnvelope': DocusignGetEnvelopeInput
     'getDocument': DocusignGetDocumentInput
     'custom_api_call': DocusignCustomApiCallInput
+  }
+  'doodle': {
+    'create_poll': DoodleCreatePollInput
+    'list_polls': DoodleListPollsInput
+    'get_poll': DoodleGetPollInput
+    'custom_api_call': DoodleCustomApiCallInput
+  }
+  'doxy-me': {
+    'create_room': DoxyMeCreateRoomInput
+    'get_room': DoxyMeGetRoomInput
+    'list_rooms': DoxyMeListRoomsInput
+    'custom_api_call': DoxyMeCustomApiCallInput
+  }
+  'drata': {
+    'list_controls': DrataListControlsInput
+    'list_personnel': DrataListPersonnelInput
+    'list_vendors': DrataListVendorsInput
+    'list_risks': DrataListRisksInput
+    'list_assets': DrataListAssetsInput
+  }
+  'drchrono': {
+    'list_patients': DrchronoListPatientsInput
+    'get_patient': DrchronoGetPatientInput
+    'list_appointments': DrchronoListAppointmentsInput
+    'list_offices': DrchronoListOfficesInput
+    'list_doctors': DrchronoListDoctorsInput
   }
   'drip': {
     'apply_tag_to_subscriber': DripApplyTagToSubscriberInput
@@ -18159,14 +32703,95 @@ export interface IntegrationActionInputsByIntegration {
     'list_dropbox_folder': DropboxListDropboxFolderInput
     'custom_api_call': DropboxCustomApiCallInput
   }
+  'dropbox-sign': {
+    'list_signature_requests': DropboxSignListSignatureRequestsInput
+    'get_signature_request': DropboxSignGetSignatureRequestInput
+    'send_signature_request': DropboxSignSendSignatureRequestInput
+    'cancel_signature_request': DropboxSignCancelSignatureRequestInput
+  }
+  'dub': {
+    'create_link': DubCreateLinkInput
+    'get_link': DubGetLinkInput
+    'list_links': DubListLinksInput
+    'update_link': DubUpdateLinkInput
+    'custom_api_call': DubCustomApiCallInput
+  }
+  'dwolla': {
+    'list_customers': DwollaListCustomersInput
+    'create_customer': DwollaCreateCustomerInput
+    'create_transfer': DwollaCreateTransferInput
+    'list_transfers': DwollaListTransfersInput
+  }
+  'easypost': {
+    'create_shipment': EasypostCreateShipmentInput
+    'buy_shipment': EasypostBuyShipmentInput
+    'list_trackers': EasypostListTrackersInput
+    'create_address': EasypostCreateAddressInput
+  }
+  'ebay': {
+    'search_items': EbaySearchItemsInput
+    'get_item': EbayGetItemInput
+    'list_orders': EbayListOrdersInput
+    'custom_api_call': EbayCustomApiCallInput
+  }
+  'ecwid': {
+    'list_products': EcwidListProductsInput
+    'get_product': EcwidGetProductInput
+    'list_orders': EcwidListOrdersInput
+    'get_order': EcwidGetOrderInput
+    'update_order': EcwidUpdateOrderInput
+    'custom_api_call': EcwidCustomApiCallInput
+  }
+  'elasticsearch': {
+    'search': ElasticsearchSearchInput
+    'index_document': ElasticsearchIndexDocumentInput
+    'get_document': ElasticsearchGetDocumentInput
+    'delete_document': ElasticsearchDeleteDocumentInput
+    'list_indices': ElasticsearchListIndicesInput
+  }
   'elevenlabs': {
     'elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
     'custom_api_call': ElevenlabsCustomApiCallInput
+  }
+  'emailoctopus': {
+    'add_or_update_contact': EmailoctopusAddOrUpdateContactInput
+    'unsubscribe_contact': EmailoctopusUnsubscribeContactInput
+    'update_contact_email': EmailoctopusUpdateContactEmailInput
+    'add_tag_to_contact': EmailoctopusAddTagToContactInput
+    'remove_tag_from_contact': EmailoctopusRemoveTagFromContactInput
+    'create_list': EmailoctopusCreateListInput
+    'find_contact': EmailoctopusFindContactInput
+    'custom_api_call': EmailoctopusCustomApiCallInput
+  }
+  'etsy': {
+    'list_listings': EtsyListListingsInput
+    'get_listing': EtsyGetListingInput
+    'create_listing': EtsyCreateListingInput
+    'list_receipts': EtsyListReceiptsInput
+    'custom_api_call': EtsyCustomApiCallInput
+  }
+  'exa': {
+    'get_contents': ExaGetContentsInput
+    'generate_answer': ExaGenerateAnswerInput
+    'perform_search': ExaPerformSearchInput
+    'find_similar_links': ExaFindSimilarLinksInput
+    'custom_api_call': ExaCustomApiCallInput
+  }
+  'facebook-ads': {
+    'list_campaigns': FacebookAdsListCampaignsInput
+    'get_campaign': FacebookAdsGetCampaignInput
+    'list_adsets': FacebookAdsListAdsetsInput
+    'get_ad_insights': FacebookAdsGetAdInsightsInput
+    'list_ads': FacebookAdsListAdsInput
   }
   'facebook-pages': {
     'create_post': FacebookPagesCreatePostInput
     'create_photo_post': FacebookPagesCreatePhotoPostInput
     'create_video_post': FacebookPagesCreateVideoPostInput
+  }
+  'fellow': {
+    'get-note': FellowGetNoteInput
+    'custom_api_call': FellowCustomApiCallInput
   }
   'figma': {
     'get_file': FigmaGetFileInput
@@ -18179,6 +32804,39 @@ export interface IntegrationActionInputsByIntegration {
     'getSingleResponse': FilloutFormsGetSingleResponseInput
     'findFormByTitle': FilloutFormsFindFormByTitleInput
     'custom_api_call': FilloutFormsCustomApiCallInput
+  }
+  'firebase': {
+    'list_documents': FirebaseListDocumentsInput
+    'get_document': FirebaseGetDocumentInput
+    'create_document': FirebaseCreateDocumentInput
+    'run_query': FirebaseRunQueryInput
+    'delete_document': FirebaseDeleteDocumentInput
+  }
+  'firecrawl': {
+    'scrape': FirecrawlScrapeInput
+    'extract': FirecrawlExtractInput
+    'crawl': FirecrawlCrawlInput
+    'crawlResults': FirecrawlCrawlResultsInput
+    'map': FirecrawlMapInput
+    'custom_api_call': FirecrawlCustomApiCallInput
+  }
+  'fly-io': {
+    'list_apps': FlyIoListAppsInput
+    'list_machines': FlyIoListMachinesInput
+    'get_machine': FlyIoGetMachineInput
+    'create_machine': FlyIoCreateMachineInput
+  }
+  'follow-up-boss': {
+    'list_people': FollowUpBossListPeopleInput
+    'get_person': FollowUpBossGetPersonInput
+    'create_person': FollowUpBossCreatePersonInput
+    'list_events': FollowUpBossListEventsInput
+  }
+  'formbricks': {
+    'list_surveys': FormbricksListSurveysInput
+    'get_survey': FormbricksGetSurveyInput
+    'get_responses': FormbricksGetResponsesInput
+    'custom_api_call': FormbricksCustomApiCallInput
   }
   'formstack': {
     'createSubmission': FormstackCreateSubmissionInput
@@ -18228,11 +32886,39 @@ export interface IntegrationActionInputsByIntegration {
     'updateConversation': FrontUpdateConversationInput
     'updateLink': FrontUpdateLinkInput
   }
+  'sftp': {
+    'create_file': SftpCreateFileInput
+    'upload_file': SftpUploadFileInput
+    'read_file_content': SftpReadFileContentInput
+    'deleteFile': SftpDeleteFileInput
+    'createFolder': SftpCreateFolderInput
+    'deleteFolder': SftpDeleteFolderInput
+    'listFolderContents': SftpListFolderContentsInput
+    'renameFileOrFolder': SftpRenameFileOrFolderInput
+  }
+  'gainsight': {
+    'list_companies': GainsightListCompaniesInput
+    'get_company': GainsightGetCompanyInput
+    'list_relationships': GainsightListRelationshipsInput
+    'list_ctas': GainsightListCtasInput
+    'list_people': GainsightListPeopleInput
+  }
+  'gcloud-pubsub': {
+    'publish_to_topic': GcloudPubsubPublishToTopicInput
+  }
   'ghost': {
     'list_posts': GhostListPostsInput
     'get_post': GhostGetPostInput
     'create_post': GhostCreatePostInput
     'list_members': GhostListMembersInput
+  }
+  'gitbook': {
+    'list_spaces': GitbookListSpacesInput
+    'get_space': GitbookGetSpaceInput
+    'get_page': GitbookGetPageInput
+    'search_content': GitbookSearchContentInput
+    'list_collections': GitbookListCollectionsInput
+    'custom_api_call': GitbookCustomApiCallInput
   }
   'github': {
     'github_create_issue': GithubGithubCreateIssueInput
@@ -18291,11 +32977,49 @@ export interface IntegrationActionInputsByIntegration {
     'google_calendar_get_event_by_id': GoogleCalendarGoogleCalendarGetEventByIdInput
     'custom_api_call': GoogleCalendarCustomApiCallInput
   }
+  'googlechat': {
+    'sendAMessage': GooglechatSendAMessageInput
+    'getDirectMessageDetails': GooglechatGetDirectMessageDetailsInput
+    'addASpaceMember': GooglechatAddASpaceMemberInput
+    'getMessageDetails': GooglechatGetMessageDetailsInput
+    'searchMessages': GooglechatSearchMessagesInput
+    'findMember': GooglechatFindMemberInput
+  }
+  'google-classroom': {
+    'list_courses': GoogleClassroomListCoursesInput
+    'get_course': GoogleClassroomGetCourseInput
+    'list_students': GoogleClassroomListStudentsInput
+    'create_coursework': GoogleClassroomCreateCourseworkInput
+    'list_submissions': GoogleClassroomListSubmissionsInput
+    'custom_api_call': GoogleClassroomCustomApiCallInput
+  }
+  'google-cloud-storage': {
+    'create_bucket': GoogleCloudStorageCreateBucketInput
+    'delete_empty_bucket': GoogleCloudStorageDeleteEmptyBucketInput
+    'clone_object': GoogleCloudStorageCloneObjectInput
+    'delete_object': GoogleCloudStorageDeleteObjectInput
+    'search_objects': GoogleCloudStorageSearchObjectsInput
+    'search_buckets': GoogleCloudStorageSearchBucketsInput
+    'create_object_acl': GoogleCloudStorageCreateObjectAclInput
+    'delete_object_acl': GoogleCloudStorageDeleteObjectAclInput
+    'create_bucket_acl': GoogleCloudStorageCreateBucketAclInput
+    'delete_bucket_acl': GoogleCloudStorageDeleteBucketAclInput
+    'create_bucket_default_object_acl': GoogleCloudStorageCreateBucketDefaultObjectAclInput
+    'delete_bucket_default_object_acl': GoogleCloudStorageDeleteBucketDefaultObjectAclInput
+  }
   'google-contacts': {
     'add_contact': GoogleContactsAddContactInput
     'update_contact': GoogleContactsUpdateContactInput
     'search_contact': GoogleContactsSearchContactInput
     'custom_api_call': GoogleContactsCustomApiCallInput
+  }
+  'google-docs': {
+    'create_document': GoogleDocsCreateDocumentInput
+    'create_document_based_on_template': GoogleDocsCreateDocumentBasedOnTemplateInput
+    'read_document': GoogleDocsReadDocumentInput
+    'google-docs-find-document': GoogleDocsGoogleDocsFindDocumentInput
+    'custom_api_call': GoogleDocsCustomApiCallInput
+    'append_text': GoogleDocsAppendTextInput
   }
   'google-drive': {
     'create_new_gdrive_folder': GoogleDriveCreateNewGdriveFolderInput
@@ -18316,6 +33040,10 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': GoogleDriveCustomApiCallInput
   }
   'google-forms': {
+    'list_forms': GoogleFormsListFormsInput
+    'get_form': GoogleFormsGetFormInput
+    'get_responses': GoogleFormsGetResponsesInput
+    'get_response': GoogleFormsGetResponseInput
     'custom_api_call': GoogleFormsCustomApiCallInput
   }
   'google-gemini': {
@@ -18359,15 +33087,44 @@ export interface IntegrationActionInputsByIntegration {
     'export_sheet': GoogleSheetsExportSheetInput
     'custom_api_call': GoogleSheetsCustomApiCallInput
   }
+  'google-slides': {
+    'get_presentation': GoogleSlidesGetPresentationInput
+    'refresh_sheets_charts': GoogleSlidesRefreshSheetsChartsInput
+    'generate_from_template': GoogleSlidesGenerateFromTemplateInput
+    'custom_api_call': GoogleSlidesCustomApiCallInput
+  }
   'google-tasks': {
     'add_task': GoogleTasksAddTaskInput
     'custom_api_call': GoogleTasksCustomApiCallInput
+  }
+  'gorgias': {
+    'list_tickets': GorgiasListTicketsInput
+    'get_ticket': GorgiasGetTicketInput
+    'create_ticket': GorgiasCreateTicketInput
+    'list_customers': GorgiasListCustomersInput
+  }
+  'grafana': {
+    'list_dashboards': GrafanaListDashboardsInput
+    'get_dashboard': GrafanaGetDashboardInput
+    'create_alert_rule': GrafanaCreateAlertRuleInput
+    'list_alerts': GrafanaListAlertsInput
+    'custom_api_call': GrafanaCustomApiCallInput
+  }
+  'graphql': {
+    'send_request': GraphqlSendRequestInput
   }
   'greenhouse': {
     'list_candidates': GreenhouseListCandidatesInput
     'get_candidate': GreenhouseGetCandidateInput
     'list_jobs': GreenhouseListJobsInput
     'list_applications': GreenhouseListApplicationsInput
+  }
+  'grist': {
+    'grist-create-record': GristGristCreateRecordInput
+    'grist-search-record': GristGristSearchRecordInput
+    'grist-update-record': GristGristUpdateRecordInput
+    'grist-upload-attachments-to-document': GristGristUploadAttachmentsToDocumentInput
+    'custom_api_call': GristCustomApiCallInput
   }
   'groq': {
     'ask-ai': GroqAskAiInput
@@ -18400,6 +33157,24 @@ export interface IntegrationActionInputsByIntegration {
     'decode': HashEncodeDecodeInput
     'generate_uuid': HashEncodeGenerateUuidInput
   }
+  'vault': {
+    'read_secret': VaultReadSecretInput
+    'write_secret': VaultWriteSecretInput
+    'list_secrets': VaultListSecretsInput
+    'get_health': VaultGetHealthInput
+    'delete_secret': VaultDeleteSecretInput
+  }
+  'heap': {
+    'track_event': HeapTrackEventInput
+    'add_user_properties': HeapAddUserPropertiesInput
+    'custom_api_call': HeapCustomApiCallInput
+  }
+  'hellosign': {
+    'send_signature_request': HellosignSendSignatureRequestInput
+    'get_signature_request': HellosignGetSignatureRequestInput
+    'list_signature_requests': HellosignListSignatureRequestsInput
+    'custom_api_call': HellosignCustomApiCallInput
+  }
   'help-scout': {
     'create_conversation': HelpScoutCreateConversationInput
     'send_reply': HelpScoutSendReplyInput
@@ -18411,11 +33186,74 @@ export interface IntegrationActionInputsByIntegration {
     'find_user': HelpScoutFindUserInput
     'custom_api_call': HelpScoutCustomApiCallInput
   }
+  'heygen': {
+    'create-video-from-template': HeygenCreateVideoFromTemplateInput
+    'retrieve-translated-video-status': HeygenRetrieveTranslatedVideoStatusInput
+    'retrieve_video_status': HeygenRetrieveVideoStatusInput
+    'retrieve_sharable_video_url': HeygenRetrieveSharableVideoUrlInput
+    'upload_asset': HeygenUploadAssetInput
+    'translate_video': HeygenTranslateVideoInput
+    'custom_api_call': HeygenCustomApiCallInput
+  }
   'hibob': {
     'list_employees': HibobListEmployeesInput
     'get_employee': HibobGetEmployeeInput
     'list_time_off': HibobListTimeOffInput
     'list_company_lists': HibobListCompanyListsInput
+  }
+  'hotjar': {
+    'list_surveys': HotjarListSurveysInput
+    'get_survey_responses': HotjarGetSurveyResponsesInput
+    'list_sites': HotjarListSitesInput
+    'custom_api_call': HotjarCustomApiCallInput
+  }
+  'housecall-pro': {
+    'create_customer': HousecallProCreateCustomerInput
+    'get_customers': HousecallProGetCustomersInput
+    'get_customer': HousecallProGetCustomerInput
+    'update_customer': HousecallProUpdateCustomerInput
+    'get_customer_addresses': HousecallProGetCustomerAddressesInput
+    'create_customer_address': HousecallProCreateCustomerAddressInput
+    'get_customer_address': HousecallProGetCustomerAddressInput
+    'create_job': HousecallProCreateJobInput
+    'get_jobs': HousecallProGetJobsInput
+    'get_job': HousecallProGetJobInput
+    'update_job_schedule': HousecallProUpdateJobScheduleInput
+    'delete_job_schedule': HousecallProDeleteJobScheduleInput
+    'create_job_appointment': HousecallProCreateJobAppointmentInput
+    'get_job_appointments': HousecallProGetJobAppointmentsInput
+    'update_job_appointment': HousecallProUpdateJobAppointmentInput
+    'delete_job_appointment': HousecallProDeleteJobAppointmentInput
+    'add_job_note': HousecallProAddJobNoteInput
+    'delete_job_note': HousecallProDeleteJobNoteInput
+    'add_job_attachment': HousecallProAddJobAttachmentInput
+    'add_job_line_item': HousecallProAddJobLineItemInput
+    'update_job_line_item': HousecallProUpdateJobLineItemInput
+    'delete_job_line_item': HousecallProDeleteJobLineItemInput
+    'get_job_line_items': HousecallProGetJobLineItemsInput
+    'add_job_tag': HousecallProAddJobTagInput
+    'remove_job_tag': HousecallProRemoveJobTagInput
+    'create_job_link': HousecallProCreateJobLinkInput
+    'get_job_invoices': HousecallProGetJobInvoicesInput
+    'get_job_input_materials': HousecallProGetJobInputMaterialsInput
+    'bulk_update_job_line_items': HousecallProBulkUpdateJobLineItemsInput
+    'bulk_update_job_input_materials': HousecallProBulkUpdateJobInputMaterialsInput
+    'dispatch_job_to_employees': HousecallProDispatchJobToEmployeesInput
+    'lock_job': HousecallProLockJobInput
+    'lock_jobs': HousecallProLockJobsInput
+    'create_estimate': HousecallProCreateEstimateInput
+    'get_estimate': HousecallProGetEstimateInput
+    'get_estimates': HousecallProGetEstimatesInput
+    'create_estimate_option_note': HousecallProCreateEstimateOptionNoteInput
+    'delete_estimate_option_note': HousecallProDeleteEstimateOptionNoteInput
+    'create_estimate_option_attachment': HousecallProCreateEstimateOptionAttachmentInput
+    'create_estimate_option_link': HousecallProCreateEstimateOptionLinkInput
+    'update_estimate_option_schedule': HousecallProUpdateEstimateOptionScheduleInput
+    'create_lead': HousecallProCreateLeadInput
+    'get_lead': HousecallProGetLeadInput
+    'get_leads': HousecallProGetLeadsInput
+    'convert_lead_to_estimate_or_job': HousecallProConvertLeadToEstimateOrJobInput
+    'custom_api_call': HousecallProCustomApiCallInput
   }
   'http': {
     'send_request': HttpSendRequestInput
@@ -18477,11 +33315,43 @@ export interface IntegrationActionInputsByIntegration {
     'object_detection': HuggingFaceObjectDetectionInput
     'image_classification': HuggingFaceImageClassificationInput
   }
+  'hunter-io': {
+    'find_email': HunterIoFindEmailInput
+    'verify_email': HunterIoVerifyEmailInput
+    'domain_search': HunterIoDomainSearchInput
+    'custom_api_call': HunterIoCustomApiCallInput
+  }
+  'ideogram': {
+    'generate_image': IdeogramGenerateImageInput
+    'remix_image': IdeogramRemixImageInput
+    'describe_image': IdeogramDescribeImageInput
+    'custom_api_call': IdeogramCustomApiCallInput
+  }
+  'imanage': {
+    'search_documents': ImanageSearchDocumentsInput
+    'get_document': ImanageGetDocumentInput
+    'upload_document': ImanageUploadDocumentInput
+    'list_workspaces': ImanageListWorkspacesInput
+    'custom_api_call': ImanageCustomApiCallInput
+  }
   'imap': {
     'mark_email_read': ImapMarkEmailReadInput
     'copy_email': ImapCopyEmailInput
     'move_email': ImapMoveEmailInput
     'delete_email': ImapDeleteEmailInput
+  }
+  'infobip': {
+    'send_sms': InfobipSendSmsInput
+    'send_email': InfobipSendEmailInput
+    'get_delivery_report': InfobipGetDeliveryReportInput
+    'custom_api_call': InfobipCustomApiCallInput
+  }
+  'insightly': {
+    'create_record': InsightlyCreateRecordInput
+    'update_record': InsightlyUpdateRecordInput
+    'get_record': InsightlyGetRecordInput
+    'delete_record': InsightlyDeleteRecordInput
+    'find_records': InsightlyFindRecordsInput
   }
   'instagram-business': {
     'upload_photo': InstagramBusinessUploadPhotoInput
@@ -18510,6 +33380,25 @@ export interface IntegrationActionInputsByIntegration {
     'get-conversation': IntercomGetConversationInput
     'custom_api_call': IntercomCustomApiCallInput
   }
+  'ipinfo': {
+    'lookup_ip': IpinfoLookupIpInput
+    'get_asn': IpinfoGetAsnInput
+    'custom_api_call': IpinfoCustomApiCallInput
+  }
+  'jazzhr': {
+    'list_applicants': JazzhrListApplicantsInput
+    'get_applicant': JazzhrGetApplicantInput
+    'list_jobs': JazzhrListJobsInput
+    'get_job': JazzhrGetJobInput
+    'list_activities': JazzhrListActivitiesInput
+  }
+  'jina-ai': {
+    'extract_webpage_content': JinaAiExtractWebpageContentInput
+    'web_search_summarization': JinaAiWebSearchSummarizationInput
+    'deepsearch_query': JinaAiDeepsearchQueryInput
+    'classify_content': JinaAiClassifyContentInput
+    'train_custom_classifier': JinaAiTrainCustomClassifierInput
+  }
   'jira-cloud': {
     'create_issue': JiraCloudCreateIssueInput
     'update_issue': JiraCloudUpdateIssueInput
@@ -18529,7 +33418,35 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': JiraCloudCustomApiCallInput
   }
   'jotform': {
+    'list_forms': JotformListFormsInput
+    'get_form': JotformGetFormInput
+    'get_submissions': JotformGetSubmissionsInput
+    'create_submission': JotformCreateSubmissionInput
     'custom_api_call': JotformCustomApiCallInput
+  }
+  'jumpcloud': {
+    'list_system_users': JumpcloudListSystemUsersInput
+    'get_system_user': JumpcloudGetSystemUserInput
+    'list_systems': JumpcloudListSystemsInput
+    'list_user_groups': JumpcloudListUserGroupsInput
+  }
+  'kajabi': {
+    'list_products': KajabiListProductsInput
+    'list_members': KajabiListMembersInput
+    'get_member': KajabiGetMemberInput
+    'list_offers': KajabiListOffersInput
+    'custom_api_call': KajabiCustomApiCallInput
+  }
+  'kareo': {
+    'list_patients': KareoListPatientsInput
+    'get_patient': KareoGetPatientInput
+    'list_appointments': KareoListAppointmentsInput
+    'create_appointment': KareoCreateAppointmentInput
+    'custom_api_call': KareoCustomApiCallInput
+  }
+  'kissflow': {
+    'downloadAttachmentFromFormField': KissflowDownloadAttachmentFromFormFieldInput
+    'custom_api_call': KissflowCustomApiCallInput
   }
   'klaviyo': {
     'list_profiles': KlaviyoListProfilesInput
@@ -18538,12 +33455,93 @@ export interface IntegrationActionInputsByIntegration {
     'list_lists': KlaviyoListListsInput
     'list_campaigns': KlaviyoListCampaignsInput
   }
+  'knock': {
+    'trigger_workflow': KnockTriggerWorkflowInput
+    'list_users': KnockListUsersInput
+    'get_user': KnockGetUserInput
+    'list_messages': KnockListMessagesInput
+  }
+  'kommo': {
+    'find_lead': KommoFindLeadInput
+    'update_contact': KommoUpdateContactInput
+    'create_lead': KommoCreateLeadInput
+    'update_lead': KommoUpdateLeadInput
+    'create_contact': KommoCreateContactInput
+    'find_contact': KommoFindContactInput
+    'find_company': KommoFindCompanyInput
+    'custom_api_call': KommoCustomApiCallInput
+  }
   'kv-store': {
     'put': KvStorePutInput
     'get': KvStoreGetInput
     'delete': KvStoreDeleteInput
     'add_to_list': KvStoreAddToListInput
     'remove_from_list': KvStoreRemoveFromListInput
+  }
+  'kvcore': {
+    'list_leads': KvcoreListLeadsInput
+    'get_lead': KvcoreGetLeadInput
+    'create_lead': KvcoreCreateLeadInput
+    'list_properties': KvcoreListPropertiesInput
+    'custom_api_call': KvcoreCustomApiCallInput
+  }
+  'langchain': {
+    'list_runs': LangchainListRunsInput
+    'get_run': LangchainGetRunInput
+    'list_projects': LangchainListProjectsInput
+    'list_datasets': LangchainListDatasetsInput
+    'custom_api_call': LangchainCustomApiCallInput
+  }
+  'langfuse': {
+    'list_traces': LangfuseListTracesInput
+    'get_trace': LangfuseGetTraceInput
+    'list_generations': LangfuseListGenerationsInput
+    'score_trace': LangfuseScoreTraceInput
+  }
+  'langsmith': {
+    'list_runs': LangsmithListRunsInput
+    'get_run': LangsmithGetRunInput
+    'list_datasets': LangsmithListDatasetsInput
+    'list_projects': LangsmithListProjectsInput
+  }
+  'later': {
+    'create_post': LaterCreatePostInput
+    'list_posts': LaterListPostsInput
+    'list_profiles': LaterListProfilesInput
+    'custom_api_call': LaterCustomApiCallInput
+  }
+  'lead-connector': {
+    'create_contact': LeadConnectorCreateContactInput
+    'update_contact': LeadConnectorUpdateContactInput
+    'add_contact_to_campaign': LeadConnectorAddContactToCampaignInput
+    'add_contact_to_workflow': LeadConnectorAddContactToWorkflowInput
+    'add_note_to_contact': LeadConnectorAddNoteToContactInput
+    'search_contacts': LeadConnectorSearchContactsInput
+    'create_opportunity': LeadConnectorCreateOpportunityInput
+    'update_opportunity': LeadConnectorUpdateOpportunityInput
+    'create_task': LeadConnectorCreateTaskInput
+    'update_task': LeadConnectorUpdateTaskInput
+    'custom_api_call': LeadConnectorCustomApiCallInput
+  }
+  'lemlist': {
+    'markLeadFromOneCampaignAsInterested': LemlistMarkLeadFromOneCampaignAsInterestedInput
+    'markLeadFromOneCampaignAsNotInterested': LemlistMarkLeadFromOneCampaignAsNotInterestedInput
+    'markLeadFromAllCampaignAsInterested': LemlistMarkLeadFromAllCampaignAsInterestedInput
+    'markLeadFromAllCampaignsAsNotInterested': LemlistMarkLeadFromAllCampaignsAsNotInterestedInput
+    'pauseLeadFromAllOrSpecificCampaigns': LemlistPauseLeadFromAllOrSpecificCampaignsInput
+    'resumeLeadFromAllOrSpecificCampaigns': LemlistResumeLeadFromAllOrSpecificCampaignsInput
+    'removeLeadFromUnsubscribeList': LemlistRemoveLeadFromUnsubscribeListInput
+    'removeLeadFromACampaign': LemlistRemoveLeadFromACampaignInput
+    'unsubscribeALead': LemlistUnsubscribeALeadInput
+    'addLeadToACampaign': LemlistAddLeadToACampaignInput
+    'updateLeadFromCampaign': LemlistUpdateLeadFromCampaignInput
+    'searchLead': LemlistSearchLeadInput
+  }
+  'leonardo-ai': {
+    'generate_image': LeonardoAiGenerateImageInput
+    'get_generation': LeonardoAiGetGenerationInput
+    'list_models': LeonardoAiListModelsInput
+    'custom_api_call': LeonardoAiCustomApiCallInput
   }
   'lever': {
     'getOpportunity': LeverGetOpportunityInput
@@ -18552,6 +33550,16 @@ export interface IntegrationActionInputsByIntegration {
     'listOpportunityFeedback': LeverListOpportunityFeedbackInput
     'addFeedbackToOpportunity': LeverAddFeedbackToOpportunityInput
     'custom_api_call': LeverCustomApiCallInput
+  }
+  'libretranslate': {
+    'translate_text': LibretranslateTranslateTextInput
+    'detect_language': LibretranslateDetectLanguageInput
+    'list_languages': LibretranslateListLanguagesInput
+    'custom_api_call': LibretranslateCustomApiCallInput
+  }
+  'line': {
+    'push_message': LinePushMessageInput
+    'custom_api_call': LineCustomApiCallInput
   }
   'linear': {
     'linear_create_issue': LinearLinearCreateIssueInput
@@ -18565,6 +33573,35 @@ export interface IntegrationActionInputsByIntegration {
     'create_share_update': LinkedinCreateShareUpdateInput
     'create_company_update': LinkedinCreateCompanyUpdateInput
     'custom_api_call': LinkedinCustomApiCallInput
+  }
+  'linkedin-ads': {
+    'list_ad_accounts': LinkedinAdsListAdAccountsInput
+    'list_campaigns': LinkedinAdsListCampaignsInput
+    'get_campaign': LinkedinAdsGetCampaignInput
+    'get_ad_analytics': LinkedinAdsGetAdAnalyticsInput
+    'list_campaign_groups': LinkedinAdsListCampaignGroupsInput
+  }
+  'loom': {
+    'list_videos': LoomListVideosInput
+    'get_video': LoomGetVideoInput
+    'update_video': LoomUpdateVideoInput
+    'delete_video': LoomDeleteVideoInput
+    'list_folders': LoomListFoldersInput
+  }
+  'loops': {
+    'send_event': LoopsSendEventInput
+    'create_contact': LoopsCreateContactInput
+    'update_contact': LoopsUpdateContactInput
+    'send_transactional': LoopsSendTransactionalInput
+    'custom_api_call': LoopsCustomApiCallInput
+  }
+  'magento': {
+    'list_products': MagentoListProductsInput
+    'get_product': MagentoGetProductInput
+    'create_product': MagentoCreateProductInput
+    'list_orders': MagentoListOrdersInput
+    'get_order': MagentoGetOrderInput
+    'custom_api_call': MagentoCustomApiCallInput
   }
   'mailchimp': {
     'add_member_to_list': MailchimpAddMemberToListInput
@@ -18582,9 +33619,74 @@ export interface IntegrationActionInputsByIntegration {
     'find_tag': MailchimpFindTagInput
     'find_subscriber': MailchimpFindSubscriberInput
   }
+  'mailer-lite': {
+    'add_subscriber_to_group': MailerLiteAddSubscriberToGroupInput
+    'add_or_update_subscriber': MailerLiteAddOrUpdateSubscriberInput
+    'find_subscriber': MailerLiteFindSubscriberInput
+    'remove_subscriber_from_group': MailerLiteRemoveSubscriberFromGroupInput
+    'custom_api_call': MailerLiteCustomApiCallInput
+  }
+  'mailjet': {
+    'send_email': MailjetSendEmailInput
+  }
+  'manychat': {
+    'addTagToUser': ManychatAddTagToUserInput
+    'createSubscriber': ManychatCreateSubscriberInput
+    'findUserByCustomField': ManychatFindUserByCustomFieldInput
+    'findUserByName': ManychatFindUserByNameInput
+    'removeTagFromUser': ManychatRemoveTagFromUserInput
+    'sendContentToUser': ManychatSendContentToUserInput
+    'setCustomField': ManychatSetCustomFieldInput
+  }
   'mastodon': {
     'post_status': MastodonPostStatusInput
     'custom_api_call': MastodonCustomApiCallInput
+  }
+  'mattermost': {
+    'send_message': MattermostSendMessageInput
+    'custom_api_call': MattermostCustomApiCallInput
+  }
+  'meistertask': {
+    'create_label': MeistertaskCreateLabelInput
+    'create_task_label': MeistertaskCreateTaskLabelInput
+    'create_attachment': MeistertaskCreateAttachmentInput
+    'create_task': MeistertaskCreateTaskInput
+    'update_task': MeistertaskUpdateTaskInput
+    'find_attachment': MeistertaskFindAttachmentInput
+    'find_label': MeistertaskFindLabelInput
+    'find_person': MeistertaskFindPersonInput
+    'find_task': MeistertaskFindTaskInput
+    'find_or_create_attachment': MeistertaskFindOrCreateAttachmentInput
+    'find_or_create_task': MeistertaskFindOrCreateTaskInput
+    'find_or_create_label': MeistertaskFindOrCreateLabelInput
+    'custom_api_call': MeistertaskCustomApiCallInput
+  }
+  'metabase': {
+    'getQuestion': MetabaseGetQuestionInput
+    'getQuestionPngPreview': MetabaseGetQuestionPngPreviewInput
+    'getDashboardQuestions': MetabaseGetDashboardQuestionsInput
+    'embedQuestion': MetabaseEmbedQuestionInput
+  }
+  'microsoft-365-planner': {
+    'createPlan': Microsoft365PlannerCreatePlanInput
+    'createBucket': Microsoft365PlannerCreateBucketInput
+    'createTask': Microsoft365PlannerCreateTaskInput
+    'deleteBucket': Microsoft365PlannerDeleteBucketInput
+    'deleteTask': Microsoft365PlannerDeleteTaskInput
+    'updatePlan': Microsoft365PlannerUpdatePlanInput
+    'updateBucket': Microsoft365PlannerUpdateBucketInput
+    'updateTask': Microsoft365PlannerUpdateTaskInput
+    'findAPlan': Microsoft365PlannerFindAPlanInput
+    'getABucket': Microsoft365PlannerGetABucketInput
+    'findTask': Microsoft365PlannerFindTaskInput
+    'custom_api_call': Microsoft365PlannerCustomApiCallInput
+  }
+  'microsoft-dynamics-crm': {
+    'dynamics_crm_create_record': MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput
+    'dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
+    'dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
+    'dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
+    'custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
   }
   'microsoft-excel-365': {
     'append_row': MicrosoftExcel365AppendRowInput
@@ -18653,6 +33755,11 @@ export interface IntegrationActionInputsByIntegration {
     'delete_event': MicrosoftOutlookCalendarDeleteEventInput
     'list_events': MicrosoftOutlookCalendarListEventsInput
     'custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
+  }
+  'microsoft-power-bi': {
+    'create_dataset': MicrosoftPowerBiCreateDatasetInput
+    'push_rows_to_dataset_table': MicrosoftPowerBiPushRowsToDatasetTableInput
+    'custom_api_call': MicrosoftPowerBiCustomApiCallInput
   }
   'microsoft-sharepoint': {
     'microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
@@ -18744,11 +33851,26 @@ export interface IntegrationActionInputsByIntegration {
     'find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
     'aggregate_documents': MongodbAggregateDocumentsInput
   }
+  'moodle': {
+    'list_courses': MoodleListCoursesInput
+    'get_course': MoodleGetCourseInput
+    'list_users': MoodleListUsersInput
+    'create_user': MoodleCreateUserInput
+    'get_grades': MoodleGetGradesInput
+    'custom_api_call': MoodleCustomApiCallInput
+  }
   'mux': {
     'list_assets': MuxListAssetsInput
     'get_asset': MuxGetAssetInput
     'create_asset': MuxCreateAssetInput
     'list_live_streams': MuxListLiveStreamsInput
+  }
+  'mycase': {
+    'list_cases': MycaseListCasesInput
+    'get_case': MycaseGetCaseInput
+    'list_contacts': MycaseListContactsInput
+    'create_contact': MycaseCreateContactInput
+    'custom_api_call': MycaseCustomApiCallInput
   }
   'mysql': {
     'find_rows': MysqlFindRowsInput
@@ -18771,6 +33893,13 @@ export interface IntegrationActionInputsByIntegration {
     'executeDataset': NetsuiteExecuteDatasetInput
     'custom_api_call': NetsuiteCustomApiCallInput
   }
+  'nocodb': {
+    'nocodb-create-record': NocodbNocodbCreateRecordInput
+    'nocodb-delete-record': NocodbNocodbDeleteRecordInput
+    'nocodb-update-record': NocodbNocodbUpdateRecordInput
+    'nocodb-get-record': NocodbNocodbGetRecordInput
+    'nocodb-search-records': NocodbNocodbSearchRecordsInput
+  }
   'notion': {
     'create_database_item': NotionCreateDatabaseItemInput
     'update_database_item': NotionUpdateDatabaseItemInput
@@ -18786,11 +33915,44 @@ export interface IntegrationActionInputsByIntegration {
     'find_page': NotionFindPageInput
     'custom_api_call': NotionCustomApiCallInput
   }
+  'novu': {
+    'trigger_event': NovuTriggerEventInput
+    'list_subscribers': NovuListSubscribersInput
+    'create_subscriber': NovuCreateSubscriberInput
+    'get_subscriber': NovuGetSubscriberInput
+    'list_notifications': NovuListNotificationsInput
+  }
+  'npm-registry': {
+    'search_packages': NpmRegistrySearchPackagesInput
+    'get_package': NpmRegistryGetPackageInput
+    'get_downloads': NpmRegistryGetDownloadsInput
+    'custom_api_call': NpmRegistryCustomApiCallInput
+  }
+  'odoo': {
+    'get_contacts': OdooGetContactsInput
+    'create_contact': OdooCreateContactInput
+    'create_company': OdooCreateCompanyInput
+    'get_records': OdooGetRecordsInput
+    'create_record': OdooCreateRecordInput
+    'update_record': OdooUpdateRecordInput
+    'custom_odoo_api_call': OdooCustomOdooApiCallInput
+  }
   'okta': {
     'list_users': OktaListUsersInput
     'get_user': OktaGetUserInput
     'list_groups': OktaListGroupsInput
     'list_applications': OktaListApplicationsInput
+  }
+  'oncehub': {
+    'findContact': OncehubFindContactInput
+    'createContact': OncehubCreateContactInput
+    'custom_api_call': OncehubCustomApiCallInput
+  }
+  'onesignal': {
+    'send_notification': OnesignalSendNotificationInput
+    'list_notifications': OnesignalListNotificationsInput
+    'list_devices': OnesignalListDevicesInput
+    'get_notification': OnesignalGetNotificationInput
   }
   'openai': {
     'ask_chatgpt': OpenaiAskChatgptInput
@@ -18802,6 +33964,30 @@ export interface IntegrationActionInputsByIntegration {
     'translate': OpenaiTranslateInput
     'extract-structured-data': OpenaiExtractStructuredDataInput
     'custom_api_call': OpenaiCustomApiCallInput
+  }
+  'open-router': {
+    'ask-lmm': OpenRouterAskLmmInput
+    'custom_api_call': OpenRouterCustomApiCallInput
+  }
+  'openweather': {
+    'get_current_weather': OpenweatherGetCurrentWeatherInput
+    'get_forecast': OpenweatherGetForecastInput
+    'custom_api_call': OpenweatherCustomApiCallInput
+  }
+  'opsgenie': {
+    'create_alert': OpsgenieCreateAlertInput
+    'list_alerts': OpsgenieListAlertsInput
+    'get_alert': OpsgenieGetAlertInput
+    'close_alert': OpsgenieCloseAlertInput
+    'acknowledge_alert': OpsgenieAcknowledgeAlertInput
+    'custom_api_call': OpsgenieCustomApiCallInput
+  }
+  'outline': {
+    'list_documents': OutlineListDocumentsInput
+    'get_document': OutlineGetDocumentInput
+    'create_document': OutlineCreateDocumentInput
+    'search': OutlineSearchInput
+    'custom_api_call': OutlineCustomApiCallInput
   }
   'outreach': {
     'list_prospects': OutreachListProspectsInput
@@ -18832,6 +34018,29 @@ export interface IntegrationActionInputsByIntegration {
     'downloadDocument': PandadocDownloadDocumentInput
     'custom_api_call': PandadocCustomApiCallInput
   }
+  'paperform': {
+    'deleteFormSubmission': PaperformDeleteFormSubmissionInput
+    'deletePartialFormSubmission': PaperformDeletePartialFormSubmissionInput
+    'createFormCoupon': PaperformCreateFormCouponInput
+    'updateFormCoupon': PaperformUpdateFormCouponInput
+    'deleteFormCoupon': PaperformDeleteFormCouponInput
+    'createFormProduct': PaperformCreateFormProductInput
+    'updateFormProduct': PaperformUpdateFormProductInput
+    'deleteFormProduct': PaperformDeleteFormProductInput
+    'createSpace': PaperformCreateSpaceInput
+    'updateSpace': PaperformUpdateSpaceInput
+    'findFormProduct': PaperformFindFormProductInput
+    'findForm': PaperformFindFormInput
+    'findSpace': PaperformFindSpaceInput
+    'custom_api_call': PaperformCustomApiCallInput
+  }
+  'paylocity': {
+    'list_employees': PaylocityListEmployeesInput
+    'get_employee': PaylocityGetEmployeeInput
+    'list_earnings': PaylocityListEarningsInput
+    'get_company_codes': PaylocityGetCompanyCodesInput
+    'get_employee_benefits': PaylocityGetEmployeeBenefitsInput
+  }
   'paywhirl': {
     'cancelSubscription': PaywhirlCancelSubscriptionInput
     'createCustomer': PaywhirlCreateCustomerInput
@@ -18839,6 +34048,12 @@ export interface IntegrationActionInputsByIntegration {
     'searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
     'subscribeCustomer': PaywhirlSubscribeCustomerInput
     'custom_api_call': PaywhirlCustomApiCallInput
+  }
+  'pdf-co': {
+    'html_to_pdf': PdfCoHtmlToPdfInput
+    'merge_pdfs': PdfCoMergePdfsInput
+    'extract_text': PdfCoExtractTextInput
+    'custom_api_call': PdfCoCustomApiCallInput
   }
   'perplexity-ai': {
     'ask-ai': PerplexityAiAskAiInput
@@ -18918,6 +34133,31 @@ export interface IntegrationActionInputsByIntegration {
     'invite_guest': PlausibleInviteGuestInput
     'remove_guest': PlausibleRemoveGuestInput
   }
+  'plivo': {
+    'send_sms': PlivoSendSmsInput
+    'list_messages': PlivoListMessagesInput
+    'get_message': PlivoGetMessageInput
+    'custom_api_call': PlivoCustomApiCallInput
+  }
+  'podia': {
+    'list_products': PodiaListProductsInput
+    'list_customers': PodiaListCustomersInput
+    'get_customer': PodiaGetCustomerInput
+    'list_orders': PodiaListOrdersInput
+    'custom_api_call': PodiaCustomApiCallInput
+  }
+  'podio': {
+    'create_item': PodioCreateItemInput
+    'update_item': PodioUpdateItemInput
+    'create_task': PodioCreateTaskInput
+    'update_task': PodioUpdateTaskInput
+    'attach_file': PodioAttachFileInput
+    'create_comment': PodioCreateCommentInput
+    'create_status': PodioCreateStatusInput
+    'find_item': PodioFindItemInput
+    'find_task': PodioFindTaskInput
+    'custom_api_call': PodioCustomApiCallInput
+  }
   'postgres': {
     'run-query': PostgresRunQueryInput
   }
@@ -18925,6 +34165,66 @@ export interface IntegrationActionInputsByIntegration {
     'create_event': PosthogCreateEventInput
     'create_project': PosthogCreateProjectInput
     'custom_api_call': PosthogCustomApiCallInput
+  }
+  'powerschool': {
+    'list_students': PowerschoolListStudentsInput
+    'get_student': PowerschoolGetStudentInput
+    'list_courses': PowerschoolListCoursesInput
+    'get_attendance': PowerschoolGetAttendanceInput
+    'custom_api_call': PowerschoolCustomApiCallInput
+  }
+  'practice-panther': {
+    'list_matters': PracticePantherListMattersInput
+    'get_matter': PracticePantherGetMatterInput
+    'list_contacts': PracticePantherListContactsInput
+    'create_contact': PracticePantherCreateContactInput
+    'list_tasks': PracticePantherListTasksInput
+    'custom_api_call': PracticePantherCustomApiCallInput
+  }
+  'prismic': {
+    'query_documents': PrismicQueryDocumentsInput
+    'get_document_by_id': PrismicGetDocumentByIdInput
+    'get_document_by_uid': PrismicGetDocumentByUidInput
+    'get_documents_by_type': PrismicGetDocumentsByTypeInput
+  }
+  'procore': {
+    'list_projects': ProcoreListProjectsInput
+    'get_project': ProcoreGetProjectInput
+    'list_rfis': ProcoreListRfisInput
+    'list_submittals': ProcoreListSubmittalsInput
+  }
+  'propertyware': {
+    'list_units': PropertywareListUnitsInput
+    'list_tenants': PropertywareListTenantsInput
+    'list_work_orders': PropertywareListWorkOrdersInput
+    'custom_api_call': PropertywareCustomApiCallInput
+  }
+  'pulumi': {
+    'list_stacks': PulumiListStacksInput
+    'get_stack': PulumiGetStackInput
+    'list_updates': PulumiListUpdatesInput
+    'custom_api_call': PulumiCustomApiCallInput
+  }
+  'qdrant': {
+    'add_points_to_collection': QdrantAddPointsToCollectionInput
+    'collection_list': QdrantCollectionListInput
+    'collection_infos': QdrantCollectionInfosInput
+    'delete_collection': QdrantDeleteCollectionInput
+    'delete_points': QdrantDeletePointsInput
+    'get_points': QdrantGetPointsInput
+    'search_points': QdrantSearchPointsInput
+  }
+  'qdrant-custom': {
+    'create_collection': QdrantCustomCreateCollectionInput
+    'upsert_points': QdrantCustomUpsertPointsInput
+    'search_points': QdrantCustomSearchPointsInput
+    'delete_points': QdrantCustomDeletePointsInput
+    'list_collections': QdrantCustomListCollectionsInput
+    'custom_api_call': QdrantCustomCustomApiCallInput
+  }
+  'qr-code': {
+    'generate_qr_code': QrCodeGenerateQrCodeInput
+    'custom_api_call': QrCodeCustomApiCallInput
   }
   'quickbooks': {
     'find_invoice': QuickbooksFindInvoiceInput
@@ -18934,9 +34234,34 @@ export interface IntegrationActionInputsByIntegration {
     'create_expense': QuickbooksCreateExpenseInput
     'custom_api_call': QuickbooksCustomApiCallInput
   }
+  'rabbitmq': {
+    'sendMessageToExchange': RabbitmqSendMessageToExchangeInput
+    'sendMessageToQueue': RabbitmqSendMessageToQueueInput
+  }
+  'railway': {
+    'list_projects': RailwayListProjectsInput
+    'list_services': RailwayListServicesInput
+    'get_deployments': RailwayGetDeploymentsInput
+    'redeploy': RailwayRedeployInput
+    'custom_api_call': RailwayCustomApiCallInput
+  }
   'razorpay': {
     'custom_api_call': RazorpayCustomApiCallInput
     'create-payment-link': RazorpayCreatePaymentLinkInput
+  }
+  'reclaim-ai': {
+    'list_tasks': ReclaimAiListTasksInput
+    'create_task': ReclaimAiCreateTaskInput
+    'get_habits': ReclaimAiGetHabitsInput
+    'list_events': ReclaimAiListEventsInput
+    'custom_api_call': ReclaimAiCustomApiCallInput
+  }
+  'recurly': {
+    'list_accounts': RecurlyListAccountsInput
+    'list_subscriptions': RecurlyListSubscriptionsInput
+    'get_subscription': RecurlyGetSubscriptionInput
+    'list_invoices': RecurlyListInvoicesInput
+    'get_account': RecurlyGetAccountInput
   }
   'reddit': {
     'retrieveRedditPost': RedditRetrieveRedditPostInput
@@ -18950,6 +34275,12 @@ export interface IntegrationActionInputsByIntegration {
     'deleteRedditComment': RedditDeleteRedditCommentInput
     'custom_api_call': RedditCustomApiCallInput
   }
+  'render': {
+    'list_services': RenderListServicesInput
+    'get_service': RenderGetServiceInput
+    'list_deploys': RenderListDeploysInput
+    'create_deploy': RenderCreateDeployInput
+  }
   'replicate': {
     'create_prediction': ReplicateCreatePredictionInput
     'get_prediction': ReplicateGetPredictionInput
@@ -18958,6 +34289,13 @@ export interface IntegrationActionInputsByIntegration {
   'resend': {
     'send_email': ResendSendEmailInput
     'custom_api_call': ResendCustomApiCallInput
+  }
+  'retool': {
+    'trigger_workflow': RetoolTriggerWorkflowInput
+    'list_resources': RetoolListResourcesInput
+    'list_folders': RetoolListFoldersInput
+    'list_users': RetoolListUsersInput
+    'list_groups': RetoolListGroupsInput
   }
   'ringcentral': {
     'send_sms': RingcentralSendSmsInput
@@ -18969,6 +34307,30 @@ export interface IntegrationActionInputsByIntegration {
     'get_employee': RipplingGetEmployeeInput
     'list_departments': RipplingListDepartmentsInput
     'list_work_locations': RipplingListWorkLocationsInput
+  }
+  'rocket-chat': {
+    'send_message': RocketChatSendMessageInput
+    'list_channels': RocketChatListChannelsInput
+    'get_channel': RocketChatGetChannelInput
+    'custom_api_call': RocketChatCustomApiCallInput
+  }
+  'rollbar': {
+    'list_items': RollbarListItemsInput
+    'get_item': RollbarGetItemInput
+    'list_occurrences': RollbarListOccurrencesInput
+    'list_projects': RollbarListProjectsInput
+    'custom_api_call': RollbarCustomApiCallInput
+  }
+  'runway': {
+    'generate_video': RunwayGenerateVideoInput
+    'get_task': RunwayGetTaskInput
+    'list_assets': RunwayListAssetsInput
+    'custom_api_call': RunwayCustomApiCallInput
+  }
+  'saleor': {
+    'rawGraphqlQuery': SaleorRawGraphqlQueryInput
+    'getOrder': SaleorGetOrderInput
+    'addOrderNote': SaleorAddOrderNoteInput
   }
   'salesforce': {
     'add_contact_to_campaign': SalesforceAddContactToCampaignInput
@@ -19005,13 +34367,44 @@ export interface IntegrationActionInputsByIntegration {
     'create_person': SalesloftCreatePersonInput
     'list_cadences': SalesloftListCadencesInput
   }
+  'sanity': {
+    'query': SanityQueryInput
+    'create_document': SanityCreateDocumentInput
+    'update_document': SanityUpdateDocumentInput
+    'delete_document': SanityDeleteDocumentInput
+  }
+  'schoology': {
+    'list_courses': SchoologyListCoursesInput
+    'list_sections': SchoologyListSectionsInput
+    'list_assignments': SchoologyListAssignmentsInput
+    'create_assignment': SchoologyCreateAssignmentInput
+    'custom_api_call': SchoologyCustomApiCallInput
+  }
+  'screenshot-one': {
+    'take_screenshot': ScreenshotOneTakeScreenshotInput
+    'custom_api_call': ScreenshotOneCustomApiCallInput
+  }
   'segment': {
     'identifyUser': SegmentIdentifyUserInput
+  }
+  'semrush': {
+    'get_domain_overview': SemrushGetDomainOverviewInput
+    'get_organic_keywords': SemrushGetOrganicKeywordsInput
+    'get_backlinks': SemrushGetBacklinksInput
+    'custom_api_call': SemrushCustomApiCallInput
   }
   'sendgrid': {
     'send_email': SendgridSendEmailInput
     'send_dynamic_template': SendgridSendDynamicTemplateInput
     'custom_api_call': SendgridCustomApiCallInput
+  }
+  'sendpulse': {
+    'add-subscriber': SendpulseAddSubscriberInput
+    'change-variable-for-subscriber': SendpulseChangeVariableForSubscriberInput
+    'delete-contact': SendpulseDeleteContactInput
+    'unsubscribe-user': SendpulseUnsubscribeUserInput
+    'update-subscriber': SendpulseUpdateSubscriberInput
+    'custom_api_call': SendpulseCustomApiCallInput
   }
   'sentry': {
     'list_projects': SentryListProjectsInput
@@ -19019,6 +34412,34 @@ export interface IntegrationActionInputsByIntegration {
     'get_issue': SentryGetIssueInput
     'resolve_issue': SentryResolveIssueInput
     'list_events': SentryListEventsInput
+  }
+  'service-now': {
+    'create_record': ServiceNowCreateRecordInput
+    'update_record': ServiceNowUpdateRecordInput
+    'get_record': ServiceNowGetRecordInput
+    'find_record': ServiceNowFindRecordInput
+    'attach_file_to_record': ServiceNowAttachFileToRecordInput
+    'find_file': ServiceNowFindFileInput
+  }
+  'service-titan': {
+    'list_jobs': ServiceTitanListJobsInput
+    'get_job': ServiceTitanGetJobInput
+    'list_customers': ServiceTitanListCustomersInput
+    'list_invoices': ServiceTitanListInvoicesInput
+  }
+  'shippo': {
+    'create_shipment': ShippoCreateShipmentInput
+    'get_shipment': ShippoGetShipmentInput
+    'list_rates': ShippoListRatesInput
+    'create_label': ShippoCreateLabelInput
+    'custom_api_call': ShippoCustomApiCallInput
+  }
+  'shipstation': {
+    'list_orders': ShipstationListOrdersInput
+    'get_order': ShipstationGetOrderInput
+    'list_shipments': ShipstationListShipmentsInput
+    'create_label': ShipstationCreateLabelInput
+    'list_carriers': ShipstationListCarriersInput
   }
   'shopify': {
     'adjust_inventory_level': ShopifyAdjustInventoryLevelInput
@@ -19049,6 +34470,25 @@ export interface IntegrationActionInputsByIntegration {
     'upload_product_image': ShopifyUploadProductImageInput
     'custom_api_call': ShopifyCustomApiCallInput
   }
+  'short-io': {
+    'create_link': ShortIoCreateLinkInput
+    'get_link': ShortIoGetLinkInput
+    'list_links': ShortIoListLinksInput
+    'custom_api_call': ShortIoCustomApiCallInput
+  }
+  'sierra-interactive': {
+    'list_leads': SierraInteractiveListLeadsInput
+    'create_lead': SierraInteractiveCreateLeadInput
+    'list_properties': SierraInteractiveListPropertiesInput
+    'custom_api_call': SierraInteractiveCustomApiCallInput
+  }
+  'simple-practice': {
+    'list_clients': SimplePracticeListClientsInput
+    'get_client': SimplePracticeGetClientInput
+    'list_appointments': SimplePracticeListAppointmentsInput
+    'create_appointment': SimplePracticeCreateAppointmentInput
+    'custom_api_call': SimplePracticeCustomApiCallInput
+  }
   'slack': {
     'slack-add-reaction-to-message': SlackSlackAddReactionToMessageInput
     'send_direct_message': SlackSendDirectMessageInput
@@ -19077,6 +34517,13 @@ export interface IntegrationActionInputsByIntegration {
     'invite-user-to-channel': SlackInviteUserToChannelInput
     'custom_api_call': SlackCustomApiCallInput
   }
+  'slite': {
+    'list_notes': SliteListNotesInput
+    'get_note': SliteGetNoteInput
+    'create_note': SliteCreateNoteInput
+    'search': SliteSearchInput
+    'custom_api_call': SliteCustomApiCallInput
+  }
   'smartsheet': {
     'add_row_to_sheet': SmartsheetAddRowToSheetInput
     'update_row': SmartsheetUpdateRowInput
@@ -19085,6 +34532,12 @@ export interface IntegrationActionInputsByIntegration {
     'find_attachment_by_row_id': SmartsheetFindAttachmentByRowIdInput
     'find_sheet_by_name': SmartsheetFindSheetByNameInput
   }
+  'smokeball': {
+    'list_matters': SmokeballListMattersInput
+    'get_matter': SmokeballGetMatterInput
+    'list_contacts': SmokeballListContactsInput
+    'custom_api_call': SmokeballCustomApiCallInput
+  }
   'smtp': {
     'send-email': SmtpSendEmailInput
   }
@@ -19092,6 +34545,18 @@ export interface IntegrationActionInputsByIntegration {
     'runQuery': SnowflakeRunQueryInput
     'runMultipleQueries': SnowflakeRunMultipleQueriesInput
     'insert-row': SnowflakeInsertRowInput
+  }
+  'snyk': {
+    'list_orgs': SnykListOrgsInput
+    'list_projects': SnykListProjectsInput
+    'get_project': SnykGetProjectInput
+    'get_project_issues': SnykGetProjectIssuesInput
+  }
+  'sonarqube': {
+    'list_projects': SonarqubeListProjectsInput
+    'get_measures': SonarqubeGetMeasuresInput
+    'search_issues': SonarqubeSearchIssuesInput
+    'list_quality_gates': SonarqubeListQualityGatesInput
   }
   'spotify': {
     'search': SpotifySearchInput
@@ -19110,6 +34575,19 @@ export interface IntegrationActionInputsByIntegration {
     'reorder_playlist': SpotifyReorderPlaylistInput
     'custom_api_call': SpotifyCustomApiCallInput
   }
+  'sprout-social': {
+    'create_post': SproutSocialCreatePostInput
+    'list_posts': SproutSocialListPostsInput
+    'list_profiles': SproutSocialListProfilesInput
+    'get_analytics': SproutSocialGetAnalyticsInput
+    'custom_api_call': SproutSocialCustomApiCallInput
+  }
+  'spruce': {
+    'send_message': SpruceSendMessageInput
+    'list_conversations': SpruceListConversationsInput
+    'get_conversation': SpruceGetConversationInput
+    'custom_api_call': SpruceCustomApiCallInput
+  }
   'stability-ai': {
     'text-to-image': StabilityAiTextToImageInput
     'custom_api_call': StabilityAiCustomApiCallInput
@@ -19119,6 +34597,13 @@ export interface IntegrationActionInputsByIntegration {
     'write_file': StorageWriteFileInput
     'delete_file': StorageDeleteFileInput
     'list_files': StorageListFilesInput
+  }
+  'storyblok': {
+    'list_spaces': StoryblokListSpacesInput
+    'list_stories': StoryblokListStoriesInput
+    'get_story': StoryblokGetStoryInput
+    'create_story': StoryblokCreateStoryInput
+    'delete_story': StoryblokDeleteStoryInput
   }
   'strapi': {
     'list_entries': StrapiListEntriesInput
@@ -19157,7 +34642,49 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': SupabaseCustomApiCallInput
   }
   'surveymonkey': {
+    'list_surveys': SurveymonkeyListSurveysInput
+    'get_survey': SurveymonkeyGetSurveyInput
+    'get_responses': SurveymonkeyGetResponsesInput
+    'get_response_details': SurveymonkeyGetResponseDetailsInput
     'custom_api_call': SurveymonkeyCustomApiCallInput
+  }
+  'synthesia': {
+    'create_video': SynthesiaCreateVideoInput
+    'get_video': SynthesiaGetVideoInput
+    'list_videos': SynthesiaListVideosInput
+    'list_avatars': SynthesiaListAvatarsInput
+    'custom_api_call': SynthesiaCustomApiCallInput
+  }
+  'tavily': {
+    'search': TavilySearchInput
+    'extract': TavilyExtractInput
+  }
+  'teachable': {
+    'list_courses': TeachableListCoursesInput
+    'get_course': TeachableGetCourseInput
+    'list_users': TeachableListUsersInput
+    'list_enrollments': TeachableListEnrollmentsInput
+    'get_user_courses': TeachableGetUserCoursesInput
+  }
+  'teamwork': {
+    'create_project': TeamworkCreateProjectInput
+    'create_task_list': TeamworkCreateTaskListInput
+    'create_task': TeamworkCreateTaskInput
+    'mark_task_complete': TeamworkMarkTaskCompleteInput
+    'create_company': TeamworkCreateCompanyInput
+    'create_person': TeamworkCreatePersonInput
+    'update_task': TeamworkUpdateTaskInput
+    'create_task_comment': TeamworkCreateTaskCommentInput
+    'create_time_entry_on_task': TeamworkCreateTimeEntryOnTaskInput
+    'create_expense': TeamworkCreateExpenseInput
+    'upload_file_to_project': TeamworkUploadFileToProjectInput
+    'create_message_reply': TeamworkCreateMessageReplyInput
+    'create_milestone': TeamworkCreateMilestoneInput
+    'add_people_to_project': TeamworkAddPeopleToProjectInput
+    'find_task': TeamworkFindTaskInput
+    'find_company': TeamworkFindCompanyInput
+    'find_milestone': TeamworkFindMilestoneInput
+    'find_notebook_or_comment': TeamworkFindNotebookOrCommentInput
   }
   'telegram-bot': {
     'send_text_message': TelegramBotSendTextMessageInput
@@ -19167,6 +34694,55 @@ export interface IntegrationActionInputsByIntegration {
     'create_invite_link': TelegramBotCreateInviteLinkInput
     'request_approval_message': TelegramBotRequestApprovalMessageInput
     'custom_api_call': TelegramBotCustomApiCallInput
+  }
+  'telnyx': {
+    'send_message': TelnyxSendMessageInput
+    'list_messaging_profiles': TelnyxListMessagingProfilesInput
+    'list_phone_numbers': TelnyxListPhoneNumbersInput
+    'create_call': TelnyxCreateCallInput
+  }
+  'terraform-cloud': {
+    'list_workspaces': TerraformCloudListWorkspacesInput
+    'get_run': TerraformCloudGetRunInput
+    'create_run': TerraformCloudCreateRunInput
+    'list_runs': TerraformCloudListRunsInput
+    'custom_api_call': TerraformCloudCustomApiCallInput
+  }
+  'thinkific': {
+    'list_courses': ThinkificListCoursesInput
+    'get_course': ThinkificGetCourseInput
+    'list_enrollments': ThinkificListEnrollmentsInput
+    'create_enrollment': ThinkificCreateEnrollmentInput
+    'list_users': ThinkificListUsersInput
+    'custom_api_call': ThinkificCustomApiCallInput
+  }
+  'ticktick': {
+    'create_task': TicktickCreateTaskInput
+    'update_task': TicktickUpdateTaskInput
+    'get_task': TicktickGetTaskInput
+    'delete_task': TicktickDeleteTaskInput
+    'complete_task': TicktickCompleteTaskInput
+    'find_task': TicktickFindTaskInput
+    'get_project': TicktickGetProjectInput
+    'custom_api_call': TicktickCustomApiCallInput
+  }
+  'tidycal': {
+    'list_bookings': TidycalListBookingsInput
+    'get_booking': TidycalGetBookingInput
+    'list_booking_types': TidycalListBookingTypesInput
+    'custom_api_call': TidycalCustomApiCallInput
+  }
+  'tiktok-ads': {
+    'list_campaigns': TiktokAdsListCampaignsInput
+    'get_campaign': TiktokAdsGetCampaignInput
+    'list_ad_groups': TiktokAdsListAdGroupsInput
+    'get_ad_report': TiktokAdsGetAdReportInput
+  }
+  'timesolv': {
+    'list_time_entries': TimesolvListTimeEntriesInput
+    'create_time_entry': TimesolvCreateTimeEntryInput
+    'list_matters': TimesolvListMattersInput
+    'custom_api_call': TimesolvCustomApiCallInput
   }
   'todoist': {
     'create_task': TodoistCreateTaskInput
@@ -19190,6 +34766,12 @@ export interface IntegrationActionInputsByIntegration {
     'get_card_attachment': TrelloGetCardAttachmentInput
     'delete_card_attachment': TrelloDeleteCardAttachmentInput
   }
+  'trustpilot': {
+    'list_reviews': TrustpilotListReviewsInput
+    'get_review': TrustpilotGetReviewInput
+    'reply_to_review': TrustpilotReplyToReviewInput
+    'custom_api_call': TrustpilotCustomApiCallInput
+  }
   'twilio': {
     'send_sms': TwilioSendSmsInput
     'phone_number_lookup': TwilioPhoneNumberLookupInput
@@ -19199,6 +34781,11 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': TwilioCustomApiCallInput
   }
   'twitch': {
+    'get_user': TwitchGetUserInput
+    'get_channel_info': TwitchGetChannelInfoInput
+    'get_streams': TwitchGetStreamsInput
+    'get_clips': TwitchGetClipsInput
+    'search_channels': TwitchSearchChannelsInput
     'custom_api_call': TwitchCustomApiCallInput
   }
   'twitter': {
@@ -19206,7 +34793,36 @@ export interface IntegrationActionInputsByIntegration {
     'create-reply': TwitterCreateReplyInput
   }
   'typeform': {
+    'list_forms': TypeformListFormsInput
+    'get_form': TypeformGetFormInput
+    'get_responses': TypeformGetResponsesInput
+    'get_response': TypeformGetResponseInput
     'custom_api_call': TypeformCustomApiCallInput
+  }
+  'uptime-robot': {
+    'list_monitors': UptimeRobotListMonitorsInput
+    'get_monitor': UptimeRobotGetMonitorInput
+    'create_monitor': UptimeRobotCreateMonitorInput
+    'custom_api_call': UptimeRobotCustomApiCallInput
+  }
+  'vanta': {
+    'list_vulnerabilities': VantaListVulnerabilitiesInput
+    'list_tests': VantaListTestsInput
+    'list_integrations': VantaListIntegrationsInput
+    'list_test_results': VantaListTestResultsInput
+  }
+  'vercel': {
+    'list_projects': VercelListProjectsInput
+    'get_project': VercelGetProjectInput
+    'list_deployments': VercelListDeploymentsInput
+    'create_deployment': VercelCreateDeploymentInput
+    'get_deployment': VercelGetDeploymentInput
+  }
+  'vidyard': {
+    'list_videos': VidyardListVideosInput
+    'get_video': VidyardGetVideoInput
+    'get_analytics': VidyardGetAnalyticsInput
+    'custom_api_call': VidyardCustomApiCallInput
   }
   'vimeo': {
     'upload_video': VimeoUploadVideoInput
@@ -19214,6 +34830,51 @@ export interface IntegrationActionInputsByIntegration {
     'add_video_to_showcase': VimeoAddVideoToShowcaseInput
     'add_video_to_folder': VimeoAddVideoToFolderInput
     'custom_api_call': VimeoCustomApiCallInput
+  }
+  'vonage': {
+    'send_sms': VonageSendSmsInput
+    'send_verification': VonageSendVerificationInput
+    'check_verification': VonageCheckVerificationInput
+    'cancel_verification': VonageCancelVerificationInput
+  }
+  'vtex': {
+    'get-product-by-id': VtexGetProductByIdInput
+    'create-product': VtexCreateProductInput
+    'Update-product': VtexUpdateProductInput
+    'get-brand-list': VtexGetBrandListInput
+    'get-brand-by-id': VtexGetBrandByIdInput
+    'create-brand': VtexCreateBrandInput
+    'update-brand': VtexUpdateBrandInput
+    'delete-brand': VtexDeleteBrandInput
+    'get-category-by-id': VtexGetCategoryByIdInput
+    'get-sku-by-product-id': VtexGetSkuByProductIdInput
+    'create-sku': VtexCreateSkuInput
+    'create-sku-file': VtexCreateSkuFileInput
+    'get-client-list': VtexGetClientListInput
+    'get-client-by-id': VtexGetClientByIdInput
+    'get-order-by-id': VtexGetOrderByIdInput
+    'get-order-list': VtexGetOrderListInput
+    'custom_api_call': VtexCustomApiCallInput
+  }
+  'weaviate': {
+    'list_collections': WeaviateListCollectionsInput
+    'create_object': WeaviateCreateObjectInput
+    'get_object': WeaviateGetObjectInput
+    'search_objects': WeaviateSearchObjectsInput
+  }
+  'weaviate-custom': {
+    'create_class': WeaviateCustomCreateClassInput
+    'add_objects': WeaviateCustomAddObjectsInput
+    'search_objects': WeaviateCustomSearchObjectsInput
+    'list_classes': WeaviateCustomListClassesInput
+    'custom_api_call': WeaviateCustomCustomApiCallInput
+  }
+  'webex': {
+    'list_rooms': WebexListRoomsInput
+    'create_message': WebexCreateMessageInput
+    'list_people': WebexListPeopleInput
+    'get_person': WebexGetPersonInput
+    'list_messages': WebexListMessagesInput
   }
   'webflow': {
     'create_collection_item': WebflowCreateCollectionItemInput
@@ -19232,6 +34893,12 @@ export interface IntegrationActionInputsByIntegration {
     'sendMedia': WhatsappSendMediaInput
     'send-template-message': WhatsappSendTemplateMessageInput
   }
+  'wise': {
+    'list_profiles': WiseListProfilesInput
+    'create_quote': WiseCreateQuoteInput
+    'list_transfers': WiseListTransfersInput
+    'get_exchange_rate': WiseGetExchangeRateInput
+  }
   'woocommerce': {
     'Create Customer': WoocommerceCreateCustomerInput
     'Create Coupon': WoocommerceCreateCouponInput
@@ -19246,6 +34913,15 @@ export interface IntegrationActionInputsByIntegration {
     'update_post': WordpressUpdatePostInput
     'get_post': WordpressGetPostInput
     'custom_api_call': WordpressCustomApiCallInput
+  }
+  'workable': {
+    'getCandidate': WorkableGetCandidateInput
+    'getMembers': WorkableGetMembersInput
+    'getJob': WorkableGetJobInput
+    'getStages': WorkableGetStagesInput
+    'moveCandidate': WorkableMoveCandidateInput
+    'rateCandidate': WorkableRateCandidateInput
+    'custom_api_call': WorkableCustomApiCallInput
   }
   'workday': {
     'list_workers': WorkdayListWorkersInput
@@ -19286,7 +34962,22 @@ export interface IntegrationActionInputsByIntegration {
     'xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
     'custom_api_call': XeroCustomApiCallInput
   }
+  'xml': {
+    'convert-json-to-xml': XmlConvertJsonToXmlInput
+  }
+  'yotpo': {
+    'list_reviews': YotpoListReviewsInput
+    'get_review': YotpoGetReviewInput
+    'create_review_request': YotpoCreateReviewRequestInput
+    'custom_api_call': YotpoCustomApiCallInput
+  }
   'youtube': {
+    'search_videos': YoutubeSearchVideosInput
+    'get_video': YoutubeGetVideoInput
+    'list_playlists': YoutubeListPlaylistsInput
+    'create_playlist': YoutubeCreatePlaylistInput
+    'add_to_playlist': YoutubeAddToPlaylistInput
+    'list_channel_videos': YoutubeListChannelVideosInput
     'custom_api_call': YoutubeCustomApiCallInput
   }
   'zendesk': {
@@ -19303,16 +34994,81 @@ export interface IntegrationActionInputsByIntegration {
     'find-user': ZendeskFindUserInput
     'custom_api_call': ZendeskCustomApiCallInput
   }
+  'zerobounce': {
+    'validate_email': ZerobounceValidateEmailInput
+    'get_credits': ZerobounceGetCreditsInput
+    'custom_api_call': ZerobounceCustomApiCallInput
+  }
+  'zillow': {
+    'get_property': ZillowGetPropertyInput
+    'search_properties': ZillowSearchPropertiesInput
+    'custom_api_call': ZillowCustomApiCallInput
+  }
+  'zocdoc': {
+    'list_appointments': ZocdocListAppointmentsInput
+    'get_provider': ZocdocGetProviderInput
+    'list_providers': ZocdocListProvidersInput
+    'custom_api_call': ZocdocCustomApiCallInput
+  }
   'zoho-books': {
+    'list_invoices': ZohoBooksListInvoicesInput
+    'get_invoice': ZohoBooksGetInvoiceInput
+    'create_invoice': ZohoBooksCreateInvoiceInput
+    'list_contacts': ZohoBooksListContactsInput
+    'get_contact': ZohoBooksGetContactInput
+    'create_contact': ZohoBooksCreateContactInput
     'custom_api_call': ZohoBooksCustomApiCallInput
+  }
+  'zoho-campaigns': {
+    'createCampaign': ZohoCampaignsCreateCampaignInput
+    'cloneCampaign': ZohoCampaignsCloneCampaignInput
+    'sendCampaign': ZohoCampaignsSendCampaignInput
+    'addUpdateContact': ZohoCampaignsAddUpdateContactInput
+    'addTagToContact': ZohoCampaignsAddTagToContactInput
+    'removeTag': ZohoCampaignsRemoveTagInput
+    'unsubscribeContact': ZohoCampaignsUnsubscribeContactInput
+    'addContactToMailingList': ZohoCampaignsAddContactToMailingListInput
+    'findContact': ZohoCampaignsFindContactInput
+    'findCampaign': ZohoCampaignsFindCampaignInput
+    'custom_api_call': ZohoCampaignsCustomApiCallInput
   }
   'zoho-crm': {
     'read-file': ZohoCrmReadFileInput
     'custom_api_call': ZohoCrmCustomApiCallInput
   }
+  'zoho-desk': {
+    'list_tickets': ZohoDeskListTicketsInput
+    'create_ticket': ZohoDeskCreateTicketInput
+    'find-contact': ZohoDeskFindContactInput
+    'custom_api_call': ZohoDeskCustomApiCallInput
+  }
+  'zoho-invoice': {
+    'list_invoices': ZohoInvoiceListInvoicesInput
+    'get_invoice': ZohoInvoiceGetInvoiceInput
+    'create_invoice': ZohoInvoiceCreateInvoiceInput
+    'send_invoice': ZohoInvoiceSendInvoiceInput
+    'list_customers': ZohoInvoiceListCustomersInput
+    'custom_api_call': ZohoInvoiceCustomApiCallInput
+  }
+  'zoho-mail': {
+    'get_email_details': ZohoMailGetEmailDetailsInput
+    'mark_email_as_read': ZohoMailMarkEmailAsReadInput
+    'mark_email_as_unread': ZohoMailMarkEmailAsUnreadInput
+    'archive_email': ZohoMailArchiveEmailInput
+    'unarchive_email': ZohoMailUnarchiveEmailInput
+    'move_email': ZohoMailMoveEmailInput
+    'send_email': ZohoMailSendEmailInput
+    'custom_api_call': ZohoMailCustomApiCallInput
+  }
   'zoom': {
     'zoom_create_meeting': ZoomZoomCreateMeetingInput
     'zoom_create_meeting_registrant': ZoomZoomCreateMeetingRegistrantInput
     'custom_api_call': ZoomCustomApiCallInput
+  }
+  'zuora': {
+    'create-invoice': ZuoraCreateInvoiceInput
+    'find-account': ZuoraFindAccountInput
+    'find-product-rate-plan': ZuoraFindProductRatePlanInput
+    'find-product': ZuoraFindProductInput
   }
 }
