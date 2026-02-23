@@ -5,6 +5,86 @@
 // Integration Action Input Types
 // ============================================================================
 
+/** ActiveCampaign — Add Contact to Account */
+export interface ActivecampaignActivecampaignAddContactToAccountInput {
+  /** Contact ID (resolve via property options API) */
+  contactId: string
+  /** Account ID (resolve via property options API) */
+  accountId: string
+  /** Job Title */
+  jobTitle?: string
+}
+
+/** ActiveCampaign — Add Tag to Contact */
+export interface ActivecampaignActivecampaignAddTagToContactInput {
+  /** Contact ID (resolve via property options API) */
+  contactId: string
+  /** Tag ID (resolve via property options API) */
+  tagId: string
+}
+
+/** ActiveCampaign — Create Account */
+export interface ActivecampaignActivecampaignCreateAccountInput {
+  /** Account Name */
+  name: string
+  /** Account URL */
+  accountUrl?: string
+  /** Account Custom Fields */
+  accountCustomFields: Record<string, unknown>
+}
+
+/** ActiveCampaign — Create Contact */
+export interface ActivecampaignActivecampaignCreateContactInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Contact Custom Fields */
+  contactCustomFields: Record<string, unknown>
+}
+
+/** ActiveCampaign — Update Account */
+export interface ActivecampaignActivecampaignUpdateAccountInput {
+  /** Account ID (resolve via property options API) */
+  accountId: string
+  /** Account Name */
+  name?: string
+  /** Account URL */
+  accountUrl?: string
+  /** Account Custom Fields */
+  accountCustomFields: Record<string, unknown>
+}
+
+/** ActiveCampaign — Update Contact */
+export interface ActivecampaignActivecampaignUpdateContactInput {
+  /** Contact ID (resolve via property options API) */
+  contactId: string
+  /** Email */
+  email?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Contact Custom Fields */
+  contactCustomFields: Record<string, unknown>
+}
+
+/** ActiveCampaign — Subscribe or Unsubscribe Contact From List */
+export interface ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromListInput {
+  /** List (resolve via property options API) */
+  listId: string
+  /** Action (values: `1`, `2`) */
+  status: "1" | "2"
+  /** Contact ID */
+  contactId: string
+}
+
 /** AI Toolkit — Extract Structured Data */
 export interface AiToolkitExtractStructuredDataInput {
   /** Text to extract data from */
@@ -441,6 +521,218 @@ export interface AshbyCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** AssemblyAI — Upload File */
+export interface AssemblyaiUploadFileInput {
+  /** The File or URL of the audio or video file. */
+  file: string
+}
+
+/** AssemblyAI — Transcribe */
+export interface AssemblyaiTranscribeInput {
+  /** The URL of the audio or video file to transcribe. */
+  audio_url: string
+  /** The language of your audio file. Possible values are found in [Supported Languages](https://www.assemblyai.com/docs/concepts/supported-languages). The default value is 'en_us'.  */
+  language_code?: "en" | "en_au" | "en_uk" | "en_us" | "es" | "fr" | "de" | "it" | "pt" | "nl" | "af" | "sq" | "am" | "ar" | "hy" | "as" | "az" | "ba" | "eu" | "be" | "bn" | "bs" | "br" | "bg" | "my" | "ca" | "zh" | "hr" | "cs" | "da" | "et" | "fo" | "fi" | "gl" | "ka" | "el" | "gu" | "ht" | "ha" | "haw" | "he" | "hi" | "hu" | "is" | "id" | "ja" | "jw" | "kn" | "kk" | "km" | "ko" | "lo" | "la" | "lv" | "ln" | "lt" | "lb" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mn" | "ne" | "no" | "nn" | "oc" | "pa" | "ps" | "fa" | "pl" | "ro" | "ru" | "sa" | "sr" | "sn" | "sd" | "si" | "sk" | "sl" | "so" | "su" | "sw" | "sv" | "tl" | "tg" | "ta" | "tt" | "te" | "th" | "bo" | "tr" | "tk" | "uk" | "ur" | "uz" | "vi" | "cy" | "yi" | "yo"
+  /** Enable [Automatic language detection](https://www.assemblyai.com/docs/models/speech-recognition#automatic-language-detection), either true or false. */
+  language_detection?: boolean
+  /** The confidence threshold for the automatically detected language. An error will be returned if the language confidence is below this threshold. Defaults to 0.  */
+  language_confidence_threshold?: number
+  /** The speech model to use for the transcription. When `null`, the "best" model is used. (values: `best`, `nano`) */
+  speech_model?: "best" | "nano"
+  /** Enable Automatic Punctuation, can be true or false */
+  punctuate?: boolean
+  /** Enable Text Formatting, can be true or false */
+  format_text?: boolean
+  /** Transcribe Filler Words, like "umm", in your media file; can be true or false */
+  disfluencies?: boolean
+  /** Enable [Dual Channel](https://www.assemblyai.com/docs/models/speech-recognition#dual-channel-transcription) transcription, can be true or false. */
+  dual_channel?: boolean
+  /** The URL to which we send webhook requests. We sends two different types of webhook requests. One request when a transcript is completed or failed, and one request when the redacted audio is ready if redact_pii_audio is enabled.  */
+  webhook_url?: string
+  /** The header name to be sent with the transcript completed or failed webhook requests */
+  webhook_auth_header_name?: string
+  /** The header value to send back with the transcript completed or failed webhook requests for added security */
+  webhook_auth_header_value?: string
+  /** Enable Key Phrases, either true or false */
+  auto_highlights?: boolean
+  /** The point in time, in milliseconds, to begin transcribing in your media file */
+  audio_start_from?: number
+  /** The point in time, in milliseconds, to stop transcribing in your media file */
+  audio_end_at?: number
+  /** The list of custom vocabulary to boost transcription probability for */
+  word_boost?: unknown[]
+  /** How much to boost specified words (values: `low`, `default`, `high`) */
+  boost_param?: "low" | "default" | "high"
+  /** Filter profanity from the transcribed text, can be true or false */
+  filter_profanity?: boolean
+  /** Redact PII from the transcribed text using the Redact PII model, can be true or false */
+  redact_pii?: boolean
+  /** Generate a copy of the original media file with spoken PII "beeped" out, can be true or false. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. */
+  redact_pii_audio?: boolean
+  /** Controls the filetype of the audio created by redact_pii_audio. Currently supports mp3 (default) and wav. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. (values: `mp3`, `wav`) */
+  redact_pii_audio_quality?: "mp3" | "wav"
+  /** The list of PII Redaction policies to enable. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. */
+  redact_pii_policies?: string[]
+  /** The replacement logic for detected PII, can be "entity_type" or "hash". See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. (values: `entity_name`, `hash`) */
+  redact_pii_sub?: "entity_name" | "hash"
+  /** Enable [Speaker diarization](https://www.assemblyai.com/docs/models/speaker-diarization), can be true or false */
+  speaker_labels?: boolean
+  /** Tells the speaker label model how many speakers it should attempt to identify, up to 10. See [Speaker diarization](https://www.assemblyai.com/docs/models/speaker-diarization) for more details. */
+  speakers_expected?: number
+  /** Enable [Content Moderation](https://www.assemblyai.com/docs/models/content-moderation), can be true or false */
+  content_safety?: boolean
+  /** The confidence threshold for the Content Moderation model. Values must be between 25 and 100. */
+  content_safety_confidence?: number
+  /** Enable [Topic Detection](https://www.assemblyai.com/docs/models/topic-detection), can be true or false */
+  iab_categories?: boolean
+  /** Customize how words are spelled and formatted using to and from values. Use a JSON array of objects of the following format: ``` [   {     "from": ["original", "spelling"],     "to": "corrected"   } ] ```  */
+  custom_spelling?: unknown
+  /** Enable [Sentiment Analysis](https://www.assemblyai.com/docs/models/sentiment-analysis), can be true or false */
+  sentiment_analysis?: boolean
+  /** Enable [Auto Chapters](https://www.assemblyai.com/docs/models/auto-chapters), can be true or false */
+  auto_chapters?: boolean
+  /** Enable [Entity Detection](https://www.assemblyai.com/docs/models/entity-detection), can be true or false */
+  entity_detection?: boolean
+  /** Reject audio files that contain less than this fraction of speech. Valid values are in the range [0, 1] inclusive.  */
+  speech_threshold?: number
+  /** Enable [Summarization](https://www.assemblyai.com/docs/models/summarization), can be true or false */
+  summarization?: boolean
+  /** The model to summarize the transcript (values: `informative`, `conversational`, `catchy`) */
+  summary_model?: "informative" | "conversational" | "catchy"
+  /** The type of summary (values: `bullets`, `bullets_verbose`, `gist`, `headline`, `paragraph`) */
+  summary_type?: "bullets" | "bullets_verbose" | "gist" | "headline" | "paragraph"
+  /** Enable custom topics, either true or false */
+  custom_topics?: boolean
+  /** The list of custom topics */
+  topics?: unknown[]
+  /** Wait until the transcript status is "completed" or "error" before moving on to the next step. */
+  wait_until_ready: boolean
+  /** If the transcript status is "error", throw an error. */
+  throw_on_error: boolean
+}
+
+/** AssemblyAI — Get Transcript */
+export interface AssemblyaiGetTranscriptInput {
+  /** Transcript ID */
+  id: string
+}
+
+/** AssemblyAI — Get Transcript Sentences */
+export interface AssemblyaiGetTranscriptSentencesInput {
+  /** Transcript ID */
+  id: string
+}
+
+/** AssemblyAI — Get Transcript Paragraphs */
+export interface AssemblyaiGetTranscriptParagraphsInput {
+  /** Transcript ID */
+  id: string
+}
+
+/** AssemblyAI — Get Transcript Subtitles */
+export interface AssemblyaiGetSubtitlesInput {
+  /** Transcript ID */
+  id: string
+  /** Subtitles Format (values: `srt`, `vtt`) */
+  format: "srt" | "vtt"
+  /** The maximum number of characters per caption */
+  chars_per_caption?: number
+}
+
+/** AssemblyAI — Get Transcript Redacted Audio */
+export interface AssemblyaiGetRedactedAudioInput {
+  /** Transcript ID */
+  id: string
+  /** Download file? */
+  download_file: boolean
+  /** The desired file name for storing in ActivePieces. Make sure the file extension is correct. */
+  download_file_name: string
+}
+
+/** AssemblyAI — Search words in transcript */
+export interface AssemblyaiWordSearchInput {
+  /** Transcript ID */
+  id: string
+  /** Keywords to search for */
+  words: unknown[]
+}
+
+/** AssemblyAI — List transcripts */
+export interface AssemblyaiListTranscriptsInput {
+  /** Maximum amount of transcripts to retrieve */
+  limit?: number
+  /** Filter by transcript status (values: `queued`, `processing`, `completed`, `error`) */
+  status?: "queued" | "processing" | "completed" | "error"
+  /** Only get transcripts created on this date */
+  created_on?: string
+  /** Get transcripts that were created before this transcript ID */
+  before_id?: string
+  /** Get transcripts that were created after this transcript ID */
+  after_id?: string
+  /** Only get throttled transcripts, overrides the status filter */
+  throttled_only?: boolean
+}
+
+/** AssemblyAI — Delete transcript */
+export interface AssemblyaiDeleteTranscriptInput {
+  /** Transcript ID */
+  id: string
+}
+
+/** AssemblyAI — Run a Task using LeMUR */
+export interface AssemblyaiLemurTaskInput {
+  /** Your text to prompt the model to produce a desired output, including any context you want to pass into the model. */
+  prompt: string
+  /** A list of completed transcripts with text. Up to a maximum of 100 files or 100 hours, whichever is lower. Use either transcript_ids or input_text as input into LeMUR.  */
+  transcript_ids?: unknown[]
+  /** Custom formatted transcript data. Maximum size is the context limit of the selected model, which defaults to 100000. Use either transcript_ids or input_text as input into LeMUR.  */
+  input_text?: string
+  /** Context to provide the model. This can be a string or a free-form JSON value. */
+  context?: string
+  /** The model that is used for the final prompt after compression is performed.  (values: `anthropic/claude-3-5-sonnet`, `anthropic/claude-3-opus`, `anthropic/claude-3-haiku`, `anthropic/claude-3-sonnet`, `anthropic/claude-2-1`, `anthropic/claude-2`, `default`, `anthropic/claude-instant-1-2`, `basic`, `assemblyai/mistral-7b`) */
+  final_model?: "anthropic/claude-3-5-sonnet" | "anthropic/claude-3-opus" | "anthropic/claude-3-haiku" | "anthropic/claude-3-sonnet" | "anthropic/claude-2-1" | "anthropic/claude-2" | "default" | "anthropic/claude-instant-1-2" | "basic" | "assemblyai/mistral-7b"
+  /** Max output size in tokens, up to 4000 */
+  max_output_size?: number
+  /** The temperature to use for the model. Higher values result in answers that are more creative, lower values are more conservative. Can be any value between 0.0 and 1.0 inclusive.  */
+  temperature?: number
+}
+
+/** AssemblyAI — Retrieve LeMUR response */
+export interface AssemblyaiGetLemurResponseInput {
+  /** The ID of the LeMUR request whose data you want to delete. This would be found in the response of the original request. */
+  request_id: string
+}
+
+/** AssemblyAI — Purge LeMUR request data */
+export interface AssemblyaiPurgeLemurRequestDataInput {
+  /** The ID of the LeMUR request whose data you want to delete. This would be found in the response of the original request. */
+  request_id: string
+}
+
+/** AssemblyAI — Custom API Call */
+export interface AssemblyaiCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Attio — Create Record */
 export interface AttioCreateRecordInput {
   /** Object (resolve via property options API) */
@@ -593,6 +885,124 @@ export interface BaserowBaserowUpdateRowInput {
 
 /** Baserow — Custom API Call */
 export interface BaserowCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Beehiiv — Create Subscription */
+export interface BeehiivCreateSubscriptionInput {
+  /** Publication (resolve via property options API) */
+  publicationId: string
+  /** The email address of the new subscription. */
+  email: string
+  /** Whether to reactivate the subscription if they have already unsubscribed. Use only if the subscription is knowingly resubscribing. */
+  reactivate_existing?: boolean
+  /** Whether to send the default welcome email to the subscription. */
+  send_welcome_email?: boolean
+  /** The source of the subscription. */
+  utm_source?: string
+  /** The medium of the subscription. */
+  utm_medium?: string
+  /** The acquisition campaign of the subscription. */
+  utm_campaign?: string
+  /** The website that the subscription was referred from. */
+  referring_site?: string
+  /** A subscription's referral_code to give them credit for the new subscription. */
+  referral_code?: string
+  /** The tier for this subscription. (values: `free`, `premium`) */
+  tier?: "free" | "premium"
+  /** Custom Fields */
+  custom_fields?: Record<string, unknown>
+  /** The Stripe customer ID for this subscription. */
+  stripe_customer_id?: string
+  /** Override publication double-opt settings for this subscription. */
+  double_opt_override?: string
+  /** The IDs of the premium tiers this subscription is associated with. */
+  premium_tier_ids?: unknown[]
+  /** Enroll the subscription into automations after their subscription has been created. (resolve via property options API) */
+  automation_ids?: string
+}
+
+/** Beehiiv — Update Subscription */
+export interface BeehiivUpdateSubscriptionInput {
+  /** Publication (resolve via property options API) */
+  publicationId: string
+  /** Subscription ID (resolve via property options API) */
+  subscriptionId: string
+  /** Set the tier for this subscription. (values: `free`, `premium`) */
+  tier?: "free" | "premium"
+  /** The Stripe Customer ID of the subscription. */
+  stripe_customer_id?: string
+  /** Whether to unsubscribe this subscription from the publication. */
+  unsubscribe?: boolean
+  /** Custom Fields */
+  custom_fields?: Record<string, unknown>
+}
+
+/** Beehiiv — Add Subscription to Automation */
+export interface BeehiivAddSubscriptionToAutomationInput {
+  /** Publication (resolve via property options API) */
+  publicationId: string
+  /** Automation ID (resolve via property options API) */
+  automationId: string
+  /** The email address of the subscription. Provide either Email or Subscription ID. */
+  email?: string
+  /** Subscription ID (resolve via property options API) */
+  subscription_id?: string
+  /** Override publication double-opt settings for this subscription (e.g., "on"). */
+  double_opt_override?: string
+}
+
+/** Beehiiv — List Automations */
+export interface BeehiivListAutomationsInput {
+  /** Publication (resolve via property options API) */
+  publicationId: string
+  /** A limit on the number of automations to be returned (1-100, default 10). */
+  limit?: number
+  /** The page number for pagination (default 1). */
+  page?: number
+}
+
+/** Beehiiv — List Posts */
+export interface BeehiivListPostsInput {
+  /** Publication (resolve via property options API) */
+  publicationId: string
+  /** Optionally expand the results by adding additional information. */
+  expand?: string[]
+  /** Audience (values: `all`, `free`, `premium`) */
+  audience: "all" | "free" | "premium"
+  /** Platform (values: `all`, `web`, `email`, `both`) */
+  platform: "all" | "web" | "email" | "both"
+  /** Status (values: `all`, `draft`, `confirmed`, `archived`) */
+  status: "all" | "draft" | "confirmed" | "archived"
+  /** Filter posts by content tags. Returns posts with ANY of the specified tags. */
+  content_tags?: unknown[]
+  /** Number of posts to return (1-100, default 10). */
+  limit?: number
+  /** Page number for pagination (default 1). */
+  page?: number
+}
+
+/** Beehiiv — Custom API Call */
+export interface BeehiivCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -931,6 +1341,74 @@ export interface BlueskyFindThreadInput {
   parentHeight?: "0" | "1" | "2" | "3" | "5" | "10" | "20" | "80"
 }
 
+/** Box — Custom API Call */
+export interface BoxCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Brevo — Send Email */
+export interface BrevoSendEmailInput {
+  /** Sender Email */
+  senderEmail: string
+  /** Sender Name */
+  senderName?: string
+  /** To Email */
+  to: string
+  /** Subject */
+  subject: string
+  /** HTML Content */
+  htmlContent: string
+}
+
+/** Brevo — List Contacts */
+export interface BrevoListContactsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Brevo — Create Contact */
+export interface BrevoCreateContactInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** IDs of lists to add contact to */
+  listIds?: unknown[]
+}
+
+/** Brevo — Send SMS */
+export interface BrevoSendSmsInput {
+  /** Sender name (max 11 chars) or phone number */
+  sender: string
+  /** Phone number with country code (e.g., +1234567890) */
+  recipient: string
+  /** Content */
+  content: string
+}
+
 /** Calendly — Custom API Call */
 export interface CalendlyCustomApiCallInput {
   /** url */
@@ -953,6 +1431,32 @@ export interface CalendlyCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Chargebee — List Subscriptions */
+export interface ChargebeeListSubscriptionsInput {
+  /** Limit */
+  limit?: number
+  /** Pagination offset token */
+  offset?: string
+}
+
+/** Chargebee — Get Subscription */
+export interface ChargebeeGetSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Chargebee — List Customers */
+export interface ChargebeeListCustomersInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Chargebee — List Invoices */
+export interface ChargebeeListInvoicesInput {
+  /** Limit */
+  limit?: number
 }
 
 /** ClickUp — Create Task */
@@ -1391,6 +1895,120 @@ export interface ClickupCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Clockify — Create Task */
+export interface ClockifyCreateTaskInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Task Name */
+  name: string
+  /** Status (values: `ACTIVE`, `DONE`, `ALL`) */
+  status?: "ACTIVE" | "DONE" | "ALL"
+  /** Assignee */
+  assigneeIds?: string[]
+}
+
+/** Clockify — Create Time Entry */
+export interface ClockifyCreateTimeEntryInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+  /** Start Datetime */
+  start: string
+  /** End Datetime */
+  end: string
+  /** Entry Description */
+  description?: string
+  /** Project (resolve via property options API) */
+  projectId?: string
+  /** Task (resolve via property options API) */
+  taskId?: string
+  /** Billable */
+  billable?: boolean
+  /** Tags */
+  tagIds?: string[]
+}
+
+/** Clockify — Start Timer */
+export interface ClockifyStartTimerInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+  /** Entry Description */
+  description?: string
+  /** Project (resolve via property options API) */
+  projectId?: string
+  /** Task (resolve via property options API) */
+  taskId?: string
+  /** Billable */
+  billable?: boolean
+  /** Tags */
+  tagIds?: string[]
+}
+
+/** Clockify — Stop Timer */
+export interface ClockifyStopTimerInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+}
+
+/** Clockify — Find Task */
+export interface ClockifyFindTaskInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+  /** Project (resolve via property options API) */
+  projectId: string
+  /** Task Name */
+  name: string
+  /** Exact Match ? */
+  exactMatch?: boolean
+}
+
+/** Clockify — Find Time Entry */
+export interface ClockifyFindTimeEntryInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+  /** Start Datetime */
+  start?: string
+  /** End Datetime */
+  end?: string
+  /** Entry Description */
+  description?: string
+  /** Project (resolve via property options API) */
+  projectId?: string
+  /** Task (resolve via property options API) */
+  taskId?: string
+}
+
+/** Clockify — Find Running Timer */
+export interface ClockifyFindRunningTimerInput {
+  /** Workspace (resolve via property options API) */
+  workspaceId: string
+}
+
+/** Clockify — Custom API Call */
+export interface ClockifyCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Close — Create Lead */
 export interface CloseCreateLeadInput {
   /** The name of the lead/company. */
@@ -1507,6 +2125,30 @@ export interface CloseCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Cloudinary — List Resources */
+export interface CloudinaryListResourcesInput {
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Cloudinary — Get Resource */
+export interface CloudinaryGetResourceInput {
+  /** Public ID */
+  publicId: string
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
+}
+
+/** Cloudinary — Delete Resource */
+export interface CloudinaryDeleteResourceInput {
+  /** Public ID */
+  publicId: string
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
 }
 
 /** Coda — Create Row */
@@ -1695,6 +2337,456 @@ export interface ConfluenceCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Constant Contact — Create or Update Contact */
+export interface ConstantContactCreateOrUpdateContactInput {
+  /** The list of the contact */
+  list: string[]
+  /** The email of the contact */
+  email_address: string
+  /** The first name of the contact */
+  first_name?: string
+  /** The last name of the contact */
+  last_name?: string
+  /** The job title of the contact */
+  job_title?: string
+  /** The company name of the contact */
+  company_name?: string
+  /** The phone number of the contact */
+  phoner_number?: string
+}
+
+/** Constant Contact — Custom API Call */
+export interface ConstantContactCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Contentful — Search Records */
+export interface ContentfulContentfulRecordSearchInput {
+  /** Content Model (resolve via property options API) */
+  contentModel: string
+  /** Content Locale (resolve via property options API) */
+  locale: string
+  /** The query formula to use to search for records. See https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters for more information */
+  query: unknown
+  /** The maximum number of records to return */
+  limit?: number
+  /** The number of records to skip */
+  skip?: number
+  /** Number of levels to include for entries and assets. See https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/resource-links/retrieval-of-linked-resource-links */
+  include?: number
+  /** The fields to return for each record. */
+  select?: string[]
+}
+
+/** Contentful — Get Record */
+export interface ContentfulContentfulRecordGetInput {
+  /** The ID of the record to get. */
+  entityId: string
+}
+
+/** Contentful — Create Record */
+export interface ContentfulContentfulRecordCreateInput {
+  /** Content Locale (resolve via property options API) */
+  locale: string
+  /** Content Model (resolve via property options API) */
+  contentModel: string
+  /** Whether or not to publish this record after creating it. */
+  publishOnCreate: boolean
+  /** Fields for Content Model */
+  fields: Record<string, unknown>
+}
+
+/** Contentful — Custom API Call */
+export interface ContentfulCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** ConvertKit — Get Subscriber By Id */
+export interface ConvertkitSubscribersGetSubscriberByIdInput {
+  /** The subscriber ID */
+  subscriberId: string
+}
+
+/** ConvertKit — Get Subscriber By Email */
+export interface ConvertkitSubscribersGetSubscriberByEmailInput {
+  /** The email of the subscriber */
+  email_address: string
+}
+
+/** ConvertKit — List Subscribers */
+export interface ConvertkitSubscribersListSubscribersInput {
+  /** Page number. Each page of results will contain up to 50 subscribers. */
+  page?: number
+  /** Sort order (values: `asc`, `desc`) */
+  sortOrder: "asc" | "desc"
+  /** Sort field */
+  sortField?: string
+  /** Return subscribers created after this date */
+  from?: string
+  /** Return subscribers created before this date */
+  to?: string
+  /** Return subscribers updated after this date */
+  updatedFrom?: string
+  /** Return subscribers updated before this date */
+  updatedTo?: string
+  /** The email of the subscriber */
+  emailAddress: string
+}
+
+/** ConvertKit — Update Subscriber */
+export interface ConvertkitSubscribersUpdateSubscriberInput {
+  /** The subscriber ID */
+  subscriberId: string
+  /** The email of the subscriber */
+  emailAddress?: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** The custom fields */
+  fields?: Record<string, unknown>
+}
+
+/** ConvertKit — Unsubscribe Subscriber */
+export interface ConvertkitSubscribersUnsubscribeSubscriberInput {
+  /** The email of the subscriber */
+  email: string
+}
+
+/** ConvertKit — List Tags By Email */
+export interface ConvertkitSubscribersListTagsByEmailInput {
+  /** The email of the subscriber */
+  email_address: string
+}
+
+/** ConvertKit — List Tags By Subscriber Id */
+export interface ConvertkitSubscribersListTagsBySubscriberIdInput {
+  /** The subscriber ID */
+  subscriberId: string
+}
+
+/** ConvertKit — Add Webhook */
+export interface ConvertkitCreateWebhookInput {
+  /** The URL that will be called when the webhook is triggered */
+  targetUrl: string
+  /** The event that will trigger the webhook */
+  event: "subscriber.subscriber_activate" | "subscriber.subscriber_unsubscribe" | "subscriber.subscriber_bounce" | "subscriber.subscriber_complain" | "subscriber.form_subscribe" | "subscriber.course_subscribe" | "subscriber.course_complete" | "subscriber.link_click" | "subscriber.product_purchase" | "subscriber.tag_add" | "subscriber.tag_remove" | "purchase.purchase_create"
+  /** The required parameter for the event */
+  eventParameter?: Record<string, unknown>
+}
+
+/** ConvertKit — Delete Webhook */
+export interface ConvertkitDestroyWebhookInput {
+  /** The webhook rule id */
+  webhookId: number
+}
+
+/** ConvertKit — List Custom Fields */
+export type ConvertkitCustomFieldsListFieldsInput = Record<string, never>
+
+/** ConvertKit — Create Custom Field */
+export interface ConvertkitCustomFieldsCreateFieldInput {
+  /** The custom fields */
+  fields: unknown[]
+}
+
+/** ConvertKit — Custom Fields: Update Field */
+export interface ConvertkitCustomFieldsUpdateFieldInput {
+  /** Custom Label (resolve via property options API) */
+  label: string
+  /** The new label for the custom field */
+  new_label: string
+}
+
+/** ConvertKit — Custom Fields: Delete Field */
+export interface ConvertkitCustomFieldsDeleteFieldInput {
+  /** Custom Label (resolve via property options API) */
+  label: string
+}
+
+/** ConvertKit — List Broadcasts */
+export interface ConvertkitBroadcastsListBroadcastsInput {
+  /** Page number. Each page of results will contain up to 50 broadcasts. */
+  page?: number
+}
+
+/** ConvertKit — Create Broadcast */
+export interface ConvertkitBroadcastsCreateBroadcastInput {
+  /** The broadcast's email content - this can contain text and simple HTML markdown (such as h1, img or p tags) */
+  content?: string
+  /** An internal description of this broadcast */
+  description?: string
+  /** Sending email address; leave blank to use your account's default sending email address */
+  emailAddress?: string
+  /** Name of the email template to use; leave blank to use your account's default email template */
+  emailLayoutTemplate?: string
+  /** Specifies whether or not this is a public post */
+  isPublic?: boolean
+  /** Specifies the time that this post was published (applicable only to public posts) */
+  publishedAt?: string
+  /** Time that this broadcast should be sent; leave blank to create a draft broadcast. If set to a future time, this is the time that the broadcast will be scheduled to send. */
+  sendAt?: string
+  /** The broadcast email's subject */
+  subject?: string
+  /** Specify the ALT attribute of the public thumbnail image (applicable only to public posts) */
+  thumbnailAlt?: string
+  /** Specify the URL of the thumbnail image to accompany the broadcast post (applicable only to public posts) */
+  thumbnailUrl?: string
+}
+
+/** ConvertKit — Get Broadcast */
+export interface ConvertkitBroadcastsGetBroadcastInput {
+  /** The broadcast id */
+  broadcastId: string
+}
+
+/** ConvertKit — Update Broadcast */
+export interface ConvertkitBroadcastsUpdateBroadcastInput {
+  /** The broadcast id */
+  broadcastId: string
+  /** The broadcast's email content - this can contain text and simple HTML markdown (such as h1, img or p tags) */
+  content?: string
+  /** An internal description of this broadcast */
+  description?: string
+  /** Sending email address; leave blank to use your account's default sending email address */
+  emailAddress?: string
+  /** Name of the email template to use; leave blank to use your account's default email template */
+  emailLayoutTemplate?: string
+  /** Specifies whether or not this is a public post */
+  isPublic?: boolean
+  /** Specifies the time that this post was published (applicable only to public posts) */
+  publishedAt?: string
+  /** Time that this broadcast should be sent; leave blank to create a draft broadcast. If set to a future time, this is the time that the broadcast will be scheduled to send. */
+  sendAt?: string
+  /** The broadcast email's subject */
+  subject?: string
+  /** Specify the ALT attribute of the public thumbnail image (applicable only to public posts) */
+  thumbnailAlt?: string
+  /** Specify the URL of the thumbnail image to accompany the broadcast post (applicable only to public posts) */
+  thumbnailUrl?: string
+}
+
+/** ConvertKit — Delete Broadcast */
+export interface ConvertkitBroadcastsDeleteBroadcastInput {
+  /** The broadcast id */
+  broadcastId: string
+}
+
+/** ConvertKit — Broadcast Stats */
+export interface ConvertkitBroadcastsBroadcastStatsInput {
+  /** The broadcast id */
+  broadcastId: string
+}
+
+/** ConvertKit — List Forms */
+export type ConvertkitFormsListFormsInput = Record<string, never>
+
+/** ConvertKit — Add Subscriber To Form */
+export interface ConvertkitFormsAddSubscriberToFormInput {
+  /** Form (resolve via property options API) */
+  formId: string
+  /** The email of the subscriber */
+  email: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** Choose the Tags */
+  tags?: string[]
+  /** The custom fields */
+  fields?: Record<string, unknown>
+}
+
+/** ConvertKit — List Form Subscriptions */
+export interface ConvertkitFormsListFormSubscriptionsInput {
+  /** Form (resolve via property options API) */
+  formId: string
+}
+
+/** ConvertKit — List Sequences */
+export type ConvertkitSequencesListSequencesInput = Record<string, never>
+
+/** ConvertKit — Add Subscriber To Sequence */
+export interface ConvertkitSequencesAddSubscriberToSequenceInput {
+  /** Sequence (resolve via property options API) */
+  sequenceId: string
+  /** The email of the subscriber */
+  email: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** Choose the Tags */
+  tags?: string[]
+  /** The custom fields */
+  fields?: Record<string, unknown>
+}
+
+/** ConvertKit — List Subscriptions To Sequence */
+export interface ConvertkitSequencesListSubscriptionsToSequenceInput {
+  /** Sequence (resolve via property options API) */
+  sequenceId: string
+}
+
+/** ConvertKit — List Tags */
+export type ConvertkitTagsListTagsInput = Record<string, never>
+
+/** ConvertKit — Create Tag */
+export interface ConvertkitTagsCreateTagInput {
+  /** The name of the tag */
+  name: string
+}
+
+/** ConvertKit — Tag Subscriber */
+export interface ConvertkitTagsTagSubscriberInput {
+  /** The email of the subscriber */
+  email: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** Choose the Tags */
+  tags: string[]
+  /** The custom fields */
+  fields?: Record<string, unknown>
+}
+
+/** ConvertKit — Remove Tag From Subscriber By Email */
+export interface ConvertkitTagsRemoveTagFromSubscriberByEmailInput {
+  /** The email of the subscriber */
+  email: string
+  /** The tag to remove (resolve via property options API) */
+  tagId: string
+}
+
+/** ConvertKit — Remove Tag From Subscriber By Id */
+export interface ConvertkitTagsRemoveTagFromSubscriberByIdInput {
+  /** The subscriber ID */
+  subscriberId: string
+  /** The tag to remove (resolve via property options API) */
+  tagId: string
+}
+
+/** ConvertKit — List Subscriptions To Tag */
+export interface ConvertkitTagsListSubscriptionsToTagInput {
+  /** Choose a Tag (resolve via property options API) */
+  tagId: string
+  /** Each page of results will contain up to 50 tags. */
+  page?: number
+  /** Sort order (values: `asc`, `desc`) */
+  sortOrder?: "asc" | "desc"
+  /** Subscriber state (values: `active`, `canceled`) */
+  subscriberState?: "active" | "canceled"
+}
+
+/** ConvertKit — List Purchases */
+export interface ConvertkitPurchasesListPurchasesInput {
+  /** Page number. Each page of results will contain up to 50 purchases. */
+  page: number
+}
+
+/** ConvertKit — Get Purchase By Id */
+export interface ConvertkitPurchasesGetPurchaseByIdInput {
+  /** The purchase ID */
+  purchaseId: string
+}
+
+/** ConvertKit — Create Purchase */
+export interface ConvertkitPurchasesCreatePurchaseInput {
+  /** The transaction ID */
+  transactionId: number
+  /** The transaction time */
+  transactionTime?: string
+  /** The email address of the subscriber */
+  emailAddress: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** The status of the purchase (values: `paid`, `pending`, `failed`) */
+  status?: "paid" | "pending" | "failed"
+  /** The currency of the purchase */
+  currency: "USD" | "JPY" | "GBP" | "EUR" | "CAD" | "AUD" | "NZD" | "CHF" | "HKD" | "SGD" | "SEK" | "DKK" | "PLN" | "NOK" | "HUF" | "CZK" | "ILS" | "MXN" | "MYR" | "BRL" | "PHP" | "TWD" | "THB" | "TRY" | "RUB" | "INR" | "KRW" | "AED" | "SAR" | "ZAR"
+  /** The subtotal */
+  subtotal?: number
+  /** The shipping */
+  shipping?: number
+  /** The discount */
+  discount?: number
+  /** The tax */
+  tax?: number
+  /** The total */
+  total?: number
+  /** The product ID */
+  pid: number
+  /** The line item ID */
+  lid: number
+  /** The name of the product */
+  name: string
+  /** The SKU of the product */
+  sku?: string
+  /** The unit price of the product */
+  unit_price: number
+  /** The quantity of the product */
+  quantity: number
+}
+
+/** ConvertKit — Create Multiple Purchases */
+export interface ConvertkitPurchasesCreateMultiplePurchasesInput {
+  /** The transaction ID */
+  transactionId: number
+  /** The transaction time */
+  transactionTime?: string
+  /** The email address of the subscriber */
+  emailAddress: string
+  /** The first name of the subscriber */
+  firstName?: string
+  /** The status of the purchase (values: `paid`, `pending`, `failed`) */
+  status?: "paid" | "pending" | "failed"
+  /** The currency of the purchase */
+  currency: "USD" | "JPY" | "GBP" | "EUR" | "CAD" | "AUD" | "NZD" | "CHF" | "HKD" | "SGD" | "SEK" | "DKK" | "PLN" | "NOK" | "HUF" | "CZK" | "ILS" | "MXN" | "MYR" | "BRL" | "PHP" | "TWD" | "THB" | "TRY" | "RUB" | "INR" | "KRW" | "AED" | "SAR" | "ZAR"
+  /** The subtotal */
+  subtotal?: number
+  /** The shipping */
+  shipping?: number
+  /** The discount */
+  discount?: number
+  /** The tax */
+  tax?: number
+  /** The total */
+  total?: number
+  /** The products */
+  multipleProducts: unknown
 }
 
 /** Copper — Create Person */
@@ -2433,6 +3525,67 @@ export interface DeelCreateInvoiceInput {
   dateSubmitted: string
 }
 
+/** Deepgram — Create Summary */
+export interface DeepgramCreateSummaryInput {
+  /** Audio File */
+  audioFile: string
+  /** Model */
+  model?: "nova-3" | "nova-3-general" | "nova-3-medical" | "nova-2" | "nova-2-general" | "nova-2-meeting" | "nova-2-finance" | "nova-2-conversationalai" | "nova-2-voicemail" | "nova-2-video" | "nova-2-medical" | "nova-2-drivethru" | "nova-2-automotive" | "nova" | "nova-general" | "nova-phonecall" | "nova-medical" | "enhanced" | "enhanced-general" | "enhanced-meeting" | "enhanced-phonecall" | "enhanced-finance" | "base" | "meeting" | "phonecall" | "finance" | "conversationalai" | "voicemail" | "video"
+  /** en */
+  language?: "bg" | "ca" | "zh" | "zh-CN" | "zh-TW" | "zh-HK" | "zh-Hans" | "zh-Hant" | "cs" | "da" | "da-DK" | "nl" | "nl-BE" | "en" | "en-US" | "en-AU" | "en-GB" | "en-NZ" | "en-IN" | "et" | "fi" | "fr" | "fr-CA" | "de" | "de-CH" | "el" | "hi" | "hi-Latn" | "hu" | "id" | "it" | "ja" | "ko" | "ko-KR" | "lv" | "lt" | "ms" | "no" | "pl" | "pt" | "pt-BR" | "pt-PT" | "ro" | "ru" | "sk" | "es" | "es-419" | "es-LATAM" | "sv" | "sv-SE" | "taq" | "th" | "th-TH" | "tr" | "uk" | "vi"
+  /** Return full transcript if summary is not available. */
+  fallbackToTranscript?: boolean
+}
+
+/** Deepgram — Create Transcription (Callback) */
+export interface DeepgramCreateTranscriptionCallbackInput {
+  /** Audio File */
+  audioFile: string
+  /** Model */
+  model?: "nova-3" | "nova-3-general" | "nova-3-medical" | "nova-2" | "nova-2-general" | "nova-2-meeting" | "nova-2-finance" | "nova-2-conversationalai" | "nova-2-voicemail" | "nova-2-video" | "nova-2-medical" | "nova-2-drivethru" | "nova-2-automotive" | "nova" | "nova-general" | "nova-phonecall" | "nova-medical" | "enhanced" | "enhanced-general" | "enhanced-meeting" | "enhanced-phonecall" | "enhanced-finance" | "base" | "meeting" | "phonecall" | "finance" | "conversationalai" | "voicemail" | "video"
+  /** en */
+  language?: "bg" | "ca" | "zh" | "zh-CN" | "zh-TW" | "zh-HK" | "zh-Hans" | "zh-Hant" | "cs" | "da" | "da-DK" | "nl" | "nl-BE" | "en" | "en-US" | "en-AU" | "en-GB" | "en-NZ" | "en-IN" | "et" | "fi" | "fr" | "fr-CA" | "de" | "de-CH" | "el" | "hi" | "hi-Latn" | "hu" | "id" | "it" | "ja" | "ko" | "ko-KR" | "lv" | "lt" | "ms" | "no" | "pl" | "pt" | "pt-BR" | "pt-PT" | "ro" | "ru" | "sk" | "es" | "es-419" | "es-LATAM" | "sv" | "sv-SE" | "taq" | "th" | "th-TH" | "tr" | "uk" | "vi"
+  /** URL to receive the transcription when ready. */
+  callbackUrl: string
+}
+
+/** Deepgram — List Projects */
+export type DeepgramListProjectsInput = Record<string, never>
+
+/** Deepgram — Text to Speech */
+export interface DeepgramTextToSpeechInput {
+  /** Text */
+  text: string
+  /** Voice */
+  model: "aura-asteria-en" | "aura-luna-en" | "aura-stella-en" | "aura-athena-en" | "aura-hera-en" | "aura-orion-en" | "aura-arcas-en" | "aura-perseus-en" | "aura-angus-en" | "aura-orpheus-en" | "aura-helios-en" | "aura-zeus-en" | "aura-2-amalthea-en" | "aura-2-andromeda-en" | "aura-2-apollo-en" | "aura-2-arcas-en" | "aura-2-aries-en" | "aura-2-asteria-en" | "aura-2-athena-en" | "aura-2-atlas-en" | "aura-2-aurora-en" | "aura-2-callista-en" | "aura-2-cordelia-en" | "aura-2-cora-en" | "aura-2-delia-en" | "aura-2-draco-en" | "aura-2-electra-en" | "aura-2-harmonia-en" | "aura-2-helena-en" | "aura-2-hera-en" | "aura-2-hermes-en" | "aura-2-hyperion-en" | "aura-2-iris-en" | "aura-2-janus-en" | "aura-2-juno-en" | "aura-2-jupiter-en" | "aura-2-luna-en" | "aura-2-mars-en" | "aura-2-minerva-en" | "aura-2-neptune-en" | "aura-2-odysseus-en" | "aura-2-ophelia-en" | "aura-2-orion-en" | "aura-2-orpheus-en" | "aura-2-pandora-en" | "aura-2-phoebe-en" | "aura-2-pluto-en" | "aura-2-saturn-en" | "aura-2-selene-en" | "aura-2-thalia-en" | "aura-2-theia-en" | "aura-2-vesta-en" | "aura-2-zeus-en" | "aura-2-sirio-es" | "aura-2-nestor-es" | "aura-2-carina-es" | "aura-2-celeste-es" | "aura-2-alvaro-es" | "aura-2-diana-es" | "aura-2-aquila-es" | "aura-2-selena-es" | "aura-2-estrella-es" | "aura-2-javier-es"
+  /** Output Format (values: `linear16`, `flac`, `mulaw`, `alaw`, `mp3`, `opus`, `aac`) */
+  encoding?: "linear16" | "flac" | "mulaw" | "alaw" | "mp3" | "opus" | "aac"
+}
+
+/** Deepgram — Custom API Call */
+export interface DeepgramCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Discord — Send Message with Bot */
 export interface DiscordSendMessageWithBotInput {
   /** List of channels (resolve via property options API) */
@@ -2603,6 +3756,74 @@ export interface DiscordCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Discourse — Create Post */
+export interface DiscourseCreatePostInput {
+  /** Content of the post */
+  raw: string
+  /** ID of the topic to post in (resolve via property options API) */
+  topic_id: string
+}
+
+/** Discourse — Create Topic */
+export interface DiscourseCreateTopicInput {
+  /** Title of the Topic */
+  title: string
+  /** Content of the topic */
+  raw: string
+  /** ID of the category to post in (resolve via property options API) */
+  category?: string
+}
+
+/** Discourse — Change User Trust Level */
+export interface DiscourseChangeUserTrustLevelInput {
+  /** ID of the user */
+  user_id: string
+  /** New trust level of the user (resolve via property options API) */
+  new_trust_level: string
+}
+
+/** Discourse — Add Users to Group */
+export interface DiscourseAddUsersToGroupInput {
+  /** Id of the group (resolve via property options API) */
+  group_id: string
+  /** List of users to add to the group */
+  users: unknown[]
+}
+
+/** Discourse — Send Private Message */
+export interface DiscourseSendPrivateMessageInput {
+  /** Title for the PM */
+  title: string
+  /** Content of the post */
+  raw: string
+  /** List of users to send the PM to (can be one or more) */
+  target_recipients: unknown[]
+}
+
+/** Discourse — Custom API Call */
+export interface DiscourseCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Docusign — List envelopes */
 export interface DocusignListEnvelopesInput {
   /** Account ID */
@@ -2639,6 +3860,82 @@ export interface DocusignGetDocumentInput {
 
 /** Docusign — Custom API Call */
 export interface DocusignCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Drip — Apply a tag to subscriber */
+export interface DripApplyTagToSubscriberInput {
+  /** Account (resolve via property options API) */
+  account_id: string
+  /** Email of the subscriber */
+  subscriber: string
+  /** Tag to apply */
+  tag: string
+}
+
+/** Drip — Add a subscriber to a campaign */
+export interface DripAddSubscriberToCampaignInput {
+  /** Account (resolve via property options API) */
+  account_id: string
+  /** Email Series Campaign (resolve via property options API) */
+  campaign_id: string
+  /** Email of the subscriber */
+  subscriber: string
+  /** Tags to apply to subscriber */
+  tags?: unknown[]
+  /** Custom field data about the subscriber */
+  custom_fields?: Record<string, unknown>
+}
+
+/** Drip — Create or Update Subscriber */
+export interface DripUpsertSubscriberInput {
+  /** Account (resolve via property options API) */
+  account_id: string
+  /** Email of the subscriber */
+  subscriber: string
+  /** Tags to apply to subscriber */
+  tags?: unknown[]
+  /** Custom field data about the subscriber */
+  custom_fields?: Record<string, unknown>
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Postal code in which the subscriber resides */
+  zip?: string
+  /** The country in which the subscriber resides */
+  country?: string
+  /** The region in which the subscriber resides */
+  state?: string
+  /** The city in which the subscriber resides */
+  city?: string
+  /** The subscriber's primary phone number */
+  phone?: string
+  /** The subscriber's mailing address */
+  address?: string
+}
+
+/** Drip — Custom API Call */
+export interface DripCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -3077,6 +4374,44 @@ export interface FormstackCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** FreshBooks — List Clients */
+export interface FreshbooksListClientsInput {
+  /** Your FreshBooks account ID */
+  accountId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** FreshBooks — List Invoices */
+export interface FreshbooksListInvoicesInput {
+  /** Account ID */
+  accountId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** FreshBooks — Create Invoice */
+export interface FreshbooksCreateInvoiceInput {
+  /** Account ID */
+  accountId: string
+  /** Customer ID */
+  customerId: string
+  /** Invoice line items as JSON array: [{"name": "Service", "amount": {"amount": "100.00", "code": "USD"}, "quantity": 1}] */
+  lines: unknown
+}
+
+/** FreshBooks — List Expenses */
+export interface FreshbooksListExpensesInput {
+  /** Account ID */
+  accountId: string
+  /** Page */
+  page?: number
+}
+
 /** Freshdesk — Get Tickets */
 export type FreshdeskGetTicketsInput = Record<string, never>
 
@@ -3502,6 +4837,36 @@ export interface FrontUpdateLinkInput {
   external_url?: string
 }
 
+/** Ghost — List Posts */
+export interface GhostListPostsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** Ghost — Get Post */
+export interface GhostGetPostInput {
+  /** Post ID */
+  postId: string
+}
+
+/** Ghost — Create Post */
+export interface GhostCreatePostInput {
+  /** Title */
+  title: string
+  /** HTML Content */
+  html?: string
+  /** Status (values: `draft`, `published`, `scheduled`) */
+  status?: "draft" | "published" | "scheduled"
+}
+
+/** Ghost — List Members */
+export interface GhostListMembersInput {
+  /** Limit */
+  limit?: number
+}
+
 /** GitHub — Create Issue */
 export interface GithubGithubCreateIssueInput {
   /** Repository (resolve via property options API) */
@@ -3877,6 +5242,23 @@ export interface GmailCustomApiCallInput {
   /** Follow redirects */
   followRedirects?: boolean
 }
+
+/** Gong — List Calls */
+export interface GongListCallsInput {
+  /** ISO 8601 date (e.g., 2024-01-01T00:00:00Z) */
+  fromDateTime?: string
+  /** ISO 8601 date */
+  toDateTime?: string
+}
+
+/** Gong — Get Call Transcript */
+export interface GongGetCallTranscriptInput {
+  /** Call ID */
+  callId: string
+}
+
+/** Gong — List Users */
+export type GongListUsersInput = Record<string, never>
 
 /** Google Ads — List Campaigns */
 export interface GoogleAdsListCampaignsInput {
@@ -5017,6 +6399,190 @@ export interface GustoGetCompanyInput {
   companyId: string
 }
 
+/** Harvest — Get Clients */
+export interface HarvestGetClientsInput {
+  /** Pass `true` to only return active clients and `false` to return inactive clients. */
+  is_active?: string
+  /** Only return clients that have been updated since the given date and time. */
+  updated_since?: string
+  /** DEPRECATED: The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Estimates */
+export interface HarvestGetEstimatesInput {
+  /** Only return estimates with an issue_date on or after the given date. (YYYY-MM-DD) */
+  from?: string
+  /** Only return estimates with an issue_date on or before the given date. (YYYY-MM-DD) */
+  to?: string
+  /** Only return estimates with a state matching the value provided. Options: draft, open, accepted, or declined. */
+  state?: string
+  /** Only return estimates that have been updated since the given date and time. */
+  updated_since?: string
+  /** Only return estimates belonging to the client with the given ID. */
+  client_id?: string
+  /** The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Expenses */
+export interface HarvestGetExpensesInput {
+  /** Only return expenses with an spent_date on or after the given date. (YYYY-MM-DD) */
+  from?: string
+  /** Only return expenses with an spent_date on or before the given date. (YYYY-MM-DD) */
+  to?: string
+  /** Only return expenses belonging to the user with the given ID. */
+  user_id?: string
+  /** Only return expenses belonging to the client with the given ID. */
+  client_id?: string
+  /** Only return expenses belonging to the project with the given ID. */
+  project_id?: string
+  /** Pass `true` to only return expenses that have been invoiced and `false` to return expenses that have not been invoiced. */
+  is_billed?: string
+  /** Only return expenses that have been updated since the given date and time. */
+  updated_since?: string
+  /** The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Invoices */
+export interface HarvestGetInvoicesInput {
+  /** Only return invoices with an issue_date on or after the given date. (YYYY-MM-DD) */
+  from?: string
+  /** Only return invoices with an issue_date on or before the given date. (YYYY-MM-DD) */
+  to?: string
+  /** Only return invoices with a state matching the value provided. Options: draft, open, paid, or closed. */
+  state?: string
+  /** Only return invoices that have been updated since the given date and time. */
+  updated_since?: string
+  /** Only return invoices belonging to the client with the given ID. */
+  client_id?: string
+  /** Only return invoices belonging to the project with the given ID. */
+  project_id?: string
+  /** The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Projects */
+export interface HarvestGetProjectsInput {
+  /** Pass `true` to only return active projects and `false` to return inactive projects. */
+  is_active?: string
+  /** Only return projects that have been updated since the given date and time. */
+  updated_since?: string
+  /** Only return invoices belonging to the client with the given ID. */
+  client_id?: string
+  /** DEPRECATED: The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Roles */
+export interface HarvestGetRolesInput {
+  /** DEPRECATED: The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Tasks */
+export interface HarvestGetTasksInput {
+  /** Pass `true` to only return active tasks and `false` to return inactive tasks. */
+  is_active?: string
+  /** Only return tasks that have been updated since the given date and time. */
+  updated_since?: string
+  /** DEPRECATED: The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Time Entries */
+export interface HarvestGetTimeEntriesInput {
+  /** Only return time entries with an spent_date on or after the given date. (YYYY-MM-DD) */
+  from?: string
+  /** Only return time entries with an spent_date on or before the given date. (YYYY-MM-DD) */
+  to?: string
+  /** Only return time entries belonging to the user with the given ID. */
+  user_id?: string
+  /** Only return time entries belonging to the client with the given ID. */
+  client_id?: string
+  /** Only return time entries belonging to the project with the given ID. */
+  project_id?: string
+  /** Only return time entries belonging to the task with the given ID. */
+  task_id?: string
+  /** Only return time entries with the given external reference ID. */
+  external_reference_id?: string
+  /** Pass `true` to only return time entries that have been invoiced and `false` to return time entries that have not been invoiced. */
+  is_billed?: string
+  /** Pass `true` to only return running time entries and `false` to return non-running time entries. */
+  is_running?: string
+  /** Only return time entries that have been updated since the given date and time. */
+  updated_since?: string
+  /** The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Get Users */
+export interface HarvestGetUsersInput {
+  /** Pass `true` to only return active users and `false` to return inactive users. */
+  is_active?: string
+  /** Only return users that have been updated since the given date and time. */
+  updated_since?: string
+  /** DEPRECATED: The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Uninvoiced Report */
+export interface HarvestReportsUninvoicedInput {
+  /** Only report on time entries and expenses with a spent_date on or after the given date. (YYYY-MM-DD) */
+  from: string
+  /** Only report on time entries and expenses with a spent_date on or before the given date. (YYYY-MM-DD) */
+  to: string
+  /** Whether or not to include fixed-fee projects in the response. (Default: true) */
+  include_fixed_fee?: string
+  /** The page number to use in pagination. */
+  page?: string
+  /** The number of records to return per page. (1-2000) */
+  per_page?: string
+}
+
+/** Harvest — Custom API Call */
+export interface HarvestCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Hash & Encode — Hash */
 export interface HashEncodeHashInput {
   /** Text to hash */
@@ -5196,6 +6762,21 @@ export interface HelpScoutCustomApiCallInput {
   /** Follow redirects */
   followRedirects?: boolean
 }
+
+/** HiBob — List Employees */
+export type HibobListEmployeesInput = Record<string, never>
+
+/** HiBob — Get Employee */
+export interface HibobGetEmployeeInput {
+  /** Employee ID */
+  employeeId: string
+}
+
+/** HiBob — List Time Off Requests */
+export type HibobListTimeOffInput = Record<string, never>
+
+/** HiBob — List Company Lists */
+export type HibobListCompanyListsInput = Record<string, never>
 
 /** HTTP — Send HTTP request */
 export interface HttpSendRequestInput {
@@ -7035,6 +8616,38 @@ export interface MailchimpFindSubscriberInput {
   exclude_fields?: unknown[]
 }
 
+/** Mastodon — Post Status */
+export interface MastodonPostStatusInput {
+  /** The text of your status */
+  status: string
+  /** The media attachment for your status */
+  media?: string
+}
+
+/** Mastodon — Custom API Call */
+export interface MastodonCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Microsoft Excel 365 — Append Row to Worksheet */
 export interface MicrosoftExcel365AppendRowInput {
   /** Workbook (resolve via property options API) */
@@ -8213,6 +9826,56 @@ export interface MicrosoftTodoCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Miro — List Boards */
+export interface MiroListBoardsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Miro — Get Board */
+export interface MiroGetBoardInput {
+  /** Board ID */
+  boardId: string
+}
+
+/** Miro — Create Sticky Note */
+export interface MiroCreateStickyNoteInput {
+  /** Board ID */
+  boardId: string
+  /** Content */
+  content: string
+  /** Color (values: `yellow`, `blue`, `green`, `pink`, `orange`, `red`) */
+  color?: "yellow" | "blue" | "green" | "pink" | "orange" | "red"
+}
+
+/** Miro — List Board Items */
+export interface MiroListItemsInput {
+  /** Board ID */
+  boardId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Mistral AI — Chat */
+export interface MistralChatInput {
+  /** Model to use (e.g., mistral-large-latest, mistral-small-latest) */
+  model: string
+  /** The user message to send */
+  message: string
+  /** Optional system prompt */
+  system?: string
+  /** Sampling temperature (0-1) */
+  temperature?: number
+}
+
+/** Mistral AI — Create Embeddings */
+export interface MistralEmbedInput {
+  /** Embedding model (e.g., mistral-embed) */
+  model: string
+  /** List of texts to embed */
+  input: unknown[]
+}
+
 /** Mixpanel — Track Event */
 export interface MixpanelTrackEventInput {
   /** A name for this Event. For example, 'Brand Mentioned in Tweet' or 'Payment Made'. */
@@ -8791,6 +10454,31 @@ export interface MongodbAggregateDocumentsInput {
   pipeline: unknown
 }
 
+/** Mux — List Assets */
+export interface MuxListAssetsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** Mux — Get Asset */
+export interface MuxGetAssetInput {
+  /** Asset ID */
+  assetId: string
+}
+
+/** Mux — Create Asset */
+export interface MuxCreateAssetInput {
+  /** URL of the video file */
+  inputUrl: string
+  /** Playback Policy (values: `public`, `signed`) */
+  playbackPolicy?: "public" | "signed"
+}
+
+/** Mux — List Live Streams */
+export type MuxListLiveStreamsInput = Record<string, never>
+
 /** MySQL — Find Rows */
 export interface MysqlFindRowsInput {
   /**    **DO NOT** use dynamic input directly in the query string or column names.       Use **?** in the query and dynamic values in args/values for parameterized queries to prevent **SQL injection**. */
@@ -8858,6 +10546,88 @@ export interface MysqlExecuteQueryInput {
   query: string
   /** Arguments to use in the query, if any. Should be in the same order as the ? in the query string.. */
   args?: unknown[]
+}
+
+/** Netlify — Start Deploy */
+export interface NetlifyStartDeployInput {
+  /** Select the site to deploy (resolve via property options API) */
+  siteId: string
+  /** Whether to clear the build cache before building */
+  clearCache?: boolean
+}
+
+/** Netlify — Get Site */
+export interface NetlifyGetSiteInput {
+  /** Select the site to retrieve information for (resolve via property options API) */
+  siteId: string
+}
+
+/** Netlify — List Site Deploys */
+export interface NetlifyListSiteDeploysInput {
+  /** Select the site to list deploys for (resolve via property options API) */
+  siteId: string
+  /** Page number for pagination (starts from 1) */
+  page?: number
+  /** Number of items per page (max 100) */
+  perPage?: number
+}
+
+/** Netlify — List Files */
+export interface NetlifyListFilesInput {
+  /** Select the site to list files for (resolve via property options API) */
+  siteId: string
+}
+
+/** NetSuite — Get Vendor */
+export interface NetsuiteGetVendorInput {
+  /** The ID of the vendor to retrieve. */
+  vendorId: string
+}
+
+/** NetSuite — Get Customer */
+export interface NetsuiteGetCustomerInput {
+  /** The ID of the customer to retrieve. */
+  customerId: string
+}
+
+/** NetSuite — Run SuiteQL Query */
+export interface NetsuiteRunSuiteQLInput {
+  /**  - **DO NOT** insert dynamic input directly into the query string. Instead, use :1, :2, :3 and add them in args for parameterized queries - Arguments are treated as string and inserted as a [Text Literal](https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/Literals.html)  */
+  markdown?: string
+  /** Please use :1, :2, :3 etc. for parameterized queries */
+  query: string
+  /** Arguments to be used in the query */
+  args?: unknown[]
+}
+
+/** NetSuite — Execute Dataset */
+export interface NetsuiteExecuteDatasetInput {
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+}
+
+/** NetSuite — Custom API Call */
+export interface NetsuiteCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
 }
 
 /** Notion — Create Database Item */
@@ -8984,6 +10754,30 @@ export interface NotionCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Okta — List Users */
+export interface OktaListUsersInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Okta — Get User */
+export interface OktaGetUserInput {
+  /** User ID or Login */
+  userId: string
+}
+
+/** Okta — List Groups */
+export interface OktaListGroupsInput {
+  /** Limit */
+  limit?: number
+}
+
+/** Okta — List Applications */
+export interface OktaListApplicationsInput {
+  /** Limit */
+  limit?: number
 }
 
 /** OpenAI — Ask ChatGPT */
@@ -9114,6 +10908,61 @@ export interface OpenaiCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Outreach — List Prospects */
+export interface OutreachListProspectsInput {
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Outreach — Get Prospect */
+export interface OutreachGetProspectInput {
+  /** Prospect ID */
+  prospectId: string
+}
+
+/** Outreach — Create Prospect */
+export interface OutreachCreateProspectInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email: string
+  /** Company */
+  company?: string
+  /** Title */
+  title?: string
+}
+
+/** Outreach — List Sequences */
+export type OutreachListSequencesInput = Record<string, never>
+
+/** Paddle — List Products */
+export interface PaddleListProductsInput {
+  /** Per Page */
+  perPage?: number
+}
+
+/** Paddle — List Subscriptions */
+export interface PaddleListSubscriptionsInput {
+  /** Status (values: `active`, `canceled`, `past_due`, `paused`, `trialing`) */
+  status?: "active" | "canceled" | "past_due" | "paused" | "trialing"
+  /** Per Page */
+  perPage?: number
+}
+
+/** Paddle — Get Subscription */
+export interface PaddleGetSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Paddle — List Transactions */
+export interface PaddleListTransactionsInput {
+  /** Per Page */
+  perPage?: number
 }
 
 /** PagerDuty — List Incidents */
@@ -9444,6 +11293,26 @@ export interface PaywhirlCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Perplexity AI — Ask AI */
+export interface PerplexityAiAskAiInput {
+  /** Model (values: `sonar-reasoning-pro`, `sonar-reasoning`, `sonar-pro`, `sonar`) */
+  model: "sonar-reasoning-pro" | "sonar-reasoning" | "sonar-pro" | "sonar"
+  /** Question */
+  prompt: string
+  /** The amount of randomness in the response.Higher values are more random, and lower values are more deterministic. */
+  temperature?: number
+  /** Please refer [guide](https://docs.perplexity.ai/guides/model-cards) for each model token limit. */
+  max_tokens?: number
+  /** The nucleus sampling threshold, valued between 0 and 1 inclusive. For each subsequent token, the model considers the results of the tokens with top_p probability mass. */
+  top_p?: number
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the mode's likelihood to talk about new topics. */
+  presence_penalty?: number
+  /** A multiplicative penalty greater than 0. Values greater than 1.0 penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. */
+  frequency_penalty?: number
+  /** Array of roles to specify more accurate response.After the (optional) system message, user and assistant roles should alternate with user then assistant, ending in user. */
+  roles?: unknown
+}
+
 /** Personio — List Employees */
 export interface PersonioListEmployeesInput {
   /** Limit */
@@ -9472,6 +11341,45 @@ export interface PersonioListAttendancesInput {
   startDate: string
   /** ISO date (YYYY-MM-DD) */
   endDate: string
+}
+
+/** Pinecone — List Indexes */
+export type PineconeListIndexesInput = Record<string, never>
+
+/** Pinecone — Upsert Vectors */
+export interface PineconeUpsertVectorsInput {
+  /** The host URL of the index (e.g., my-index-abc123.svc.us-east1-gcp.pinecone.io) */
+  indexHost: string
+  /** The namespace to upsert into */
+  namespace?: string
+  /** Array of vectors to upsert: [{"id": "vec1", "values": [0.1, 0.2, ...], "metadata": {...}}] */
+  vectors: unknown
+}
+
+/** Pinecone — Query Vectors */
+export interface PineconeQueryVectorsInput {
+  /** The host URL of the index */
+  indexHost: string
+  /** The namespace to query */
+  namespace?: string
+  /** The query vector as an array of floats: [0.1, 0.2, ...] */
+  vector: unknown
+  /** Number of results to return */
+  topK: number
+  /** Whether to include metadata in results */
+  includeMetadata?: boolean
+}
+
+/** Pinecone — Delete Vectors */
+export interface PineconeDeleteVectorsInput {
+  /** The host URL of the index */
+  indexHost: string
+  /** The namespace to delete from */
+  namespace?: string
+  /** IDs of vectors to delete */
+  ids?: unknown[]
+  /** Delete all vectors in the namespace */
+  deleteAll?: boolean
 }
 
 /** Pinterest — Create Pin */
@@ -10100,6 +12008,46 @@ export interface PipedriveCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Plaid — Create Link Token */
+export interface PlaidCreateLinkTokenInput {
+  /** Your app name shown to users */
+  clientName: string
+  /** Unique identifier for the user */
+  userId: string
+  /** Plaid products to use (e.g., transactions, auth) */
+  products: unknown[]
+  /** Country codes (e.g., US, GB) */
+  countryCodes: unknown[]
+  /** Language */
+  language?: string
+}
+
+/** Plaid — Get Accounts */
+export interface PlaidGetAccountsInput {
+  /** Plaid access token from item exchange */
+  accessToken: string
+}
+
+/** Plaid — Get Transactions */
+export interface PlaidGetTransactionsInput {
+  /** Access Token */
+  accessToken: string
+  /** YYYY-MM-DD */
+  startDate: string
+  /** YYYY-MM-DD */
+  endDate: string
+  /** Count */
+  count?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Plaid — Get Balance */
+export interface PlaidGetBalanceInput {
+  /** Access Token */
+  accessToken: string
+}
+
 /** Plausible — List Teams */
 export type PlausibleListTeamsInput = Record<string, never>
 
@@ -10536,6 +12484,23 @@ export interface RedditCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Replicate — Create Prediction */
+export interface ReplicateCreatePredictionInput {
+  /** Model version ID (owner/model:version) or model name for official models */
+  model: string
+  /** Input parameters for the model */
+  input: Record<string, unknown>
+}
+
+/** Replicate — Get Prediction */
+export interface ReplicateGetPredictionInput {
+  /** The ID of the prediction to retrieve */
+  predictionId: string
+}
+
+/** Replicate — List Models */
+export type ReplicateListModelsInput = Record<string, never>
+
 /** Resend — Send Email */
 export interface ResendSendEmailInput {
   /** Emails of the recipients */
@@ -10609,6 +12574,21 @@ export interface RingcentralListExtensionsInput {
   /** Page */
   page?: number
 }
+
+/** Rippling — List Employees */
+export type RipplingListEmployeesInput = Record<string, never>
+
+/** Rippling — Get Employee */
+export interface RipplingGetEmployeeInput {
+  /** Employee ID */
+  employeeId: string
+}
+
+/** Rippling — List Departments */
+export type RipplingListDepartmentsInput = Record<string, never>
+
+/** Rippling — List Work Locations */
+export type RipplingListWorkLocationsInput = Record<string, never>
 
 /** Salesforce — Add Contact to Campaign */
 export interface SalesforceAddContactToCampaignInput {
@@ -10939,6 +12919,39 @@ export interface SalesforceCustomApiCallInput {
   /** Follow redirects */
   followRedirects?: boolean
 }
+
+/** SalesLoft — List People */
+export interface SalesloftListPeopleInput {
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+}
+
+/** SalesLoft — Get Person */
+export interface SalesloftGetPersonInput {
+  /** Person ID */
+  personId: string
+}
+
+/** SalesLoft — Create Person */
+export interface SalesloftCreatePersonInput {
+  /** Email Address */
+  emailAddress: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Title */
+  title?: string
+  /** Company */
+  company?: string
+}
+
+/** SalesLoft — List Cadences */
+export type SalesloftListCadencesInput = Record<string, never>
 
 /** Segment — Identify User */
 export interface SegmentIdentifyUserInput {
@@ -12089,6 +14102,42 @@ export interface StorageListFilesInput {
   externalId?: string
 }
 
+/** Strapi — List Entries */
+export interface StrapiListEntriesInput {
+  /** Plural API ID (e.g., articles, products) */
+  contentType: string
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** Strapi — Get Entry */
+export interface StrapiGetEntryInput {
+  /** Content Type */
+  contentType: string
+  /** Entry ID */
+  entryId: string
+}
+
+/** Strapi — Create Entry */
+export interface StrapiCreateEntryInput {
+  /** Content Type */
+  contentType: string
+  /** Entry data as JSON object */
+  data: unknown
+}
+
+/** Strapi — Update Entry */
+export interface StrapiUpdateEntryInput {
+  /** Content Type */
+  contentType: string
+  /** Entry ID */
+  entryId: string
+  /** Updated fields as JSON object */
+  data: unknown
+}
+
 /** Stripe — Create Customer */
 export interface StripeCreateCustomerInput {
   /** Email */
@@ -12657,6 +14706,29 @@ export interface TodoistCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Together AI — Chat */
+export interface TogetherAiChatInput {
+  /** Model to use (e.g., meta-llama/Llama-3-70b-chat-hf) */
+  model: string
+  /** The user message to send */
+  message: string
+  /** Optional system prompt */
+  system?: string
+  /** Sampling temperature (0-1) */
+  temperature?: number
+}
+
+/** Together AI — Create Embeddings */
+export interface TogetherAiEmbedInput {
+  /** Embedding model (e.g., togethercomputer/m2-bert-80M-8k-retrieval) */
+  model: string
+  /** List of texts to embed */
+  input: unknown[]
+}
+
+/** Together AI — List Models */
+export type TogetherAiListModelsInput = Record<string, never>
+
 /** Trello — Create Card */
 export interface TrelloCreateCardInput {
   /** List of boards (resolve via property options API) */
@@ -12817,6 +14889,30 @@ export interface TwilioCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Twitch — Custom API Call */
+export interface TwitchCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Twitter — Create Tweet */
 export interface TwitterCreateTweetInput {
   /** The text of the tweet */
@@ -12845,6 +14941,200 @@ export interface TwitterCreateReplyInput {
 
 /** Typeform — Custom API Call */
 export interface TypeformCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Vimeo — Upload Video */
+export interface VimeoUploadVideoInput {
+  /** URL of the video file to upload */
+  videoUrl: string
+  /** Name for the video */
+  name: string
+  /** Description for the video */
+  description?: string
+  /** Privacy setting for the video (values: `anybody`, `contacts`, `disable`, `nobody`, `password`, `unlisted`, `users`) */
+  privacy?: "anybody" | "contacts" | "disable" | "nobody" | "password" | "unlisted" | "users"
+  /** Privacy */
+  password?: Record<string, unknown>
+  /** Allow others to embed this video */
+  allowEmbed?: boolean
+  /** Allow others to download this video (not available for free Vimeo users) */
+  allowDownload?: boolean
+  /** Content rating for the video (resolve via property options API) */
+  contentRating?: string
+  /** ID of the folder to add the video to (resolve via property options API) */
+  folderId?: string
+  /** Language code for the video (resolve via property options API) */
+  language?: string
+  /** License for the video (values: ``, `by`, `by-sa`, `by-nd`, `by-nc`, `by-nc-sa`, `by-nc-nd`, `cc0`) */
+  license?: "" | "by" | "by-sa" | "by-nd" | "by-nc" | "by-nc-sa" | "by-nc-nd" | "cc0"
+}
+
+/** Vimeo — Delete Video */
+export interface VimeoDeleteVideoInput {
+  /** Video ID (resolve via property options API) */
+  videoId: string
+}
+
+/** Vimeo — Add Video to Showcase */
+export interface VimeoAddVideoToShowcaseInput {
+  /** Video ID (resolve via property options API) */
+  videoId: string
+  /** ID of the showcase to add the video to (resolve via property options API) */
+  showcaseId: string
+}
+
+/** Vimeo — Add Video to Folder */
+export interface VimeoAddVideoToFolderInput {
+  /** Video ID (resolve via property options API) */
+  videoId: string
+  /** ID of the folder to add the video to (resolve via property options API) */
+  folderId?: string
+}
+
+/** Vimeo — Custom API Call */
+export interface VimeoCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
+/** Webflow — Create Collection Item */
+export interface WebflowCreateCollectionItemInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Collection (resolve via property options API) */
+  collection_id: string
+  /** Collection Fields */
+  collection_fields: Record<string, unknown>
+  /** Whether the item is archived or not */
+  is_archived?: boolean
+  /** Whether the item is a draft or not */
+  is_draft?: boolean
+}
+
+/** Webflow — Delete an item in a collection */
+export interface WebflowDeleteCollectionItemInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Collection (resolve via property options API) */
+  collection_id: string
+  /** Collection Item (resolve via property options API) */
+  collection_item_id: string
+}
+
+/** Webflow — Update an item in a collection */
+export interface WebflowUpdateCollectionItemInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Collection (resolve via property options API) */
+  collection_id: string
+  /** Collection Item (resolve via property options API) */
+  collection_item_id: string
+  /** Collection Fields */
+  collection_fields: Record<string, unknown>
+  /** Whether the item is archived or not */
+  is_archived?: boolean
+  /** Whether the item is a draft or not */
+  is_draft?: boolean
+}
+
+/** Webflow — Find a Collection Item by Field */
+export interface WebflowFindCollectionItemInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Collection (resolve via property options API) */
+  collection_id: string
+  /** The name of the field to search by */
+  field_name: string
+  /** The value of the field to search for */
+  field_value: string
+  /** The maximum number of results to return */
+  max_results?: number
+}
+
+/** Webflow — Get a Collection Item by ID */
+export interface WebflowGetCollectionItemInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Collection (resolve via property options API) */
+  collection_id: string
+  /** Collection Item (resolve via property options API) */
+  collection_item_id: string
+}
+
+/** Webflow — Fulfill an order */
+export interface WebflowFulfillOrderInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Order (resolve via property options API) */
+  order_id: string
+  /** Send an email to the customer that their order has been fulfilled */
+  send_order_fulfilled_email?: boolean
+}
+
+/** Webflow — Unfulfill an order */
+export interface WebflowUnfulfillOrderInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Order (resolve via property options API) */
+  order_id: string
+}
+
+/** Webflow — Refund an order */
+export interface WebflowRefundOrderInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Order (resolve via property options API) */
+  order_id: string
+}
+
+/** Webflow — Find an order */
+export interface WebflowFindOrderInput {
+  /** Site (resolve via property options API) */
+  site_id: string
+  /** Order (resolve via property options API) */
+  order_id: string
+}
+
+/** Webflow — Custom API Call */
+export interface WebflowCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -14135,6 +16425,30 @@ export interface ZendeskCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Zoho Books — Custom API Call */
+export interface ZohoBooksCustomApiCallInput {
+  /** url */
+  url: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Authorization headers are injected automatically from your connection. */
+  headers: Record<string, unknown>
+  /** Query Parameters */
+  queryParams: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
+  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Body */
+  body?: Record<string, unknown>
+  /** Enable for files like PDFs, images, etc. */
+  response_is_binary?: boolean
+  /** No Error on Failure */
+  failsafe?: boolean
+  /** Timeout (in seconds) */
+  timeout?: number
+  /** Follow redirects */
+  followRedirects?: boolean
+}
+
 /** Zoho CRM — Read file */
 export interface ZohoCrmReadFileInput {
   /** The full URL to use, including the base URL */
@@ -14258,6 +16572,13 @@ export interface ZoomCustomApiCallInput {
 // ============================================================================
 
 export interface IntegrationActionInputMap {
+  'activecampaign.activecampaign_add_contact_to_account': ActivecampaignActivecampaignAddContactToAccountInput
+  'activecampaign.activecampaign_add_tag_to_contact': ActivecampaignActivecampaignAddTagToContactInput
+  'activecampaign.activecampaign_create_account': ActivecampaignActivecampaignCreateAccountInput
+  'activecampaign.activecampaign_create_contact': ActivecampaignActivecampaignCreateContactInput
+  'activecampaign.activecampaign_update_account': ActivecampaignActivecampaignUpdateAccountInput
+  'activecampaign.activecampaign_update_contact': ActivecampaignActivecampaignUpdateContactInput
+  'activecampaign.activecampaign_subscribe_or_unsubscribe_contact_from_list': ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromListInput
   'ai-toolkit.extract_structured_data': AiToolkitExtractStructuredDataInput
   'ai-toolkit.classify_text': AiToolkitClassifyTextInput
   'ai-toolkit.transform_data': AiToolkitTransformDataInput
@@ -14289,6 +16610,20 @@ export interface IntegrationActionInputMap {
   'asana.create_task': AsanaCreateTaskInput
   'asana.custom_api_call': AsanaCustomApiCallInput
   'ashby.custom_api_call': AshbyCustomApiCallInput
+  'assemblyai.uploadFile': AssemblyaiUploadFileInput
+  'assemblyai.transcribe': AssemblyaiTranscribeInput
+  'assemblyai.getTranscript': AssemblyaiGetTranscriptInput
+  'assemblyai.getTranscriptSentences': AssemblyaiGetTranscriptSentencesInput
+  'assemblyai.getTranscriptParagraphs': AssemblyaiGetTranscriptParagraphsInput
+  'assemblyai.getSubtitles': AssemblyaiGetSubtitlesInput
+  'assemblyai.getRedactedAudio': AssemblyaiGetRedactedAudioInput
+  'assemblyai.wordSearch': AssemblyaiWordSearchInput
+  'assemblyai.listTranscripts': AssemblyaiListTranscriptsInput
+  'assemblyai.deleteTranscript': AssemblyaiDeleteTranscriptInput
+  'assemblyai.lemurTask': AssemblyaiLemurTaskInput
+  'assemblyai.getLemurResponse': AssemblyaiGetLemurResponseInput
+  'assemblyai.purgeLemurRequestData': AssemblyaiPurgeLemurRequestDataInput
+  'assemblyai.custom_api_call': AssemblyaiCustomApiCallInput
   'attio.create_record': AttioCreateRecordInput
   'attio.update_record': AttioUpdateRecordInput
   'attio.find_record': AttioFindRecordInput
@@ -14303,6 +16638,12 @@ export interface IntegrationActionInputMap {
   'baserow.baserow_list_rows': BaserowBaserowListRowsInput
   'baserow.baserow_update_row': BaserowBaserowUpdateRowInput
   'baserow.custom_api_call': BaserowCustomApiCallInput
+  'beehiiv.create_subscription': BeehiivCreateSubscriptionInput
+  'beehiiv.update_subscription': BeehiivUpdateSubscriptionInput
+  'beehiiv.add_subscription_to_automation': BeehiivAddSubscriptionToAutomationInput
+  'beehiiv.list_automations': BeehiivListAutomationsInput
+  'beehiiv.list_posts': BeehiivListPostsInput
+  'beehiiv.custom_api_call': BeehiivCustomApiCallInput
   'bigcommerce.createCustomer': BigcommerceCreateCustomerInput
   'bigcommerce.createAProduct': BigcommerceCreateAProductInput
   'bigcommerce.createBlogPost': BigcommerceCreateBlogPostInput
@@ -14324,7 +16665,16 @@ export interface IntegrationActionInputMap {
   'bluesky.repostPost': BlueskyRepostPostInput
   'bluesky.findPost': BlueskyFindPostInput
   'bluesky.findThread': BlueskyFindThreadInput
+  'box.custom_api_call': BoxCustomApiCallInput
+  'brevo.send_email': BrevoSendEmailInput
+  'brevo.list_contacts': BrevoListContactsInput
+  'brevo.create_contact': BrevoCreateContactInput
+  'brevo.send_sms': BrevoSendSmsInput
   'calendly.custom_api_call': CalendlyCustomApiCallInput
+  'chargebee.list_subscriptions': ChargebeeListSubscriptionsInput
+  'chargebee.get_subscription': ChargebeeGetSubscriptionInput
+  'chargebee.list_customers': ChargebeeListCustomersInput
+  'chargebee.list_invoices': ChargebeeListInvoicesInput
   'clickup.create_task': ClickupCreateTaskInput
   'clickup.create_task_from_template': ClickupCreateTaskFromTemplateInput
   'clickup.create_folderless_list': ClickupCreateFolderlessListInput
@@ -14356,12 +16706,23 @@ export interface IntegrationActionInputMap {
   'clickup.get_accessible_custom_fields': ClickupGetAccessibleCustomFieldsInput
   'clickup.set_custom_fields_value': ClickupSetCustomFieldsValueInput
   'clickup.custom_api_call': ClickupCustomApiCallInput
+  'clockify.create-task': ClockifyCreateTaskInput
+  'clockify.create-time-entry': ClockifyCreateTimeEntryInput
+  'clockify.start-timer': ClockifyStartTimerInput
+  'clockify.stop-timer': ClockifyStopTimerInput
+  'clockify.find-task': ClockifyFindTaskInput
+  'clockify.find-time-entry': ClockifyFindTimeEntryInput
+  'clockify.find-running-timer': ClockifyFindRunningTimerInput
+  'clockify.custom_api_call': ClockifyCustomApiCallInput
   'close.create_lead': CloseCreateLeadInput
   'close.create_contact': CloseCreateContactInput
   'close.find_lead': CloseFindLeadInput
   'close.create_opportunity': CloseCreateOpportunityInput
   'close.find_contact': CloseFindContactInput
   'close.custom_api_call': CloseCustomApiCallInput
+  'cloudinary.list_resources': CloudinaryListResourcesInput
+  'cloudinary.get_resource': CloudinaryGetResourceInput
+  'cloudinary.delete_resource': CloudinaryDeleteResourceInput
   'coda.create-row': CodaCreateRowInput
   'coda.update-row': CodaUpdateRowInput
   'coda.upsert-row': CodaUpsertRowInput
@@ -14377,6 +16738,47 @@ export interface IntegrationActionInputMap {
   'confluence.getPageContent': ConfluenceGetPageContentInput
   'confluence.create-page-from-template': ConfluenceCreatePageFromTemplateInput
   'confluence.custom_api_call': ConfluenceCustomApiCallInput
+  'constant-contact.create_or_update_contact': ConstantContactCreateOrUpdateContactInput
+  'constant-contact.custom_api_call': ConstantContactCustomApiCallInput
+  'contentful.contentful_record_search': ContentfulContentfulRecordSearchInput
+  'contentful.contentful_record_get': ContentfulContentfulRecordGetInput
+  'contentful.contentful_record_create': ContentfulContentfulRecordCreateInput
+  'contentful.custom_api_call': ContentfulCustomApiCallInput
+  'convertkit.subscribers_get_subscriber_by_id': ConvertkitSubscribersGetSubscriberByIdInput
+  'convertkit.subscribers_get_subscriber_by_email': ConvertkitSubscribersGetSubscriberByEmailInput
+  'convertkit.subscribers_list_subscribers': ConvertkitSubscribersListSubscribersInput
+  'convertkit.subscribers_update_subscriber': ConvertkitSubscribersUpdateSubscriberInput
+  'convertkit.subscribers_unsubscribe_subscriber': ConvertkitSubscribersUnsubscribeSubscriberInput
+  'convertkit.subscribers_list_tags_by_email': ConvertkitSubscribersListTagsByEmailInput
+  'convertkit.subscribers_list_tags_by_subscriber_id': ConvertkitSubscribersListTagsBySubscriberIdInput
+  'convertkit.create_webhook': ConvertkitCreateWebhookInput
+  'convertkit.destroy_webhook': ConvertkitDestroyWebhookInput
+  'convertkit.custom_fields_list_fields': ConvertkitCustomFieldsListFieldsInput
+  'convertkit.custom_fields_create_field': ConvertkitCustomFieldsCreateFieldInput
+  'convertkit.custom_fields_update_field': ConvertkitCustomFieldsUpdateFieldInput
+  'convertkit.custom_fields_delete_field': ConvertkitCustomFieldsDeleteFieldInput
+  'convertkit.broadcasts_list_broadcasts': ConvertkitBroadcastsListBroadcastsInput
+  'convertkit.broadcasts_create_broadcast': ConvertkitBroadcastsCreateBroadcastInput
+  'convertkit.broadcasts_get_broadcast': ConvertkitBroadcastsGetBroadcastInput
+  'convertkit.broadcasts_update_broadcast': ConvertkitBroadcastsUpdateBroadcastInput
+  'convertkit.broadcasts_delete_broadcast': ConvertkitBroadcastsDeleteBroadcastInput
+  'convertkit.broadcasts_broadcast_stats': ConvertkitBroadcastsBroadcastStatsInput
+  'convertkit.forms_list_forms': ConvertkitFormsListFormsInput
+  'convertkit.forms_add_subscriber_to_form': ConvertkitFormsAddSubscriberToFormInput
+  'convertkit.forms_list_form_subscriptions': ConvertkitFormsListFormSubscriptionsInput
+  'convertkit.sequences_list_sequences': ConvertkitSequencesListSequencesInput
+  'convertkit.sequences_add_subscriber_to_sequence': ConvertkitSequencesAddSubscriberToSequenceInput
+  'convertkit.sequences_list_subscriptions_to_sequence': ConvertkitSequencesListSubscriptionsToSequenceInput
+  'convertkit.tags_list_tags': ConvertkitTagsListTagsInput
+  'convertkit.tags_create_tag': ConvertkitTagsCreateTagInput
+  'convertkit.tags_tag_subscriber': ConvertkitTagsTagSubscriberInput
+  'convertkit.tags_remove_tag_from_subscriber_by_email': ConvertkitTagsRemoveTagFromSubscriberByEmailInput
+  'convertkit.tags_remove_tag_from_subscriber_by_id': ConvertkitTagsRemoveTagFromSubscriberByIdInput
+  'convertkit.tags_list_subscriptions_to_tag': ConvertkitTagsListSubscriptionsToTagInput
+  'convertkit.purchases_list_purchases': ConvertkitPurchasesListPurchasesInput
+  'convertkit.purchases_get_purchase_by_id': ConvertkitPurchasesGetPurchaseByIdInput
+  'convertkit.purchases_create_purchase': ConvertkitPurchasesCreatePurchaseInput
+  'convertkit.purchases_create_multiple_purchases': ConvertkitPurchasesCreateMultiplePurchasesInput
   'copper.createPerson': CopperCreatePersonInput
   'copper.updatePerson': CopperUpdatePersonInput
   'copper.createLead': CopperCreateLeadInput
@@ -14419,6 +16821,11 @@ export interface IntegrationActionInputMap {
   'deel.get_contract': DeelGetContractInput
   'deel.list_people': DeelListPeopleInput
   'deel.create_invoice': DeelCreateInvoiceInput
+  'deepgram.create_summary': DeepgramCreateSummaryInput
+  'deepgram.create_transcription_callback': DeepgramCreateTranscriptionCallbackInput
+  'deepgram.list_projects': DeepgramListProjectsInput
+  'deepgram.text_to_speech': DeepgramTextToSpeechInput
+  'deepgram.custom_api_call': DeepgramCustomApiCallInput
   'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
   'discord.send_message_webhook': DiscordSendMessageWebhookInput
   'discord.request_approval_message': DiscordRequestApprovalMessageInput
@@ -14435,10 +16842,20 @@ export interface IntegrationActionInputMap {
   'discord.deleteGuildRole': DiscordDeleteGuildRoleInput
   'discord.ban_guild_member': DiscordBanGuildMemberInput
   'discord.custom_api_call': DiscordCustomApiCallInput
+  'discourse.create_post': DiscourseCreatePostInput
+  'discourse.create_topic': DiscourseCreateTopicInput
+  'discourse.change_user_trust_level': DiscourseChangeUserTrustLevelInput
+  'discourse.add_users_to_group': DiscourseAddUsersToGroupInput
+  'discourse.send_private_message': DiscourseSendPrivateMessageInput
+  'discourse.custom_api_call': DiscourseCustomApiCallInput
   'docusign.listEnvelopes': DocusignListEnvelopesInput
   'docusign.getEnvelope': DocusignGetEnvelopeInput
   'docusign.getDocument': DocusignGetDocumentInput
   'docusign.custom_api_call': DocusignCustomApiCallInput
+  'drip.apply_tag_to_subscriber': DripApplyTagToSubscriberInput
+  'drip.add_subscriber_to_campaign': DripAddSubscriberToCampaignInput
+  'drip.upsert_subscriber': DripUpsertSubscriberInput
+  'drip.custom_api_call': DripCustomApiCallInput
   'dropbox.search_dropbox': DropboxSearchDropboxInput
   'dropbox.create_new_dropbox_text_file': DropboxCreateNewDropboxTextFileInput
   'dropbox.upload_dropbox_file': DropboxUploadDropboxFileInput
@@ -14471,6 +16888,10 @@ export interface IntegrationActionInputMap {
   'formstack.getSubmissionDetails': FormstackGetSubmissionDetailsInput
   'formstack.findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
   'formstack.custom_api_call': FormstackCustomApiCallInput
+  'freshbooks.list_clients': FreshbooksListClientsInput
+  'freshbooks.list_invoices': FreshbooksListInvoicesInput
+  'freshbooks.create_invoice': FreshbooksCreateInvoiceInput
+  'freshbooks.list_expenses': FreshbooksListExpensesInput
   'freshdesk.get_tickets': FreshdeskGetTicketsInput
   'freshdesk.get_contact_from_id': FreshdeskGetContactFromIdInput
   'freshdesk.get_ticket_status': FreshdeskGetTicketStatusInput
@@ -14500,6 +16921,10 @@ export interface IntegrationActionInputMap {
   'front.updateContact': FrontUpdateContactInput
   'front.updateConversation': FrontUpdateConversationInput
   'front.updateLink': FrontUpdateLinkInput
+  'ghost.list_posts': GhostListPostsInput
+  'ghost.get_post': GhostGetPostInput
+  'ghost.create_post': GhostCreatePostInput
+  'ghost.list_members': GhostListMembersInput
   'github.github_create_issue': GithubGithubCreateIssueInput
   'github.getIssueInformation': GithubGetIssueInformationInput
   'github.createCommentOnAIssue': GithubCreateCommentOnAIssueInput
@@ -14526,6 +16951,9 @@ export interface IntegrationActionInputMap {
   'gmail.gmail_get_mail': GmailGmailGetMailInput
   'gmail.gmail_search_mail': GmailGmailSearchMailInput
   'gmail.custom_api_call': GmailCustomApiCallInput
+  'gong.list_calls': GongListCallsInput
+  'gong.get_call_transcript': GongGetCallTranscriptInput
+  'gong.list_users': GongListUsersInput
   'google-ads.list_campaigns': GoogleAdsListCampaignsInput
   'google-ads.get_campaign': GoogleAdsGetCampaignInput
   'google-ads.search': GoogleAdsSearchInput
@@ -14610,6 +17038,17 @@ export interface IntegrationActionInputMap {
   'gusto.get_employee': GustoGetEmployeeInput
   'gusto.list_payrolls': GustoListPayrollsInput
   'gusto.get_company': GustoGetCompanyInput
+  'harvest.get_clients': HarvestGetClientsInput
+  'harvest.get_estimates': HarvestGetEstimatesInput
+  'harvest.get_expenses': HarvestGetExpensesInput
+  'harvest.get_invoices': HarvestGetInvoicesInput
+  'harvest.get_projects': HarvestGetProjectsInput
+  'harvest.get_roles': HarvestGetRolesInput
+  'harvest.get_tasks': HarvestGetTasksInput
+  'harvest.get_time_entries': HarvestGetTimeEntriesInput
+  'harvest.get_users': HarvestGetUsersInput
+  'harvest.reports-uninvoiced': HarvestReportsUninvoicedInput
+  'harvest.custom_api_call': HarvestCustomApiCallInput
   'hash-encode.hash': HashEncodeHashInput
   'hash-encode.encode': HashEncodeEncodeInput
   'hash-encode.decode': HashEncodeDecodeInput
@@ -14623,6 +17062,10 @@ export interface IntegrationActionInputMap {
   'help-scout.find_customer': HelpScoutFindCustomerInput
   'help-scout.find_user': HelpScoutFindUserInput
   'help-scout.custom_api_call': HelpScoutCustomApiCallInput
+  'hibob.list_employees': HibobListEmployeesInput
+  'hibob.get_employee': HibobGetEmployeeInput
+  'hibob.list_time_off': HibobListTimeOffInput
+  'hibob.list_company_lists': HibobListCompanyListsInput
   'http.send_request': HttpSendRequestInput
   'hubspot.add_contact_to_list': HubspotAddContactToListInput
   'hubspot.add-contact-to-workflow': HubspotAddContactToWorkflowInput
@@ -14760,6 +17203,8 @@ export interface IntegrationActionInputMap {
   'mailchimp.find_customer': MailchimpFindCustomerInput
   'mailchimp.find_tag': MailchimpFindTagInput
   'mailchimp.find_subscriber': MailchimpFindSubscriberInput
+  'mastodon.post_status': MastodonPostStatusInput
+  'mastodon.custom_api_call': MastodonCustomApiCallInput
   'microsoft-excel-365.append_row': MicrosoftExcel365AppendRowInput
   'microsoft-excel-365.append_multiple_rows': MicrosoftExcel365AppendMultipleRowsInput
   'microsoft-excel-365.get_worksheets': MicrosoftExcel365GetWorksheetsInput
@@ -14858,6 +17303,12 @@ export interface IntegrationActionInputMap {
   'microsoft-todo.find_task_list_by_name': MicrosoftTodoFindTaskListByNameInput
   'microsoft-todo.find_task_by_title': MicrosoftTodoFindTaskByTitleInput
   'microsoft-todo.custom_api_call': MicrosoftTodoCustomApiCallInput
+  'miro.list_boards': MiroListBoardsInput
+  'miro.get_board': MiroGetBoardInput
+  'miro.create_sticky_note': MiroCreateStickyNoteInput
+  'miro.list_items': MiroListItemsInput
+  'mistral.chat': MistralChatInput
+  'mistral.embed': MistralEmbedInput
   'mixpanel.track_event': MixpanelTrackEventInput
   'mixpanel.custom_api_call': MixpanelCustomApiCallInput
   'mollie.create_order': MollieCreateOrderInput
@@ -14884,12 +17335,25 @@ export interface IntegrationActionInputMap {
   'mongodb.find_and_update_documents': MongodbFindAndUpdateDocumentsInput
   'mongodb.find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
   'mongodb.aggregate_documents': MongodbAggregateDocumentsInput
+  'mux.list_assets': MuxListAssetsInput
+  'mux.get_asset': MuxGetAssetInput
+  'mux.create_asset': MuxCreateAssetInput
+  'mux.list_live_streams': MuxListLiveStreamsInput
   'mysql.find_rows': MysqlFindRowsInput
   'mysql.insert_row': MysqlInsertRowInput
   'mysql.update_row': MysqlUpdateRowInput
   'mysql.delete_row': MysqlDeleteRowInput
   'mysql.get_tables': MysqlGetTablesInput
   'mysql.execute_query': MysqlExecuteQueryInput
+  'netlify.start_deploy': NetlifyStartDeployInput
+  'netlify.get_site': NetlifyGetSiteInput
+  'netlify.list_site_deploys': NetlifyListSiteDeploysInput
+  'netlify.list_files': NetlifyListFilesInput
+  'netsuite.getVendor': NetsuiteGetVendorInput
+  'netsuite.getCustomer': NetsuiteGetCustomerInput
+  'netsuite.runSuiteQL': NetsuiteRunSuiteQLInput
+  'netsuite.executeDataset': NetsuiteExecuteDatasetInput
+  'netsuite.custom_api_call': NetsuiteCustomApiCallInput
   'notion.create_database_item': NotionCreateDatabaseItemInput
   'notion.update_database_item': NotionUpdateDatabaseItemInput
   'notion.notion-find-database-item': NotionNotionFindDatabaseItemInput
@@ -14903,6 +17367,10 @@ export interface IntegrationActionInputMap {
   'notion.get_page_comments': NotionGetPageCommentsInput
   'notion.find_page': NotionFindPageInput
   'notion.custom_api_call': NotionCustomApiCallInput
+  'okta.list_users': OktaListUsersInput
+  'okta.get_user': OktaGetUserInput
+  'okta.list_groups': OktaListGroupsInput
+  'okta.list_applications': OktaListApplicationsInput
   'openai.ask_chatgpt': OpenaiAskChatgptInput
   'openai.ask_assistant': OpenaiAskAssistantInput
   'openai.generate_image': OpenaiGenerateImageInput
@@ -14912,6 +17380,14 @@ export interface IntegrationActionInputMap {
   'openai.translate': OpenaiTranslateInput
   'openai.extract-structured-data': OpenaiExtractStructuredDataInput
   'openai.custom_api_call': OpenaiCustomApiCallInput
+  'outreach.list_prospects': OutreachListProspectsInput
+  'outreach.get_prospect': OutreachGetProspectInput
+  'outreach.create_prospect': OutreachCreateProspectInput
+  'outreach.list_sequences': OutreachListSequencesInput
+  'paddle.list_products': PaddleListProductsInput
+  'paddle.list_subscriptions': PaddleListSubscriptionsInput
+  'paddle.get_subscription': PaddleGetSubscriptionInput
+  'paddle.list_transactions': PaddleListTransactionsInput
   'pagerduty.list_incidents': PagerdutyListIncidentsInput
   'pagerduty.get_incident': PagerdutyGetIncidentInput
   'pagerduty.create_incident': PagerdutyCreateIncidentInput
@@ -14931,10 +17407,15 @@ export interface IntegrationActionInputMap {
   'paywhirl.searchCustomersSubscription': PaywhirlSearchCustomersSubscriptionInput
   'paywhirl.subscribeCustomer': PaywhirlSubscribeCustomerInput
   'paywhirl.custom_api_call': PaywhirlCustomApiCallInput
+  'perplexity-ai.ask-ai': PerplexityAiAskAiInput
   'personio.list_employees': PersonioListEmployeesInput
   'personio.get_employee': PersonioGetEmployeeInput
   'personio.list_absences': PersonioListAbsencesInput
   'personio.list_attendances': PersonioListAttendancesInput
+  'pinecone.list_indexes': PineconeListIndexesInput
+  'pinecone.upsert_vectors': PineconeUpsertVectorsInput
+  'pinecone.query_vectors': PineconeQueryVectorsInput
+  'pinecone.delete_vectors': PineconeDeleteVectorsInput
   'pinterest.createPin': PinterestCreatePinInput
   'pinterest.createBoard': PinterestCreateBoardInput
   'pinterest.deletePin': PinterestDeletePinInput
@@ -14970,6 +17451,10 @@ export interface IntegrationActionInputMap {
   'pipedrive.find-activity': PipedriveFindActivityInput
   'pipedrive.find-user': PipedriveFindUserInput
   'pipedrive.custom_api_call': PipedriveCustomApiCallInput
+  'plaid.create_link_token': PlaidCreateLinkTokenInput
+  'plaid.get_accounts': PlaidGetAccountsInput
+  'plaid.get_transactions': PlaidGetTransactionsInput
+  'plaid.get_balance': PlaidGetBalanceInput
   'plausible.list_teams': PlausibleListTeamsInput
   'plausible.list_sites': PlausibleListSitesInput
   'plausible.get_site': PlausibleGetSiteInput
@@ -15008,11 +17493,18 @@ export interface IntegrationActionInputMap {
   'reddit.deleteRedditPost': RedditDeleteRedditPostInput
   'reddit.deleteRedditComment': RedditDeleteRedditCommentInput
   'reddit.custom_api_call': RedditCustomApiCallInput
+  'replicate.create_prediction': ReplicateCreatePredictionInput
+  'replicate.get_prediction': ReplicateGetPredictionInput
+  'replicate.list_models': ReplicateListModelsInput
   'resend.send_email': ResendSendEmailInput
   'resend.custom_api_call': ResendCustomApiCallInput
   'ringcentral.send_sms': RingcentralSendSmsInput
   'ringcentral.get_call_log': RingcentralGetCallLogInput
   'ringcentral.list_extensions': RingcentralListExtensionsInput
+  'rippling.list_employees': RipplingListEmployeesInput
+  'rippling.get_employee': RipplingGetEmployeeInput
+  'rippling.list_departments': RipplingListDepartmentsInput
+  'rippling.list_work_locations': RipplingListWorkLocationsInput
   'salesforce.add_contact_to_campaign': SalesforceAddContactToCampaignInput
   'salesforce.add_file_to_record': SalesforceAddFileToRecordInput
   'salesforce.add_lead_to_campaign': SalesforceAddLeadToCampaignInput
@@ -15040,6 +17532,10 @@ export interface IntegrationActionInputMap {
   'salesforce.upsert_by_external_id': SalesforceUpsertByExternalIdInput
   'salesforce.upsert_by_external_id_bulk': SalesforceUpsertByExternalIdBulkInput
   'salesforce.custom_api_call': SalesforceCustomApiCallInput
+  'salesloft.list_people': SalesloftListPeopleInput
+  'salesloft.get_person': SalesloftGetPersonInput
+  'salesloft.create_person': SalesloftCreatePersonInput
+  'salesloft.list_cadences': SalesloftListCadencesInput
   'segment.identifyUser': SegmentIdentifyUserInput
   'sendgrid.send_email': SendgridSendEmailInput
   'sendgrid.send_dynamic_template': SendgridSendDynamicTemplateInput
@@ -15133,6 +17629,10 @@ export interface IntegrationActionInputMap {
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
   'storage.list_files': StorageListFilesInput
+  'strapi.list_entries': StrapiListEntriesInput
+  'strapi.get_entry': StrapiGetEntryInput
+  'strapi.create_entry': StrapiCreateEntryInput
+  'strapi.update_entry': StrapiUpdateEntryInput
   'stripe.create_customer': StripeCreateCustomerInput
   'stripe.create_invoice': StripeCreateInvoiceInput
   'stripe.search_customer': StripeSearchCustomerInput
@@ -15172,6 +17672,9 @@ export interface IntegrationActionInputMap {
   'todoist.find_task': TodoistFindTaskInput
   'todoist.mark_task_completed': TodoistMarkTaskCompletedInput
   'todoist.custom_api_call': TodoistCustomApiCallInput
+  'together-ai.chat': TogetherAiChatInput
+  'together-ai.embed': TogetherAiEmbedInput
+  'together-ai.list_models': TogetherAiListModelsInput
   'trello.create_card': TrelloCreateCardInput
   'trello.get_card': TrelloGetCardInput
   'trello.update_card': TrelloUpdateCardInput
@@ -15186,9 +17689,25 @@ export interface IntegrationActionInputMap {
   'twilio.get_message': TwilioGetMessageInput
   'twilio.download_recording_media': TwilioDownloadRecordingMediaInput
   'twilio.custom_api_call': TwilioCustomApiCallInput
+  'twitch.custom_api_call': TwitchCustomApiCallInput
   'twitter.create-tweet': TwitterCreateTweetInput
   'twitter.create-reply': TwitterCreateReplyInput
   'typeform.custom_api_call': TypeformCustomApiCallInput
+  'vimeo.upload_video': VimeoUploadVideoInput
+  'vimeo.delete_video': VimeoDeleteVideoInput
+  'vimeo.add_video_to_showcase': VimeoAddVideoToShowcaseInput
+  'vimeo.add_video_to_folder': VimeoAddVideoToFolderInput
+  'vimeo.custom_api_call': VimeoCustomApiCallInput
+  'webflow.create_collection_item': WebflowCreateCollectionItemInput
+  'webflow.delete_collection_item': WebflowDeleteCollectionItemInput
+  'webflow.update_collection_item': WebflowUpdateCollectionItemInput
+  'webflow.find_collection_item': WebflowFindCollectionItemInput
+  'webflow.get_collection_item': WebflowGetCollectionItemInput
+  'webflow.fulfill_order': WebflowFulfillOrderInput
+  'webflow.unfulfill_order': WebflowUnfulfillOrderInput
+  'webflow.refund_order': WebflowRefundOrderInput
+  'webflow.find_order': WebflowFindOrderInput
+  'webflow.custom_api_call': WebflowCustomApiCallInput
   'whatsapp.sendMessage': WhatsappSendMessageInput
   'whatsapp.sendMedia': WhatsappSendMediaInput
   'whatsapp.send-template-message': WhatsappSendTemplateMessageInput
@@ -15249,6 +17768,7 @@ export interface IntegrationActionInputMap {
   'zendesk.find-tickets': ZendeskFindTicketsInput
   'zendesk.find-user': ZendeskFindUserInput
   'zendesk.custom_api_call': ZendeskCustomApiCallInput
+  'zoho-books.custom_api_call': ZohoBooksCustomApiCallInput
   'zoho-crm.read-file': ZohoCrmReadFileInput
   'zoho-crm.custom_api_call': ZohoCrmCustomApiCallInput
   'zoom.zoom_create_meeting': ZoomZoomCreateMeetingInput
@@ -15257,6 +17777,15 @@ export interface IntegrationActionInputMap {
 }
 
 export interface IntegrationActionInputsByIntegration {
+  'activecampaign': {
+    'activecampaign_add_contact_to_account': ActivecampaignActivecampaignAddContactToAccountInput
+    'activecampaign_add_tag_to_contact': ActivecampaignActivecampaignAddTagToContactInput
+    'activecampaign_create_account': ActivecampaignActivecampaignCreateAccountInput
+    'activecampaign_create_contact': ActivecampaignActivecampaignCreateContactInput
+    'activecampaign_update_account': ActivecampaignActivecampaignUpdateAccountInput
+    'activecampaign_update_contact': ActivecampaignActivecampaignUpdateContactInput
+    'activecampaign_subscribe_or_unsubscribe_contact_from_list': ActivecampaignActivecampaignSubscribeOrUnsubscribeContactFromListInput
+  }
   'ai-toolkit': {
     'extract_structured_data': AiToolkitExtractStructuredDataInput
     'classify_text': AiToolkitClassifyTextInput
@@ -15300,6 +17829,22 @@ export interface IntegrationActionInputsByIntegration {
   'ashby': {
     'custom_api_call': AshbyCustomApiCallInput
   }
+  'assemblyai': {
+    'uploadFile': AssemblyaiUploadFileInput
+    'transcribe': AssemblyaiTranscribeInput
+    'getTranscript': AssemblyaiGetTranscriptInput
+    'getTranscriptSentences': AssemblyaiGetTranscriptSentencesInput
+    'getTranscriptParagraphs': AssemblyaiGetTranscriptParagraphsInput
+    'getSubtitles': AssemblyaiGetSubtitlesInput
+    'getRedactedAudio': AssemblyaiGetRedactedAudioInput
+    'wordSearch': AssemblyaiWordSearchInput
+    'listTranscripts': AssemblyaiListTranscriptsInput
+    'deleteTranscript': AssemblyaiDeleteTranscriptInput
+    'lemurTask': AssemblyaiLemurTaskInput
+    'getLemurResponse': AssemblyaiGetLemurResponseInput
+    'purgeLemurRequestData': AssemblyaiPurgeLemurRequestDataInput
+    'custom_api_call': AssemblyaiCustomApiCallInput
+  }
   'attio': {
     'create_record': AttioCreateRecordInput
     'update_record': AttioUpdateRecordInput
@@ -15319,6 +17864,14 @@ export interface IntegrationActionInputsByIntegration {
     'baserow_list_rows': BaserowBaserowListRowsInput
     'baserow_update_row': BaserowBaserowUpdateRowInput
     'custom_api_call': BaserowCustomApiCallInput
+  }
+  'beehiiv': {
+    'create_subscription': BeehiivCreateSubscriptionInput
+    'update_subscription': BeehiivUpdateSubscriptionInput
+    'add_subscription_to_automation': BeehiivAddSubscriptionToAutomationInput
+    'list_automations': BeehiivListAutomationsInput
+    'list_posts': BeehiivListPostsInput
+    'custom_api_call': BeehiivCustomApiCallInput
   }
   'bigcommerce': {
     'createCustomer': BigcommerceCreateCustomerInput
@@ -15347,8 +17900,23 @@ export interface IntegrationActionInputsByIntegration {
     'findPost': BlueskyFindPostInput
     'findThread': BlueskyFindThreadInput
   }
+  'box': {
+    'custom_api_call': BoxCustomApiCallInput
+  }
+  'brevo': {
+    'send_email': BrevoSendEmailInput
+    'list_contacts': BrevoListContactsInput
+    'create_contact': BrevoCreateContactInput
+    'send_sms': BrevoSendSmsInput
+  }
   'calendly': {
     'custom_api_call': CalendlyCustomApiCallInput
+  }
+  'chargebee': {
+    'list_subscriptions': ChargebeeListSubscriptionsInput
+    'get_subscription': ChargebeeGetSubscriptionInput
+    'list_customers': ChargebeeListCustomersInput
+    'list_invoices': ChargebeeListInvoicesInput
   }
   'clickup': {
     'create_task': ClickupCreateTaskInput
@@ -15383,6 +17951,16 @@ export interface IntegrationActionInputsByIntegration {
     'set_custom_fields_value': ClickupSetCustomFieldsValueInput
     'custom_api_call': ClickupCustomApiCallInput
   }
+  'clockify': {
+    'create-task': ClockifyCreateTaskInput
+    'create-time-entry': ClockifyCreateTimeEntryInput
+    'start-timer': ClockifyStartTimerInput
+    'stop-timer': ClockifyStopTimerInput
+    'find-task': ClockifyFindTaskInput
+    'find-time-entry': ClockifyFindTimeEntryInput
+    'find-running-timer': ClockifyFindRunningTimerInput
+    'custom_api_call': ClockifyCustomApiCallInput
+  }
   'close': {
     'create_lead': CloseCreateLeadInput
     'create_contact': CloseCreateContactInput
@@ -15390,6 +17968,11 @@ export interface IntegrationActionInputsByIntegration {
     'create_opportunity': CloseCreateOpportunityInput
     'find_contact': CloseFindContactInput
     'custom_api_call': CloseCustomApiCallInput
+  }
+  'cloudinary': {
+    'list_resources': CloudinaryListResourcesInput
+    'get_resource': CloudinaryGetResourceInput
+    'delete_resource': CloudinaryDeleteResourceInput
   }
   'coda': {
     'create-row': CodaCreateRowInput
@@ -15413,6 +17996,53 @@ export interface IntegrationActionInputsByIntegration {
     'getPageContent': ConfluenceGetPageContentInput
     'create-page-from-template': ConfluenceCreatePageFromTemplateInput
     'custom_api_call': ConfluenceCustomApiCallInput
+  }
+  'constant-contact': {
+    'create_or_update_contact': ConstantContactCreateOrUpdateContactInput
+    'custom_api_call': ConstantContactCustomApiCallInput
+  }
+  'contentful': {
+    'contentful_record_search': ContentfulContentfulRecordSearchInput
+    'contentful_record_get': ContentfulContentfulRecordGetInput
+    'contentful_record_create': ContentfulContentfulRecordCreateInput
+    'custom_api_call': ContentfulCustomApiCallInput
+  }
+  'convertkit': {
+    'subscribers_get_subscriber_by_id': ConvertkitSubscribersGetSubscriberByIdInput
+    'subscribers_get_subscriber_by_email': ConvertkitSubscribersGetSubscriberByEmailInput
+    'subscribers_list_subscribers': ConvertkitSubscribersListSubscribersInput
+    'subscribers_update_subscriber': ConvertkitSubscribersUpdateSubscriberInput
+    'subscribers_unsubscribe_subscriber': ConvertkitSubscribersUnsubscribeSubscriberInput
+    'subscribers_list_tags_by_email': ConvertkitSubscribersListTagsByEmailInput
+    'subscribers_list_tags_by_subscriber_id': ConvertkitSubscribersListTagsBySubscriberIdInput
+    'create_webhook': ConvertkitCreateWebhookInput
+    'destroy_webhook': ConvertkitDestroyWebhookInput
+    'custom_fields_list_fields': ConvertkitCustomFieldsListFieldsInput
+    'custom_fields_create_field': ConvertkitCustomFieldsCreateFieldInput
+    'custom_fields_update_field': ConvertkitCustomFieldsUpdateFieldInput
+    'custom_fields_delete_field': ConvertkitCustomFieldsDeleteFieldInput
+    'broadcasts_list_broadcasts': ConvertkitBroadcastsListBroadcastsInput
+    'broadcasts_create_broadcast': ConvertkitBroadcastsCreateBroadcastInput
+    'broadcasts_get_broadcast': ConvertkitBroadcastsGetBroadcastInput
+    'broadcasts_update_broadcast': ConvertkitBroadcastsUpdateBroadcastInput
+    'broadcasts_delete_broadcast': ConvertkitBroadcastsDeleteBroadcastInput
+    'broadcasts_broadcast_stats': ConvertkitBroadcastsBroadcastStatsInput
+    'forms_list_forms': ConvertkitFormsListFormsInput
+    'forms_add_subscriber_to_form': ConvertkitFormsAddSubscriberToFormInput
+    'forms_list_form_subscriptions': ConvertkitFormsListFormSubscriptionsInput
+    'sequences_list_sequences': ConvertkitSequencesListSequencesInput
+    'sequences_add_subscriber_to_sequence': ConvertkitSequencesAddSubscriberToSequenceInput
+    'sequences_list_subscriptions_to_sequence': ConvertkitSequencesListSubscriptionsToSequenceInput
+    'tags_list_tags': ConvertkitTagsListTagsInput
+    'tags_create_tag': ConvertkitTagsCreateTagInput
+    'tags_tag_subscriber': ConvertkitTagsTagSubscriberInput
+    'tags_remove_tag_from_subscriber_by_email': ConvertkitTagsRemoveTagFromSubscriberByEmailInput
+    'tags_remove_tag_from_subscriber_by_id': ConvertkitTagsRemoveTagFromSubscriberByIdInput
+    'tags_list_subscriptions_to_tag': ConvertkitTagsListSubscriptionsToTagInput
+    'purchases_list_purchases': ConvertkitPurchasesListPurchasesInput
+    'purchases_get_purchase_by_id': ConvertkitPurchasesGetPurchaseByIdInput
+    'purchases_create_purchase': ConvertkitPurchasesCreatePurchaseInput
+    'purchases_create_multiple_purchases': ConvertkitPurchasesCreateMultiplePurchasesInput
   }
   'copper': {
     'createPerson': CopperCreatePersonInput
@@ -15468,6 +18098,13 @@ export interface IntegrationActionInputsByIntegration {
     'list_people': DeelListPeopleInput
     'create_invoice': DeelCreateInvoiceInput
   }
+  'deepgram': {
+    'create_summary': DeepgramCreateSummaryInput
+    'create_transcription_callback': DeepgramCreateTranscriptionCallbackInput
+    'list_projects': DeepgramListProjectsInput
+    'text_to_speech': DeepgramTextToSpeechInput
+    'custom_api_call': DeepgramCustomApiCallInput
+  }
   'discord': {
     'sendMessageWithBot': DiscordSendMessageWithBotInput
     'send_message_webhook': DiscordSendMessageWebhookInput
@@ -15486,11 +18123,25 @@ export interface IntegrationActionInputsByIntegration {
     'ban_guild_member': DiscordBanGuildMemberInput
     'custom_api_call': DiscordCustomApiCallInput
   }
+  'discourse': {
+    'create_post': DiscourseCreatePostInput
+    'create_topic': DiscourseCreateTopicInput
+    'change_user_trust_level': DiscourseChangeUserTrustLevelInput
+    'add_users_to_group': DiscourseAddUsersToGroupInput
+    'send_private_message': DiscourseSendPrivateMessageInput
+    'custom_api_call': DiscourseCustomApiCallInput
+  }
   'docusign': {
     'listEnvelopes': DocusignListEnvelopesInput
     'getEnvelope': DocusignGetEnvelopeInput
     'getDocument': DocusignGetDocumentInput
     'custom_api_call': DocusignCustomApiCallInput
+  }
+  'drip': {
+    'apply_tag_to_subscriber': DripApplyTagToSubscriberInput
+    'add_subscriber_to_campaign': DripAddSubscriberToCampaignInput
+    'upsert_subscriber': DripUpsertSubscriberInput
+    'custom_api_call': DripCustomApiCallInput
   }
   'dropbox': {
     'search_dropbox': DropboxSearchDropboxInput
@@ -15536,6 +18187,12 @@ export interface IntegrationActionInputsByIntegration {
     'findSubmissionByFieldValue': FormstackFindSubmissionByFieldValueInput
     'custom_api_call': FormstackCustomApiCallInput
   }
+  'freshbooks': {
+    'list_clients': FreshbooksListClientsInput
+    'list_invoices': FreshbooksListInvoicesInput
+    'create_invoice': FreshbooksCreateInvoiceInput
+    'list_expenses': FreshbooksListExpensesInput
+  }
   'freshdesk': {
     'get_tickets': FreshdeskGetTicketsInput
     'get_contact_from_id': FreshdeskGetContactFromIdInput
@@ -15571,6 +18228,12 @@ export interface IntegrationActionInputsByIntegration {
     'updateConversation': FrontUpdateConversationInput
     'updateLink': FrontUpdateLinkInput
   }
+  'ghost': {
+    'list_posts': GhostListPostsInput
+    'get_post': GhostGetPostInput
+    'create_post': GhostCreatePostInput
+    'list_members': GhostListMembersInput
+  }
   'github': {
     'github_create_issue': GithubGithubCreateIssueInput
     'getIssueInformation': GithubGetIssueInformationInput
@@ -15602,6 +18265,11 @@ export interface IntegrationActionInputsByIntegration {
     'gmail_get_mail': GmailGmailGetMailInput
     'gmail_search_mail': GmailGmailSearchMailInput
     'custom_api_call': GmailCustomApiCallInput
+  }
+  'gong': {
+    'list_calls': GongListCallsInput
+    'get_call_transcript': GongGetCallTranscriptInput
+    'list_users': GongListUsersInput
   }
   'google-ads': {
     'list_campaigns': GoogleAdsListCampaignsInput
@@ -15713,6 +18381,19 @@ export interface IntegrationActionInputsByIntegration {
     'list_payrolls': GustoListPayrollsInput
     'get_company': GustoGetCompanyInput
   }
+  'harvest': {
+    'get_clients': HarvestGetClientsInput
+    'get_estimates': HarvestGetEstimatesInput
+    'get_expenses': HarvestGetExpensesInput
+    'get_invoices': HarvestGetInvoicesInput
+    'get_projects': HarvestGetProjectsInput
+    'get_roles': HarvestGetRolesInput
+    'get_tasks': HarvestGetTasksInput
+    'get_time_entries': HarvestGetTimeEntriesInput
+    'get_users': HarvestGetUsersInput
+    'reports-uninvoiced': HarvestReportsUninvoicedInput
+    'custom_api_call': HarvestCustomApiCallInput
+  }
   'hash-encode': {
     'hash': HashEncodeHashInput
     'encode': HashEncodeEncodeInput
@@ -15729,6 +18410,12 @@ export interface IntegrationActionInputsByIntegration {
     'find_customer': HelpScoutFindCustomerInput
     'find_user': HelpScoutFindUserInput
     'custom_api_call': HelpScoutCustomApiCallInput
+  }
+  'hibob': {
+    'list_employees': HibobListEmployeesInput
+    'get_employee': HibobGetEmployeeInput
+    'list_time_off': HibobListTimeOffInput
+    'list_company_lists': HibobListCompanyListsInput
   }
   'http': {
     'send_request': HttpSendRequestInput
@@ -15895,6 +18582,10 @@ export interface IntegrationActionInputsByIntegration {
     'find_tag': MailchimpFindTagInput
     'find_subscriber': MailchimpFindSubscriberInput
   }
+  'mastodon': {
+    'post_status': MastodonPostStatusInput
+    'custom_api_call': MastodonCustomApiCallInput
+  }
   'microsoft-excel-365': {
     'append_row': MicrosoftExcel365AppendRowInput
     'append_multiple_rows': MicrosoftExcel365AppendMultipleRowsInput
@@ -16009,6 +18700,16 @@ export interface IntegrationActionInputsByIntegration {
     'find_task_by_title': MicrosoftTodoFindTaskByTitleInput
     'custom_api_call': MicrosoftTodoCustomApiCallInput
   }
+  'miro': {
+    'list_boards': MiroListBoardsInput
+    'get_board': MiroGetBoardInput
+    'create_sticky_note': MiroCreateStickyNoteInput
+    'list_items': MiroListItemsInput
+  }
+  'mistral': {
+    'chat': MistralChatInput
+    'embed': MistralEmbedInput
+  }
   'mixpanel': {
     'track_event': MixpanelTrackEventInput
     'custom_api_call': MixpanelCustomApiCallInput
@@ -16043,6 +18744,12 @@ export interface IntegrationActionInputsByIntegration {
     'find_and_replace_documents': MongodbFindAndReplaceDocumentsInput
     'aggregate_documents': MongodbAggregateDocumentsInput
   }
+  'mux': {
+    'list_assets': MuxListAssetsInput
+    'get_asset': MuxGetAssetInput
+    'create_asset': MuxCreateAssetInput
+    'list_live_streams': MuxListLiveStreamsInput
+  }
   'mysql': {
     'find_rows': MysqlFindRowsInput
     'insert_row': MysqlInsertRowInput
@@ -16050,6 +18757,19 @@ export interface IntegrationActionInputsByIntegration {
     'delete_row': MysqlDeleteRowInput
     'get_tables': MysqlGetTablesInput
     'execute_query': MysqlExecuteQueryInput
+  }
+  'netlify': {
+    'start_deploy': NetlifyStartDeployInput
+    'get_site': NetlifyGetSiteInput
+    'list_site_deploys': NetlifyListSiteDeploysInput
+    'list_files': NetlifyListFilesInput
+  }
+  'netsuite': {
+    'getVendor': NetsuiteGetVendorInput
+    'getCustomer': NetsuiteGetCustomerInput
+    'runSuiteQL': NetsuiteRunSuiteQLInput
+    'executeDataset': NetsuiteExecuteDatasetInput
+    'custom_api_call': NetsuiteCustomApiCallInput
   }
   'notion': {
     'create_database_item': NotionCreateDatabaseItemInput
@@ -16066,6 +18786,12 @@ export interface IntegrationActionInputsByIntegration {
     'find_page': NotionFindPageInput
     'custom_api_call': NotionCustomApiCallInput
   }
+  'okta': {
+    'list_users': OktaListUsersInput
+    'get_user': OktaGetUserInput
+    'list_groups': OktaListGroupsInput
+    'list_applications': OktaListApplicationsInput
+  }
   'openai': {
     'ask_chatgpt': OpenaiAskChatgptInput
     'ask_assistant': OpenaiAskAssistantInput
@@ -16076,6 +18802,18 @@ export interface IntegrationActionInputsByIntegration {
     'translate': OpenaiTranslateInput
     'extract-structured-data': OpenaiExtractStructuredDataInput
     'custom_api_call': OpenaiCustomApiCallInput
+  }
+  'outreach': {
+    'list_prospects': OutreachListProspectsInput
+    'get_prospect': OutreachGetProspectInput
+    'create_prospect': OutreachCreateProspectInput
+    'list_sequences': OutreachListSequencesInput
+  }
+  'paddle': {
+    'list_products': PaddleListProductsInput
+    'list_subscriptions': PaddleListSubscriptionsInput
+    'get_subscription': PaddleGetSubscriptionInput
+    'list_transactions': PaddleListTransactionsInput
   }
   'pagerduty': {
     'list_incidents': PagerdutyListIncidentsInput
@@ -16102,11 +18840,20 @@ export interface IntegrationActionInputsByIntegration {
     'subscribeCustomer': PaywhirlSubscribeCustomerInput
     'custom_api_call': PaywhirlCustomApiCallInput
   }
+  'perplexity-ai': {
+    'ask-ai': PerplexityAiAskAiInput
+  }
   'personio': {
     'list_employees': PersonioListEmployeesInput
     'get_employee': PersonioGetEmployeeInput
     'list_absences': PersonioListAbsencesInput
     'list_attendances': PersonioListAttendancesInput
+  }
+  'pinecone': {
+    'list_indexes': PineconeListIndexesInput
+    'upsert_vectors': PineconeUpsertVectorsInput
+    'query_vectors': PineconeQueryVectorsInput
+    'delete_vectors': PineconeDeleteVectorsInput
   }
   'pinterest': {
     'createPin': PinterestCreatePinInput
@@ -16146,6 +18893,12 @@ export interface IntegrationActionInputsByIntegration {
     'find-activity': PipedriveFindActivityInput
     'find-user': PipedriveFindUserInput
     'custom_api_call': PipedriveCustomApiCallInput
+  }
+  'plaid': {
+    'create_link_token': PlaidCreateLinkTokenInput
+    'get_accounts': PlaidGetAccountsInput
+    'get_transactions': PlaidGetTransactionsInput
+    'get_balance': PlaidGetBalanceInput
   }
   'plausible': {
     'list_teams': PlausibleListTeamsInput
@@ -16197,6 +18950,11 @@ export interface IntegrationActionInputsByIntegration {
     'deleteRedditComment': RedditDeleteRedditCommentInput
     'custom_api_call': RedditCustomApiCallInput
   }
+  'replicate': {
+    'create_prediction': ReplicateCreatePredictionInput
+    'get_prediction': ReplicateGetPredictionInput
+    'list_models': ReplicateListModelsInput
+  }
   'resend': {
     'send_email': ResendSendEmailInput
     'custom_api_call': ResendCustomApiCallInput
@@ -16205,6 +18963,12 @@ export interface IntegrationActionInputsByIntegration {
     'send_sms': RingcentralSendSmsInput
     'get_call_log': RingcentralGetCallLogInput
     'list_extensions': RingcentralListExtensionsInput
+  }
+  'rippling': {
+    'list_employees': RipplingListEmployeesInput
+    'get_employee': RipplingGetEmployeeInput
+    'list_departments': RipplingListDepartmentsInput
+    'list_work_locations': RipplingListWorkLocationsInput
   }
   'salesforce': {
     'add_contact_to_campaign': SalesforceAddContactToCampaignInput
@@ -16234,6 +18998,12 @@ export interface IntegrationActionInputsByIntegration {
     'upsert_by_external_id': SalesforceUpsertByExternalIdInput
     'upsert_by_external_id_bulk': SalesforceUpsertByExternalIdBulkInput
     'custom_api_call': SalesforceCustomApiCallInput
+  }
+  'salesloft': {
+    'list_people': SalesloftListPeopleInput
+    'get_person': SalesloftGetPersonInput
+    'create_person': SalesloftCreatePersonInput
+    'list_cadences': SalesloftListCadencesInput
   }
   'segment': {
     'identifyUser': SegmentIdentifyUserInput
@@ -16350,6 +19120,12 @@ export interface IntegrationActionInputsByIntegration {
     'delete_file': StorageDeleteFileInput
     'list_files': StorageListFilesInput
   }
+  'strapi': {
+    'list_entries': StrapiListEntriesInput
+    'get_entry': StrapiGetEntryInput
+    'create_entry': StrapiCreateEntryInput
+    'update_entry': StrapiUpdateEntryInput
+  }
   'stripe': {
     'create_customer': StripeCreateCustomerInput
     'create_invoice': StripeCreateInvoiceInput
@@ -16399,6 +19175,11 @@ export interface IntegrationActionInputsByIntegration {
     'mark_task_completed': TodoistMarkTaskCompletedInput
     'custom_api_call': TodoistCustomApiCallInput
   }
+  'together-ai': {
+    'chat': TogetherAiChatInput
+    'embed': TogetherAiEmbedInput
+    'list_models': TogetherAiListModelsInput
+  }
   'trello': {
     'create_card': TrelloCreateCardInput
     'get_card': TrelloGetCardInput
@@ -16417,12 +19198,34 @@ export interface IntegrationActionInputsByIntegration {
     'download_recording_media': TwilioDownloadRecordingMediaInput
     'custom_api_call': TwilioCustomApiCallInput
   }
+  'twitch': {
+    'custom_api_call': TwitchCustomApiCallInput
+  }
   'twitter': {
     'create-tweet': TwitterCreateTweetInput
     'create-reply': TwitterCreateReplyInput
   }
   'typeform': {
     'custom_api_call': TypeformCustomApiCallInput
+  }
+  'vimeo': {
+    'upload_video': VimeoUploadVideoInput
+    'delete_video': VimeoDeleteVideoInput
+    'add_video_to_showcase': VimeoAddVideoToShowcaseInput
+    'add_video_to_folder': VimeoAddVideoToFolderInput
+    'custom_api_call': VimeoCustomApiCallInput
+  }
+  'webflow': {
+    'create_collection_item': WebflowCreateCollectionItemInput
+    'delete_collection_item': WebflowDeleteCollectionItemInput
+    'update_collection_item': WebflowUpdateCollectionItemInput
+    'find_collection_item': WebflowFindCollectionItemInput
+    'get_collection_item': WebflowGetCollectionItemInput
+    'fulfill_order': WebflowFulfillOrderInput
+    'unfulfill_order': WebflowUnfulfillOrderInput
+    'refund_order': WebflowRefundOrderInput
+    'find_order': WebflowFindOrderInput
+    'custom_api_call': WebflowCustomApiCallInput
   }
   'whatsapp': {
     'sendMessage': WhatsappSendMessageInput
@@ -16499,6 +19302,9 @@ export interface IntegrationActionInputsByIntegration {
     'find-tickets': ZendeskFindTicketsInput
     'find-user': ZendeskFindUserInput
     'custom_api_call': ZendeskCustomApiCallInput
+  }
+  'zoho-books': {
+    'custom_api_call': ZohoBooksCustomApiCallInput
   }
   'zoho-crm': {
     'read-file': ZohoCrmReadFileInput
