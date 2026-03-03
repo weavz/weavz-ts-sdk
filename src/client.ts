@@ -161,10 +161,15 @@ class ConnectResource extends BaseResource {
     workspaceId: string
     endUserId?: string
     scope?: 'ORGANIZATION' | 'WORKSPACE' | 'USER'
+    oauthAppId?: string
     successRedirectUri?: string
     errorRedirectUri?: string
   }) {
     return this._post<{ token: string; connectUrl: string; expiresAt: string }>('/api/v1/connect/token', data)
+  }
+  /** List available OAuth apps for an integration (platform default + org custom) */
+  availableOAuthApps(integrationName: string) {
+    return this._get<{ apps: Array<{ id: string; label: string; isPlatform: boolean }> }>(`/api/v1/oauth-apps/available/${integrationName}`)
   }
   /** Poll connect session status */
   getSession(sessionId: string) {
