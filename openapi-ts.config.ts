@@ -4,7 +4,7 @@ export default defineConfig({
   input: '../../api/openapi.yaml',
   output: {
     path: 'src/generated',
-    format: 'prettier',
+    postProcess: ['prettier'],
   },
   plugins: ['@hey-api/typescript'],
 })
