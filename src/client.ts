@@ -591,14 +591,20 @@ export class WeavzClient {
       }
 
       let errorBody: { error?: string; code?: string; details?: unknown } = {}
+      let errorText = ''
       try {
-        errorBody = await response.json() as typeof errorBody
+        const contentType = response.headers.get('content-type') || ''
+        if (contentType.includes('application/json')) {
+          errorBody = await response.json() as typeof errorBody
+        } else {
+          errorText = await response.text()
+        }
       } catch {
         // ignore parse errors
       }
 
       lastError = new WeavzError({
-        message: errorBody.error || `HTTP ${response.status}`,
+        message: errorBody.error || errorText || `HTTP ${response.status}`,
         code: errorBody.code || 'HTTP_ERROR',
         status: response.status,
         details: errorBody.details,

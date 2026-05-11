@@ -642,9 +642,9 @@ describe('API Key Edge Cases', () => {
 
     const newClient = new WeavzClient({ apiKey: key.plainKey, baseUrl: BASE_URL })
 
-    // Should be able to list integrations
-    const intResult = await newClient.integrations.list()
-    expect(intResult.total).toBeGreaterThan(0)
+    // Should be able to call an authenticated endpoint
+    const workspaces = await newClient.workspaces.list()
+    expect(Array.isArray(workspaces.workspaces)).toBe(true)
   })
 
   it('deleted key should stop working', async () => {

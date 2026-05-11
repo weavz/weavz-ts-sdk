@@ -411,7 +411,7 @@ describe('Triggers', () => {
   })
 
   it('should get sample trigger data', async () => {
-    const result = await client.triggers.test('slack', 'new-message')
+    const result = await client.triggers.test('slack', 'new_message')
     expect(result).toHaveProperty('sampleData')
   })
 })
