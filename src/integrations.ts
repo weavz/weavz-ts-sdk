@@ -21449,7 +21449,7 @@ export interface OdooCreateCompanyInput {
 export interface OdooGetRecordsInput {
   /** Model name. e.g.: res.partner */
   model: string
-  /** A domain is a list of criteria, each criterion being a triple of (field_name, operator, value). See https://www.odoo.com/documentation/17.0/developer/reference/backend/orm.html#reference-orm-domains for details. */
+  /** A domain is a list of criteria, each criterion being a triple of (field_name, operator, value). */
   domain?: unknown
   /** Returns the requested fields of the records. When undefined, returns all fields. */
   fields?: unknown[]
@@ -21481,7 +21481,7 @@ export interface OdooUpdateRecordInput {
 export interface OdooCustomOdooApiCallInput {
   /** The Odoo model to interact with (e.g., res.partner, product.product) */
   model: string
-  /** The method to call on the model (e.g., search_read, create, write) (values: `read`, `search_read`, `search_count`, `search`, `create`, `write`, `unlink`, `fields_get`) */
+  /** The method to call on the model (values: `read`, `search_read`, `search_count`, `search`, `create`, `write`, `unlink`, `fields_get`) */
   method: "read" | "search_read" | "search_count" | "search" | "create" | "write" | "unlink" | "fields_get"
   /** method_params */
   method_params: Record<string, unknown>
