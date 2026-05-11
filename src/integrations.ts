@@ -1056,49 +1056,57 @@ export interface AirtableCustomApiCallInput {
 
 /** Amazon S3 — Upload File */
 export interface AmazonS3UploadFileInput {
-  /** File */
+  /** The file to upload to S3. */
   file: string
-  /** The File Name to use, if not set the API will try to figure out the file name. */
+  /** File Name (Optional) */
   fileName?: string
-  /** ACL (values: `private`, `public-read`, `public-read-write`, `authenticated-read`, `aws-exec-read`, `bucket-owner-read`, `bucket-owner-full-control`) */
+  /** Access Control (ACL) (values: `private`, `public-read`, `public-read-write`, `authenticated-read`, `aws-exec-read`, `bucket-owner-read`, `bucket-owner-full-control`) */
   acl?: "private" | "public-read" | "public-read-write" | "authenticated-read" | "aws-exec-read" | "bucket-owner-read" | "bucket-owner-full-control"
-  /** Content Type of the uploaded file, if not set the API will try to figure out the content type. */
+  /** Content Type */
   type?: string
 }
 
 /** Amazon S3 — Read File */
 export interface AmazonS3ReadFileInput {
-  /** The key of the file to read */
+  /** File Path */
   key: string
 }
 
 /** Amazon S3 — Generate signed URL */
 export interface AmazonS3GenerateSignedUrlInput {
-  /** The path/filename of the file to get */
+  /** File Path */
   key: string
-  /** How long the URL should remain valid (in minutes). */
+  /** Expires In (minutes) */
+  expiresIn: number
+}
+
+/** Amazon S3 — Generate Signed Upload URL */
+export interface AmazonS3GenerateSignedUploadUrlInput {
+  /** File Key */
+  key: string
+  /** Expires In (minutes) */
   expiresIn: number
 }
 
 /** Amazon S3 — Move File */
 export interface AmazonS3MoveFileInput {
-  /** The key of the file to move */
+  /** File Path */
   fileKey: string
-  /** The key of the folder to move the file to */
+  /** Destination Folder */
   folderKey: string
 }
 
 /** Amazon S3 — Delete File */
 export interface AmazonS3DeleteFileInput {
-  /** The key of the file to delete. */
+  /** File Path */
   key: string
 }
 
 /** Amazon S3 — List Files */
 export interface AmazonS3ListFilesInput {
-  /** The folder path to list files from (e.g., "folder/"). Leave empty to list from root. */
+  /** Folder Path (Optional) */
   prefix?: string
-  /** Maximum number of files to return (1-1000) */
+  /** Maximum Files */
   maxKeys?: number
 }
 
@@ -1112,6 +1120,10 @@ export interface AmazonS3DecryptPgpFileInput {
   passphraseArn?: string
   /** The AWS region where the Secrets Manager secret is stored (defaults to S3 region if not provided) */
   secretsManagerRegion?: string
+  /** Allow decryption of messages without integrity protection (no MDC). Only enable this for legacy files where integrity protection was never used. */
+  allowUnauthenticatedMessages?: boolean
+  /** Allow decryption using a key not marked for encryption use. */
+  allowInsecureDecryptionWithSigningKeys?: boolean
 }
 
 /** Amazon Seller — List Orders */
@@ -1353,7 +1365,7 @@ export interface ClaudeAskClaudeInput {
   prompt: string
   /** URL of image to be used as input for the model. */
   image?: string
-  /** Array of roles to specify more accurate response.Please check [guide to Input Messages](https://docs.anthropic.com/en/api/messages-examples#vision). */
+  /** Array of roles to specify more accurate response. */
   roles?: unknown
   /** Uses claude 3.7 sonnet enhanced reasoning capabilities for complex tasks. */
   thinkingMode?: boolean
@@ -1381,18 +1393,18 @@ export interface ClaudeExtractStructuredDataInput {
 
 /** Anthropic Claude — Custom API Call */
 export interface ClaudeCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
+  /** Claude API path such as /messages, or a full https://api.anthropic.com/v1 URL. */
+  url: string
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
   /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
+  queryParams?: Record<string, unknown>
   /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
   body_type?: "none" | "json" | "form_data" | "raw"
   /** Body */
-  body?: Record<string, unknown>
+  body?: unknown
   /** Enable for files like PDFs, images, etc. */
   response_is_binary?: boolean
   /** No Error on Failure */
@@ -1853,83 +1865,83 @@ export interface AssemblyaiUploadFileInput {
 export interface AssemblyaiTranscribeInput {
   /** The URL of the audio or video file to transcribe. */
   audio_url: string
-  /** The language of your audio file. Possible values are found in [Supported Languages](https://www.assemblyai.com/docs/concepts/supported-languages). The default value is 'en_us'.  */
-  language_code?: "en" | "en_au" | "en_uk" | "en_us" | "es" | "fr" | "de" | "it" | "pt" | "nl" | "af" | "sq" | "am" | "ar" | "hy" | "as" | "az" | "ba" | "eu" | "be" | "bn" | "bs" | "br" | "bg" | "my" | "ca" | "zh" | "hr" | "cs" | "da" | "et" | "fo" | "fi" | "gl" | "ka" | "el" | "gu" | "ht" | "ha" | "haw" | "he" | "hi" | "hu" | "is" | "id" | "ja" | "jw" | "kn" | "kk" | "km" | "ko" | "lo" | "la" | "lv" | "ln" | "lt" | "lb" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mn" | "ne" | "no" | "nn" | "oc" | "pa" | "ps" | "fa" | "pl" | "ro" | "ru" | "sa" | "sr" | "sn" | "sd" | "si" | "sk" | "sl" | "so" | "su" | "sw" | "sv" | "tl" | "tg" | "ta" | "tt" | "te" | "th" | "bo" | "tr" | "tk" | "uk" | "ur" | "uz" | "vi" | "cy" | "yi" | "yo"
-  /** Enable [Automatic language detection](https://www.assemblyai.com/docs/models/speech-recognition#automatic-language-detection), either true or false. */
+  /** Optional language code, such as en_us, en, es, fr, or de. */
+  language_code?: string
+  /** Language Detection */
   language_detection?: boolean
-  /** The confidence threshold for the automatically detected language. An error will be returned if the language confidence is below this threshold. Defaults to 0.  */
+  /** Language Confidence Threshold */
   language_confidence_threshold?: number
-  /** The speech model to use for the transcription. When `null`, the "best" model is used. (values: `best`, `nano`) */
+  /** Speech Model (values: `best`, `nano`) */
   speech_model?: "best" | "nano"
-  /** Enable Automatic Punctuation, can be true or false */
+  /** Punctuate */
   punctuate?: boolean
-  /** Enable Text Formatting, can be true or false */
+  /** Format Text */
   format_text?: boolean
-  /** Transcribe Filler Words, like "umm", in your media file; can be true or false */
+  /** Include Disfluencies */
   disfluencies?: boolean
-  /** Enable [Dual Channel](https://www.assemblyai.com/docs/models/speech-recognition#dual-channel-transcription) transcription, can be true or false. */
+  /** Dual Channel */
   dual_channel?: boolean
-  /** The URL to which we send webhook requests. We sends two different types of webhook requests. One request when a transcript is completed or failed, and one request when the redacted audio is ready if redact_pii_audio is enabled.  */
+  /** Webhook URL */
   webhook_url?: string
-  /** The header name to be sent with the transcript completed or failed webhook requests */
+  /** Webhook Auth Header Name */
   webhook_auth_header_name?: string
-  /** The header value to send back with the transcript completed or failed webhook requests for added security */
+  /** Webhook Auth Header Value */
   webhook_auth_header_value?: string
-  /** Enable Key Phrases, either true or false */
+  /** Auto Highlights */
   auto_highlights?: boolean
-  /** The point in time, in milliseconds, to begin transcribing in your media file */
+  /** Audio Start From */
   audio_start_from?: number
-  /** The point in time, in milliseconds, to stop transcribing in your media file */
+  /** Audio End At */
   audio_end_at?: number
-  /** The list of custom vocabulary to boost transcription probability for */
+  /** Word Boost */
   word_boost?: unknown[]
-  /** How much to boost specified words (values: `low`, `default`, `high`) */
+  /** Boost Param (values: `low`, `default`, `high`) */
   boost_param?: "low" | "default" | "high"
-  /** Filter profanity from the transcribed text, can be true or false */
+  /** Filter Profanity */
   filter_profanity?: boolean
-  /** Redact PII from the transcribed text using the Redact PII model, can be true or false */
+  /** Redact PII */
   redact_pii?: boolean
-  /** Generate a copy of the original media file with spoken PII "beeped" out, can be true or false. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. */
+  /** Redact PII Audio */
   redact_pii_audio?: boolean
-  /** Controls the filetype of the audio created by redact_pii_audio. Currently supports mp3 (default) and wav. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. (values: `mp3`, `wav`) */
+  /** Redact PII Audio Quality (values: `mp3`, `wav`) */
   redact_pii_audio_quality?: "mp3" | "wav"
-  /** The list of PII Redaction policies to enable. See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. */
-  redact_pii_policies?: string[]
-  /** The replacement logic for detected PII, can be "entity_type" or "hash". See [PII redaction](https://www.assemblyai.com/docs/models/pii-redaction) for more details. (values: `entity_name`, `hash`) */
+  /** Redact PII Policies */
+  redact_pii_policies?: unknown[]
+  /** Redact PII Substitution (values: `entity_name`, `hash`) */
   redact_pii_sub?: "entity_name" | "hash"
-  /** Enable [Speaker diarization](https://www.assemblyai.com/docs/models/speaker-diarization), can be true or false */
+  /** Speaker Labels */
   speaker_labels?: boolean
-  /** Tells the speaker label model how many speakers it should attempt to identify, up to 10. See [Speaker diarization](https://www.assemblyai.com/docs/models/speaker-diarization) for more details. */
+  /** Speakers Expected */
   speakers_expected?: number
-  /** Enable [Content Moderation](https://www.assemblyai.com/docs/models/content-moderation), can be true or false */
+  /** Content Safety */
   content_safety?: boolean
-  /** The confidence threshold for the Content Moderation model. Values must be between 25 and 100. */
+  /** Content Safety Confidence */
   content_safety_confidence?: number
-  /** Enable [Topic Detection](https://www.assemblyai.com/docs/models/topic-detection), can be true or false */
+  /** IAB Categories */
   iab_categories?: boolean
-  /** Customize how words are spelled and formatted using to and from values. Use a JSON array of objects of the following format: ``` [   {     "from": ["original", "spelling"],     "to": "corrected"   } ] ```  */
-  custom_spelling?: unknown
-  /** Enable [Sentiment Analysis](https://www.assemblyai.com/docs/models/sentiment-analysis), can be true or false */
+  /** Custom Spelling */
+  custom_spelling?: unknown[]
+  /** Sentiment Analysis */
   sentiment_analysis?: boolean
-  /** Enable [Auto Chapters](https://www.assemblyai.com/docs/models/auto-chapters), can be true or false */
+  /** Auto Chapters */
   auto_chapters?: boolean
-  /** Enable [Entity Detection](https://www.assemblyai.com/docs/models/entity-detection), can be true or false */
+  /** Entity Detection */
   entity_detection?: boolean
-  /** Reject audio files that contain less than this fraction of speech. Valid values are in the range [0, 1] inclusive.  */
+  /** Speech Threshold */
   speech_threshold?: number
-  /** Enable [Summarization](https://www.assemblyai.com/docs/models/summarization), can be true or false */
+  /** Summarization */
   summarization?: boolean
-  /** The model to summarize the transcript (values: `informative`, `conversational`, `catchy`) */
-  summary_model?: "informative" | "conversational" | "catchy"
-  /** The type of summary (values: `bullets`, `bullets_verbose`, `gist`, `headline`, `paragraph`) */
-  summary_type?: "bullets" | "bullets_verbose" | "gist" | "headline" | "paragraph"
-  /** Enable custom topics, either true or false */
+  /** Summary Model */
+  summary_model?: string
+  /** Summary Type */
+  summary_type?: string
+  /** Custom Topics */
   custom_topics?: boolean
-  /** The list of custom topics */
+  /** Topics */
   topics?: unknown[]
-  /** Wait until the transcript status is "completed" or "error" before moving on to the next step. */
+  /** Wait until the transcript status is completed or error before moving on to the next step. */
   wait_until_ready: boolean
-  /** If the transcript status is "error", throw an error. */
+  /** If the transcript status is error, throw an error. */
   throw_on_error: boolean
 }
 
@@ -1967,7 +1979,7 @@ export interface AssemblyaiGetRedactedAudioInput {
   id: string
   /** Download file? */
   download_file: boolean
-  /** The desired file name for storing in ActivePieces. Make sure the file extension is correct. */
+  /** The desired file name for storing in Weavz. Make sure the file extension is correct. */
   download_file_name: string
 }
 
@@ -2003,19 +2015,19 @@ export interface AssemblyaiDeleteTranscriptInput {
 
 /** AssemblyAI — Run a Task using LeMUR */
 export interface AssemblyaiLemurTaskInput {
-  /** Your text to prompt the model to produce a desired output, including any context you want to pass into the model. */
+  /** Prompt */
   prompt: string
-  /** A list of completed transcripts with text. Up to a maximum of 100 files or 100 hours, whichever is lower. Use either transcript_ids or input_text as input into LeMUR.  */
+  /** Transcript IDs */
   transcript_ids?: unknown[]
-  /** Custom formatted transcript data. Maximum size is the context limit of the selected model, which defaults to 100000. Use either transcript_ids or input_text as input into LeMUR.  */
+  /** Input Text */
   input_text?: string
-  /** Context to provide the model. This can be a string or a free-form JSON value. */
+  /** Context */
   context?: string
-  /** The model that is used for the final prompt after compression is performed.  (values: `anthropic/claude-3-5-sonnet`, `anthropic/claude-3-opus`, `anthropic/claude-3-haiku`, `anthropic/claude-3-sonnet`, `anthropic/claude-2-1`, `anthropic/claude-2`, `default`, `anthropic/claude-instant-1-2`, `basic`, `assemblyai/mistral-7b`) */
-  final_model?: "anthropic/claude-3-5-sonnet" | "anthropic/claude-3-opus" | "anthropic/claude-3-haiku" | "anthropic/claude-3-sonnet" | "anthropic/claude-2-1" | "anthropic/claude-2" | "default" | "anthropic/claude-instant-1-2" | "basic" | "assemblyai/mistral-7b"
-  /** Max output size in tokens, up to 4000 */
+  /** Final Model */
+  final_model?: string
+  /** Max Output Size */
   max_output_size?: number
-  /** The temperature to use for the model. Higher values result in answers that are more creative, lower values are more conservative. Can be any value between 0.0 and 1.0 inclusive.  */
+  /** Temperature */
   temperature?: number
 }
 
@@ -2033,25 +2045,25 @@ export interface AssemblyaiPurgeLemurRequestDataInput {
 
 /** AssemblyAI — Custom API Call */
 export interface AssemblyaiCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** URL */
+  url: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Headers */
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  queryParams?: Record<string, unknown>
+  /** Body Type (values: `json`, `raw`, `none`) */
+  body_type?: "json" | "raw" | "none"
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
+  body?: unknown
+  /** Response is Binary? */
   response_is_binary?: boolean
   /** No Error on Failure */
   failsafe?: boolean
-  /** Timeout (in seconds) */
+  /** Timeout */
   timeout?: number
-  /** Follow redirects */
+  /** Follow Redirects */
   followRedirects?: boolean
 }
 
@@ -9875,7 +9887,7 @@ export interface FirecrawlScrapeInput {
   url: string
   /** Maximum time to wait for the page to load (in milliseconds). */
   timeout?: number
-  /** Enable to perform a sequence of actions on the page before scraping (like clicking buttons, filling forms, etc.). See [Firecrawl Actions Documentation](https://docs.firecrawl.dev/api-reference/endpoint/scrape#body-actions) for details on available actions and their parameters. */
+  /** Enable to perform a sequence of actions on the page before scraping. */
   useActions?: boolean
   /** Properties for actions that will be performed on the page. */
   actionProperties?: Record<string, unknown>
@@ -9939,7 +9951,7 @@ export interface FirecrawlCrawlResultsInput {
 export interface FirecrawlMapInput {
   /** The webpage URL to start scraping from. */
   url: string
-  /** Include and crawl pages from subdomains of the target website (e.g., blog.example.com, shop.example.com) in addition to the main domain. */
+  /** Include and crawl pages from subdomains of the target website. */
   subdomain?: boolean
   /** Maximum number of links to return (max: 100,000) */
   limit?: number
@@ -9947,18 +9959,18 @@ export interface FirecrawlMapInput {
 
 /** Firecrawl — Custom API Call */
 export interface FirecrawlCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
+  /** Firecrawl API path such as /scrape, or a full URL. */
+  url: string
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
   /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
+  queryParams?: Record<string, unknown>
   /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
   body_type?: "none" | "json" | "form_data" | "raw"
   /** Body */
-  body?: Record<string, unknown>
+  body?: unknown
   /** Enable for files like PDFs, images, etc. */
   response_is_binary?: boolean
   /** No Error on Failure */
@@ -12152,7 +12164,7 @@ export interface GoogleCloudStorageSearchObjectsInput {
   versions?: boolean
   /** Token for pagination (from previous response) */
   pageToken?: string
-  /** Maximum number of objects to return (recommended: ≤1000) */
+  /** Maximum number of objects to return (recommended: <=1000) */
   maxResults?: number
 }
 
@@ -12180,7 +12192,7 @@ export interface GoogleCloudStorageCreateObjectAclInput {
   bucket: string
   /** Object (resolve via property options API) */
   object: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
   /** Role (values: `READER`, `OWNER`) */
   role: "READER" | "OWNER"
@@ -12196,7 +12208,7 @@ export interface GoogleCloudStorageDeleteObjectAclInput {
   bucket: string
   /** Object (resolve via property options API) */
   object: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
   /** Optional generation number for versioned objects */
   generation?: number
@@ -12208,7 +12220,7 @@ export interface GoogleCloudStorageCreateBucketAclInput {
   projectId: string
   /** Bucket (resolve via property options API) */
   bucket: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
   /** Role (values: `READER`, `WRITER`, `OWNER`) */
   role: "READER" | "WRITER" | "OWNER"
@@ -12220,7 +12232,7 @@ export interface GoogleCloudStorageDeleteBucketAclInput {
   projectId: string
   /** Bucket (resolve via property options API) */
   bucket: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
 }
 
@@ -12230,10 +12242,14 @@ export interface GoogleCloudStorageCreateBucketDefaultObjectAclInput {
   projectId: string
   /** Bucket (resolve via property options API) */
   bucket: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** Object (resolve via property options API) */
+  object: string
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
   /** Role (values: `READER`, `OWNER`) */
   role: "READER" | "OWNER"
+  /** Optional generation number for versioned objects */
+  generation?: number
 }
 
 /** Google Cloud Storage — Delete Bucket Default Object ACL */
@@ -12242,8 +12258,12 @@ export interface GoogleCloudStorageDeleteBucketDefaultObjectAclInput {
   projectId: string
   /** Bucket (resolve via property options API) */
   bucket: string
-  /** The entity to grant access to. Must include the entity type prefix. Format: user-emailAddress, group-groupId, group-emailAddress, domain-domainName, project-team-projectId, allUsers, or allAuthenticatedUsers. Examples: user-liz@example.com, group-mygroup@googlegroups.com, domain-example.com, allUsers */
+  /** Object (resolve via property options API) */
+  object: string
+  /** The entity to grant access to, such as user-emailAddress, group-emailAddress, domain-domainName, allUsers, or allAuthenticatedUsers. */
   entity: string
+  /** Optional generation number for versioned objects */
+  generation?: number
 }
 
 /** Google Contacts — List Contacts */
@@ -15031,43 +15051,43 @@ export interface HubspotCustomApiCallInput {
 export interface HuggingFaceDocumentQuestionAnsweringInput {
   /** Hugging Face document question answering model (values: `impira/layoutlm-document-qa`, `microsoft/layoutlmv3-base`, `nielsr/layoutlmv2-finetuned-docvqa`) */
   model: "impira/layoutlm-document-qa" | "microsoft/layoutlmv3-base" | "nielsr/layoutlmv2-finetuned-docvqa"
-  /** Image of the document to analyze (invoice, contract, etc.) */
+  /** Image of the document to analyze. */
   image: string
-  /** Question to ask about the document (e.g., 'What is the invoice total?') */
+  /** Question to ask about the document. */
   question: string
-  /** Number of top answers to return */
+  /** Number of Answers */
   top_k?: number
-  /** Maximum length of predicted answers */
+  /** Max Answer Length */
   max_answer_len?: number
-  /** Whether to accept 'impossible' as an answer when no answer is found */
+  /** Handle Impossible Answers */
   handle_impossible_answer?: boolean
   /** Language to use for OCR text extraction (values: `en`, `es`, `fr`, `de`, `it`, `pt`) */
   lang?: "en" | "es" | "fr" | "de" | "it" | "pt"
-  /** Use cached results if available */
+  /** Use Cache */
   use_cache?: boolean
-  /** Wait for model to load if not ready */
+  /** Wait for Model */
   wait_for_model?: boolean
 }
 
 /** Hugging Face — Language Translation */
 export interface HuggingFaceLanguageTranslationInput {
-  /** Select a translation model or search from 7000+ available models (resolve via property options API) */
+  /** Select a translation model. (resolve via property options API) */
   model: string
-  /** Alternative: Enter any Hugging Face translation model ID directly (e.g., Helsinki-NLP/opus-mt-ja-en) */
+  /** Or Enter Custom Model ID */
   customModel?: string
-  /** The text content you want to translate */
+  /** Text to Translate */
   text: string
-  /** Source language code (e.g., "en", "es", "fr"). Only needed for multilingual models that support multiple language pairs. */
+  /** Source Language (Optional) */
   sourceLanguage?: string
-  /** Target language code (e.g., "fr", "de", "zh"). Only needed for multilingual models that support multiple language pairs. */
+  /** Target Language (Optional) */
   targetLanguage?: string
-  /** Remove potential extra spaces in the translation output */
+  /** Clean Up Extra Spaces */
   cleanUpSpaces?: boolean
-  /** Maximum length of the translated text (leave empty for default) */
+  /** Max Translation Length */
   maxLength?: number
-  /** Use cached results if available for faster responses */
+  /** Use Cache */
   useCache?: boolean
-  /** Wait for model to load if not immediately available */
+  /** Wait for Model */
   waitForModel?: boolean
 }
 
@@ -15075,23 +15095,23 @@ export interface HuggingFaceLanguageTranslationInput {
 export interface HuggingFaceTextClassificationInput {
   /** Choose your classification approach (values: `zero-shot`, `pretrained`, `search`) */
   classificationMode: "zero-shot" | "pretrained" | "search"
-  /** Model for classifying into your custom categories (values: `facebook/bart-large-mnli`, `sileod/deberta-v3-base-tasksource-nli`, `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`, `lxyuan/distilbert-base-multilingual-cased-sentiments-student`) */
-  zeroShotModel?: "facebook/bart-large-mnli" | "sileod/deberta-v3-base-tasksource-nli" | "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli" | "lxyuan/distilbert-base-multilingual-cased-sentiments-student"
-  /** Enter categories separated by commas (e.g., "customer support, sales inquiry, spam, billing question") */
+  /** Model for custom categories (values: `facebook/bart-large-mnli`, `sileod/deberta-v3-base-tasksource-nli`, `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`) */
+  zeroShotModel?: "facebook/bart-large-mnli" | "sileod/deberta-v3-base-tasksource-nli" | "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"
+  /** Enter categories separated by commas. */
   customLabels?: string
-  /** Select a specialized pre-trained classification model (values: `cardiffnlp/twitter-roberta-base-sentiment-latest`, `distilbert/distilbert-base-uncased-finetuned-sst-2-english`, `nlptown/bert-base-multilingual-uncased-sentiment`, `ProsusAI/finbert`, `yiyanghkust/finbert-tone`, `facebook/roberta-hate-speech-dynabench-r4-target`, `tomh/toxigen_hatebert`, `Xuhui/ToxDect-roberta-large`, `atulgupta002/banking_customer_service_query_intent_classifier`, `wesleyacheng/sms-spam-classification-with-bert`) */
-  pretrainedModel?: "cardiffnlp/twitter-roberta-base-sentiment-latest" | "distilbert/distilbert-base-uncased-finetuned-sst-2-english" | "nlptown/bert-base-multilingual-uncased-sentiment" | "ProsusAI/finbert" | "yiyanghkust/finbert-tone" | "facebook/roberta-hate-speech-dynabench-r4-target" | "tomh/toxigen_hatebert" | "Xuhui/ToxDect-roberta-large" | "atulgupta002/banking_customer_service_query_intent_classifier" | "wesleyacheng/sms-spam-classification-with-bert"
-  /** Search from all available text classification models (resolve via property options API) */
+  /** Specialized pre-trained classification model (values: `cardiffnlp/twitter-roberta-base-sentiment-latest`, `distilbert/distilbert-base-uncased-finetuned-sst-2-english`, `ProsusAI/finbert`) */
+  pretrainedModel?: "cardiffnlp/twitter-roberta-base-sentiment-latest" | "distilbert/distilbert-base-uncased-finetuned-sst-2-english" | "ProsusAI/finbert"
+  /** Search from text classification models. (resolve via property options API) */
   searchModel?: string
-  /** The text content you want to classify */
+  /** Text to Classify */
   text: string
-  /** Number of top predictions to return */
+  /** Number of Results */
   topK?: number
   /** How to calculate confidence scores (values: `softmax`, `sigmoid`, `none`) */
   functionToApply?: "softmax" | "sigmoid" | "none"
-  /** Use cached results for faster responses */
+  /** Use Cache */
   useCache?: boolean
-  /** Wait for model to load if not immediately available */
+  /** Wait for Model */
   waitForModel?: boolean
 }
 
@@ -15099,23 +15119,23 @@ export interface HuggingFaceTextClassificationInput {
 export interface HuggingFaceTextSummarizationInput {
   /** What type of content are you summarizing? (values: `news`, `email`, `meeting`, `general`, `medical`, `multilingual`, `search`) */
   contentType: "news" | "email" | "meeting" | "general" | "medical" | "multilingual" | "search"
-  /** Select the best model for your content type (resolve via property options API) */
+  /** Select a summarization model. (resolve via property options API) */
   model: string
-  /** The long text content you want to summarize (most models work best with 512-1024 tokens) */
+  /** Text to Summarize */
   text: string
   /** How long should the summary be? (values: `brief`, `medium`, `detailed`, `custom`) */
   summaryLength?: "brief" | "medium" | "detailed" | "custom"
-  /** Minimum number of tokens for the summary */
+  /** Custom Min Length */
   customMinLength?: number
-  /** Maximum number of tokens for the summary */
+  /** Custom Max Length */
   customMaxLength?: number
-  /** Remove extra spaces and clean up formatting */
+  /** Clean Up Extra Spaces */
   cleanUpSpaces?: boolean
   /** How to handle text that exceeds model limits (values: `do_not_truncate`, `longest_first`, `only_first`, `only_second`) */
   truncationStrategy?: "do_not_truncate" | "longest_first" | "only_first" | "only_second"
-  /** Use cached results for faster responses */
+  /** Use Cache */
   useCache?: boolean
-  /** Wait for model to load if not immediately available */
+  /** Wait for Model */
   waitForModel?: boolean
 }
 
@@ -15123,35 +15143,35 @@ export interface HuggingFaceTextSummarizationInput {
 export interface HuggingFaceChatCompletionInput {
   /** What type of chat assistant are you building? (values: `faq`, `content`, `chat`, `search`) */
   useCase: "faq" | "content" | "chat" | "search"
-  /** Select the best model for your use case (resolve via property options API) */
+  /** Select a chat model. (resolve via property options API) */
   model: string
   /** How do you want to build the conversation? (values: `single`, `multi`, `template`) */
   conversationMode: "single" | "multi" | "template"
-  /** The user message or question to respond to */
+  /** User Message */
   userMessage?: string
-  /** Instructions for how the assistant should behave */
+  /** System Prompt (Optional) */
   systemPrompt?: string
-  /** Previous messages in the conversation (for multi-turn chat) */
+  /** Conversation History */
   conversationHistory?: unknown[]
-  /** Pre-built templates for common business scenarios (values: `support`, `faq`, `writer`, `email`, `ecommerce`) */
+  /** Pre-built templates for common scenarios (values: `support`, `faq`, `writer`, `email`, `ecommerce`) */
   template?: "support" | "faq" | "writer" | "email" | "ecommerce"
   /** How long should the response be? (values: `brief`, `normal`, `detailed`, `custom`) */
   responseLength?: "brief" | "normal" | "detailed" | "custom"
-  /** Maximum number of tokens to generate */
+  /** Custom Max Tokens */
   customMaxTokens?: number
-  /** How creative should responses be? (0.1 = focused, 1.0 = creative) */
+  /** Creativity Level */
   temperature?: number
-  /** Controls response diversity (0.1 = focused, 1.0 = varied) */
+  /** Response Variety */
   topP?: number
-  /** Text sequences that will stop generation */
+  /** Stop Sequences (Optional) */
   stopSequences?: unknown[]
-  /** Reduce repetitive responses (-2.0 to 2.0) */
+  /** Repetition Penalty */
   frequencyPenalty?: number
-  /** Encourage diverse topics (-2.0 to 2.0) */
+  /** Topic Diversity */
   presencePenalty?: number
-  /** Use cached responses for identical requests */
+  /** Use Cache */
   useCache?: boolean
-  /** Wait for model to load if not immediately available */
+  /** Wait for Model */
   waitForModel?: boolean
 }
 
@@ -15159,27 +15179,27 @@ export interface HuggingFaceChatCompletionInput {
 export interface HuggingFaceCreateImageInput {
   /** What type of image generation do you need? (values: `speed`, `quality`, `business`, `search`) */
   useCase: "speed" | "quality" | "business" | "search"
-  /** Select the best model for your use case (resolve via property options API) */
+  /** Select an image generation model. (resolve via property options API) */
   model: string
-  /** Describe the image you want to generate. Be specific about style, colors, composition, and details. */
+  /** Text Prompt */
   prompt: string
-  /** Choose the dimensions for your image (values: `portrait`, `landscape`, `square`, `wide`, `custom`) */
+  /** Choose image dimensions (values: `portrait`, `landscape`, `square`, `wide`, `custom`) */
   aspectRatio?: "portrait" | "landscape" | "square" | "wide" | "custom"
-  /** Width in pixels (64-1024) */
+  /** Custom Width */
   customWidth?: number
-  /** Height in pixels (64-1024) */
+  /** Custom Height */
   customHeight?: number
-  /** Describe what you DON'T want in the image (blur, low quality, distorted, etc.) */
+  /** Negative Prompt */
   negativePrompt?: string
-  /** Balance between image quality and generation time (values: `fast`, `balanced`, `quality`, `maximum`, `custom`) */
+  /** Balance image quality and generation time (values: `fast`, `balanced`, `quality`, `maximum`, `custom`) */
   qualitySettings?: "fast" | "balanced" | "quality" | "maximum" | "custom"
-  /** Number of denoising steps (1-100) */
+  /** Custom Inference Steps */
   customSteps?: number
-  /** How closely to follow the prompt (1-20). Higher values = more prompt adherence but may reduce creativity. */
+  /** Guidance Scale */
   guidanceScale?: number
-  /** Set a seed for reproducible results. Leave empty for random generation. */
+  /** Seed (Optional) */
   seed?: number
-  /** Advanced: Choose the noise scheduler algorithm (values: `DPM++2MKarras`, `EulerA`, `DDIM`, `LMS`) */
+  /** Advanced scheduler (values: `DPM++2MKarras`, `EulerA`, `DDIM`, `LMS`) */
   scheduler?: "DPM++2MKarras" | "EulerA" | "DDIM" | "LMS"
 }
 
@@ -15187,43 +15207,43 @@ export interface HuggingFaceCreateImageInput {
 export interface HuggingFaceObjectDetectionInput {
   /** What type of object detection do you need? (values: `general`, `documents`, `security`, `business`, `search`) */
   useCase: "general" | "documents" | "security" | "business" | "search"
-  /** Select the best model for your detection task (resolve via property options API) */
+  /** Select an object detection model. (resolve via property options API) */
   model: string
-  /** Upload an image for object detection. Supports JPG, PNG, WebP formats. */
+  /** Image to Analyze */
   image: string
-  /** Minimum confidence score for detections (0.1-0.9). Higher values = fewer but more accurate detections. */
+  /** Confidence Threshold */
   confidenceThreshold?: number
-  /** Maximum number of objects to detect (1-100) */
+  /** Max Detections */
   maxDetections?: number
   /** How to handle detection results (values: `high_confidence`, `balanced`, `all_results`, `custom`) */
   filterSettings?: "high_confidence" | "balanced" | "all_results" | "custom"
-  /** How to structure the detection results (values: `business`, `technical`, `analytics`, `comprehensive`) */
+  /** How to structure detection results (values: `business`, `technical`, `analytics`, `comprehensive`) */
   outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
 }
 
 /** Hugging Face — Image Classification */
 export interface HuggingFaceImageClassificationInput {
-  /** How do you want to classify your images? (values: `standard`, `zero_shot`) */
+  /** How do you want to classify images? (values: `standard`, `zero_shot`) */
   classificationMode: "standard" | "zero_shot"
   /** What type of image classification do you need? (values: `moderation`, `general`, `people`, `creative`, `business`, `search`) */
   useCase: "moderation" | "general" | "people" | "creative" | "business" | "search"
-  /** Select the best model for your use case (resolve via property options API) */
+  /** Select an image classification model. (resolve via property options API) */
   model: string
   /** How do you want to provide the image? (values: `upload`, `url`) */
   imageSource: "upload" | "url"
-  /** Upload an image file for classification (JPG, PNG, WebP) */
+  /** Image File */
   imageFile: string
-  /** URL of the image to classify */
-  imageUrl: string
-  /** Enter the categories you want to classify the image into (e.g., "dog", "cat", "bird") */
-  customCategories: unknown[]
-  /** Template for classification (advanced). Default: "This image shows {}" */
+  /** Image URL */
+  imageUrl?: string
+  /** Custom Categories */
+  customCategories?: unknown[]
+  /** Classification Template */
   hypothesisTemplate?: string
-  /** Maximum number of classification results to return (1-20) */
+  /** Number of Results */
   topK?: number
-  /** Minimum confidence score for results (0.0-1.0) */
+  /** Confidence Threshold */
   confidenceThreshold?: number
-  /** How to structure the classification results (values: `business`, `technical`, `analytics`, `comprehensive`) */
+  /** How to structure classification results (values: `business`, `technical`, `analytics`, `comprehensive`) */
   outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
 }
 
@@ -19577,6 +19597,12 @@ export interface MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput {
   siteId: string
   /** A comma-separated list of properties to return. If left blank, all default properties are returned. Example: `id,displayName,webUrl,description` */
   select?: string
+}
+
+/** Microsoft SharePoint — Find Site */
+export interface MicrosoftSharepointMicrosoftSharepointFindSiteInput {
+  /** The name or keyword to search for. */
+  searchTerm: string
 }
 
 /** Microsoft SharePoint — Custom API Call */
@@ -24387,9 +24413,9 @@ export interface QdrantAddPointsToCollectionInput {
   embeddings: string
   /** The ids of the embeddings for the points. If not provided, the ids will be generated automatically */
   embeddingsIds?: unknown[]
-  /** The calculation method helps to rank vectors when you want to find the closest points, the method to use depends on the model who's created the embeddings, see the documentation of your model (values: `Cosine`, `Euclid`, `Dot`) */
+  /** The calculation method helps to rank vectors when you want to find the closest points, the method to use depends on the model that's created the embeddings. (values: `Cosine`, `Euclid`, `Dot`) */
   distance: "Cosine" | "Euclid" | "Dot"
-  /** Please follow [payload documentation](https://qdrant.tech/documentation/concepts/payload/) to add additional information to the points. */
+  /** Additional payload to store with every point. */
   payload?: unknown
   /** Define where points will be stored (values: `Disk`, `Memory`) */
   storage?: "Disk" | "Memory"
@@ -24436,14 +24462,47 @@ export interface QdrantSearchPointsInput {
   collectionName: string
   /** The vector (= embedding) you want to search for. */
   vector: string
-  /** If the point have this property in his payload it will be selected */
+  /** If the point has this property in its payload it will be selected */
   must?: Record<string, unknown>
-  /** If the point have this property in his payload it will not be selected */
+  /** If the point has this property in its payload it will not be selected */
   must_not?: Record<string, unknown>
   /** The vector (= embedding) you want to be the farthest. */
   negativeVector?: string
   /** The max number of results you want to get. */
   limitResult?: number
+}
+
+/** Qdrant — Create Collection */
+export interface QdrantCreateCollectionInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** Dimension of the vectors */
+  vectorSize: number
+  /** Distance Metric (values: `Cosine`, `Euclid`, `Dot`, `Manhattan`) */
+  distance?: "Cosine" | "Euclid" | "Dot" | "Manhattan"
+}
+
+/** Qdrant — Upsert Points */
+export interface QdrantUpsertPointsInput {
+  /** The name of the collection needed for this action */
+  collectionName: string
+  /** Array of points: [{id: 1, vector: [0.1, ...], payload: {...}}, ...] */
+  points: unknown
+  /** Wait for the operation to be applied */
+  wait?: boolean
+}
+
+/** Qdrant — List Collections */
+export type QdrantListCollectionsInput = Record<string, never>
+
+/** Qdrant — Custom API Call */
+export interface QdrantCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Qdrant — Create Collection */
@@ -25571,7 +25630,7 @@ export interface SalesforceRunQueryInput {
 export interface SalesforceRunReportInput {
   /** Report (resolve via property options API) */
   report_id: string
-  /** Apply dynamic filters to the report run. */
+  /** Apply dynamic filters to the report run. Leave empty to use the report's saved filters. */
   filters?: unknown
 }
 
@@ -28385,20 +28444,29 @@ export interface SupabaseSearchRowsInput {
   countOption?: "exact" | "planned" | "estimated"
 }
 
+/** Supabase — List Tables */
+export type SupabaseListTablesInput = Record<string, never>
+
+/** Supabase — Get Table Schema */
+export interface SupabaseGetTableSchemaInput {
+  /** Select a table from your database (resolve via property options API) */
+  table_name: string
+}
+
 /** Supabase — Custom API Call */
 export interface SupabaseCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
+  /** Supabase API path such as /rest/v1/table, or a full URL within the connected Supabase project. */
+  url: string
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
   /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
+  queryParams?: Record<string, unknown>
   /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
   body_type?: "none" | "json" | "form_data" | "raw"
   /** Body */
-  body?: Record<string, unknown>
+  body?: unknown
   /** Enable for files like PDFs, images, etc. */
   response_is_binary?: boolean
   /** No Error on Failure */
@@ -33719,6 +33787,7 @@ export interface IntegrationActionInputMap {
   'amazon-s3.upload-file': AmazonS3UploadFileInput
   'amazon-s3.read-file': AmazonS3ReadFileInput
   'amazon-s3.generate-signed-url': AmazonS3GenerateSignedUrlInput
+  'amazon-s3.generate-signed-upload-url': AmazonS3GenerateSignedUploadUrlInput
   'amazon-s3.moveFile': AmazonS3MoveFileInput
   'amazon-s3.deleteFile': AmazonS3DeleteFileInput
   'amazon-s3.list-files': AmazonS3ListFilesInput
@@ -35340,6 +35409,7 @@ export interface IntegrationActionInputMap {
   'microsoft-sharepoint.microsoft_sharepoint_find_file': MicrosoftSharepointMicrosoftSharepointFindFileInput
   'microsoft-sharepoint.microsoft_sharepoint_get_folder_contents': MicrosoftSharepointMicrosoftSharepointGetFolderContentsInput
   'microsoft-sharepoint.microsoft_sharepoint_get_site_information': MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput
+  'microsoft-sharepoint.microsoft_sharepoint_find_site': MicrosoftSharepointMicrosoftSharepointFindSiteInput
   'microsoft-sharepoint.custom_api_call': MicrosoftSharepointCustomApiCallInput
   'microsoft-teams.list_teams': MicrosoftTeamsListTeamsInput
   'microsoft-teams.list_channels': MicrosoftTeamsListChannelsInput
@@ -35772,6 +35842,10 @@ export interface IntegrationActionInputMap {
   'qdrant.delete_points': QdrantDeletePointsInput
   'qdrant.get_points': QdrantGetPointsInput
   'qdrant.search_points': QdrantSearchPointsInput
+  'qdrant.create_collection': QdrantCreateCollectionInput
+  'qdrant.upsert_points': QdrantUpsertPointsInput
+  'qdrant.list_collections': QdrantListCollectionsInput
+  'qdrant.custom_api_call': QdrantCustomApiCallInput
   'qdrant-custom.create_collection': QdrantCustomCreateCollectionInput
   'qdrant-custom.upsert_points': QdrantCustomUpsertPointsInput
   'qdrant-custom.search_points': QdrantCustomSearchPointsInput
@@ -36156,6 +36230,8 @@ export interface IntegrationActionInputMap {
   'supabase.upsert_row': SupabaseUpsertRowInput
   'supabase.delete_rows': SupabaseDeleteRowsInput
   'supabase.search_rows': SupabaseSearchRowsInput
+  'supabase.list_tables': SupabaseListTablesInput
+  'supabase.get_table_schema': SupabaseGetTableSchemaInput
   'supabase.custom_api_call': SupabaseCustomApiCallInput
   'surveymonkey.list_surveys': SurveymonkeyListSurveysInput
   'surveymonkey.get_survey': SurveymonkeyGetSurveyInput
@@ -36739,6 +36815,7 @@ export interface IntegrationActionInputsByIntegration {
     'upload-file': AmazonS3UploadFileInput
     'read-file': AmazonS3ReadFileInput
     'generate-signed-url': AmazonS3GenerateSignedUrlInput
+    'generate-signed-upload-url': AmazonS3GenerateSignedUploadUrlInput
     'moveFile': AmazonS3MoveFileInput
     'deleteFile': AmazonS3DeleteFileInput
     'list-files': AmazonS3ListFilesInput
@@ -38892,6 +38969,7 @@ export interface IntegrationActionInputsByIntegration {
     'microsoft_sharepoint_find_file': MicrosoftSharepointMicrosoftSharepointFindFileInput
     'microsoft_sharepoint_get_folder_contents': MicrosoftSharepointMicrosoftSharepointGetFolderContentsInput
     'microsoft_sharepoint_get_site_information': MicrosoftSharepointMicrosoftSharepointGetSiteInformationInput
+    'microsoft_sharepoint_find_site': MicrosoftSharepointMicrosoftSharepointFindSiteInput
     'custom_api_call': MicrosoftSharepointCustomApiCallInput
   }
   'microsoft-teams': {
@@ -39478,6 +39556,10 @@ export interface IntegrationActionInputsByIntegration {
     'delete_points': QdrantDeletePointsInput
     'get_points': QdrantGetPointsInput
     'search_points': QdrantSearchPointsInput
+    'create_collection': QdrantCreateCollectionInput
+    'upsert_points': QdrantUpsertPointsInput
+    'list_collections': QdrantListCollectionsInput
+    'custom_api_call': QdrantCustomApiCallInput
   }
   'qdrant-custom': {
     'create_collection': QdrantCustomCreateCollectionInput
@@ -39998,6 +40080,8 @@ export interface IntegrationActionInputsByIntegration {
     'upsert_row': SupabaseUpsertRowInput
     'delete_rows': SupabaseDeleteRowsInput
     'search_rows': SupabaseSearchRowsInput
+    'list_tables': SupabaseListTablesInput
+    'get_table_schema': SupabaseGetTableSchemaInput
     'custom_api_call': SupabaseCustomApiCallInput
   }
   'surveymonkey': {
