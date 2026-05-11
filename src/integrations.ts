@@ -27917,6 +27917,8 @@ export interface StorageReadFileInput {
   scope?: "workspace" | "end_user" | "external"
   /** Custom identifier for external scope (only when "External ID Bound" selected). */
   externalId?: string
+  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
+  outputEncoding?: "utf8" | "base64"
 }
 
 /** Storage — Write File */
@@ -27927,6 +27929,8 @@ export interface StorageWriteFileInput {
   content: string
   /** MIME type (e.g. "application/json", "text/plain") */
   contentType?: string
+  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
+  contentEncoding?: "utf8" | "base64"
   /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
   scope?: "workspace" | "end_user" | "external"
   /** Custom identifier for external scope (only when "External ID Bound" selected). */
@@ -33462,6 +33466,181 @@ export interface ZohoInvoiceCustomApiCallInput {
   body?: unknown
 }
 
+/** Zoho Mail — List Accounts */
+export type ZohoMailListAccountsInput = Record<string, never>
+
+/** Zoho Mail — Get Account */
+export interface ZohoMailGetAccountInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+}
+
+/** Zoho Mail — List Folders */
+export interface ZohoMailListFoldersInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+}
+
+/** Zoho Mail — Create Folder */
+export interface ZohoMailCreateFolderInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder Name */
+  folderName: string
+  /** Parent Folder (resolve via property options API) */
+  parentFolderId?: string
+  /** Optional path such as /Projects. */
+  parentFolderPath?: string
+}
+
+/** Zoho Mail — List Labels */
+export interface ZohoMailListLabelsInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+}
+
+/** Zoho Mail — Create Label */
+export interface ZohoMailCreateLabelInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Display Name */
+  displayName: string
+  /** Hex color such as #22c55e. */
+  color?: string
+}
+
+/** Zoho Mail — Update Label */
+export interface ZohoMailUpdateLabelInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Label (resolve via property options API) */
+  labelId: string
+  /** Display Name */
+  displayName?: string
+  /** Hex color such as #22c55e. */
+  color?: string
+}
+
+/** Zoho Mail — Delete Label */
+export interface ZohoMailDeleteLabelInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Label (resolve via property options API) */
+  labelId: string
+}
+
+/** Zoho Mail — List Emails */
+export interface ZohoMailListEmailsInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId?: string
+  /** Start */
+  start?: number
+  /** Maximum 200. */
+  limit?: number
+  /** Read Status (values: `all`, `read`, `unread`) */
+  status?: "all" | "read" | "unread"
+  /** Sort By (values: `date`, `messageId`, `size`) */
+  sortBy?: "date" | "messageId" | "size"
+  /** Sort Ascending */
+  sortorder?: boolean
+  /** Include To Details */
+  includeto?: boolean
+  /** Include Sent Emails */
+  includesent?: boolean
+  /** Include Archived Emails */
+  includearchive?: boolean
+  /** Only Emails with Attachments */
+  attachedMails?: boolean
+  /** Only Flagged Emails */
+  flaggedMails?: boolean
+  /** Label ID */
+  labelid?: string
+  /** Thread ID */
+  threadId?: string
+  /** 0 none, 1 info, 2 important, 3 followup. */
+  flagid?: number
+}
+
+/** Zoho Mail — Search Emails */
+export interface ZohoMailSearchEmailsInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Zoho Mail search syntax, e.g. newMails or from:person@example.com. */
+  searchKey: string
+  /** Unix timestamp in milliseconds. */
+  receivedTime?: number
+  /** Start */
+  start?: number
+  /** Maximum 200. */
+  limit?: number
+  /** Include To Details */
+  includeto?: boolean
+}
+
+/** Zoho Mail — Get Email Content */
+export interface ZohoMailGetEmailContentInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Include Block Content */
+  includeBlockContent?: boolean
+}
+
+/** Zoho Mail — Get Email Headers */
+export interface ZohoMailGetEmailHeadersInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Get Attachment Info */
+export interface ZohoMailGetAttachmentInfoInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Include Inline Attachments */
+  includeInline?: boolean
+}
+
+/** Zoho Mail — Download Attachment */
+export interface ZohoMailDownloadAttachmentInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** From get_attachment_info. */
+  attachmentId: string
+  /** Used in the storageWriteInput helper path. */
+  fileName?: string
+}
+
+/** Zoho Mail — Download Inline Image */
+export interface ZohoMailDownloadInlineImageInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Inline content ID from get_attachment_info. */
+  contentId: string
+  /** File Name */
+  fileName: string
+}
+
 /** Zoho Mail — Get Email Details */
 export interface ZohoMailGetEmailDetailsInput {
   /** Account (resolve via property options API) */
@@ -33478,17 +33657,17 @@ export interface ZohoMailMarkEmailAsReadInput {
   accountId: string
   /** Folder (resolve via property options API) */
   folderId: string
-  /** The ID of the email message to mark as read. (resolve via property options API) */
+  /** The ID of the email message. (resolve via property options API) */
   messageId: string
 }
 
-/** Zoho Mail — Mark Emai as Unread */
+/** Zoho Mail — Mark Email as Unread */
 export interface ZohoMailMarkEmailAsUnreadInput {
   /** Account (resolve via property options API) */
   accountId: string
   /** Folder (resolve via property options API) */
   folderId: string
-  /** The ID of the email message to mark as unread. (resolve via property options API) */
+  /** The ID of the email message. (resolve via property options API) */
   messageId: string
 }
 
@@ -33498,7 +33677,7 @@ export interface ZohoMailArchiveEmailInput {
   accountId: string
   /** Folder (resolve via property options API) */
   folderId: string
-  /** The ID of the email message to archive. (resolve via property options API) */
+  /** The ID of the email message. (resolve via property options API) */
   messageId: string
 }
 
@@ -33508,7 +33687,77 @@ export interface ZohoMailUnarchiveEmailInput {
   accountId: string
   /** Folder (resolve via property options API) */
   folderId: string
-  /** The ID of the email message to unarchive. (resolve via property options API) */
+  /** The ID of the email message. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Flag Email */
+export interface ZohoMailFlagEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Flag (values: `info`, `important`, `followup`, `flag_not_set`) */
+  flagid: "info" | "important" | "followup" | "flag_not_set"
+  /** Include Archived */
+  includeArchived?: boolean
+}
+
+/** Zoho Mail — Apply Label */
+export interface ZohoMailApplyLabelInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Label (resolve via property options API) */
+  labelId: string
+  /** Include Archived */
+  includeArchived?: boolean
+}
+
+/** Zoho Mail — Remove Label */
+export interface ZohoMailRemoveLabelInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+  /** Label (resolve via property options API) */
+  labelId: string
+}
+
+/** Zoho Mail — Remove All Labels */
+export interface ZohoMailRemoveAllLabelsInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** Message ID (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Mark Email as Spam */
+export interface ZohoMailMarkEmailAsSpamInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message. (resolve via property options API) */
+  messageId: string
+}
+
+/** Zoho Mail — Mark Email as Not Spam */
+export interface ZohoMailMarkEmailAsNotSpamInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message. (resolve via property options API) */
   messageId: string
 }
 
@@ -33522,6 +33771,28 @@ export interface ZohoMailMoveEmailInput {
   messageId: string
   /** Select the folder to move the email to. (resolve via property options API) */
   destfolderId: string
+}
+
+/** Zoho Mail — Delete Email */
+export interface ZohoMailDeleteEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Folder (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to delete. (resolve via property options API) */
+  messageId: string
+  /** Delete Permanently */
+  expunge?: boolean
+}
+
+/** Zoho Mail — Upload Attachment */
+export interface ZohoMailUploadAttachmentInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Attachment */
+  attachment: string
+  /** Attachment Name */
+  attachmentName?: string
 }
 
 /** Zoho Mail — Send Email */
@@ -33550,28 +33821,52 @@ export interface ZohoMailSendEmailInput {
   attachmentName?: string
 }
 
+/** Zoho Mail — Reply to Email */
+export interface ZohoMailReplyEmailInput {
+  /** Account (resolve via property options API) */
+  accountId: string
+  /** Used only to select the message. (resolve via property options API) */
+  folderId: string
+  /** The ID of the email message to reply to. (resolve via property options API) */
+  messageId: string
+  /** From Email Address (resolve via property options API) */
+  fromAddress: string
+  /** To Email Address */
+  toAddress: string
+  /** Subject */
+  subject: string
+  /** Mail Format (values: `html`, `plaintext`) */
+  mailFormat: "html" | "plaintext"
+  /** Content */
+  content: string
+  /** CC Email Address */
+  ccAddress?: string
+  /** BCC Email Address */
+  bccAddress?: string
+  /** Ask for Read Receipt (values: `yes`, `no`) */
+  askReceipt?: "yes" | "no"
+  /** Attachment */
+  attachment?: string
+  /** Attachment Name */
+  attachmentName?: string
+}
+
 /** Zoho Mail — Custom API Call */
 export interface ZohoMailCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Zoho Mail API path such as /accounts, or a full Zoho Mail API URL. */
+  url: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD"
+  /** Authorization is injected automatically. */
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  queryParams?: Record<string, unknown>
+  /** Body Type (values: `none`, `json`, `raw`) */
+  body_type?: "none" | "json" | "raw"
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
+  body?: unknown
   /** No Error on Failure */
   failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
 }
 
 /** Zoom — Create Zoom Meeting */
@@ -36657,13 +36952,37 @@ export interface IntegrationActionInputMap {
   'zoho-invoice.send_invoice': ZohoInvoiceSendInvoiceInput
   'zoho-invoice.list_customers': ZohoInvoiceListCustomersInput
   'zoho-invoice.custom_api_call': ZohoInvoiceCustomApiCallInput
+  'zoho-mail.list_accounts': ZohoMailListAccountsInput
+  'zoho-mail.get_account': ZohoMailGetAccountInput
+  'zoho-mail.list_folders': ZohoMailListFoldersInput
+  'zoho-mail.create_folder': ZohoMailCreateFolderInput
+  'zoho-mail.list_labels': ZohoMailListLabelsInput
+  'zoho-mail.create_label': ZohoMailCreateLabelInput
+  'zoho-mail.update_label': ZohoMailUpdateLabelInput
+  'zoho-mail.delete_label': ZohoMailDeleteLabelInput
+  'zoho-mail.list_emails': ZohoMailListEmailsInput
+  'zoho-mail.search_emails': ZohoMailSearchEmailsInput
+  'zoho-mail.get_email_content': ZohoMailGetEmailContentInput
+  'zoho-mail.get_email_headers': ZohoMailGetEmailHeadersInput
+  'zoho-mail.get_attachment_info': ZohoMailGetAttachmentInfoInput
+  'zoho-mail.download_attachment': ZohoMailDownloadAttachmentInput
+  'zoho-mail.download_inline_image': ZohoMailDownloadInlineImageInput
   'zoho-mail.get_email_details': ZohoMailGetEmailDetailsInput
   'zoho-mail.mark_email_as_read': ZohoMailMarkEmailAsReadInput
   'zoho-mail.mark_email_as_unread': ZohoMailMarkEmailAsUnreadInput
   'zoho-mail.archive_email': ZohoMailArchiveEmailInput
   'zoho-mail.unarchive_email': ZohoMailUnarchiveEmailInput
+  'zoho-mail.flag_email': ZohoMailFlagEmailInput
+  'zoho-mail.apply_label': ZohoMailApplyLabelInput
+  'zoho-mail.remove_label': ZohoMailRemoveLabelInput
+  'zoho-mail.remove_all_labels': ZohoMailRemoveAllLabelsInput
+  'zoho-mail.mark_email_as_spam': ZohoMailMarkEmailAsSpamInput
+  'zoho-mail.mark_email_as_not_spam': ZohoMailMarkEmailAsNotSpamInput
   'zoho-mail.move_email': ZohoMailMoveEmailInput
+  'zoho-mail.delete_email': ZohoMailDeleteEmailInput
+  'zoho-mail.upload_attachment': ZohoMailUploadAttachmentInput
   'zoho-mail.send_email': ZohoMailSendEmailInput
+  'zoho-mail.reply_email': ZohoMailReplyEmailInput
   'zoho-mail.custom_api_call': ZohoMailCustomApiCallInput
   'zoom.zoom_create_meeting': ZoomZoomCreateMeetingInput
   'zoom.zoom_create_meeting_registrant': ZoomZoomCreateMeetingRegistrantInput
@@ -40653,13 +40972,37 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': ZohoInvoiceCustomApiCallInput
   }
   'zoho-mail': {
+    'list_accounts': ZohoMailListAccountsInput
+    'get_account': ZohoMailGetAccountInput
+    'list_folders': ZohoMailListFoldersInput
+    'create_folder': ZohoMailCreateFolderInput
+    'list_labels': ZohoMailListLabelsInput
+    'create_label': ZohoMailCreateLabelInput
+    'update_label': ZohoMailUpdateLabelInput
+    'delete_label': ZohoMailDeleteLabelInput
+    'list_emails': ZohoMailListEmailsInput
+    'search_emails': ZohoMailSearchEmailsInput
+    'get_email_content': ZohoMailGetEmailContentInput
+    'get_email_headers': ZohoMailGetEmailHeadersInput
+    'get_attachment_info': ZohoMailGetAttachmentInfoInput
+    'download_attachment': ZohoMailDownloadAttachmentInput
+    'download_inline_image': ZohoMailDownloadInlineImageInput
     'get_email_details': ZohoMailGetEmailDetailsInput
     'mark_email_as_read': ZohoMailMarkEmailAsReadInput
     'mark_email_as_unread': ZohoMailMarkEmailAsUnreadInput
     'archive_email': ZohoMailArchiveEmailInput
     'unarchive_email': ZohoMailUnarchiveEmailInput
+    'flag_email': ZohoMailFlagEmailInput
+    'apply_label': ZohoMailApplyLabelInput
+    'remove_label': ZohoMailRemoveLabelInput
+    'remove_all_labels': ZohoMailRemoveAllLabelsInput
+    'mark_email_as_spam': ZohoMailMarkEmailAsSpamInput
+    'mark_email_as_not_spam': ZohoMailMarkEmailAsNotSpamInput
     'move_email': ZohoMailMoveEmailInput
+    'delete_email': ZohoMailDeleteEmailInput
+    'upload_attachment': ZohoMailUploadAttachmentInput
     'send_email': ZohoMailSendEmailInput
+    'reply_email': ZohoMailReplyEmailInput
     'custom_api_call': ZohoMailCustomApiCallInput
   }
   'zoom': {
