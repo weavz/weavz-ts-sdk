@@ -18136,11 +18136,11 @@ export interface MailchimpAddMemberToListInput {
   list_id: string
   /** Email address for the subscriber */
   email_address: string
-  /** Status for new subscribers (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
+  /** Status if New (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
   status_if_new: "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional"
   /** Type of email this member wants to receive (values: `html`, `text`) */
   email_type?: "html" | "text"
-  /** Current status of subscriber (for updates) (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
+  /** Status (values: `subscribed`, `unsubscribed`, `cleaned`, `pending`, `transactional`) */
   status?: "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional"
   /** First name of the subscriber */
   first_name?: string
