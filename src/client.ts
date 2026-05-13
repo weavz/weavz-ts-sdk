@@ -489,7 +489,7 @@ class EndUsersResource extends BaseResource {
     return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${id}/connect-token`, data)
   }
   invite(id: string, data: { email: string; integrationName?: string; expiresIn?: number }) {
-    return this._post<{ sent: boolean; email: string }>(`/api/v1/end-users/${id}/invite`, data)
+    return this._post<{ connectUrl: string; token: string; expiresAt: string; emailSent: boolean }>(`/api/v1/end-users/${id}/invite`, data)
   }
 }
 
