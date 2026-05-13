@@ -24,6 +24,7 @@ let createdWorkspaceId: string
 let createdConnectionId: string
 let createdMcpServerId: string
 let createdWorkspaceIntegrationId: string
+let createdOpenAiWorkspaceIntegrationId: string
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   const headers: Record<string, string> = {
@@ -76,6 +77,9 @@ beforeAll(async () => {
 
 afterAll(async () => {
   // Cleanup in reverse order
+  try {
+    if (createdOpenAiWorkspaceIntegrationId) await client.workspaces.removeIntegration(createdWorkspaceId, createdOpenAiWorkspaceIntegrationId)
+  } catch {}
   try {
     if (createdWorkspaceIntegrationId) await client.workspaces.removeIntegration(createdWorkspaceId, createdWorkspaceIntegrationId)
   } catch {}
@@ -250,6 +254,16 @@ describe('Workspace Integrations', () => {
 describe('Input Partials', () => {
   let partialId: string
 
+  beforeAll(async () => {
+    const result = await client.workspaces.addIntegration(createdWorkspaceId, {
+      integrationName: 'openai',
+      alias: 'openai_primary',
+      connectionStrategy: 'fixed',
+      connectionId: createdConnectionId,
+    })
+    createdOpenAiWorkspaceIntegrationId = result.integration.id
+  })
+
   it('should create an input partial', async () => {
     const result = await client.partials.create({
       workspaceId: createdWorkspaceId,
@@ -365,7 +379,7 @@ describe('MCP Servers', () => {
   it('should add a tool to the server', async () => {
     const result = await client.mcpServers.addTool(createdMcpServerId, {
       integrationName: 'openai',
-      actionName: 'ask_chatgpt',
+      actionName: 'chat_completion',
     })
     expect(result).toHaveProperty('tool')
     toolId = (result.tool as any).id
