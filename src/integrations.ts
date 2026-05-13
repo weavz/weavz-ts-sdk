@@ -10133,43 +10133,185 @@ export interface FlyIoCreateMachineInput {
   skipLaunch?: boolean
 }
 
-/** Folk CRM — Create Contact */
-export interface FolkCrmCreateContactInput {
+/** Folk CRM — Create Person */
+export interface FolkCrmCreatePersonInput {
   /** First Name */
-  firstName: string
+  firstName?: string
   /** Last Name */
-  lastName: string
-  /** Email */
-  email?: string
-  /** Phone */
-  phone?: string
+  lastName?: string
+  /** Alternative to first and last name. */
+  fullName?: string
+  /** Description */
+  description?: string
+  /** Date in YYYY-MM-DD format. */
+  birthday?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Existing Folk company IDs to associate with the person. The first company is primary. */
+  companyIds?: Array<{   value: string }>
+  /** Company names to associate with the person. Folk creates a company if no matching company exists. */
+  companyNames?: Array<{   value: string }>
+  /** Folk group IDs to add this record to, e.g. grp_5fa60242-0756-4e31-8cca-30c2c5ff1ac2. */
+  groupIds?: Array<{   value: string }>
+  /** Postal addresses. The first address is primary. */
+  addresses?: Array<{   value: string }>
+  /** Email addresses. The first email is primary. */
+  emails?: Array<{   value: string }>
+  /** Phone numbers. The first phone number is primary. */
+  phones?: Array<{   value: string }>
+  /** URLs. The first URL is primary. */
+  urls?: Array<{   value: string }>
+  /** Object grouped by group ID, e.g. {"grp_...":{"Status":"Active"}}. The group IDs must also be in Group IDs. */
+  customFieldValues?: unknown
 }
 
-/** Folk CRM — List Contacts */
-export interface FolkCrmListContactsInput {
-  /** Limit */
+/** Folk CRM — Find Person */
+export interface FolkCrmFindPersonInput {
+  /** Number of records to return (1-100). */
   limit?: number
-  /** Pagination cursor from previous response */
+  /** Pagination cursor from a previous response. */
   cursor?: string
+  /** Logical operator used when more than one filter is provided. (values: `and`, `or`) */
+  combinator?: "and" | "or"
+  /** Matches full name with the Folk like operator. */
+  nameFilter?: string
+  /** Matches email with the Folk like operator. */
+  emailFilter?: string
+  /** Only return people associated with this Folk company ID. */
+  companyId?: string
+  /** Only return people in this Folk group ID. */
+  groupId?: string
 }
 
-/** Folk CRM — Get Contact */
-export interface FolkCrmGetContactInput {
-  /** Contact ID */
-  contactId: string
+/** Folk CRM — Get Person */
+export interface FolkCrmGetPersonInput {
+  /** Person ID */
+  personId: string
 }
 
-/** Folk CRM — Create Group */
-export interface FolkCrmCreateGroupInput {
-  /** Group Name */
+/** Folk CRM — Update Person */
+export interface FolkCrmUpdatePersonInput {
+  /** Person ID */
+  personId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Alternative to first and last name. */
+  fullName?: string
+  /** Description */
+  description?: string
+  /** Date in YYYY-MM-DD format. */
+  birthday?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Existing Folk company IDs to associate with the person. The first company is primary. */
+  companyIds?: Array<{   value: string }>
+  /** Company names to associate with the person. Folk creates a company if no matching company exists. */
+  companyNames?: Array<{   value: string }>
+  /** Folk group IDs to add this record to, e.g. grp_5fa60242-0756-4e31-8cca-30c2c5ff1ac2. */
+  groupIds?: Array<{   value: string }>
+  /** Postal addresses. The first address is primary. */
+  addresses?: Array<{   value: string }>
+  /** Email addresses. The first email is primary. */
+  emails?: Array<{   value: string }>
+  /** Phone numbers. The first phone number is primary. */
+  phones?: Array<{   value: string }>
+  /** URLs. The first URL is primary. */
+  urls?: Array<{   value: string }>
+  /** Object grouped by group ID, e.g. {"grp_...":{"Status":"Active"}}. The group IDs must also be in Group IDs. */
+  customFieldValues?: unknown
+}
+
+/** Folk CRM — Create Company */
+export interface FolkCrmCreateCompanyInput {
+  /** Company Name */
   name: string
+  /** Description */
+  description?: string
+  /** Amount raised in USD. */
+  fundingRaised?: number
+  /** Date in YYYY-MM-DD format. */
+  lastFundingDate?: string
+  /** Industry */
+  industry?: string
+  /** Year in YYYY format. */
+  foundationYear?: string
+  /** Employee Range (values: `1-10`, `11-50`, `51-200`, `201-500`, `501-1000`, `1001-5000`, `5001-10000`, `10000+`) */
+  employeeRange?: "1-10" | "11-50" | "51-200" | "201-500" | "501-1000" | "1001-5000" | "5001-10000" | "10000+"
+  /** Folk group IDs to add this record to, e.g. grp_5fa60242-0756-4e31-8cca-30c2c5ff1ac2. */
+  groupIds?: Array<{   value: string }>
+  /** Postal addresses. The first address is primary. */
+  addresses?: Array<{   value: string }>
+  /** Email addresses. The first email is primary. */
+  emails?: Array<{   value: string }>
+  /** Phone numbers. The first phone number is primary. */
+  phones?: Array<{   value: string }>
+  /** URLs. The first URL is primary. */
+  urls?: Array<{   value: string }>
+  /** Object grouped by group ID, e.g. {"grp_...":{"Status":"Active"}}. The group IDs must also be in Group IDs. */
+  customFieldValues?: unknown
+}
+
+/** Folk CRM — Find Company */
+export interface FolkCrmFindCompanyInput {
+  /** Number of records to return (1-100). */
+  limit?: number
+  /** Pagination cursor from a previous response. */
+  cursor?: string
+  /** Logical operator used when more than one filter is provided. (values: `and`, `or`) */
+  combinator?: "and" | "or"
+  /** Matches company name with the Folk like operator. */
+  nameFilter?: string
+  /** Matches email with the Folk like operator. */
+  emailFilter?: string
+  /** Only return companies in this Folk group ID. */
+  groupId?: string
+}
+
+/** Folk CRM — Get Company */
+export interface FolkCrmGetCompanyInput {
+  /** Company ID */
+  companyId: string
+}
+
+/** Folk CRM — Update Company */
+export interface FolkCrmUpdateCompanyInput {
+  /** Company ID */
+  companyId: string
+  /** Company Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Amount raised in USD. */
+  fundingRaised?: number
+  /** Date in YYYY-MM-DD format. */
+  lastFundingDate?: string
+  /** Industry */
+  industry?: string
+  /** Year in YYYY format. */
+  foundationYear?: string
+  /** Employee Range (values: `1-10`, `11-50`, `51-200`, `201-500`, `501-1000`, `1001-5000`, `5001-10000`, `10000+`) */
+  employeeRange?: "1-10" | "11-50" | "51-200" | "201-500" | "501-1000" | "1001-5000" | "5001-10000" | "10000+"
+  /** Folk group IDs to add this record to, e.g. grp_5fa60242-0756-4e31-8cca-30c2c5ff1ac2. */
+  groupIds?: Array<{   value: string }>
+  /** Postal addresses. The first address is primary. */
+  addresses?: Array<{   value: string }>
+  /** Email addresses. The first email is primary. */
+  emails?: Array<{   value: string }>
+  /** Phone numbers. The first phone number is primary. */
+  phones?: Array<{   value: string }>
+  /** URLs. The first URL is primary. */
+  urls?: Array<{   value: string }>
+  /** Object grouped by group ID, e.g. {"grp_...":{"Status":"Active"}}. The group IDs must also be in Group IDs. */
+  customFieldValues?: unknown
 }
 
 /** Folk CRM — Custom API Call */
 export interface FolkCrmCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /contacts) */
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** API path, e.g. /people, /companies, or /v1/webhooks. */
   path: string
   /** Body */
   body?: unknown
@@ -12666,10 +12808,14 @@ export interface GoogleSearchConsoleCustomApiCallInput {
 
 /** Google Sheets — List Spreadsheets */
 export interface GoogleSheetsListSpreadsheetsInput {
+  /** Optional spreadsheet name search. */
+  query?: string
   /** Page Size */
   pageSize?: number
   /** Page Token */
   pageToken?: string
+  /** Include Shared Drives */
+  includeSharedDrives?: boolean
 }
 
 /** Google Sheets — Get Spreadsheet */
@@ -12680,6 +12826,26 @@ export interface GoogleSheetsGetSpreadsheetInput {
   spreadsheetId?: string
 }
 
+/** Google Sheets — List Sheets */
+export interface GoogleSheetsListSheetsInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+}
+
+/** Google Sheets — Get Sheet */
+export interface GoogleSheetsGetSheetInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name or ID */
+  sheetName?: string
+}
+
 /** Google Sheets — Read Range */
 export interface GoogleSheetsReadRangeInput {
   /** Spreadsheet (resolve via property options API) */
@@ -12688,10 +12854,46 @@ export interface GoogleSheetsReadRangeInput {
   spreadsheetId?: string
   /** Sheet (resolve via property options API) */
   sheet_dropdown?: string
-  /** A1 notation (e.g., Sheet1!A1:D10) */
+  /** A1 notation (e.g., A1:D10 or Sheet1!A1:D10) */
   range: string
   /** Major Dimension (values: `ROWS`, `COLUMNS`) */
   majorDimension?: "ROWS" | "COLUMNS"
+  /** Value Render Option (values: `FORMATTED_VALUE`, `UNFORMATTED_VALUE`, `FORMULA`) */
+  valueRenderOption?: "FORMATTED_VALUE" | "UNFORMATTED_VALUE" | "FORMULA"
+}
+
+/** Google Sheets — List Rows */
+export interface GoogleSheetsListRowsInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Start Row */
+  startRow?: number
+  /** Row Count */
+  rowCount?: number
+  /** Optional row number to use as column names in the output. */
+  headerRow?: number
+}
+
+/** Google Sheets — Get Row */
+export interface GoogleSheetsGetRowInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Row Number */
+  rowNumber: number
+  /** Optional row number to use as column names in the output. */
+  headerRow?: number
 }
 
 /** Google Sheets — Write Range */
@@ -12702,7 +12904,7 @@ export interface GoogleSheetsWriteRangeInput {
   spreadsheetId?: string
   /** Sheet (resolve via property options API) */
   sheet_dropdown?: string
-  /** A1 notation (e.g., Sheet1!A1:D10) */
+  /** A1 notation (e.g., A1:D10 or Sheet1!A1:D10) */
   range: string
   /** A 2D array of values (e.g., [["a","b"],["c","d"]]) */
   values: unknown
@@ -12718,20 +12920,74 @@ export interface GoogleSheetsAppendRowInput {
   spreadsheetId?: string
   /** Sheet (resolve via property options API) */
   sheet_dropdown?: string
-  /** A1 notation for the sheet (e.g., Sheet1) */
-  range?: string
+  /** Sheet Name */
+  sheetName?: string
   /** An array of values (e.g., ["a","b","c"]) */
   values: unknown
   /** Value Input Option (values: `USER_ENTERED`, `RAW`) */
   valueInputOption?: "USER_ENTERED" | "RAW"
 }
 
-/** Google Sheets — Create Spreadsheet */
-export interface GoogleSheetsCreateSpreadsheetInput {
-  /** Title */
-  title: string
-  /** Comma-separated list of sheet names (optional) */
-  sheetTitles?: string
+/** Google Sheets — Append Rows */
+export interface GoogleSheetsAppendRowsInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** A 2D array of row values (e.g., [["a"],["b"]]) */
+  values: unknown
+  /** Value Input Option (values: `USER_ENTERED`, `RAW`) */
+  valueInputOption?: "USER_ENTERED" | "RAW"
+}
+
+/** Google Sheets — Update Row */
+export interface GoogleSheetsUpdateRowInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Row Number */
+  rowNumber: number
+  /** An array of values for the row. */
+  values: unknown
+  /** Value Input Option (values: `USER_ENTERED`, `RAW`) */
+  valueInputOption?: "USER_ENTERED" | "RAW"
+}
+
+/** Google Sheets — Find Rows */
+export interface GoogleSheetsFindRowsInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Column label or zero-based column index. Examples: A, B, 0, 1. */
+  column: string
+  /** Search Value */
+  searchValue: string
+  /** Match Mode (values: `contains`, `exact`, `starts_with`, `ends_with`) */
+  matchMode?: "contains" | "exact" | "starts_with" | "ends_with"
+  /** Case Sensitive */
+  caseSensitive?: boolean
+  /** Start Row */
+  startRow?: number
+  /** Maximum Rows to Search */
+  maxRows?: number
+  /** Maximum Matches */
+  limit?: number
+  /** Optional row number to use as column names in the output. */
+  headerRow?: number
 }
 
 /** Google Sheets — Clear Range */
@@ -12742,8 +12998,46 @@ export interface GoogleSheetsClearRangeInput {
   spreadsheetId?: string
   /** Sheet (resolve via property options API) */
   sheet_dropdown?: string
-  /** A1 notation (e.g., Sheet1!A1:D10) */
+  /** A1 notation (e.g., A1:D10 or Sheet1!A1:D10) */
   range: string
+}
+
+/** Google Sheets — Clear Row */
+export interface GoogleSheetsClearRowInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Row Number */
+  rowNumber: number
+}
+
+/** Google Sheets — Delete Row */
+export interface GoogleSheetsDeleteRowInput {
+  /** Spreadsheet (resolve via property options API) */
+  spreadsheet_dropdown?: string
+  /** Spreadsheet ID */
+  spreadsheetId?: string
+  /** Sheet (resolve via property options API) */
+  sheet_dropdown?: string
+  /** Sheet Name */
+  sheetName?: string
+  /** Row Number */
+  rowNumber: number
+  /** Required because deleting a row shifts following rows up. */
+  confirmDelete: boolean
+}
+
+/** Google Sheets — Create Spreadsheet */
+export interface GoogleSheetsCreateSpreadsheetInput {
+  /** Title */
+  title: string
+  /** Comma-separated list of sheet names (optional) */
+  sheetTitles?: string
 }
 
 /** Google Sheets — Custom API Call */
@@ -13055,34 +13349,396 @@ export interface GraphqlSendRequestInput {
 
 /** Greenhouse — List Candidates */
 export interface GreenhouseListCandidatesInput {
-  /** Per Page */
-  perPage?: number
-  /** Page */
-  page?: number
+  /** Cursor from the previous page response. Do not combine with other filters. */
+  cursor?: string
+  /** 1 to 500 results per page. */
+  per_page?: number
+  /** Comma-separated candidate IDs, max 50. */
+  ids?: string
+  /** Email Address */
+  email?: string
+  /** Tag */
+  tag?: string
+  /** Private (values: `true`, `false`) */
+  private?: "true" | "false"
+  /** Custom Field Option ID */
+  custom_field_option_id?: string
+  /** Comma-separated fields to return, max 50. */
+  fields?: string
+  /** ISO-8601 timestamp lower bound. */
+  created_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  created_at_lte?: string
+  /** ISO-8601 timestamp lower bound. */
+  updated_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  updated_at_lte?: string
+  /** Last Activity At >= */
+  last_activity_at_gte?: string
+  /** Last Activity At <= */
+  last_activity_at_lte?: string
 }
 
 /** Greenhouse — Get Candidate */
 export interface GreenhouseGetCandidateInput {
   /** Candidate ID */
-  candidateId: string
+  candidate_id: string
+  /** Comma-separated fields to return. */
+  fields?: string
+}
+
+/** Greenhouse — Create Candidate */
+export interface GreenhouseCreateCandidateInput {
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Preferred Name */
+  preferred_name?: string
+  /** Greenhouse time zone value. */
+  time_zone?: string
+  /** Email Address */
+  email?: string
+  /** Email Type (values: `personal`, `work`, `other`) */
+  email_type?: "personal" | "work" | "other"
+  /** Phone Number */
+  phone?: string
+  /** Phone Type (values: `mobile`, `home`, `work`, `skype`, `other`) */
+  phone_type?: "mobile" | "home" | "work" | "skype" | "other"
+  /** Current Company */
+  company?: string
+  /** Current Job Title */
+  title?: string
+  /** LinkedIn URL */
+  linkedin_url?: string
+  /** Website URL */
+  website_url?: string
+  /** Website Type */
+  website_type?: string
+  /** Tags */
+  tags?: Array<{   value: string }>
+  /** Private Candidate */
+  is_private?: boolean
+  /** Can Email */
+  can_email?: boolean
+  /** Greenhouse custom_fields array payload. */
+  custom_fields?: unknown
+  /** Optional Greenhouse application object to attach while creating the candidate. */
+  application?: unknown
+}
+
+/** Greenhouse — Update Candidate */
+export interface GreenhouseUpdateCandidateInput {
+  /** Candidate ID */
+  candidate_id: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Preferred Name */
+  preferred_name?: string
+  /** Time Zone */
+  time_zone?: string
+  /** Email Address */
+  email?: string
+  /** Email Type (values: `personal`, `work`, `other`) */
+  email_type?: "personal" | "work" | "other"
+  /** Phone Number */
+  phone?: string
+  /** Phone Type (values: `mobile`, `home`, `work`, `skype`, `other`) */
+  phone_type?: "mobile" | "home" | "work" | "skype" | "other"
+  /** Current Company */
+  company?: string
+  /** Current Job Title */
+  title?: string
+  /** LinkedIn URL */
+  linkedin_url?: string
+  /** Website URL */
+  website_url?: string
+  /** Website Type */
+  website_type?: string
+  /** Tags */
+  tags?: Array<{   value: string }>
+  /** Private Candidate */
+  is_private?: boolean
+  /** Can Email */
+  can_email?: boolean
+  /** Greenhouse custom_fields array payload. */
+  custom_fields?: unknown
+}
+
+/** Greenhouse — Create Prospect */
+export interface GreenhouseCreateProspectInput {
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Preferred Name */
+  preferred_name?: string
+  /** Greenhouse time zone value. */
+  time_zone?: string
+  /** Email Address */
+  email?: string
+  /** Email Type (values: `personal`, `work`, `other`) */
+  email_type?: "personal" | "work" | "other"
+  /** Phone Number */
+  phone?: string
+  /** Phone Type (values: `mobile`, `home`, `work`, `skype`, `other`) */
+  phone_type?: "mobile" | "home" | "work" | "skype" | "other"
+  /** Current Company */
+  company?: string
+  /** Current Job Title */
+  title?: string
+  /** LinkedIn URL */
+  linkedin_url?: string
+  /** Website URL */
+  website_url?: string
+  /** Website Type */
+  website_type?: string
+  /** Tags */
+  tags?: Array<{   value: string }>
+  /** Private Candidate */
+  is_private?: boolean
+  /** Can Email */
+  can_email?: boolean
+  /** Greenhouse custom_fields array payload. */
+  custom_fields?: unknown
+  /** Optional application fields. prospect=true is always enforced. */
+  application?: unknown
+}
+
+/** Greenhouse — Create Candidate Note */
+export interface GreenhouseCreateCandidateNoteInput {
+  /** Candidate ID */
+  candidate_id: string
+  /** Note Type (values: `NOTE`, `ACTIVITY`) */
+  note_type: "NOTE" | "ACTIVITY"
+  /** Note */
+  body: string
+  /** Visibility (values: `public`, `private`, `admin_only`) */
+  visibility: "public" | "private" | "admin_only"
+  /** Author User ID */
+  user_id?: string
+}
+
+/** Greenhouse — Find Candidate */
+export interface GreenhouseFindCandidateInput {
+  /** Email Address */
+  email: string
+}
+
+/** Greenhouse — Find or Create Candidate */
+export interface GreenhouseFindOrCreateCandidateInput {
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Preferred Name */
+  preferred_name?: string
+  /** Greenhouse time zone value. */
+  time_zone?: string
+  /** Email Address */
+  email: string
+  /** Email Type (values: `personal`, `work`, `other`) */
+  email_type?: "personal" | "work" | "other"
+  /** Phone Number */
+  phone?: string
+  /** Phone Type (values: `mobile`, `home`, `work`, `skype`, `other`) */
+  phone_type?: "mobile" | "home" | "work" | "skype" | "other"
+  /** Current Company */
+  company?: string
+  /** Current Job Title */
+  title?: string
+  /** LinkedIn URL */
+  linkedin_url?: string
+  /** Website URL */
+  website_url?: string
+  /** Website Type */
+  website_type?: string
+  /** Tags */
+  tags?: Array<{   value: string }>
+  /** Private Candidate */
+  is_private?: boolean
+  /** Can Email */
+  can_email?: boolean
+  /** Greenhouse custom_fields array payload. */
+  custom_fields?: unknown
+  /** Optional Greenhouse application object for new candidates. */
+  application?: unknown
+}
+
+/** Greenhouse — Find Due Scorecard */
+export interface GreenhouseFindDueScorecardInput {
+  /** Scorecard ID */
+  scorecard_id: string
 }
 
 /** Greenhouse — List Jobs */
 export interface GreenhouseListJobsInput {
-  /** Status (values: `open`, `closed`, `draft`) */
-  status?: "open" | "closed" | "draft"
-  /** Per Page */
-  perPage?: number
+  /** Cursor from the previous page response. Do not combine with other filters. */
+  cursor?: string
+  /** 1 to 500 results per page. */
+  per_page?: number
+  /** Comma-separated job IDs, max 50. */
+  ids?: string
+  /** Status (values: `open`, `draft`, `closed`) */
+  status?: "open" | "draft" | "closed"
+  /** Requisition ID */
+  requisition_id?: string
+  /** Department ID */
+  department_id?: string
+  /** Office ID */
+  office_id?: string
+  /** Confidential (values: `true`, `false`) */
+  confidential?: "true" | "false"
+  /** Fields */
+  fields?: string
+  /** ISO-8601 timestamp lower bound. */
+  created_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  created_at_lte?: string
+  /** ISO-8601 timestamp lower bound. */
+  updated_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  updated_at_lte?: string
+  /** Opened At >= */
+  opened_at_gte?: string
+  /** Opened At <= */
+  opened_at_lte?: string
+  /** Closed At >= */
+  closed_at_gte?: string
+  /** Closed At <= */
+  closed_at_lte?: string
+}
+
+/** Greenhouse — Get Job */
+export interface GreenhouseGetJobInput {
+  /** Job ID */
+  job_id: string
+  /** Fields */
+  fields?: string
 }
 
 /** Greenhouse — List Applications */
 export interface GreenhouseListApplicationsInput {
-  /** Job ID */
-  jobId?: string
-  /** Status (values: `active`, `rejected`, `hired`) */
-  status?: "active" | "rejected" | "hired"
-  /** Per Page */
-  perPage?: number
+  /** Cursor from the previous page response. Do not combine with other filters. */
+  cursor?: string
+  /** 1 to 500 results per page. */
+  per_page?: number
+  /** Application IDs */
+  ids?: string
+  /** Candidate IDs */
+  candidate_ids?: string
+  /** Job IDs */
+  job_ids?: string
+  /** Prospective Job IDs */
+  prospective_job_ids?: string
+  /** Job Post IDs */
+  job_post_ids?: string
+  /** Source IDs */
+  source_ids?: string
+  /** Referrer IDs */
+  referrer_ids?: string
+  /** Stage IDs */
+  stage_ids?: string
+  /** Fields */
+  fields?: string
+  /** Status (values: `active`, `converted`, `rejected`, `hired`) */
+  status?: "active" | "converted" | "rejected" | "hired"
+  /** Stage Name */
+  stage_name?: string
+  /** Prospect (values: `true`, `false`) */
+  prospect?: "true" | "false"
+  /** Custom Field Option ID */
+  custom_field_option_id?: string
+  /** ISO-8601 timestamp lower bound. */
+  created_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  created_at_lte?: string
+  /** ISO-8601 timestamp lower bound. */
+  updated_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  updated_at_lte?: string
+  /** Last Activity At >= */
+  last_activity_at_gte?: string
+  /** Last Activity At <= */
+  last_activity_at_lte?: string
+}
+
+/** Greenhouse — Get Application */
+export interface GreenhouseGetApplicationInput {
+  /** Application ID */
+  application_id: string
+  /** Fields */
+  fields?: string
+}
+
+/** Greenhouse — List Job Posts */
+export interface GreenhouseListJobPostsInput {
+  /** Cursor from the previous page response. Do not combine with other filters. */
+  cursor?: string
+  /** 1 to 500 results per page. */
+  per_page?: number
+  /** Job Post IDs */
+  ids?: string
+  /** Job IDs */
+  job_ids?: string
+  /** Fields */
+  fields?: string
+  /** Active (values: `true`, `false`) */
+  active?: "true" | "false"
+  /** Live (values: `true`, `false`) */
+  live?: "true" | "false"
+  /** Internal (values: `true`, `false`) */
+  internal?: "true" | "false"
+  /** ISO-8601 timestamp lower bound. */
+  created_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  created_at_lte?: string
+  /** ISO-8601 timestamp lower bound. */
+  updated_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  updated_at_lte?: string
+}
+
+/** Greenhouse — List Interviews */
+export interface GreenhouseListInterviewsInput {
+  /** Cursor from the previous page response. Do not combine with other filters. */
+  cursor?: string
+  /** 1 to 500 results per page. */
+  per_page?: number
+  /** Interview IDs */
+  ids?: string
+  /** Application IDs */
+  application_ids?: string
+  /** Fields */
+  fields?: string
+  /** Status */
+  status?: string
+  /** ISO-8601 timestamp lower bound. */
+  created_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  created_at_lte?: string
+  /** ISO-8601 timestamp lower bound. */
+  updated_at_gte?: string
+  /** ISO-8601 timestamp upper bound. */
+  updated_at_lte?: string
+  /** Starts At >= */
+  starts_at_gte?: string
+  /** Starts At <= */
+  starts_at_lte?: string
+}
+
+/** Greenhouse — Custom API Call */
+export interface GreenhouseCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative Harvest v3 path, e.g. /candidates?per_page=10 */
+  path: string
+  /** Authorization, Cookie, Host, and Content-Length are ignored */
+  headers?: Record<string, unknown>
+  /** Body */
+  body?: unknown
 }
 
 /** Grist — Create Record */
@@ -14855,6 +15511,80 @@ export interface HttpSendRequestInput {
   failureMode?: "retry_all" | "retry_5xx" | "retry_none" | "continue_all" | "continue_4xx" | "continue_none"
 }
 
+/** HubSpot — List CRM Objects */
+export interface HubspotListCrmObjectsInput {
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Limit */
+  limit?: number
+  /** After (Cursor) */
+  after?: string
+  /** Comma-separated property names to include */
+  properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
+  /** Archived */
+  archived?: boolean
+}
+
+/** HubSpot — Get CRM Object */
+export interface HubspotGetCrmObjectInput {
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Object ID */
+  objectId: string
+  /** Optional unique property name, such as email for contacts */
+  idProperty?: string
+  /** Comma-separated property names to include */
+  properties?: string
+  /** Comma-separated property names with history */
+  propertiesWithHistory?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
+  /** Archived */
+  archived?: boolean
+}
+
+/** HubSpot — Create CRM Object */
+export interface HubspotCreateCrmObjectInput {
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Properties */
+  properties: Record<string, unknown>
+  /** Optional HubSpot associations array for create requests */
+  associations?: unknown
+}
+
+/** HubSpot — Update CRM Object */
+export interface HubspotUpdateCrmObjectInput {
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Object ID */
+  objectId: string
+  /** Optional unique property name, such as email for contacts */
+  idProperty?: string
+  /** Properties to update */
+  properties: Record<string, unknown>
+}
+
+/** HubSpot — Search CRM Objects */
+export interface HubspotSearchCrmObjectsInput {
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Search Query */
+  query?: string
+  /** HubSpot filter groups JSON */
+  filterGroups?: unknown
+  /** Optional HubSpot sorts array, for example ["-createdate"] */
+  sorts?: unknown
+  /** Comma-separated property names to return */
+  properties?: string
+  /** Limit */
+  limit?: number
+  /** After (Cursor) */
+  after?: string
+}
+
 /** HubSpot — List Contacts */
 export interface HubspotListContactsInput {
   /** Limit */
@@ -14863,14 +15593,20 @@ export interface HubspotListContactsInput {
   after?: string
   /** Comma-separated property names to include */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Get Contact */
 export interface HubspotGetContactInput {
   /** Contact ID */
   contactId: string
+  /** Optional unique property name, such as email */
+  idProperty?: string
   /** Comma-separated property names */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Create Contact */
@@ -14887,12 +15623,16 @@ export interface HubspotCreateContactInput {
   company?: string
   /** Additional Properties */
   additionalProperties?: Record<string, unknown>
+  /** Optional HubSpot associations array for create requests */
+  associations?: unknown
 }
 
 /** HubSpot — Update Contact */
 export interface HubspotUpdateContactInput {
   /** Contact ID */
   contactId: string
+  /** Optional unique property name, such as email */
+  idProperty?: string
   /** Properties to update */
   properties: Record<string, unknown>
 }
@@ -14903,16 +15643,22 @@ export interface HubspotListCompaniesInput {
   limit?: number
   /** After (Cursor) */
   after?: string
-  /** Comma-separated property names */
+  /** Comma-separated property names to include */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Get Company */
 export interface HubspotGetCompanyInput {
   /** Company ID */
   companyId: string
+  /** Optional unique property name, such as domain */
+  idProperty?: string
   /** Comma-separated property names */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Create Company */
@@ -14925,12 +15671,16 @@ export interface HubspotCreateCompanyInput {
   industry?: string
   /** Additional Properties */
   additionalProperties?: Record<string, unknown>
+  /** Optional HubSpot associations array for create requests */
+  associations?: unknown
 }
 
 /** HubSpot — Update Company */
 export interface HubspotUpdateCompanyInput {
   /** Company ID */
   companyId: string
+  /** Optional unique property name, such as domain */
+  idProperty?: string
   /** Properties to update */
   properties: Record<string, unknown>
 }
@@ -14941,16 +15691,22 @@ export interface HubspotListDealsInput {
   limit?: number
   /** After (Cursor) */
   after?: string
-  /** Comma-separated property names */
+  /** Comma-separated property names to include */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Get Deal */
 export interface HubspotGetDealInput {
   /** Deal ID */
   dealId: string
+  /** ID Property */
+  idProperty?: string
   /** Comma-separated property names */
   properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
 }
 
 /** HubSpot — Create Deal */
@@ -14959,31 +15715,35 @@ export interface HubspotCreateDealInput {
   dealName: string
   /** Pipeline (resolve via property options API) */
   pipeline_dropdown?: string
-  /** Pipeline ID — used if dropdown is empty */
+  /** Pipeline ID used if dropdown is empty */
   pipeline?: string
   /** Deal Stage (resolve via property options API) */
   deal_stage_dropdown?: string
-  /** Stage ID — used if dropdown is empty */
+  /** Stage ID used if dropdown is empty */
   dealStage?: string
   /** Amount */
   amount?: string
-  /** YYYY-MM-DD */
+  /** YYYY-MM-DD or ISO datetime */
   closeDate?: string
   /** Additional Properties */
   additionalProperties?: Record<string, unknown>
+  /** Optional HubSpot associations array for create requests */
+  associations?: unknown
 }
 
 /** HubSpot — Update Deal */
 export interface HubspotUpdateDealInput {
   /** Deal ID */
   dealId: string
+  /** ID Property */
+  idProperty?: string
   /** Pipeline (resolve via property options API) */
   pipeline_dropdown?: string
-  /** Pipeline ID — used if dropdown is empty */
+  /** Pipeline ID used if dropdown is empty */
   pipeline?: string
   /** Deal Stage (resolve via property options API) */
   deal_stage_dropdown?: string
-  /** Stage ID — used if dropdown is empty */
+  /** Stage ID used if dropdown is empty */
   dealStage?: string
   /** Other properties to update */
   properties?: Record<string, unknown>
@@ -14995,6 +15755,50 @@ export interface HubspotListTicketsInput {
   limit?: number
   /** After (Cursor) */
   after?: string
+  /** Comma-separated property names to include */
+  properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
+}
+
+/** HubSpot — Get Ticket */
+export interface HubspotGetTicketInput {
+  /** Ticket ID */
+  ticketId: string
+  /** ID Property */
+  idProperty?: string
+  /** Comma-separated property names */
+  properties?: string
+  /** Comma-separated object types to include associations for */
+  associations?: string
+}
+
+/** HubSpot — Create Ticket */
+export interface HubspotCreateTicketInput {
+  /** Subject */
+  subject: string
+  /** Content */
+  content?: string
+  /** HubSpot hs_pipeline value */
+  pipeline?: string
+  /** HubSpot hs_pipeline_stage value */
+  pipelineStage?: string
+  /** Priority */
+  priority?: string
+  /** Additional Properties */
+  additionalProperties?: Record<string, unknown>
+  /** Optional HubSpot associations array for create requests */
+  associations?: unknown
+}
+
+/** HubSpot — Update Ticket */
+export interface HubspotUpdateTicketInput {
+  /** Ticket ID */
+  ticketId: string
+  /** ID Property */
+  idProperty?: string
+  /** Properties to update */
+  properties: Record<string, unknown>
 }
 
 /** HubSpot — Search CRM */
@@ -15005,16 +15809,72 @@ export interface HubspotSearchCrmInput {
   query?: string
   /** HubSpot filter groups JSON */
   filterGroups?: unknown
+  /** Optional HubSpot sorts array, for example ["-createdate"] */
+  sorts?: unknown
   /** Comma-separated property names to return */
   properties?: string
   /** Limit */
   limit?: number
+  /** After (Cursor) */
+  after?: string
 }
 
 /** HubSpot — List Properties */
 export interface HubspotListPropertiesInput {
-  /** Object Type (values: `contacts`, `companies`, `deals`, `tickets`) */
-  objectType: "contacts" | "companies" | "deals" | "tickets"
+  /** Examples: contacts, companies, deals, tickets, products, line_items, or a custom object type ID */
+  objectType: string
+  /** Archived */
+  archived?: boolean
+}
+
+/** HubSpot — List Association Labels */
+export interface HubspotListAssociationLabelsInput {
+  /** From Object Type */
+  fromObjectType: string
+  /** To Object Type */
+  toObjectType: string
+}
+
+/** HubSpot — List Associations */
+export interface HubspotListAssociationsInput {
+  /** From Object Type */
+  fromObjectType: string
+  /** From Object ID */
+  fromObjectId: string
+  /** To Object Type */
+  toObjectType: string
+  /** Limit */
+  limit?: number
+  /** After (Cursor) */
+  after?: string
+}
+
+/** HubSpot — Create Association */
+export interface HubspotCreateAssociationInput {
+  /** From Object Type */
+  fromObjectType: string
+  /** From Object ID */
+  fromObjectId: string
+  /** To Object Type */
+  toObjectType: string
+  /** To Object ID */
+  toObjectId: string
+  /** Optional label type ID from List Association Labels */
+  associationTypeId?: number
+  /** Association Category (values: `HUBSPOT_DEFINED`, `USER_DEFINED`, `INTEGRATOR_DEFINED`) */
+  associationCategory?: "HUBSPOT_DEFINED" | "USER_DEFINED" | "INTEGRATOR_DEFINED"
+}
+
+/** HubSpot — Remove Association */
+export interface HubspotRemoveAssociationInput {
+  /** From Object Type */
+  fromObjectType: string
+  /** From Object ID */
+  fromObjectId: string
+  /** To Object Type */
+  toObjectType: string
+  /** To Object ID */
+  toObjectId: string
 }
 
 /** HubSpot — Create Engagement */
@@ -15037,11 +15897,11 @@ export interface HubspotCreateEngagementInput {
 
 /** HubSpot — Custom API Call */
 export interface HubspotCustomApiCallInput {
-  /** URL */
+  /** Use a HubSpot API path like /crm/v3/objects/contacts or an https://api.hubapi.com URL */
   url: string
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Headers */
+  /** Authorization, Cookie, Host, and Content-Length are ignored */
   headers?: Record<string, unknown>
   /** Body */
   body?: unknown
@@ -27957,6 +28817,18 @@ export interface StorageListFilesInput {
   externalId?: string
 }
 
+/** Storage — Get Download URL */
+export interface StorageGetDownloadUrlInput {
+  /** File path within the storage scope */
+  path: string
+  /** URL lifetime from 60 to 3600 seconds. */
+  expiresInSeconds?: number
+  /** Data isolation scope. Workspace shares data across the workspace. End User isolates data per calling end user. External ID uses a custom identifier. (values: `workspace`, `end_user`, `external`) */
+  scope?: "workspace" | "end_user" | "external"
+  /** Custom identifier for external scope (only when "External ID Bound" selected). */
+  externalId?: string
+}
+
 /** Storyblok — List Spaces */
 export type StoryblokListSpacesInput = Record<string, never>
 
@@ -34871,10 +35743,14 @@ export interface IntegrationActionInputMap {
   'fly-io.list_machines': FlyIoListMachinesInput
   'fly-io.get_machine': FlyIoGetMachineInput
   'fly-io.create_machine': FlyIoCreateMachineInput
-  'folk-crm.create_contact': FolkCrmCreateContactInput
-  'folk-crm.list_contacts': FolkCrmListContactsInput
-  'folk-crm.get_contact': FolkCrmGetContactInput
-  'folk-crm.create_group': FolkCrmCreateGroupInput
+  'folk-crm.create_person': FolkCrmCreatePersonInput
+  'folk-crm.find_person': FolkCrmFindPersonInput
+  'folk-crm.get_person': FolkCrmGetPersonInput
+  'folk-crm.update_person': FolkCrmUpdatePersonInput
+  'folk-crm.create_company': FolkCrmCreateCompanyInput
+  'folk-crm.find_company': FolkCrmFindCompanyInput
+  'folk-crm.get_company': FolkCrmGetCompanyInput
+  'folk-crm.update_company': FolkCrmUpdateCompanyInput
   'folk-crm.custom_api_call': FolkCrmCustomApiCallInput
   'follow-up-boss.list_people': FollowUpBossListPeopleInput
   'follow-up-boss.get_person': FollowUpBossGetPersonInput
@@ -35106,11 +35982,20 @@ export interface IntegrationActionInputMap {
   'google-search-console.custom_api_call': GoogleSearchConsoleCustomApiCallInput
   'google-sheets.list_spreadsheets': GoogleSheetsListSpreadsheetsInput
   'google-sheets.get_spreadsheet': GoogleSheetsGetSpreadsheetInput
+  'google-sheets.list_sheets': GoogleSheetsListSheetsInput
+  'google-sheets.get_sheet': GoogleSheetsGetSheetInput
   'google-sheets.read_range': GoogleSheetsReadRangeInput
+  'google-sheets.list_rows': GoogleSheetsListRowsInput
+  'google-sheets.get_row': GoogleSheetsGetRowInput
   'google-sheets.write_range': GoogleSheetsWriteRangeInput
   'google-sheets.append_row': GoogleSheetsAppendRowInput
-  'google-sheets.create_spreadsheet': GoogleSheetsCreateSpreadsheetInput
+  'google-sheets.append_rows': GoogleSheetsAppendRowsInput
+  'google-sheets.update_row': GoogleSheetsUpdateRowInput
+  'google-sheets.find_rows': GoogleSheetsFindRowsInput
   'google-sheets.clear_range': GoogleSheetsClearRangeInput
+  'google-sheets.clear_row': GoogleSheetsClearRowInput
+  'google-sheets.delete_row': GoogleSheetsDeleteRowInput
+  'google-sheets.create_spreadsheet': GoogleSheetsCreateSpreadsheetInput
   'google-sheets.custom_api_call': GoogleSheetsCustomApiCallInput
   'google-slides.get_presentation': GoogleSlidesGetPresentationInput
   'google-slides.create_presentation': GoogleSlidesCreatePresentationInput
@@ -35142,8 +36027,20 @@ export interface IntegrationActionInputMap {
   'graphql.send_request': GraphqlSendRequestInput
   'greenhouse.list_candidates': GreenhouseListCandidatesInput
   'greenhouse.get_candidate': GreenhouseGetCandidateInput
+  'greenhouse.create_candidate': GreenhouseCreateCandidateInput
+  'greenhouse.update_candidate': GreenhouseUpdateCandidateInput
+  'greenhouse.create_prospect': GreenhouseCreateProspectInput
+  'greenhouse.create_candidate_note': GreenhouseCreateCandidateNoteInput
+  'greenhouse.find_candidate': GreenhouseFindCandidateInput
+  'greenhouse.find_or_create_candidate': GreenhouseFindOrCreateCandidateInput
+  'greenhouse.find_due_scorecard': GreenhouseFindDueScorecardInput
   'greenhouse.list_jobs': GreenhouseListJobsInput
+  'greenhouse.get_job': GreenhouseGetJobInput
   'greenhouse.list_applications': GreenhouseListApplicationsInput
+  'greenhouse.get_application': GreenhouseGetApplicationInput
+  'greenhouse.list_job_posts': GreenhouseListJobPostsInput
+  'greenhouse.list_interviews': GreenhouseListInterviewsInput
+  'greenhouse.custom_api_call': GreenhouseCustomApiCallInput
   'grist.grist-create-record': GristGristCreateRecordInput
   'grist.grist-search-record': GristGristSearchRecordInput
   'grist.grist-update-record': GristGristUpdateRecordInput
@@ -35287,6 +36184,11 @@ export interface IntegrationActionInputMap {
   'housecall-pro.convert_lead_to_estimate_or_job': HousecallProConvertLeadToEstimateOrJobInput
   'housecall-pro.custom_api_call': HousecallProCustomApiCallInput
   'http.send_request': HttpSendRequestInput
+  'hubspot.list_crm_objects': HubspotListCrmObjectsInput
+  'hubspot.get_crm_object': HubspotGetCrmObjectInput
+  'hubspot.create_crm_object': HubspotCreateCrmObjectInput
+  'hubspot.update_crm_object': HubspotUpdateCrmObjectInput
+  'hubspot.search_crm_objects': HubspotSearchCrmObjectsInput
   'hubspot.list_contacts': HubspotListContactsInput
   'hubspot.get_contact': HubspotGetContactInput
   'hubspot.create_contact': HubspotCreateContactInput
@@ -35300,8 +36202,15 @@ export interface IntegrationActionInputMap {
   'hubspot.create_deal': HubspotCreateDealInput
   'hubspot.update_deal': HubspotUpdateDealInput
   'hubspot.list_tickets': HubspotListTicketsInput
+  'hubspot.get_ticket': HubspotGetTicketInput
+  'hubspot.create_ticket': HubspotCreateTicketInput
+  'hubspot.update_ticket': HubspotUpdateTicketInput
   'hubspot.search_crm': HubspotSearchCrmInput
   'hubspot.list_properties': HubspotListPropertiesInput
+  'hubspot.list_association_labels': HubspotListAssociationLabelsInput
+  'hubspot.list_associations': HubspotListAssociationsInput
+  'hubspot.create_association': HubspotCreateAssociationInput
+  'hubspot.remove_association': HubspotRemoveAssociationInput
   'hubspot.create_engagement': HubspotCreateEngagementInput
   'hubspot.custom_api_call': HubspotCustomApiCallInput
   'hugging-face.document_question_answering': HuggingFaceDocumentQuestionAnsweringInput
@@ -36481,6 +37390,7 @@ export interface IntegrationActionInputMap {
   'storage.write_file': StorageWriteFileInput
   'storage.delete_file': StorageDeleteFileInput
   'storage.list_files': StorageListFilesInput
+  'storage.get_download_url': StorageGetDownloadUrlInput
   'storyblok.list_spaces': StoryblokListSpacesInput
   'storyblok.list_stories': StoryblokListStoriesInput
   'storyblok.get_story': StoryblokGetStoryInput
@@ -38197,10 +39107,14 @@ export interface IntegrationActionInputsByIntegration {
     'create_machine': FlyIoCreateMachineInput
   }
   'folk-crm': {
-    'create_contact': FolkCrmCreateContactInput
-    'list_contacts': FolkCrmListContactsInput
-    'get_contact': FolkCrmGetContactInput
-    'create_group': FolkCrmCreateGroupInput
+    'create_person': FolkCrmCreatePersonInput
+    'find_person': FolkCrmFindPersonInput
+    'get_person': FolkCrmGetPersonInput
+    'update_person': FolkCrmUpdatePersonInput
+    'create_company': FolkCrmCreateCompanyInput
+    'find_company': FolkCrmFindCompanyInput
+    'get_company': FolkCrmGetCompanyInput
+    'update_company': FolkCrmUpdateCompanyInput
     'custom_api_call': FolkCrmCustomApiCallInput
   }
   'follow-up-boss': {
@@ -38502,11 +39416,20 @@ export interface IntegrationActionInputsByIntegration {
   'google-sheets': {
     'list_spreadsheets': GoogleSheetsListSpreadsheetsInput
     'get_spreadsheet': GoogleSheetsGetSpreadsheetInput
+    'list_sheets': GoogleSheetsListSheetsInput
+    'get_sheet': GoogleSheetsGetSheetInput
     'read_range': GoogleSheetsReadRangeInput
+    'list_rows': GoogleSheetsListRowsInput
+    'get_row': GoogleSheetsGetRowInput
     'write_range': GoogleSheetsWriteRangeInput
     'append_row': GoogleSheetsAppendRowInput
-    'create_spreadsheet': GoogleSheetsCreateSpreadsheetInput
+    'append_rows': GoogleSheetsAppendRowsInput
+    'update_row': GoogleSheetsUpdateRowInput
+    'find_rows': GoogleSheetsFindRowsInput
     'clear_range': GoogleSheetsClearRangeInput
+    'clear_row': GoogleSheetsClearRowInput
+    'delete_row': GoogleSheetsDeleteRowInput
+    'create_spreadsheet': GoogleSheetsCreateSpreadsheetInput
     'custom_api_call': GoogleSheetsCustomApiCallInput
   }
   'google-slides': {
@@ -38552,8 +39475,20 @@ export interface IntegrationActionInputsByIntegration {
   'greenhouse': {
     'list_candidates': GreenhouseListCandidatesInput
     'get_candidate': GreenhouseGetCandidateInput
+    'create_candidate': GreenhouseCreateCandidateInput
+    'update_candidate': GreenhouseUpdateCandidateInput
+    'create_prospect': GreenhouseCreateProspectInput
+    'create_candidate_note': GreenhouseCreateCandidateNoteInput
+    'find_candidate': GreenhouseFindCandidateInput
+    'find_or_create_candidate': GreenhouseFindOrCreateCandidateInput
+    'find_due_scorecard': GreenhouseFindDueScorecardInput
     'list_jobs': GreenhouseListJobsInput
+    'get_job': GreenhouseGetJobInput
     'list_applications': GreenhouseListApplicationsInput
+    'get_application': GreenhouseGetApplicationInput
+    'list_job_posts': GreenhouseListJobPostsInput
+    'list_interviews': GreenhouseListInterviewsInput
+    'custom_api_call': GreenhouseCustomApiCallInput
   }
   'grist': {
     'grist-create-record': GristGristCreateRecordInput
@@ -38739,6 +39674,11 @@ export interface IntegrationActionInputsByIntegration {
     'send_request': HttpSendRequestInput
   }
   'hubspot': {
+    'list_crm_objects': HubspotListCrmObjectsInput
+    'get_crm_object': HubspotGetCrmObjectInput
+    'create_crm_object': HubspotCreateCrmObjectInput
+    'update_crm_object': HubspotUpdateCrmObjectInput
+    'search_crm_objects': HubspotSearchCrmObjectsInput
     'list_contacts': HubspotListContactsInput
     'get_contact': HubspotGetContactInput
     'create_contact': HubspotCreateContactInput
@@ -38752,8 +39692,15 @@ export interface IntegrationActionInputsByIntegration {
     'create_deal': HubspotCreateDealInput
     'update_deal': HubspotUpdateDealInput
     'list_tickets': HubspotListTicketsInput
+    'get_ticket': HubspotGetTicketInput
+    'create_ticket': HubspotCreateTicketInput
+    'update_ticket': HubspotUpdateTicketInput
     'search_crm': HubspotSearchCrmInput
     'list_properties': HubspotListPropertiesInput
+    'list_association_labels': HubspotListAssociationLabelsInput
+    'list_associations': HubspotListAssociationsInput
+    'create_association': HubspotCreateAssociationInput
+    'remove_association': HubspotRemoveAssociationInput
     'create_engagement': HubspotCreateEngagementInput
     'custom_api_call': HubspotCustomApiCallInput
   }
@@ -40343,6 +41290,7 @@ export interface IntegrationActionInputsByIntegration {
     'write_file': StorageWriteFileInput
     'delete_file': StorageDeleteFileInput
     'list_files': StorageListFilesInput
+    'get_download_url': StorageGetDownloadUrlInput
   }
   'storyblok': {
     'list_spaces': StoryblokListSpacesInput
