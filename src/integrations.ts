@@ -18443,76 +18443,350 @@ export interface LeonardoAiCustomApiCallInput {
   body?: unknown
 }
 
-/** Lever — Get opportunity */
+/** Lever — List Opportunities */
+export interface LeverListOpportunitiesInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+  /** Comma-separated contact IDs. */
+  contact_id?: string
+  /** Comma-separated posting IDs. */
+  posting_id?: string
+  /** Comma-separated posting IDs whose applications were archived. */
+  archived_posting_id?: string
+  /** Comma-separated stage IDs. */
+  stage_id?: string
+  /** Comma-separated archive reason IDs. */
+  archive_reason_id?: string
+  /** Email Address */
+  email?: string
+  /** Comma-separated tags. Lever tag filters are case-sensitive. */
+  tag?: string
+  /** Comma-separated source names. */
+  source?: string
+  /** Origins */
+  origin?: string[]
+  /** Confidentiality (values: `non-confidential`, `confidential`, `all`) */
+  confidentiality?: "non-confidential" | "confidential" | "all"
+  /** Archived State (values: `false`, `true`, `all`) */
+  archived?: "false" | "true" | "all"
+  /** Snoozed State (values: `true`, `false`) */
+  snoozed?: "true" | "false"
+  /** Created At Start */
+  created_at_start?: string
+  /** Created At End */
+  created_at_end?: string
+  /** Updated At Start */
+  updated_at_start?: string
+  /** Updated At End */
+  updated_at_end?: string
+  /** Advanced At Start */
+  advanced_at_start?: string
+  /** Advanced At End */
+  advanced_at_end?: string
+  /** Archived At Start */
+  archived_at_start?: string
+  /** Archived At End */
+  archived_at_end?: string
+  /** Fields to include in each Lever response. Examples: contact, applications, resumes, stage. */
+  include?: Array<{   value: string }>
+  /** Fields to expand in each Lever response. Examples: applications, contact, stage, owner. */
+  expand?: Array<{   value: string }>
+}
+
+/** Lever — Get Opportunity */
 export interface LeverGetOpportunityInput {
   /** Opportunity ID */
-  opportunityId: string
-  /** Expand */
-  expand?: unknown[]
+  opportunity_id: string
+  /** Fields to include in each Lever response. Examples: contact, applications, resumes, stage. */
+  include?: Array<{   value: string }>
+  /** Fields to expand in each Lever response. Examples: applications, contact, stage, owner. */
+  expand?: Array<{   value: string }>
 }
 
-/** Lever — Update opportunity stage */
+/** Lever — Find Opportunity by Email */
+export interface LeverFindOpportunityByEmailInput {
+  /** Email Address */
+  email: string
+  /** Fields to include in each Lever response. Examples: contact, applications, resumes, stage. */
+  include?: Array<{   value: string }>
+  /** Fields to expand in each Lever response. Examples: applications, contact, stage, owner. */
+  expand?: Array<{   value: string }>
+}
+
+/** Lever — Create Opportunity */
+export interface LeverCreateOpportunityInput {
+  /** Candidate Name */
+  name: string
+  /** Lever user ID used for this create action. Lever requires perform_as when creating opportunities. (resolve via property options API) */
+  perform_as: string
+  /** Headline */
+  headline?: string
+  /** Email Address */
+  email?: string
+  /** Phone Number */
+  phone?: string
+  /** Phone Type (values: `mobile`, `home`, `work`, `skype`, `other`) */
+  phone_type?: "mobile" | "home" | "work" | "skype" | "other"
+  /** Location */
+  location?: string
+  /** Origin (values: `applied`, `added`, `referred`, `sourced`, `university`, `agency`, `internal`) */
+  origin?: "applied" | "added" | "referred" | "sourced" | "university" | "agency" | "internal"
+  /** Owner/User ID */
+  owner_id?: string
+  /** Existing Contact ID */
+  contact_id?: string
+  /** Stage ID */
+  stage_id?: string
+  /** Historical opportunity creation time. Future dates are not allowed by Lever. */
+  created_at?: string
+  /** Only applies when a resume file is provided through raw payload or custom API usage. */
+  parse_resume?: boolean
+  /** When exactly one posting ID is provided, set the owner to the posting owner. */
+  perform_as_posting_owner?: boolean
+  /** Posting IDs */
+  posting_ids?: Array<{   value: string }>
+  /** Follower User IDs */
+  follower_ids?: Array<{   value: string }>
+  /** Tags */
+  tags?: Array<{   value: string }>
+  /** Sources */
+  sources?: Array<{   value: string }>
+  /** Candidate links such as LinkedIn, portfolio, or GitHub URLs. */
+  links?: Array<{   value: string }>
+  /** Optional archive reason to create this opportunity as archived. (resolve via property options API) */
+  archived_reason_id?: string
+  /** Optional historical archive time. Requires an archive reason. */
+  archived_at?: string
+  /** Advanced Lever opportunity fields to merge into the request body. */
+  raw_payload?: unknown
+}
+
+/** Lever — Update Opportunity Stage */
 export interface LeverUpdateOpportunityStageInput {
   /** Opportunity ID */
-  opportunityId: string
+  opportunity_id: string
   /** Stage (resolve via property options API) */
   stage: string
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
 }
 
-/** Lever — List opportunity forms */
-export interface LeverListOpportunityFormsInput {
+/** Lever — Update Opportunity Archive State */
+export interface LeverUpdateOpportunityArchiveStateInput {
   /** Opportunity ID */
-  opportunityId: string
-  /** Form template (resolve via property options API) */
-  template?: string
+  opportunity_id: string
+  /** Leave empty to unarchive. (resolve via property options API) */
+  reason_id?: string
+  /** Remove pending interviews from the opportunity when archiving. */
+  clean_interviews?: boolean
+  /** Optional requisition used when hiring against a requisition. */
+  requisition_id?: string
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
 }
 
-/** Lever — List opportunity feedback */
+/** Lever — Add Note to Opportunity */
+export interface LeverAddNoteToOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Note */
+  note: string
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — List Opportunity Notes */
+export interface LeverListOpportunityNotesInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+}
+
+/** Lever — Add Links to Opportunity */
+export interface LeverAddLinksToOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Links */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — Remove Links from Opportunity */
+export interface LeverRemoveLinksFromOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Links */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — Add Tags to Opportunity */
+export interface LeverAddTagsToOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Tags */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — Remove Tags from Opportunity */
+export interface LeverRemoveTagsFromOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Tags */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — Add Sources to Opportunity */
+export interface LeverAddSourcesToOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Sources */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — Remove Sources from Opportunity */
+export interface LeverRemoveSourcesFromOpportunityInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Sources */
+  values: Array<{   value: string }>
+  /** Lever user ID used for write actions. (resolve via property options API) */
+  perform_as?: string
+}
+
+/** Lever — List Opportunity Feedback */
 export interface LeverListOpportunityFeedbackInput {
   /** Opportunity ID */
-  opportunityId: string
-  /** Feedback template (resolve via property options API) */
-  template?: string
+  opportunity_id: string
+  /** Feedback Template (resolve via property options API) */
+  template_id?: string
 }
 
-/** Lever — Add feedback to opportunity */
-export interface LeverAddFeedbackToOpportunityInput {
-  /** Feedback author (resolve via property options API) */
-  performAs: string
+/** Lever — List Opportunity Forms */
+export interface LeverListOpportunityFormsInput {
   /** Opportunity ID */
-  opportunityId: string
-  /** If you select one, you must select an interview too (resolve via property options API) */
-  panelId?: string
-  /** Mandatory is you select an interview panel (resolve via property options API) */
-  interviewId?: string
-  /** Ignored if you select an interview panel and an interview (resolve via property options API) */
-  feedbackTemplateId?: string
-  /** Fields */
-  feedbackFields: Record<string, unknown>
+  opportunity_id: string
+  /** Form Template (resolve via property options API) */
+  template_id?: string
+}
+
+/** Lever — List Opportunity Interviews */
+export interface LeverListOpportunityInterviewsInput {
+  /** Opportunity ID */
+  opportunity_id: string
+}
+
+/** Lever — List Opportunity File Actions */
+export interface LeverListOpportunityFileActionsInput {
+  /** Opportunity ID */
+  opportunity_id: string
+  /** Number of file actions to return, up to 100. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+  /** Occurred At Start */
+  occurred_at_start?: string
+  /** Occurred At End */
+  occurred_at_end?: string
+}
+
+/** Lever — List Deleted Opportunities */
+export interface LeverListDeletedOpportunitiesInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+  /** Deleted At Start */
+  deleted_at_start?: string
+  /** Deleted At End */
+  deleted_at_end?: string
+}
+
+/** Lever — List Postings */
+export interface LeverListPostingsInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+  /** State (values: `published`, `internal`, `pending`, `closed`, `draft`) */
+  state?: "published" | "internal" | "pending" | "closed" | "draft"
+  /** Fields to include in each Lever response. Examples: contact, applications, resumes, stage. */
+  include?: Array<{   value: string }>
+}
+
+/** Lever — Get Posting */
+export interface LeverGetPostingInput {
+  /** Posting ID */
+  posting_id: string
+  /** Fields to include in each Lever response. Examples: contact, applications, resumes, stage. */
+  include?: Array<{   value: string }>
+}
+
+/** Lever — List Stages */
+export interface LeverListStagesInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+}
+
+/** Lever — List Users */
+export interface LeverListUsersInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+}
+
+/** Lever — List Archive Reasons */
+export interface LeverListArchiveReasonsInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+}
+
+/** Lever — List Tags */
+export interface LeverListTagsInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
+}
+
+/** Lever — List Sources */
+export interface LeverListSourcesInput {
+  /** Number of records to return. */
+  limit?: number
+  /** Pagination cursor returned as next from a previous Lever response. */
+  offset?: string
 }
 
 /** Lever — Custom API Call */
 export interface LeverCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative Lever API path, for example /opportunities or /postings/{id}. */
+  path: string
+  /** Query parameters to append to the request. */
+  query_params?: Record<string, unknown>
+  /** Extra headers. Authorization is always injected from the connection. */
+  headers?: Record<string, unknown>
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** LibreTranslate — Translate Text */
@@ -36440,11 +36714,32 @@ export interface IntegrationActionInputMap {
   'leonardo-ai.get_generation': LeonardoAiGetGenerationInput
   'leonardo-ai.list_models': LeonardoAiListModelsInput
   'leonardo-ai.custom_api_call': LeonardoAiCustomApiCallInput
-  'lever.getOpportunity': LeverGetOpportunityInput
-  'lever.updateOpportunityStage': LeverUpdateOpportunityStageInput
-  'lever.listOpportunityForms': LeverListOpportunityFormsInput
-  'lever.listOpportunityFeedback': LeverListOpportunityFeedbackInput
-  'lever.addFeedbackToOpportunity': LeverAddFeedbackToOpportunityInput
+  'lever.list_opportunities': LeverListOpportunitiesInput
+  'lever.get_opportunity': LeverGetOpportunityInput
+  'lever.find_opportunity_by_email': LeverFindOpportunityByEmailInput
+  'lever.create_opportunity': LeverCreateOpportunityInput
+  'lever.update_opportunity_stage': LeverUpdateOpportunityStageInput
+  'lever.update_opportunity_archive_state': LeverUpdateOpportunityArchiveStateInput
+  'lever.add_note_to_opportunity': LeverAddNoteToOpportunityInput
+  'lever.list_opportunity_notes': LeverListOpportunityNotesInput
+  'lever.add_links_to_opportunity': LeverAddLinksToOpportunityInput
+  'lever.remove_links_from_opportunity': LeverRemoveLinksFromOpportunityInput
+  'lever.add_tags_to_opportunity': LeverAddTagsToOpportunityInput
+  'lever.remove_tags_from_opportunity': LeverRemoveTagsFromOpportunityInput
+  'lever.add_sources_to_opportunity': LeverAddSourcesToOpportunityInput
+  'lever.remove_sources_from_opportunity': LeverRemoveSourcesFromOpportunityInput
+  'lever.list_opportunity_feedback': LeverListOpportunityFeedbackInput
+  'lever.list_opportunity_forms': LeverListOpportunityFormsInput
+  'lever.list_opportunity_interviews': LeverListOpportunityInterviewsInput
+  'lever.list_opportunity_file_actions': LeverListOpportunityFileActionsInput
+  'lever.list_deleted_opportunities': LeverListDeletedOpportunitiesInput
+  'lever.list_postings': LeverListPostingsInput
+  'lever.get_posting': LeverGetPostingInput
+  'lever.list_stages': LeverListStagesInput
+  'lever.list_users': LeverListUsersInput
+  'lever.list_archive_reasons': LeverListArchiveReasonsInput
+  'lever.list_tags': LeverListTagsInput
+  'lever.list_sources': LeverListSourcesInput
   'lever.custom_api_call': LeverCustomApiCallInput
   'libretranslate.translate_text': LibretranslateTranslateTextInput
   'libretranslate.detect_language': LibretranslateDetectLanguageInput
@@ -40008,11 +40303,32 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': LeonardoAiCustomApiCallInput
   }
   'lever': {
-    'getOpportunity': LeverGetOpportunityInput
-    'updateOpportunityStage': LeverUpdateOpportunityStageInput
-    'listOpportunityForms': LeverListOpportunityFormsInput
-    'listOpportunityFeedback': LeverListOpportunityFeedbackInput
-    'addFeedbackToOpportunity': LeverAddFeedbackToOpportunityInput
+    'list_opportunities': LeverListOpportunitiesInput
+    'get_opportunity': LeverGetOpportunityInput
+    'find_opportunity_by_email': LeverFindOpportunityByEmailInput
+    'create_opportunity': LeverCreateOpportunityInput
+    'update_opportunity_stage': LeverUpdateOpportunityStageInput
+    'update_opportunity_archive_state': LeverUpdateOpportunityArchiveStateInput
+    'add_note_to_opportunity': LeverAddNoteToOpportunityInput
+    'list_opportunity_notes': LeverListOpportunityNotesInput
+    'add_links_to_opportunity': LeverAddLinksToOpportunityInput
+    'remove_links_from_opportunity': LeverRemoveLinksFromOpportunityInput
+    'add_tags_to_opportunity': LeverAddTagsToOpportunityInput
+    'remove_tags_from_opportunity': LeverRemoveTagsFromOpportunityInput
+    'add_sources_to_opportunity': LeverAddSourcesToOpportunityInput
+    'remove_sources_from_opportunity': LeverRemoveSourcesFromOpportunityInput
+    'list_opportunity_feedback': LeverListOpportunityFeedbackInput
+    'list_opportunity_forms': LeverListOpportunityFormsInput
+    'list_opportunity_interviews': LeverListOpportunityInterviewsInput
+    'list_opportunity_file_actions': LeverListOpportunityFileActionsInput
+    'list_deleted_opportunities': LeverListDeletedOpportunitiesInput
+    'list_postings': LeverListPostingsInput
+    'get_posting': LeverGetPostingInput
+    'list_stages': LeverListStagesInput
+    'list_users': LeverListUsersInput
+    'list_archive_reasons': LeverListArchiveReasonsInput
+    'list_tags': LeverListTagsInput
+    'list_sources': LeverListSourcesInput
     'custom_api_call': LeverCustomApiCallInput
   }
   'libretranslate': {
