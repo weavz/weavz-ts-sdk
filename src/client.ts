@@ -41,6 +41,7 @@ export interface InputPartial {
   workspaceId: string
   integrationName: string
   actionName?: string | null
+  triggerName?: string | null
   name: string
   description?: string | null
   values: Record<string, unknown>
@@ -387,7 +388,7 @@ class IntegrationsResource extends BaseResource {
 }
 
 class PartialsResource extends BaseResource {
-  list(params: { workspaceId: string; integrationName?: string; actionName?: string }) {
+  list(params: { workspaceId: string; integrationName?: string; actionName?: string; triggerName?: string }) {
     return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
   }
   get(id: string) {
@@ -398,6 +399,7 @@ class PartialsResource extends BaseResource {
     integrationName: string
     name: string
     actionName?: string | null
+    triggerName?: string | null
     description?: string | null
     values?: Record<string, unknown>
     enforcedKeys?: string[]
