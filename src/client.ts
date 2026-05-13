@@ -348,30 +348,6 @@ class ApiKeysResource extends BaseResource {
   }
 }
 
-class MembersResource extends BaseResource {
-  list() {
-    return this._get<{ members: unknown[]; total: number }>('/api/v1/members')
-  }
-  create(data: { userId: string; role?: 'owner' | 'admin' | 'member' }) {
-    return this._post<{ member: unknown }>('/api/v1/members', data)
-  }
-  update(id: string, data: { role: 'owner' | 'admin' | 'member' }) {
-    return this._patch<{ member: unknown }>(`/api/v1/members/${id}`, data)
-  }
-  delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/members/${id}`)
-  }
-}
-
-class WorkspaceMembersResource extends BaseResource {
-  create(data: { workspaceId: string; memberId: string; role?: 'admin' | 'member' }) {
-    return this._post<{ workspaceMember: unknown }>('/api/v1/workspace-members', data)
-  }
-  delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspace-members/${id}`)
-  }
-}
-
 class IntegrationsResource extends BaseResource {
   list() {
     return this._get<{ integrations: unknown[]; total: number; registered: string[] }>('/api/v1/integrations')
@@ -493,21 +469,6 @@ class EndUsersResource extends BaseResource {
   }
 }
 
-class InvitationsResource extends BaseResource {
-  send(data: { email: string; role?: string; organizationId: string }) {
-    return this._post<{ invitation: unknown }>('/api/v1/members/invite', data)
-  }
-  list() {
-    return this._get<{ invitations: unknown[]; total: number }>('/api/v1/members/invitations')
-  }
-  revoke(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/members/invitations/${id}`)
-  }
-  accept(id: string) {
-    return this._post<{ member: unknown }>(`/api/v1/members/invitations/${id}/accept`)
-  }
-}
-
 // ============================================================================
 // Client
 // ============================================================================
@@ -525,11 +486,8 @@ export class WeavzClient {
   readonly triggers: TriggersResource
   readonly mcpServers: McpServersResource
   readonly apiKeys: ApiKeysResource
-  readonly members: MembersResource
-  readonly workspaceMembers: WorkspaceMembersResource
   readonly integrations: IntegrationsResource
   readonly partials: PartialsResource
-  readonly invitations: InvitationsResource
   readonly endUsers: EndUsersResource
 
   constructor(options: WeavzClientOptions) {
@@ -545,11 +503,8 @@ export class WeavzClient {
     this.triggers = new TriggersResource(this)
     this.mcpServers = new McpServersResource(this)
     this.apiKeys = new ApiKeysResource(this)
-    this.members = new MembersResource(this)
-    this.workspaceMembers = new WorkspaceMembersResource(this)
     this.integrations = new IntegrationsResource(this)
     this.partials = new PartialsResource(this)
-    this.invitations = new InvitationsResource(this)
     this.endUsers = new EndUsersResource(this)
   }
 
