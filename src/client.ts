@@ -255,6 +255,7 @@ class TriggersResource extends BaseResource {
     callbackHeaders?: Record<string, string>
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
+    workspaceIntegrationId?: string
     endUserId?: string
     input?: Record<string, unknown>
     partialIds?: string[]
@@ -361,6 +362,7 @@ class IntegrationsResource extends BaseResource {
     triggerName?: string
     connectionExternalId?: string
     workspaceId?: string
+    workspaceIntegrationId?: string
     endUserId?: string
     input?: Record<string, unknown>
     searchValue?: string
@@ -373,6 +375,7 @@ class IntegrationsResource extends BaseResource {
     triggerName?: string
     connectionExternalId?: string
     workspaceId?: string
+    workspaceIntegrationId?: string
     endUserId?: string
     input?: Record<string, unknown>
   }) {
