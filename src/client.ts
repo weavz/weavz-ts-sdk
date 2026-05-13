@@ -461,10 +461,10 @@ class EndUsersResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/end-users/${id}`)
   }
-  createConnectToken(id: string, data?: { integrationName?: string; expiresIn?: number }) {
+  createConnectToken(id: string, data?: { integrationName?: string; workspaceIntegrationId?: string; expiresIn?: number }) {
     return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${id}/connect-token`, data)
   }
-  invite(id: string, data: { email: string; integrationName?: string; expiresIn?: number }) {
+  invite(id: string, data: { email: string; integrationName?: string; workspaceIntegrationId?: string; expiresIn?: number }) {
     return this._post<{ connectUrl: string; token: string; expiresAt: string; emailSent: boolean }>(`/api/v1/end-users/${id}/invite`, data)
   }
 }
