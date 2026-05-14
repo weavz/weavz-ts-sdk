@@ -221,10 +221,6 @@ class ConnectResource extends BaseResource {
   }) {
     return this._post<{ token: string; connectUrl: string; expiresAt: string }>('/api/v1/connect/token', data)
   }
-  /** List available OAuth apps for an integration (platform default + org custom) */
-  availableOAuthApps(integrationName: string) {
-    return this._get<{ apps: Array<{ id: string; label: string; isPlatform: boolean }> }>(`/api/v1/oauth-apps/available/${integrationName}`)
-  }
   /** Poll connect session status */
   getSession(sessionId: string) {
     return this._get<{ session: { id: string; integrationName: string; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
@@ -450,45 +446,6 @@ class ApiKeysResource extends BaseResource {
   }
 }
 
-class ActivityResource extends BaseResource {
-  list(params?: ListOptions & { workspaceId?: string; type?: string; integrationName?: string; since?: string }) {
-    return this._get<{ events: Array<Record<string, unknown>>; total: number }>('/api/v1/activity', params)
-  }
-}
-
-class OAuthAppsResource extends BaseResource {
-  list() {
-    return this._get<{ apps: Array<Record<string, unknown>>; customOAuthApps: Record<string, unknown> }>('/api/v1/oauth-apps')
-  }
-  create(data: {
-    integrationName: string
-    clientId: string
-    clientSecret: string
-    displayName?: string
-    authUrl?: string
-    tokenUrl?: string
-    scope?: string
-    extraParams?: Record<string, string>
-  }) {
-    return this._post<{ app: Record<string, unknown> }>('/api/v1/oauth-apps', data)
-  }
-  delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/oauth-apps/${id}`)
-  }
-}
-
-class WebhookSecretsResource extends BaseResource {
-  list() {
-    return this._get<{ secrets: Array<Record<string, unknown>> }>('/api/v1/webhook-secrets')
-  }
-  set(data: { integrationName: string; secret: string }) {
-    return this._post<{ success: boolean; integrationName: string; webhookUrl: string; orgWebhookUrl: string }>('/api/v1/webhook-secrets', data)
-  }
-  delete(integrationName: string) {
-    return this._del<{ deleted: boolean; integrationName: string }>('/api/v1/webhook-secrets/by-integration', { integrationName })
-  }
-}
-
 class IntegrationsResource extends BaseResource {
   list(params?: { summary?: false }) {
     return this._get<{ integrations: IntegrationMetadata[]; total: number; registered: string[] }>('/api/v1/integrations', params)
@@ -625,9 +582,6 @@ export class WeavzClient {
   readonly triggers: TriggersResource
   readonly mcpServers: McpServersResource
   readonly apiKeys: ApiKeysResource
-  readonly activity: ActivityResource
-  readonly oauthApps: OAuthAppsResource
-  readonly webhookSecrets: WebhookSecretsResource
   readonly integrations: IntegrationsResource
   readonly partials: PartialsResource
   readonly endUsers: EndUsersResource
@@ -649,9 +603,6 @@ export class WeavzClient {
     this.triggers = new TriggersResource(this)
     this.mcpServers = new McpServersResource(this)
     this.apiKeys = new ApiKeysResource(this)
-    this.activity = new ActivityResource(this)
-    this.oauthApps = new OAuthAppsResource(this)
-    this.webhookSecrets = new WebhookSecretsResource(this)
     this.integrations = new IntegrationsResource(this)
     this.partials = new PartialsResource(this)
     this.endUsers = new EndUsersResource(this)

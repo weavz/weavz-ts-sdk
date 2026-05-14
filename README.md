@@ -49,29 +49,25 @@ The client provides namespaced access to all API resources:
 | `client.triggers` | `list()`, `enable()`, `disable()`, `test()` |
 | `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `createOAuthToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()`, `getDeclarations()` |
 | `client.apiKeys` | `list()`, `create()`, `delete()` |
-| `client.activity` | `list()` |
-| `client.oauthApps` | `list()`, `create()`, `delete()` |
-| `client.webhookSecrets` | `list()`, `set()`, `delete()` |
 | `client.integrations` | `list()`, `listSummary()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
-| `client.connect` | `createToken()`, `poll()`, `wait()`, `getSession()`, `popup()`, `availableOAuthApps()` |
+| `client.connect` | `createToken()`, `poll()`, `wait()`, `getSession()`, `popup()` |
 | `client.endUsers` | `create()`, `list()`, `get()`, `update()`, `delete()`, `createConnectToken()`, `invite()` |
 | `client.partials` | `list()`, `get()`, `create()`, `update()`, `delete()` |
 
 ## Building SaaS on Weavz
 
-Org-wide API keys can provision the integration control plane for your own product: create workspaces, register end users, configure tenant-owned OAuth apps, set webhook secrets, create hosted connect sessions, expose MCP servers, and read activity events.
+Org-wide API keys can provision the integration control plane for your own product: create workspaces, register end users, create hosted connect sessions, expose MCP servers, configure workspace integrations, and execute actions.
 
 ```typescript
-const { app } = await client.oauthApps.create({
-  integrationName: 'google-sheets',
-  displayName: 'Customer Google OAuth',
-  clientId: process.env.GOOGLE_CLIENT_ID!,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+const { workspace } = await client.workspaces.create({
+  name: 'Production',
+  slug: 'production',
 })
 
-await client.webhookSecrets.set({
+await client.workspaces.addIntegration(workspace.id, {
   integrationName: 'slack',
-  secret: process.env.SLACK_SIGNING_SECRET!,
+  alias: 'customer_slack',
+  connectionStrategy: 'per_user',
 })
 ```
 
