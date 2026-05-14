@@ -39,8 +39,8 @@
     "sdk",
     "api",
     "integrations",
-    "ipaas",
-    "mcp"
+    "mcp",
+    "agents"
   ],
   "license": "MIT",
   "repository": {

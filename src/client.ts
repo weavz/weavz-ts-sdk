@@ -1,4 +1,17 @@
 import { WeavzError } from './errors'
+import type {
+  ApiKey,
+  Connection,
+  EndUser as GeneratedEndUser,
+  InputPartial as GeneratedInputPartial,
+  IntegrationMetadata,
+  McpServer,
+  McpServerTool,
+  TriggerSource,
+  Workspace,
+  WorkspaceIntegration as GeneratedWorkspaceIntegration,
+} from './generated'
+import type { IntegrationActionInputsByIntegration } from './integrations'
 
 // ============================================================================
 // Types
@@ -13,42 +26,71 @@ export interface WeavzClientOptions {
   timeout?: number
   /** Maximum number of retries on retryable errors (default: 2, meaning 3 total attempts) */
   maxRetries?: number
+  /** Custom fetch implementation, useful for tests, edge runtimes, or instrumented clients */
+  fetch?: typeof fetch
+  /** Extra headers to send with every request */
+  headers?: Record<string, string>
+  /** User-Agent header value for Node-compatible runtimes */
+  userAgent?: string
+  /** Called before a retryable request is retried */
+  onRetry?: (context: { attempt: number; delayMs: number; error: WeavzError }) => void
 }
 
 interface RequestOptions {
   method?: string
   body?: unknown
   params?: Record<string, string | number | boolean | undefined>
+  signal?: AbortSignal
 }
 
-export interface WorkspaceIntegration {
-  id: string
-  workspaceId: string
-  integrationName: string
-  alias: string
-  connectionStrategy: 'fixed' | 'per_user' | 'per_user_with_fallback'
-  connectionId?: string | null
-  displayName?: string | null
-  enabledActions?: string[] | null
-  sortOrder: number
-  createdAt: string
-  updatedAt: string
+export type WorkspaceIntegration = GeneratedWorkspaceIntegration
+export type InputPartial = GeneratedInputPartial
+export type EndUser = GeneratedEndUser
+export type ConnectionType = 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
+export type ConnectionScope = 'ORGANIZATION' | 'WORKSPACE' | 'USER'
+export type ConnectionStrategy = 'fixed' | 'per_user' | 'per_user_with_fallback'
+export type McpAuthMode = 'oauth' | 'bearer' | 'oauth_and_bearer'
+export type McpEndUserAccess = 'restricted' | 'open'
+export type McpMode = 'TOOLS' | 'CODE'
+
+export interface ListOptions {
+  [key: string]: string | number | boolean | undefined
+  limit?: number
+  offset?: number
+  includeSuspended?: boolean
 }
 
-export interface InputPartial {
-  id: string
-  orgId: string
-  workspaceId: string
-  integrationName: string
-  actionName?: string | null
-  triggerName?: string | null
+export interface ActionExecutionResult<Output = unknown> {
+  success: boolean
+  output: Output
+  duration: number
+}
+
+export interface IntegrationSummary {
   name: string
-  description?: string | null
-  values: Record<string, unknown>
-  enforcedKeys: string[]
-  isDefault: boolean
-  createdAt: string
-  updatedAt: string
+  displayName: string
+  description: string
+  logoUrl: string
+  auth: { type: string } | null
+  categories: string[]
+  actionCount: number
+  triggerCount: number
+}
+
+type KnownIntegrationName = keyof IntegrationActionInputsByIntegration & string
+type KnownActionName<I extends KnownIntegrationName> = keyof IntegrationActionInputsByIntegration[I] & string
+type KnownActionInput<
+  I extends KnownIntegrationName,
+  A extends KnownActionName<I>,
+> = IntegrationActionInputsByIntegration[I][A]
+
+export interface ExecuteActionOptions<Input = Record<string, unknown>> {
+  workspaceId: string
+  input?: Input
+  connectionExternalId?: string
+  endUserId?: string
+  integrationAlias?: string
+  partialIds?: string[]
 }
 
 // ============================================================================
@@ -76,14 +118,17 @@ class BaseResource {
 }
 
 class WorkspacesResource extends BaseResource {
-  list() {
-    return this._get<{ workspaces: unknown[]; total: number }>('/api/v1/workspaces')
+  list(params?: ListOptions) {
+    return this._get<{ workspaces: Workspace[]; total: number }>('/api/v1/workspaces', params)
   }
   create(data: { name: string; slug: string }) {
-    return this._post<{ workspace: unknown }>('/api/v1/workspaces', data)
+    return this._post<{ workspace: Workspace }>('/api/v1/workspaces', data)
   }
   get(id: string) {
-    return this._get<{ workspace: unknown }>(`/api/v1/workspaces/${id}`)
+    return this._get<{ workspace: Workspace }>(`/api/v1/workspaces/${id}`)
+  }
+  update(id: string, data: { name?: string; slug?: string }) {
+    return this._patch<{ workspace: Workspace }>(`/api/v1/workspaces/${id}`, data)
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${id}`)
@@ -94,7 +139,7 @@ class WorkspacesResource extends BaseResource {
   addIntegration(workspaceId: string, data: {
     integrationName: string
     alias?: string
-    connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
+    connectionStrategy?: ConnectionStrategy
     connectionId?: string
     displayName?: string
     enabledActions?: string[]
@@ -104,7 +149,7 @@ class WorkspacesResource extends BaseResource {
   }
   updateIntegration(workspaceId: string, id: string, data: {
     alias?: string
-    connectionStrategy?: 'fixed' | 'per_user' | 'per_user_with_fallback'
+    connectionStrategy?: ConnectionStrategy
     connectionId?: string | null
     displayName?: string | null
     enabledActions?: string[] | null
@@ -118,20 +163,28 @@ class WorkspacesResource extends BaseResource {
 }
 
 class ConnectionsResource extends BaseResource {
-  list(id?: string) {
-    if (id) {
-      return this._get<{ connection: unknown }>('/api/v1/connections', { id })
+  list(id?: string): Promise<{ connection: Connection }>
+  list(params?: ListOptions): Promise<{ connections: Connection[]; total: number }>
+  list(idOrParams?: string | ListOptions) {
+    if (typeof idOrParams === 'string') {
+      return this.get(idOrParams)
     }
-    return this._get<{ connections: unknown[]; total: number }>('/api/v1/connections')
+    return this._get<{ connections: Connection[]; total: number }>('/api/v1/connections', idOrParams)
+  }
+  get(id: string) {
+    if (id) {
+      return this._get<{ connection: Connection }>('/api/v1/connections', { id })
+    }
   }
   create(data: {
-    type: 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
+    type: ConnectionType
     externalId: string
     displayName: string
     integrationName: string
     workspaceId?: string
     endUserId?: string
-    scope?: 'ORGANIZATION' | 'WORKSPACE' | 'USER'
+    scope?: ConnectionScope
+    oauthAppId?: string
     secretText?: string
     username?: string
     password?: string
@@ -143,13 +196,13 @@ class ConnectionsResource extends BaseResource {
     scope_oauth?: string
     data?: Record<string, unknown>
   }) {
-    return this._post<{ connection: unknown }>('/api/v1/connections', data)
+    return this._post<{ connection: Connection }>('/api/v1/connections', data)
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
   resolve(data: { integrationName: string; workspaceId: string; externalId?: string; endUserId?: string }) {
-    return this._post<{ connection: unknown }>('/api/v1/connections/resolve', data)
+    return this._post<{ connection: Connection }>('/api/v1/connections/resolve', data)
   }
 }
 
@@ -161,7 +214,7 @@ class ConnectResource extends BaseResource {
     externalId: string
     workspaceId: string
     endUserId?: string
-    scope?: 'ORGANIZATION' | 'WORKSPACE' | 'USER'
+    scope?: ConnectionScope
     oauthAppId?: string
     successRedirectUri?: string
     errorRedirectUri?: string
@@ -175,6 +228,34 @@ class ConnectResource extends BaseResource {
   /** Poll connect session status */
   getSession(sessionId: string) {
     return this._get<{ session: { id: string; integrationName: string; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
+  }
+  /** Poll connect session status using the short-lived cst_ token returned by createToken(). */
+  poll(token: string) {
+    return this._post<{
+      status: 'PENDING' | 'CONNECTING' | 'COMPLETED' | 'FAILED'
+      connectionId: string | null
+      integrationName: string
+      externalId: string
+      error: string | null
+    }>('/api/v1/connect/session/poll', { token })
+  }
+  /** Wait for a hosted connect token to complete or fail. */
+  async wait(token: string, options?: { timeoutMs?: number; intervalMs?: number }) {
+    const timeoutMs = options?.timeoutMs ?? 120_000
+    const intervalMs = options?.intervalMs ?? 1_000
+    const deadline = Date.now() + timeoutMs
+
+    while (Date.now() <= deadline) {
+      const result = await this.poll(token)
+      if (result.status === 'COMPLETED' || result.status === 'FAILED') return result
+      await new Promise(resolve => setTimeout(resolve, intervalMs))
+    }
+
+    throw new WeavzError({
+      message: 'Connect session timed out',
+      code: 'CONNECT_TIMEOUT',
+      status: 408,
+    })
   }
   /**
    * Open a popup for the hosted connect flow (browser-only).
@@ -223,6 +304,16 @@ class ConnectResource extends BaseResource {
 }
 
 class ActionsResource extends BaseResource {
+  execute<I extends KnownIntegrationName, A extends KnownActionName<I>>(
+    integrationName: I,
+    actionName: A,
+    options: ExecuteActionOptions<KnownActionInput<I, A>>,
+  ): Promise<ActionExecutionResult>
+  execute(
+    integrationName: string,
+    actionName: string,
+    options: ExecuteActionOptions,
+  ): Promise<ActionExecutionResult>
   execute(integrationName: string, actionName: string, options: {
     workspaceId: string
     input?: Record<string, unknown>
@@ -231,7 +322,7 @@ class ActionsResource extends BaseResource {
     integrationAlias?: string
     partialIds?: string[]
   }) {
-    return this._post<{ output: Record<string, unknown> }>('/api/v1/actions/execute', {
+    return this._post<ActionExecutionResult>('/api/v1/actions/execute', {
       integrationName,
       actionName,
       input: options.input ?? {},
@@ -245,8 +336,8 @@ class ActionsResource extends BaseResource {
 }
 
 class TriggersResource extends BaseResource {
-  list() {
-    return this._get<{ triggers: unknown[]; total: number }>('/api/v1/triggers')
+  list(params?: ListOptions & { workspaceId?: string }) {
+    return this._get<{ triggers: TriggerSource[]; total: number }>('/api/v1/triggers', params)
   }
   enable(data: {
     integrationName: string
@@ -261,8 +352,9 @@ class TriggersResource extends BaseResource {
     input?: Record<string, unknown>
     partialIds?: string[]
     simulate?: boolean
+    pollingIntervalMinutes?: number
   }) {
-    return this._post<{ triggerSource: unknown }>('/api/v1/triggers/enable', data)
+    return this._post<{ triggerSource: TriggerSource }>('/api/v1/triggers/enable', data)
   }
   disable(triggerSourceId: string) {
     return this._post<{ disabled: boolean; triggerSourceId: string }>('/api/v1/triggers/disable', { triggerSourceId })
@@ -273,30 +365,38 @@ class TriggersResource extends BaseResource {
 }
 
 class McpServersResource extends BaseResource {
-  list() {
-    return this._get<{ servers: unknown[]; total: number }>('/api/v1/mcp/servers')
+  list(params?: ListOptions & { workspaceId?: string }) {
+    return this._get<{ servers: McpServer[]; total: number }>('/api/v1/mcp/servers', params)
   }
   create(data: {
     name: string
     workspaceId: string
     description?: string
     createdBy?: string
-    mode?: 'TOOLS' | 'CODE'
+    mode?: McpMode
+    authMode?: McpAuthMode
+    endUserAccess?: McpEndUserAccess
     endUserId?: string
   }) {
-    return this._post<{ server: unknown; bearerToken: string; mcpEndpoint: string }>('/api/v1/mcp/servers', data)
+    return this._post<{ server: McpServer; bearerToken?: string; mcpEndpoint: string }>('/api/v1/mcp/servers', data)
   }
   get(id: string) {
-    return this._get<{ server: unknown; tools: unknown[] }>(`/api/v1/mcp/servers/${id}`)
+    return this._get<{ server: McpServer; tools: McpServerTool[] }>(`/api/v1/mcp/servers/${id}`)
   }
-  update(id: string, data: { name?: string; description?: string; mode?: string; endUserId?: string | null }) {
-    return this._patch<{ server: unknown }>(`/api/v1/mcp/servers/${id}`, data)
+  update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; endUserId?: string | null }) {
+    return this._patch<{ server: McpServer; bearerToken?: string }>(`/api/v1/mcp/servers/${id}`, data)
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${id}`)
   }
   regenerateToken(id: string) {
     return this._post<{ bearerToken: string; mcpEndpoint: string }>(`/api/v1/mcp/servers/${id}/regenerate-token`)
+  }
+  createOAuthToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
+    return this._post<{ accessToken: string; token: { id: string; tokenPrefix: string; scopes: string[]; endUserId: string; expiresAt: string; createdAt: string }; mcpEndpoint: string }>(
+      `/api/v1/mcp/servers/${id}/oauth-tokens`,
+      data,
+    )
   }
   addTool(serverId: string, data: {
     integrationName: string
@@ -310,18 +410,18 @@ class McpServersResource extends BaseResource {
     partialIds?: string[]
     sortOrder?: number
   }) {
-    return this._post<{ tool: unknown }>(`/api/v1/mcp/servers/${serverId}/tools`, data)
+    return this._post<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${serverId}/tools`, data)
   }
   updateTool(serverId: string, toolId: string, data: {
     displayName?: string
-    description?: string
+    description?: string | null
     inputDefaults?: Record<string, unknown>
-    connectionId?: string
+    connectionId?: string | null
     sortOrder?: number
     integrationAlias?: string
     partialIds?: string[]
   }) {
-    return this._patch<{ tool: unknown }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`, data)
+    return this._patch<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`, data)
   }
   deleteTool(serverId: string, toolId: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`)
@@ -336,26 +436,68 @@ class McpServersResource extends BaseResource {
 
 class ApiKeysResource extends BaseResource {
   list() {
-    return this._get<{ apiKeys: unknown[]; total: number }>('/api/v1/api-keys')
+    return this._get<{ apiKeys: ApiKey[]; total: number }>('/api/v1/api-keys')
   }
   create(data: {
     name: string
     expiresAt?: string
     permissions?: { scope: 'org' } | { scope: 'workspace'; workspaceIds: string[] }
   }) {
-    return this._post<{ apiKey: unknown; plainKey: string }>('/api/v1/api-keys', data)
+    return this._post<{ apiKey: ApiKey; plainKey: string }>('/api/v1/api-keys', data)
   }
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/api-keys/${id}`)
   }
 }
 
-class IntegrationsResource extends BaseResource {
+class ActivityResource extends BaseResource {
+  list(params?: ListOptions & { workspaceId?: string; type?: string; integrationName?: string; since?: string }) {
+    return this._get<{ events: Array<Record<string, unknown>>; total: number }>('/api/v1/activity', params)
+  }
+}
+
+class OAuthAppsResource extends BaseResource {
   list() {
-    return this._get<{ integrations: unknown[]; total: number; registered: string[] }>('/api/v1/integrations')
+    return this._get<{ apps: Array<Record<string, unknown>>; customOAuthApps: Record<string, unknown> }>('/api/v1/oauth-apps')
+  }
+  create(data: {
+    integrationName: string
+    clientId: string
+    clientSecret: string
+    displayName?: string
+    authUrl?: string
+    tokenUrl?: string
+    scope?: string
+    extraParams?: Record<string, string>
+  }) {
+    return this._post<{ app: Record<string, unknown> }>('/api/v1/oauth-apps', data)
+  }
+  delete(id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/oauth-apps/${id}`)
+  }
+}
+
+class WebhookSecretsResource extends BaseResource {
+  list() {
+    return this._get<{ secrets: Array<Record<string, unknown>> }>('/api/v1/webhook-secrets')
+  }
+  set(data: { integrationName: string; secret: string }) {
+    return this._post<{ success: boolean; integrationName: string; webhookUrl: string; orgWebhookUrl: string }>('/api/v1/webhook-secrets', data)
+  }
+  delete(integrationName: string) {
+    return this._del<{ deleted: boolean; integrationName: string }>('/api/v1/webhook-secrets/by-integration', { integrationName })
+  }
+}
+
+class IntegrationsResource extends BaseResource {
+  list(params?: { summary?: false }) {
+    return this._get<{ integrations: IntegrationMetadata[]; total: number; registered: string[] }>('/api/v1/integrations', params)
+  }
+  listSummary() {
+    return this._get<{ integrations: IntegrationSummary[]; total: number; registered: string[] }>('/api/v1/integrations', { summary: true })
   }
   get(name: string) {
-    return this._get<{ integration: unknown }>('/api/v1/integrations', { name })
+    return this._get<{ integration: IntegrationMetadata }>('/api/v1/integrations', { name })
   }
   resolveOptions(integrationName: string, data: {
     propertyName: string
@@ -366,6 +508,7 @@ class IntegrationsResource extends BaseResource {
     workspaceIntegrationId?: string
     endUserId?: string
     input?: Record<string, unknown>
+    partialIds?: string[]
     searchValue?: string
   }) {
     return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/integrations/${integrationName}/properties/options`, data)
@@ -379,6 +522,7 @@ class IntegrationsResource extends BaseResource {
     workspaceIntegrationId?: string
     endUserId?: string
     input?: Record<string, unknown>
+    partialIds?: string[]
   }) {
     return this._post<unknown>(`/api/v1/integrations/${integrationName}/properties/resolve`, data)
   }
@@ -427,19 +571,6 @@ class PartialsResource extends BaseResource {
   }
 }
 
-export interface EndUser {
-  id: string
-  workspaceId: string
-  externalId?: string | null
-  displayName?: string | null
-  email?: string | null
-  metadata?: Record<string, unknown> | null
-  connectionCount?: number
-  type: 'external' | 'member'
-  createdAt: string
-  updatedAt: string
-}
-
 class EndUsersResource extends BaseResource {
   create(data: {
     workspaceId: string
@@ -450,11 +581,11 @@ class EndUsersResource extends BaseResource {
   }) {
     return this._post<{ endUser: EndUser }>('/api/v1/end-users', data)
   }
-  list(params: { workspaceId: string }) {
+  list(params: { workspaceId: string } & ListOptions) {
     return this._get<{ endUsers: EndUser[]; total: number }>('/api/v1/end-users', params)
   }
   get(id: string) {
-    return this._get<{ endUser: EndUser; connections: unknown[] }>(`/api/v1/end-users/${id}`)
+    return this._get<{ endUser: EndUser; connections: Connection[] }>(`/api/v1/end-users/${id}`)
   }
   update(id: string, data: {
     displayName?: string | null
@@ -483,6 +614,9 @@ export class WeavzClient {
   private readonly baseUrl: string
   private readonly timeout: number
   private readonly maxRetries: number
+  private readonly fetchImpl: typeof fetch
+  private readonly headers: Record<string, string>
+  private readonly onRetry?: WeavzClientOptions['onRetry']
 
   readonly workspaces: WorkspacesResource
   readonly connections: ConnectionsResource
@@ -491,6 +625,9 @@ export class WeavzClient {
   readonly triggers: TriggersResource
   readonly mcpServers: McpServersResource
   readonly apiKeys: ApiKeysResource
+  readonly activity: ActivityResource
+  readonly oauthApps: OAuthAppsResource
+  readonly webhookSecrets: WebhookSecretsResource
   readonly integrations: IntegrationsResource
   readonly partials: PartialsResource
   readonly endUsers: EndUsersResource
@@ -500,6 +637,10 @@ export class WeavzClient {
     this.baseUrl = (options.baseUrl || 'https://api.weavz.io').replace(/\/+$/, '')
     this.timeout = options.timeout ?? 30_000
     this.maxRetries = options.maxRetries ?? 2
+    this.fetchImpl = options.fetch ?? fetch
+    this.headers = options.headers ?? {}
+    if (options.userAgent) this.headers['User-Agent'] = options.userAgent
+    this.onRetry = options.onRetry
 
     this.workspaces = new WorkspacesResource(this)
     this.connections = new ConnectionsResource(this)
@@ -508,6 +649,9 @@ export class WeavzClient {
     this.triggers = new TriggersResource(this)
     this.mcpServers = new McpServersResource(this)
     this.apiKeys = new ApiKeysResource(this)
+    this.activity = new ActivityResource(this)
+    this.oauthApps = new OAuthAppsResource(this)
+    this.webhookSecrets = new WebhookSecretsResource(this)
     this.integrations = new IntegrationsResource(this)
     this.partials = new PartialsResource(this)
     this.endUsers = new EndUsersResource(this)
@@ -515,7 +659,7 @@ export class WeavzClient {
 
   /** Make an authenticated request to the Weavz API */
   async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-    const { method = 'GET', body, params } = options
+    const { method = 'GET', body, params, signal } = options
 
     let url = `${this.baseUrl}${path}`
     if (params) {
@@ -528,10 +672,11 @@ export class WeavzClient {
     }
 
     const headers: Record<string, string> = {
+      ...this.headers,
       Authorization: `Bearer ${this.apiKey}`,
     }
 
-    if (body) {
+    if (body !== undefined) {
       headers['Content-Type'] = 'application/json'
     }
 
@@ -539,15 +684,33 @@ export class WeavzClient {
 
     let lastError: WeavzError | undefined
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
-      const response = await fetch(url, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-        signal: AbortSignal.timeout(this.timeout),
-      })
+      let response: Response
+      try {
+        response = await this.fetchImpl(url, {
+          method,
+          headers,
+          body: body !== undefined ? JSON.stringify(body) : undefined,
+          signal: signal ?? AbortSignal.timeout(this.timeout),
+        })
+      } catch (error) {
+        lastError = new WeavzError({
+          message: error instanceof Error ? error.message : 'Network request failed',
+          code: error instanceof DOMException && error.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR',
+          status: 0,
+          details: error,
+        })
+
+        if (!isIdempotent || attempt >= this.maxRetries) throw lastError
+        const delay = 500 * Math.pow(2, attempt)
+        this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: lastError })
+        await new Promise((resolve) => setTimeout(resolve, delay))
+        continue
+      }
 
       if (response.ok) {
-        return response.json() as Promise<T>
+        if (response.status === 204) return undefined as T
+        const text = await response.text()
+        return (text ? JSON.parse(text) : undefined) as T
       }
 
       let errorBody: { error?: string; code?: string; details?: unknown } = {}
@@ -595,6 +758,7 @@ export class WeavzClient {
         delay = 500 * Math.pow(2, attempt)
       }
 
+      this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: lastError })
       await new Promise((resolve) => setTimeout(resolve, delay))
     }
 

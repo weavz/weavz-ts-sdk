@@ -356,6 +356,7 @@ describe('MCP Servers', () => {
       description: 'Integration test server',
       workspaceId: createdWorkspaceId,
       mode: 'TOOLS',
+      authMode: 'oauth_and_bearer',
     })
     expect(result).toHaveProperty('server')
     expect(result).toHaveProperty('bearerToken')

@@ -300,12 +300,13 @@ describe('MCP Server Edge Cases', () => {
     cleanupStack.push(() => client.workspaces.delete(workspaceId))
   })
 
-  it('should create TOOLS mode server (default)', async () => {
+  it('should create bearer-enabled TOOLS mode server', async () => {
     const result = await client.mcpServers.create({
       name: 'Edge Tools Server',
       description: 'Testing tools mode',
       workspaceId,
       mode: 'TOOLS',
+      authMode: 'oauth_and_bearer',
     })
     expect(result).toHaveProperty('server')
     expect(result).toHaveProperty('bearerToken')
