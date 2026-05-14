@@ -45,6 +45,7 @@ interface RequestOptions {
   method?: string
   body?: unknown
   params?: Record<string, string | number | boolean | undefined>
+  headers?: Record<string, string>
   signal?: AbortSignal
 }
 
@@ -111,8 +112,8 @@ class BaseResource {
     return this.client.request<T>(path, { method: 'GET', params })
   }
 
-  protected _post<T>(path: string, body?: unknown) {
-    return this.client.request<T>(path, { method: 'POST', body })
+  protected _post<T>(path: string, body?: unknown, headers?: Record<string, string>) {
+    return this.client.request<T>(path, { method: 'POST', body, headers })
   }
 
   protected _patch<T>(path: string, body?: unknown) {
@@ -336,7 +337,7 @@ class ActionsResource extends BaseResource {
       integrationAlias: options.integrationAlias,
       partialIds: options.partialIds,
       idempotencyKey: options.idempotencyKey,
-    })
+    }, { 'X-Weavz-Source': 'sdk' })
   }
 }
 
@@ -708,7 +709,7 @@ export class WeavzClient {
 
   /** Make an authenticated request to the Weavz API */
   async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-    const { method = 'GET', body, params, signal } = options
+    const { method = 'GET', body, params, headers: requestHeaders, signal } = options
 
     let url = `${this.baseUrl}${path}`
     if (params) {
@@ -722,6 +723,7 @@ export class WeavzClient {
 
     const headers: Record<string, string> = {
       ...this.headers,
+      ...requestHeaders,
       Authorization: `Bearer ${this.apiKey}`,
     }
 
