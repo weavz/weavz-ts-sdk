@@ -1,6 +1,11 @@
 import { WeavzError } from './errors'
 import type {
   ApiKey,
+  ApprovalDecisionResult,
+  ApprovalPolicy,
+  ApprovalPolicyInput,
+  ApprovalRequest,
+  ApprovalRequiredResult,
   Connection,
   EndUser as GeneratedEndUser,
   InputPartial as GeneratedInputPartial,
@@ -65,6 +70,7 @@ export interface ActionExecutionResult<Output = unknown> {
   output: Output
   duration: number
 }
+export type ActionExecuteResult<Output = unknown> = ActionExecutionResult<Output> | ApprovalRequiredResult
 
 export interface IntegrationSummary {
   name: string
@@ -91,6 +97,7 @@ export interface ExecuteActionOptions<Input = Record<string, unknown>> {
   endUserId?: string
   integrationAlias?: string
   partialIds?: string[]
+  idempotencyKey?: string
 }
 
 // ============================================================================
@@ -304,12 +311,12 @@ class ActionsResource extends BaseResource {
     integrationName: I,
     actionName: A,
     options: ExecuteActionOptions<KnownActionInput<I, A>>,
-  ): Promise<ActionExecutionResult>
+  ): Promise<ActionExecuteResult>
   execute(
     integrationName: string,
     actionName: string,
     options: ExecuteActionOptions,
-  ): Promise<ActionExecutionResult>
+  ): Promise<ActionExecuteResult>
   execute(integrationName: string, actionName: string, options: {
     workspaceId: string
     input?: Record<string, unknown>
@@ -317,8 +324,9 @@ class ActionsResource extends BaseResource {
     endUserId?: string
     integrationAlias?: string
     partialIds?: string[]
+    idempotencyKey?: string
   }) {
-    return this._post<ActionExecutionResult>('/api/v1/actions/execute', {
+    return this._post<ActionExecuteResult>('/api/v1/actions/execute', {
       integrationName,
       actionName,
       input: options.input ?? {},
@@ -327,6 +335,86 @@ class ActionsResource extends BaseResource {
       endUserId: options.endUserId,
       integrationAlias: options.integrationAlias,
       partialIds: options.partialIds,
+      idempotencyKey: options.idempotencyKey,
+    })
+  }
+}
+
+class ApprovalPoliciesResource extends BaseResource {
+  list(params?: { workspaceId?: string }) {
+    return this._get<{ policies: ApprovalPolicy[]; total: number }>('/api/v1/approval-policies', params)
+  }
+  create(data: ApprovalPolicyInput) {
+    return this._post<{ policy: ApprovalPolicy }>('/api/v1/approval-policies', data)
+  }
+  get(id: string) {
+    return this._get<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${id}`)
+  }
+  update(id: string, data: Partial<ApprovalPolicyInput>) {
+    return this._patch<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${id}`, data)
+  }
+  delete(id: string) {
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/approval-policies/${id}`)
+  }
+  test(data: {
+    policy: ApprovalPolicyInput
+    context: {
+      workspaceId?: string
+      source?: 'rest' | 'sdk' | 'mcp_tools' | 'mcp_code' | 'playground' | 'trigger'
+      integrationName: string
+      integrationAlias?: string | null
+      actionName: string
+      connectionStrategy?: ConnectionStrategy | null
+      input?: Record<string, unknown>
+      idempotencyKey?: string | null
+      actionCategories?: string[]
+    }
+  }) {
+    return this._post<{ decision?: 'allow' | 'require_approval' | 'notify_only' | 'block' | 'auto_approve'; matched?: boolean; reasons?: string[] }>(
+      '/api/v1/approval-policies/test',
+      data,
+    )
+  }
+}
+
+class ApprovalsResource extends BaseResource {
+  list(params?: {
+    workspaceId?: string
+    status?: 'pending' | 'approved' | 'rejected' | 'expired' | 'canceled' | 'consumed'
+    source?: 'rest' | 'sdk' | 'mcp_tools' | 'mcp_code' | 'playground' | 'trigger'
+    integrationName?: string
+    actionName?: string
+    limit?: number
+  }) {
+    return this._get<{ approvals: ApprovalRequest[]; total: number }>('/api/v1/approvals', params)
+  }
+  get(id: string) {
+    return this._get<{ approval: ApprovalRequest }>(`/api/v1/approvals/${id}`)
+  }
+  approve(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/approve`, data)
+  }
+  reject(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/reject`, data)
+  }
+  cancel(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/cancel`, data)
+  }
+  async wait(id: string, options?: { timeoutMs?: number; intervalMs?: number }) {
+    const timeoutMs = options?.timeoutMs ?? 120_000
+    const intervalMs = options?.intervalMs ?? 1_000
+    const deadline = Date.now() + timeoutMs
+
+    while (Date.now() <= deadline) {
+      const result = await this.get(id)
+      if (result.approval.status !== 'pending') return result
+      await new Promise(resolve => setTimeout(resolve, intervalMs))
+    }
+
+    throw new WeavzError({
+      message: 'Approval wait timed out',
+      code: 'APPROVAL_TIMEOUT',
+      status: 408,
     })
   }
 }
@@ -437,7 +525,7 @@ class ApiKeysResource extends BaseResource {
   create(data: {
     name: string
     expiresAt?: string
-    permissions?: { scope: 'org' } | { scope: 'workspace'; workspaceIds: string[] }
+    permissions?: { scope: 'org'; approvals?: { decide?: boolean } } | { scope: 'workspace'; workspaceIds: string[]; approvals?: { decide?: boolean } }
   }) {
     return this._post<{ apiKey: ApiKey; plainKey: string }>('/api/v1/api-keys', data)
   }
@@ -579,6 +667,8 @@ export class WeavzClient {
   readonly connections: ConnectionsResource
   readonly connect: ConnectResource
   readonly actions: ActionsResource
+  readonly approvalPolicies: ApprovalPoliciesResource
+  readonly approvals: ApprovalsResource
   readonly triggers: TriggersResource
   readonly mcpServers: McpServersResource
   readonly apiKeys: ApiKeysResource
@@ -600,6 +690,8 @@ export class WeavzClient {
     this.connections = new ConnectionsResource(this)
     this.connect = new ConnectResource(this)
     this.actions = new ActionsResource(this)
+    this.approvalPolicies = new ApprovalPoliciesResource(this)
+    this.approvals = new ApprovalsResource(this)
     this.triggers = new TriggersResource(this)
     this.mcpServers = new McpServersResource(this)
     this.apiKeys = new ApiKeysResource(this)

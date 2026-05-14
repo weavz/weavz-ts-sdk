@@ -1,5 +1,5 @@
 import type { IntegrationMetadata, McpServerTool } from './generated'
-import type { ActionExecutionResult, WeavzClient } from './client'
+import type { ActionExecuteResult, WeavzClient } from './client'
 
 export type JsonSchema = {
   type: string
@@ -15,7 +15,7 @@ export interface WeavzActionTool {
   integrationName: string
   actionName: string
   integrationAlias?: string
-  execute: (input: Record<string, unknown>) => Promise<ActionExecutionResult>
+  execute: (input: Record<string, unknown>) => Promise<ActionExecuteResult>
 }
 
 export interface WeavzActionToolOptions {
@@ -195,6 +195,10 @@ export function toGoogleFunctionDeclarations(tools: WeavzActionTool[]) {
   return tools.map(toGoogleFunctionDeclaration)
 }
 
+function actionToolOutput(result: ActionExecuteResult): unknown {
+  return 'output' in result ? result.output : result
+}
+
 export function toVercelAIToolSet(
   tools: WeavzActionTool[],
   helpers?: {
@@ -208,12 +212,12 @@ export function toVercelAIToolSet(
       ? helpers.tool({
         description: tool.description,
         inputSchema: helpers.jsonSchema ? helpers.jsonSchema(tool.inputSchema) : tool.inputSchema,
-        execute: async (input: Record<string, unknown>) => (await tool.execute(input)).output,
+        execute: async (input: Record<string, unknown>) => actionToolOutput(await tool.execute(input)),
       })
       : {
         description: tool.description,
         inputSchema: tool.inputSchema,
-        execute: async (input: Record<string, unknown>) => (await tool.execute(input)).output,
+        execute: async (input: Record<string, unknown>) => actionToolOutput(await tool.execute(input)),
       },
   ]))
 }
@@ -223,7 +227,7 @@ export function toLangChainToolLike(tool: WeavzActionTool) {
     name: tool.name,
     description: tool.description,
     schema: tool.inputSchema,
-    func: async (input: Record<string, unknown>) => JSON.stringify((await tool.execute(input)).output),
+    func: async (input: Record<string, unknown>) => JSON.stringify(actionToolOutput(await tool.execute(input))),
   }
 }
 
