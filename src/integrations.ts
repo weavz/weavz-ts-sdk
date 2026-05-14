@@ -11770,10 +11770,8 @@ export interface GmailListMessagesInput {
   maxResults?: number
   /** Page Token */
   pageToken?: string
-  /** Comma-separated label IDs to filter by (e.g., "INBOX,UNREAD") */
-  labelIds?: string
-  /** Select a label to filter by. Alternative to Label IDs. (resolve via property options API) */
-  label?: string
+  /** Filter by one or more labels. */
+  labelIds?: string[]
 }
 
 /** Gmail — Get Message */
@@ -11830,20 +11828,16 @@ export interface GmailForwardEmailInput {
 export interface GmailAddLabelInput {
   /** Message ID */
   messageId: string
-  /** Comma-separated label IDs to add (e.g., "Label_1,Label_2"). Use the list_labels action to find label IDs. */
-  labelIds?: string
-  /** Select a label to add. Alternative to Label IDs — use one or the other. (resolve via property options API) */
-  label?: string
+  /** Labels to Add */
+  labelIds: string[]
 }
 
 /** Gmail — Remove Label */
 export interface GmailRemoveLabelInput {
   /** Message ID */
   messageId: string
-  /** Comma-separated label IDs to remove. Use the list_labels action to find label IDs. */
-  labelIds?: string
-  /** Select a label to remove. Alternative to Label IDs — use one or the other. (resolve via property options API) */
-  label?: string
+  /** Labels to Remove */
+  labelIds: string[]
 }
 
 /** Gmail — List Labels */
