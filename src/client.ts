@@ -360,11 +360,17 @@ class ApprovalPoliciesResource extends BaseResource {
     policy: ApprovalPolicyInput
     context: {
       workspaceId?: string
+      endUserId?: string | null
       source?: 'rest' | 'sdk' | 'mcp_tools' | 'mcp_code' | 'playground' | 'trigger'
+      mcpServerId?: string | null
+      workspaceIntegrationId?: string | null
       integrationName: string
       integrationAlias?: string | null
       actionName: string
       connectionStrategy?: ConnectionStrategy | null
+      connectionScopeSummary?: string | null
+      partialIds?: string[]
+      enforcedKeys?: string[]
       input?: Record<string, unknown>
       idempotencyKey?: string | null
       actionCategories?: string[]

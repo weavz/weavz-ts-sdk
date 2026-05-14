@@ -27,6 +27,8 @@ let createdWorkspaceIntegrationId: string
 let createdOpenAiWorkspaceIntegrationId: string
 let createdBearerWorkspaceId: string
 let createdBearerMcpServerId: string
+let createdApprovalWorkspaceId: string
+let createdApprovalPolicyId: string
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   const headers: Record<string, string> = {
@@ -95,6 +97,12 @@ afterAll(async () => {
     if (createdConnectionId) await client.connections.delete(createdConnectionId)
   } catch {}
   try {
+    if (createdApprovalPolicyId) await client.approvalPolicies.delete(createdApprovalPolicyId)
+  } catch {}
+  try {
+    if (createdApprovalWorkspaceId) await client.workspaces.delete(createdApprovalWorkspaceId)
+  } catch {}
+  try {
     if (createdBearerWorkspaceId) await client.workspaces.delete(createdBearerWorkspaceId)
   } catch {}
   try {
@@ -159,6 +167,67 @@ describe('Workspaces', () => {
     const result = await client.workspaces.get(createdWorkspaceId)
     expect(result).toHaveProperty('workspace')
     expect((result.workspace as any).id).toBe(createdWorkspaceId)
+  })
+})
+
+// ────────────────────────────────────────────────────────────────────────────
+// Human Gates / Approvals
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Approvals', () => {
+  it('should manage approval policies and list approval requests', async () => {
+    const suffix = Date.now().toString(36)
+    const workspace = await client.workspaces.create({
+      name: 'SDK Approval Workspace',
+      slug: `sdk-approval-${suffix}`,
+    })
+    createdApprovalWorkspaceId = (workspace.workspace as any).id
+
+    const policyInput = {
+      workspaceId: createdApprovalWorkspaceId,
+      name: 'SDK approval policy',
+      description: 'Created by the TypeScript SDK test suite',
+      sources: ['sdk'] as const,
+      decision: 'require_approval' as const,
+      riskMode: 'always' as const,
+      approvers: [{ type: 'org_role' as const, roles: ['owner', 'admin'] as const }],
+      timeoutSeconds: 3600,
+      defaultOnTimeout: 'reject' as const,
+    }
+
+    const created = await client.approvalPolicies.create(policyInput)
+    createdApprovalPolicyId = created.policy.id
+    expect(created.policy.name).toBe(policyInput.name)
+    expect(created.policy.workspaceId).toBe(createdApprovalWorkspaceId)
+
+    const listed = await client.approvalPolicies.list({ workspaceId: createdApprovalWorkspaceId })
+    expect(listed.policies.some(policy => policy.id === createdApprovalPolicyId)).toBe(true)
+
+    const fetched = await client.approvalPolicies.get(createdApprovalPolicyId)
+    expect(fetched.policy.id).toBe(createdApprovalPolicyId)
+
+    const tested = await client.approvalPolicies.test({
+      policy: policyInput,
+      context: {
+        workspaceId: createdApprovalWorkspaceId,
+        source: 'sdk',
+        integrationName: 'openai',
+        actionName: 'chat_completion',
+        input: { prompt: 'hello' },
+      },
+    })
+    expect(tested.matched).toBe(true)
+    expect(tested.decision).toBe('require_approval')
+
+    const updated = await client.approvalPolicies.update(createdApprovalPolicyId, { enabled: false })
+    expect(updated.policy.enabled).toBe(false)
+
+    const approvals = await client.approvals.list({ workspaceId: createdApprovalWorkspaceId, status: 'pending', limit: 5 })
+    expect(Array.isArray(approvals.approvals)).toBe(true)
+
+    const deleted = await client.approvalPolicies.delete(createdApprovalPolicyId)
+    expect(deleted.deleted).toBe(true)
+    createdApprovalPolicyId = ''
   })
 })
 
