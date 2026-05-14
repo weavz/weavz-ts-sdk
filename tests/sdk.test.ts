@@ -25,6 +25,8 @@ let createdConnectionId: string
 let createdMcpServerId: string
 let createdWorkspaceIntegrationId: string
 let createdOpenAiWorkspaceIntegrationId: string
+let createdBearerWorkspaceId: string
+let createdBearerMcpServerId: string
 
 async function serviceKeyRequest(method: string, path: string, body?: unknown) {
   const headers: Record<string, string> = {
@@ -87,7 +89,13 @@ afterAll(async () => {
     if (createdMcpServerId) await client.mcpServers.delete(createdMcpServerId)
   } catch {}
   try {
+    if (createdBearerMcpServerId) await client.mcpServers.delete(createdBearerMcpServerId)
+  } catch {}
+  try {
     if (createdConnectionId) await client.connections.delete(createdConnectionId)
+  } catch {}
+  try {
+    if (createdBearerWorkspaceId) await client.workspaces.delete(createdBearerWorkspaceId)
   } catch {}
   try {
     if (createdWorkspaceId) await client.workspaces.delete(createdWorkspaceId)
@@ -356,11 +364,10 @@ describe('MCP Servers', () => {
       description: 'Integration test server',
       workspaceId: createdWorkspaceId,
       mode: 'TOOLS',
-      authMode: 'oauth_and_bearer',
     })
     expect(result).toHaveProperty('server')
-    expect(result).toHaveProperty('bearerToken')
-    expect(result.bearerToken).toMatch(/^mcp_/)
+    expect(result).not.toHaveProperty('bearerToken')
+    expect((result.server as any).authMode).toBe('oauth')
     expect(result).toHaveProperty('mcpEndpoint')
     createdMcpServerId = (result.server as any).id
   })
@@ -402,8 +409,60 @@ describe('MCP Servers', () => {
     expect((result.server as any).name).toBe('SDK Test Server (updated)')
   })
 
-  it('should regenerate the bearer token', async () => {
-    const result = await client.mcpServers.regenerateToken(createdMcpServerId)
+  it('should create an end-user OAuth MCP token', async () => {
+    const externalId = `sdk-mcp-eu-${Date.now()}`
+    const endUser = await client.endUsers.create({
+      workspaceId: createdWorkspaceId,
+      externalId,
+      displayName: 'SDK MCP OAuth End User',
+      email: 'sdk-mcp-oauth@example.com',
+    })
+
+    try {
+      const result = await client.mcpServers.createOAuthToken(createdMcpServerId, {
+        endUserId: externalId,
+        scopes: ['mcp:tools'],
+        expiresIn: 3600,
+      })
+      expect(result).toHaveProperty('accessToken')
+      expect(result.accessToken).toMatch(/^mcpo_/)
+      expect(result).toHaveProperty('mcpEndpoint')
+      expect(result.token.scopes).toContain('mcp:tools')
+      expect(result.token.endUserId).toBe(externalId)
+    } finally {
+      await client.endUsers.delete((endUser.endUser as any).id)
+    }
+  })
+
+  it('should reject bearer token regeneration when bearer auth is disabled', async () => {
+    await expect(client.mcpServers.regenerateToken(createdMcpServerId)).rejects.toThrow(WeavzError)
+    try {
+      await client.mcpServers.regenerateToken(createdMcpServerId)
+    } catch (e) {
+      expect((e as WeavzError).status).toBe(409)
+    }
+  })
+
+  it('should support bearer auth in a workspace without per-user integrations', async () => {
+    const workspace = await client.workspaces.create({
+      name: 'SDK Bearer Workspace',
+      slug: `sdk-bearer-${Date.now()}`,
+    })
+    createdBearerWorkspaceId = (workspace.workspace as any).id
+
+    const server = await client.mcpServers.create({
+      name: 'SDK Bearer Server',
+      workspaceId: createdBearerWorkspaceId,
+      mode: 'TOOLS',
+      authMode: 'bearer',
+    })
+    createdBearerMcpServerId = (server.server as any).id
+
+    expect(server).toHaveProperty('bearerToken')
+    expect(server.bearerToken).toMatch(/^mcp_/)
+    expect((server.server as any).authMode).toBe('bearer')
+
+    const result = await client.mcpServers.regenerateToken(createdBearerMcpServerId)
     expect(result).toHaveProperty('bearerToken')
     expect(result.bearerToken).toMatch(/^mcp_/)
   })
