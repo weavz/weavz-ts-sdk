@@ -58,6 +58,7 @@ export type ConnectionStrategy = 'fixed' | 'per_user' | 'per_user_with_fallback'
 export type McpAuthMode = 'oauth' | 'bearer' | 'oauth_and_bearer'
 export type McpEndUserAccess = 'restricted' | 'open'
 export type McpMode = 'TOOLS' | 'CODE'
+export type McpCodeExecutionInput = string | { code: string } | { approvalId: string }
 
 export interface ListOptions {
   [key: string]: string | number | boolean | undefined
@@ -517,8 +518,9 @@ class McpServersResource extends BaseResource {
   deleteTool(serverId: string, toolId: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`)
   }
-  executeCode(serverId: string, code: string) {
-    return this._post<{ content: unknown[]; isError: boolean }>(`/api/v1/mcp/servers/${serverId}/execute-code`, { code })
+  executeCode(serverId: string, input: McpCodeExecutionInput) {
+    const body = typeof input === 'string' ? { code: input } : input
+    return this._post<{ content: unknown[]; isError: boolean }>(`/api/v1/mcp/servers/${serverId}/execute-code`, body)
   }
   getDeclarations(serverId: string, integrationOrAlias: string) {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)

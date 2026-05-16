@@ -35,6 +35,13 @@ const { server, mcpEndpoint } = await client.mcpServers.create({
   workspaceId: '550e8400-e29b-41d4-a716-446655440000',
   authMode: 'oauth',
 })
+
+const run = await client.mcpServers.executeCode(server.id, 'return await weavz.slack.send_channel_message({ channel: "C123", text: "Hello" })')
+
+// If Human Gates returns approval_required, approve it and fetch the stored run:
+const approved = await client.mcpServers.executeCode(server.id, {
+  approvalId: 'apr_9b36d3f761d84bb2b6f9a0c4b9d1f7e0',
+})
 ```
 
 ## Resources
