@@ -96,6 +96,7 @@ export interface ExecuteActionOptions<Input = Record<string, unknown>> {
   workspaceId: string
   input?: Input
   connectionExternalId?: string
+  workspaceIntegrationId?: string
   endUserId?: string
   integrationAlias?: string
   partialIds?: string[]
@@ -323,6 +324,7 @@ class ActionsResource extends BaseResource {
     workspaceId: string
     input?: Record<string, unknown>
     connectionExternalId?: string
+    workspaceIntegrationId?: string
     endUserId?: string
     integrationAlias?: string
     partialIds?: string[]
@@ -334,6 +336,7 @@ class ActionsResource extends BaseResource {
       input: options.input ?? {},
       connectionExternalId: options.connectionExternalId,
       workspaceId: options.workspaceId,
+      workspaceIntegrationId: options.workspaceIntegrationId,
       endUserId: options.endUserId,
       integrationAlias: options.integrationAlias,
       partialIds: options.partialIds,
@@ -440,6 +443,7 @@ class TriggersResource extends BaseResource {
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
     workspaceIntegrationId?: string
+    integrationAlias?: string
     endUserId?: string
     input?: Record<string, unknown>
     partialIds?: string[]
@@ -560,6 +564,7 @@ class IntegrationsResource extends BaseResource {
     connectionExternalId?: string
     workspaceId?: string
     workspaceIntegrationId?: string
+    integrationAlias?: string
     endUserId?: string
     input?: Record<string, unknown>
     partialIds?: string[]
@@ -574,6 +579,7 @@ class IntegrationsResource extends BaseResource {
     connectionExternalId?: string
     workspaceId?: string
     workspaceIntegrationId?: string
+    integrationAlias?: string
     endUserId?: string
     input?: Record<string, unknown>
     partialIds?: string[]
@@ -586,7 +592,14 @@ class IntegrationsResource extends BaseResource {
 }
 
 class PartialsResource extends BaseResource {
-  list(params: { workspaceId: string; integrationName?: string; actionName?: string; triggerName?: string }) {
+  list(params: {
+    workspaceId: string
+    integrationName?: string
+    workspaceIntegrationId?: string
+    integrationAlias?: string
+    actionName?: string
+    triggerName?: string
+  }) {
     return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
   }
   get(id: string) {
@@ -595,6 +608,8 @@ class PartialsResource extends BaseResource {
   create(data: {
     workspaceId: string
     integrationName: string
+    workspaceIntegrationId?: string | null
+    integrationAlias?: string | null
     name: string
     actionName?: string | null
     triggerName?: string | null
