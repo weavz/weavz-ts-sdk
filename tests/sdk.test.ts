@@ -193,12 +193,14 @@ describe('Approvals', () => {
       approvers: [{ type: 'org_role' as const, roles: ['owner', 'admin'] as const }],
       timeoutSeconds: 3600,
       defaultOnTimeout: 'reject' as const,
+      approvalAccessMode: 'dashboard_only' as const,
     }
 
     const created = await client.approvalPolicies.create(policyInput)
     createdApprovalPolicyId = created.policy.id
     expect(created.policy.name).toBe(policyInput.name)
     expect(created.policy.workspaceId).toBe(createdApprovalWorkspaceId)
+    expect(created.policy.approvalAccessMode).toBe('dashboard_only')
 
     const listed = await client.approvalPolicies.list({ workspaceId: createdApprovalWorkspaceId })
     expect(listed.policies.some(policy => policy.id === createdApprovalPolicyId)).toBe(true)
