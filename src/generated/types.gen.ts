@@ -71,10 +71,11 @@ export type Error = {
     | "SESSION_CREATE_FAILED"
     | "INVALID_TOKEN"
     | "MISSING_TOKEN"
-    | "MCP_BEARER_INCOMPATIBLE"
     | "MCP_BEARER_BLOCKS_PER_USER"
     | "MCP_BEARER_DISABLED"
+    | "MCP_STATIC_BEARER_INCOMPATIBLE"
     | "MCP_OAUTH_DISABLED"
+    | "INVALID_MCP_SCOPES"
     | "WORKSPACE_REQUIRED"
     | "AUTH_SCOPE_DENIED"
     | "APPROVAL_POLICY_BLOCKED"
@@ -294,7 +295,7 @@ export type McpServer = {
    */
   mode: "TOOLS" | "CODE";
   /**
-   * MCP authentication mode. OAuth is recommended for end-user scoped integrations; static bearer is for service-style clients only.
+   * MCP authentication mode. OAuth is recommended for interactive clients; bearer mode supports end-user scoped bearer tokens and may also have a static service token when safe.
    */
   authMode?: "oauth" | "bearer" | "oauth_and_bearer";
   /**
@@ -303,7 +304,22 @@ export type McpServer = {
   endUserAccess?: "restricted" | "open";
   auth?: {
     oauthEnabled?: boolean;
+    /**
+     * True when a shared static server bearer token exists.
+     */
     bearerEnabled?: boolean;
+    /**
+     * True when a shared static server bearer token exists.
+     */
+    staticBearerEnabled?: boolean;
+    /**
+     * True when API-created end-user bearer tokens are accepted for this server.
+     */
+    endUserBearerTokensEnabled?: boolean;
+    /**
+     * True when programmatic end-user bearer tokens can be issued.
+     */
+    accessTokensEnabled?: boolean;
   };
   createdBy: string;
   /**
@@ -2454,7 +2470,7 @@ export type CreateMcpServerData = {
     workspaceId: string;
     mode?: "TOOLS" | "CODE";
     /**
-     * OAuth is the default. Bearer modes are rejected if the workspace contains strict per-user integrations without a fallback.
+     * OAuth is the default. Bearer modes accept API-created end-user bearer tokens. A shared static bearer token is returned only when the workspace can safely use one or the server itself is scoped to one end user.
      */
     authMode?: "oauth" | "bearer" | "oauth_and_bearer";
     /**
@@ -2482,9 +2498,9 @@ export type CreateMcpServerErrors = {
    */
   403: Error;
   /**
-   * Bearer auth is incompatible with strict per-user workspace integrations
+   * End user not found
    */
-  409: Error;
+  404: Error;
 };
 
 export type CreateMcpServerError =
@@ -2576,7 +2592,7 @@ export type UpdateMcpServerData = {
     description?: string;
     mode?: "TOOLS" | "CODE";
     /**
-     * Switching to a bearer-enabled mode is rejected if the workspace contains strict per-user integrations without a fallback.
+     * Bearer-enabled modes accept API-created end-user bearer tokens. A shared static bearer token is created only when the workspace can safely use one or the server itself is scoped to one end user.
      */
     authMode?: "oauth" | "bearer" | "oauth_and_bearer";
     /**
@@ -2601,13 +2617,9 @@ export type UpdateMcpServerErrors = {
    */
   400: Error;
   /**
-   * MCP server not found
+   * MCP server or end user not found
    */
   404: Error;
-  /**
-   * Bearer auth is incompatible with strict per-user workspace integrations
-   */
-  409: Error;
 };
 
 export type UpdateMcpServerError =
@@ -2664,6 +2676,76 @@ export type RegenerateMcpServerTokenResponses = {
 
 export type RegenerateMcpServerTokenResponse =
   RegenerateMcpServerTokenResponses[keyof RegenerateMcpServerTokenResponses];
+
+export type CreateMcpServerAccessTokenData = {
+  body: {
+    /**
+     * End user's external ID, or internal UUID when using dashboard-created end users.
+     */
+    endUserId: string;
+    /**
+     * Optional MCP scopes. Defaults to the scopes supported by the server mode.
+     */
+    scopes?: Array<string>;
+    /**
+     * Token lifetime in seconds. Defaults to 30 days.
+     */
+    expiresIn?: number;
+  };
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/mcp/servers/{id}/access-tokens";
+};
+
+export type CreateMcpServerAccessTokenErrors = {
+  /**
+   * Invalid request or workspace-scoped MCP server required
+   */
+  400: Error;
+  /**
+   * MCP server or end user not found
+   */
+  404: Error;
+  /**
+   * End-user bearer tokens are not enabled for this server
+   */
+  409: Error;
+};
+
+export type CreateMcpServerAccessTokenError =
+  CreateMcpServerAccessTokenErrors[keyof CreateMcpServerAccessTokenErrors];
+
+export type CreateMcpServerAccessTokenResponses = {
+  /**
+   * End-user MCP bearer token created
+   */
+  201: {
+    /**
+     * Token value. Send as Authorization: Bearer.
+     */
+    accessToken: string;
+    /**
+     * Same token value, named for bearer-token provisioning flows.
+     */
+    bearerToken: string;
+    token: {
+      id: string;
+      tokenPrefix: string;
+      scopes: Array<string>;
+      endUserId: string;
+      authMethod: "bearer";
+      tokenType: "mcp_bearer";
+      expiresAt: string;
+      createdAt: string;
+    };
+    mcpEndpoint: string;
+  };
+};
+
+export type CreateMcpServerAccessTokenResponse =
+  CreateMcpServerAccessTokenResponses[keyof CreateMcpServerAccessTokenResponses];
 
 export type CreateMcpServerOAuthTokenData = {
   body: {

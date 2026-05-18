@@ -538,6 +538,32 @@ describe('MCP Servers', () => {
     expect(result.bearerToken).toMatch(/^mcp_/)
   })
 
+  it('should create end-user bearer tokens for bearer MCP servers', async () => {
+    const externalId = `sdk-bearer-eu-${Date.now()}`
+    const endUser = await client.endUsers.create({
+      workspaceId: createdBearerWorkspaceId,
+      externalId,
+      displayName: 'SDK Bearer MCP End User',
+      email: 'sdk-bearer-mcp@example.com',
+    })
+
+    try {
+      const result = await client.mcpServers.createBearerToken(createdBearerMcpServerId, {
+        endUserId: externalId,
+        scopes: ['mcp:tools'],
+        expiresIn: 3600,
+      })
+      expect(result).toHaveProperty('bearerToken')
+      expect(result.bearerToken).toMatch(/^mcp_/)
+      expect(result.accessToken).toBe(result.bearerToken)
+      expect(result.token.endUserId).toBe(externalId)
+      expect(result.token.authMethod).toBe('bearer')
+      expect(result.token.tokenType).toBe('mcp_bearer')
+    } finally {
+      await client.endUsers.delete((endUser.endUser as any).id)
+    }
+  })
+
   it('should delete the tool', async () => {
     const result = await client.mcpServers.deleteTool(createdMcpServerId, toolId)
     expect(result).toHaveProperty('deleted', true)

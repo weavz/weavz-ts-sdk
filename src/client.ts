@@ -67,6 +67,21 @@ export type McpAuthMode = 'oauth' | 'bearer' | 'oauth_and_bearer'
 export type McpEndUserAccess = 'restricted' | 'open'
 export type McpMode = 'TOOLS' | 'CODE'
 export type McpCodeExecutionInput = string | { code: string } | { approvalId: string }
+export interface McpAccessTokenResponse {
+  accessToken: string
+  bearerToken: string
+  token: {
+    id: string
+    tokenPrefix: string
+    scopes: string[]
+    endUserId: string
+    authMethod: 'bearer'
+    tokenType: 'mcp_bearer'
+    expiresAt: string
+    createdAt: string
+  }
+  mcpEndpoint: string
+}
 
 export interface ListOptions {
   [key: string]: string | number | boolean | undefined
@@ -497,6 +512,18 @@ class McpServersResource extends BaseResource {
   }
   regenerateToken(id: string) {
     return this._post<{ bearerToken: string; mcpEndpoint: string }>(`/api/v1/mcp/servers/${id}/regenerate-token`)
+  }
+  createAccessToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
+    return this._post<McpAccessTokenResponse>(
+      `/api/v1/mcp/servers/${id}/access-tokens`,
+      data,
+    )
+  }
+  createBearerToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
+    return this.createAccessToken(id, data)
+  }
+  createEndUserToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
+    return this.createAccessToken(id, data)
   }
   createOAuthToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
     return this._post<{ accessToken: string; token: { id: string; tokenPrefix: string; scopes: string[]; endUserId: string; expiresAt: string; createdAt: string }; mcpEndpoint: string }>(

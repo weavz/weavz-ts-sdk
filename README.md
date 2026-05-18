@@ -36,6 +36,17 @@ const { server, mcpEndpoint } = await client.mcpServers.create({
   authMode: 'oauth',
 })
 
+// For provisioned clients, enable bearer auth and issue one token per end user:
+const { server: bearerServer } = await client.mcpServers.create({
+  name: 'Provisioned MCP Server',
+  mode: 'CODE',
+  workspaceId: '550e8400-e29b-41d4-a716-446655440000',
+  authMode: 'oauth_and_bearer',
+})
+const { bearerToken } = await client.mcpServers.createBearerToken(bearerServer.id, {
+  endUserId: 'user_123',
+})
+
 const run = await client.mcpServers.executeCode(server.id, 'return await weavz.slack.send_channel_message({ channel: "C123", text: "Hello" })')
 
 // If Human Gates returns approval_required, approve it and fetch the stored run:
@@ -54,7 +65,7 @@ The client provides namespaced access to all API resources:
 | `client.connections` | `list()`, `get()`, `create()`, `delete()`, `resolve()` |
 | `client.actions` | `execute()` |
 | `client.triggers` | `list()`, `enable()`, `disable()`, `test()` |
-| `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `createOAuthToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()`, `getDeclarations()` |
+| `client.mcpServers` | `list()`, `create()`, `get()`, `update()`, `delete()`, `regenerateToken()`, `createBearerToken()`, `createAccessToken()`, `createEndUserToken()`, `createOAuthToken()`, `addTool()`, `updateTool()`, `deleteTool()`, `executeCode()`, `getDeclarations()` |
 | `client.apiKeys` | `list()`, `create()`, `delete()` |
 | `client.integrations` | `list()`, `listSummary()`, `get()`, `resolveOptions()`, `resolveProperty()`, `oauthStatus()` |
 | `client.connect` | `createToken()`, `poll()`, `wait()`, `getSession()`, `popup()` |
