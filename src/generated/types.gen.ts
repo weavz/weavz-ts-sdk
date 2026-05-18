@@ -1002,7 +1002,7 @@ export type CreateConnectionData = {
     integrationName: string;
     workspaceId?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     scope?: "ORGANIZATION" | "WORKSPACE" | "USER";
@@ -1128,7 +1128,7 @@ export type ResolveConnectionData = {
     externalId?: string;
     workspaceId: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
   };
@@ -1178,7 +1178,7 @@ export type ConnectCreateTokenData = {
      */
     externalId: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     /**
@@ -1505,7 +1505,7 @@ export type ExecuteActionData = {
      */
     workspaceIntegrationId?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     /**
@@ -2174,7 +2174,7 @@ export type EnableTriggerData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {
@@ -3018,7 +3018,7 @@ export type ResolveIntegrationPropertyOptionsData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {
@@ -3082,7 +3082,7 @@ export type ResolveIntegrationPropertyData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. When provided, KV Store and Storage data is automatically scoped to this end user within the workspace, providing per-user data isolation.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful built-in tools when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {
