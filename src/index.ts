@@ -3,6 +3,12 @@ export {
   type ActionExecuteResult,
   type WeavzClientOptions,
   type WorkspaceIntegration,
+  type WorkspaceIntegrationSettings,
+  type AdvancedCodeWorkspaceSettings,
+  type AdvancedCodeSandboxPersistence,
+  type AdvancedCodeStorageMountScope,
+  type PersistenceWorkspaceSettings,
+  type PersistenceScope,
   type InputPartial,
   type EndUser,
 } from './client'

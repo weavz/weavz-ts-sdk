@@ -164,6 +164,47 @@ export type ConnectSession = {
   createdAt: string;
 };
 
+/**
+ * Owner-controlled Advanced Code sandbox policy for this workspace integration.
+ */
+export type AdvancedCodeWorkspaceSettings = {
+  /**
+   * Maximum execution time per Advanced Code run.
+   */
+  timeoutSeconds?: number;
+  /**
+   * Whether the sandbox is destroyed after each run or reused between runs.
+   */
+  sandboxPersistence?: "ephemeral" | "persistent";
+  /**
+   * Persistent storage namespace mounted into the Advanced Code sandbox.
+   */
+  storageMountScope?: "none" | "end_user" | "workspace" | "external";
+  /**
+   * Required when storageMountScope is external.
+   */
+  storageExternalId?: string;
+};
+
+export type WorkspaceIntegrationSettings = {
+  advancedCode?: AdvancedCodeWorkspaceSettings;
+  persistence?: PersistenceWorkspaceSettings;
+};
+
+/**
+ * Owner-controlled state scope for stateful built-in workspace integrations.
+ */
+export type PersistenceWorkspaceSettings = {
+  /**
+   * Persistent state namespace used by Storage, KV Store, Agent Memory, Agent Scratchpad, and Sequential Thinking.
+   */
+  scope?: "end_user" | "workspace" | "external";
+  /**
+   * Required when scope is external.
+   */
+  externalId?: string;
+};
+
 export type WorkspaceIntegration = {
   id: string;
   workspaceId: string;
@@ -173,6 +214,7 @@ export type WorkspaceIntegration = {
   connectionId: string;
   displayName: string;
   enabledActions: Array<string>;
+  settings: WorkspaceIntegrationSettings;
   sortOrder: number;
   createdAt: string;
   updatedAt: string;
@@ -1328,6 +1370,7 @@ export type AddWorkspaceIntegrationData = {
      * List of enabled action names (null means all actions)
      */
     enabledActions?: Array<string>;
+    settings?: WorkspaceIntegrationSettings;
     sortOrder?: number;
   };
   path: {
@@ -1407,6 +1450,7 @@ export type UpdateWorkspaceIntegrationData = {
     connectionId?: string;
     displayName?: string;
     enabledActions?: Array<string>;
+    settings?: WorkspaceIntegrationSettings | null;
     sortOrder?: number;
   };
   path: {

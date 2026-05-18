@@ -11,6 +11,7 @@ export type {
   AddWorkspaceIntegrationErrors,
   AddWorkspaceIntegrationResponse,
   AddWorkspaceIntegrationResponses,
+  AdvancedCodeWorkspaceSettings,
   ApiKey,
   ApprovalCodeRunGroup,
   ApprovalCodeRunPreview,
@@ -241,6 +242,7 @@ export type {
   ListWorkspacesResponses,
   McpServer,
   McpServerTool,
+  PersistenceWorkspaceSettings,
   RegenerateMcpServerTokenData,
   RegenerateMcpServerTokenError,
   RegenerateMcpServerTokenErrors,
@@ -313,4 +315,5 @@ export type {
   UpdateWorkspaceResponses,
   Workspace,
   WorkspaceIntegration,
+  WorkspaceIntegrationSettings,
 } from "./types.gen";

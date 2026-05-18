@@ -7,6 +7,7 @@ import type {
   ApprovalRequest,
   ApprovalRequiredResult,
   Connection,
+  AdvancedCodeWorkspaceSettings as GeneratedAdvancedCodeWorkspaceSettings,
   EndUser as GeneratedEndUser,
   InputPartial as GeneratedInputPartial,
   IntegrationMetadata,
@@ -15,6 +16,7 @@ import type {
   TriggerSource,
   Workspace,
   WorkspaceIntegration as GeneratedWorkspaceIntegration,
+  WorkspaceIntegrationSettings as GeneratedWorkspaceIntegrationSettings,
 } from './generated'
 import type { IntegrationActionInputsByIntegration } from './integrations'
 
@@ -50,6 +52,12 @@ interface RequestOptions {
 }
 
 export type WorkspaceIntegration = GeneratedWorkspaceIntegration
+export type WorkspaceIntegrationSettings = GeneratedWorkspaceIntegrationSettings
+export type AdvancedCodeWorkspaceSettings = GeneratedAdvancedCodeWorkspaceSettings
+export type AdvancedCodeSandboxPersistence = NonNullable<AdvancedCodeWorkspaceSettings['sandboxPersistence']>
+export type AdvancedCodeStorageMountScope = NonNullable<AdvancedCodeWorkspaceSettings['storageMountScope']>
+export type PersistenceWorkspaceSettings = NonNullable<WorkspaceIntegrationSettings['persistence']>
+export type PersistenceScope = NonNullable<PersistenceWorkspaceSettings['scope']>
 export type InputPartial = GeneratedInputPartial
 export type EndUser = GeneratedEndUser
 export type ConnectionType = 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
@@ -153,6 +161,7 @@ class WorkspacesResource extends BaseResource {
     connectionId?: string
     displayName?: string
     enabledActions?: string[]
+    settings?: WorkspaceIntegrationSettings
     sortOrder?: number
   }) {
     return this._post<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations`, data)
@@ -163,6 +172,7 @@ class WorkspacesResource extends BaseResource {
     connectionId?: string | null
     displayName?: string | null
     enabledActions?: string[] | null
+    settings?: WorkspaceIntegrationSettings | null
     sortOrder?: number
   }) {
     return this._patch<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations/${id}`, data)

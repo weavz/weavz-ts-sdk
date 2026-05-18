@@ -622,68 +622,39 @@ export interface AgencyzoomCustomApiCallInput {
 export interface AgentMemoryCreateEntitiesInput {
   /** Array of entities to create. Each entity: { name: string, type: string, observations?: string[] } */
   entities: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Add Observations */
 export interface AgentMemoryAddObservationsInput {
   /** Array of observation batches. Each: { entityName: string, contents: string[] } */
   observations: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Create Relations */
 export interface AgentMemoryCreateRelationsInput {
   /** Array of relations. Each: { from: string, to: string, type: string } */
   relations: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Search */
 export interface AgentMemorySearchInput {
   /** Text to search for in entity names, types, and observations */
   query: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Read Graph */
-export interface AgentMemoryReadGraphInput {
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
-}
+export type AgentMemoryReadGraphInput = Record<string, never>
 
 /** Agent Memory — Get Entity */
 export interface AgentMemoryGetEntityInput {
   /** Name of the entity to retrieve */
   name: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Delete Entities */
 export interface AgentMemoryDeleteEntitiesInput {
   /** Array of entity names to delete (string array) */
   names: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Delete Observations */
@@ -692,30 +663,18 @@ export interface AgentMemoryDeleteObservationsInput {
   entityName: string
   /** Array of observation strings to remove */
   observations: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Memory — Delete Relations */
 export interface AgentMemoryDeleteRelationsInput {
   /** Array of relations to delete. Each: { from: string, to: string, type: string } */
   relations: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — Read Page */
 export interface AgentScratchpadReadPageInput {
   /** Name of the page to read */
   pageName: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — Write Page */
@@ -724,10 +683,6 @@ export interface AgentScratchpadWritePageInput {
   pageName: string
   /** Content to write to the page */
   content: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — Append to Page */
@@ -736,47 +691,25 @@ export interface AgentScratchpadAppendPageInput {
   pageName: string
   /** Content to append to the page */
   content: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — List Pages */
-export interface AgentScratchpadListPagesInput {
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
-}
+export type AgentScratchpadListPagesInput = Record<string, never>
 
 /** Agent Scratchpad — Search Pages */
 export interface AgentScratchpadSearchPagesInput {
   /** Text to search for across all pages */
   query: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — Delete Page */
 export interface AgentScratchpadDeletePageInput {
   /** Name of the page to delete */
   pageName: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Agent Scratchpad — Clear All Pages */
-export interface AgentScratchpadClearAllInput {
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
-}
+export type AgentScratchpadClearAllInput = Record<string, never>
 
 /** Ahrefs — Get Backlinks */
 export interface AhrefsGetBacklinksInput {
@@ -17668,30 +17601,18 @@ export interface KvStorePutInput {
   key: string
   /** The value to store (any JSON-serializable value) */
   value: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** KV Store — Get */
 export interface KvStoreGetInput {
   /** The key to retrieve */
   key: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** KV Store — Delete */
 export interface KvStoreDeleteInput {
   /** The key to delete */
   key: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** KV Store — Add to List */
@@ -17700,10 +17621,6 @@ export interface KvStoreAddToListInput {
   key: string
   /** The value to append to the list */
   value: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** KV Store — Remove from List */
@@ -17712,10 +17629,6 @@ export interface KvStoreRemoveFromListInput {
   key: string
   /** The value to remove from the list */
   value: unknown
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** kvCORE — List Leads */
@@ -27271,10 +27184,6 @@ export interface SequentialThinkingAddThoughtInput {
   chainId: string
   /** The thought content */
   content: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Sequential Thinking — Branch Thought */
@@ -27287,10 +27196,6 @@ export interface SequentialThinkingBranchThoughtInput {
   branchName: string
   /** The first thought in this branch */
   content: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Sequential Thinking — Revise Thought */
@@ -27301,10 +27206,6 @@ export interface SequentialThinkingReviseThoughtInput {
   thoughtId: number
   /** The revised thought content */
   content: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Sequential Thinking — Get Chain */
@@ -27313,20 +27214,12 @@ export interface SequentialThinkingGetChainInput {
   chainId: string
   /** Include branch thoughts in the response */
   includeBranches?: boolean
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Sequential Thinking — Summarize Chain */
 export interface SequentialThinkingSummarizeChainInput {
   /** Identifier for the thinking chain */
   chainId: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** ServiceNow — List Records */
@@ -29041,10 +28934,6 @@ export interface StabilityAiCustomApiCallInput {
 export interface StorageReadFileInput {
   /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
   path: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
   /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
   outputEncoding?: "utf8" | "base64"
 }
@@ -29059,30 +28948,18 @@ export interface StorageWriteFileInput {
   contentType?: string
   /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
   contentEncoding?: "utf8" | "base64"
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Storage — Delete File */
 export interface StorageDeleteFileInput {
   /** File path to delete */
   path: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Storage — List Files */
 export interface StorageListFilesInput {
   /** Path prefix to filter files (e.g. "data/" to list all files in data folder). Leave empty for all files. */
   prefix?: string
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Storage — Get Download URL */
@@ -29091,10 +28968,6 @@ export interface StorageGetDownloadUrlInput {
   path: string
   /** URL lifetime from 60 to 3600 seconds. */
   expiresInSeconds?: number
-  /** Where persistent state is stored. Current end user is private to the request or MCP token user. Shared workspace is visible to all users and agents in the workspace. Custom namespace is shared by calls using the same namespace key. (values: `end_user`, `workspace`, `external`) */
-  scope?: "end_user" | "workspace" | "external"
-  /** Required when Persistence Scope is Custom namespace. Calls with the same namespace key share the same state within this workspace. */
-  externalId?: string
 }
 
 /** Storyblok — List Spaces */
