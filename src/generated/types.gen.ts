@@ -393,11 +393,11 @@ export type InputPartial = {
   workspaceId: string;
   integrationName: string;
   /**
-   * Configured workspace integration instance this partial is scoped to. Null indicates a legacy base-integration partial.
+   * Configured workspace integration instance this partial is scoped to.
    */
   workspaceIntegrationId?: string;
   /**
-   * Workspace integration alias this partial is scoped to. Null indicates a legacy base-integration partial.
+   * Workspace integration alias this partial is scoped to.
    */
   integrationAlias?: string;
   /**
@@ -1513,7 +1513,7 @@ export type ExecuteActionData = {
      */
     integrationAlias?: string;
     /**
-     * Partial IDs or names to apply. If omitted, default partials auto-resolve.
+     * Partial IDs or names to apply. If omitted, default partials auto-resolve. Send an empty array to run without defaults.
      */
     partialIds?: Array<string>;
     /**
@@ -2180,6 +2180,9 @@ export type EnableTriggerData = {
     input?: {
       [key: string]: unknown;
     };
+    /**
+     * Partial IDs or names to apply. If omitted, default partials auto-resolve. Send an empty array to run without defaults.
+     */
     partialIds?: Array<string>;
     /**
      * Polling interval in minutes (only for polling triggers). Minimum depends on plan.
@@ -2739,7 +2742,7 @@ export type AddMcpServerToolData = {
       [key: string]: unknown;
     };
     /**
-     * Partial IDs or names to apply to this tool
+     * Partial IDs or names to assign to this tool. Partials must match the tool integration alias. If omitted, matching default partials can still apply.
      */
     partialIds?: Array<string>;
     sortOrder?: number;
@@ -2825,7 +2828,7 @@ export type UpdateMcpServerToolData = {
     sortOrder?: number;
     integrationAlias?: string;
     /**
-     * Partial IDs or names to apply to this tool
+     * Partial IDs or names to assign to this tool. Partials must match the tool integration alias. Send an empty array to clear assigned partials; matching default partials can still apply.
      */
     partialIds?: Array<string>;
   };
@@ -3025,7 +3028,7 @@ export type ResolveIntegrationPropertyOptionsData = {
       [key: string]: unknown;
     };
     /**
-     * Partial IDs or names to apply before resolving options.
+     * Partial IDs or names to apply before resolving options. If omitted, matching defaults apply. Send an empty array to resolve without defaults.
      */
     partialIds?: Array<string>;
     searchValue?: string;
@@ -3089,7 +3092,7 @@ export type ResolveIntegrationPropertyData = {
       [key: string]: unknown;
     };
     /**
-     * Partial IDs or names to apply before resolving the dynamic property.
+     * Partial IDs or names to apply before resolving the dynamic property. If omitted, matching defaults apply. Send an empty array to resolve without defaults.
      */
     partialIds?: Array<string>;
   };
