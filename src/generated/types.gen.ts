@@ -85,7 +85,6 @@ export type Error = {
     | "APPROVAL_EXPIRED"
     | "APPROVAL_UPDATE_CONFLICT"
     | "APPROVAL_DECISION_SCOPE_REQUIRED"
-    | "APPROVAL_SELF_DECISION_DENIED"
     | "APPROVAL_DECISION_DENIED";
   /**
    * Additional error context
@@ -254,11 +253,11 @@ export type ApiKey = {
     | {
         scope: "org";
         /**
-         * Optional approval permissions. Use a separate key for approval decisions.
+         * Optional Human Gates decision permissions.
          */
         approvals?: {
           /**
-           * Allows this key to approve/reject approval requests it did not create.
+           * Allows this key to approve, reject, or cancel Human Gates requests within its access scope.
            */
           decide?: boolean;
         };
@@ -267,11 +266,11 @@ export type ApiKey = {
         scope: "workspace";
         workspaceIds: Array<string>;
         /**
-         * Optional approval permissions scoped to the same workspaces. Use a separate key for approval decisions.
+         * Optional Human Gates decision permissions scoped to the same workspaces.
          */
         approvals?: {
           /**
-           * Allows this key to approve/reject approval requests it did not create.
+           * Allows this key to approve, reject, or cancel Human Gates requests within its access scope.
            */
           decide?: boolean;
         };
@@ -1877,7 +1876,7 @@ export type ApproveApprovalData = {
 
 export type ApproveApprovalErrors = {
   /**
-   * API key lacks approval decision permission or attempted to approve its own request
+   * API key lacks Human Gates decision permission
    */
   403: Error;
 };
