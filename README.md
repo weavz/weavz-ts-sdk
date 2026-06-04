@@ -135,16 +135,43 @@ try {
 
 ## Typed Integration Inputs
 
-After running the schema generator (`npm run generate:integrations`), the SDK includes typed interfaces for all integration action inputs:
+After running the schema generator (`npm run generate:integrations`), the SDK includes typed interfaces, literal action names, and helper maps for all generated integration action inputs:
 
 ```typescript
-import type { SlackSendChannelMessageInput } from '@weavz/sdk'
+import { integrationActions, integrationNames, isKnownActionName } from '@weavz/sdk'
+import type {
+  ActionInput,
+  ActionName,
+  ActionPropertyName,
+  IntegrationActionKey,
+  IntegrationName,
+  SlackSendChannelMessageInput,
+} from '@weavz/sdk'
 
 const input: SlackSendChannelMessageInput = {
   channel: '#general',
   text: 'Hello!',
 }
+
+const name: IntegrationName = 'slack'
+const action: ActionName<'slack'> = 'send_channel_message'
+const typedInput: ActionInput<'slack', 'send_channel_message'> = input
+const property: ActionPropertyName<'slack', 'send_channel_message'> = 'channel'
+const key: IntegrationActionKey = 'slack.send_channel_message'
+
+console.log(integrationNames.includes(name))
+console.log(integrationActions.slack.includes(action))
+
+const dynamicActionName = 'send_channel_message'
+if (isKnownActionName('slack', dynamicActionName)) {
+  await client.actions.execute('slack', dynamicActionName, {
+    workspaceId,
+    input: typedInput,
+  })
+}
 ```
+
+Known integration/action literal pairs are type-checked by `client.actions.execute()`, `client.integrations.get()`, `client.integrations.resolveOptions()`, and `client.integrations.resolveProperty()`. Plain strings still work for future or custom integrations, but they use the dynamic fallback type.
 
 ## License
 

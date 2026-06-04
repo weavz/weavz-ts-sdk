@@ -14,5 +14,5 @@ export {
 } from './client'
 export { WeavzError } from './errors'
 export * from './adapters'
-export type * from './generated'
-export type * from './integrations'
+export type * from './generated/index'
+export * from './integrations'

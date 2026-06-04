@@ -25,6 +25,7 @@
     "generate": "openapi-ts",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "test:types": "tsc --noEmit -p tsconfig.type-tests.json",
     "test": "vitest run tests/",
     "test:watch": "vitest tests/"
   },

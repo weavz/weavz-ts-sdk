@@ -18,7 +18,12 @@ import type {
   WorkspaceIntegration as GeneratedWorkspaceIntegration,
   WorkspaceIntegrationSettings as GeneratedWorkspaceIntegrationSettings,
 } from './generated'
-import type { IntegrationActionInputsByIntegration } from './integrations'
+import type {
+  ActionInput,
+  ActionName,
+  ActionPropertyName,
+  IntegrationName,
+} from './integrations'
 
 // ============================================================================
 // Types
@@ -113,12 +118,16 @@ export interface IntegrationSummary {
   triggerCount: number
 }
 
-type KnownIntegrationName = keyof IntegrationActionInputsByIntegration & string
-type KnownActionName<I extends KnownIntegrationName> = keyof IntegrationActionInputsByIntegration[I] & string
+type KnownIntegrationName = IntegrationName
+type KnownActionName<I extends KnownIntegrationName> = ActionName<I>
 type KnownActionInput<
   I extends KnownIntegrationName,
   A extends KnownActionName<I>,
-> = IntegrationActionInputsByIntegration[I][A]
+> = ActionInput<I, A>
+type KnownActionPropertyName<
+  I extends KnownIntegrationName,
+  A extends KnownActionName<I>,
+> = ActionPropertyName<I, A>
 
 export interface ExecuteActionOptions<Input = Record<string, unknown>> {
   workspaceId: string
@@ -129,6 +138,37 @@ export interface ExecuteActionOptions<Input = Record<string, unknown>> {
   integrationAlias?: string
   partialIds?: string[]
   idempotencyKey?: string
+}
+
+export interface ResolveActionPropertyOptions<
+  I extends KnownIntegrationName,
+  A extends KnownActionName<I>,
+> {
+  propertyName: KnownActionPropertyName<I, A>
+  actionName: A
+  triggerName?: never
+  connectionExternalId?: string
+  workspaceId?: string
+  workspaceIntegrationId?: string
+  integrationAlias?: string
+  endUserId?: string
+  input?: Partial<KnownActionInput<I, A>>
+  partialIds?: string[]
+  searchValue?: string
+}
+
+export interface ResolvePropertyOptions {
+  propertyName: string
+  actionName?: string
+  triggerName?: string
+  connectionExternalId?: string
+  workspaceId?: string
+  workspaceIntegrationId?: string
+  integrationAlias?: string
+  endUserId?: string
+  input?: Record<string, unknown>
+  partialIds?: string[]
+  searchValue?: string
 }
 
 // ============================================================================
@@ -345,8 +385,8 @@ class ActionsResource extends BaseResource {
     actionName: A,
     options: ExecuteActionOptions<KnownActionInput<I, A>>,
   ): Promise<ActionExecuteResult>
-  execute(
-    integrationName: string,
+  execute<I extends string>(
+    integrationName: I extends KnownIntegrationName ? never : I,
     actionName: string,
     options: ExecuteActionOptions,
   ): Promise<ActionExecuteResult>
@@ -597,36 +637,31 @@ class IntegrationsResource extends BaseResource {
   listSummary() {
     return this._get<{ integrations: IntegrationSummary[]; total: number; registered: string[] }>('/api/v1/integrations', { summary: true })
   }
+  get<I extends KnownIntegrationName>(name: I): Promise<{ integration: IntegrationMetadata }>
+  get(name: string): Promise<{ integration: IntegrationMetadata }>
   get(name: string) {
     return this._get<{ integration: IntegrationMetadata }>('/api/v1/integrations', { name })
   }
-  resolveOptions(integrationName: string, data: {
-    propertyName: string
-    actionName?: string
-    triggerName?: string
-    connectionExternalId?: string
-    workspaceId?: string
-    workspaceIntegrationId?: string
-    integrationAlias?: string
-    endUserId?: string
-    input?: Record<string, unknown>
-    partialIds?: string[]
-    searchValue?: string
-  }) {
+  resolveOptions<I extends KnownIntegrationName, A extends KnownActionName<I>>(
+    integrationName: I,
+    data: ResolveActionPropertyOptions<I, A>,
+  ): Promise<{ options: unknown[]; disabled: boolean }>
+  resolveOptions<I extends string>(
+    integrationName: I extends KnownIntegrationName ? never : I,
+    data: ResolvePropertyOptions,
+  ): Promise<{ options: unknown[]; disabled: boolean }>
+  resolveOptions(integrationName: string, data: ResolvePropertyOptions) {
     return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/integrations/${integrationName}/properties/options`, data)
   }
-  resolveProperty(integrationName: string, data: {
-    propertyName: string
-    actionName?: string
-    triggerName?: string
-    connectionExternalId?: string
-    workspaceId?: string
-    workspaceIntegrationId?: string
-    integrationAlias?: string
-    endUserId?: string
-    input?: Record<string, unknown>
-    partialIds?: string[]
-  }) {
+  resolveProperty<I extends KnownIntegrationName, A extends KnownActionName<I>>(
+    integrationName: I,
+    data: Omit<ResolveActionPropertyOptions<I, A>, 'searchValue'>,
+  ): Promise<unknown>
+  resolveProperty<I extends string>(
+    integrationName: I extends KnownIntegrationName ? never : I,
+    data: Omit<ResolvePropertyOptions, 'searchValue'>,
+  ): Promise<unknown>
+  resolveProperty(integrationName: string, data: Omit<ResolvePropertyOptions, 'searchValue'>) {
     return this._post<unknown>(`/api/v1/integrations/${integrationName}/properties/resolve`, data)
   }
   oauthStatus() {
