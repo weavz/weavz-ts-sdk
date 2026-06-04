@@ -246,6 +246,7 @@ export type {
   ListWorkspacesResponse,
   ListWorkspacesResponses,
   McpServer,
+  McpServerSettings,
   McpServerTool,
   PersistenceWorkspaceSettings,
   RegenerateMcpServerTokenData,

@@ -106,7 +106,7 @@ export type Workspace = {
 export type Connection = {
   id: string;
   /**
-   * User-provided external identifier
+   * Customer-defined connection.externalId selector
    */
   externalId: string;
   /**
@@ -145,7 +145,7 @@ export type ConnectSession = {
    */
   connectionName: string;
   /**
-   * External identifier for the connection
+   * Customer-defined connection.externalId selector
    */
   externalId: string;
   /**
@@ -165,7 +165,7 @@ export type ConnectSession = {
 };
 
 /**
- * Owner-controlled Advanced Code sandbox policy for this workspace integration.
+ * Owner-controlled Advanced Code execution policy for this workspace integration.
  */
 export type AdvancedCodeWorkspaceSettings = {
   /**
@@ -280,6 +280,15 @@ export type ApiKey = {
   createdAt: string;
 };
 
+export type McpServerSettings = {
+  codeMode?: {
+    /**
+     * Seconds to keep a Code Mode approval continuation call open while a Human Gate is pending. Defaults to 0.
+     */
+    approvalWaitSeconds?: number;
+  };
+};
+
 export type McpServer = {
   /**
    * Server ID (without 'srv_' prefix)
@@ -293,6 +302,7 @@ export type McpServer = {
    * Server mode (TOOLS for individual tools, CODE for code-mode meta-tools)
    */
   mode: "TOOLS" | "CODE";
+  settings: McpServerSettings;
   /**
    * MCP authentication mode. OAuth is recommended for interactive clients; bearer mode supports end-user scoped bearer tokens and may also have a static service token when safe.
    */
@@ -477,7 +487,7 @@ export type ApprovalPolicy = {
   defaultOnTimeout: "reject" | "expire";
   reuseWindowSeconds?: number;
   /**
-   * Controls whether reviewers can approve through dashboard URLs, bearer hosted links, or both.
+   * Controls whether reviewers can approve through Weavz review views, hosted bearer links, or both.
    */
   approvalAccessMode:
     | "dashboard_only"
@@ -531,7 +541,7 @@ export type ApprovalPolicyInput = {
   defaultOnTimeout?: "reject" | "expire";
   reuseWindowSeconds?: number;
   /**
-   * Controls whether reviewers can approve through dashboard URLs, bearer hosted links, or both.
+   * Controls whether reviewers can approve through Weavz review views, hosted bearer links, or both.
    */
   approvalAccessMode?:
     | "dashboard_only"
@@ -599,11 +609,10 @@ export type ApprovalRequest = {
     | "dashboard_and_hosted_link"
     | "hosted_link_only";
   /**
-   * Approval URL allowed by the policy access mode. This may be a dashboard URL or a hosted bearer link.
+   * Approval URL allowed by the policy access mode.
    */
   approvalUrl?: string;
   hostedApprovalUrl?: string;
-  dashboardUrl?: string;
   externalCorrelationId?: string;
   idempotencyKey?: string;
   requestedByType?: string;
@@ -745,7 +754,6 @@ export type ApprovalRequiredResult = {
       | "hosted_link_only";
     approvalUrl?: string;
     hostedApprovalUrl?: string;
-    dashboardUrl?: string;
     expiresAt: string;
     retry: {
       idempotencyKey?: string;
@@ -765,7 +773,7 @@ export type EndUser = {
   id: string;
   workspaceId: string;
   /**
-   * External identifier for the end user
+   * Your application's end-user identifier (endUser.externalId)
    */
   externalId?: string;
   /**
@@ -1812,14 +1820,6 @@ export type ListApprovalsData = {
       | "playground"
       | "trigger";
     integrationName?: string;
-    /**
-     * Filter to partials for one configured workspace integration.
-     */
-    workspaceIntegrationId?: string;
-    /**
-     * Filter to partials for one workspace integration alias. Use either workspaceIntegrationId or integrationAlias, not both.
-     */
-    integrationAlias?: string;
     actionName?: string;
     limit?: number;
   };
@@ -1948,6 +1948,14 @@ export type ListPartialsData = {
   query: {
     workspaceId: string;
     integrationName?: string;
+    /**
+     * Filter to partials for one configured workspace integration.
+     */
+    workspaceIntegrationId?: string;
+    /**
+     * Filter to partials for one workspace integration alias. Use either workspaceIntegrationId or integrationAlias, not both.
+     */
+    integrationAlias?: string;
     actionName?: string;
     triggerName?: string;
   };
@@ -2366,10 +2374,22 @@ export type CreateApiKeyData = {
     permissions?:
       | {
           scope: "org";
+          approvals?: {
+            /**
+             * Allows this key to approve, reject, or cancel Human Gates requests within its scope.
+             */
+            decide?: boolean;
+          };
         }
       | {
           scope: "workspace";
           workspaceIds: Array<string>;
+          approvals?: {
+            /**
+             * Allows this key to approve, reject, or cancel Human Gates requests within its scope.
+             */
+            decide?: boolean;
+          };
         };
   };
   path?: never;
@@ -2468,6 +2488,7 @@ export type CreateMcpServerData = {
     description?: string;
     workspaceId: string;
     mode?: "TOOLS" | "CODE";
+    settings?: McpServerSettings;
     /**
      * OAuth is the default. Bearer modes accept API-created end-user bearer tokens. A shared static bearer token is returned only when the workspace can safely use one or the server itself is scoped to one end user.
      */
@@ -2590,6 +2611,7 @@ export type UpdateMcpServerData = {
     name?: string;
     description?: string;
     mode?: "TOOLS" | "CODE";
+    settings?: McpServerSettings;
     /**
      * Bearer-enabled modes accept API-created end-user bearer tokens. A shared static bearer token is created only when the workspace can safely use one or the server itself is scoped to one end user.
      */
@@ -2957,6 +2979,10 @@ export type ExecuteMcpCodeData = {
      * Approval request ID returned by an approval-required Code Mode result.
      */
     approvalId?: string;
+    /**
+     * Optional seconds to keep an approvalId continuation call open while the Human Gate is still pending. Defaults to the MCP server Code Mode setting.
+     */
+    waitForApprovalSeconds?: number;
   };
   headers?: {
     /**
@@ -3266,7 +3292,7 @@ export type CreateEndUserData = {
      */
     workspaceId: string;
     /**
-     * Unique external identifier within the workspace
+     * Your application's end-user identifier, stored as endUser.externalId within the workspace
      */
     externalId: string;
     /**

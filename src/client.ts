@@ -66,7 +66,12 @@ export type ConnectionStrategy = 'fixed' | 'per_user' | 'per_user_with_fallback'
 export type McpAuthMode = 'oauth' | 'bearer' | 'oauth_and_bearer'
 export type McpEndUserAccess = 'restricted' | 'open'
 export type McpMode = 'TOOLS' | 'CODE'
-export type McpCodeExecutionInput = string | { code: string } | { approvalId: string }
+export interface McpServerSettings {
+  codeMode?: {
+    approvalWaitSeconds?: number
+  }
+}
+export type McpCodeExecutionInput = string | (({ code: string } | { approvalId: string }) & { waitForApprovalSeconds?: number })
 export interface McpAccessTokenResponse {
   accessToken: string
   bearerToken: string
@@ -495,6 +500,7 @@ class McpServersResource extends BaseResource {
     description?: string
     createdBy?: string
     mode?: McpMode
+    settings?: McpServerSettings
     authMode?: McpAuthMode
     endUserAccess?: McpEndUserAccess
     endUserId?: string
@@ -504,7 +510,7 @@ class McpServersResource extends BaseResource {
   get(id: string) {
     return this._get<{ server: McpServer; tools: McpServerTool[] }>(`/api/v1/mcp/servers/${id}`)
   }
-  update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; endUserId?: string | null }) {
+  update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; settings?: McpServerSettings; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; endUserId?: string | null }) {
     return this._patch<{ server: McpServer; bearerToken?: string }>(`/api/v1/mcp/servers/${id}`, data)
   }
   delete(id: string) {
@@ -701,7 +707,7 @@ class EndUsersResource extends BaseResource {
     return this._patch<{ endUser: EndUser }>(`/api/v1/end-users/${id}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/end-users/${id}`)
+    return this._del<{ deleted: boolean; id: string; connectionsDeleted: number }>(`/api/v1/end-users/${id}`)
   }
   createConnectToken(id: string, data?: { integrationName?: string; workspaceIntegrationId?: string; expiresIn?: number }) {
     return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${id}/connect-token`, data)
