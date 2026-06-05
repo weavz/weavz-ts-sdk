@@ -33,7 +33,7 @@
     "@hey-api/openapi-ts": "^0.97.1",
     "tsup": "^8.0.0",
     "typescript": "^5.5.0",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.8"
   },
   "keywords": [
     "weavz",
