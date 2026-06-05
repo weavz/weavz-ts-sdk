@@ -581,7 +581,7 @@ class McpServersResource extends BaseResource {
     integrationName: string
     actionName: string
     integrationAlias?: string
-    toolType?: 'ACTION' | 'TRIGGER'
+    toolType?: 'ACTION'
     connectionId?: string
     displayName?: string
     description?: string

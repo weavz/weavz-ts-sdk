@@ -356,7 +356,7 @@ export type McpServerTool = {
    */
   integrationAlias: string;
   actionName: string;
-  toolType: "ACTION" | "TRIGGER";
+  toolType: "ACTION";
   connectionId?: string;
   displayName?: string;
   description?: string;
@@ -2838,7 +2838,7 @@ export type AddMcpServerToolData = {
      * Optional alias (defaults to integrationName)
      */
     integrationAlias?: string;
-    toolType?: "ACTION" | "TRIGGER";
+    toolType?: "ACTION";
     connectionId?: string;
     displayName?: string;
     description?: string;

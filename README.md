@@ -85,6 +85,19 @@ The client provides namespaced access to all API resources:
 | `client.approvalPolicies` | `list()`, `create()`, `get()`, `update()`, `delete()`, `test()` |
 | `client.approvals` | `list()`, `get()`, `approve()`, `reject()`, `cancel()`, `wait()` |
 
+## Resource Options and Defaults
+
+The SDK method names mirror the REST resources. Use the API reference for complete option tables, defaults, and bounds:
+
+- [Actions](https://weavz.io/docs/api-reference/actions) — selectors, `partialIds`, `idempotencyKey`, and approval retry behavior
+- [Triggers](https://weavz.io/docs/api-reference/triggers) — callback headers, metadata, partials, polling intervals, and simulation
+- [Workspace Integrations](https://weavz.io/docs/api-reference/workspace-integrations) — aliases, connection strategies, enabled actions, persistence, and Advanced Code settings
+- [MCP Servers](https://weavz.io/docs/api-reference/mcp-servers) — modes, auth modes, end-user access, server settings, bearer token scopes, and tool fields
+- [End Users](https://weavz.io/docs/api-reference/end-users) — connect-token and invite TTLs, `integrationName`, and `workspaceIntegrationId`
+- [Input Partials](https://weavz.io/docs/api-reference/input-partials) — default values, enforced keys, and default partial behavior
+- [Approvals](https://weavz.io/docs/api-reference/approvals) — Human Gates policy matchers, defaults, approver shapes, and decision bodies
+- [Connections](https://weavz.io/docs/api-reference/connections) and [Connect](https://weavz.io/docs/api-reference/oauth) — credential scope, hosted connect fields, OAuth app selection, and session expiry
+
 ## Building SaaS on Weavz
 
 Org-wide API keys can provision the integration control plane for your own product: create workspaces, register end users, create hosted connect sessions, expose MCP servers, configure workspace integrations, and execute actions.
