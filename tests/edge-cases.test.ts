@@ -413,7 +413,7 @@ describe('MCP Server Edge Cases', () => {
     try {
       await client.mcpServers.addTool(toolsServerId, {
         integrationName: 'discord',
-        actionName: 'sendMessageWithBot',
+        actionName: 'send_channel_message',
         integrationAlias: 'openai-primary',
       })
     } catch (e) {

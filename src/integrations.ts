@@ -7788,174 +7788,184 @@ export interface DigitalOceanCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Discord — Send Message with Bot */
-export interface DiscordSendMessageWithBotInput {
-  /** List of channels (resolve via property options API) */
+/** Discord — Send Channel Message */
+export interface DiscordSendChannelMessageInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** Discord channel. (resolve via property options API) */
   channel_id: string
-  /** Message content to send. */
-  message?: string
-  /** Attachments */
-  files?: Array<{   file?: string }>
+  /** Message */
+  content?: string
+  /** Thread ID */
+  thread_id?: string
+  /** Optional Discord embeds as a JSON array. */
+  embeds?: unknown
+  /** Optional JSON array of file URLs or { "url": "...", "name": "..." } objects. */
+  file_urls?: unknown
 }
 
-/** Discord — Send Message Webhook */
-export interface DiscordSendMessageWebhookInput {
+/** Discord — Send Webhook Message */
+export interface DiscordSendWebhookMessageInput {
   /** Webhook URL */
   webhook_url: string
-  /** Name */
-  username?: string
   /** Message */
-  content: string
-  /** The avatar url for webhook */
+  content?: string
+  /** Username Override */
+  username?: string
+  /** Avatar URL Override */
   avatar_url?: string
-  /** Embeds to send along with the message */
+  /** Optional Discord embeds as a JSON array. */
   embeds?: unknown
-  /** Robot reads the message */
-  tts?: boolean
 }
 
-/** Discord — Request Approval in a Channel */
-export interface DiscordRequestApprovalMessageInput {
-  /** The message you want to send */
-  content: string
-  /** List of channels (resolve via property options API) */
-  channel: string
-}
-
-/** Discord — Add role to member */
-export interface DiscordAddRoleToMemberInput {
-  /** List of guilds (resolve via property options API) */
-  guild_id: string
-  /** The user id of the member */
-  user_id: string
-  /** List of roles (resolve via property options API) */
-  role_id: string
-}
-
-/** Discord — Remove role from member */
-export interface DiscordRemoveRoleFromMemberInput {
-  /** List of guilds (resolve via property options API) */
-  guild_id: string
-  /** The user id of the member */
-  user_id: string
-  /** List of roles (resolve via property options API) */
-  role_id: string
-}
-
-/** Discord — Remove member from guild */
-export interface DiscordRemoveMemberFromGuildInput {
-  /** List of guilds (resolve via property options API) */
-  guild_id: string
-  /** The user id of the member */
-  user_id: string
-}
-
-/** Discord — List guild members */
-export interface DiscordListGuildMembersInput {
-  /** List of guilds (resolve via property options API) */
-  guild_id: string
-  /** Search for a member */
-  shortText: string
-}
-
-/** Discord — Rename channel */
-export interface DiscordRenameChannelInput {
-  /** List of channels (resolve via property options API) */
-  channel_id: string
-  /** The new name of the channel */
-  name: string
-}
-
-/** Discord — Create channel */
-export interface DiscordCreateChannelInput {
-  /** List of guilds (resolve via property options API) */
-  guild_id: string
-  /** The name of the new channel */
-  name: string
-}
-
-/** Discord — Delete channel */
-export interface DiscordDeleteChannelInput {
-  /** List of channels (resolve via property options API) */
-  channel_id: string
-}
-
-/** Discord — Find channel */
+/** Discord — Find Channel */
 export interface DiscordFindChannelInput {
-  /** List of guilds (resolve via property options API) */
+  /** Discord server. (resolve via property options API) */
   guild_id: string
-  /** The name of the channel */
+  /** Channel Name */
   name: string
+  /** Exact Match */
+  exact_match?: boolean
 }
 
-/** Discord — Remove ban from user */
-export interface DiscordRemoveBanFromUserInput {
-  /** List of guilds (resolve via property options API) */
+/** Discord — Create Channel */
+export interface DiscordCreateChannelInput {
+  /** Discord server. (resolve via property options API) */
   guild_id: string
-  /** The ID of the user */
-  user_id: string
-  /** The reason for unbanning the user */
-  unban_reason?: string
+  /** Channel Name */
+  name: string
+  /** Channel Type (values: `0`, `2`, `4`, `5`) */
+  type?: 0 | 2 | 4 | 5
+  /** Topic */
+  topic?: string
+  /** Discord channel. (resolve via property options API) */
+  parent_id?: string
+  /** NSFW */
+  nsfw?: boolean
+  /** Audit Log Reason */
+  reason?: string
 }
 
-/** Discord — Create guild role */
-export interface DiscordCreateGuildRoleInput {
-  /** List of guilds (resolve via property options API) */
+/** Discord — Rename Channel */
+export interface DiscordRenameChannelInput {
+  /** Discord server. (resolve via property options API) */
   guild_id: string
-  /** The name of the role */
-  role_name: string
-  /** The RGB color of the role (may be better to set manually on the server) */
-  role_color?: string
-  /** Whether the role should be displayed separately in the sidebar */
-  display_separated?: boolean
-  /** Whether the role can be mentioned by other users */
-  role_mentionable?: boolean
-  /** The reason for creating the role */
-  creation_reason?: string
+  /** Discord channel. (resolve via property options API) */
+  channel_id: string
+  /** New Channel Name */
+  name: string
+  /** Topic */
+  topic?: string
+  /** Audit Log Reason */
+  reason?: string
 }
 
-/** Discord — Delete guild role */
-export interface DiscordDeleteGuildRoleInput {
-  /** List of guilds (resolve via property options API) */
+/** Discord — Delete Channel */
+export interface DiscordDeleteChannelInput {
+  /** Discord server. (resolve via property options API) */
   guild_id: string
-  /** List of roles (resolve via property options API) */
+  /** Discord channel. (resolve via property options API) */
+  channel_id: string
+  /** Audit Log Reason */
+  reason?: string
+}
+
+/** Discord — List Guild Members */
+export interface DiscordListGuildMembersInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Discord — Add Role To Member */
+export interface DiscordAddRoleToMemberInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** Discord guild member. (resolve via property options API) */
+  member_id: string
+  /** Discord role. (resolve via property options API) */
   role_id: string
-  /** The reason for deleting the role */
-  deletion_reason?: string
+  /** Audit Log Reason */
+  reason?: string
 }
 
-/** Discord — Ban guild member */
-export interface DiscordBanGuildMemberInput {
-  /** List of guilds (resolve via property options API) */
+/** Discord — Remove Role From Member */
+export interface DiscordRemoveRoleFromMemberInput {
+  /** Discord server. (resolve via property options API) */
   guild_id: string
-  /** The user id of the member */
+  /** Discord guild member. (resolve via property options API) */
+  member_id: string
+  /** Discord role. (resolve via property options API) */
+  role_id: string
+  /** Audit Log Reason */
+  reason?: string
+}
+
+/** Discord — Ban Member */
+export interface DiscordBanMemberInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** User ID */
   user_id: string
-  /** The reason for banning the member */
-  ban_reason?: string
+  /** Delete Message Seconds */
+  delete_message_seconds?: number
+  /** Audit Log Reason */
+  reason?: string
+}
+
+/** Discord — Unban Member */
+export interface DiscordUnbanMemberInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** User ID */
+  user_id: string
+  /** Audit Log Reason */
+  reason?: string
+}
+
+/** Discord — Create Role */
+export interface DiscordCreateRoleInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** Role Name */
+  name: string
+  /** Decimal RGB color value. */
+  color?: number
+  /** Display Separately */
+  hoist?: boolean
+  /** Mentionable */
+  mentionable?: boolean
+  /** Permissions Bitset */
+  permissions?: string
+  /** Audit Log Reason */
+  reason?: string
+}
+
+/** Discord — Delete Role */
+export interface DiscordDeleteRoleInput {
+  /** Discord server. (resolve via property options API) */
+  guild_id: string
+  /** Discord role. (resolve via property options API) */
+  role_id: string
+  /** Audit Log Reason */
+  reason?: string
 }
 
 /** Discord — Custom API Call */
 export interface DiscordCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Example: /guilds/{guild_id}/channels */
+  path: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Headers */
+  headers?: Record<string, unknown>
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  query_params?: unknown
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Discourse — Create Post */
@@ -30093,116 +30103,79 @@ export interface TeamworkFindNotebookOrCommentInput {
 
 /** Telegram Bot — Send Text Message */
 export interface TelegramBotSendTextMessageInput {
-  /**   **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found.**  */
-  instructions?: string
-  /** Chat Id */
+  /** Chat ID */
   chat_id: string
-  /** Unique identifier for the target message thread of the forums; for forums supergroups only */
-  message_thread_id?: string
-  /** Choose format you want  (values: `MarkdownV2`, `HTML`) */
-  format?: "MarkdownV2" | "HTML"
-  /**  [Link example](https://core.telegram.org/bots/api#formatting-options)  */
-  instructions_format?: string
-  /** Disable link previews for links in this message */
-  web_page_preview?: boolean
-  /** The message to be sent */
-  message: string
-  /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. Use special actions such as Build Inline Keyboard to generate this JSON object. */
+  /** Message Text */
+  text: string
+  /** Message Thread ID */
+  message_thread_id?: number
+  /** Parse Mode (values: ``, `HTML`, `MarkdownV2`, `Markdown`) */
+  parse_mode?: "" | "HTML" | "MarkdownV2" | "Markdown"
+  /** Disable Web Preview */
+  disable_web_page_preview?: boolean
+  /** Optional Telegram reply_markup JSON. */
   reply_markup?: unknown
 }
 
 /** Telegram Bot — Send Media */
 export interface TelegramBotSendMediaInput {
-  /**   **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found.**  */
-  instructions?: string
-  /** Chat Id */
+  /** Chat ID */
   chat_id: string
-  /** Unique identifier for the target message thread of the forums; for forums supergroups only */
-  message_thread_id?: string
-  /** Media Type (values: `photo`, `video`, `sticker`, `animation`) */
-  media_type?: "photo" | "video" | "sticker" | "animation"
-  /** Media Properties */
-  media?: Record<string, unknown>
-  /** Choose format you want  (values: `MarkdownV2`, `HTML`) */
-  format?: "MarkdownV2" | "HTML"
-  /**  [Link example](https://core.telegram.org/bots/api#formatting-options)  */
-  instructions_format?: string
-  /** The message to be sent */
-  message: string
-  /** Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user. Use special actions such as Build Inline Keyboard to generate this JSON object. */
+  /** Media Type (values: `photo`, `video`, `audio`, `document`, `animation`, `voice`, `sticker`) */
+  media_type: "photo" | "video" | "audio" | "document" | "animation" | "voice" | "sticker"
+  /** Media URL Or File ID */
+  media: string
+  /** Caption */
+  caption?: string
+  /** Message Thread ID */
+  message_thread_id?: number
+  /** Parse Mode (values: ``, `HTML`, `MarkdownV2`, `Markdown`) */
+  parse_mode?: "" | "HTML" | "MarkdownV2" | "Markdown"
+  /** Optional Telegram reply_markup JSON. */
   reply_markup?: unknown
 }
 
 /** Telegram Bot — Get Chat Member */
 export interface TelegramBotGetChatMemberInput {
-  /**  **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found.**  */
-  instructions?: string
-  /** Chat Id */
+  /** Chat ID */
   chat_id: string
-  /** Unique identifier for the user */
+  /** User ID */
   user_id: string
 }
 
 /** Telegram Bot — Get File */
 export interface TelegramBotGetFileInput {
-  /** File identifier to get information about */
+  /** File ID */
   file_id: string
-  /** If enabled, the file will be downloaded and returned as base64 */
-  download?: boolean
 }
 
 /** Telegram Bot — Create Invite Link */
 export interface TelegramBotCreateInviteLinkInput {
-  /**  **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found.**  */
-  instructions?: string
-  /** Chat Id */
+  /** Chat ID */
   chat_id: string
-  /** Name of the invite link (max 32 chars) */
+  /** Name */
   name?: string
-  /** Point in time when the link will expire */
+  /** Unix timestamp in seconds. */
   expire_date?: string
-  /** Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999 */
+  /** Member Limit */
   member_limit?: number
+  /** Creates Join Request */
+  creates_join_request?: boolean
 }
 
-/** Telegram Bot — Request Approval Message */
-export interface TelegramBotRequestApprovalMessageInput {
-  /**  **How to obtain Chat ID:** 1. Search for the bot "@getmyid_bot" in Telegram. 2. Start a conversation with the bot. 3. Send the command "/my_id" to the bot. 4. The bot will reply with your chat ID.  **Note: Remember to initiate the chat with the bot, or you'll get an error for "chat not found."**  */
-  instructions?: string
-  /** Chat Id */
-  chat_id: string
-  /** The approval message to be sent */
-  message: string
-  /** Choose format for the message (values: `MarkdownV2`, `HTML`, `None`) */
-  parse_mode?: "MarkdownV2" | "HTML" | "None"
-  /** Text for the approve button */
-  approve_button_text?: string
-  /** Text for the disapprove button */
-  disapprove_button_text?: string
-}
+/** Telegram Bot — Get Bot Info */
+export type TelegramBotGetBotInfoInput = Record<string, never>
 
 /** Telegram Bot — Custom API Call */
 export interface TelegramBotCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Example: sendMessage */
+  method_name: string
+  /** HTTP Method (values: `GET`, `POST`) */
+  http_method: "GET" | "POST"
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  query_params?: unknown
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
 }
 
 /** Telnyx — Send Message */
@@ -35681,21 +35654,19 @@ export interface IntegrationActionInputMap {
   'digital-ocean.list_database_clusters': DigitalOceanListDatabaseClustersInput
   'digital-ocean.list_database_events': DigitalOceanListDatabaseEventsInput
   'digital-ocean.custom_api_call': DigitalOceanCustomApiCallInput
-  'discord.sendMessageWithBot': DiscordSendMessageWithBotInput
-  'discord.send_message_webhook': DiscordSendMessageWebhookInput
-  'discord.request_approval_message': DiscordRequestApprovalMessageInput
+  'discord.send_channel_message': DiscordSendChannelMessageInput
+  'discord.send_webhook_message': DiscordSendWebhookMessageInput
+  'discord.find_channel': DiscordFindChannelInput
+  'discord.create_channel': DiscordCreateChannelInput
+  'discord.rename_channel': DiscordRenameChannelInput
+  'discord.delete_channel': DiscordDeleteChannelInput
+  'discord.list_guild_members': DiscordListGuildMembersInput
   'discord.add_role_to_member': DiscordAddRoleToMemberInput
   'discord.remove_role_from_member': DiscordRemoveRoleFromMemberInput
-  'discord.remove_member_from_guild': DiscordRemoveMemberFromGuildInput
-  'discord.list_guild_members': DiscordListGuildMembersInput
-  'discord.rename_channel': DiscordRenameChannelInput
-  'discord.create_channel': DiscordCreateChannelInput
-  'discord.delete_channel': DiscordDeleteChannelInput
-  'discord.find_channel': DiscordFindChannelInput
-  'discord.remove_ban_from_user': DiscordRemoveBanFromUserInput
-  'discord.createGuildRole': DiscordCreateGuildRoleInput
-  'discord.deleteGuildRole': DiscordDeleteGuildRoleInput
-  'discord.ban_guild_member': DiscordBanGuildMemberInput
+  'discord.ban_member': DiscordBanMemberInput
+  'discord.unban_member': DiscordUnbanMemberInput
+  'discord.create_role': DiscordCreateRoleInput
+  'discord.delete_role': DiscordDeleteRoleInput
   'discord.custom_api_call': DiscordCustomApiCallInput
   'discourse.create_post': DiscourseCreatePostInput
   'discourse.create_topic': DiscourseCreateTopicInput
@@ -37659,7 +37630,7 @@ export interface IntegrationActionInputMap {
   'telegram-bot.get_chat_member': TelegramBotGetChatMemberInput
   'telegram-bot.get_file': TelegramBotGetFileInput
   'telegram-bot.create_invite_link': TelegramBotCreateInviteLinkInput
-  'telegram-bot.request_approval_message': TelegramBotRequestApprovalMessageInput
+  'telegram-bot.get_bot_info': TelegramBotGetBotInfoInput
   'telegram-bot.custom_api_call': TelegramBotCustomApiCallInput
   'telnyx.send_message': TelnyxSendMessageInput
   'telnyx.list_messaging_profiles': TelnyxListMessagingProfilesInput
@@ -38990,21 +38961,19 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': DigitalOceanCustomApiCallInput
   }
   'discord': {
-    'sendMessageWithBot': DiscordSendMessageWithBotInput
-    'send_message_webhook': DiscordSendMessageWebhookInput
-    'request_approval_message': DiscordRequestApprovalMessageInput
+    'send_channel_message': DiscordSendChannelMessageInput
+    'send_webhook_message': DiscordSendWebhookMessageInput
+    'find_channel': DiscordFindChannelInput
+    'create_channel': DiscordCreateChannelInput
+    'rename_channel': DiscordRenameChannelInput
+    'delete_channel': DiscordDeleteChannelInput
+    'list_guild_members': DiscordListGuildMembersInput
     'add_role_to_member': DiscordAddRoleToMemberInput
     'remove_role_from_member': DiscordRemoveRoleFromMemberInput
-    'remove_member_from_guild': DiscordRemoveMemberFromGuildInput
-    'list_guild_members': DiscordListGuildMembersInput
-    'rename_channel': DiscordRenameChannelInput
-    'create_channel': DiscordCreateChannelInput
-    'delete_channel': DiscordDeleteChannelInput
-    'find_channel': DiscordFindChannelInput
-    'remove_ban_from_user': DiscordRemoveBanFromUserInput
-    'createGuildRole': DiscordCreateGuildRoleInput
-    'deleteGuildRole': DiscordDeleteGuildRoleInput
-    'ban_guild_member': DiscordBanGuildMemberInput
+    'ban_member': DiscordBanMemberInput
+    'unban_member': DiscordUnbanMemberInput
+    'create_role': DiscordCreateRoleInput
+    'delete_role': DiscordDeleteRoleInput
     'custom_api_call': DiscordCustomApiCallInput
   }
   'discourse': {
@@ -41612,7 +41581,7 @@ export interface IntegrationActionInputsByIntegration {
     'get_chat_member': TelegramBotGetChatMemberInput
     'get_file': TelegramBotGetFileInput
     'create_invite_link': TelegramBotCreateInviteLinkInput
-    'request_approval_message': TelegramBotRequestApprovalMessageInput
+    'get_bot_info': TelegramBotGetBotInfoInput
     'custom_api_call': TelegramBotCustomApiCallInput
   }
   'telnyx': {
@@ -43586,21 +43555,19 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'discord': [
-    'sendMessageWithBot',
-    'send_message_webhook',
-    'request_approval_message',
+    'send_channel_message',
+    'send_webhook_message',
+    'find_channel',
+    'create_channel',
+    'rename_channel',
+    'delete_channel',
+    'list_guild_members',
     'add_role_to_member',
     'remove_role_from_member',
-    'remove_member_from_guild',
-    'list_guild_members',
-    'rename_channel',
-    'create_channel',
-    'delete_channel',
-    'find_channel',
-    'remove_ban_from_user',
-    'createGuildRole',
-    'deleteGuildRole',
-    'ban_guild_member',
+    'ban_member',
+    'unban_member',
+    'create_role',
+    'delete_role',
     'custom_api_call',
   ],
   'discourse': [
@@ -46208,7 +46175,7 @@ export const integrationActions = {
     'get_chat_member',
     'get_file',
     'create_invite_link',
-    'request_approval_message',
+    'get_bot_info',
     'custom_api_call',
   ],
   'telnyx': [
