@@ -122,7 +122,7 @@ import { WeavzClient, WeavzError } from '@weavz/sdk'
 try {
   await client.actions.execute('slack', 'send_channel_message', {
     workspaceId: '550e8400-e29b-41d4-a716-446655440000',
-    input: {},
+    input: { channel: '#general', text: 'Hello!' },
   })
 } catch (err) {
   if (err instanceof WeavzError) {

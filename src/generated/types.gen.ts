@@ -17,6 +17,7 @@ export type Error = {
     | "NOT_FOUND"
     | "DUPLICATE"
     | "QUOTA_EXCEEDED"
+    | "RATE_LIMITED"
     | "UNAUTHORIZED"
     | "FORBIDDEN"
     | "SCOPE_DENIED"
