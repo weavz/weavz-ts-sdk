@@ -32139,8 +32139,8 @@ export interface WebReaderExtractStructuredDataInput {
 
 /** Web Reader — Fetch Multiple URLs */
 export interface WebReaderFetchMultipleInput {
-  /** Array of URLs to fetch (string array) */
-  urls: unknown
+  /** URLs to fetch, one URL string per item */
+  urls: string[]
   /** Output format for fetched content (values: `text`, `markdown`) */
   format?: "text" | "markdown"
 }
