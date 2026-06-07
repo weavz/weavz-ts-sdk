@@ -23,10 +23,12 @@ const workspaceId = '550e8400-e29b-41d4-a716-446655440000'
 // List connections
 const { connections } = await client.connections.list()
 
-// Expose configured Slack tools to MCP Code Mode through the `slack` alias
+// Expose configured Slack tools through a purpose-readable alias.
+// Agents see this as `weavz.office_slack` in Code Mode and
+// `office_slack__send_channel_message` in Tool Mode.
 await client.workspaces.addIntegration(workspaceId, {
   integrationName: 'slack',
-  alias: 'slack',
+  alias: 'office_slack',
   connectionStrategy: 'per_user',
 })
 
@@ -34,7 +36,7 @@ await client.workspaces.addIntegration(workspaceId, {
 const result = await client.actions.execute('slack', 'send_channel_message', {
   input: { channel: '#general', text: 'Hello from Weavz!' },
   workspaceId,
-  integrationAlias: 'slack',
+  integrationAlias: 'office_slack',
 })
 
 // Create an OAuth-enabled MCP server
@@ -57,7 +59,10 @@ const { bearerToken } = await client.mcpServers.createBearerToken(bearerServer.i
   endUserId: 'user_123',
 })
 
-const run = await client.mcpServers.executeCode(server.id, 'return await weavz.slack.send_channel_message({ channel: "C123", text: "Hello" })')
+const run = await client.mcpServers.executeCode(
+  server.id,
+  'await weavz.office_slack.send_channel_message({ channel: "C123", text: "Hello" })'
+)
 
 // If Human Gates returns approval_required, approve it and fetch the stored run:
 const approved = await client.mcpServers.executeCode(server.id, {
@@ -135,6 +140,7 @@ import { WeavzClient, WeavzError } from '@weavz/sdk'
 try {
   await client.actions.execute('slack', 'send_channel_message', {
     workspaceId: '550e8400-e29b-41d4-a716-446655440000',
+    integrationAlias: 'office_slack',
     input: { channel: '#general', text: 'Hello!' },
   })
 } catch (err) {

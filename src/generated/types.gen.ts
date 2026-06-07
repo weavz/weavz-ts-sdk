@@ -209,7 +209,13 @@ export type PersistenceWorkspaceSettings = {
 export type WorkspaceIntegration = {
   id: string;
   workspaceId: string;
+  /**
+   * Catalog app slug, such as `slack`.
+   */
   integrationName: string;
+  /**
+   * Configured workspace integration alias agents use as the Code Mode namespace and Tool Mode tool prefix, such as `office_slack`.
+   */
   alias: string;
   connectionStrategy: "fixed" | "per_user" | "per_user_with_fallback";
   connectionId: string;
@@ -348,11 +354,11 @@ export type McpServerTool = {
   id: string;
   mcpServerId: string;
   /**
-   * Actual integration name
+   * Catalog app slug, such as `slack`.
    */
   integrationName: string;
   /**
-   * Alias for the integration on this server (defaults to integrationName)
+   * Configured alias selector for this server tool. Tool Mode names use this as the `{alias}__{action}` prefix and Code Mode exposes synced workspace integrations as `weavz.<alias>`.
    */
   integrationAlias: string;
   actionName: string;
@@ -1381,7 +1387,7 @@ export type AddWorkspaceIntegrationData = {
   body: {
     integrationName: string;
     /**
-     * Optional alias (defaults to integrationName)
+     * Configured workspace integration alias. Agents use this as `weavz.<alias>` in Code Mode and `{alias}__{action}` in Tool Mode. Prefer purpose-readable names such as `office_slack`, `support_slack_bot`, `customer_gmail`, or `billing_stripe`. Defaults to `integrationName` when omitted.
      */
     alias?: string;
     connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback";
@@ -1533,7 +1539,7 @@ export type ExecuteActionData = {
      */
     endUserId?: string;
     /**
-     * Optional integration alias to resolve connection from workspace integrations
+     * Configured workspace integration alias to resolve connection strategy, partials, and action settings when `workspaceIntegrationId` is not provided.
      */
     integrationAlias?: string;
     /**
@@ -2194,7 +2200,7 @@ export type EnableTriggerData = {
      */
     workspaceIntegrationId?: string;
     /**
-     * Workspace integration alias to use when workspaceIntegrationId is not provided.
+     * Configured workspace integration alias to use when `workspaceIntegrationId` is not provided.
      */
     integrationAlias?: string;
     /**
@@ -2835,7 +2841,7 @@ export type AddMcpServerToolData = {
     integrationName: string;
     actionName: string;
     /**
-     * Optional alias (defaults to integrationName)
+     * Optional server-local alias selector. Tool Mode names use this as the `{alias}__{action}` prefix. Prefer purpose-readable names such as `office_slack`; defaults to `integrationName` when omitted.
      */
     integrationAlias?: string;
     toolType?: "ACTION";
