@@ -747,6 +747,16 @@ export interface AhrefsCustomApiCallInput {
   body?: unknown
 }
 
+/** AI Toolkit — Ask JSON */
+export interface AiToolkitAskJsonInput {
+  /** The task or question to answer as JSON. */
+  prompt: string
+  /** Optional JSON object describing the expected output shape, e.g. {"summary": "string", "claims": "array"}. */
+  schema?: unknown
+  /** Optional extra constraints for the JSON response. */
+  instructions?: string
+}
+
 /** AI Toolkit — Extract Structured Data */
 export interface AiToolkitExtractStructuredDataInput {
   /** Text to extract data from */
@@ -7554,28 +7564,44 @@ export interface DeeplCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** DeepSeek — Ask Deepseek */
+/** DeepSeek — Ask DeepSeek */
 export interface DeepseekAskDeepseekInput {
-  /** The model which will generate the completion. (resolve via property options API) */
-  model: string
+  /** The DeepSeek model which will generate the completion. (values: `deepseek-chat`, `deepseek-reasoner`) */
+  model: "deepseek-chat" | "deepseek-reasoner"
   /** Question */
   prompt: string
-  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. */
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency. */
   frequencyPenalty?: number
   /** The maximum number of tokens to generate. Possible values are between 1 and 8192. */
   maxTokens: number
-  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the mode's likelihood to talk about new topics. */
+  /** Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far. */
   presencePenalty?: number
-  /** The format of the response. IMPORTANT: When using JSON Output, you must also instruct the model to produce JSON yourself (values: `text`, `json_object`) */
+  /** Use JSON when your prompt explicitly asks DeepSeek to produce JSON. (values: `text`, `json_object`) */
   responseFormat: "text" | "json_object"
-  /** Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive. Between 0 and 2. We generally recommend altering this or top_p but not both. */
+  /** Controls randomness. Between 0 and 2. */
   temperature?: number
-  /** An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. Values <=1. We generally recommend altering this or temperature but not both. */
+  /** Nucleus sampling. Use either top_p or temperature for most runs. */
   topP?: number
-  /** A memory key that will keep the chat history shared across runs and flows. Keep it empty to leave Deepseek without memory of previous messages. */
+  /** A memory key that keeps chat history shared across runs. Leave empty for stateless calls. */
   memoryKey?: string
-  /** Array of roles to specify more accurate response */
+  /** Array of role messages for system, user, or assistant context. */
   roles?: unknown
+}
+
+/** DeepSeek — Ask JSON */
+export interface DeepseekAskJsonInput {
+  /** The DeepSeek model which will generate the completion. (values: `deepseek-chat`, `deepseek-reasoner`) */
+  model: "deepseek-chat" | "deepseek-reasoner"
+  /** The task or question to answer as JSON. */
+  prompt: string
+  /** Optional JSON object describing the expected output shape. Keep it compact. */
+  schema?: unknown
+  /** Optional extra constraints for the JSON response. */
+  instructions?: string
+  /** Sampling temperature between 0 and 2. */
+  temperature?: number
+  /** The maximum number of tokens to generate. */
+  maxTokens?: number
 }
 
 /** Descript — List Projects */
@@ -22733,6 +22759,22 @@ export interface OpenaiChatCompletionInput {
   max_tokens?: number
 }
 
+/** OpenAI — Ask JSON */
+export interface OpenaiAskJsonInput {
+  /** The OpenAI model to use for JSON output. (values: `gpt-4o-mini`, `gpt-4o`, `gpt-4-turbo`) */
+  model: "gpt-4o-mini" | "gpt-4o" | "gpt-4-turbo"
+  /** The task or question to answer as JSON. */
+  prompt: string
+  /** Optional JSON object describing the expected output shape. Keep it compact. */
+  schema?: unknown
+  /** Optional extra constraints for the JSON response. */
+  instructions?: string
+  /** Sampling temperature between 0 and 2. */
+  temperature?: number
+  /** Maximum number of tokens to generate. */
+  max_tokens?: number
+}
+
 /** OpenAI — Create Embedding */
 export interface OpenaiCreateEmbeddingInput {
   /** Model (values: `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002`) */
@@ -35040,6 +35082,7 @@ export interface IntegrationActionInputMap {
   'ahrefs.get_organic_keywords': AhrefsGetOrganicKeywordsInput
   'ahrefs.get_domain_rating': AhrefsGetDomainRatingInput
   'ahrefs.custom_api_call': AhrefsCustomApiCallInput
+  'ai-toolkit.ask_json': AiToolkitAskJsonInput
   'ai-toolkit.extract_structured_data': AiToolkitExtractStructuredDataInput
   'ai-toolkit.classify_text': AiToolkitClassifyTextInput
   'ai-toolkit.transform_data': AiToolkitTransformDataInput
@@ -35632,6 +35675,7 @@ export interface IntegrationActionInputMap {
   'deepl.translate_text': DeeplTranslateTextInput
   'deepl.custom_api_call': DeeplCustomApiCallInput
   'deepseek.ask_deepseek': DeepseekAskDeepseekInput
+  'deepseek.ask_json': DeepseekAskJsonInput
   'descript.list_projects': DescriptListProjectsInput
   'descript.get_project': DescriptGetProjectInput
   'descript.export_media': DescriptExportMediaInput
@@ -36931,6 +36975,7 @@ export interface IntegrationActionInputMap {
   'onfleet.get_teams': OnfleetGetTeamsInput
   'onfleet.custom_api_call': OnfleetCustomApiCallInput
   'openai.chat_completion': OpenaiChatCompletionInput
+  'openai.ask_json': OpenaiAskJsonInput
   'openai.create_embedding': OpenaiCreateEmbeddingInput
   'openai.generate_image': OpenaiGenerateImageInput
   'openai.transcribe_audio': OpenaiTranscribeAudioInput
@@ -38143,6 +38188,7 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': AhrefsCustomApiCallInput
   }
   'ai-toolkit': {
+    'ask_json': AiToolkitAskJsonInput
     'extract_structured_data': AiToolkitExtractStructuredDataInput
     'classify_text': AiToolkitClassifyTextInput
     'transform_data': AiToolkitTransformDataInput
@@ -38931,6 +38977,7 @@ export interface IntegrationActionInputsByIntegration {
   }
   'deepseek': {
     'ask_deepseek': DeepseekAskDeepseekInput
+    'ask_json': DeepseekAskJsonInput
   }
   'descript': {
     'list_projects': DescriptListProjectsInput
@@ -40638,6 +40685,7 @@ export interface IntegrationActionInputsByIntegration {
   }
   'openai': {
     'chat_completion': OpenaiChatCompletionInput
+    'ask_json': OpenaiAskJsonInput
     'create_embedding': OpenaiCreateEmbeddingInput
     'generate_image': OpenaiGenerateImageInput
     'transcribe_audio': OpenaiTranscribeAudioInput
@@ -42737,6 +42785,7 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'ai-toolkit': [
+    'ask_json',
     'extract_structured_data',
     'classify_text',
     'transform_data',
@@ -43525,6 +43574,7 @@ export const integrationActions = {
   ],
   'deepseek': [
     'ask_deepseek',
+    'ask_json',
   ],
   'descript': [
     'list_projects',
@@ -45232,6 +45282,7 @@ export const integrationActions = {
   ],
   'openai': [
     'chat_completion',
+    'ask_json',
     'create_embedding',
     'generate_image',
     'transcribe_audio',
