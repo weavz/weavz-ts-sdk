@@ -609,8 +609,8 @@ class McpServersResource extends BaseResource {
     const body = typeof input === 'string' ? { code: input } : input
     return this._post<{ content: unknown[]; isError: boolean }>(`/api/v1/mcp/servers/${serverId}/execute-code`, body)
   }
-  getDeclarations(serverId: string, integrationOrAlias: string) {
-    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${integrationOrAlias}`)
+  getDeclarations(serverId: string, alias: string) {
+    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${alias}`)
   }
 }
 

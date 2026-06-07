@@ -3042,12 +3042,12 @@ export type GetMcpDeclarationsData = {
   path: {
     id: string;
     /**
-     * Integration name or alias
+     * Configured integration alias on this MCP server
      */
-    integrationOrAlias: string;
+    alias: string;
   };
   query?: never;
-  url: "/api/v1/mcp/servers/{id}/declarations/{integrationOrAlias}";
+  url: "/api/v1/mcp/servers/{id}/declarations/{alias}";
 };
 
 export type GetMcpDeclarationsErrors = {
