@@ -44,9 +44,12 @@
     "agents"
   ],
   "license": "MIT",
+  "homepage": "https://weavz.io/docs/sdks/typescript",
   "repository": {
     "type": "git",
-    "url": "https://github.com/weavz/weavz",
-    "directory": "sdks/typescript"
+    "url": "https://github.com/weavz/weavz-ts-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/weavz/weavz-ts-sdk/issues"
   }
 }
