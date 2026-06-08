@@ -1,8 +1,8 @@
 # Weavz TypeScript SDK
 
-Official TypeScript SDK for [Weavz](https://weavz.io), the integration and MCP infrastructure platform for SaaS and AI products.
+Official TypeScript SDK for [Weavz](https://weavz.io), the stateful agent runtime for SaaS and AI products.
 
-Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, and scoped state across 500+ integrations.
+Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, Filesystem, State KV, Sandbox execution, and 500+ integrations.
 
 ## Links
 
@@ -37,6 +37,8 @@ const client = new WeavzClient({
 - Remote MCP servers for Claude, ChatGPT, Codex, Cursor, and custom agents
 - Code Mode MCP servers where agents search, inspect, and call workspace integrations dynamically
 - Tool Mode MCP servers with a small explicit tool list
+- Filesystem and State KV for durable files, checkpoints, cursors, and lightweight agent state
+- Sandbox workflows that run JavaScript, Python, or Shell through the runtime
 - Human Gates for approvals before sensitive actions run
 - Input partials for defaults, locked fields, and reusable action configuration
 - Triggers and webhooks that forward integration events into your product

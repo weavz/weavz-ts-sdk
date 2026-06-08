@@ -1,7 +1,7 @@
 {
   "name": "@weavz/sdk",
   "version": "0.1.0",
-  "description": "TypeScript SDK for the Weavz API",
+  "description": "TypeScript SDK for Weavz stateful agent runtime APIs",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -41,7 +41,11 @@
     "api",
     "integrations",
     "mcp",
-    "agents"
+    "agents",
+    "agent-runtime",
+    "stateful-agents",
+    "filesystem",
+    "sandbox"
   ],
   "license": "MIT",
   "homepage": "https://weavz.io/docs/sdks/typescript",
