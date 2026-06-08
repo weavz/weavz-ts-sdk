@@ -389,6 +389,116 @@ export interface AcuitySchedulingCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Adobe Firefly Services — Generate Image */
+export interface AdobeFireflyServicesGenerateImageInput {
+  /** Prompt */
+  prompt: string
+  /** Width */
+  width?: number
+  /** Height */
+  height?: number
+  /** Number of Variations */
+  numVariations?: number
+  /** Prompt Biasing Locale Code */
+  promptBiasingLocaleCode?: string
+  /** Style */
+  style?: unknown
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Adobe Firefly Services — Generate Image Async */
+export interface AdobeFireflyServicesGenerateImageAsyncInput {
+  /** Prompt */
+  prompt: string
+  /** Width */
+  width?: number
+  /** Height */
+  height?: number
+  /** Number of Variations */
+  numVariations?: number
+  /** Prompt Biasing Locale Code */
+  promptBiasingLocaleCode?: string
+  /** Style */
+  style?: unknown
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Adobe Firefly Services — Upload Image */
+export interface AdobeFireflyServicesUploadImageInput {
+  /** Raw base64 or a data URL. */
+  imageBase64: string
+  /** Content Type (values: `image/png`, `image/jpeg`, `image/webp`, `image/tiff`, `image/jxl`) */
+  contentType: "image/png" | "image/jpeg" | "image/webp" | "image/tiff" | "image/jxl"
+}
+
+/** Adobe Firefly Services — Expand Image Async */
+export interface AdobeFireflyServicesExpandImageAsyncInput {
+  /** Official Firefly expand request body. */
+  body: unknown
+}
+
+/** Adobe Firefly Services — Fill Image */
+export interface AdobeFireflyServicesFillImageInput {
+  /** Official Firefly fill request body. */
+  body: unknown
+}
+
+/** Adobe Firefly Services — Get Firefly Job Status */
+export interface AdobeFireflyServicesGetFireflyJobStatusInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** Adobe Firefly Services — Remove Background */
+export interface AdobeFireflyServicesRemoveBackgroundInput {
+  /** Official image object, for example { "source": { "url": "..." } }. */
+  image: unknown
+  /** Mode (values: `cutout`, `mask`) */
+  mode?: "cutout" | "mask"
+  /** Trim Transparent Edges */
+  trim?: boolean
+  /** Background Color */
+  backgroundColor?: unknown
+  /** Color Decontamination */
+  colorDecontamination?: number
+  /** Defaults to { "mediaType": "image/png" }. */
+  output?: unknown
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Adobe Firefly Services — Get Photoshop Job Status */
+export interface AdobeFireflyServicesGetPhotoshopJobStatusInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** Adobe Firefly Services — Custom Firefly API Call */
+export interface AdobeFireflyServicesCustomFireflyApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+}
+
+/** Adobe Firefly Services — Custom Photoshop API Call */
+export interface AdobeFireflyServicesCustomPhotoshopApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+}
+
 /** ADP — List Workers */
 export interface AdpListWorkersInput {
   /** Maximum number of workers to return */
@@ -995,6 +1105,52 @@ export interface AirtableCustomApiCallInput {
   body?: unknown
   /** JSON query parameters */
   query_params?: unknown
+}
+
+/** Alma — Get MCP Setup Info */
+export type AlmaGetMcpSetupInfoInput = Record<string, never>
+
+/** Alma — Get OAuth Metadata */
+export interface AlmaGetOauthMetadataInput {
+  /** Metadata Base URL */
+  metadataBaseUrl?: string
+}
+
+/** Alma — Initialize MCP Session */
+export interface AlmaInitializeMcpSessionInput {
+  /** Protocol Version */
+  protocolVersion?: string
+  /** Client Name */
+  clientName?: string
+  /** Client Version */
+  clientVersion?: string
+}
+
+/** Alma — List MCP Tools */
+export type AlmaListMcpToolsInput = Record<string, never>
+
+/** Alma — Search MCP Tools */
+export interface AlmaSearchMcpToolsInput {
+  /** Query */
+  query: string
+}
+
+/** Alma — Call MCP Tool */
+export interface AlmaCallMcpToolInput {
+  /** Tool Name */
+  toolName: string
+  /** Arguments */
+  arguments?: unknown
+}
+
+/** Alma — Custom MCP Request */
+export interface AlmaCustomMcpRequestInput {
+  /** Method */
+  method: string
+  /** Params */
+  params?: unknown
+  /** Request ID */
+  id?: string
 }
 
 /** Amazon S3 — Upload File */
@@ -2058,6 +2214,481 @@ export interface AthenahealthListDepartmentsInput {
   limit?: number
   /** Offset */
   offset?: number
+}
+
+/** Atlassian — Jira List Sites */
+export type AtlassianJiraListSitesInput = Record<string, never>
+
+/** Atlassian — Jira List Projects */
+export interface AtlassianJiraListProjectsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Query */
+  query?: string
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Atlassian — Jira Get Project */
+export interface AtlassianJiraGetProjectInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Project ID or Key */
+  projectIdOrKey: string
+}
+
+/** Atlassian — Jira List Issue Types */
+export interface AtlassianJiraListIssueTypesInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Project ID */
+  projectId?: string
+}
+
+/** Atlassian — Jira Get Create Metadata */
+export interface AtlassianJiraGetCreateMetadataInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Comma-separated project IDs. */
+  projectIds?: string
+  /** Comma-separated issue type IDs. */
+  issueTypeIds?: string
+}
+
+/** Atlassian — Jira Search Issues JQL */
+export interface AtlassianJiraSearchIssuesJqlInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** JQL */
+  jql: string
+  /** Comma-separated fields. */
+  fields?: string
+  /** Max Results */
+  maxResults?: number
+  /** Next Page Token */
+  nextPageToken?: string
+}
+
+/** Atlassian — Jira Get Issue */
+export interface AtlassianJiraGetIssueInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Atlassian — Jira Create Issue */
+export interface AtlassianJiraCreateIssueInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Project ID or Key */
+  projectIdOrKey: string
+  /** Issue Type ID or Name */
+  issueTypeIdOrName: string
+  /** Summary */
+  summary: string
+  /** Description */
+  description?: string
+  /** Text Mode (values: `plain_text`, `markdown`, `adf_json`) */
+  descriptionMode?: "plain_text" | "markdown" | "adf_json"
+  /** Additional Fields */
+  fields?: unknown
+}
+
+/** Atlassian — Jira Update Issue */
+export interface AtlassianJiraUpdateIssueInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Summary */
+  summary?: string
+  /** Description */
+  description?: string
+  /** Text Mode (values: `plain_text`, `markdown`, `adf_json`) */
+  descriptionMode?: "plain_text" | "markdown" | "adf_json"
+  /** Additional Fields */
+  fields?: unknown
+}
+
+/** Atlassian — Jira List Transitions */
+export interface AtlassianJiraListTransitionsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+}
+
+/** Atlassian — Jira Transition Issue */
+export interface AtlassianJiraTransitionIssueInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Transition ID */
+  transitionId: string
+  /** Fields */
+  fields?: unknown
+}
+
+/** Atlassian — Jira Assign Issue */
+export interface AtlassianJiraAssignIssueInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Account ID */
+  accountId: string
+}
+
+/** Atlassian — Jira List Comments */
+export interface AtlassianJiraListCommentsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Atlassian — Jira Add Comment */
+export interface AtlassianJiraAddCommentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Comment */
+  body: string
+  /** Text Mode (values: `plain_text`, `markdown`, `adf_json`) */
+  bodyMode?: "plain_text" | "markdown" | "adf_json"
+}
+
+/** Atlassian — Jira Update Comment */
+export interface AtlassianJiraUpdateCommentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Comment ID */
+  commentId: string
+  /** Comment */
+  body: string
+  /** Text Mode (values: `plain_text`, `markdown`, `adf_json`) */
+  bodyMode?: "plain_text" | "markdown" | "adf_json"
+}
+
+/** Atlassian — Jira Add Attachment */
+export interface AtlassianJiraAddAttachmentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** File */
+  file: string
+}
+
+/** Atlassian — Jira Get Attachment */
+export interface AtlassianJiraGetAttachmentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Attachment ID */
+  attachmentId: string
+}
+
+/** Atlassian — Jira Link Issues */
+export interface AtlassianJiraLinkIssuesInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Link Type Name */
+  typeName: string
+  /** Inward Issue Key */
+  inwardIssueKey: string
+  /** Outward Issue Key */
+  outwardIssueKey: string
+  /** Comment */
+  comment?: string
+}
+
+/** Atlassian — Jira Add Watcher */
+export interface AtlassianJiraAddWatcherInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Issue ID or Key */
+  issueIdOrKey: string
+  /** Account ID */
+  accountId: string
+}
+
+/** Atlassian — Jira Find User */
+export interface AtlassianJiraFindUserInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Query */
+  query: string
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Atlassian — Jira Create Webhook */
+export interface AtlassianJiraCreateWebhookInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Webhook URL */
+  url: string
+  /** Events */
+  events?: unknown[]
+  /** JQL Filter */
+  jqlFilter?: string
+}
+
+/** Atlassian — Jira Refresh Webhooks */
+export interface AtlassianJiraRefreshWebhooksInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Webhook IDs */
+  webhookIds: unknown[]
+}
+
+/** Atlassian — Jira Delete Webhooks */
+export interface AtlassianJiraDeleteWebhooksInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Webhook IDs */
+  webhookIds: unknown[]
+}
+
+/** Atlassian — Confluence List Spaces */
+export interface AtlassianConfluenceListSpacesInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Atlassian — Confluence List Pages */
+export interface AtlassianConfluenceListPagesInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Space ID */
+  spaceId?: string
+  /** Title */
+  title?: string
+  /** Body Format (values: `storage`, `atlas_doc_format`, `view`) */
+  bodyFormat?: "storage" | "atlas_doc_format" | "view"
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Atlassian — Confluence Get Page */
+export interface AtlassianConfluenceGetPageInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Body Format (values: `storage`, `atlas_doc_format`, `view`) */
+  bodyFormat?: "storage" | "atlas_doc_format" | "view"
+}
+
+/** Atlassian — Confluence Search CQL */
+export interface AtlassianConfluenceSearchCqlInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** CQL */
+  cql: string
+  /** Limit */
+  limit?: number
+  /** Expand */
+  expand?: string
+}
+
+/** Atlassian — Confluence Create Page */
+export interface AtlassianConfluenceCreatePageInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Space ID */
+  spaceId: string
+  /** Title */
+  title: string
+  /** Body */
+  body: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  bodyMode?: "storage" | "plain_text" | "markdown"
+  /** Parent Page ID */
+  parentPageId?: string
+}
+
+/** Atlassian — Confluence Update Page */
+export interface AtlassianConfluenceUpdatePageInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Title */
+  title?: string
+  /** Body */
+  body?: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  bodyMode?: "storage" | "plain_text" | "markdown"
+  /** If omitted, the action first reads the current page. */
+  versionNumber?: number
+  /** Version Message */
+  versionMessage?: string
+}
+
+/** Atlassian — Confluence Upsert Page By Title */
+export interface AtlassianConfluenceUpsertPageByTitleInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Space ID */
+  spaceId: string
+  /** Title */
+  title: string
+  /** Body */
+  body: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  bodyMode?: "storage" | "plain_text" | "markdown"
+  /** Parent Page ID */
+  parentPageId?: string
+}
+
+/** Atlassian — Confluence Append Page Section */
+export interface AtlassianConfluenceAppendPageSectionInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Section Body */
+  section: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  sectionMode?: "storage" | "plain_text" | "markdown"
+  /** Version Message */
+  versionMessage?: string
+}
+
+/** Atlassian — Confluence List Comments */
+export interface AtlassianConfluenceListCommentsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Atlassian — Confluence Add Footer Comment */
+export interface AtlassianConfluenceAddFooterCommentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Comment */
+  body: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  bodyMode?: "storage" | "plain_text" | "markdown"
+}
+
+/** Atlassian — Confluence Update Comment */
+export interface AtlassianConfluenceUpdateCommentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Comment ID */
+  commentId: string
+  /** Comment */
+  body: string
+  /** Body Mode (values: `storage`, `plain_text`, `markdown`) */
+  bodyMode?: "storage" | "plain_text" | "markdown"
+  /** Current Version Number */
+  versionNumber: number
+}
+
+/** Atlassian — Confluence List Attachments */
+export interface AtlassianConfluenceListAttachmentsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Atlassian — Confluence Upload Attachment */
+export interface AtlassianConfluenceUploadAttachmentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** File */
+  file: string
+  /** Comment */
+  comment?: string
+}
+
+/** Atlassian — Confluence Download Attachment */
+export interface AtlassianConfluenceDownloadAttachmentInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Attachment ID */
+  attachmentId: string
+}
+
+/** Atlassian — Confluence Get Children */
+export interface AtlassianConfluenceGetChildrenInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+  /** Limit */
+  limit?: number
+}
+
+/** Atlassian — Confluence Get Ancestors */
+export interface AtlassianConfluenceGetAncestorsInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Page ID */
+  pageId: string
+}
+
+/** Atlassian — Confluence Add Label */
+export interface AtlassianConfluenceAddLabelInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Content ID */
+  contentId: string
+  /** Label */
+  label: string
+}
+
+/** Atlassian — Get Next Page */
+export interface AtlassianGetNextPageInput {
+  /** Next URL */
+  nextUrl: string
+}
+
+/** Atlassian — Custom API Call */
+export interface AtlassianCustomApiCallInput {
+  /** Use Jira List Sites to resolve the Atlassian cloud ID. */
+  cloudId: string
+  /** Product (values: `jira`, `confluence_v2`, `confluence_v1`, `absolute`) */
+  product: "jira" | "confluence_v2" | "confluence_v1" | "absolute"
+  /** Path or Absolute URL */
+  path: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** Body */
+  body?: unknown
+  /** No Error on Failure */
+  failsafe?: boolean
 }
 
 /** Attio — Create Record */
@@ -3372,26 +4003,92 @@ export interface BlueskyFindThreadInput {
 
 /** Box — List Folder Items */
 export interface BoxListFolderItemsInput {
-  /** The ID of the folder to list items from. Use "0" for the root folder. */
+  /** Use 0 for the root folder. */
   folderId?: string
   /** Limit */
   limit?: number
-  /** Pagination offset */
+  /** Offset */
   offset?: number
+  /** Fields */
+  fields?: string
+}
+
+/** Box — Get Folder Info */
+export interface BoxGetFolderInfoInput {
+  /** Folder ID */
+  folderId: string
+  /** Fields */
+  fields?: string
 }
 
 /** Box — Get File Info */
 export interface BoxGetFileInfoInput {
   /** File ID */
   fileId: string
+  /** Fields */
+  fields?: string
 }
 
 /** Box — Create Folder */
 export interface BoxCreateFolderInput {
   /** Folder Name */
   name: string
-  /** ID of the parent folder. Use "0" for the root folder. */
+  /** Parent Folder ID */
   parentId?: string
+}
+
+/** Box — Update File Info */
+export interface BoxUpdateFileInfoInput {
+  /** File ID */
+  itemId: string
+  /** Payload */
+  payload: unknown
+}
+
+/** Box — Update Folder Info */
+export interface BoxUpdateFolderInfoInput {
+  /** Folder ID */
+  itemId: string
+  /** Payload */
+  payload: unknown
+}
+
+/** Box — Upload Text File */
+export interface BoxUploadTextFileInput {
+  /** File Name */
+  fileName: string
+  /** Parent Folder ID */
+  parentFolderId?: string
+  /** Content */
+  content: string
+  /** Content Type */
+  contentType?: string
+}
+
+/** Box — Get File Download URL */
+export interface BoxGetFileDownloadUrlInput {
+  /** File ID */
+  fileId: string
+}
+
+/** Box — Copy File */
+export interface BoxCopyFileInput {
+  /** File ID */
+  fileId: string
+  /** Destination Folder ID */
+  parentFolderId: string
+  /** New Name */
+  name?: string
+}
+
+/** Box — Copy Folder */
+export interface BoxCopyFolderInput {
+  /** Folder ID */
+  folderId: string
+  /** Destination Folder ID */
+  parentFolderId: string
+  /** New Name */
+  name?: string
 }
 
 /** Box — Search */
@@ -3400,24 +4097,124 @@ export interface BoxSearchInput {
   query: string
   /** Limit */
   limit?: number
-  /** Limit search to files or folders (values: ``, `file`, `folder`) */
-  type?: "" | "file" | "folder"
+  /** Offset */
+  offset?: number
+  /** Example: file, folder, web_link, comment, task. */
+  type?: string
+  /** Fields */
+  fields?: string
+}
+
+/** Box — Create Collaboration */
+export interface BoxCreateCollaborationInput {
+  /** Item ID */
+  itemId: string
+  /** Item Type (values: `file`, `folder`) */
+  itemType: "file" | "folder"
+  /** User, group, or login object accepted by Box. */
+  accessibleBy: unknown
+  /** Example: viewer, editor, co-owner, previewer. */
+  role: string
+  /** Notify User */
+  notify?: boolean
+}
+
+/** Box — List Collaborations */
+export interface BoxListCollaborationsInput {
+  /** Item ID */
+  itemId: string
+  /** Item Type (values: `file`, `folder`) */
+  itemType: "file" | "folder"
+  /** Limit */
+  limit?: number
+  /** Marker */
+  marker?: string
+}
+
+/** Box — Create Comment */
+export interface BoxCreateCommentInput {
+  /** File ID */
+  fileId: string
+  /** Message */
+  message: string
+}
+
+/** Box — List File Comments */
+export interface BoxListFileCommentsInput {
+  /** File ID */
+  fileId: string
+}
+
+/** Box — Create Task */
+export interface BoxCreateTaskInput {
+  /** File ID */
+  fileId: string
+  /** Example: review. */
+  action?: string
+  /** Message */
+  message?: string
+  /** RFC3339 timestamp. */
+  dueAt?: string
+}
+
+/** Box — Get Metadata Instances */
+export interface BoxGetMetadataInstancesInput {
+  /** File ID */
+  fileId: string
+}
+
+/** Box — Create Webhook */
+export interface BoxCreateWebhookInput {
+  /** Target ID */
+  targetId: string
+  /** Target Type (values: `file`, `folder`) */
+  targetType: "file" | "folder"
+  /** Webhook URL */
+  address: string
+  /** Box V2 trigger names such as FILE.UPLOADED. */
+  triggers: unknown[]
+}
+
+/** Box — List Webhooks */
+export interface BoxListWebhooksInput {
+  /** Limit */
+  limit?: number
+  /** Marker */
+  marker?: string
+}
+
+/** Box — Delete Webhook */
+export interface BoxDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
 }
 
 /** Box — Delete File */
 export interface BoxDeleteFileInput {
   /** File ID */
-  fileId: string
+  itemId: string
+  /** Payload */
+  payload?: unknown
+}
+
+/** Box — Delete Folder */
+export interface BoxDeleteFolderInput {
+  /** Folder ID */
+  itemId: string
+  /** Payload */
+  payload?: unknown
 }
 
 /** Box — Custom API Call */
 export interface BoxCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /files/123) */
+  /** API path such as /files/123. Must start with /. */
   path: string
   /** Body */
   body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
 }
 
 /** Brandfolder — Get Asset */
@@ -4040,48 +4837,272 @@ export interface CantoCustomApiCallInput {
   body?: unknown
 }
 
+/** Canva — Get User */
+export type CanvaGetUserInput = Record<string, never>
+
+/** Canva — Get User Capabilities */
+export type CanvaGetUserCapabilitiesInput = Record<string, never>
+
 /** Canva — Create Design */
 export interface CanvaCreateDesignInput {
-  /** Design Type (values: `presentation`, `poster`, `social_media`, `document`) */
-  design_type?: "presentation" | "poster" | "social_media" | "document"
+  /** Design Type (values: `presentation`, `poster`, `social_media`, `document`, `whiteboard`, `video`) */
+  design_type?: "presentation" | "poster" | "social_media" | "document" | "whiteboard" | "video"
   /** Title */
   title?: string
+  /** Optional asset to use when creating a design. */
+  asset_id?: string
 }
 
 /** Canva — List Designs */
 export interface CanvaListDesignsInput {
   /** Limit */
   limit?: number
-  /** Pagination token from previous response */
+  /** Continuation Token */
+  continuation?: string
+  /** Ownership (values: `any`, `owned`, `shared`) */
+  ownership?: "any" | "owned" | "shared"
+  /** Sort By (values: `created_ascending`, `created_descending`, `modified_ascending`, `modified_descending`, `title_ascending`, `title_descending`) */
+  sort_by?: "created_ascending" | "created_descending" | "modified_ascending" | "modified_descending" | "title_ascending" | "title_descending"
+}
+
+/** Canva — Get Design */
+export interface CanvaGetDesignInput {
+  /** Design ID */
+  designId: string
+}
+
+/** Canva — Get Design Pages */
+export interface CanvaGetDesignPagesInput {
+  /** Design ID */
+  designId: string
+}
+
+/** Canva — Get Design Export Formats */
+export interface CanvaGetDesignExportFormatsInput {
+  /** Design ID */
+  designId: string
+}
+
+/** Canva — Create Export Job */
+export interface CanvaCreateExportJobInput {
+  /** Design ID */
+  designId: string
+  /** Export Format (values: `pdf`, `jpg`, `png`, `gif`, `pptx`, `mp4`, `csv`, `html_bundle`, `html_standalone`) */
+  format: "pdf" | "jpg" | "png" | "gif" | "pptx" | "mp4" | "csv" | "html_bundle" | "html_standalone"
+  /** Optional complete export format settings payload. */
+  exportSettings?: unknown
+}
+
+/** Canva — Get Export Job */
+export interface CanvaGetExportJobInput {
+  /** Export ID */
+  exportId: string
+}
+
+/** Canva — List Brand Templates */
+export interface CanvaListBrandTemplatesInput {
+  /** Limit */
+  limit?: number
+  /** Continuation Token */
   continuation?: string
 }
 
-/** Canva — Export Design */
-export interface CanvaExportDesignInput {
-  /** Design ID */
-  designId: string
-  /** Export Format (values: `pdf`, `png`, `jpg`) */
-  format: "pdf" | "png" | "jpg"
+/** Canva — Get Brand Template */
+export interface CanvaGetBrandTemplateInput {
+  /** Brand Template ID */
+  brandTemplateId: string
 }
 
-/** Canva — Upload Asset */
-export interface CanvaUploadAssetInput {
-  /** URL of the file to upload */
+/** Canva — Get Brand Template Dataset */
+export interface CanvaGetBrandTemplateDatasetInput {
+  /** Brand Template ID */
+  brandTemplateId: string
+}
+
+/** Canva — Create Design Autofill Job */
+export interface CanvaCreateDesignAutofillJobInput {
+  /** Brand Template ID */
+  brandTemplateId: string
+  /** Autofill Data */
+  data: unknown
+  /** Title */
+  title?: string
+}
+
+/** Canva — Get Design Autofill Job */
+export interface CanvaGetDesignAutofillJobInput {
+  /** Autofill Job ID */
+  autofillId: string
+}
+
+/** Canva — Create Asset Upload Job */
+export interface CanvaCreateAssetUploadJobInput {
+  /** File */
+  file: string
+  /** Asset Name */
+  name: string
+}
+
+/** Canva — Get Asset Upload Job */
+export interface CanvaGetAssetUploadJobInput {
+  /** Asset Upload Job ID */
+  jobId: string
+}
+
+/** Canva — Create Asset Upload Job From URL */
+export interface CanvaCreateAssetUploadJobFromUrlInput {
+  /** Asset URL */
   url: string
   /** Asset Name */
+  name: string
+  /** Tags */
+  tags?: unknown[]
+}
+
+/** Canva — Get Asset Upload Job From URL */
+export interface CanvaGetAssetUploadJobFromUrlInput {
+  /** URL Asset Upload Job ID */
+  jobId: string
+}
+
+/** Canva — Get Asset */
+export interface CanvaGetAssetInput {
+  /** Asset ID */
+  assetId: string
+}
+
+/** Canva — Update Asset */
+export interface CanvaUpdateAssetInput {
+  /** Asset ID */
+  assetId: string
+  /** Name */
   name?: string
+  /** Tags */
+  tags?: unknown[]
+}
+
+/** Canva — Delete Asset */
+export interface CanvaDeleteAssetInput {
+  /** Asset ID */
+  assetId: string
+}
+
+/** Canva — Create Folder */
+export interface CanvaCreateFolderInput {
+  /** Folder Name */
+  name: string
+  /** Parent Folder ID */
+  parentFolderId?: string
+}
+
+/** Canva — Get Folder */
+export interface CanvaGetFolderInput {
+  /** Folder ID */
+  folderId: string
+}
+
+/** Canva — Update Folder */
+export interface CanvaUpdateFolderInput {
+  /** Folder ID */
+  folderId: string
+  /** Folder Name */
+  name: string
+}
+
+/** Canva — Delete Folder */
+export interface CanvaDeleteFolderInput {
+  /** Folder ID */
+  folderId: string
+}
+
+/** Canva — List Folder Items */
+export interface CanvaListFolderItemsInput {
+  /** Folder ID */
+  folderId: string
+  /** Limit */
+  limit?: number
+  /** Continuation Token */
+  continuation?: string
+  /** Item Types */
+  item_types?: string[]
+  /** Sort By (values: `created_ascending`, `created_descending`, `modified_ascending`, `modified_descending`, `title_ascending`, `title_descending`) */
+  sort_by?: "created_ascending" | "created_descending" | "modified_ascending" | "modified_descending" | "title_ascending" | "title_descending"
+}
+
+/** Canva — Move Folder Item */
+export interface CanvaMoveFolderItemInput {
+  /** Item ID */
+  itemId: string
+  /** Item Type (values: `design`, `folder`, `image`) */
+  itemType: "design" | "folder" | "image"
+  /** From Folder ID */
+  fromFolderId: string
+  /** To Folder ID */
+  toFolderId: string
+}
+
+/** Canva — Create Comment Thread */
+export interface CanvaCreateCommentThreadInput {
+  /** Design ID */
+  designId: string
+  /** Message Plaintext */
+  messagePlaintext: string
+  /** Assignee User ID */
+  assigneeId?: string
+}
+
+/** Canva — Create Comment Reply */
+export interface CanvaCreateCommentReplyInput {
+  /** Design ID */
+  designId: string
+  /** Thread ID */
+  threadId: string
+  /** Message Plaintext */
+  messagePlaintext: string
+}
+
+/** Canva — Get Comment Thread */
+export interface CanvaGetCommentThreadInput {
+  /** Design ID */
+  designId: string
+  /** Thread ID */
+  threadId: string
+}
+
+/** Canva — List Comment Replies */
+export interface CanvaListCommentRepliesInput {
+  /** Design ID */
+  designId: string
+  /** Thread ID */
+  threadId: string
+  /** Limit */
+  limit?: number
+  /** Continuation Token */
+  continuation?: string
+}
+
+/** Canva — Get Comment Reply */
+export interface CanvaGetCommentReplyInput {
+  /** Design ID */
+  designId: string
+  /** Thread ID */
+  threadId: string
+  /** Reply ID */
+  replyId: string
 }
 
 /** Canva — Custom API Call */
 export interface CanvaCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /designs) */
+  /** Relative path under /rest/v1, for example /designs. */
   path: string
   /** Body */
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+  /** No Error on Failure */
+  failsafe?: boolean
 }
 
 /** Canvas LMS — List Courses */
@@ -5757,62 +6778,131 @@ export interface CodeRunCodeInput {
   inputs?: unknown
 }
 
+/** Cognito Forms — List Forms */
+export type CognitoFormsListFormsInput = Record<string, never>
+
+/** Cognito Forms — Get Form Schema */
+export interface CognitoFormsGetFormSchemaInput {
+  /** Form ID */
+  formId: string
+}
+
+/** Cognito Forms — Set Public Link Availability */
+export interface CognitoFormsSetPublicLinkAvailabilityInput {
+  /** Form ID */
+  formId: string
+  /** Availability Payload */
+  availability: unknown
+}
+
 /** Cognito Forms — Create Entry */
 export interface CognitoFormsCreateEntryInput {
-  /** Form (resolve via property options API) */
+  /** Form ID */
   formId: string
-  /** Fields */
-  entryData: Record<string, unknown>
-}
-
-/** Cognito Forms — Update Entry */
-export interface CognitoFormsUpdateEntryInput {
-  /** Form (resolve via property options API) */
-  formId: string
-  /** Enter the ID of the entry you want to update. */
-  entryId: string
-  /** Fields */
-  entryData: Record<string, unknown>
-}
-
-/** Cognito Forms — Delete Entry */
-export interface CognitoFormsDeleteEntryInput {
-  /** Form (resolve via property options API) */
-  formId: string
-  /** Enter the ID of the entry to delete. */
-  entryId: string
+  /** Entry */
+  entry: unknown
 }
 
 /** Cognito Forms — Get Entry */
 export interface CognitoFormsGetEntryInput {
-  /** Form (resolve via property options API) */
+  /** Form ID */
   formId: string
-  /** Enter the ID of the entry to retrieve. */
+  /** Entry ID */
   entryId: string
+}
+
+/** Cognito Forms — Update Entry */
+export interface CognitoFormsUpdateEntryInput {
+  /** Form ID */
+  formId: string
+  /** Entry ID */
+  entryId: string
+  /** Entry Update */
+  entry: unknown
+}
+
+/** Cognito Forms — Delete Entry */
+export interface CognitoFormsDeleteEntryInput {
+  /** Form ID */
+  formId: string
+  /** Entry ID */
+  entryId: string
+}
+
+/** Cognito Forms — Import Entries */
+export interface CognitoFormsImportEntriesInput {
+  /** Form ID */
+  formId: string
+  /** Import Payload */
+  importPayload: unknown
+}
+
+/** Cognito Forms — Get Import Status */
+export interface CognitoFormsGetImportStatusInput {
+  /** Form ID */
+  formId: string
+  /** Import ID */
+  importId: string
+}
+
+/** Cognito Forms — Upload File */
+export interface CognitoFormsUploadFileInput {
+  /** File */
+  file: string
+  /** Field Name */
+  fieldName?: string
+}
+
+/** Cognito Forms — Get File */
+export interface CognitoFormsGetFileInput {
+  /** Form ID */
+  formId: string
+  /** Entry ID */
+  entryId: string
+  /** File ID */
+  fileId: string
+}
+
+/** Cognito Forms — Get Generated Document */
+export interface CognitoFormsGetDocumentInput {
+  /** Form ID */
+  formId: string
+  /** Entry ID */
+  entryId: string
+  /** Template ID */
+  templateId: string
+}
+
+/** Cognito Forms — Query OData View */
+export interface CognitoFormsQueryOdataViewInput {
+  /** Generated OData URL from Cognito Forms. It usually includes access_token. */
+  odataUrl: string
+  /** $select */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** $orderby */
+  orderBy?: string
+  /** $top */
+  top?: number
+  /** $skip */
+  skip?: number
+  /** $count */
+  count?: boolean
 }
 
 /** Cognito Forms — Custom API Call */
 export interface CognitoFormsCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Relative /api path such as /forms or /forms/{formId}/entries/{entryId} */
+  path: string
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  queryParams?: Record<string, unknown>
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
+  body?: unknown
   /** No Error on Failure */
   failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
 }
 
 /** Cohere — Chat */
@@ -7604,10 +8694,130 @@ export interface DeepseekAskJsonInput {
   maxTokens?: number
 }
 
-/** Descript — List Projects */
-export interface DescriptListProjectsInput {
+/** Descript — Import Media */
+export interface DescriptImportMediaInput {
+  /** Full request body for POST /jobs/import/project_media. Include callback_url to receive a job callback. */
+  request: unknown
+}
+
+/** Descript — Upload Direct Media File */
+export interface DescriptUploadDirectMediaFileInput {
+  /** Signed Upload URL */
+  uploadUrl: string
+  /** File */
+  file: string
+  /** Content Type */
+  contentType?: string
+}
+
+/** Descript — Agent Edit */
+export interface DescriptAgentEditInput {
+  /** Project ID */
+  projectId?: string
+  /** Project Name */
+  projectName?: string
+  /** Composition ID */
+  compositionId?: string
+  /** Prompt */
+  prompt: string
+  /** Model */
+  model?: string
+  /** Team Access (values: `edit`, `comment`, `view`, `none`) */
+  teamAccess?: "edit" | "comment" | "view" | "none"
+  /** Callback URL */
+  callbackUrl?: string
+  /** Conversation ID */
+  conversationId?: string
+}
+
+/** Descript — Publish Project Media */
+export interface DescriptPublishProjectInput {
+  /** Project ID */
+  projectId: string
+  /** Composition ID */
+  compositionId?: string
+  /** Media Type (values: `Video`, `Audio`) */
+  mediaType?: "Video" | "Audio"
+  /** Resolution (values: `480p`, `720p`, `1080p`, `1440p`, `4K`) */
+  resolution?: "480p" | "720p" | "1080p" | "1440p" | "4K"
+  /** Access Level (values: `public`, `unlisted`, `drive`, `private`) */
+  accessLevel?: "public" | "unlisted" | "drive" | "private"
+  /** Callback URL */
+  callbackUrl?: string
+}
+
+/** Descript — Export Transcript */
+export interface DescriptExportTranscriptInput {
+  /** Project ID */
+  projectId: string
+  /** Composition ID */
+  compositionId?: string
+  /** Format (values: `txt`, `markdown`, `html`, `rtf`, `docx`) */
+  format: "txt" | "markdown" | "html" | "rtf" | "docx"
+  /** Speaker Labels (values: `off`, `changes`, `every_paragraph`) */
+  includeSpeakerLabels?: "off" | "changes" | "every_paragraph"
+  /** Include Markers */
+  includeMarkers?: boolean
+  /** Timecodes */
+  timecodes?: unknown
+}
+
+/** Descript — List Jobs */
+export interface DescriptListJobsInput {
+  /** Project ID */
+  projectId?: string
+  /** Job Type (values: `import/project_media`, `agent`, `publish`) */
+  type?: "import/project_media" | "agent" | "publish"
+  /** Cursor */
+  cursor?: string
   /** Limit */
   limit?: number
+  /** Created After */
+  createdAfter?: string
+  /** Created Before */
+  createdBefore?: string
+  /** Fetch All Pages */
+  fetchAll?: boolean
+}
+
+/** Descript — Get Job Status */
+export interface DescriptGetJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** Descript — Cancel Job */
+export interface DescriptCancelJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** Descript — List Projects */
+export interface DescriptListProjectsInput {
+  /** Name Contains */
+  name?: string
+  /** Folder Path */
+  folderPath?: string
+  /** Created By */
+  createdBy?: string
+  /** Created After */
+  createdAfter?: string
+  /** Created Before */
+  createdBefore?: string
+  /** Updated After */
+  updatedAfter?: string
+  /** Updated Before */
+  updatedBefore?: string
+  /** Sort (values: `name`, `created_at`, `updated_at`, `last_viewed_at`) */
+  sort?: "name" | "created_at" | "updated_at" | "last_viewed_at"
+  /** Direction (values: `asc`, `desc`) */
+  direction?: "asc" | "desc"
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Fetch All Pages */
+  fetchAll?: boolean
 }
 
 /** Descript — Get Project */
@@ -7616,28 +8826,37 @@ export interface DescriptGetProjectInput {
   projectId: string
 }
 
-/** Descript — Export Media */
-export interface DescriptExportMediaInput {
-  /** Project ID */
-  projectId: string
-  /** Format (values: `mp4`, `mp3`, `srt`, `txt`) */
-  format: "mp4" | "mp3" | "srt" | "txt"
+/** Descript — Check API Status */
+export type DescriptCheckStatusInput = Record<string, never>
+
+/** Descript — Create Edit in Descript Import URL */
+export interface DescriptCreateEditInDescriptImportUrlInput {
+  /** Partner Drive ID */
+  partnerDriveId: string
+  /** Project Schema */
+  projectSchema: unknown
 }
 
-/** Descript — Get Transcript */
-export interface DescriptGetTranscriptInput {
-  /** Project ID */
-  projectId: string
+/** Descript — Get Published Project Metadata */
+export interface DescriptGetPublishedProjectMetadataInput {
+  /** Published Project Slug */
+  publishedProjectSlug: string
 }
 
 /** Descript — Custom API Call */
 export interface DescriptCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /projects) */
-  path: string
+  /** Full https://descriptapi.com URL or relative /v1 path such as /projects */
+  url: string
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Authorization is injected automatically. */
+  headers?: Record<string, unknown>
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
   /** Body */
   body?: unknown
+  /** No Error on Failure */
+  failsafe?: boolean
 }
 
 /** Dialpad — List Calls */
@@ -8184,8 +9403,34 @@ export interface DocusignListEnvelopesInput {
   include?: unknown[]
 }
 
+/** Docusign — Create envelope */
+export interface DocusignCreateEnvelopeInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope Definition */
+  envelope: unknown
+}
+
 /** Docusign — Get envelope */
 export interface DocusignGetEnvelopeInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+}
+
+/** Docusign — Update envelope */
+export interface DocusignUpdateEnvelopeInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Envelope Update */
+  envelopeUpdate: unknown
+}
+
+/** Docusign — List envelope documents */
+export interface DocusignListEnvelopeDocumentsInput {
   /** Account ID */
   accountId: string
   /** Envelope ID */
@@ -8200,6 +9445,142 @@ export interface DocusignGetDocumentInput {
   envelopeId: string
   /** The ID of the document to retrieve. Alternatively, you can use one of the following special keywords:  combined: Retrieves all of the documents as a single PDF file. When the query parameter certificate is true, the certificate of completion is included in the PDF file. When the query parameter certificate is false, the certificate of completion is not included in the PDF file. archive: Retrieves a ZIP archive that contains all of the PDF documents and the certificate of completion. certificate: Retrieves only the certificate of completion as a PDF file. portfolio: Retrieves the envelope documents as a PDF portfolio.  */
   documentId: string
+}
+
+/** Docusign — List recipients */
+export interface DocusignListRecipientsInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Include Tabs */
+  includeTabs?: boolean
+}
+
+/** Docusign — Update recipients */
+export interface DocusignUpdateRecipientsInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Recipients Update */
+  recipients: unknown
+}
+
+/** Docusign — List recipient tabs */
+export interface DocusignListRecipientTabsInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Recipient ID */
+  recipientId: string
+}
+
+/** Docusign — Create recipient tabs */
+export interface DocusignCreateRecipientTabsInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Recipient ID */
+  recipientId: string
+  /** Tabs */
+  tabs: unknown
+}
+
+/** Docusign — Update recipient tabs */
+export interface DocusignUpdateRecipientTabsInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Recipient ID */
+  recipientId: string
+  /** Tabs Update */
+  tabs: unknown
+}
+
+/** Docusign — List templates */
+export interface DocusignListTemplatesInput {
+  /** Account ID */
+  accountId: string
+  /** Search Text */
+  searchText?: string
+  /** From Date */
+  fromDate?: string
+  /** To Date */
+  toDate?: string
+  /** Include */
+  include?: unknown[]
+}
+
+/** Docusign — Get template */
+export interface DocusignGetTemplateInput {
+  /** Account ID */
+  accountId: string
+  /** Template ID */
+  templateId: string
+  /** Include */
+  include?: unknown[]
+}
+
+/** Docusign — Create recipient view */
+export interface DocusignCreateRecipientViewInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Recipient View Request */
+  viewRequest: unknown
+}
+
+/** Docusign — Create sender view */
+export interface DocusignCreateSenderViewInput {
+  /** Account ID */
+  accountId: string
+  /** Envelope ID */
+  envelopeId: string
+  /** Sender View Request */
+  viewRequest: unknown
+}
+
+/** Docusign — List Connect configurations */
+export interface DocusignListConnectConfigurationsInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** Docusign — Get Connect configuration */
+export interface DocusignGetConnectConfigurationInput {
+  /** Account ID */
+  accountId: string
+  /** Connect ID */
+  connectId: string
+}
+
+/** Docusign — Create Connect configuration */
+export interface DocusignCreateConnectConfigurationInput {
+  /** Account ID */
+  accountId: string
+  /** Connect Configuration */
+  configuration: unknown
+}
+
+/** Docusign — Update Connect configuration */
+export interface DocusignUpdateConnectConfigurationInput {
+  /** Account ID */
+  accountId: string
+  /** Connect Configuration Update */
+  configuration: unknown
+}
+
+/** Docusign — Delete Connect configuration */
+export interface DocusignDeleteConnectConfigurationInput {
+  /** Account ID */
+  accountId: string
+  /** Connect ID */
+  connectId: string
 }
 
 /** Docusign — Custom API Call */
@@ -9274,6 +10655,522 @@ export interface EtsyCustomApiCallInput {
   body?: unknown
 }
 
+/** EULER — List Authorized Accounts */
+export type EulerListAccountsInput = Record<string, never>
+
+/** EULER — Query Partners */
+export interface EulerPartnersInput {
+  /** Action (values: `list`, `pending`, `summary`) */
+  action: "list" | "pending" | "summary"
+  /** Filter Name */
+  filter_name?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Search Partner Directory */
+export interface EulerPartnerDirectorySearchInput {
+  /** Entity Key */
+  entity_key: string
+  /** Name */
+  name?: string
+  /** Status */
+  status?: string
+  /** Featured */
+  featured?: boolean
+  /** Incomplete */
+  incomplete?: boolean
+  /** Tier */
+  tier?: string
+  /** Profile Id */
+  profile_id?: string
+  /** Type */
+  type?: string
+  /** Email */
+  email?: string
+  /** Desc */
+  desc?: string
+  /** Language */
+  language?: string
+  /** Website */
+  website?: string
+  /** Version Description */
+  version_description?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Get Partner Artifacts */
+export interface EulerPartnerArtifactsInput {
+  /** Action (values: `agreements`, `tracking_links`, `deals`, `charges`, `invoices`) */
+  action: "agreements" | "tracking_links" | "deals" | "charges" | "invoices"
+  /** Partner Id */
+  partner_id: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Query Referrals */
+export interface EulerReferralsInput {
+  /** Action (values: `search`, `for_partner`, `get_form_for_partner`, `get_answers`) */
+  action: "search" | "for_partner" | "get_form_for_partner" | "get_answers"
+  /** Partner Id */
+  partner_id?: string
+  /** Approval Id */
+  approval_id?: string
+  /** Start Date */
+  start_date?: string
+  /** End Date */
+  end_date?: string
+  /** Filter Status */
+  filter_status?: string
+  /** Os Referral Type */
+  os_referral_type?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Submit Referral */
+export interface EulerSubmitReferralInput {
+  /** Partner Id */
+  partner_id: string
+  /** Form Id */
+  form_id: string
+  /** Answers */
+  answers: unknown
+}
+
+/** EULER — Search Deal by Name */
+export interface EulerGetSearchDealsInput {
+  /** Deal Name */
+  deal_name: string
+  /** Partner Id */
+  partner_id?: string
+}
+
+/** EULER — List Partner Contacts */
+export interface EulerListPartnerContactsInput {
+  /** Partner Id */
+  partner_id: string
+}
+
+/** EULER — Create Partner Contact */
+export interface EulerCreatePartnerContactInput {
+  /** Partner Id */
+  partner_id: string
+  /** Email */
+  email: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+}
+
+/** EULER — Invite Partner Contacts to Portal */
+export interface EulerInvitePartnersToPortalInput {
+  /** Partner Id */
+  partner_id: string
+  /** Partner Contacts */
+  partner_contacts: unknown[]
+  /** Agreement Id */
+  agreement_id?: string
+  /** Restrict Access */
+  restrict_access?: boolean
+  /** Tags */
+  tags?: unknown[]
+}
+
+/** EULER — Query Company Invoices */
+export interface EulerCompanyInvoicesInput {
+  /** Action (values: `list`, `summary`) */
+  action: "list" | "summary"
+  /** Partner Id */
+  partner_id?: string
+  /** Status */
+  status?: string
+  /** Sort By */
+  sort_by?: string
+  /** Descending */
+  descending?: string
+  /** Currency */
+  currency?: string
+  /** Start Date */
+  start_date?: string
+  /** End Date */
+  end_date?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Charges Lookup */
+export interface EulerChargesLookupInput {
+  /** Action (values: `for_deal`, `by_id`) */
+  action: "for_deal" | "by_id"
+  /** Deal Id */
+  deal_id?: string
+  /** Charge Id */
+  charge_id?: string
+}
+
+/** EULER — Manage Flow Lifecycle */
+export interface EulerFlowLifecycleInput {
+  /** Action (values: `create`, `edit`) */
+  action: "create" | "edit"
+  /** Flow Id */
+  flow_id?: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Type */
+  type?: string
+  /** Enable Due Date */
+  enable_due_date?: boolean
+  /** Due Date Days */
+  due_date_days?: number
+  /** Flow Status */
+  flow_status?: string
+  /** Final Order */
+  final_order?: unknown[]
+}
+
+/** EULER — Get Flow Details */
+export interface EulerFlowDetailsInput {
+  /** Flow Id */
+  flow_id?: string
+  /** Name */
+  name?: string
+  /** Flow Step Id */
+  flow_step_id?: string
+}
+
+/** EULER — Get My Flow Details */
+export interface EulerPartnerFlowDetailsInput {
+  /** Partner Id */
+  partner_id: string
+  /** Flow Id */
+  flow_id?: string
+  /** Name */
+  name?: string
+  /** Flow Step Id */
+  flow_step_id?: string
+}
+
+/** EULER — Get My Flow Progress */
+export interface EulerPartnerFlowProgressInput {
+  /** Partner Id */
+  partner_id: string
+  /** Flow Id */
+  flow_id: string
+}
+
+/** EULER — Manage Flow Steps */
+export interface EulerFlowStepsInput {
+  /** Action (values: `create_or_edit`, `deactivate`) */
+  action: "create_or_edit" | "deactivate"
+  /** Flow Id */
+  flow_id?: string
+  /** Flow Step Id */
+  flow_step_id?: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Os Flow Step Type */
+  os_flow_step_type?: string
+  /** Accepted File Types */
+  accepted_file_types?: string
+  /** Due In Days */
+  due_in_days?: number
+  /** Order */
+  order?: number
+  /** Order Temp */
+  order_temp?: number
+  /** Agreement Term Id */
+  agreement_term_id?: string
+  /** Content Id */
+  content_id?: string
+  /** Quiz From Schema Id */
+  quiz_from_schema_id?: string
+  /** Scorm Pack Id */
+  scorm_pack_id?: string
+  /** Step Status */
+  step_status?: string
+  /** Flow Status */
+  flow_status?: string
+  /** Entity Key */
+  entity_key?: string
+  /** Required for tools that can send external email, delete records, publish/archive flows, or change assignments. */
+  confirmDestructiveAction?: boolean
+}
+
+/** EULER — List Flow Attachable Resources */
+export interface EulerFlowAttachableResourcesInput {
+  /** Entity Key */
+  entity_key: string
+  /** File Type */
+  file_type?: string
+}
+
+/** EULER — Assign or Unassign Flow */
+export interface EulerFlowAssignmentInput {
+  /** Action (values: `assign`, `unassign`) */
+  action: "assign" | "unassign"
+  /** Flow Id */
+  flow_id?: string
+  /** Assign To Option */
+  assign_to_option?: string
+  /** Partners Id List */
+  partners_id_list?: unknown[]
+  /** Partners Id */
+  partners_id?: unknown[]
+  /** Users Id */
+  users_id?: unknown[]
+  /** Entity Key */
+  entity_key?: string
+  /** Required for tools that can send external email, delete records, publish/archive flows, or change assignments. */
+  confirmDestructiveAction?: boolean
+}
+
+/** EULER — List Flow Assignment Candidates */
+export interface EulerFlowAssignmentCandidatesInput {
+  /** Partner Id */
+  partner_id: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Incentives Summary */
+export type EulerIncentivesSummaryInput = Record<string, never>
+
+/** EULER — Search Shared Partner Content */
+export interface EulerContentSearchInput {
+  /** Query */
+  query: string
+  /** Partner Id */
+  partner_id: string
+}
+
+/** EULER — EULER Help and Support */
+export interface EulerEulerHelpInput {
+  /** Query */
+  query: string
+}
+
+/** EULER — List Partner Content */
+export interface EulerContentListInput {
+  /** Partner Id */
+  partner_id: string
+  /** Query */
+  query?: string
+}
+
+/** EULER — Commissions Calculation */
+export interface EulerCommissionsInput {
+  /** Action (values: `partner`, `company`) */
+  action: "partner" | "company"
+  /** Partner Id */
+  partner_id?: string
+  /** Start Date */
+  start_date: string
+  /** End Date */
+  end_date: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Partner Performance */
+export interface EulerPerformanceInput {
+  /** Action (values: `partner`, `company`, `overall`) */
+  action: "partner" | "company" | "overall"
+  /** Partner Id */
+  partner_id?: string
+  /** Start Date */
+  start_date?: string
+  /** End Date */
+  end_date?: string
+  /** Status */
+  status?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Entity Key */
+  entity_key?: string
+}
+
+/** EULER — Deal Attribution Influenced and Sourced */
+export interface EulerInfluencedSourcedDealsInput {
+  /** Partner Id */
+  partner_id?: string
+  /** Start Date */
+  start_date?: string
+  /** End Date */
+  end_date?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Submit MCP Feedback */
+export interface EulerSubmitFeedbackInput {
+  /** Type */
+  type: string
+  /** Summary */
+  summary: string
+  /** Details */
+  details: string
+  /** Affected Tool */
+  affected_tool?: string
+  /** User Intent */
+  user_intent?: string
+}
+
+/** EULER — Communications Hub Read */
+export interface EulerCommunicationsInput {
+  /** Action (values: `list_audiences`, `list_templates`, `list_sent_emails`, `emails_by_broadcast`, `preview_broadcast`, `preview_template`) */
+  action: "list_audiences" | "list_templates" | "list_sent_emails" | "emails_by_broadcast" | "preview_broadcast" | "preview_template"
+  /** Audience Id */
+  audience_id?: string
+  /** Template Id */
+  template_id?: string
+  /** Broadcast Id */
+  broadcast_id?: string
+  /** Sample Contact Id */
+  sample_contact_id?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Communications Hub Manage */
+export interface EulerCommunicationsManageInput {
+  /** Action (values: `create_audience`, `create_template`, `add_contacts`, `send_broadcast`) */
+  action: "create_audience" | "create_template" | "add_contacts" | "send_broadcast"
+  /** Name */
+  name?: string
+  /** Html */
+  html?: string
+  /** Description */
+  description?: string
+  /** Preview Text */
+  preview_text?: string
+  /** Audience Id */
+  audience_id?: string
+  /** Partner Ids */
+  partner_ids?: unknown[]
+  /** Template Id */
+  template_id?: string
+  /** Subject */
+  subject?: string
+  /** Confirm */
+  confirm?: boolean
+  /** Required for tools that can send external email, delete records, publish/archive flows, or change assignments. */
+  confirmDestructiveAction?: boolean
+}
+
+/** EULER — SI Service Projects Read */
+export interface EulerSiServiceProjectsInput {
+  /** Action (values: `list`, `get`, `scope_form`, `list_services`) */
+  action: "list" | "get" | "scope_form" | "list_services"
+  /** Project Id */
+  project_id?: string
+  /** Partner Id */
+  partner_id?: string
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+}
+
+/** EULER — Manage SI Service Project */
+export interface EulerSiManageServiceProjectInput {
+  /** Action (values: `create`, `update`, `delete`, `submit_answers`, `set_progress`) */
+  action: "create" | "update" | "delete" | "submit_answers" | "set_progress"
+  /** Project Id */
+  project_id?: string
+  /** Project Name */
+  project_name?: string
+  /** Description */
+  description?: string
+  /** Start Date */
+  start_date?: string
+  /** End Date */
+  end_date?: string
+  /** Partner Id */
+  partner_id?: string
+  /** Deal Id */
+  deal_id?: string
+  /** Service Type Ids */
+  service_type_ids?: unknown[]
+  /** Deletion Note */
+  deletion_note?: string
+  /** Answers */
+  answers?: unknown[]
+  /** Checkbox Id */
+  checkbox_id?: string
+  /** Percentage */
+  percentage?: number
+  /** Required for tools that can send external email, delete records, publish/archive flows, or change assignments. */
+  confirmDestructiveAction?: boolean
+}
+
+/** EULER — Initialize MCP Session */
+export interface EulerInitializeMcpSessionInput {
+  /** Protocol Version */
+  protocolVersion?: string
+  /** Client Name */
+  clientName?: string
+  /** Client Version */
+  clientVersion?: string
+}
+
+/** EULER — List MCP Tools */
+export type EulerListMcpToolsInput = Record<string, never>
+
+/** EULER — Search MCP Tools */
+export interface EulerSearchMcpToolsInput {
+  /** Query */
+  query: string
+}
+
+/** EULER — Call MCP Tool */
+export interface EulerCallMcpToolInput {
+  /** Tool Name */
+  toolName: string
+  /** Arguments */
+  arguments?: unknown
+}
+
+/** EULER — Custom MCP Request */
+export interface EulerCustomMcpRequestInput {
+  /** Method */
+  method: string
+  /** Params */
+  params?: unknown
+  /** Request ID */
+  id?: string
+}
+
+/** EULER — Get Connector Manifest */
+export type EulerGetConnectorManifestInput = Record<string, never>
+
 /** Eventbrite — Create Event */
 export interface EventbriteCreateEventInput {
   /** Organization ID */
@@ -9644,48 +11541,353 @@ export interface FieldwireCustomApiCallInput {
   body?: unknown
 }
 
+/** Figma — Get Me */
+export type FigmaGetMeInput = Record<string, never>
+
 /** Figma — Get File */
 export interface FigmaGetFileInput {
-  /** The Figma file key (copy from Figma file URL) */
-  file_key: string
+  /** File Key */
+  fileKey: string
+  /** Version ID */
+  version?: string
+  /** Comma-separated node IDs to include. */
+  ids?: string
+  /** Depth */
+  depth?: number
+  /** Geometry (values: `paths`) */
+  geometry?: "paths"
+  /** Plugin Data */
+  plugin_data?: string
+  /** Include Branch Data */
+  branch_data?: boolean
 }
 
-/** Figma — Get File Comments */
-export interface FigmaGetCommentsInput {
-  /** The Figma file key (copy from Figma file URL) */
-  file_key: string
+/** Figma — Get File Metadata */
+export interface FigmaGetFileMetadataInput {
+  /** File Key */
+  fileKey: string
 }
 
-/** Figma — Post File Comment */
+/** Figma — Get File Nodes */
+export interface FigmaGetFileNodesInput {
+  /** File Key */
+  fileKey: string
+  /** Node IDs */
+  ids: string
+  /** Version ID */
+  version?: string
+  /** Depth */
+  depth?: number
+  /** Geometry (values: `paths`) */
+  geometry?: "paths"
+  /** Plugin Data */
+  plugin_data?: string
+}
+
+/** Figma — Render Images */
+export interface FigmaRenderImagesInput {
+  /** File Key */
+  fileKey: string
+  /** Node IDs */
+  ids: string
+  /** Scale */
+  scale?: number
+  /** Format (values: `jpg`, `png`, `svg`, `pdf`) */
+  format?: "jpg" | "png" | "svg" | "pdf"
+  /** SVG Outline Text */
+  svg_outline_text?: boolean
+  /** SVG Include IDs */
+  svg_include_id?: boolean
+  /** SVG Include Node IDs */
+  svg_include_node_id?: boolean
+}
+
+/** Figma — List Image Fills */
+export interface FigmaListImageFillsInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — List Comments */
+export interface FigmaListCommentsInput {
+  /** File Key */
+  fileKey: string
+  /** Return Markdown */
+  as_md?: boolean
+}
+
+/** Figma — Post Comment */
 export interface FigmaPostCommentInput {
-  /** The Figma file key (copy from Figma file URL) */
-  file_key: string
-  /** Your comment */
+  /** File Key */
+  fileKey: string
+  /** Message */
   message: string
+  /** Optional Figma client_meta location payload. */
+  clientMeta?: unknown
+  /** Parent Comment ID */
+  commentId?: string
+}
+
+/** Figma — Delete Comment */
+export interface FigmaDeleteCommentInput {
+  /** File Key */
+  fileKey: string
+  /** Comment ID */
+  commentId: string
+}
+
+/** Figma — List Comment Reactions */
+export interface FigmaListCommentReactionsInput {
+  /** File Key */
+  fileKey: string
+  /** Comment ID */
+  commentId: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Figma — Add Comment Reaction */
+export interface FigmaAddCommentReactionInput {
+  /** File Key */
+  fileKey: string
+  /** Comment ID */
+  commentId: string
+  /** Emoji */
+  emoji: string
+}
+
+/** Figma — Delete Comment Reaction */
+export interface FigmaDeleteCommentReactionInput {
+  /** File Key */
+  fileKey: string
+  /** Comment ID */
+  commentId: string
+  /** Emoji */
+  emoji: string
+}
+
+/** Figma — List File Versions */
+export interface FigmaListVersionsInput {
+  /** File Key */
+  fileKey: string
+  /** Page Size */
+  page_size?: number
+  /** After Cursor */
+  after?: string
+  /** Before Cursor */
+  before?: string
+}
+
+/** Figma — List File Components */
+export interface FigmaListFileComponentsInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — List File Component Sets */
+export interface FigmaListFileComponentSetsInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — List File Styles */
+export interface FigmaListFileStylesInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — Get Component */
+export interface FigmaGetComponentInput {
+  /** Component Key */
+  key: string
+}
+
+/** Figma — Get Component Set */
+export interface FigmaGetComponentSetInput {
+  /** Component Set Key */
+  key: string
+}
+
+/** Figma — Get Style */
+export interface FigmaGetStyleInput {
+  /** Style Key */
+  key: string
+}
+
+/** Figma — List Team Projects */
+export interface FigmaListTeamProjectsInput {
+  /** Team ID */
+  teamId: string
+}
+
+/** Figma — List Project Files */
+export interface FigmaListProjectFilesInput {
+  /** Project ID */
+  projectId: string
+  /** Include Branch Data */
+  branch_data?: boolean
+}
+
+/** Figma — List Team Components */
+export interface FigmaListTeamComponentsInput {
+  /** Team ID */
+  teamId: string
+  /** Page Size */
+  page_size?: number
+  /** After Cursor */
+  after?: string
+  /** Before Cursor */
+  before?: string
+}
+
+/** Figma — List Team Component Sets */
+export interface FigmaListTeamComponentSetsInput {
+  /** Team ID */
+  teamId: string
+  /** Page Size */
+  page_size?: number
+  /** After Cursor */
+  after?: string
+  /** Before Cursor */
+  before?: string
+}
+
+/** Figma — List Team Styles */
+export interface FigmaListTeamStylesInput {
+  /** Team ID */
+  teamId: string
+  /** Page Size */
+  page_size?: number
+  /** After Cursor */
+  after?: string
+  /** Before Cursor */
+  before?: string
+}
+
+/** Figma — Get Local Variables */
+export interface FigmaGetLocalVariablesInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — Get Published Variables */
+export interface FigmaGetPublishedVariablesInput {
+  /** File Key */
+  fileKey: string
+}
+
+/** Figma — Update Variables */
+export interface FigmaUpdateVariablesInput {
+  /** File Key */
+  fileKey: string
+  /** Variables Payload */
+  payload: unknown
+}
+
+/** Figma — List Dev Resources */
+export interface FigmaListDevResourcesInput {
+  /** File Key */
+  fileKey: string
+  /** Node IDs */
+  node_ids?: string
+}
+
+/** Figma — Create Dev Resources */
+export interface FigmaCreateDevResourcesInput {
+  /** Dev Resources */
+  devResources: unknown
+}
+
+/** Figma — Update Dev Resources */
+export interface FigmaUpdateDevResourcesInput {
+  /** Dev Resources */
+  devResources: unknown
+}
+
+/** Figma — Delete Dev Resource */
+export interface FigmaDeleteDevResourceInput {
+  /** File Key */
+  fileKey: string
+  /** Dev Resource ID */
+  devResourceId: string
+}
+
+/** Figma — List Webhooks */
+export interface FigmaListWebhooksInput {
+  /** Context (values: `team`, `project`, `file`) */
+  context?: "team" | "project" | "file"
+  /** Context ID */
+  context_id?: string
+  /** Plan API ID */
+  plan_api_id?: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Figma — Get Webhook */
+export interface FigmaGetWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
+/** Figma — Create Webhook */
+export interface FigmaCreateWebhookInput {
+  /** Event Type (values: `PING`, `FILE_UPDATE`, `FILE_DELETE`, `FILE_VERSION_UPDATE`, `LIBRARY_PUBLISH`, `FILE_COMMENT`, `DEV_MODE_STATUS_UPDATE`) */
+  event_type: "PING" | "FILE_UPDATE" | "FILE_DELETE" | "FILE_VERSION_UPDATE" | "LIBRARY_PUBLISH" | "FILE_COMMENT" | "DEV_MODE_STATUS_UPDATE"
+  /** Context (values: `team`, `project`, `file`) */
+  context: "team" | "project" | "file"
+  /** Context ID */
+  context_id: string
+  /** Endpoint URL */
+  endpoint: string
+  /** Passcode */
+  passcode: string
+  /** Status (values: `ACTIVE`, `PAUSED`) */
+  status?: "ACTIVE" | "PAUSED"
+  /** Description */
+  description?: string
+}
+
+/** Figma — Update Webhook */
+export interface FigmaUpdateWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Event Type (values: `PING`, `FILE_UPDATE`, `FILE_DELETE`, `FILE_VERSION_UPDATE`, `LIBRARY_PUBLISH`, `FILE_COMMENT`, `DEV_MODE_STATUS_UPDATE`) */
+  event_type?: "PING" | "FILE_UPDATE" | "FILE_DELETE" | "FILE_VERSION_UPDATE" | "LIBRARY_PUBLISH" | "FILE_COMMENT" | "DEV_MODE_STATUS_UPDATE"
+  /** Endpoint URL */
+  endpoint?: string
+  /** Passcode */
+  passcode?: string
+  /** Status (values: `ACTIVE`, `PAUSED`) */
+  status?: "ACTIVE" | "PAUSED"
+  /** Description */
+  description?: string
+}
+
+/** Figma — Delete Webhook */
+export interface FigmaDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
+/** Figma — List Webhook Requests */
+export interface FigmaListWebhookRequestsInput {
+  /** Webhook ID */
+  webhookId: string
 }
 
 /** Figma — Custom API Call */
 export interface FigmaCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Relative /v1 or /v2 path. */
+  path: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  queryParams?: Record<string, unknown>
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
+  body?: unknown
   /** No Error on Failure */
   failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
 }
 
 /** Filevine — Get Project */
@@ -13286,6 +15488,66 @@ export interface GrafanaCustomApiCallInput {
   body?: unknown
 }
 
+/** Granola — List Notes */
+export interface GranolaListNotesInput {
+  /** Date or datetime. */
+  createdAfter?: string
+  /** Date or datetime. */
+  createdBefore?: string
+  /** Date or datetime. */
+  updatedAfter?: string
+  /** Folder ID */
+  folderId?: string
+  /** Cursor */
+  cursor?: string
+  /** Maximum 30. */
+  pageSize?: number
+}
+
+/** Granola — Get Note */
+export interface GranolaGetNoteInput {
+  /** Note ID */
+  noteId: string
+  /** Include Transcript */
+  includeTranscript?: boolean
+}
+
+/** Granola — List Folders */
+export interface GranolaListFoldersInput {
+  /** Cursor */
+  cursor?: string
+  /** Maximum 30. */
+  pageSize?: number
+}
+
+/** Granola — Search Notes */
+export interface GranolaSearchNotesInput {
+  /** Query */
+  query: string
+  /** Folder ID */
+  folderId?: string
+  /** Created After */
+  createdAfter?: string
+  /** Updated After */
+  updatedAfter?: string
+  /** Maximum 30. */
+  pageSize?: number
+  /** Max Pages */
+  maxPages?: number
+  /** Fetch Note Details */
+  fetchDetails?: boolean
+  /** Include Transcript In Details */
+  includeTranscript?: boolean
+}
+
+/** Granola — Custom API Call */
+export interface GranolaCustomApiCallInput {
+  /** Path under the API base URL, for example /notes. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
 /** GraphQL — Send Request */
 export interface GraphqlSendRequestInput {
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
@@ -13308,6 +15570,66 @@ export interface GraphqlSendRequestInput {
   timeout?: number
   /** No Error on Failure */
   failsafe?: boolean
+}
+
+/** Grasshopper Bank — Get Account */
+export interface GrasshopperBankGetAccountInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** Grasshopper Bank — List Account Transactions */
+export interface GrasshopperBankListAccountTransactionsInput {
+  /** Account ID */
+  accountId: string
+  /** Optional query parameters supported by your Grasshopper API agreement. */
+  queryParams?: unknown
+}
+
+/** Grasshopper Bank — Create ACH */
+export interface GrasshopperBankCreateAchInput {
+  /** Official Grasshopper ACH payload. */
+  body: unknown
+  /** Must be checked to submit ACH requests. */
+  confirmFundsMovement: boolean
+}
+
+/** Grasshopper Bank — Create Account Transfer */
+export interface GrasshopperBankCreateAccountTransferInput {
+  /** Official transfer payload supplied by Grasshopper. */
+  body: unknown
+  /** Must be checked to submit transfer requests. */
+  confirmFundsMovement: boolean
+}
+
+/** Grasshopper Bank — Create Bill Payment */
+export interface GrasshopperBankCreateBillPaymentInput {
+  /** Official Grasshopper billpay payment payload. */
+  body: unknown
+  /** Must be checked to submit bill payments. */
+  confirmFundsMovement: boolean
+}
+
+/** Grasshopper Bank — Create Check Deposit */
+export interface GrasshopperBankCreateCheckDepositInput {
+  /** Official Grasshopper check_deposit payload. */
+  body: unknown
+  /** Must be checked to submit check deposits. */
+  confirmFundsMovement: boolean
+}
+
+/** Grasshopper Bank — Custom API Call */
+export interface GrasshopperBankCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path under the API base URL, for example /account/{account_id}. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for any custom non-GET request. */
+  confirmFundsMovement?: boolean
 }
 
 /** Greenhouse — List Candidates */
@@ -16114,6 +18436,177 @@ export interface HunterIoCustomApiCallInput {
   body?: unknown
 }
 
+/** IBKR — Get Authentication Status */
+export type IbkrGetAuthStatusInput = Record<string, never>
+
+/** IBKR — Tickle Session */
+export type IbkrTickleInput = Record<string, never>
+
+/** IBKR — Initialize Brokerage Session */
+export interface IbkrInitializeBrokerageSessionInput {
+  /** Disconnect another active brokerage session for this username if IBKR allows it. */
+  compete?: boolean
+}
+
+/** IBKR — List Portfolio Accounts */
+export type IbkrListPortfolioAccountsInput = Record<string, never>
+
+/** IBKR — List Subaccounts */
+export type IbkrListSubaccountsInput = Record<string, never>
+
+/** IBKR — List Trading Accounts */
+export type IbkrListTradingAccountsInput = Record<string, never>
+
+/** IBKR — Get Account Summary */
+export interface IbkrGetAccountSummaryInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** IBKR — Get Account Ledger */
+export interface IbkrGetAccountLedgerInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** IBKR — List Positions */
+export interface IbkrListPositionsInput {
+  /** Account ID */
+  accountId: string
+  /** Use Fresh Positions Endpoint */
+  useFreshEndpoint?: boolean
+  /** Used only when the fresh endpoint is disabled. */
+  pageId?: number
+  /** Model */
+  model?: string
+  /** Sort */
+  sort?: string
+  /** Direction (values: `a`, `d`) */
+  direction?: "a" | "d"
+  /** Legacy positions endpoint only, for example 1D, 7D, 1M. */
+  period?: string
+}
+
+/** IBKR — Get Position By Conid */
+export interface IbkrGetPositionByConidInput {
+  /** Account ID */
+  accountId: string
+  /** Conid */
+  conid: string
+}
+
+/** IBKR — Search Contracts */
+export interface IbkrSearchContractsInput {
+  /** Symbol Or Name */
+  symbol: string
+  /** Treat Symbol As Company Name */
+  name?: boolean
+  /** For example STK, OPT, FUT, IND, BOND. */
+  secType?: string
+}
+
+/** IBKR — Get Market Data Snapshot */
+export interface IbkrGetMarketDataSnapshotInput {
+  /** Up to 100 conids. */
+  conids: unknown[]
+  /** Optional IBKR market-data field tags, up to 50. */
+  fields?: unknown[]
+  /** Since */
+  since?: number
+  /** IBKR requires /iserver/accounts before market-data snapshot in many sessions. */
+  callAccountsFirst?: boolean
+}
+
+/** IBKR — List Orders */
+export interface IbkrListOrdersInput {
+  /** Account ID */
+  accountId?: string
+  /** Comma-separated filters such as filled, cancelled, inactive. */
+  filters?: string
+  /** Force Refresh */
+  force?: boolean
+}
+
+/** IBKR — Get Order Status */
+export interface IbkrGetOrderStatusInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** IBKR — List Trades */
+export interface IbkrListTradesInput {
+  /** Maximum 7. */
+  days?: number
+}
+
+/** IBKR — Preview Order */
+export interface IbkrPreviewOrderInput {
+  /** Account ID */
+  accountId: string
+  /** Official IBKR orders array. */
+  orders: unknown
+  /** Additional Body Fields */
+  additionalBody?: unknown
+}
+
+/** IBKR — Place Order */
+export interface IbkrPlaceOrderInput {
+  /** Account ID */
+  accountId: string
+  /** Official IBKR orders array. */
+  orders: unknown
+  /** Additional Body Fields */
+  additionalBody?: unknown
+  /** Must be checked to submit orders. */
+  confirmTradingInstruction: boolean
+}
+
+/** IBKR — Modify Order */
+export interface IbkrModifyOrderInput {
+  /** Account ID */
+  accountId: string
+  /** Order ID */
+  orderId: string
+  /** Official IBKR order body for modification. */
+  body: unknown
+  /** Must be checked to modify an order. */
+  confirmTradingInstruction: boolean
+}
+
+/** IBKR — Cancel Order */
+export interface IbkrCancelOrderInput {
+  /** Account ID */
+  accountId: string
+  /** Order ID */
+  orderId: string
+  /** Must be checked to submit the cancellation request. */
+  confirmCancellation: boolean
+}
+
+/** IBKR — Reply To Order Prompt */
+export interface IbkrReplyToOrderPromptInput {
+  /** Reply ID */
+  replyId: string
+  /** Confirmed */
+  confirmed: boolean
+  /** Must be checked when confirming an IBKR order reply. */
+  confirmTradingInstruction?: boolean
+}
+
+/** IBKR — Custom API Call */
+export interface IbkrCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path under the API base URL, for example /portfolio/accounts. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for custom order or reply write requests. */
+  confirmTradingInstruction?: boolean
+}
+
 /** Ideogram — Generate Image */
 export interface IdeogramGenerateImageInput {
   /** The text prompt for image generation */
@@ -17629,6 +20122,270 @@ export interface KommoCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Kpler — Get AIS Latest Positions */
+export interface KplerGetAisLatestInput {
+  /** For example dwt >= 200000. */
+  filter?: string
+  /** Format (values: `json`, `csv`) */
+  format?: "json" | "csv"
+  /** Limit */
+  limit?: number
+  /** Fields */
+  fields?: unknown[]
+  /** Sort By */
+  sortBy?: string
+  /** Use POST for large filters or long vessel lists. */
+  usePost?: boolean
+  /** POST Body */
+  body?: unknown
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get AIS Historical Positions */
+export interface KplerGetAisHistoricalInput {
+  /** ECQL Filter */
+  filter: string
+  /** Format (values: `json`, `csv`) */
+  format?: "json" | "csv"
+  /** Limit */
+  limit?: number
+  /** Fields */
+  fields?: unknown[]
+  /** Sort By */
+  sortBy?: string
+  /** Downsample */
+  downsample?: string
+  /** Use POST */
+  usePost?: boolean
+  /** POST Body */
+  body?: unknown
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — List Cargo Trades */
+export interface KplerListCargoTradesInput {
+  /** size */
+  size?: string
+  /** originDateStart */
+  originDateStart?: string
+  /** originDateEnd */
+  originDateEnd?: string
+  /** destinationDateStart */
+  destinationDateStart?: string
+  /** destinationDateEnd */
+  destinationDateEnd?: string
+  /** products */
+  products?: string
+  /** tradeStatus */
+  tradeStatus?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — List Cargo Flows */
+export interface KplerListCargoFlowsInput {
+  /** flowDirection */
+  flowDirection?: string
+  /** split */
+  split?: string
+  /** granularity */
+  granularity?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** products */
+  products?: string
+  /** unit */
+  unit?: string
+  /** tradeStatus */
+  tradeStatus?: string
+  /** withForecast */
+  withForecast?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — List Cargo Port Calls */
+export interface KplerListCargoPortCallsInput {
+  /** size */
+  size?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** vessels */
+  vessels?: string
+  /** zones */
+  zones?: string
+  /** installations */
+  installations?: string
+  /** products */
+  products?: string
+  /** withForecast */
+  withForecast?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get Cargo Fleet Metrics */
+export interface KplerGetCargoFleetMetricsInput {
+  /** metric */
+  metric?: string
+  /** split */
+  split?: string
+  /** granularity */
+  granularity?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** zones */
+  zones?: string
+  /** products */
+  products?: string
+  /** unit */
+  unit?: string
+  /** vesselTypes */
+  vesselTypes?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — List Cargo Products */
+export interface KplerListCargoProductsInput {
+  /** size */
+  size?: string
+  /** products */
+  products?: string
+  /** ancestorFamilyIds */
+  ancestorFamilyIds?: string
+  /** ancestorFamilyNames */
+  ancestorFamilyNames?: string
+  /** productIds */
+  productIds?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get Maritime Route */
+export interface KplerGetMaritimeRouteInput {
+  /** Origin Type */
+  originType: string
+  /** Origin Value */
+  originValue: string
+  /** Destination Type */
+  destinationType: string
+  /** Destination Value */
+  destinationValue: string
+  /** Avoid Canals */
+  avoidCanals?: unknown[]
+  /** Avoid Zones */
+  avoidZones?: unknown[]
+  /** Start Date */
+  startDate?: string
+  /** Speed */
+  speed?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Screen Compliance */
+export interface KplerScreenComplianceInput {
+  /** vessels */
+  vessels?: string
+  /** vesselType */
+  vesselType?: string
+  /** vesselFlag */
+  vesselFlag?: string
+  /** riskType */
+  riskType?: string
+  /** products */
+  products?: string
+  /** authority */
+  authority?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get Vessel Risks */
+export interface KplerGetVesselRisksInput {
+  /** Request Body */
+  body: unknown
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get Power Day-Ahead Prices */
+export interface KplerGetPowerDayAheadPricesInput {
+  /** zones */
+  zones?: string
+  /** timezone */
+  timezone?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** granularity */
+  granularity?: string
+  /** provider */
+  provider?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Get Power Unit Availability */
+export interface KplerGetPowerUnitAvailabilityInput {
+  /** zone */
+  zone?: string
+  /** fuelType */
+  fuelType?: string
+  /** provider */
+  provider?: string
+  /** startDate */
+  startDate?: string
+  /** endDate */
+  endDate?: string
+  /** timezone */
+  timezone?: string
+  /** asOf */
+  asOf?: string
+  /** granularity */
+  granularity?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** Kpler — Execute Vessels GraphQL */
+export interface KplerExecuteVesselsGraphqlInput {
+  /** GraphQL Query */
+  query: string
+  /** Variables */
+  variables?: unknown
+}
+
+/** Kpler — Custom API Call */
+export interface KplerCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path under the REST API base URL, for example /cargo/trades. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
 }
 
 /** KV Store — Put */
@@ -19147,6 +21904,195 @@ export interface LoopsCustomApiCallInput {
   body?: unknown
 }
 
+/** Lucid — Get Profile */
+export type LucidGetProfileInput = Record<string, never>
+
+/** Lucid — Search Documents */
+export interface LucidSearchDocumentsInput {
+  /** Keywords */
+  keywords?: string
+  /** lucidchart, lucidspark, and/or lucidscale */
+  products?: unknown[]
+  /** RFC3339 timestamp */
+  lastModifiedAfter?: string
+  /** Created Start Time */
+  createdStartTime?: string
+  /** Created End Time */
+  createdEndTime?: string
+  /** Exclude Trashed */
+  excludeTrashed?: boolean
+  /** Document Location (values: `repositories`) */
+  documentLocation?: "repositories"
+  /** Maximum 200 unless endpoint documents otherwise */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Lucid — Search Account Documents */
+export interface LucidSearchAccountDocumentsInput {
+  /** Keywords */
+  keywords?: string
+  /** Products */
+  products?: unknown[]
+  /** Last Modified After */
+  lastModifiedAfter?: string
+  /** Exclude Trashed */
+  excludeTrashed?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Lucid — Get Document */
+export interface LucidGetDocumentInput {
+  /** Document ID */
+  documentId: string
+}
+
+/** Lucid — Export Document */
+export interface LucidExportDocumentInput {
+  /** Document ID */
+  documentId: string
+  /** Format (values: `application/pdf`, `image/png`, `image/jpeg`, `image/svg+xml`, `image/gif`) */
+  format: "application/pdf" | "image/png" | "image/jpeg" | "image/svg+xml" | "image/gif"
+  /** Page Number */
+  page?: number
+  /** Page ID */
+  pageId?: string
+  /** Optional crop mode accepted by Lucid */
+  crop?: string
+}
+
+/** Lucid — Get Document Contents */
+export interface LucidGetDocumentContentsInput {
+  /** Document ID */
+  documentId: string
+}
+
+/** Lucid — Create Document */
+export interface LucidCreateDocumentInput {
+  /** Title */
+  title: string
+  /** Product (values: `lucidchart`, `lucidspark`, `lucidscale`) */
+  product: "lucidchart" | "lucidspark" | "lucidscale"
+  /** Parent Folder or Repository ID */
+  parent?: string
+  /** When provided, Lucid copies this document */
+  template?: string
+  /** Extension Bootstrap Data */
+  extensionBootstrapData?: Record<string, unknown>
+}
+
+/** Lucid — Update Document */
+export interface LucidUpdateDocumentInput {
+  /** Document ID */
+  documentId: string
+  /** Title */
+  title?: string
+  /** Use a numeric folder ID, repo_<id>, or omit to leave unchanged */
+  parent?: string
+  /** Sets parent to null */
+  moveToRoot?: boolean
+  /** Replaces all tags when provided */
+  customTags?: unknown[]
+}
+
+/** Lucid — Search Folders */
+export interface LucidSearchFoldersInput {
+  /** Type (values: `folder`, `team`) */
+  type?: "folder" | "team"
+  /** Keywords */
+  keywords?: string
+  /** User IDs */
+  userIds?: unknown[]
+  /** Owned By Users */
+  ownedByUsers?: boolean
+  /** App Folder */
+  appFolder?: boolean
+  /** Adds Lucid-Request-As: admin */
+  requestAsAdmin?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Lucid — List Folder Contents */
+export interface LucidListFolderContentsInput {
+  /** Omit for root folder contents */
+  folderId?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Lucid — Create Document Share Link */
+export interface LucidCreateDocumentShareLinkInput {
+  /** Document ID */
+  documentId: string
+  /** Role (values: `editandshare`, `edit`, `comment`, `view`) */
+  role: "editandshare" | "edit" | "comment" | "view"
+  /** Restrict To Account */
+  restrictToAccount?: boolean
+  /** Allow Anonymous Guests */
+  allowAnonymous?: boolean
+  /** RFC3339 timestamp */
+  expires?: string
+  /** Passcode */
+  passcode?: string
+}
+
+/** Lucid — Get Document Share Link */
+export interface LucidGetDocumentShareLinkInput {
+  /** Document ID */
+  documentId: string
+  /** Share Link ID */
+  shareLinkId: string
+}
+
+/** Lucid — Delete Document Share Link */
+export interface LucidDeleteDocumentShareLinkInput {
+  /** Document ID */
+  documentId: string
+  /** Share Link ID */
+  shareLinkId: string
+}
+
+/** Lucid — Create Document Embed */
+export interface LucidCreateDocumentEmbedInput {
+  /** Document ID */
+  documentId: string
+  /** Embed Version (values: `latest-version`, `snapshot-version`) */
+  embedVersion: "latest-version" | "snapshot-version"
+}
+
+/** Lucid — List Users */
+export interface LucidListUsersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Lucid — Custom API Call */
+export interface LucidCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path such as /v1/documents/search */
+  path: string
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** JSON Body */
+  body?: Record<string, unknown>
+  /** Accept Header */
+  accept?: string
+  /** Request As Admin */
+  requestAsAdmin?: boolean
+}
+
 /** Magento — List Products */
 export interface MagentoListProductsInput {
   /** Page Size */
@@ -19835,6 +22781,276 @@ export interface MeistertaskCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Metabase — List Cards */
+export interface MetabaseListCardsInput {
+  /** Optional Metabase card list filter */
+  f?: string
+}
+
+/** Metabase — Get Card */
+export interface MetabaseGetCardInput {
+  /** Card ID */
+  cardId: string
+}
+
+/** Metabase — Create Card */
+export interface MetabaseCreateCardInput {
+  /** Card */
+  card: unknown
+}
+
+/** Metabase — Update Card */
+export interface MetabaseUpdateCardInput {
+  /** Card ID */
+  cardId: string
+  /** Card Update */
+  card: unknown
+}
+
+/** Metabase — Delete Card */
+export interface MetabaseDeleteCardInput {
+  /** Card ID */
+  cardId: string
+}
+
+/** Metabase — Query Card */
+export interface MetabaseQueryCardInput {
+  /** Card ID */
+  cardId: string
+  /** Parameters */
+  parameters?: unknown
+  /** Ignore Cache */
+  ignoreCache?: boolean
+}
+
+/** Metabase — Export Card Query */
+export interface MetabaseExportCardInput {
+  /** Card ID */
+  cardId: string
+  /** Export Format (values: `json`, `csv`, `xlsx`) */
+  exportFormat: "json" | "csv" | "xlsx"
+  /** Parameters */
+  parameters?: unknown
+}
+
+/** Metabase — List Dashboards */
+export type MetabaseListDashboardsInput = Record<string, never>
+
+/** Metabase — Get Dashboard */
+export interface MetabaseGetDashboardInput {
+  /** Dashboard ID */
+  dashboardId: string
+}
+
+/** Metabase — Create Dashboard */
+export interface MetabaseCreateDashboardInput {
+  /** Dashboard */
+  dashboard: unknown
+}
+
+/** Metabase — Update Dashboard */
+export interface MetabaseUpdateDashboardInput {
+  /** Dashboard ID */
+  dashboardId: string
+  /** Dashboard Update */
+  dashboard: unknown
+}
+
+/** Metabase — Delete Dashboard */
+export interface MetabaseDeleteDashboardInput {
+  /** Dashboard ID */
+  dashboardId: string
+}
+
+/** Metabase — List Collections */
+export type MetabaseListCollectionsInput = Record<string, never>
+
+/** Metabase — Get Collection */
+export interface MetabaseGetCollectionInput {
+  /** Collection ID */
+  collectionId: string
+}
+
+/** Metabase — Create Collection */
+export interface MetabaseCreateCollectionInput {
+  /** Collection */
+  collection: unknown
+}
+
+/** Metabase — Update Collection */
+export interface MetabaseUpdateCollectionInput {
+  /** Collection ID */
+  collectionId: string
+  /** Collection Update */
+  collection: unknown
+}
+
+/** Metabase — Delete Collection */
+export interface MetabaseDeleteCollectionInput {
+  /** Collection ID */
+  collectionId: string
+}
+
+/** Metabase — Search Items */
+export interface MetabaseSearchItemsInput {
+  /** Query */
+  query?: string
+  /** Optional model names such as card, dashboard, collection, dataset. */
+  models?: unknown[]
+  /** Limit */
+  limit?: number
+}
+
+/** Metabase — Execute Dataset Query */
+export interface MetabaseExecuteDatasetQueryInput {
+  /** Dataset Query */
+  query: unknown
+}
+
+/** Metabase — Execute Native Query */
+export interface MetabaseExecuteNativeQueryInput {
+  /** Database ID */
+  databaseId: number
+  /** SQL */
+  sql: string
+  /** Parameters */
+  parameters?: unknown
+  /** Template Tags */
+  templateTags?: unknown
+}
+
+/** Metabase — Export Dataset Query */
+export interface MetabaseExportDatasetQueryInput {
+  /** Export Format (values: `json`, `csv`, `xlsx`) */
+  exportFormat: "json" | "csv" | "xlsx"
+  /** Dataset Query */
+  query: unknown
+}
+
+/** Metabase — List Users */
+export type MetabaseListUsersInput = Record<string, never>
+
+/** Metabase — Get User */
+export interface MetabaseGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Metabase — Create User */
+export interface MetabaseCreateUserInput {
+  /** User */
+  user: unknown
+}
+
+/** Metabase — Update User */
+export interface MetabaseUpdateUserInput {
+  /** User ID */
+  userId: string
+  /** User Update */
+  user: unknown
+}
+
+/** Metabase — List Permission Groups */
+export type MetabaseListPermissionGroupsInput = Record<string, never>
+
+/** Metabase — Create Permission Group */
+export interface MetabaseCreatePermissionGroupInput {
+  /** Group */
+  group: unknown
+}
+
+/** Metabase — List Notification Channels */
+export type MetabaseListChannelsInput = Record<string, never>
+
+/** Metabase — Create Notification Channel */
+export interface MetabaseCreateChannelInput {
+  /** Channel */
+  channel: unknown
+}
+
+/** Metabase — Update Notification Channel */
+export interface MetabaseUpdateChannelInput {
+  /** Channel ID */
+  channelId: string
+  /** Channel Update */
+  channel: unknown
+}
+
+/** Metabase — Test Notification Channel */
+export interface MetabaseTestChannelInput {
+  /** Channel Test Payload */
+  channel: unknown
+}
+
+/** Metabase — List Notifications */
+export type MetabaseListNotificationsInput = Record<string, never>
+
+/** Metabase — Get Notification */
+export interface MetabaseGetNotificationInput {
+  /** Notification ID */
+  notificationId: string
+}
+
+/** Metabase — Create Notification */
+export interface MetabaseCreateNotificationInput {
+  /** Notification */
+  notification: unknown
+}
+
+/** Metabase — Update Notification */
+export interface MetabaseUpdateNotificationInput {
+  /** Notification ID */
+  notificationId: string
+  /** Notification Update */
+  notification: unknown
+}
+
+/** Metabase — Send Notification */
+export interface MetabaseSendNotificationInput {
+  /** Notification ID */
+  notificationId?: string
+  /** Payload */
+  payload?: unknown
+}
+
+/** Metabase — List Alerts */
+export type MetabaseListAlertsInput = Record<string, never>
+
+/** Metabase — Get Alert */
+export interface MetabaseGetAlertInput {
+  /** Alert ID */
+  alertId: string
+}
+
+/** Metabase — List Pulses */
+export type MetabaseListPulsesInput = Record<string, never>
+
+/** Metabase — Get Pulse */
+export interface MetabaseGetPulseInput {
+  /** Pulse ID */
+  pulseId: string
+}
+
+/** Metabase — Create Pulse */
+export interface MetabaseCreatePulseInput {
+  /** Pulse */
+  pulse: unknown
+}
+
+/** Metabase — Update Pulse */
+export interface MetabaseUpdatePulseInput {
+  /** Pulse ID */
+  pulseId: string
+  /** Pulse Update */
+  pulse: unknown
+}
+
+/** Metabase — Test Pulse */
+export interface MetabaseTestPulseInput {
+  /** Pulse Test Payload */
+  pulse: unknown
+}
+
 /** Metabase — Get Question */
 export interface MetabaseGetQuestionInput {
   /** Metabase Question ID */
@@ -19885,6 +23101,328 @@ export interface MetabaseCustomApiCallInput {
   path: string
   /** JSON body for POST/PUT/PATCH requests */
   body?: unknown
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** No Error on Failure */
+  failsafe?: boolean
+}
+
+/** Microsoft 365 — Get Me */
+export type Microsoft365GetMeInput = Record<string, never>
+
+/** Microsoft 365 — List Users */
+export interface Microsoft365ListUsersInput {
+  /** Top */
+  top?: number
+  /** $filter */
+  filter?: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft 365 — Get User */
+export interface Microsoft365GetUserInput {
+  /** User ID or UPN */
+  userId: string
+}
+
+/** Microsoft 365 — List Groups */
+export interface Microsoft365ListGroupsInput {
+  /** Top */
+  top?: number
+  /** $filter */
+  filter?: string
+}
+
+/** Microsoft 365 — List Messages */
+export interface Microsoft365ListMessagesInput {
+  /** Mail Folder ID */
+  folderId?: string
+  /** Top */
+  top?: number
+  /** $filter */
+  filter?: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft 365 — Get Message */
+export interface Microsoft365GetMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Microsoft 365 — Send Mail */
+export interface Microsoft365SendMailInput {
+  /** To */
+  to: string
+  /** Subject */
+  subject: string
+  /** Body */
+  body: string
+  /** Content Type (values: `Text`, `HTML`) */
+  contentType?: "Text" | "HTML"
+  /** CC */
+  cc?: string
+}
+
+/** Microsoft 365 — List Calendar Events */
+export interface Microsoft365ListCalendarEventsInput {
+  /** Top */
+  top?: number
+  /** $filter */
+  filter?: string
+  /** $orderby */
+  orderby?: string
+}
+
+/** Microsoft 365 — Create Calendar Event */
+export interface Microsoft365CreateCalendarEventInput {
+  /** Subject */
+  subject: string
+  /** Body */
+  body?: string
+  /** Start DateTime */
+  startDateTime: string
+  /** End DateTime */
+  endDateTime: string
+  /** Time Zone */
+  timeZone?: string
+  /** Comma-separated email addresses. */
+  attendees?: string
+}
+
+/** Microsoft 365 — List Contacts */
+export interface Microsoft365ListContactsInput {
+  /** Top */
+  top?: number
+  /** $filter */
+  filter?: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft 365 — Get Contact */
+export interface Microsoft365GetContactInput {
+  /** Contact ID */
+  contactId: string
+}
+
+/** Microsoft 365 — Create Contact */
+export interface Microsoft365CreateContactInput {
+  /** Given Name */
+  givenName?: string
+  /** Surname */
+  surname?: string
+  /** Email */
+  email?: string
+  /** Mobile Phone */
+  mobilePhone?: string
+  /** Comma-separated phone numbers. */
+  businessPhones?: string
+  /** Company Name */
+  companyName?: string
+}
+
+/** Microsoft 365 — List Drive Items */
+export interface Microsoft365ListDriveItemsInput {
+  /** Folder Path */
+  path?: string
+  /** Top */
+  top?: number
+}
+
+/** Microsoft 365 — Get Drive Item */
+export interface Microsoft365GetDriveItemInput {
+  /** Drive ID */
+  driveId?: string
+  /** Item ID */
+  itemId: string
+}
+
+/** Microsoft 365 — Upload Drive Text File */
+export interface Microsoft365UploadDriveTextFileInput {
+  /** File Name */
+  fileName: string
+  /** Parent Path */
+  parentPath?: string
+  /** Content */
+  content: string
+  /** Content Type */
+  contentType?: string
+}
+
+/** Microsoft 365 — Drive Delta */
+export interface Microsoft365DriveDeltaInput {
+  /** Existing Delta URL */
+  deltaUrl?: string
+}
+
+/** Microsoft 365 — List Sites */
+export interface Microsoft365ListSitesInput {
+  /** Search */
+  search?: string
+}
+
+/** Microsoft 365 — List Site Drives */
+export interface Microsoft365ListSiteDrivesInput {
+  /** Site ID */
+  siteId: string
+}
+
+/** Microsoft 365 — List Teams */
+export type Microsoft365ListTeamsInput = Record<string, never>
+
+/** Microsoft 365 — List Team Channels */
+export interface Microsoft365ListTeamChannelsInput {
+  /** Team ID */
+  teamId: string
+}
+
+/** Microsoft 365 — Send Channel Message */
+export interface Microsoft365SendChannelMessageInput {
+  /** Team ID */
+  teamId: string
+  /** Channel ID */
+  channelId: string
+  /** Message */
+  message: string
+  /** Content Type (values: `html`, `text`) */
+  contentType?: "html" | "text"
+}
+
+/** Microsoft 365 — List Chats */
+export type Microsoft365ListChatsInput = Record<string, never>
+
+/** Microsoft 365 — Send Chat Message */
+export interface Microsoft365SendChatMessageInput {
+  /** Chat ID */
+  chatId: string
+  /** Message */
+  message: string
+  /** Content Type (values: `html`, `text`) */
+  contentType?: "html" | "text"
+}
+
+/** Microsoft 365 — List Planner Plans */
+export interface Microsoft365ListPlannerPlansInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Microsoft 365 — List Planner Tasks */
+export interface Microsoft365ListPlannerTasksInput {
+  /** Plan ID */
+  planId: string
+}
+
+/** Microsoft 365 — Create Planner Task */
+export interface Microsoft365CreatePlannerTaskInput {
+  /** Plan ID */
+  planId: string
+  /** Bucket ID */
+  bucketId: string
+  /** Title */
+  title: string
+  /** Assignments */
+  assignments?: unknown
+}
+
+/** Microsoft 365 — List To Do Lists */
+export type Microsoft365ListTodoListsInput = Record<string, never>
+
+/** Microsoft 365 — List To Do Tasks */
+export interface Microsoft365ListTodoTasksInput {
+  /** List ID */
+  listId: string
+}
+
+/** Microsoft 365 — Create To Do Task */
+export interface Microsoft365CreateTodoTaskInput {
+  /** List ID */
+  listId: string
+  /** Title */
+  title: string
+  /** Due DateTime */
+  dueDateTime?: string
+  /** Time Zone */
+  timeZone?: string
+}
+
+/** Microsoft 365 — List OneNote Notebooks */
+export type Microsoft365ListOnenoteNotebooksInput = Record<string, never>
+
+/** Microsoft 365 — List Workbook Worksheets */
+export interface Microsoft365ListWorkbookWorksheetsInput {
+  /** Drive ID */
+  driveId: string
+  /** Workbook Item ID */
+  itemId: string
+}
+
+/** Microsoft 365 — Get Workbook Range */
+export interface Microsoft365GetWorkbookRangeInput {
+  /** Drive ID */
+  driveId: string
+  /** Workbook Item ID */
+  itemId: string
+  /** Worksheet ID or Name */
+  worksheetIdOrName: string
+  /** Range Address */
+  address: string
+}
+
+/** Microsoft 365 — List Subscriptions */
+export type Microsoft365ListSubscriptionsInput = Record<string, never>
+
+/** Microsoft 365 — Create Subscription */
+export interface Microsoft365CreateSubscriptionInput {
+  /** Change Type */
+  changeType: string
+  /** Notification URL */
+  notificationUrl: string
+  /** Example: /me/mailFolders/inbox/messages or /teams/{id}/channels/{id}/messages */
+  resource: string
+  /** Expiration DateTime */
+  expirationDateTime: string
+  /** Client State */
+  clientState?: string
+  /** Lifecycle Notification URL */
+  lifecycleNotificationUrl?: string
+}
+
+/** Microsoft 365 — Update Subscription */
+export interface Microsoft365UpdateSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Expiration DateTime */
+  expirationDateTime: string
+}
+
+/** Microsoft 365 — Delete Subscription */
+export interface Microsoft365DeleteSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Microsoft 365 — Get Next Page */
+export interface Microsoft365GetNextPageInput {
+  /** @odata.nextLink */
+  nextLink: string
+}
+
+/** Microsoft 365 — Custom API Call */
+export interface Microsoft365CustomApiCallInput {
+  /** Relative /v1.0 or /beta path, or relative path under /v1.0. */
+  path: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** Body */
+  body?: unknown
+  /** No Error on Failure */
+  failsafe?: boolean
 }
 
 /** Microsoft 365 Planner — Create Plan */
@@ -20161,6 +23699,245 @@ export interface MicrosoftExcel365CustomApiCallInput {
   headers?: Record<string, unknown>
   /** Body */
   body?: unknown
+}
+
+/** Microsoft Learn — List MCP Tools */
+export type MicrosoftLearnListMcpToolsInput = Record<string, never>
+
+/** Microsoft Learn — Search Docs */
+export interface MicrosoftLearnSearchDocsInput {
+  /** Query */
+  query: string
+}
+
+/** Microsoft Learn — Fetch Docs Page */
+export interface MicrosoftLearnFetchDocsPageInput {
+  /** URL */
+  url: string
+}
+
+/** Microsoft Learn — Search Code Samples */
+export interface MicrosoftLearnSearchCodeSamplesInput {
+  /** Query */
+  query: string
+  /** Language */
+  language?: "csharp" | "javascript" | "typescript" | "python" | "powershell" | "azurecli" | "sql" | "java" | "kusto" | "cpp" | "go" | "rust" | "ruby" | "php"
+}
+
+/** Microsoft Learn — List Catalog Items */
+export interface MicrosoftLearnListCatalogItemsInput {
+  /** Content Type (values: `courses`, `learning-paths`, `modules`, `certifications`, `exams`, `applied-skills`) */
+  contentType: "courses" | "learning-paths" | "modules" | "certifications" | "exams" | "applied-skills"
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Subjects */
+  subjects?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Courses */
+export interface MicrosoftLearnListCoursesInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Course */
+export interface MicrosoftLearnGetCourseInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Learning Paths */
+export interface MicrosoftLearnListLearningPathsInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Subjects */
+  subjects?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Learning Path */
+export interface MicrosoftLearnGetLearningPathInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Modules */
+export interface MicrosoftLearnListModulesInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Subjects */
+  subjects?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Module */
+export interface MicrosoftLearnGetModuleInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Unit */
+export interface MicrosoftLearnGetUnitInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Certifications */
+export interface MicrosoftLearnListCertificationsInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Subjects */
+  subjects?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Certification */
+export interface MicrosoftLearnGetCertificationInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Exams */
+export interface MicrosoftLearnListExamsInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Exam */
+export interface MicrosoftLearnGetExamInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Applied Skills */
+export interface MicrosoftLearnListAppliedSkillsInput {
+  /** Locale such as en-us or es-es. */
+  locale?: string
+  /** Optional Microsoft Learn content IDs to filter by. */
+  ids?: unknown[]
+  /** Comma-combined by the API, for example beginner or intermediate. */
+  levels?: unknown[]
+  /** Roles */
+  roles?: unknown[]
+  /** Products */
+  products?: unknown[]
+  /** Subjects */
+  subjects?: unknown[]
+  /** Filter updatedAt greater than this ISO timestamp or date. */
+  updatedAtGt?: string
+  /** Default is 30; maximum is 100. */
+  maxPageSize?: number
+  /** Use nextLink from a prior response to fetch the next page. */
+  nextLink?: string
+}
+
+/** Microsoft Learn — Applied Skill */
+export interface MicrosoftLearnGetAppliedSkillInput {
+  /** ID */
+  id: string
+  /** Locale */
+  locale?: string
+}
+
+/** Microsoft Learn — Custom API Call */
+export interface MicrosoftLearnCustomApiCallInput {
+  /** Path such as /modules or a full nextLink URL. */
+  pathOrUrl: string
+  /** Query Parameters */
+  queryParams?: unknown
 }
 
 /** Microsoft OneDrive — List Files */
@@ -20981,12 +24758,124 @@ export interface MintlifyCustomApiCallInput {
 export interface MiroListBoardsInput {
   /** Limit */
   limit?: number
+  /** Cursor */
+  cursor?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
 }
 
 /** Miro — Get Board */
 export interface MiroGetBoardInput {
   /** Board ID */
   boardId: string
+}
+
+/** Miro — Create Board */
+export interface MiroCreateBoardInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Team ID */
+  teamId?: string
+  /** Project / Space ID */
+  projectId?: string
+  /** Policy */
+  policy?: unknown
+}
+
+/** Miro — Update Board */
+export interface MiroUpdateBoardInput {
+  /** Board ID */
+  boardId: string
+  /** Payload */
+  payload: unknown
+}
+
+/** Miro — Delete Board */
+export interface MiroDeleteBoardInput {
+  /** Board ID */
+  boardId: string
+}
+
+/** Miro — List Board Members */
+export interface MiroListBoardMembersInput {
+  /** Board ID */
+  boardId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Miro — Share Board */
+export interface MiroShareBoardInput {
+  /** Board ID */
+  boardId: string
+  /** Emails */
+  emails: unknown[]
+  /** Role (values: `viewer`, `commenter`, `editor`, `coowner`, `owner`) */
+  role?: "viewer" | "commenter" | "editor" | "coowner" | "owner"
+  /** Message */
+  message?: string
+}
+
+/** Miro — Update Board Member */
+export interface MiroUpdateBoardMemberInput {
+  /** Board ID */
+  boardId: string
+  /** Board Member ID */
+  memberId: string
+  /** Role (values: `viewer`, `commenter`, `editor`, `coowner`) */
+  role: "viewer" | "commenter" | "editor" | "coowner"
+}
+
+/** Miro — Remove Board Member */
+export interface MiroRemoveBoardMemberInput {
+  /** Board ID */
+  boardId: string
+  /** Board Member ID */
+  memberId: string
+}
+
+/** Miro — List Board Items */
+export interface MiroListItemsInput {
+  /** Board ID */
+  boardId: string
+  /** Limit */
+  limit?: number
+  /** Examples: sticky_note, shape, image, text, frame, card, connector. */
+  type?: string
+  /** Parent Item ID */
+  parent_item_id?: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Miro — Get Item */
+export interface MiroGetItemInput {
+  /** Board ID */
+  boardId: string
+  /** Item ID */
+  itemId: string
+}
+
+/** Miro — Update Item */
+export interface MiroUpdateItemInput {
+  /** Board ID */
+  boardId: string
+  /** Item ID */
+  itemId: string
+  /** Payload */
+  payload: unknown
+}
+
+/** Miro — Delete Item */
+export interface MiroDeleteItemInput {
+  /** Board ID */
+  boardId: string
+  /** Item ID */
+  itemId: string
 }
 
 /** Miro — Create Sticky Note */
@@ -20997,14 +24886,126 @@ export interface MiroCreateStickyNoteInput {
   content: string
   /** Color (values: `yellow`, `blue`, `green`, `pink`, `orange`, `red`) */
   color?: "yellow" | "blue" | "green" | "pink" | "orange" | "red"
+  /** Position */
+  position?: unknown
+  /** Geometry */
+  geometry?: unknown
 }
 
-/** Miro — List Board Items */
-export interface MiroListItemsInput {
+/** Miro — Create Shape */
+export interface MiroCreateShapeInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/shapes. */
+  payload: unknown
+}
+
+/** Miro — Create Text */
+export interface MiroCreateTextInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/texts. */
+  payload: unknown
+}
+
+/** Miro — Create Frame */
+export interface MiroCreateFrameInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/frames. */
+  payload: unknown
+}
+
+/** Miro — Create Card */
+export interface MiroCreateCardInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/cards. */
+  payload: unknown
+}
+
+/** Miro — Create Image */
+export interface MiroCreateImageInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/images. */
+  payload: unknown
+}
+
+/** Miro — Create Connector */
+export interface MiroCreateConnectorInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/connectors. */
+  payload: unknown
+}
+
+/** Miro — Create Group */
+export interface MiroCreateGroupInput {
+  /** Board ID */
+  boardId: string
+  /** Raw payload accepted by POST /boards/{board_id}/groups. */
+  payload: unknown
+}
+
+/** Miro — List Tags */
+export interface MiroListTagsInput {
   /** Board ID */
   boardId: string
   /** Limit */
   limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Miro — Create Tag */
+export interface MiroCreateTagInput {
+  /** Board ID */
+  boardId: string
+  /** Title */
+  title: string
+  /** Miro-supported tag color such as red, light_green, or violet. */
+  fillColor?: string
+}
+
+/** Miro — Create Board Export Job */
+export interface MiroCreateBoardExportJobInput {
+  /** Organization ID */
+  orgId: string
+  /** UUID idempotency request ID required by Miro. */
+  requestId: string
+  /** Board IDs */
+  boardIds: unknown[]
+  /** Board Format (values: `SVG`, `HTML`, `PDF`) */
+  boardFormat?: "SVG" | "HTML" | "PDF"
+}
+
+/** Miro — Get Board Export Job */
+export interface MiroGetBoardExportJobInput {
+  /** Organization ID */
+  orgId: string
+  /** Job ID */
+  jobId: string
+}
+
+/** Miro — Get Board Export Job Results */
+export interface MiroGetBoardExportJobResultsInput {
+  /** Organization ID */
+  orgId: string
+  /** Job ID */
+  jobId: string
+}
+
+/** Miro — Custom API Call */
+export interface MiroCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path such as /boards/{board_id}. Must start with /. */
+  path: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
 }
 
 /** Mistral AI — Chat */
@@ -21676,6 +25677,52 @@ export interface MoodleCustomApiCallInput {
   body?: unknown
 }
 
+/** Morningstar Credit Analytics — Get MCP Setup Info */
+export type MorningstarCreditAnalyticsGetMcpSetupInfoInput = Record<string, never>
+
+/** Morningstar Credit Analytics — Get OAuth Metadata */
+export interface MorningstarCreditAnalyticsGetOauthMetadataInput {
+  /** MCP endpoint or metadata host to inspect. */
+  mcpUrl: string
+}
+
+/** Morningstar Credit Analytics — Initialize MCP Session */
+export interface MorningstarCreditAnalyticsInitializeMcpSessionInput {
+  /** Protocol Version */
+  protocolVersion?: string
+  /** Client Name */
+  clientName?: string
+  /** Client Version */
+  clientVersion?: string
+}
+
+/** Morningstar Credit Analytics — List MCP Tools */
+export type MorningstarCreditAnalyticsListMcpToolsInput = Record<string, never>
+
+/** Morningstar Credit Analytics — Search MCP Tools */
+export interface MorningstarCreditAnalyticsSearchMcpToolsInput {
+  /** Query */
+  query: string
+}
+
+/** Morningstar Credit Analytics — Call MCP Tool */
+export interface MorningstarCreditAnalyticsCallMcpToolInput {
+  /** Tool Name */
+  toolName: string
+  /** Arguments */
+  arguments?: unknown
+}
+
+/** Morningstar Credit Analytics — Custom MCP Request */
+export interface MorningstarCreditAnalyticsCustomMcpRequestInput {
+  /** Method */
+  method: string
+  /** Params */
+  params?: unknown
+  /** Request ID */
+  id?: string
+}
+
 /** MRPeasy — Get Inventory */
 export interface MrpeasyGetInventoryInput {
   /** Per Page */
@@ -22064,56 +26111,233 @@ export interface NetlifyListFilesInput {
   siteId: string
 }
 
-/** NetSuite — Get Vendor */
-export interface NetsuiteGetVendorInput {
-  /** The ID of the vendor to retrieve. */
-  vendorId: string
+/** NetSuite — Test Connection */
+export type NetsuiteTestConnectionInput = Record<string, never>
+
+/** NetSuite — Get Metadata Catalog */
+export interface NetsuiteGetMetadataCatalogInput {
+  /** Record Type */
+  recordType?: string
+  /** Comma-separated metadata selection for the metadata catalog. */
+  select?: string
+  /** Response Format (values: `json`, `swagger`) */
+  responseFormat?: "json" | "swagger"
 }
 
-/** NetSuite — Get Customer */
-export interface NetsuiteGetCustomerInput {
-  /** The ID of the customer to retrieve. */
-  customerId: string
+/** NetSuite — List Records */
+export interface NetsuiteListRecordsInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record Query */
+  q?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Expand Subresources */
+  expandSubResources?: boolean
 }
 
-/** NetSuite — Run SuiteQL Query */
-export interface NetsuiteRunSuiteQLInput {
-  /**  - **DO NOT** insert dynamic input directly into the query string. Instead, use :1, :2, :3 and add them in args for parameterized queries - Arguments are treated as string and inserted as a [Text Literal](https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/Literals.html)  */
-  markdown?: string
-  /** Please use :1, :2, :3 etc. for parameterized queries */
+/** NetSuite — Get Record */
+export interface NetsuiteGetRecordInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Record */
+export interface NetsuiteCreateRecordInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Update Record */
+export interface NetsuiteUpdateRecordInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record ID */
+  recordId: string
+  /** Record Patch */
+  record: unknown
+}
+
+/** NetSuite — Replace Record */
+export interface NetsuiteReplaceRecordInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record ID */
+  recordId: string
+  /** Replacement Record */
+  record: unknown
+}
+
+/** NetSuite — Upsert Record by External ID */
+export interface NetsuiteUpsertRecordByExternalIdInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** External ID */
+  externalId: string
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Delete Record */
+export interface NetsuiteDeleteRecordInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Transform Record */
+export interface NetsuiteTransformRecordInput {
+  /** Source Record Type */
+  sourceRecordType: string
+  /** Source Record ID */
+  sourceRecordId: string
+  /** Target Record Type */
+  targetRecordType: string
+  /** Optional Transform Body */
+  record?: unknown
+}
+
+/** NetSuite — Execute Record Action */
+export interface NetsuiteExecuteRecordActionInput {
+  /** NetSuite REST record ID, for example customer, salesOrder, or customrecord_mytype. */
+  recordType: string
+  /** Record ID */
+  recordId: string
+  /** Action Name */
+  actionName: string
+  /** Action Body */
+  body?: unknown
+}
+
+/** NetSuite — Run SuiteQL */
+export interface NetsuiteRunSuiteqlInput {
+  /** SuiteQL Query */
   query: string
-  /** Arguments to be used in the query */
-  args?: unknown[]
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Require ORDER BY for Paging */
+  requireOrderByForPaging?: boolean
+}
+
+/** NetSuite — List Datasets */
+export interface NetsuiteListDatasetsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
 }
 
 /** NetSuite — Execute Dataset */
 export interface NetsuiteExecuteDatasetInput {
-  /** Dataset (resolve via property options API) */
+  /** Dataset ID */
   datasetId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** NetSuite — Get Customer */
+export interface NetsuiteGetCustomerInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Customer */
+export interface NetsuiteCreateCustomerInput {
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Update Customer */
+export interface NetsuiteUpdateCustomerInput {
+  /** Record ID */
+  recordId: string
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Get Vendor */
+export interface NetsuiteGetVendorInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Vendor */
+export interface NetsuiteCreateVendorInput {
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Get Sales Order */
+export interface NetsuiteGetSalesOrderInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Sales Order */
+export interface NetsuiteCreateSalesOrderInput {
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Get Invoice */
+export interface NetsuiteGetInvoiceInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Invoice */
+export interface NetsuiteCreateInvoiceInput {
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Get Purchase Order */
+export interface NetsuiteGetPurchaseOrderInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Purchase Order */
+export interface NetsuiteCreatePurchaseOrderInput {
+  /** Record Body */
+  record: unknown
+}
+
+/** NetSuite — Get Inventory Item */
+export interface NetsuiteGetInventoryItemInput {
+  /** Record ID */
+  recordId: string
+}
+
+/** NetSuite — Create Journal Entry */
+export interface NetsuiteCreateJournalEntryInput {
+  /** Record Body */
+  record: unknown
 }
 
 /** NetSuite — Custom API Call */
 export interface NetsuiteCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Relative path such as /record/v1/customer/123 or /query/v1/suiteql. */
+  path: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  queryParams?: Record<string, unknown>
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
+  body?: unknown
   /** No Error on Failure */
   failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
 }
 
 /** NexHealth — Get Patient */
@@ -25119,6 +29343,202 @@ export interface PosthogCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Postman — Get Authenticated User */
+export type PostmanGetAuthenticatedUserInput = Record<string, never>
+
+/** Postman — List Workspaces */
+export type PostmanListWorkspacesInput = Record<string, never>
+
+/** Postman — Get Workspace */
+export interface PostmanGetWorkspaceInput {
+  /** Workspace ID */
+  workspaceId: string
+}
+
+/** Postman — Create Workspace */
+export interface PostmanCreateWorkspaceInput {
+  /** Name */
+  name: string
+  /** Type (values: `team`, `personal`, `private`) */
+  type: "team" | "personal" | "private"
+  /** Description */
+  description?: string
+}
+
+/** Postman — List Collections */
+export interface PostmanListCollectionsInput {
+  /** Workspace ID */
+  workspaceId?: string
+}
+
+/** Postman — Get Collection */
+export interface PostmanGetCollectionInput {
+  /** Collection UID */
+  collectionUid: string
+}
+
+/** Postman — Create Collection */
+export interface PostmanCreateCollectionInput {
+  /** Optional workspace query parameter */
+  workspaceId?: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Postman collection item array */
+  items?: unknown[]
+  /** Variables */
+  variables?: unknown[]
+  /** Collection Auth */
+  authConfig?: Record<string, unknown>
+  /** Collection event scripts */
+  events?: unknown[]
+  /** Overrides the generated collection body when provided */
+  collection?: Record<string, unknown>
+}
+
+/** Postman — Update Collection */
+export interface PostmanUpdateCollectionInput {
+  /** Collection UID */
+  collectionUid: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Items */
+  items?: unknown[]
+  /** Variables */
+  variables?: unknown[]
+  /** Collection Auth */
+  authConfig?: Record<string, unknown>
+  /** Events */
+  events?: unknown[]
+  /** Full Collection Object */
+  collection?: Record<string, unknown>
+}
+
+/** Postman — Delete Collection */
+export interface PostmanDeleteCollectionInput {
+  /** Collection UID */
+  collectionUid: string
+}
+
+/** Postman — List Environments */
+export interface PostmanListEnvironmentsInput {
+  /** Workspace ID */
+  workspaceId?: string
+}
+
+/** Postman — Get Environment */
+export interface PostmanGetEnvironmentInput {
+  /** Environment UID */
+  environmentUid: string
+}
+
+/** Postman — Create Environment */
+export interface PostmanCreateEnvironmentInput {
+  /** Workspace ID */
+  workspaceId?: string
+  /** Name */
+  name?: string
+  /** Array of { key, value, type, enabled } entries */
+  values?: unknown[]
+  /** Full Environment Object */
+  environment?: Record<string, unknown>
+}
+
+/** Postman — Update Environment */
+export interface PostmanUpdateEnvironmentInput {
+  /** Environment UID */
+  environmentUid: string
+  /** Name */
+  name?: string
+  /** Variables */
+  values?: unknown[]
+  /** Full Environment Object */
+  environment?: Record<string, unknown>
+}
+
+/** Postman — Delete Environment */
+export interface PostmanDeleteEnvironmentInput {
+  /** Environment UID */
+  environmentUid: string
+}
+
+/** Postman — List Monitors */
+export interface PostmanListMonitorsInput {
+  /** Workspace ID */
+  workspaceId?: string
+}
+
+/** Postman — Get Monitor */
+export interface PostmanGetMonitorInput {
+  /** Monitor UID */
+  monitorUid: string
+}
+
+/** Postman — Run Monitor */
+export interface PostmanRunMonitorInput {
+  /** Monitor UID */
+  monitorUid: string
+  /** Adds async=true to the run request */
+  asyncRun?: boolean
+}
+
+/** Postman — List APIs */
+export interface PostmanListApisInput {
+  /** Workspace ID */
+  workspaceId?: string
+}
+
+/** Postman — Get API */
+export interface PostmanGetApiInput {
+  /** API ID */
+  apiId: string
+}
+
+/** Postman — List API Versions */
+export interface PostmanListApiVersionsInput {
+  /** API ID */
+  apiId: string
+}
+
+/** Postman — List Mock Servers */
+export interface PostmanListMockServersInput {
+  /** Workspace ID */
+  workspaceId?: string
+}
+
+/** Postman — Get Mock Server */
+export interface PostmanGetMockServerInput {
+  /** Mock Server UID */
+  mockUid: string
+}
+
+/** Postman — Create Collection Webhook */
+export interface PostmanCreateCollectionWebhookInput {
+  /** Workspace ID */
+  workspaceId?: string
+  /** Name */
+  name: string
+  /** Collection UID */
+  collectionUid: string
+  /** Environment UID */
+  environmentUid?: string
+}
+
+/** Postman — Custom API Call */
+export interface PostmanCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path such as /collections or /monitors/{id}/run */
+  path: string
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** JSON Body */
+  body?: Record<string, unknown>
+}
+
 /** PowerSchool — List Students */
 export interface PowerschoolListStudentsInput {
   /** Filter by school ID (leave empty for all district students) */
@@ -25375,6 +29795,491 @@ export interface PropertywareCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** protocols.io — Get Profile */
+export type ProtocolsIoGetProfileInput = Record<string, never>
+
+/** protocols.io — Update Profile */
+export interface ProtocolsIoUpdateProfileInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Bio */
+  bio?: string
+  /** Affiliation */
+  affiliation?: string
+  /** Link */
+  link?: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — List Protocols */
+export interface ProtocolsIoListProtocolsInput {
+  /** Page Size */
+  page_size?: number
+  /** Page ID */
+  page_id?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Get Protocol */
+export interface ProtocolsIoGetProtocolInput {
+  /** Protocol ID or URI */
+  id: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Get Protocol Steps */
+export interface ProtocolsIoGetProtocolStepsInput {
+  /** Protocol ID or URI */
+  id: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Get Protocol Materials */
+export interface ProtocolsIoGetProtocolMaterialsInput {
+  /** Protocol ID or URI */
+  id: string
+}
+
+/** protocols.io — Get Protocol PDF URL */
+export interface ProtocolsIoGetProtocolPdfUrlInput {
+  /** Protocol ID or URI */
+  id: string
+}
+
+/** protocols.io — List Researcher Protocols */
+export interface ProtocolsIoListResearcherProtocolsInput {
+  /** Username */
+  username: string
+  /** Page Size */
+  page_size?: number
+  /** Page ID */
+  page_id?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — List Workspace Protocols */
+export interface ProtocolsIoListWorkspaceProtocolsInput {
+  /** Workspace URI */
+  workspaceUri: string
+  /** Page Size */
+  page_size?: number
+  /** Page ID */
+  page_id?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Create Protocol */
+export interface ProtocolsIoCreateProtocolInput {
+  /** Source GUID */
+  guid: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Update Protocol */
+export interface ProtocolsIoUpdateProtocolInput {
+  /** Protocol ID or URI */
+  id: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Publish Protocol */
+export interface ProtocolsIoPublishProtocolInput {
+  /** Protocol URI */
+  protocolUri: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Bookmark Protocol */
+export interface ProtocolsIoBookmarkProtocolInput {
+  /** Protocol URI */
+  protocolUri: string
+}
+
+/** protocols.io — Unbookmark Protocol */
+export interface ProtocolsIoUnbookmarkProtocolInput {
+  /** Protocol URI */
+  protocolUri: string
+}
+
+/** protocols.io — Upsert Protocol Steps */
+export interface ProtocolsIoUpsertProtocolStepsInput {
+  /** Protocol ID or URI */
+  id: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Delete Protocol Steps */
+export interface ProtocolsIoDeleteProtocolStepsInput {
+  /** Protocol ID or URI */
+  id: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — List Publications */
+export interface ProtocolsIoListPublicationsInput {
+  /** Latest */
+  latest?: boolean
+  /** From Unix Timestamp */
+  from?: number
+  /** To Unix Timestamp */
+  to?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — List Latest Publications */
+export interface ProtocolsIoListLatestPublicationsInput {
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — List Protocol Comments */
+export interface ProtocolsIoListProtocolCommentsInput {
+  /** Protocol URI */
+  protocolUri: string
+}
+
+/** protocols.io — Add Protocol Comment */
+export interface ProtocolsIoAddProtocolCommentInput {
+  /** Protocol URI */
+  protocolUri: string
+  /** Text */
+  text: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Reply To Protocol Comment */
+export interface ProtocolsIoReplyProtocolCommentInput {
+  /** Protocol URI */
+  protocolUri: string
+  /** Parent Comment ID */
+  parentCommentId: string
+  /** Text */
+  text: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Add Step Discussion */
+export interface ProtocolsIoAddStepDiscussionInput {
+  /** Step ID */
+  stepId: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Add Step Discussion Comment */
+export interface ProtocolsIoAddStepDiscussionCommentInput {
+  /** Step ID */
+  stepId: string
+  /** Discussion ID */
+  discussionId: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Reply To Step Comment */
+export interface ProtocolsIoReplyStepCommentInput {
+  /** Step ID */
+  stepId: string
+  /** Discussion ID */
+  discussionId: string
+  /** Parent Comment ID */
+  parentId: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Edit Comment */
+export interface ProtocolsIoEditCommentInput {
+  /** Comment ID */
+  commentId: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Edit Discussion */
+export interface ProtocolsIoEditDiscussionInput {
+  /** Discussion ID */
+  discussionId: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Delete Comment */
+export interface ProtocolsIoDeleteCommentInput {
+  /** Comment ID */
+  commentId: string
+}
+
+/** protocols.io — Delete Discussion */
+export interface ProtocolsIoDeleteDiscussionInput {
+  /** Discussion ID */
+  discussionId: string
+}
+
+/** protocols.io — List Records */
+export interface ProtocolsIoListRecordsInput {
+  /** Active Only */
+  active?: boolean
+  /** Page Size */
+  page_size?: number
+  /** Page ID */
+  page_id?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Get Record */
+export interface ProtocolsIoGetRecordInput {
+  /** Record GUID */
+  guid: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Create Record */
+export interface ProtocolsIoCreateRecordInput {
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Update Record */
+export interface ProtocolsIoUpdateRecordInput {
+  /** Record GUID */
+  guid: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — List Workspaces */
+export interface ProtocolsIoListWorkspacesInput {
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — List Researcher Workspaces */
+export interface ProtocolsIoListResearcherWorkspacesInput {
+  /** Username */
+  username: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Get Workspace */
+export interface ProtocolsIoGetWorkspaceInput {
+  /** Workspace URI */
+  workspaceUri: string
+}
+
+/** protocols.io — Request To Join Workspace */
+export interface ProtocolsIoRequestJoinWorkspaceInput {
+  /** Workspace URI */
+  workspaceUri: string
+}
+
+/** protocols.io — Confirm Workspace Invite */
+export interface ProtocolsIoConfirmWorkspaceInviteInput {
+  /** Workspace URI */
+  workspaceUri: string
+}
+
+/** protocols.io — Leave Workspace */
+export interface ProtocolsIoLeaveWorkspaceInput {
+  /** Workspace URI */
+  workspaceUri: string
+}
+
+/** protocols.io — List Conversations */
+export interface ProtocolsIoListConversationsInput {
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — List Conversation Messages */
+export interface ProtocolsIoListConversationMessagesInput {
+  /** Conversation GUID */
+  conversationGuid: string
+}
+
+/** protocols.io — List New Conversations */
+export interface ProtocolsIoListNewConversationsInput {
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Mark Message Read */
+export interface ProtocolsIoMarkMessageReadInput {
+  /** Message GUID */
+  messageGuid: string
+}
+
+/** protocols.io — Send Conversation Message */
+export interface ProtocolsIoSendConversationMessageInput {
+  /** Conversation GUID */
+  conversationGuid: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Delete Conversation */
+export interface ProtocolsIoDeleteConversationInput {
+  /** Conversation GUID */
+  conversationGuid: string
+}
+
+/** protocols.io — Search Folder Items */
+export interface ProtocolsIoSearchFolderItemsInput {
+  /** Folder GUID */
+  folderGuid: string
+  /** Query */
+  query?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Search Workspace Items */
+export interface ProtocolsIoSearchWorkspaceItemsInput {
+  /** Workspace URI */
+  workspaceUri: string
+  /** Query */
+  query?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Search All Workspace Items */
+export interface ProtocolsIoSearchAllWorkspaceItemsInput {
+  /** Query */
+  query?: string
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Move Items To Trash */
+export interface ProtocolsIoMoveItemsToTrashInput {
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Restore Items From Trash */
+export interface ProtocolsIoRestoreItemsFromTrashInput {
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Prepare File Upload */
+export interface ProtocolsIoPrepareFileUploadInput {
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Verify File Upload */
+export interface ProtocolsIoVerifyFileUploadInput {
+  /** File ID */
+  fileId: string
+  /** Request body accepted by the official protocols.io API. */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — List Notifications */
+export interface ProtocolsIoListNotificationsInput {
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** protocols.io — Initiate Content Export */
+export interface ProtocolsIoInitiateContentExportInput {
+  /** Organization URI */
+  organizationUri: string
+  /** Organization subdomain for enterprise hosts. */
+  subdomain?: string
+  /** Request body accepted by the official protocols.io API. */
+  body: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
+}
+
+/** protocols.io — Get Content Export */
+export interface ProtocolsIoGetContentExportInput {
+  /** Organization URI */
+  organizationUri: string
+  /** Organization subdomain for enterprise hosts. */
+  subdomain?: string
+  /** Export GUID */
+  guid: string
+}
+
+/** protocols.io — Custom API Call */
+export interface ProtocolsIoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+  /** Body Format (values: `form`, `json`) */
+  bodyFormat?: "form" | "json"
 }
 
 /** Proxycurl — Get Person Profile */
@@ -25767,6 +30672,816 @@ export interface QuickbooksCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** QuickNode — List Chains */
+export interface QuicknodeListChainsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Endpoints */
+export interface QuicknodeListEndpointsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Search */
+  search?: string
+  /** Sort By */
+  sort_by?: string
+  /** Sort Direction (values: `asc`, `desc`) */
+  sort_direction?: "asc" | "desc"
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create Endpoint */
+export interface QuicknodeCreateEndpointInput {
+  /** Chain */
+  chain: string
+  /** Network */
+  network: string
+}
+
+/** QuickNode — Get Endpoint */
+export interface QuicknodeGetEndpointInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Update Endpoint */
+export interface QuicknodeUpdateEndpointInput {
+  /** Endpoint ID */
+  id: string
+  /** Label */
+  label: string
+}
+
+/** QuickNode — Delete Endpoint */
+export interface QuicknodeDeleteEndpointInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Update Endpoint Status */
+export interface QuicknodeUpdateEndpointStatusInput {
+  /** Endpoint ID */
+  id: string
+  /** Status (values: `active`, `paused`) */
+  status: "active" | "paused"
+}
+
+/** QuickNode — Get Endpoint URLs */
+export interface QuicknodeGetEndpointUrlsInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Get Endpoint Metrics */
+export interface QuicknodeGetEndpointMetricsInput {
+  /** Endpoint ID */
+  id: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Endpoint Logs */
+export interface QuicknodeListEndpointLogsInput {
+  /** Endpoint ID */
+  id: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get Endpoint Log Details */
+export interface QuicknodeGetEndpointLogDetailsInput {
+  /** Endpoint ID */
+  id: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get Endpoint Security */
+export interface QuicknodeGetEndpointSecurityInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Get Endpoint Security Options */
+export interface QuicknodeGetEndpointSecurityOptionsInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Update Endpoint Security Options */
+export interface QuicknodeUpdateEndpointSecurityOptionsInput {
+  /** Endpoint ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Create Security Rule */
+export interface QuicknodeCreateSecurityRuleInput {
+  /** Endpoint ID */
+  id: string
+  /** Rule Type (values: `domain_masks`, `ips`, `jwts`, `referrers`, `request_filters`, `tokens`) */
+  ruleType: "domain_masks" | "ips" | "jwts" | "referrers" | "request_filters" | "tokens"
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete Security Rule */
+export interface QuicknodeDeleteSecurityRuleInput {
+  /** Endpoint ID */
+  id: string
+  /** Rule Type (values: `domain_masks`, `ips`, `jwts`, `referrers`, `request_filters`, `tokens`) */
+  ruleType: "domain_masks" | "ips" | "jwts" | "referrers" | "request_filters" | "tokens"
+  /** Rule ID */
+  ruleId: string
+}
+
+/** QuickNode — List Method Rate Limits */
+export interface QuicknodeListMethodRateLimitsInput {
+  /** Endpoint ID */
+  id: string
+}
+
+/** QuickNode — Create Method Rate Limit */
+export interface QuicknodeCreateMethodRateLimitInput {
+  /** Endpoint ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Update Method Rate Limit */
+export interface QuicknodeUpdateMethodRateLimitInput {
+  /** Endpoint ID */
+  id: string
+  /** Method Rate Limit ID */
+  methodRateLimitId: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete Method Rate Limit */
+export interface QuicknodeDeleteMethodRateLimitInput {
+  /** Endpoint ID */
+  id: string
+  /** Method Rate Limit ID */
+  methodRateLimitId: string
+}
+
+/** QuickNode — Update Endpoint Rate Limits */
+export interface QuicknodeUpdateEndpointRateLimitsInput {
+  /** Endpoint ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get RPC Usage */
+export interface QuicknodeGetRpcUsageInput {
+  /** Start Date/Time */
+  start?: string
+  /** End Date/Time */
+  end?: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get RPC Usage By Chain */
+export interface QuicknodeGetRpcUsageByChainInput {
+  /** Start Date/Time */
+  start?: string
+  /** End Date/Time */
+  end?: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get RPC Usage By Endpoint */
+export interface QuicknodeGetRpcUsageByEndpointInput {
+  /** Start Date/Time */
+  start?: string
+  /** End Date/Time */
+  end?: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get RPC Usage By Method */
+export interface QuicknodeGetRpcUsageByMethodInput {
+  /** Start Date/Time */
+  start?: string
+  /** End Date/Time */
+  end?: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get RPC Usage By Tag */
+export interface QuicknodeGetRpcUsageByTagInput {
+  /** Start Date/Time */
+  start?: string
+  /** End Date/Time */
+  end?: string
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Billing Invoices */
+export interface QuicknodeListBillingInvoicesInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Billing Payments */
+export interface QuicknodeListBillingPaymentsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Teams */
+export interface QuicknodeListTeamsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create Team */
+export interface QuicknodeCreateTeamInput {
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get Team */
+export interface QuicknodeGetTeamInput {
+  /** Team ID */
+  id: string
+}
+
+/** QuickNode — Delete Team */
+export interface QuicknodeDeleteTeamInput {
+  /** Team ID */
+  id: string
+}
+
+/** QuickNode — List Endpoint Tags */
+export interface QuicknodeListEndpointTagsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Add Endpoint Tag */
+export interface QuicknodeAddEndpointTagInput {
+  /** Endpoint ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Remove Endpoint Tag */
+export interface QuicknodeRemoveEndpointTagInput {
+  /** Endpoint ID */
+  id: string
+  /** Tag ID */
+  tagId: string
+}
+
+/** QuickNode — List Streams */
+export interface QuicknodeListStreamsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create Stream */
+export interface QuicknodeCreateStreamInput {
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get Stream */
+export interface QuicknodeGetStreamInput {
+  /** Stream ID */
+  id: string
+}
+
+/** QuickNode — Update Stream */
+export interface QuicknodeUpdateStreamInput {
+  /** Stream ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete Stream */
+export interface QuicknodeDeleteStreamInput {
+  /** Stream ID */
+  id: string
+}
+
+/** QuickNode — Pause Stream */
+export interface QuicknodePauseStreamInput {
+  /** Stream ID */
+  id: string
+}
+
+/** QuickNode — Activate Stream */
+export interface QuicknodeActivateStreamInput {
+  /** Stream ID */
+  id: string
+}
+
+/** QuickNode — Test Stream Filter */
+export interface QuicknodeTestStreamFilterInput {
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get Enabled Streams Count */
+export interface QuicknodeGetEnabledStreamsCountInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List Webhooks */
+export interface QuicknodeListWebhooksInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create Webhook From Template */
+export interface QuicknodeCreateWebhookFromTemplateInput {
+  /** Template ID */
+  templateId: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get Webhook */
+export interface QuicknodeGetWebhookInput {
+  /** Webhook ID */
+  id: string
+}
+
+/** QuickNode — Update Webhook */
+export interface QuicknodeUpdateWebhookInput {
+  /** Webhook ID */
+  id: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Update Webhook Template */
+export interface QuicknodeUpdateWebhookTemplateInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Template ID */
+  templateId: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete Webhook */
+export interface QuicknodeDeleteWebhookInput {
+  /** Webhook ID */
+  id: string
+}
+
+/** QuickNode — Pause Webhook */
+export interface QuicknodePauseWebhookInput {
+  /** Webhook ID */
+  id: string
+}
+
+/** QuickNode — Activate Webhook */
+export interface QuicknodeActivateWebhookInput {
+  /** Webhook ID */
+  id: string
+}
+
+/** QuickNode — Get Enabled Webhooks Count */
+export interface QuicknodeGetEnabledWebhooksCountInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List KV Values */
+export interface QuicknodeListValuesInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create KV Value */
+export interface QuicknodeCreateValueInput {
+  /** Key */
+  key: string
+  /** Value */
+  value: string
+}
+
+/** QuickNode — Get KV Value */
+export interface QuicknodeGetValueInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Delete KV Value */
+export interface QuicknodeDeleteValueInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Bulk KV Values */
+export interface QuicknodeBulkValuesInput {
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get KV Values Size */
+export interface QuicknodeGetValuesSizeInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List KV Sets */
+export interface QuicknodeListSetsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create KV Set */
+export interface QuicknodeCreateSetInput {
+  /** Key */
+  key: string
+  /** Value */
+  value: string
+}
+
+/** QuickNode — Get KV Set */
+export interface QuicknodeGetSetInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Delete KV Set */
+export interface QuicknodeDeleteSetInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Bulk KV Sets */
+export interface QuicknodeBulkSetsInput {
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Get KV Sets Size */
+export interface QuicknodeGetSetsSizeInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List KV Lists */
+export interface QuicknodeListListsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create KV List */
+export interface QuicknodeCreateListInput {
+  /** Key */
+  key: string
+  /** Items */
+  items: unknown[]
+}
+
+/** QuickNode — Get KV List */
+export interface QuicknodeGetListInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Update KV List */
+export interface QuicknodeUpdateListInput {
+  /** Key */
+  key: string
+  /** Items */
+  items: unknown[]
+}
+
+/** QuickNode — Delete KV List */
+export interface QuicknodeDeleteListInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Add KV List Item */
+export interface QuicknodeAddListItemInput {
+  /** Key */
+  key: string
+  /** Item */
+  item: string
+}
+
+/** QuickNode — Delete KV List Item */
+export interface QuicknodeDeleteListItemInput {
+  /** Key */
+  key: string
+  /** Item */
+  item: string
+}
+
+/** QuickNode — Check KV List Item */
+export interface QuicknodeListContainsItemInput {
+  /** Key */
+  key: string
+  /** Item */
+  item: string
+}
+
+/** QuickNode — Get KV List Size */
+export interface QuicknodeGetListSizeInput {
+  /** Key */
+  key: string
+}
+
+/** QuickNode — Get All KV Lists Size */
+export interface QuicknodeGetAllListsSizeInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Call RPC Endpoint */
+export interface QuicknodeCallRpcEndpointInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** RPC Method */
+  method: string
+  /** Params */
+  params?: unknown
+  /** Request ID */
+  id?: string
+}
+
+/** QuickNode — EVM Get Block Number */
+export interface QuicknodeEvmGetBlockNumberInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+}
+
+/** QuickNode — EVM Get Balance */
+export interface QuicknodeEvmGetBalanceInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Address */
+  address: string
+  /** Block */
+  block?: string
+}
+
+/** QuickNode — EVM Get Block */
+export interface QuicknodeEvmGetBlockInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Block Number/Tag */
+  block: string
+  /** Include Transactions */
+  includeTransactions?: boolean
+}
+
+/** QuickNode — EVM Get Transaction */
+export interface QuicknodeEvmGetTransactionInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Transaction Hash */
+  transactionHash: string
+}
+
+/** QuickNode — EVM Get Transaction Receipt */
+export interface QuicknodeEvmGetTransactionReceiptInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Transaction Hash */
+  transactionHash: string
+}
+
+/** QuickNode — EVM Get Logs */
+export interface QuicknodeEvmGetLogsInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Filter */
+  filter: unknown
+}
+
+/** QuickNode — EVM Call Contract */
+export interface QuicknodeEvmCallContractInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Transaction */
+  transaction: unknown
+  /** Block */
+  block?: string
+}
+
+/** QuickNode — EVM Estimate Gas */
+export interface QuicknodeEvmEstimateGasInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Transaction */
+  transaction: unknown
+}
+
+/** QuickNode — EVM Get Gas Price */
+export interface QuicknodeEvmGetGasPriceInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+}
+
+/** QuickNode — Solana Get Slot */
+export interface QuicknodeSolanaGetSlotInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Config */
+  config?: unknown
+}
+
+/** QuickNode — Solana Get Balance */
+export interface QuicknodeSolanaGetBalanceInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Public Key */
+  publicKey: string
+  /** Config */
+  config?: unknown
+}
+
+/** QuickNode — Solana Get Account Info */
+export interface QuicknodeSolanaGetAccountInfoInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Public Key */
+  publicKey: string
+  /** Config */
+  config?: unknown
+}
+
+/** QuickNode — Solana Get Transaction */
+export interface QuicknodeSolanaGetTransactionInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Signature */
+  signature: string
+  /** Config */
+  config?: unknown
+}
+
+/** QuickNode — Solana Get Block */
+export interface QuicknodeSolanaGetBlockInput {
+  /** Full QuickNode RPC endpoint URL, including token. */
+  endpointUrl: string
+  /** Slot */
+  slot: number
+  /** Config */
+  config?: unknown
+}
+
+/** QuickNode — Get SQL Explorer Schema */
+export interface QuicknodeGetSqlSchemaInput {
+  /** Cluster ID */
+  clusterId: string
+}
+
+/** QuickNode — Execute SQL Query */
+export interface QuicknodeExecuteSqlQueryInput {
+  /** Cluster ID */
+  clusterId: string
+  /** SQL Query */
+  query: string
+}
+
+/** QuickNode — Get IPFS Account Usage */
+export interface QuicknodeGetIpfsAccountUsageInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Get IPFS Daily Usage */
+export interface QuicknodeGetIpfsDailyUsageInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — List IPFS Gateways */
+export interface QuicknodeListIpfsGatewaysInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Create IPFS Gateway */
+export interface QuicknodeCreateIpfsGatewayInput {
+  /** Gateway Name */
+  name: string
+  /** Private */
+  isPrivate?: boolean
+  /** Enabled */
+  isEnabled?: boolean
+}
+
+/** QuickNode — Get IPFS Gateway */
+export interface QuicknodeGetIpfsGatewayInput {
+  /** Gateway Name */
+  gatewayName: string
+}
+
+/** QuickNode — Update IPFS Gateway */
+export interface QuicknodeUpdateIpfsGatewayInput {
+  /** Gateway Name */
+  gatewayName: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete IPFS Gateway */
+export interface QuicknodeDeleteIpfsGatewayInput {
+  /** Gateway Name */
+  gatewayName: string
+}
+
+/** QuickNode — List IPFS Pins */
+export interface QuicknodeListIpfsPinsInput {
+  /** Optional extra query parameters accepted by the QuickNode API. */
+  queryParams?: unknown
+}
+
+/** QuickNode — Pin IPFS CID */
+export interface QuicknodePinIpfsCidInput {
+  /** CID */
+  cid: string
+  /** Name */
+  name: string
+  /** Origins */
+  origins?: unknown[]
+  /** Metadata */
+  meta?: unknown
+}
+
+/** QuickNode — Get IPFS Pin */
+export interface QuicknodeGetIpfsPinInput {
+  /** Request ID */
+  requestId: string
+}
+
+/** QuickNode — Update IPFS Pin */
+export interface QuicknodeUpdateIpfsPinInput {
+  /** Request ID */
+  requestId: string
+  /** JSON request body accepted by the official QuickNode API. */
+  body: unknown
+}
+
+/** QuickNode — Delete IPFS Pin */
+export interface QuicknodeDeleteIpfsPinInput {
+  /** Request ID */
+  requestId: string
+}
+
+/** QuickNode — Get IPFS Object */
+export interface QuicknodeGetIpfsObjectInput {
+  /** Request ID */
+  requestId: string
+}
+
+/** QuickNode — Upload IPFS Object */
+export interface QuicknodeUploadIpfsObjectInput {
+  /** Key */
+  key: string
+  /** Content Type */
+  contentType: string
+  /** Content */
+  content: string
+}
+
+/** QuickNode — Custom API Call */
+export interface QuicknodeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
 }
 
 /** RabbitMQ — sendMessageToExchange */
@@ -27196,10 +32911,24 @@ export interface SendpulseCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Sentry — List Organizations */
+export interface SentryListOrganizationsInput {
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
 /** Sentry — List Projects */
 export interface SentryListProjectsInput {
   /** Organization Slug */
   organization: string
+}
+
+/** Sentry — List Teams */
+export interface SentryListTeamsInput {
+  /** Organization Slug */
+  organization: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
 }
 
 /** Sentry — List Issues */
@@ -27210,24 +32939,284 @@ export interface SentryListIssuesInput {
   project: string
   /** Search Query */
   query?: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+  /** Sort (values: `date`, `new`, `priority`, `freq`, `user`) */
+  sort?: "date" | "new" | "priority" | "freq" | "user"
 }
 
 /** Sentry — Get Issue */
 export interface SentryGetIssueInput {
+  /** Organization Slug */
+  organization: string
   /** Issue ID */
   issueId: string
 }
 
+/** Sentry — Update Issue */
+export interface SentryUpdateIssueInput {
+  /** Organization Slug */
+  organization: string
+  /** Issue ID */
+  issueId: string
+  /** Status (values: `resolved`, `unresolved`, `ignored`, `resolvedInNextRelease`, `muted`) */
+  status?: "resolved" | "unresolved" | "ignored" | "resolvedInNextRelease" | "muted"
+  /** Substatus (values: `new`, `ongoing`, `regressed`, `escalating`, `archived_until_escalating`, `archived_until_condition_met`, `archived_forever`) */
+  substatus?: "new" | "ongoing" | "regressed" | "escalating" | "archived_until_escalating" | "archived_until_condition_met" | "archived_forever"
+  /** User/team value accepted by Sentry, such as user ID, email, username, or team:<team_id> */
+  assignedTo?: string
+  /** Priority (values: `low`, `medium`, `high`) */
+  priority?: "low" | "medium" | "high"
+  /** Mark the issue as reviewed by the requestor */
+  inbox?: boolean
+  /** Mark Seen */
+  hasSeen?: boolean
+  /** Bookmarked */
+  isBookmarked?: boolean
+  /** Subscribed */
+  isSubscribed?: boolean
+}
+
 /** Sentry — Resolve Issue */
 export interface SentryResolveIssueInput {
+  /** Organization Slug */
+  organization: string
   /** Issue ID */
   issueId: string
 }
 
 /** Sentry — List Events */
 export interface SentryListEventsInput {
+  /** Organization Slug */
+  organization: string
   /** Issue ID */
   issueId: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
+/** Sentry — Get Event */
+export interface SentryGetEventInput {
+  /** Organization Slug */
+  organization: string
+  /** Project Slug */
+  project: string
+  /** Event ID */
+  eventId: string
+  /** Optional environment filters */
+  environments?: unknown[]
+}
+
+/** Sentry — List Event Attachments */
+export interface SentryListEventAttachmentsInput {
+  /** Organization Slug */
+  organization: string
+  /** Project Slug */
+  project: string
+  /** Event ID */
+  eventId: string
+  /** Filter by attachment name or kind, such as is:screenshot */
+  query?: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
+/** Sentry — Get Event Attachment */
+export interface SentryGetEventAttachmentInput {
+  /** Organization Slug */
+  organization: string
+  /** Project Slug */
+  project: string
+  /** Event ID */
+  eventId: string
+  /** Attachment ID */
+  attachmentId: string
+}
+
+/** Sentry — Download Event Attachment */
+export interface SentryDownloadEventAttachmentInput {
+  /** Organization Slug */
+  organization: string
+  /** Project Slug */
+  project: string
+  /** Event ID */
+  eventId: string
+  /** Attachment ID */
+  attachmentId: string
+  /** Optional output file name override */
+  fileName?: string
+}
+
+/** Sentry — List Releases */
+export interface SentryListReleasesInput {
+  /** Organization Slug */
+  organization: string
+  /** Optional project filter */
+  project?: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
+/** Sentry — Create Release */
+export interface SentryCreateReleaseInput {
+  /** Organization Slug */
+  organization: string
+  /** Version */
+  version: string
+  /** Project slugs to associate with the release */
+  projects?: unknown[]
+  /** Optional release refs array, e.g. [{ "repository": "owner/repo", "commit": "sha" }] */
+  refs?: unknown
+}
+
+/** Sentry — Create Deploy */
+export interface SentryCreateDeployInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** Environment */
+  environment: string
+  /** Deploy Name */
+  name?: string
+  /** Deploy URL */
+  url?: string
+}
+
+/** Sentry — List Deploys */
+export interface SentryListDeploysInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
+/** Sentry — List Release Files */
+export interface SentryListReleaseFilesInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** Pagination cursor from a prior response */
+  cursor?: string
+}
+
+/** Sentry — Get Release File */
+export interface SentryGetReleaseFileInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** File ID */
+  fileId: string
+}
+
+/** Sentry — Upload Release File */
+export interface SentryUploadReleaseFileInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** File URL, base64 payload, or inline file object to upload */
+  file: string
+  /** Optional absolute path or URI Sentry should reference for this file */
+  name?: string
+  /** Optional release distribution name */
+  dist?: string
+  /** Optional header strings in key:value format, such as Content-Type:application/javascript */
+  headers?: unknown[]
+}
+
+/** Sentry — Delete Release File */
+export interface SentryDeleteReleaseFileInput {
+  /** Organization Slug */
+  organization: string
+  /** Release Version */
+  version: string
+  /** File ID */
+  fileId: string
+}
+
+/** Sentry — Bulk Update Issues */
+export interface SentryBulkUpdateIssuesInput {
+  /** Organization Slug */
+  organization: string
+  /** Optional issue IDs. Required for non-status updates. */
+  issueIds?: unknown[]
+  /** Optional Sentry numeric project IDs. Use -1 for all available projects. */
+  projectIds?: unknown[]
+  /** Environments */
+  environments?: unknown[]
+  /** Search Query */
+  query?: string
+  /** View ID */
+  viewId?: string
+  /** Filter Status (values: `resolved`, `unresolved`, `ignored`, `reprocessing`) */
+  filterStatus?: "resolved" | "unresolved" | "ignored" | "reprocessing"
+  /** Sort (values: `date`, `freq`, `inbox`, `new`, `recommended`, `trends`, `user`) */
+  sort?: "date" | "freq" | "inbox" | "new" | "recommended" | "trends" | "user"
+  /** Maximum issues to affect. Sentry caps this at 100 for organization bulk operations. */
+  limit?: number
+  /** New Status (values: `resolved`, `unresolved`, `ignored`, `resolvedInNextRelease`, `muted`) */
+  status?: "resolved" | "unresolved" | "ignored" | "resolvedInNextRelease" | "muted"
+  /** Optional Sentry statusDetails object */
+  statusDetails?: unknown
+  /** Substatus (values: `new`, `ongoing`, `regressed`, `escalating`, `archived_until_escalating`, `archived_until_condition_met`, `archived_forever`) */
+  substatus?: "new" | "ongoing" | "regressed" | "escalating" | "archived_until_escalating" | "archived_until_condition_met" | "archived_forever"
+  /** User, email, username, or team:<team_id> */
+  assignedTo?: string
+  /** Priority (values: `low`, `medium`, `high`) */
+  priority?: "low" | "medium" | "high"
+  /** Mark Reviewed */
+  inbox?: boolean
+  /** Mark Seen */
+  hasSeen?: boolean
+  /** Bookmarked */
+  isBookmarked?: boolean
+  /** Public */
+  isPublic?: boolean
+  /** Subscribed */
+  isSubscribed?: boolean
+  /** Merge Issues */
+  merge?: boolean
+  /** Discard Issues */
+  discard?: boolean
+}
+
+/** Sentry — Bulk Delete Issues */
+export interface SentryBulkDeleteIssuesInput {
+  /** Organization Slug */
+  organization: string
+  /** Issue IDs to delete. If omitted, deleteAllMatching must be enabled. */
+  issueIds?: unknown[]
+  /** Optional Sentry numeric project IDs. Use -1 for all available projects. */
+  projectIds?: unknown[]
+  /** Environments */
+  environments?: unknown[]
+  /** Search Query */
+  query?: string
+  /** View ID */
+  viewId?: string
+  /** Sort (values: `date`, `freq`, `inbox`, `new`, `recommended`, `trends`, `user`) */
+  sort?: "date" | "freq" | "inbox" | "new" | "recommended" | "trends" | "user"
+  /** Maximum issues to affect. Sentry caps this at 100 for organization bulk operations. */
+  limit?: number
+  /** Required when Issue IDs are omitted. */
+  deleteAllMatching?: boolean
+}
+
+/** Sentry — Custom API Call */
+export interface SentryCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path under /api/0, e.g. /organizations/acme/projects/ */
+  path: string
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** Body */
+  body?: unknown
 }
 
 /** Sequential Thinking — Add Thought */
@@ -28004,6 +33993,64 @@ export interface SlackGetThreadRepliesInput {
   thread_ts: string
 }
 
+/** Slack — Schedule Message */
+export interface SlackScheduleMessageInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Message Text */
+  text: string
+  /** Unix timestamp when Slack should send the message. */
+  post_at: number
+  /** Block Kit blocks as JSON array */
+  blocks?: unknown
+  /** Thread Timestamp */
+  thread_ts?: string
+}
+
+/** Slack — List Scheduled Messages */
+export interface SlackListScheduledMessagesInput {
+  /** Channel (resolve via property options API) */
+  channel?: string
+  /** Latest Unix timestamp to include. */
+  latest?: string
+  /** Oldest Unix timestamp to include. */
+  oldest?: string
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Slack — Delete Scheduled Message */
+export interface SlackDeleteScheduledMessageInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Scheduled Message ID */
+  scheduled_message_id: string
+}
+
+/** Slack — Get Message Permalink */
+export interface SlackGetMessagePermalinkInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Message Timestamp */
+  timestamp: string
+}
+
+/** Slack — Send Ephemeral Message */
+export interface SlackSendEphemeralMessageInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** User (resolve via property options API) */
+  user: string
+  /** Message Text */
+  text: string
+  /** Block Kit blocks as JSON array */
+  blocks?: unknown
+  /** Thread Timestamp */
+  thread_ts?: string
+}
+
 /** Slack — Search Messages */
 export interface SlackSearchMessagesInput {
   /** Search query */
@@ -28104,6 +34151,96 @@ export interface SlackInviteUserToChannelInput {
   user: string
 }
 
+/** Slack — Create Canvas */
+export interface SlackCreateCanvasInput {
+  /** Title */
+  title?: string
+  /** Markdown Content */
+  markdown?: string
+}
+
+/** Slack — Create Channel Canvas */
+export interface SlackCreateChannelCanvasInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Title */
+  title?: string
+  /** Markdown Content */
+  markdown?: string
+}
+
+/** Slack — Edit Canvas */
+export interface SlackEditCanvasInput {
+  /** Canvas ID */
+  canvas_id: string
+  /** Operation (values: `insert_at_start`, `insert_at_end`, `insert_before`, `insert_after`, `replace`, `delete`, `rename`) */
+  operation: "insert_at_start" | "insert_at_end" | "insert_before" | "insert_after" | "replace" | "delete" | "rename"
+  /** Section ID */
+  section_id?: string
+  /** Markdown Content */
+  markdown?: string
+  /** New Title */
+  title?: string
+}
+
+/** Slack — Delete Canvas */
+export interface SlackDeleteCanvasInput {
+  /** Canvas ID */
+  canvas_id: string
+}
+
+/** Slack — List Canvases */
+export interface SlackListCanvasesInput {
+  /** Channel (resolve via property options API) */
+  channel?: string
+  /** Count */
+  count?: number
+  /** Page */
+  page?: number
+}
+
+/** Slack — List Bookmarks */
+export interface SlackListBookmarksInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+}
+
+/** Slack — Add Bookmark */
+export interface SlackAddBookmarkInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Title */
+  title: string
+  /** Link URL */
+  link: string
+  /** Emoji */
+  emoji?: string
+  /** Parent Bookmark ID */
+  parent_id?: string
+}
+
+/** Slack — Edit Bookmark */
+export interface SlackEditBookmarkInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Bookmark ID */
+  bookmark_id: string
+  /** Title */
+  title?: string
+  /** Link URL */
+  link?: string
+  /** Emoji */
+  emoji?: string
+}
+
+/** Slack — Remove Bookmark */
+export interface SlackRemoveBookmarkInput {
+  /** Channel (resolve via property options API) */
+  channel: string
+  /** Bookmark ID */
+  bookmark_id: string
+}
+
 /** Slack — Update User Status */
 export interface SlackUpdateUserStatusInput {
   /** Status text */
@@ -28124,6 +34261,54 @@ export interface SlackGetUserProfileInput {
 export interface SlackListUsergroupsInput {
   /** Include the list of users for each group */
   include_users?: boolean
+}
+
+/** Slack — Create User Group */
+export interface SlackCreateUsergroupInput {
+  /** Name */
+  name: string
+  /** Handle */
+  handle: string
+  /** Description */
+  description?: string
+  /** Comma-separated channel IDs. */
+  channels?: string
+}
+
+/** Slack — Update User Group */
+export interface SlackUpdateUsergroupInput {
+  /** User Group ID */
+  usergroup: string
+  /** Name */
+  name?: string
+  /** Handle */
+  handle?: string
+  /** Description */
+  description?: string
+  /** Comma-separated channel IDs. */
+  channels?: string
+}
+
+/** Slack — Update User Group Users */
+export interface SlackUpdateUsergroupUsersInput {
+  /** User Group ID */
+  usergroup: string
+  /** Comma-separated user IDs. */
+  users: string
+  /** Include Count */
+  include_count?: boolean
+}
+
+/** Slack — Enable User Group */
+export interface SlackEnableUsergroupInput {
+  /** User Group ID */
+  usergroup: string
+}
+
+/** Slack — Disable User Group */
+export interface SlackDisableUsergroupInput {
+  /** User Group ID */
+  usergroup: string
 }
 
 /** Slack — Custom API Call */
@@ -29107,6 +35292,310 @@ export interface StrapiUpdateEntryInput {
   data: unknown
 }
 
+/** Strava — Get Authenticated Athlete */
+export type StravaGetAuthenticatedAthleteInput = Record<string, never>
+
+/** Strava — Get Athlete Stats */
+export interface StravaGetAthleteStatsInput {
+  /** Athlete ID */
+  athleteId: string
+}
+
+/** Strava — Get Athlete Zones */
+export type StravaGetAthleteZonesInput = Record<string, never>
+
+/** Strava — List Activities */
+export interface StravaListActivitiesInput {
+  /** Only return activities before this Unix timestamp. */
+  beforeEpoch?: number
+  /** Only return activities after this Unix timestamp. */
+  afterEpoch?: number
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Get Activity */
+export interface StravaGetActivityInput {
+  /** Activity ID */
+  activityId: string
+  /** Include All Efforts */
+  includeAllEfforts?: boolean
+}
+
+/** Strava — Create Manual Activity */
+export interface StravaCreateActivityInput {
+  /** Name */
+  name: string
+  /** Activity Type (values: `Run`, `Ride`, `Swim`, `Walk`, `Hike`, `VirtualRide`, `VirtualRun`, `Workout`, `WeightTraining`, `Yoga`) */
+  type: "Run" | "Ride" | "Swim" | "Walk" | "Hike" | "VirtualRide" | "VirtualRun" | "Workout" | "WeightTraining" | "Yoga"
+  /** Local ISO timestamp, for example 2026-06-08T07:00:00Z. */
+  startDateLocal: string
+  /** Elapsed Time Seconds */
+  elapsedTime: number
+  /** Description */
+  description?: string
+  /** Distance Meters */
+  distance?: number
+  /** Trainer */
+  trainer?: boolean
+  /** Commute */
+  commute?: boolean
+}
+
+/** Strava — Update Activity */
+export interface StravaUpdateActivityInput {
+  /** Activity ID */
+  activityId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Activity Type (values: `Run`, `Ride`, `Swim`, `Walk`, `Hike`, `VirtualRide`, `VirtualRun`, `Workout`, `WeightTraining`, `Yoga`) */
+  type?: "Run" | "Ride" | "Swim" | "Walk" | "Hike" | "VirtualRide" | "VirtualRun" | "Workout" | "WeightTraining" | "Yoga"
+  /** Gear ID */
+  gearId?: string
+  /** Trainer */
+  trainer?: boolean
+  /** Commute */
+  commute?: boolean
+  /** Hide From Home */
+  hideFromHome?: boolean
+}
+
+/** Strava — Delete Activity */
+export interface StravaDeleteActivityInput {
+  /** Activity ID */
+  activityId: string
+}
+
+/** Strava — List Activity Comments */
+export interface StravaListActivityCommentsInput {
+  /** Activity ID */
+  activityId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — List Activity Kudoers */
+export interface StravaListActivityKudoersInput {
+  /** Activity ID */
+  activityId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — List Activity Laps */
+export interface StravaListActivityLapsInput {
+  /** Activity ID */
+  activityId: string
+}
+
+/** Strava — Get Activity Zones */
+export interface StravaGetActivityZonesInput {
+  /** Activity ID */
+  activityId: string
+}
+
+/** Strava — Get Activity Streams */
+export interface StravaGetActivityStreamsInput {
+  /** Activity ID */
+  activityId: string
+  /** Stream keys, for example time, distance, latlng, altitude, velocity_smooth, heartrate, watts. */
+  keys: unknown[]
+  /** Key By Type */
+  keyByType?: boolean
+}
+
+/** Strava — List Athlete Clubs */
+export interface StravaListAthleteClubsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Get Club */
+export interface StravaGetClubInput {
+  /** Club ID */
+  clubId: string
+}
+
+/** Strava — List Club Activities */
+export interface StravaListClubActivitiesInput {
+  /** Club ID */
+  clubId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Get Gear */
+export interface StravaGetGearInput {
+  /** Gear ID */
+  gearId: string
+}
+
+/** Strava — List Routes */
+export interface StravaListRoutesInput {
+  /** Athlete ID */
+  athleteId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Get Route */
+export interface StravaGetRouteInput {
+  /** Route ID */
+  routeId: string
+}
+
+/** Strava — Export Route GPX */
+export interface StravaExportRouteGpxInput {
+  /** Route ID */
+  routeId: string
+}
+
+/** Strava — Export Route TCX */
+export interface StravaExportRouteTcxInput {
+  /** Route ID */
+  routeId: string
+}
+
+/** Strava — Explore Segments */
+export interface StravaExploreSegmentsInput {
+  /** Southwest Latitude */
+  southWestLatitude: number
+  /** Southwest Longitude */
+  southWestLongitude: number
+  /** Northeast Latitude */
+  northEastLatitude: number
+  /** Northeast Longitude */
+  northEastLongitude: number
+  /** Activity Type (values: `riding`, `running`) */
+  activityType?: "riding" | "running"
+  /** Minimum Climb Category */
+  minCategory?: number
+  /** Maximum Climb Category */
+  maxCategory?: number
+}
+
+/** Strava — Get Segment */
+export interface StravaGetSegmentInput {
+  /** Segment ID */
+  segmentId: string
+}
+
+/** Strava — List Starred Segments */
+export interface StravaListStarredSegmentsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Star or Unstar Segment */
+export interface StravaStarSegmentInput {
+  /** Segment ID */
+  segmentId: string
+  /** Starred */
+  starred: boolean
+}
+
+/** Strava — List Segment Efforts */
+export interface StravaListSegmentEffortsInput {
+  /** Segment ID */
+  segmentId: string
+  /** Start Date Local */
+  startDateLocal?: string
+  /** End Date Local */
+  endDateLocal?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Strava — Get Segment Effort */
+export interface StravaGetSegmentEffortInput {
+  /** Segment Effort ID */
+  segmentEffortId: string
+}
+
+/** Strava — Upload Activity File */
+export interface StravaUploadActivityInput {
+  /** Activity File */
+  file: string
+  /** Data Type (values: `fit`, `fit.gz`, `tcx`, `tcx.gz`, `gpx`, `gpx.gz`) */
+  dataType: "fit" | "fit.gz" | "tcx" | "tcx.gz" | "gpx" | "gpx.gz"
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Trainer */
+  trainer?: boolean
+  /** Commute */
+  commute?: boolean
+  /** External ID */
+  externalId?: string
+}
+
+/** Strava — Get Upload */
+export interface StravaGetUploadInput {
+  /** Upload ID */
+  uploadId: string
+}
+
+/** Strava — List Push Subscriptions */
+export interface StravaListPushSubscriptionsInput {
+  /** Client ID Override */
+  clientId?: string
+  /** Client Secret Override */
+  clientSecret?: string
+}
+
+/** Strava — Create Push Subscription */
+export interface StravaCreatePushSubscriptionInput {
+  /** Callback URL */
+  callbackUrl: string
+  /** Verify Token Override */
+  verifyToken?: string
+  /** Client ID Override */
+  clientId?: string
+  /** Client Secret Override */
+  clientSecret?: string
+}
+
+/** Strava — Delete Push Subscription */
+export interface StravaDeletePushSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Client ID Override */
+  clientId?: string
+  /** Client Secret Override */
+  clientSecret?: string
+}
+
+/** Strava — Custom API Call */
+export interface StravaCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** API path starting with /, for example /athlete/activities. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** JSON Body */
+  body?: unknown
+}
+
 /** Streak — Create Box */
 export interface StreakCreateBoxInput {
   /** Pipeline Key */
@@ -29435,6 +35924,178 @@ export interface SupabaseUploadFileInput {
   file: string
 }
 
+/** Supabase — List Storage Buckets */
+export type SupabaseListStorageBucketsInput = Record<string, never>
+
+/** Supabase — Get Storage Bucket */
+export interface SupabaseGetStorageBucketInput {
+  /** Bucket */
+  bucket: string
+}
+
+/** Supabase — Create Storage Bucket */
+export interface SupabaseCreateStorageBucketInput {
+  /** Bucket Name */
+  name: string
+  /** Public */
+  public?: boolean
+  /** Maximum object size in bytes */
+  file_size_limit?: number
+  /** Examples: image/png, image/jpeg */
+  allowed_mime_types?: unknown[]
+}
+
+/** Supabase — Update Storage Bucket */
+export interface SupabaseUpdateStorageBucketInput {
+  /** Bucket */
+  bucket: string
+  /** Public */
+  public?: boolean
+  /** Maximum object size in bytes */
+  file_size_limit?: number
+  /** Allowed MIME Types */
+  allowed_mime_types?: unknown[]
+}
+
+/** Supabase — Delete Storage Bucket */
+export interface SupabaseDeleteStorageBucketInput {
+  /** Bucket */
+  bucket: string
+}
+
+/** Supabase — Empty Storage Bucket */
+export interface SupabaseEmptyStorageBucketInput {
+  /** Bucket */
+  bucket: string
+}
+
+/** Supabase — List Storage Files */
+export interface SupabaseListStorageFilesInput {
+  /** Bucket */
+  bucket: string
+  /** Folder path to list, such as public/ */
+  prefix?: string
+  /** Optional file-name search term */
+  search?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort Column (values: `name`, `created_at`, `updated_at`) */
+  sort_column?: "name" | "created_at" | "updated_at"
+  /** Sort Order (values: `asc`, `desc`) */
+  sort_order?: "asc" | "desc"
+}
+
+/** Supabase — Delete Storage Files */
+export interface SupabaseDeleteStorageFilesInput {
+  /** Bucket */
+  bucket: string
+  /** Paths relative to the bucket */
+  prefixes: unknown[]
+}
+
+/** Supabase — Create Signed URL */
+export interface SupabaseCreateSignedUrlInput {
+  /** Bucket */
+  bucket: string
+  /** Path relative to the bucket */
+  path: string
+  /** Expires In Seconds */
+  expiresIn: number
+}
+
+/** Supabase — Create Signed Upload URL */
+export interface SupabaseCreateSignedUploadUrlInput {
+  /** Bucket */
+  bucket: string
+  /** Path relative to the bucket */
+  path: string
+  /** Expires In Seconds */
+  expiresIn?: number
+}
+
+/** Supabase — Get Public Storage URL */
+export interface SupabaseGetPublicUrlInput {
+  /** Bucket */
+  bucket: string
+  /** Path relative to the bucket */
+  path: string
+}
+
+/** Supabase — Invoke Edge Function */
+export interface SupabaseInvokeEdgeFunctionInput {
+  /** Function Name */
+  functionName: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Additional headers. Authorization is injected automatically. */
+  headers?: Record<string, unknown>
+  /** Body */
+  body?: unknown
+}
+
+/** Supabase — List Auth Users */
+export interface SupabaseListAuthUsersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  per_page?: number
+}
+
+/** Supabase — Get Auth User */
+export interface SupabaseGetAuthUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Supabase — Create Auth User */
+export interface SupabaseCreateAuthUserInput {
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Password */
+  password?: string
+  /** Confirm Email */
+  email_confirm?: boolean
+  /** Confirm Phone */
+  phone_confirm?: boolean
+  /** User Metadata */
+  user_metadata?: unknown
+  /** App Metadata */
+  app_metadata?: unknown
+}
+
+/** Supabase — Invite Auth User */
+export interface SupabaseInviteAuthUserInput {
+  /** Email */
+  email: string
+  /** User Metadata */
+  data?: unknown
+  /** Redirect URL */
+  redirect_to?: string
+}
+
+/** Supabase — List Organizations */
+export type SupabaseListOrganizationsInput = Record<string, never>
+
+/** Supabase — List Projects */
+export interface SupabaseListProjectsInput {
+  /** Optional organization slug for organization-scoped project listing */
+  organization_slug?: string
+  /** Offset */
+  offset?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Supabase — Get Project */
+export interface SupabaseGetProjectInput {
+  /** Defaults to the connected project ref */
+  projectRef?: string
+}
+
 /** Supabase — Create Row */
 export interface SupabaseCreateRowInput {
   /** Select a table from your database (resolve via property options API) */
@@ -29522,6 +36183,18 @@ export interface SupabaseGetTableSchemaInput {
   table_name: string
 }
 
+/** Supabase — Custom Management API Call */
+export interface SupabaseCustomManagementApiCallInput {
+  /** Management API path such as /v1/projects */
+  path: string
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** Body */
+  body?: unknown
+}
+
 /** Supabase — Custom API Call */
 export interface SupabaseCustomApiCallInput {
   /** Supabase API path such as /rest/v1/table, or a full URL within the connected Supabase project. */
@@ -29589,6 +36262,854 @@ export interface SurveymonkeyCustomApiCallInput {
   /** API endpoint path (e.g., /surveys) */
   path: string
   /** Request body (for POST/PUT/PATCH) */
+  body?: unknown
+}
+
+/** SwaggerHub — Search Specs */
+export interface SwaggerhubSearchSpecsInput {
+  /** Query */
+  query?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Additional Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Search APIs */
+export interface SwaggerhubSearchApisInput {
+  /** Query */
+  query?: string
+  /** State (values: `ALL`, `PUBLISHED`, `UNPUBLISHED`) */
+  state?: "ALL" | "PUBLISHED" | "UNPUBLISHED"
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Sort (values: `NAME`, `UPDATED`, `CREATED`, `OWNER`, `BEST_MATCH`, `TITLE`) */
+  sort?: "NAME" | "UPDATED" | "CREATED" | "OWNER" | "BEST_MATCH" | "TITLE"
+  /** Order (values: `ASC`, `DESC`) */
+  order?: "ASC" | "DESC"
+}
+
+/** SwaggerHub — Search Domains */
+export interface SwaggerhubSearchDomainsInput {
+  /** Query */
+  query?: string
+  /** State (values: `ALL`, `PUBLISHED`, `UNPUBLISHED`) */
+  state?: "ALL" | "PUBLISHED" | "UNPUBLISHED"
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Sort (values: `NAME`, `UPDATED`, `CREATED`, `OWNER`, `BEST_MATCH`, `TITLE`) */
+  sort?: "NAME" | "UPDATED" | "CREATED" | "OWNER" | "BEST_MATCH" | "TITLE"
+  /** Order (values: `ASC`, `DESC`) */
+  order?: "ASC" | "DESC"
+}
+
+/** SwaggerHub — Owner APIs */
+export interface SwaggerhubListOwnerApisInput {
+  /** Owner */
+  owner: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** SwaggerHub — Owner Domains */
+export interface SwaggerhubListOwnerDomainsInput {
+  /** Owner */
+  owner: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** SwaggerHub — API Versions */
+export interface SwaggerhubListApiVersionsInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+}
+
+/** SwaggerHub — Domain Versions */
+export interface SwaggerhubListDomainVersionsInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+}
+
+/** SwaggerHub — Get API Definition */
+export interface SwaggerhubGetApiDefinitionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Format (values: `json`, `yaml`, `default`) */
+  format?: "json" | "yaml" | "default"
+  /** Resolved */
+  resolved?: boolean
+  /** Flatten */
+  flatten?: boolean
+}
+
+/** SwaggerHub — Get Domain Definition */
+export interface SwaggerhubGetDomainDefinitionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Format (values: `json`, `yaml`, `default`) */
+  format?: "json" | "yaml" | "default"
+  /** Resolved */
+  resolved?: boolean
+  /** Flatten */
+  flatten?: boolean
+}
+
+/** SwaggerHub — Save API Definition */
+export interface SwaggerhubSaveApiDefinitionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Private */
+  isPrivate?: boolean
+  /** Force Update */
+  force?: boolean
+  /** Definition Format (values: `application/json`, `application/yaml`) */
+  definitionFormat?: "application/json" | "application/yaml"
+  /** Raw OpenAPI/AsyncAPI/domain definition as JSON or YAML. */
+  definition: string
+}
+
+/** SwaggerHub — Save Domain Definition */
+export interface SwaggerhubSaveDomainDefinitionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Private */
+  isPrivate?: boolean
+  /** Force Update */
+  force?: boolean
+  /** Definition Format (values: `application/json`, `application/yaml`) */
+  definitionFormat?: "application/json" | "application/yaml"
+  /** Raw OpenAPI/AsyncAPI/domain definition as JSON or YAML. */
+  definition: string
+}
+
+/** SwaggerHub — Delete API */
+export interface SwaggerhubDeleteApiInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Delete API Version */
+export interface SwaggerhubDeleteApiVersionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Clone API Version */
+export interface SwaggerhubCloneApiVersionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Fork API Version */
+export interface SwaggerhubForkApiVersionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Delete Domain */
+export interface SwaggerhubDeleteDomainInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Delete Domain Version */
+export interface SwaggerhubDeleteDomainVersionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Clone Domain Version */
+export interface SwaggerhubCloneDomainVersionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Fork Domain Version */
+export interface SwaggerhubForkDomainVersionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
+}
+
+/** SwaggerHub — Get API Default Version */
+export interface SwaggerhubGetApiDefaultVersionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set API Default Version */
+export interface SwaggerhubSetApiDefaultVersionInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get API Lifecycle */
+export interface SwaggerhubGetApiLifecycleInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set API Lifecycle */
+export interface SwaggerhubSetApiLifecycleInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get API Visibility */
+export interface SwaggerhubGetApiVisibilityInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set API Visibility */
+export interface SwaggerhubSetApiVisibilityInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Domain Default Version */
+export interface SwaggerhubGetDomainDefaultVersionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set Domain Default Version */
+export interface SwaggerhubSetDomainDefaultVersionInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version?: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Domain Lifecycle */
+export interface SwaggerhubGetDomainLifecycleInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set Domain Lifecycle */
+export interface SwaggerhubSetDomainLifecycleInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Domain Visibility */
+export interface SwaggerhubGetDomainVisibilityInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set Domain Visibility */
+export interface SwaggerhubSetDomainVisibilityInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Standardization Errors */
+export interface SwaggerhubGetStandardizationErrorsInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+}
+
+/** SwaggerHub — List API Comments */
+export interface SwaggerhubListApiCommentsInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Add API Comment */
+export interface SwaggerhubAddApiCommentInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Update API Comment */
+export interface SwaggerhubUpdateApiCommentInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Delete API Comment */
+export interface SwaggerhubDeleteApiCommentInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set API Comment Status */
+export interface SwaggerhubSetApiCommentStatusInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Add API Comment Reply */
+export interface SwaggerhubAddApiCommentReplyInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Batch Update API Comments */
+export interface SwaggerhubBatchUpdateApiCommentsInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — List Domain Comments */
+export interface SwaggerhubListDomainCommentsInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Add Domain Comment */
+export interface SwaggerhubAddDomainCommentInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Update Domain Comment */
+export interface SwaggerhubUpdateDomainCommentInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Delete Domain Comment */
+export interface SwaggerhubDeleteDomainCommentInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Set Domain Comment Status */
+export interface SwaggerhubSetDomainCommentStatusInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Add Domain Comment Reply */
+export interface SwaggerhubAddDomainCommentReplyInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Batch Update Domain Comments */
+export interface SwaggerhubBatchUpdateDomainCommentsInput {
+  /** Owner */
+  owner: string
+  /** Domain Name */
+  name: string
+  /** Version */
+  version: string
+  /** Comment ID */
+  commentId?: string
+  /** Reply ID */
+  replyId?: string
+  /** Status (values: `OPEN`, `RESOLVED`) */
+  status?: "OPEN" | "RESOLVED"
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — List Integrations */
+export interface SwaggerhubListIntegrationsInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+}
+
+/** SwaggerHub — Create Integration */
+export interface SwaggerhubCreateIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId?: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Integration */
+export interface SwaggerhubGetIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Update Integration */
+export interface SwaggerhubUpdateIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Patch Integration */
+export interface SwaggerhubPatchIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Delete Integration */
+export interface SwaggerhubDeleteIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Execute Integration */
+export interface SwaggerhubExecuteIntegrationInput {
+  /** Owner */
+  owner: string
+  /** API Name */
+  api: string
+  /** Version */
+  version: string
+  /** Integration ID */
+  integrationId: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — List Projects */
+export interface SwaggerhubListProjectsInput {
+  /** Organization Owner */
+  owner: string
+}
+
+/** SwaggerHub — Create Project */
+export interface SwaggerhubCreateProjectInput {
+  /** Organization Owner */
+  owner: string
+  /** Project ID */
+  projectId?: string
+  /** Spec Type (values: `apis`, `domains`) */
+  specType?: "apis" | "domains"
+  /** API or Domain Name */
+  name?: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Get Project */
+export interface SwaggerhubGetProjectInput {
+  /** Organization Owner */
+  owner: string
+  /** Project ID */
+  projectId: string
+  /** Spec Type (values: `apis`, `domains`) */
+  specType?: "apis" | "domains"
+  /** API or Domain Name */
+  name?: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Update Project */
+export interface SwaggerhubUpdateProjectInput {
+  /** Organization Owner */
+  owner: string
+  /** Project ID */
+  projectId: string
+  /** Spec Type (values: `apis`, `domains`) */
+  specType?: "apis" | "domains"
+  /** API or Domain Name */
+  name?: string
+  /** Body */
+  body: unknown
+}
+
+/** SwaggerHub — Delete Project */
+export interface SwaggerhubDeleteProjectInput {
+  /** Organization Owner */
+  owner: string
+  /** Project ID */
+  projectId: string
+  /** Spec Type (values: `apis`, `domains`) */
+  specType?: "apis" | "domains"
+  /** API or Domain Name */
+  name?: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Add Spec To Project */
+export interface SwaggerhubAddSpecToProjectInput {
+  /** Organization Owner */
+  owner: string
+  /** Project ID */
+  projectId: string
+  /** Spec Type (values: `apis`, `domains`) */
+  specType: "apis" | "domains"
+  /** API or Domain Name */
+  name: string
+  /** Body */
+  body?: unknown
+}
+
+/** SwaggerHub — Custom API Call */
+export interface SwaggerhubCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
   body?: unknown
 }
 
@@ -30733,6 +38254,69 @@ export interface TitheLyCustomApiCallInput {
   body?: unknown
 }
 
+/** tl;dv — Health Check */
+export type TldvHealthCheckInput = Record<string, never>
+
+/** tl;dv — Import Meeting */
+export interface TldvImportMeetingInput {
+  /** Raw request body for POST /v1alpha1/meetings/import. */
+  payload: unknown
+}
+
+/** tl;dv — List Meetings */
+export interface TldvListMeetingsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Meeting Type (values: `internal`, `external`) */
+  meetingType?: "internal" | "external"
+  /** Additional tl;dv-supported query parameters. */
+  queryParams?: unknown
+}
+
+/** tl;dv — Get Meeting */
+export interface TldvGetMeetingInput {
+  /** Meeting ID */
+  meetingId: string
+}
+
+/** tl;dv — Get Recording Download URL */
+export interface TldvGetRecordingDownloadUrlInput {
+  /** Meeting ID */
+  meetingId: string
+}
+
+/** tl;dv — Get Transcript */
+export interface TldvGetTranscriptInput {
+  /** Meeting ID */
+  meetingId: string
+}
+
+/** tl;dv — Get Notes */
+export interface TldvGetNotesInput {
+  /** Meeting ID */
+  meetingId: string
+}
+
+/** tl;dv — Get Highlights */
+export interface TldvGetHighlightsInput {
+  /** Meeting ID */
+  meetingId: string
+}
+
+/** tl;dv — Custom API Call */
+export interface TldvCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path starting with /, for example /v1alpha1/meetings. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** JSON Body */
+  body?: unknown
+}
+
 /** Toast POS — Get Order */
 export interface ToastPosGetOrderInput {
   /** The GUID of the restaurant */
@@ -31577,8 +39161,14 @@ export interface VapiCustomApiCallInput {
 export interface VercelListProjectsInput {
   /** Optional team ID to scope the request */
   teamId?: string
+  /** Team Slug */
+  slug?: string
   /** Limit */
   limit?: number
+  /** Pagination timestamp from a previous response */
+  since?: number
+  /** Pagination timestamp from a previous response */
+  until?: number
 }
 
 /** Vercel — Get Project */
@@ -31587,32 +39177,58 @@ export interface VercelGetProjectInput {
   idOrName: string
   /** Team ID */
   teamId?: string
+  /** Team Slug */
+  slug?: string
 }
 
 /** Vercel — List Deployments */
 export interface VercelListDeploymentsInput {
-  /** Filter by project ID */
+  /** Filter by project ID or name */
   projectId?: string
+  /** Optional list of project IDs to filter by */
+  projectIds?: unknown[]
   /** Team ID */
   teamId?: string
+  /** Team Slug */
+  slug?: string
   /** Limit */
   limit?: number
-  /** Filter by state (e.g., READY, ERROR, BUILDING, QUEUED, CANCELED) */
+  /** Comma-separated states such as BUILDING,READY */
   state?: string
-  /** Filter by target (production or preview) */
-  target?: string
+  /** Target (values: `production`, `preview`) */
+  target?: "production" | "preview"
+  /** Branch */
+  branch?: string
+  /** Commit SHA */
+  sha?: string
+  /** JavaScript timestamp */
+  since?: number
+  /** JavaScript timestamp */
+  until?: number
 }
 
 /** Vercel — Create Deployment */
 export interface VercelCreateDeploymentInput {
-  /** Project Name */
+  /** Deployment Name */
   name: string
-  /** Deployment target: production or preview */
-  target?: string
-  /** JSON object with repo, ref, type, etc. */
-  gitSource?: string
+  /** Project name to associate with the deployment */
+  project?: string
+  /** Optional previous deployment ID to redeploy */
+  deploymentId?: string
+  /** Target (values: `production`, `preview`, `staging`) */
+  target?: "production" | "preview" | "staging"
+  /** Git source object accepted by Vercel */
+  gitSource?: unknown
+  /** Git Metadata */
+  gitMetadata?: unknown
+  /** Project Settings */
+  projectSettings?: unknown
+  /** Meta */
+  meta?: unknown
   /** Team ID */
   teamId?: string
+  /** Team Slug */
+  slug?: string
 }
 
 /** Vercel — Get Deployment */
@@ -31621,6 +39237,224 @@ export interface VercelGetDeploymentInput {
   idOrUrl: string
   /** Team ID */
   teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Cancel Deployment */
+export interface VercelCancelDeploymentInput {
+  /** Deployment ID */
+  id: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Delete Deployment */
+export interface VercelDeleteDeploymentInput {
+  /** Required unless URL is provided */
+  id?: string
+  /** If provided, Vercel ignores the deployment ID */
+  url?: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — List Account Domains */
+export interface VercelListDomainsInput {
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+  /** Limit */
+  limit?: number
+  /** JavaScript timestamp */
+  since?: number
+  /** JavaScript timestamp */
+  until?: number
+}
+
+/** Vercel — Get Account Domain */
+export interface VercelGetDomainInput {
+  /** Domain */
+  domain: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Add Account Domain */
+export interface VercelAddAccountDomainInput {
+  /** Domain Name */
+  name: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — List Project Domains */
+export interface VercelListProjectDomainsInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+  /** Target (values: `production`, `preview`) */
+  target?: "production" | "preview"
+  /** Verified (values: `true`, `false`) */
+  verified?: "true" | "false"
+  /** Include Redirects (values: `true`, `false`) */
+  redirects?: "true" | "false"
+  /** Limit */
+  limit?: number
+  /** Since */
+  since?: number
+  /** Until */
+  until?: number
+}
+
+/** Vercel — Add Project Domain */
+export interface VercelAddProjectDomainInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Domain Name */
+  name: string
+  /** Git Branch */
+  gitBranch?: string
+  /** Custom Environment ID */
+  customEnvironmentId?: string
+  /** Redirect Target */
+  redirect?: string
+  /** Redirect Status Code (values: `301`, `302`, `307`, `308`) */
+  redirectStatusCode?: "301" | "302" | "307" | "308"
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Verify Project Domain */
+export interface VercelVerifyProjectDomainInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Domain */
+  domain: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — List Project Environment Variables */
+export interface VercelListProjectEnvVarsInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Git Branch */
+  gitBranch?: string
+  /** Custom Environment ID */
+  customEnvironmentId?: string
+  /** Custom Environment Slug */
+  customEnvironmentSlug?: string
+  /** Optional API caller source such as vercel-cli:pull */
+  source?: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Create Project Environment Variable */
+export interface VercelCreateProjectEnvVarInput {
+  /** Project ID or Name */
+  idOrName: string
+  /** Key */
+  key: string
+  /** Value */
+  value: string
+  /** Type (values: `plain`, `sensitive`, `encrypted`, `secret`, `system`) */
+  type: "plain" | "sensitive" | "encrypted" | "secret" | "system"
+  /** Environment targets: production, preview, development */
+  target: unknown[]
+  /** Allowed when target is preview */
+  gitBranch?: string
+  /** Comment */
+  comment?: string
+  /** Custom Environment IDs */
+  customEnvironmentIds?: unknown[]
+  /** Update existing variable with the same key instead of failing */
+  upsert?: boolean
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — List Webhooks */
+export interface VercelListWebhooksInput {
+  /** Project ID */
+  projectId?: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Get Webhook */
+export interface VercelGetWebhookInput {
+  /** Webhook ID */
+  id: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Create Webhook */
+export interface VercelCreateWebhookInput {
+  /** Webhook URL */
+  url: string
+  /** Vercel webhook event names */
+  events: unknown[]
+  /** Optional project scope */
+  projectIds?: unknown[]
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Delete Webhook */
+export interface VercelDeleteWebhookInput {
+  /** Webhook ID */
+  id: string
+  /** Team ID */
+  teamId?: string
+  /** Team Slug */
+  slug?: string
+}
+
+/** Vercel — Trigger Deploy Hook */
+export interface VercelTriggerDeployHookInput {
+  /** Deploy Hook URL */
+  deployHookUrl: string
+}
+
+/** Vercel — Custom API Call */
+export interface VercelCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path such as /v9/projects or /v13/deployments/{id} */
+  path: string
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** Body */
+  body?: unknown
 }
 
 /** Vidyard — List Videos */
@@ -32433,6 +40267,171 @@ export interface WhatsappSendTemplateMessageInput {
   message_template_fields: Record<string, unknown>
 }
 
+/** Whimsical — Get User */
+export interface WhimsicalGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Whimsical — List Teams */
+export interface WhimsicalListTeamsInput {
+  /** Body */
+  body?: unknown
+}
+
+/** Whimsical — List Comments */
+export interface WhimsicalListCommentsInput {
+  /** Item ID */
+  itemId: string
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Whimsical — List Files */
+export interface WhimsicalListFilesInput {
+  /** Parent Item ID */
+  parentId: string
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Whimsical — Get File */
+export interface WhimsicalGetFileInput {
+  /** File ID */
+  fileId: string
+  /** Content Format (values: `markdown`, `html`) */
+  contentFormat?: "markdown" | "html"
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Whimsical — List MCP Tools */
+export type WhimsicalListMcpToolsInput = Record<string, never>
+
+/** Whimsical — Call MCP Tool */
+export interface WhimsicalCallMcpToolInput {
+  /** Tool Name */
+  toolName: string
+  /** Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Search */
+export interface WhimsicalMcpSearchInput {
+  /** Query */
+  query: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Fetch */
+export interface WhimsicalMcpFetchInput {
+  /** File or Folder ID */
+  id: string
+  /** Include Image Snapshot */
+  includeImage?: boolean
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Create */
+export interface WhimsicalMcpCreateInput {
+  /** File Type (values: `flowchart`, `mindmap`, `sequence_diagram`, `wireframe`, `board`, `sticky_notes`, `table`, `stamp`) */
+  fileType: "flowchart" | "mindmap" | "sequence_diagram" | "wireframe" | "board" | "sticky_notes" | "table" | "stamp"
+  /** Prompt or Content */
+  prompt: string
+  /** Parent Folder ID */
+  parentId?: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Create Doc */
+export interface WhimsicalMcpCreateDocInput {
+  /** Title */
+  title: string
+  /** Markdown */
+  markdown: string
+  /** Parent Folder ID */
+  parentId?: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Edit */
+export interface WhimsicalMcpEditInput {
+  /** File ID */
+  fileId: string
+  /** Instructions */
+  instructions: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Wireframe Edit */
+export interface WhimsicalMcpWireframeEditInput {
+  /** File ID */
+  fileId: string
+  /** Instructions */
+  instructions: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Auto Layout */
+export interface WhimsicalMcpAutoLayoutInput {
+  /** File ID */
+  fileId: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP File Tree */
+export interface WhimsicalMcpFileTreeInput {
+  /** Parent Folder ID */
+  parentId?: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP List Workspaces */
+export interface WhimsicalMcpListWorkspacesInput {
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Read Comments */
+export interface WhimsicalMcpReadCommentsInput {
+  /** File ID */
+  fileId: string
+  /** Object or Block ID */
+  objectId?: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — MCP Edit Comment */
+export interface WhimsicalMcpEditCommentInput {
+  /** File ID */
+  fileId: string
+  /** Operation (values: `create`, `reply`, `edit`, `resolve`, `reopen`, `delete`) */
+  operation: "create" | "reply" | "edit" | "resolve" | "reopen" | "delete"
+  /** Text */
+  text?: string
+  /** Comment ID */
+  commentId?: string
+  /** Additional Arguments */
+  arguments?: unknown
+}
+
+/** Whimsical — Custom API Call */
+export interface WhimsicalCustomApiCallInput {
+  /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Wise — List Profiles */
 export type WiseListProfilesInput = Record<string, never>
 
@@ -32525,6 +40524,50 @@ export interface WixCustomApiCallInput {
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+}
+
+/** Wolfram Alpha — Full Results Query */
+export interface WolframFullResultsQueryInput {
+  /** Free-form Wolfram Alpha query */
+  input: string
+  /** Pod formats such as plaintext,image,mathml */
+  format?: string
+  /** Include Pod ID */
+  includepodid?: string
+  /** Exclude Pod ID */
+  excludepodid?: string
+  /** Units (values: `metric`, `imperial`) */
+  units?: "metric" | "imperial"
+  /** Optional user location context */
+  location?: string
+  /** Optional Wolfram Alpha assumption string */
+  assumption?: string
+}
+
+/** Wolfram Alpha — Short Answer */
+export interface WolframShortAnswerInput {
+  /** Free-form Wolfram Alpha query */
+  input: string
+  /** Units (values: `metric`, `imperial`) */
+  units?: "metric" | "imperial"
+}
+
+/** Wolfram Alpha — Spoken Result */
+export interface WolframSpokenResultInput {
+  /** Free-form Wolfram Alpha query */
+  input: string
+  /** Units (values: `metric`, `imperial`) */
+  units?: "metric" | "imperial"
+}
+
+/** Wolfram Alpha — Custom API Call */
+export interface WolframCustomApiCallInput {
+  /** API path such as /v2/query, /v1/result, or /v1/spoken */
+  path: string
+  /** AppID is added automatically unless provided */
+  queryParams?: Record<string, unknown>
+  /** Response Type (values: `json`, `text`) */
+  responseType: "json" | "text"
 }
 
 /** WooCommerce — Create Customer */
@@ -33595,6 +41638,161 @@ export interface YoutubeCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Zapier — List Apps */
+export interface ZapierListAppsInput {
+  /** Query */
+  query?: string
+  /** Category */
+  category?: string
+  /** Comma-separated canonical app IDs. */
+  ids?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Zapier — List Actions */
+export interface ZapierListActionsInput {
+  /** App ID */
+  appId: string
+  /** Action Type (values: `READ`, `READ_BULK`, `SEARCH`, `SEARCH_AND_WRITE`, `SEARCH_OR_WRITE`, `WRITE`) */
+  actionType?: "READ" | "READ_BULK" | "SEARCH" | "SEARCH_AND_WRITE" | "SEARCH_OR_WRITE" | "WRITE"
+}
+
+/** Zapier — List Authentications */
+export interface ZapierListAuthenticationsInput {
+  /** App ID */
+  appId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Zapier — Get Input Fields */
+export interface ZapierGetInputFieldsInput {
+  /** Action ID */
+  actionId: string
+  /** Authentication ID */
+  authenticationId: string
+  /** Inputs */
+  inputs?: unknown
+}
+
+/** Zapier — Get Output Fields */
+export interface ZapierGetOutputFieldsInput {
+  /** Action ID */
+  actionId: string
+  /** Authentication ID */
+  authenticationId: string
+  /** Inputs */
+  inputs?: unknown
+}
+
+/** Zapier — Get Choices */
+export interface ZapierGetChoicesInput {
+  /** Action ID */
+  actionId: string
+  /** Input Field ID */
+  inputId: string
+  /** Authentication ID */
+  authenticationId: string
+  /** Inputs */
+  inputs?: unknown
+  /** Page */
+  page?: string
+}
+
+/** Zapier — Test Action */
+export interface ZapierTestActionInput {
+  /** Action ID */
+  actionId: string
+  /** Authentication ID */
+  authenticationId: string
+  /** Inputs */
+  inputs?: unknown
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Zapier — Create Action Run */
+export interface ZapierCreateActionRunInput {
+  /** Use a fresh action ID returned by List Actions for each run. */
+  actionId: string
+  /** Authentication ID */
+  authenticationId: string
+  /** Inputs */
+  inputs?: unknown
+  /** Callback URL */
+  callbackUrl?: string
+}
+
+/** Zapier — Retrieve Action Run */
+export interface ZapierRetrieveActionRunInput {
+  /** Action Run ID */
+  actionRunId: string
+}
+
+/** Zapier — Custom API Call */
+export interface ZapierCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path under the Workflow API base URL, for example /apps. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+}
+
+/** Zapier — Initialize MCP Session */
+export interface ZapierInitializeMcpSessionInput {
+  /** Protocol Version */
+  protocolVersion?: string
+  /** Client Name */
+  clientName?: string
+  /** Client Version */
+  clientVersion?: string
+}
+
+/** Zapier — List MCP Tools */
+export type ZapierListMcpToolsInput = Record<string, never>
+
+/** Zapier — Search MCP Tools */
+export interface ZapierSearchMcpToolsInput {
+  /** Query */
+  query: string
+}
+
+/** Zapier — Call MCP Tool */
+export interface ZapierCallMcpToolInput {
+  /** Tool Name */
+  toolName: string
+  /** Arguments */
+  arguments?: unknown
+}
+
+/** Zapier — Execute Configured Action */
+export interface ZapierExecuteConfiguredActionInput {
+  /** Action Tool Name */
+  actionToolName: string
+  /** Input */
+  input?: unknown
+}
+
+/** Zapier — Custom MCP Request */
+export interface ZapierCustomMcpRequestInput {
+  /** Method */
+  method: string
+  /** Params */
+  params?: unknown
+  /** Request ID */
+  id?: string
 }
 
 /** Zendesk — Create Ticket */
@@ -34899,20 +43097,36 @@ export interface ZohoMailCustomApiCallInput {
 
 /** Zoom — Create Zoom Meeting */
 export interface ZoomZoomCreateMeetingInput {
-  /** The meeting's topic */
+  /** Defaults to me. */
+  userId?: string
+  /** Topic */
   topic: string
-  /** Meeting start date-time (e.g. 2024-01-15T10:00:00Z) */
+  /** ISO date-time such as 2026-06-08T10:00:00Z. */
   start_time?: string
-  /** Duration of the meeting in minutes */
+  /** Duration (minutes) */
   duration?: number
-  /** The meeting's agenda */
+  /** Timezone */
+  timezone?: string
+  /** Agenda */
   agenda?: string
-  /** Password to join the meeting (max 10 chars, alphanumeric + @-_*) */
+  /** Password */
   password?: string
   /** Meeting Type (values: `1`, `2`, `3`, `8`) */
   type?: "1" | "2" | "3" | "8"
   /** Auto Recording (values: `local`, `cloud`, `none`) */
   auto_recording?: "local" | "cloud" | "none"
+  /** Additional Settings */
+  settings?: unknown
+}
+
+/** Zoom — Update Meeting */
+export interface ZoomUpdateMeetingInput {
+  /** Meeting ID */
+  meeting_id: string
+  /** Payload */
+  payload: unknown
+  /** Occurrence ID */
+  occurrence_id?: string
 }
 
 /** Zoom — Create Meeting Registrant */
@@ -34925,42 +43139,242 @@ export interface ZoomZoomCreateMeetingRegistrantInput {
   first_name: string
   /** Last Name */
   last_name?: string
-  /** Phone */
-  phone?: string
-  /** Organization */
-  org?: string
-  /** Job Title */
-  job_title?: string
+  /** Auto Approve */
+  auto_approve?: boolean
+  /** Additional Registrant Fields */
+  payload?: unknown
+}
+
+/** Zoom — List Meeting Registrants */
+export interface ZoomListMeetingRegistrantsInput {
+  /** Meeting ID */
+  meeting_id: string
+  /** Occurrence ID */
+  occurrence_id?: string
+  /** Status (values: `pending`, `approved`, `denied`) */
+  status?: "pending" | "approved" | "denied"
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — Update Meeting Registrant Status */
+export interface ZoomUpdateMeetingRegistrantStatusInput {
+  /** Meeting ID */
+  meeting_id: string
+  /** Action (values: `approve`, `deny`) */
+  action: "approve" | "deny"
+  /** Array of registrant objects with id and/or email fields. */
+  registrants: unknown
 }
 
 /** Zoom — Get Meeting */
 export interface ZoomGetMeetingInput {
   /** Meeting ID */
   meeting_id: string
+  /** Occurrence ID */
+  occurrence_id?: string
+  /** Show Previous Occurrences */
+  show_previous_occurrences?: boolean
+}
+
+/** Zoom — Get Meeting Invitation */
+export interface ZoomGetMeetingInvitationInput {
+  /** Meeting ID */
+  meeting_id: string
 }
 
 /** Zoom — List Meetings */
 export interface ZoomListMeetingsInput {
+  /** Defaults to me. */
+  userId?: string
   /** Meeting Type (values: `scheduled`, `live`, `upcoming`, `upcoming_meetings`, `previous_meetings`) */
   type?: "scheduled" | "live" | "upcoming" | "upcoming_meetings" | "previous_meetings"
   /** Page Size */
   page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
 }
 
 /** Zoom — Delete Meeting */
 export interface ZoomDeleteMeetingInput {
   /** Meeting ID */
   meeting_id: string
+  /** Occurrence ID */
+  occurrence_id?: string
+  /** Send Cancellation Email */
+  schedule_for_reminder?: boolean
+}
+
+/** Zoom — List Users */
+export interface ZoomListUsersInput {
+  /** Status (values: `active`, `inactive`, `pending`) */
+  status?: "active" | "inactive" | "pending"
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — Get User */
+export interface ZoomGetUserInput {
+  /** User ID or Email */
+  userId?: string
+}
+
+/** Zoom — List Webinars */
+export interface ZoomListWebinarsInput {
+  /** Defaults to me. */
+  userId?: string
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — Create Webinar */
+export interface ZoomCreateWebinarInput {
+  /** Defaults to me. */
+  userId?: string
+  /** Webinar Payload */
+  payload: unknown
+}
+
+/** Zoom — Get Webinar */
+export interface ZoomGetWebinarInput {
+  /** Webinar ID */
+  webinarId: string
+}
+
+/** Zoom — Update Webinar */
+export interface ZoomUpdateWebinarInput {
+  /** Webinar ID */
+  webinarId: string
+  /** Payload */
+  payload: unknown
+}
+
+/** Zoom — Delete Webinar */
+export interface ZoomDeleteWebinarInput {
+  /** Webinar ID */
+  webinarId: string
+  /** Occurrence ID */
+  occurrence_id?: string
+}
+
+/** Zoom — Create Webinar Registrant */
+export interface ZoomCreateWebinarRegistrantInput {
+  /** Webinar ID */
+  webinarId: string
+  /** Registrant Payload */
+  payload: unknown
+}
+
+/** Zoom — List Webinar Registrants */
+export interface ZoomListWebinarRegistrantsInput {
+  /** Webinar ID */
+  webinarId: string
+  /** Occurrence ID */
+  occurrence_id?: string
+  /** Status (values: `pending`, `approved`, `denied`) */
+  status?: "pending" | "approved" | "denied"
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — List User Recordings */
+export interface ZoomListUserRecordingsInput {
+  /** Defaults to me. */
+  userId?: string
+  /** YYYY-MM-DD. */
+  from?: string
+  /** YYYY-MM-DD. */
+  to?: string
+  /** Include Trash */
+  trash?: boolean
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — Get Meeting Recordings */
+export interface ZoomGetMeetingRecordingsInput {
+  /** Meeting ID or UUID */
+  meeting_id: string
+}
+
+/** Zoom — Get Recording Settings */
+export interface ZoomGetRecordingSettingsInput {
+  /** Meeting ID */
+  meeting_id: string
+}
+
+/** Zoom — List Event Subscriptions */
+export interface ZoomListEventSubscriptionsInput {
+  /** Subscription Scope (values: `user`, `account`, `team`) */
+  subscription_scope?: "user" | "account" | "team"
+  /** User ID */
+  user_id?: string
+  /** Account ID */
+  account_id?: string
+  /** Page Size */
+  page_size?: number
+  /** Next Page Token */
+  next_page_token?: string
+}
+
+/** Zoom — Create Event Subscription */
+export interface ZoomCreateEventSubscriptionInput {
+  /** Subscription Name */
+  event_subscription_name: string
+  /** Webhook URL */
+  event_webhook_url: string
+  /** Events */
+  events: unknown[]
+  /** Subscription Scope (values: `user`, `account`, `team`) */
+  subscription_scope: "user" | "account" | "team"
+  /** Account ID */
+  account_id?: string
+  /** User IDs */
+  user_ids?: unknown[]
+  /** Team IDs */
+  team_ids?: unknown[]
+  /** Authentication Configuration */
+  authentication?: unknown
+}
+
+/** Zoom — Subscribe Event Subscription */
+export interface ZoomSubscribeEventSubscriptionInput {
+  /** Event Subscription ID */
+  eventSubscriptionId: string
+  /** Account ID */
+  account_id?: string
+  /** User IDs */
+  user_ids?: unknown[]
+  /** Team IDs */
+  team_ids?: unknown[]
+}
+
+/** Zoom — Delete Event Subscription */
+export interface ZoomDeleteEventSubscriptionInput {
+  /** Event Subscription ID */
+  eventSubscriptionId: string
 }
 
 /** Zoom — Custom API Call */
 export interface ZoomCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /users/me) */
+  /** API path such as /users/me. Must start with /. */
   path: string
-  /** Request body (JSON) */
+  /** Body */
   body?: unknown
+  /** Query Parameters */
+  queryParams?: unknown
 }
 
 /** Zuora — Create Invoice */
@@ -35037,6 +43451,16 @@ export interface IntegrationActionInputMap {
   'acuity-scheduling.find_appointment': AcuitySchedulingFindAppointmentInput
   'acuity-scheduling.find_client': AcuitySchedulingFindClientInput
   'acuity-scheduling.custom_api_call': AcuitySchedulingCustomApiCallInput
+  'adobe-firefly-services.generate_image': AdobeFireflyServicesGenerateImageInput
+  'adobe-firefly-services.generate_image_async': AdobeFireflyServicesGenerateImageAsyncInput
+  'adobe-firefly-services.upload_image': AdobeFireflyServicesUploadImageInput
+  'adobe-firefly-services.expand_image_async': AdobeFireflyServicesExpandImageAsyncInput
+  'adobe-firefly-services.fill_image': AdobeFireflyServicesFillImageInput
+  'adobe-firefly-services.get_firefly_job_status': AdobeFireflyServicesGetFireflyJobStatusInput
+  'adobe-firefly-services.remove_background': AdobeFireflyServicesRemoveBackgroundInput
+  'adobe-firefly-services.get_photoshop_job_status': AdobeFireflyServicesGetPhotoshopJobStatusInput
+  'adobe-firefly-services.custom_firefly_api_call': AdobeFireflyServicesCustomFireflyApiCallInput
+  'adobe-firefly-services.custom_photoshop_api_call': AdobeFireflyServicesCustomPhotoshopApiCallInput
   'adp.list_workers': AdpListWorkersInput
   'adp.get_worker': AdpGetWorkerInput
   'adp.list_work_assignments': AdpListWorkAssignmentsInput
@@ -35108,6 +43532,13 @@ export interface IntegrationActionInputMap {
   'airtable.add_comment': AirtableAddCommentInput
   'airtable.upload_attachment': AirtableUploadAttachmentInput
   'airtable.custom_api_call': AirtableCustomApiCallInput
+  'alma.get_mcp_setup_info': AlmaGetMcpSetupInfoInput
+  'alma.get_oauth_metadata': AlmaGetOauthMetadataInput
+  'alma.initialize_mcp_session': AlmaInitializeMcpSessionInput
+  'alma.list_mcp_tools': AlmaListMcpToolsInput
+  'alma.search_mcp_tools': AlmaSearchMcpToolsInput
+  'alma.call_mcp_tool': AlmaCallMcpToolInput
+  'alma.custom_mcp_request': AlmaCustomMcpRequestInput
   'amazon-s3.upload-file': AmazonS3UploadFileInput
   'amazon-s3.read-file': AmazonS3ReadFileInput
   'amazon-s3.generate-signed-url': AmazonS3GenerateSignedUrlInput
@@ -35201,6 +43632,48 @@ export interface IntegrationActionInputMap {
   'athenahealth.list_appointments': AthenahealthListAppointmentsInput
   'athenahealth.list_providers': AthenahealthListProvidersInput
   'athenahealth.list_departments': AthenahealthListDepartmentsInput
+  'atlassian.jira_list_sites': AtlassianJiraListSitesInput
+  'atlassian.jira_list_projects': AtlassianJiraListProjectsInput
+  'atlassian.jira_get_project': AtlassianJiraGetProjectInput
+  'atlassian.jira_list_issue_types': AtlassianJiraListIssueTypesInput
+  'atlassian.jira_get_create_metadata': AtlassianJiraGetCreateMetadataInput
+  'atlassian.jira_search_issues_jql': AtlassianJiraSearchIssuesJqlInput
+  'atlassian.jira_get_issue': AtlassianJiraGetIssueInput
+  'atlassian.jira_create_issue': AtlassianJiraCreateIssueInput
+  'atlassian.jira_update_issue': AtlassianJiraUpdateIssueInput
+  'atlassian.jira_list_transitions': AtlassianJiraListTransitionsInput
+  'atlassian.jira_transition_issue': AtlassianJiraTransitionIssueInput
+  'atlassian.jira_assign_issue': AtlassianJiraAssignIssueInput
+  'atlassian.jira_list_comments': AtlassianJiraListCommentsInput
+  'atlassian.jira_add_comment': AtlassianJiraAddCommentInput
+  'atlassian.jira_update_comment': AtlassianJiraUpdateCommentInput
+  'atlassian.jira_add_attachment': AtlassianJiraAddAttachmentInput
+  'atlassian.jira_get_attachment': AtlassianJiraGetAttachmentInput
+  'atlassian.jira_link_issues': AtlassianJiraLinkIssuesInput
+  'atlassian.jira_add_watcher': AtlassianJiraAddWatcherInput
+  'atlassian.jira_find_user': AtlassianJiraFindUserInput
+  'atlassian.jira_create_webhook': AtlassianJiraCreateWebhookInput
+  'atlassian.jira_refresh_webhooks': AtlassianJiraRefreshWebhooksInput
+  'atlassian.jira_delete_webhooks': AtlassianJiraDeleteWebhooksInput
+  'atlassian.confluence_list_spaces': AtlassianConfluenceListSpacesInput
+  'atlassian.confluence_list_pages': AtlassianConfluenceListPagesInput
+  'atlassian.confluence_get_page': AtlassianConfluenceGetPageInput
+  'atlassian.confluence_search_cql': AtlassianConfluenceSearchCqlInput
+  'atlassian.confluence_create_page': AtlassianConfluenceCreatePageInput
+  'atlassian.confluence_update_page': AtlassianConfluenceUpdatePageInput
+  'atlassian.confluence_upsert_page_by_title': AtlassianConfluenceUpsertPageByTitleInput
+  'atlassian.confluence_append_page_section': AtlassianConfluenceAppendPageSectionInput
+  'atlassian.confluence_list_comments': AtlassianConfluenceListCommentsInput
+  'atlassian.confluence_add_footer_comment': AtlassianConfluenceAddFooterCommentInput
+  'atlassian.confluence_update_comment': AtlassianConfluenceUpdateCommentInput
+  'atlassian.confluence_list_attachments': AtlassianConfluenceListAttachmentsInput
+  'atlassian.confluence_upload_attachment': AtlassianConfluenceUploadAttachmentInput
+  'atlassian.confluence_download_attachment': AtlassianConfluenceDownloadAttachmentInput
+  'atlassian.confluence_get_children': AtlassianConfluenceGetChildrenInput
+  'atlassian.confluence_get_ancestors': AtlassianConfluenceGetAncestorsInput
+  'atlassian.confluence_add_label': AtlassianConfluenceAddLabelInput
+  'atlassian.get_next_page': AtlassianGetNextPageInput
+  'atlassian.custom_api_call': AtlassianCustomApiCallInput
   'attio.create_record': AttioCreateRecordInput
   'attio.update_record': AttioUpdateRecordInput
   'attio.find_record': AttioFindRecordInput
@@ -35313,10 +43786,27 @@ export interface IntegrationActionInputMap {
   'bluesky.findPost': BlueskyFindPostInput
   'bluesky.findThread': BlueskyFindThreadInput
   'box.list_folder_items': BoxListFolderItemsInput
+  'box.get_folder_info': BoxGetFolderInfoInput
   'box.get_file_info': BoxGetFileInfoInput
   'box.create_folder': BoxCreateFolderInput
+  'box.update_file_info': BoxUpdateFileInfoInput
+  'box.update_folder_info': BoxUpdateFolderInfoInput
+  'box.upload_text_file': BoxUploadTextFileInput
+  'box.get_file_download_url': BoxGetFileDownloadUrlInput
+  'box.copy_file': BoxCopyFileInput
+  'box.copy_folder': BoxCopyFolderInput
   'box.search': BoxSearchInput
+  'box.create_collaboration': BoxCreateCollaborationInput
+  'box.list_collaborations': BoxListCollaborationsInput
+  'box.create_comment': BoxCreateCommentInput
+  'box.list_file_comments': BoxListFileCommentsInput
+  'box.create_task': BoxCreateTaskInput
+  'box.get_metadata_instances': BoxGetMetadataInstancesInput
+  'box.create_webhook': BoxCreateWebhookInput
+  'box.list_webhooks': BoxListWebhooksInput
+  'box.delete_webhook': BoxDeleteWebhookInput
   'box.delete_file': BoxDeleteFileInput
+  'box.delete_folder': BoxDeleteFolderInput
   'box.custom_api_call': BoxCustomApiCallInput
   'brandfolder.get_asset': BrandfolderGetAssetInput
   'brandfolder.create_asset': BrandfolderCreateAssetInput
@@ -35381,10 +43871,38 @@ export interface IntegrationActionInputMap {
   'canto.upload_asset': CantoUploadAssetInput
   'canto.get_metadata': CantoGetMetadataInput
   'canto.custom_api_call': CantoCustomApiCallInput
+  'canva.get_user': CanvaGetUserInput
+  'canva.get_user_capabilities': CanvaGetUserCapabilitiesInput
   'canva.create_design': CanvaCreateDesignInput
   'canva.list_designs': CanvaListDesignsInput
-  'canva.export_design': CanvaExportDesignInput
-  'canva.upload_asset': CanvaUploadAssetInput
+  'canva.get_design': CanvaGetDesignInput
+  'canva.get_design_pages': CanvaGetDesignPagesInput
+  'canva.get_design_export_formats': CanvaGetDesignExportFormatsInput
+  'canva.create_export_job': CanvaCreateExportJobInput
+  'canva.get_export_job': CanvaGetExportJobInput
+  'canva.list_brand_templates': CanvaListBrandTemplatesInput
+  'canva.get_brand_template': CanvaGetBrandTemplateInput
+  'canva.get_brand_template_dataset': CanvaGetBrandTemplateDatasetInput
+  'canva.create_design_autofill_job': CanvaCreateDesignAutofillJobInput
+  'canva.get_design_autofill_job': CanvaGetDesignAutofillJobInput
+  'canva.create_asset_upload_job': CanvaCreateAssetUploadJobInput
+  'canva.get_asset_upload_job': CanvaGetAssetUploadJobInput
+  'canva.create_asset_upload_job_from_url': CanvaCreateAssetUploadJobFromUrlInput
+  'canva.get_asset_upload_job_from_url': CanvaGetAssetUploadJobFromUrlInput
+  'canva.get_asset': CanvaGetAssetInput
+  'canva.update_asset': CanvaUpdateAssetInput
+  'canva.delete_asset': CanvaDeleteAssetInput
+  'canva.create_folder': CanvaCreateFolderInput
+  'canva.get_folder': CanvaGetFolderInput
+  'canva.update_folder': CanvaUpdateFolderInput
+  'canva.delete_folder': CanvaDeleteFolderInput
+  'canva.list_folder_items': CanvaListFolderItemsInput
+  'canva.move_folder_item': CanvaMoveFolderItemInput
+  'canva.create_comment_thread': CanvaCreateCommentThreadInput
+  'canva.create_comment_reply': CanvaCreateCommentReplyInput
+  'canva.get_comment_thread': CanvaGetCommentThreadInput
+  'canva.list_comment_replies': CanvaListCommentRepliesInput
+  'canva.get_comment_reply': CanvaGetCommentReplyInput
   'canva.custom_api_call': CanvaCustomApiCallInput
   'canvas-lms.list_courses': CanvasLmsListCoursesInput
   'canvas-lms.get_course': CanvasLmsGetCourseInput
@@ -35531,10 +44049,19 @@ export interface IntegrationActionInputMap {
   'codacy.list_issues': CodacyListIssuesInput
   'codacy.custom_api_call': CodacyCustomApiCallInput
   'code.run_code': CodeRunCodeInput
+  'cognito-forms.list_forms': CognitoFormsListFormsInput
+  'cognito-forms.get_form_schema': CognitoFormsGetFormSchemaInput
+  'cognito-forms.set_public_link_availability': CognitoFormsSetPublicLinkAvailabilityInput
   'cognito-forms.create_entry': CognitoFormsCreateEntryInput
+  'cognito-forms.get_entry': CognitoFormsGetEntryInput
   'cognito-forms.update_entry': CognitoFormsUpdateEntryInput
   'cognito-forms.delete_entry': CognitoFormsDeleteEntryInput
-  'cognito-forms.get_entry': CognitoFormsGetEntryInput
+  'cognito-forms.import_entries': CognitoFormsImportEntriesInput
+  'cognito-forms.get_import_status': CognitoFormsGetImportStatusInput
+  'cognito-forms.upload_file': CognitoFormsUploadFileInput
+  'cognito-forms.get_file': CognitoFormsGetFileInput
+  'cognito-forms.get_document': CognitoFormsGetDocumentInput
+  'cognito-forms.query_odata_view': CognitoFormsQueryOdataViewInput
   'cognito-forms.custom_api_call': CognitoFormsCustomApiCallInput
   'cohere.chat': CohereChatInput
   'cohere.embed': CohereEmbedInput
@@ -35676,10 +44203,19 @@ export interface IntegrationActionInputMap {
   'deepl.custom_api_call': DeeplCustomApiCallInput
   'deepseek.ask_deepseek': DeepseekAskDeepseekInput
   'deepseek.ask_json': DeepseekAskJsonInput
+  'descript.import_media': DescriptImportMediaInput
+  'descript.upload_direct_media_file': DescriptUploadDirectMediaFileInput
+  'descript.agent_edit': DescriptAgentEditInput
+  'descript.publish_project': DescriptPublishProjectInput
+  'descript.export_transcript': DescriptExportTranscriptInput
+  'descript.list_jobs': DescriptListJobsInput
+  'descript.get_job': DescriptGetJobInput
+  'descript.cancel_job': DescriptCancelJobInput
   'descript.list_projects': DescriptListProjectsInput
   'descript.get_project': DescriptGetProjectInput
-  'descript.export_media': DescriptExportMediaInput
-  'descript.get_transcript': DescriptGetTranscriptInput
+  'descript.check_status': DescriptCheckStatusInput
+  'descript.create_edit_in_descript_import_url': DescriptCreateEditInDescriptImportUrlInput
+  'descript.get_published_project_metadata': DescriptGetPublishedProjectMetadataInput
   'descript.custom_api_call': DescriptCustomApiCallInput
   'dialpad.list_calls': DialpadListCallsInput
   'dialpad.get_call': DialpadGetCallInput
@@ -35730,8 +44266,25 @@ export interface IntegrationActionInputMap {
   'docker-hub.search_images': DockerHubSearchImagesInput
   'docker-hub.custom_api_call': DockerHubCustomApiCallInput
   'docusign.listEnvelopes': DocusignListEnvelopesInput
+  'docusign.createEnvelope': DocusignCreateEnvelopeInput
   'docusign.getEnvelope': DocusignGetEnvelopeInput
+  'docusign.updateEnvelope': DocusignUpdateEnvelopeInput
+  'docusign.listEnvelopeDocuments': DocusignListEnvelopeDocumentsInput
   'docusign.getDocument': DocusignGetDocumentInput
+  'docusign.listRecipients': DocusignListRecipientsInput
+  'docusign.updateRecipients': DocusignUpdateRecipientsInput
+  'docusign.listRecipientTabs': DocusignListRecipientTabsInput
+  'docusign.createRecipientTabs': DocusignCreateRecipientTabsInput
+  'docusign.updateRecipientTabs': DocusignUpdateRecipientTabsInput
+  'docusign.listTemplates': DocusignListTemplatesInput
+  'docusign.getTemplate': DocusignGetTemplateInput
+  'docusign.createRecipientView': DocusignCreateRecipientViewInput
+  'docusign.createSenderView': DocusignCreateSenderViewInput
+  'docusign.listConnectConfigurations': DocusignListConnectConfigurationsInput
+  'docusign.getConnectConfiguration': DocusignGetConnectConfigurationInput
+  'docusign.createConnectConfiguration': DocusignCreateConnectConfigurationInput
+  'docusign.updateConnectConfiguration': DocusignUpdateConnectConfigurationInput
+  'docusign.deleteConnectConfiguration': DocusignDeleteConnectConfigurationInput
   'docusign.custom_api_call': DocusignCustomApiCallInput
   'donorbox.get_campaigns': DonorboxGetCampaignsInput
   'donorbox.get_donations': DonorboxGetDonationsInput
@@ -35827,6 +44380,44 @@ export interface IntegrationActionInputMap {
   'etsy.create_listing': EtsyCreateListingInput
   'etsy.list_receipts': EtsyListReceiptsInput
   'etsy.custom_api_call': EtsyCustomApiCallInput
+  'euler.list_accounts': EulerListAccountsInput
+  'euler.partners': EulerPartnersInput
+  'euler.partner_directory_search': EulerPartnerDirectorySearchInput
+  'euler.partner_artifacts': EulerPartnerArtifactsInput
+  'euler.referrals': EulerReferralsInput
+  'euler.submit_referral': EulerSubmitReferralInput
+  'euler.get_search_deals': EulerGetSearchDealsInput
+  'euler.list_partner_contacts': EulerListPartnerContactsInput
+  'euler.create_partner_contact': EulerCreatePartnerContactInput
+  'euler.invite_partners_to_portal': EulerInvitePartnersToPortalInput
+  'euler.company_invoices': EulerCompanyInvoicesInput
+  'euler.charges_lookup': EulerChargesLookupInput
+  'euler.flow_lifecycle': EulerFlowLifecycleInput
+  'euler.flow_details': EulerFlowDetailsInput
+  'euler.partner_flow_details': EulerPartnerFlowDetailsInput
+  'euler.partner_flow_progress': EulerPartnerFlowProgressInput
+  'euler.flow_steps': EulerFlowStepsInput
+  'euler.flow_attachable_resources': EulerFlowAttachableResourcesInput
+  'euler.flow_assignment': EulerFlowAssignmentInput
+  'euler.flow_assignment_candidates': EulerFlowAssignmentCandidatesInput
+  'euler.incentives_summary': EulerIncentivesSummaryInput
+  'euler.content_search': EulerContentSearchInput
+  'euler.euler_help': EulerEulerHelpInput
+  'euler.content_list': EulerContentListInput
+  'euler.commissions': EulerCommissionsInput
+  'euler.performance': EulerPerformanceInput
+  'euler.influenced_sourced_deals': EulerInfluencedSourcedDealsInput
+  'euler.submit_feedback': EulerSubmitFeedbackInput
+  'euler.communications': EulerCommunicationsInput
+  'euler.communications_manage': EulerCommunicationsManageInput
+  'euler.si_service_projects': EulerSiServiceProjectsInput
+  'euler.si_manage_service_project': EulerSiManageServiceProjectInput
+  'euler.initialize_mcp_session': EulerInitializeMcpSessionInput
+  'euler.list_mcp_tools': EulerListMcpToolsInput
+  'euler.search_mcp_tools': EulerSearchMcpToolsInput
+  'euler.call_mcp_tool': EulerCallMcpToolInput
+  'euler.custom_mcp_request': EulerCustomMcpRequestInput
+  'euler.get_connector_manifest': EulerGetConnectorManifestInput
   'eventbrite.create_event': EventbriteCreateEventInput
   'eventbrite.list_events': EventbriteListEventsInput
   'eventbrite.get_event': EventbriteGetEventInput
@@ -35859,9 +44450,43 @@ export interface IntegrationActionInputMap {
   'fieldwire.get_forms': FieldwireGetFormsInput
   'fieldwire.get_projects': FieldwireGetProjectsInput
   'fieldwire.custom_api_call': FieldwireCustomApiCallInput
+  'figma.get_me': FigmaGetMeInput
   'figma.get_file': FigmaGetFileInput
-  'figma.get_comments': FigmaGetCommentsInput
+  'figma.get_file_metadata': FigmaGetFileMetadataInput
+  'figma.get_file_nodes': FigmaGetFileNodesInput
+  'figma.render_images': FigmaRenderImagesInput
+  'figma.list_image_fills': FigmaListImageFillsInput
+  'figma.list_comments': FigmaListCommentsInput
   'figma.post_comment': FigmaPostCommentInput
+  'figma.delete_comment': FigmaDeleteCommentInput
+  'figma.list_comment_reactions': FigmaListCommentReactionsInput
+  'figma.add_comment_reaction': FigmaAddCommentReactionInput
+  'figma.delete_comment_reaction': FigmaDeleteCommentReactionInput
+  'figma.list_versions': FigmaListVersionsInput
+  'figma.list_file_components': FigmaListFileComponentsInput
+  'figma.list_file_component_sets': FigmaListFileComponentSetsInput
+  'figma.list_file_styles': FigmaListFileStylesInput
+  'figma.get_component': FigmaGetComponentInput
+  'figma.get_component_set': FigmaGetComponentSetInput
+  'figma.get_style': FigmaGetStyleInput
+  'figma.list_team_projects': FigmaListTeamProjectsInput
+  'figma.list_project_files': FigmaListProjectFilesInput
+  'figma.list_team_components': FigmaListTeamComponentsInput
+  'figma.list_team_component_sets': FigmaListTeamComponentSetsInput
+  'figma.list_team_styles': FigmaListTeamStylesInput
+  'figma.get_local_variables': FigmaGetLocalVariablesInput
+  'figma.get_published_variables': FigmaGetPublishedVariablesInput
+  'figma.update_variables': FigmaUpdateVariablesInput
+  'figma.list_dev_resources': FigmaListDevResourcesInput
+  'figma.create_dev_resources': FigmaCreateDevResourcesInput
+  'figma.update_dev_resources': FigmaUpdateDevResourcesInput
+  'figma.delete_dev_resource': FigmaDeleteDevResourceInput
+  'figma.list_webhooks': FigmaListWebhooksInput
+  'figma.get_webhook': FigmaGetWebhookInput
+  'figma.create_webhook': FigmaCreateWebhookInput
+  'figma.update_webhook': FigmaUpdateWebhookInput
+  'figma.delete_webhook': FigmaDeleteWebhookInput
+  'figma.list_webhook_requests': FigmaListWebhookRequestsInput
   'figma.custom_api_call': FigmaCustomApiCallInput
   'filevine.get_project': FilevineGetProjectInput
   'filevine.create_project': FilevineCreateProjectInput
@@ -36180,7 +44805,19 @@ export interface IntegrationActionInputMap {
   'grafana.create_alert_rule': GrafanaCreateAlertRuleInput
   'grafana.list_alerts': GrafanaListAlertsInput
   'grafana.custom_api_call': GrafanaCustomApiCallInput
+  'granola.list_notes': GranolaListNotesInput
+  'granola.get_note': GranolaGetNoteInput
+  'granola.list_folders': GranolaListFoldersInput
+  'granola.search_notes': GranolaSearchNotesInput
+  'granola.custom_api_call': GranolaCustomApiCallInput
   'graphql.send_request': GraphqlSendRequestInput
+  'grasshopper-bank.get_account': GrasshopperBankGetAccountInput
+  'grasshopper-bank.list_account_transactions': GrasshopperBankListAccountTransactionsInput
+  'grasshopper-bank.create_ach': GrasshopperBankCreateAchInput
+  'grasshopper-bank.create_account_transfer': GrasshopperBankCreateAccountTransferInput
+  'grasshopper-bank.create_bill_payment': GrasshopperBankCreateBillPaymentInput
+  'grasshopper-bank.create_check_deposit': GrasshopperBankCreateCheckDepositInput
+  'grasshopper-bank.custom_api_call': GrasshopperBankCustomApiCallInput
   'greenhouse.list_candidates': GreenhouseListCandidatesInput
   'greenhouse.get_candidate': GreenhouseGetCandidateInput
   'greenhouse.create_candidate': GreenhouseCreateCandidateInput
@@ -36381,6 +45018,27 @@ export interface IntegrationActionInputMap {
   'hunter-io.verify_email': HunterIoVerifyEmailInput
   'hunter-io.domain_search': HunterIoDomainSearchInput
   'hunter-io.custom_api_call': HunterIoCustomApiCallInput
+  'ibkr.get_auth_status': IbkrGetAuthStatusInput
+  'ibkr.tickle': IbkrTickleInput
+  'ibkr.initialize_brokerage_session': IbkrInitializeBrokerageSessionInput
+  'ibkr.list_portfolio_accounts': IbkrListPortfolioAccountsInput
+  'ibkr.list_subaccounts': IbkrListSubaccountsInput
+  'ibkr.list_trading_accounts': IbkrListTradingAccountsInput
+  'ibkr.get_account_summary': IbkrGetAccountSummaryInput
+  'ibkr.get_account_ledger': IbkrGetAccountLedgerInput
+  'ibkr.list_positions': IbkrListPositionsInput
+  'ibkr.get_position_by_conid': IbkrGetPositionByConidInput
+  'ibkr.search_contracts': IbkrSearchContractsInput
+  'ibkr.get_market_data_snapshot': IbkrGetMarketDataSnapshotInput
+  'ibkr.list_orders': IbkrListOrdersInput
+  'ibkr.get_order_status': IbkrGetOrderStatusInput
+  'ibkr.list_trades': IbkrListTradesInput
+  'ibkr.preview_order': IbkrPreviewOrderInput
+  'ibkr.place_order': IbkrPlaceOrderInput
+  'ibkr.modify_order': IbkrModifyOrderInput
+  'ibkr.cancel_order': IbkrCancelOrderInput
+  'ibkr.reply_to_order_prompt': IbkrReplyToOrderPromptInput
+  'ibkr.custom_api_call': IbkrCustomApiCallInput
   'ideogram.generate_image': IdeogramGenerateImageInput
   'ideogram.remix_image': IdeogramRemixImageInput
   'ideogram.describe_image': IdeogramDescribeImageInput
@@ -36524,6 +45182,20 @@ export interface IntegrationActionInputMap {
   'kommo.find_contact': KommoFindContactInput
   'kommo.find_company': KommoFindCompanyInput
   'kommo.custom_api_call': KommoCustomApiCallInput
+  'kpler.get_ais_latest': KplerGetAisLatestInput
+  'kpler.get_ais_historical': KplerGetAisHistoricalInput
+  'kpler.list_cargo_trades': KplerListCargoTradesInput
+  'kpler.list_cargo_flows': KplerListCargoFlowsInput
+  'kpler.list_cargo_port_calls': KplerListCargoPortCallsInput
+  'kpler.get_cargo_fleet_metrics': KplerGetCargoFleetMetricsInput
+  'kpler.list_cargo_products': KplerListCargoProductsInput
+  'kpler.get_maritime_route': KplerGetMaritimeRouteInput
+  'kpler.screen_compliance': KplerScreenComplianceInput
+  'kpler.get_vessel_risks': KplerGetVesselRisksInput
+  'kpler.get_power_day_ahead_prices': KplerGetPowerDayAheadPricesInput
+  'kpler.get_power_unit_availability': KplerGetPowerUnitAvailabilityInput
+  'kpler.execute_vessels_graphql': KplerExecuteVesselsGraphqlInput
+  'kpler.custom_api_call': KplerCustomApiCallInput
   'kv-store.put': KvStorePutInput
   'kv-store.get': KvStoreGetInput
   'kv-store.delete': KvStoreDeleteInput
@@ -36661,6 +45333,22 @@ export interface IntegrationActionInputMap {
   'loops.update_contact': LoopsUpdateContactInput
   'loops.send_transactional': LoopsSendTransactionalInput
   'loops.custom_api_call': LoopsCustomApiCallInput
+  'lucid.get_profile': LucidGetProfileInput
+  'lucid.search_documents': LucidSearchDocumentsInput
+  'lucid.search_account_documents': LucidSearchAccountDocumentsInput
+  'lucid.get_document': LucidGetDocumentInput
+  'lucid.export_document': LucidExportDocumentInput
+  'lucid.get_document_contents': LucidGetDocumentContentsInput
+  'lucid.create_document': LucidCreateDocumentInput
+  'lucid.update_document': LucidUpdateDocumentInput
+  'lucid.search_folders': LucidSearchFoldersInput
+  'lucid.list_folder_contents': LucidListFolderContentsInput
+  'lucid.create_document_share_link': LucidCreateDocumentShareLinkInput
+  'lucid.get_document_share_link': LucidGetDocumentShareLinkInput
+  'lucid.delete_document_share_link': LucidDeleteDocumentShareLinkInput
+  'lucid.create_document_embed': LucidCreateDocumentEmbedInput
+  'lucid.list_users': LucidListUsersInput
+  'lucid.custom_api_call': LucidCustomApiCallInput
   'magento.list_products': MagentoListProductsInput
   'magento.get_product': MagentoGetProductInput
   'magento.create_product': MagentoCreateProductInput
@@ -36715,12 +45403,93 @@ export interface IntegrationActionInputMap {
   'meistertask.find_or_create_task': MeistertaskFindOrCreateTaskInput
   'meistertask.find_or_create_label': MeistertaskFindOrCreateLabelInput
   'meistertask.custom_api_call': MeistertaskCustomApiCallInput
+  'metabase.list_cards': MetabaseListCardsInput
+  'metabase.get_card': MetabaseGetCardInput
+  'metabase.create_card': MetabaseCreateCardInput
+  'metabase.update_card': MetabaseUpdateCardInput
+  'metabase.delete_card': MetabaseDeleteCardInput
+  'metabase.query_card': MetabaseQueryCardInput
+  'metabase.export_card': MetabaseExportCardInput
+  'metabase.list_dashboards': MetabaseListDashboardsInput
+  'metabase.get_dashboard': MetabaseGetDashboardInput
+  'metabase.create_dashboard': MetabaseCreateDashboardInput
+  'metabase.update_dashboard': MetabaseUpdateDashboardInput
+  'metabase.delete_dashboard': MetabaseDeleteDashboardInput
+  'metabase.list_collections': MetabaseListCollectionsInput
+  'metabase.get_collection': MetabaseGetCollectionInput
+  'metabase.create_collection': MetabaseCreateCollectionInput
+  'metabase.update_collection': MetabaseUpdateCollectionInput
+  'metabase.delete_collection': MetabaseDeleteCollectionInput
+  'metabase.search_items': MetabaseSearchItemsInput
+  'metabase.execute_dataset_query': MetabaseExecuteDatasetQueryInput
+  'metabase.execute_native_query': MetabaseExecuteNativeQueryInput
+  'metabase.export_dataset_query': MetabaseExportDatasetQueryInput
+  'metabase.list_users': MetabaseListUsersInput
+  'metabase.get_user': MetabaseGetUserInput
+  'metabase.create_user': MetabaseCreateUserInput
+  'metabase.update_user': MetabaseUpdateUserInput
+  'metabase.list_permission_groups': MetabaseListPermissionGroupsInput
+  'metabase.create_permission_group': MetabaseCreatePermissionGroupInput
+  'metabase.list_channels': MetabaseListChannelsInput
+  'metabase.create_channel': MetabaseCreateChannelInput
+  'metabase.update_channel': MetabaseUpdateChannelInput
+  'metabase.test_channel': MetabaseTestChannelInput
+  'metabase.list_notifications': MetabaseListNotificationsInput
+  'metabase.get_notification': MetabaseGetNotificationInput
+  'metabase.create_notification': MetabaseCreateNotificationInput
+  'metabase.update_notification': MetabaseUpdateNotificationInput
+  'metabase.send_notification': MetabaseSendNotificationInput
+  'metabase.list_alerts': MetabaseListAlertsInput
+  'metabase.get_alert': MetabaseGetAlertInput
+  'metabase.list_pulses': MetabaseListPulsesInput
+  'metabase.get_pulse': MetabaseGetPulseInput
+  'metabase.create_pulse': MetabaseCreatePulseInput
+  'metabase.update_pulse': MetabaseUpdatePulseInput
+  'metabase.test_pulse': MetabaseTestPulseInput
   'metabase.getQuestion': MetabaseGetQuestionInput
   'metabase.getQuestionPngPreview': MetabaseGetQuestionPngPreviewInput
   'metabase.getDashboardQuestions': MetabaseGetDashboardQuestionsInput
   'metabase.embedQuestion': MetabaseEmbedQuestionInput
   'metabase.getEmbedUrl': MetabaseGetEmbedUrlInput
   'metabase.custom_api_call': MetabaseCustomApiCallInput
+  'microsoft-365.get_me': Microsoft365GetMeInput
+  'microsoft-365.list_users': Microsoft365ListUsersInput
+  'microsoft-365.get_user': Microsoft365GetUserInput
+  'microsoft-365.list_groups': Microsoft365ListGroupsInput
+  'microsoft-365.list_messages': Microsoft365ListMessagesInput
+  'microsoft-365.get_message': Microsoft365GetMessageInput
+  'microsoft-365.send_mail': Microsoft365SendMailInput
+  'microsoft-365.list_calendar_events': Microsoft365ListCalendarEventsInput
+  'microsoft-365.create_calendar_event': Microsoft365CreateCalendarEventInput
+  'microsoft-365.list_contacts': Microsoft365ListContactsInput
+  'microsoft-365.get_contact': Microsoft365GetContactInput
+  'microsoft-365.create_contact': Microsoft365CreateContactInput
+  'microsoft-365.list_drive_items': Microsoft365ListDriveItemsInput
+  'microsoft-365.get_drive_item': Microsoft365GetDriveItemInput
+  'microsoft-365.upload_drive_text_file': Microsoft365UploadDriveTextFileInput
+  'microsoft-365.drive_delta': Microsoft365DriveDeltaInput
+  'microsoft-365.list_sites': Microsoft365ListSitesInput
+  'microsoft-365.list_site_drives': Microsoft365ListSiteDrivesInput
+  'microsoft-365.list_teams': Microsoft365ListTeamsInput
+  'microsoft-365.list_team_channels': Microsoft365ListTeamChannelsInput
+  'microsoft-365.send_channel_message': Microsoft365SendChannelMessageInput
+  'microsoft-365.list_chats': Microsoft365ListChatsInput
+  'microsoft-365.send_chat_message': Microsoft365SendChatMessageInput
+  'microsoft-365.list_planner_plans': Microsoft365ListPlannerPlansInput
+  'microsoft-365.list_planner_tasks': Microsoft365ListPlannerTasksInput
+  'microsoft-365.create_planner_task': Microsoft365CreatePlannerTaskInput
+  'microsoft-365.list_todo_lists': Microsoft365ListTodoListsInput
+  'microsoft-365.list_todo_tasks': Microsoft365ListTodoTasksInput
+  'microsoft-365.create_todo_task': Microsoft365CreateTodoTaskInput
+  'microsoft-365.list_onenote_notebooks': Microsoft365ListOnenoteNotebooksInput
+  'microsoft-365.list_workbook_worksheets': Microsoft365ListWorkbookWorksheetsInput
+  'microsoft-365.get_workbook_range': Microsoft365GetWorkbookRangeInput
+  'microsoft-365.list_subscriptions': Microsoft365ListSubscriptionsInput
+  'microsoft-365.create_subscription': Microsoft365CreateSubscriptionInput
+  'microsoft-365.update_subscription': Microsoft365UpdateSubscriptionInput
+  'microsoft-365.delete_subscription': Microsoft365DeleteSubscriptionInput
+  'microsoft-365.get_next_page': Microsoft365GetNextPageInput
+  'microsoft-365.custom_api_call': Microsoft365CustomApiCallInput
   'microsoft-365-planner.createPlan': Microsoft365PlannerCreatePlanInput
   'microsoft-365-planner.createBucket': Microsoft365PlannerCreateBucketInput
   'microsoft-365-planner.createTask': Microsoft365PlannerCreateTaskInput
@@ -36746,6 +45515,25 @@ export interface IntegrationActionInputMap {
   'microsoft-excel-365.get_table': MicrosoftExcel365GetTableInput
   'microsoft-excel-365.list_tables': MicrosoftExcel365ListTablesInput
   'microsoft-excel-365.custom_api_call': MicrosoftExcel365CustomApiCallInput
+  'microsoft-learn.list_mcp_tools': MicrosoftLearnListMcpToolsInput
+  'microsoft-learn.search_docs': MicrosoftLearnSearchDocsInput
+  'microsoft-learn.fetch_docs_page': MicrosoftLearnFetchDocsPageInput
+  'microsoft-learn.search_code_samples': MicrosoftLearnSearchCodeSamplesInput
+  'microsoft-learn.list_catalog_items': MicrosoftLearnListCatalogItemsInput
+  'microsoft-learn.list_courses': MicrosoftLearnListCoursesInput
+  'microsoft-learn.get_course': MicrosoftLearnGetCourseInput
+  'microsoft-learn.list_learning_paths': MicrosoftLearnListLearningPathsInput
+  'microsoft-learn.get_learning_path': MicrosoftLearnGetLearningPathInput
+  'microsoft-learn.list_modules': MicrosoftLearnListModulesInput
+  'microsoft-learn.get_module': MicrosoftLearnGetModuleInput
+  'microsoft-learn.get_unit': MicrosoftLearnGetUnitInput
+  'microsoft-learn.list_certifications': MicrosoftLearnListCertificationsInput
+  'microsoft-learn.get_certification': MicrosoftLearnGetCertificationInput
+  'microsoft-learn.list_exams': MicrosoftLearnListExamsInput
+  'microsoft-learn.get_exam': MicrosoftLearnGetExamInput
+  'microsoft-learn.list_applied_skills': MicrosoftLearnListAppliedSkillsInput
+  'microsoft-learn.get_applied_skill': MicrosoftLearnGetAppliedSkillInput
+  'microsoft-learn.custom_api_call': MicrosoftLearnCustomApiCallInput
   'microsoft-onedrive.list_files': MicrosoftOnedriveListFilesInput
   'microsoft-onedrive.get_file': MicrosoftOnedriveGetFileInput
   'microsoft-onedrive.upload_file': MicrosoftOnedriveUploadFileInput
@@ -36822,8 +45610,31 @@ export interface IntegrationActionInputMap {
   'mintlify.custom_api_call': MintlifyCustomApiCallInput
   'miro.list_boards': MiroListBoardsInput
   'miro.get_board': MiroGetBoardInput
-  'miro.create_sticky_note': MiroCreateStickyNoteInput
+  'miro.create_board': MiroCreateBoardInput
+  'miro.update_board': MiroUpdateBoardInput
+  'miro.delete_board': MiroDeleteBoardInput
+  'miro.list_board_members': MiroListBoardMembersInput
+  'miro.share_board': MiroShareBoardInput
+  'miro.update_board_member': MiroUpdateBoardMemberInput
+  'miro.remove_board_member': MiroRemoveBoardMemberInput
   'miro.list_items': MiroListItemsInput
+  'miro.get_item': MiroGetItemInput
+  'miro.update_item': MiroUpdateItemInput
+  'miro.delete_item': MiroDeleteItemInput
+  'miro.create_sticky_note': MiroCreateStickyNoteInput
+  'miro.create_shape': MiroCreateShapeInput
+  'miro.create_text': MiroCreateTextInput
+  'miro.create_frame': MiroCreateFrameInput
+  'miro.create_card': MiroCreateCardInput
+  'miro.create_image': MiroCreateImageInput
+  'miro.create_connector': MiroCreateConnectorInput
+  'miro.create_group': MiroCreateGroupInput
+  'miro.list_tags': MiroListTagsInput
+  'miro.create_tag': MiroCreateTagInput
+  'miro.create_board_export_job': MiroCreateBoardExportJobInput
+  'miro.get_board_export_job': MiroGetBoardExportJobInput
+  'miro.get_board_export_job_results': MiroGetBoardExportJobResultsInput
+  'miro.custom_api_call': MiroCustomApiCallInput
   'mistral.chat': MistralChatInput
   'mistral.embed': MistralEmbedInput
   'mixpanel.track_event': MixpanelTrackEventInput
@@ -36861,6 +45672,13 @@ export interface IntegrationActionInputMap {
   'moodle.create_user': MoodleCreateUserInput
   'moodle.get_grades': MoodleGetGradesInput
   'moodle.custom_api_call': MoodleCustomApiCallInput
+  'morningstar-credit-analytics.get_mcp_setup_info': MorningstarCreditAnalyticsGetMcpSetupInfoInput
+  'morningstar-credit-analytics.get_oauth_metadata': MorningstarCreditAnalyticsGetOauthMetadataInput
+  'morningstar-credit-analytics.initialize_mcp_session': MorningstarCreditAnalyticsInitializeMcpSessionInput
+  'morningstar-credit-analytics.list_mcp_tools': MorningstarCreditAnalyticsListMcpToolsInput
+  'morningstar-credit-analytics.search_mcp_tools': MorningstarCreditAnalyticsSearchMcpToolsInput
+  'morningstar-credit-analytics.call_mcp_tool': MorningstarCreditAnalyticsCallMcpToolInput
+  'morningstar-credit-analytics.custom_mcp_request': MorningstarCreditAnalyticsCustomMcpRequestInput
   'mrpeasy.get_inventory': MrpeasyGetInventoryInput
   'mrpeasy.get_manufacturing_order': MrpeasyGetManufacturingOrderInput
   'mrpeasy.create_manufacturing_order': MrpeasyCreateManufacturingOrderInput
@@ -36907,10 +45725,33 @@ export interface IntegrationActionInputMap {
   'netlify.get_site': NetlifyGetSiteInput
   'netlify.list_site_deploys': NetlifyListSiteDeploysInput
   'netlify.list_files': NetlifyListFilesInput
-  'netsuite.getVendor': NetsuiteGetVendorInput
-  'netsuite.getCustomer': NetsuiteGetCustomerInput
-  'netsuite.runSuiteQL': NetsuiteRunSuiteQLInput
-  'netsuite.executeDataset': NetsuiteExecuteDatasetInput
+  'netsuite.test_connection': NetsuiteTestConnectionInput
+  'netsuite.get_metadata_catalog': NetsuiteGetMetadataCatalogInput
+  'netsuite.list_records': NetsuiteListRecordsInput
+  'netsuite.get_record': NetsuiteGetRecordInput
+  'netsuite.create_record': NetsuiteCreateRecordInput
+  'netsuite.update_record': NetsuiteUpdateRecordInput
+  'netsuite.replace_record': NetsuiteReplaceRecordInput
+  'netsuite.upsert_record_by_external_id': NetsuiteUpsertRecordByExternalIdInput
+  'netsuite.delete_record': NetsuiteDeleteRecordInput
+  'netsuite.transform_record': NetsuiteTransformRecordInput
+  'netsuite.execute_record_action': NetsuiteExecuteRecordActionInput
+  'netsuite.run_suiteql': NetsuiteRunSuiteqlInput
+  'netsuite.list_datasets': NetsuiteListDatasetsInput
+  'netsuite.execute_dataset': NetsuiteExecuteDatasetInput
+  'netsuite.get_customer': NetsuiteGetCustomerInput
+  'netsuite.create_customer': NetsuiteCreateCustomerInput
+  'netsuite.update_customer': NetsuiteUpdateCustomerInput
+  'netsuite.get_vendor': NetsuiteGetVendorInput
+  'netsuite.create_vendor': NetsuiteCreateVendorInput
+  'netsuite.get_sales_order': NetsuiteGetSalesOrderInput
+  'netsuite.create_sales_order': NetsuiteCreateSalesOrderInput
+  'netsuite.get_invoice': NetsuiteGetInvoiceInput
+  'netsuite.create_invoice': NetsuiteCreateInvoiceInput
+  'netsuite.get_purchase_order': NetsuiteGetPurchaseOrderInput
+  'netsuite.create_purchase_order': NetsuiteCreatePurchaseOrderInput
+  'netsuite.get_inventory_item': NetsuiteGetInventoryItemInput
+  'netsuite.create_journal_entry': NetsuiteCreateJournalEntryInput
   'netsuite.custom_api_call': NetsuiteCustomApiCallInput
   'nexhealth.get_patient': NexhealthGetPatientInput
   'nexhealth.create_patient': NexhealthCreatePatientInput
@@ -37177,6 +46018,30 @@ export interface IntegrationActionInputMap {
   'posthog.create_event': PosthogCreateEventInput
   'posthog.create_project': PosthogCreateProjectInput
   'posthog.custom_api_call': PosthogCustomApiCallInput
+  'postman.get_authenticated_user': PostmanGetAuthenticatedUserInput
+  'postman.list_workspaces': PostmanListWorkspacesInput
+  'postman.get_workspace': PostmanGetWorkspaceInput
+  'postman.create_workspace': PostmanCreateWorkspaceInput
+  'postman.list_collections': PostmanListCollectionsInput
+  'postman.get_collection': PostmanGetCollectionInput
+  'postman.create_collection': PostmanCreateCollectionInput
+  'postman.update_collection': PostmanUpdateCollectionInput
+  'postman.delete_collection': PostmanDeleteCollectionInput
+  'postman.list_environments': PostmanListEnvironmentsInput
+  'postman.get_environment': PostmanGetEnvironmentInput
+  'postman.create_environment': PostmanCreateEnvironmentInput
+  'postman.update_environment': PostmanUpdateEnvironmentInput
+  'postman.delete_environment': PostmanDeleteEnvironmentInput
+  'postman.list_monitors': PostmanListMonitorsInput
+  'postman.get_monitor': PostmanGetMonitorInput
+  'postman.run_monitor': PostmanRunMonitorInput
+  'postman.list_apis': PostmanListApisInput
+  'postman.get_api': PostmanGetApiInput
+  'postman.list_api_versions': PostmanListApiVersionsInput
+  'postman.list_mock_servers': PostmanListMockServersInput
+  'postman.get_mock_server': PostmanGetMockServerInput
+  'postman.create_collection_webhook': PostmanCreateCollectionWebhookInput
+  'postman.custom_api_call': PostmanCustomApiCallInput
   'powerschool.list_students': PowerschoolListStudentsInput
   'powerschool.get_student': PowerschoolGetStudentInput
   'powerschool.list_courses': PowerschoolListCoursesInput
@@ -37205,6 +46070,61 @@ export interface IntegrationActionInputMap {
   'propertyware.list_tenants': PropertywareListTenantsInput
   'propertyware.list_work_orders': PropertywareListWorkOrdersInput
   'propertyware.custom_api_call': PropertywareCustomApiCallInput
+  'protocols-io.get_profile': ProtocolsIoGetProfileInput
+  'protocols-io.update_profile': ProtocolsIoUpdateProfileInput
+  'protocols-io.list_protocols': ProtocolsIoListProtocolsInput
+  'protocols-io.get_protocol': ProtocolsIoGetProtocolInput
+  'protocols-io.get_protocol_steps': ProtocolsIoGetProtocolStepsInput
+  'protocols-io.get_protocol_materials': ProtocolsIoGetProtocolMaterialsInput
+  'protocols-io.get_protocol_pdf_url': ProtocolsIoGetProtocolPdfUrlInput
+  'protocols-io.list_researcher_protocols': ProtocolsIoListResearcherProtocolsInput
+  'protocols-io.list_workspace_protocols': ProtocolsIoListWorkspaceProtocolsInput
+  'protocols-io.create_protocol': ProtocolsIoCreateProtocolInput
+  'protocols-io.update_protocol': ProtocolsIoUpdateProtocolInput
+  'protocols-io.publish_protocol': ProtocolsIoPublishProtocolInput
+  'protocols-io.bookmark_protocol': ProtocolsIoBookmarkProtocolInput
+  'protocols-io.unbookmark_protocol': ProtocolsIoUnbookmarkProtocolInput
+  'protocols-io.upsert_protocol_steps': ProtocolsIoUpsertProtocolStepsInput
+  'protocols-io.delete_protocol_steps': ProtocolsIoDeleteProtocolStepsInput
+  'protocols-io.list_publications': ProtocolsIoListPublicationsInput
+  'protocols-io.list_latest_publications': ProtocolsIoListLatestPublicationsInput
+  'protocols-io.list_protocol_comments': ProtocolsIoListProtocolCommentsInput
+  'protocols-io.add_protocol_comment': ProtocolsIoAddProtocolCommentInput
+  'protocols-io.reply_protocol_comment': ProtocolsIoReplyProtocolCommentInput
+  'protocols-io.add_step_discussion': ProtocolsIoAddStepDiscussionInput
+  'protocols-io.add_step_discussion_comment': ProtocolsIoAddStepDiscussionCommentInput
+  'protocols-io.reply_step_comment': ProtocolsIoReplyStepCommentInput
+  'protocols-io.edit_comment': ProtocolsIoEditCommentInput
+  'protocols-io.edit_discussion': ProtocolsIoEditDiscussionInput
+  'protocols-io.delete_comment': ProtocolsIoDeleteCommentInput
+  'protocols-io.delete_discussion': ProtocolsIoDeleteDiscussionInput
+  'protocols-io.list_records': ProtocolsIoListRecordsInput
+  'protocols-io.get_record': ProtocolsIoGetRecordInput
+  'protocols-io.create_record': ProtocolsIoCreateRecordInput
+  'protocols-io.update_record': ProtocolsIoUpdateRecordInput
+  'protocols-io.list_workspaces': ProtocolsIoListWorkspacesInput
+  'protocols-io.list_researcher_workspaces': ProtocolsIoListResearcherWorkspacesInput
+  'protocols-io.get_workspace': ProtocolsIoGetWorkspaceInput
+  'protocols-io.request_join_workspace': ProtocolsIoRequestJoinWorkspaceInput
+  'protocols-io.confirm_workspace_invite': ProtocolsIoConfirmWorkspaceInviteInput
+  'protocols-io.leave_workspace': ProtocolsIoLeaveWorkspaceInput
+  'protocols-io.list_conversations': ProtocolsIoListConversationsInput
+  'protocols-io.list_conversation_messages': ProtocolsIoListConversationMessagesInput
+  'protocols-io.list_new_conversations': ProtocolsIoListNewConversationsInput
+  'protocols-io.mark_message_read': ProtocolsIoMarkMessageReadInput
+  'protocols-io.send_conversation_message': ProtocolsIoSendConversationMessageInput
+  'protocols-io.delete_conversation': ProtocolsIoDeleteConversationInput
+  'protocols-io.search_folder_items': ProtocolsIoSearchFolderItemsInput
+  'protocols-io.search_workspace_items': ProtocolsIoSearchWorkspaceItemsInput
+  'protocols-io.search_all_workspace_items': ProtocolsIoSearchAllWorkspaceItemsInput
+  'protocols-io.move_items_to_trash': ProtocolsIoMoveItemsToTrashInput
+  'protocols-io.restore_items_from_trash': ProtocolsIoRestoreItemsFromTrashInput
+  'protocols-io.prepare_file_upload': ProtocolsIoPrepareFileUploadInput
+  'protocols-io.verify_file_upload': ProtocolsIoVerifyFileUploadInput
+  'protocols-io.list_notifications': ProtocolsIoListNotificationsInput
+  'protocols-io.initiate_content_export': ProtocolsIoInitiateContentExportInput
+  'protocols-io.get_content_export': ProtocolsIoGetContentExportInput
+  'protocols-io.custom_api_call': ProtocolsIoCustomApiCallInput
   'proxycurl.get_person': ProxycurlGetPersonInput
   'proxycurl.get_company': ProxycurlGetCompanyInput
   'proxycurl.search_people': ProxycurlSearchPeopleInput
@@ -37242,6 +46162,113 @@ export interface IntegrationActionInputMap {
   'quickbooks.create_invoice': QuickbooksCreateInvoiceInput
   'quickbooks.create_expense': QuickbooksCreateExpenseInput
   'quickbooks.custom_api_call': QuickbooksCustomApiCallInput
+  'quicknode.list_chains': QuicknodeListChainsInput
+  'quicknode.list_endpoints': QuicknodeListEndpointsInput
+  'quicknode.create_endpoint': QuicknodeCreateEndpointInput
+  'quicknode.get_endpoint': QuicknodeGetEndpointInput
+  'quicknode.update_endpoint': QuicknodeUpdateEndpointInput
+  'quicknode.delete_endpoint': QuicknodeDeleteEndpointInput
+  'quicknode.update_endpoint_status': QuicknodeUpdateEndpointStatusInput
+  'quicknode.get_endpoint_urls': QuicknodeGetEndpointUrlsInput
+  'quicknode.get_endpoint_metrics': QuicknodeGetEndpointMetricsInput
+  'quicknode.list_endpoint_logs': QuicknodeListEndpointLogsInput
+  'quicknode.get_endpoint_log_details': QuicknodeGetEndpointLogDetailsInput
+  'quicknode.get_endpoint_security': QuicknodeGetEndpointSecurityInput
+  'quicknode.get_endpoint_security_options': QuicknodeGetEndpointSecurityOptionsInput
+  'quicknode.update_endpoint_security_options': QuicknodeUpdateEndpointSecurityOptionsInput
+  'quicknode.create_security_rule': QuicknodeCreateSecurityRuleInput
+  'quicknode.delete_security_rule': QuicknodeDeleteSecurityRuleInput
+  'quicknode.list_method_rate_limits': QuicknodeListMethodRateLimitsInput
+  'quicknode.create_method_rate_limit': QuicknodeCreateMethodRateLimitInput
+  'quicknode.update_method_rate_limit': QuicknodeUpdateMethodRateLimitInput
+  'quicknode.delete_method_rate_limit': QuicknodeDeleteMethodRateLimitInput
+  'quicknode.update_endpoint_rate_limits': QuicknodeUpdateEndpointRateLimitsInput
+  'quicknode.get_rpc_usage': QuicknodeGetRpcUsageInput
+  'quicknode.get_rpc_usage_by_chain': QuicknodeGetRpcUsageByChainInput
+  'quicknode.get_rpc_usage_by_endpoint': QuicknodeGetRpcUsageByEndpointInput
+  'quicknode.get_rpc_usage_by_method': QuicknodeGetRpcUsageByMethodInput
+  'quicknode.get_rpc_usage_by_tag': QuicknodeGetRpcUsageByTagInput
+  'quicknode.list_billing_invoices': QuicknodeListBillingInvoicesInput
+  'quicknode.list_billing_payments': QuicknodeListBillingPaymentsInput
+  'quicknode.list_teams': QuicknodeListTeamsInput
+  'quicknode.create_team': QuicknodeCreateTeamInput
+  'quicknode.get_team': QuicknodeGetTeamInput
+  'quicknode.delete_team': QuicknodeDeleteTeamInput
+  'quicknode.list_endpoint_tags': QuicknodeListEndpointTagsInput
+  'quicknode.add_endpoint_tag': QuicknodeAddEndpointTagInput
+  'quicknode.remove_endpoint_tag': QuicknodeRemoveEndpointTagInput
+  'quicknode.list_streams': QuicknodeListStreamsInput
+  'quicknode.create_stream': QuicknodeCreateStreamInput
+  'quicknode.get_stream': QuicknodeGetStreamInput
+  'quicknode.update_stream': QuicknodeUpdateStreamInput
+  'quicknode.delete_stream': QuicknodeDeleteStreamInput
+  'quicknode.pause_stream': QuicknodePauseStreamInput
+  'quicknode.activate_stream': QuicknodeActivateStreamInput
+  'quicknode.test_stream_filter': QuicknodeTestStreamFilterInput
+  'quicknode.get_enabled_streams_count': QuicknodeGetEnabledStreamsCountInput
+  'quicknode.list_webhooks': QuicknodeListWebhooksInput
+  'quicknode.create_webhook_from_template': QuicknodeCreateWebhookFromTemplateInput
+  'quicknode.get_webhook': QuicknodeGetWebhookInput
+  'quicknode.update_webhook': QuicknodeUpdateWebhookInput
+  'quicknode.update_webhook_template': QuicknodeUpdateWebhookTemplateInput
+  'quicknode.delete_webhook': QuicknodeDeleteWebhookInput
+  'quicknode.pause_webhook': QuicknodePauseWebhookInput
+  'quicknode.activate_webhook': QuicknodeActivateWebhookInput
+  'quicknode.get_enabled_webhooks_count': QuicknodeGetEnabledWebhooksCountInput
+  'quicknode.list_values': QuicknodeListValuesInput
+  'quicknode.create_value': QuicknodeCreateValueInput
+  'quicknode.get_value': QuicknodeGetValueInput
+  'quicknode.delete_value': QuicknodeDeleteValueInput
+  'quicknode.bulk_values': QuicknodeBulkValuesInput
+  'quicknode.get_values_size': QuicknodeGetValuesSizeInput
+  'quicknode.list_sets': QuicknodeListSetsInput
+  'quicknode.create_set': QuicknodeCreateSetInput
+  'quicknode.get_set': QuicknodeGetSetInput
+  'quicknode.delete_set': QuicknodeDeleteSetInput
+  'quicknode.bulk_sets': QuicknodeBulkSetsInput
+  'quicknode.get_sets_size': QuicknodeGetSetsSizeInput
+  'quicknode.list_lists': QuicknodeListListsInput
+  'quicknode.create_list': QuicknodeCreateListInput
+  'quicknode.get_list': QuicknodeGetListInput
+  'quicknode.update_list': QuicknodeUpdateListInput
+  'quicknode.delete_list': QuicknodeDeleteListInput
+  'quicknode.add_list_item': QuicknodeAddListItemInput
+  'quicknode.delete_list_item': QuicknodeDeleteListItemInput
+  'quicknode.list_contains_item': QuicknodeListContainsItemInput
+  'quicknode.get_list_size': QuicknodeGetListSizeInput
+  'quicknode.get_all_lists_size': QuicknodeGetAllListsSizeInput
+  'quicknode.call_rpc_endpoint': QuicknodeCallRpcEndpointInput
+  'quicknode.evm_get_block_number': QuicknodeEvmGetBlockNumberInput
+  'quicknode.evm_get_balance': QuicknodeEvmGetBalanceInput
+  'quicknode.evm_get_block': QuicknodeEvmGetBlockInput
+  'quicknode.evm_get_transaction': QuicknodeEvmGetTransactionInput
+  'quicknode.evm_get_transaction_receipt': QuicknodeEvmGetTransactionReceiptInput
+  'quicknode.evm_get_logs': QuicknodeEvmGetLogsInput
+  'quicknode.evm_call_contract': QuicknodeEvmCallContractInput
+  'quicknode.evm_estimate_gas': QuicknodeEvmEstimateGasInput
+  'quicknode.evm_get_gas_price': QuicknodeEvmGetGasPriceInput
+  'quicknode.solana_get_slot': QuicknodeSolanaGetSlotInput
+  'quicknode.solana_get_balance': QuicknodeSolanaGetBalanceInput
+  'quicknode.solana_get_account_info': QuicknodeSolanaGetAccountInfoInput
+  'quicknode.solana_get_transaction': QuicknodeSolanaGetTransactionInput
+  'quicknode.solana_get_block': QuicknodeSolanaGetBlockInput
+  'quicknode.get_sql_schema': QuicknodeGetSqlSchemaInput
+  'quicknode.execute_sql_query': QuicknodeExecuteSqlQueryInput
+  'quicknode.get_ipfs_account_usage': QuicknodeGetIpfsAccountUsageInput
+  'quicknode.get_ipfs_daily_usage': QuicknodeGetIpfsDailyUsageInput
+  'quicknode.list_ipfs_gateways': QuicknodeListIpfsGatewaysInput
+  'quicknode.create_ipfs_gateway': QuicknodeCreateIpfsGatewayInput
+  'quicknode.get_ipfs_gateway': QuicknodeGetIpfsGatewayInput
+  'quicknode.update_ipfs_gateway': QuicknodeUpdateIpfsGatewayInput
+  'quicknode.delete_ipfs_gateway': QuicknodeDeleteIpfsGatewayInput
+  'quicknode.list_ipfs_pins': QuicknodeListIpfsPinsInput
+  'quicknode.pin_ipfs_cid': QuicknodePinIpfsCidInput
+  'quicknode.get_ipfs_pin': QuicknodeGetIpfsPinInput
+  'quicknode.update_ipfs_pin': QuicknodeUpdateIpfsPinInput
+  'quicknode.delete_ipfs_pin': QuicknodeDeleteIpfsPinInput
+  'quicknode.get_ipfs_object': QuicknodeGetIpfsObjectInput
+  'quicknode.upload_ipfs_object': QuicknodeUploadIpfsObjectInput
+  'quicknode.custom_api_call': QuicknodeCustomApiCallInput
   'rabbitmq.sendMessageToExchange': RabbitmqSendMessageToExchangeInput
   'rabbitmq.sendMessageToQueue': RabbitmqSendMessageToQueueInput
   'railway.list_projects': RailwayListProjectsInput
@@ -37386,11 +46413,29 @@ export interface IntegrationActionInputMap {
   'sendpulse.unsubscribe-user': SendpulseUnsubscribeUserInput
   'sendpulse.update-subscriber': SendpulseUpdateSubscriberInput
   'sendpulse.custom_api_call': SendpulseCustomApiCallInput
+  'sentry.list_organizations': SentryListOrganizationsInput
   'sentry.list_projects': SentryListProjectsInput
+  'sentry.list_teams': SentryListTeamsInput
   'sentry.list_issues': SentryListIssuesInput
   'sentry.get_issue': SentryGetIssueInput
+  'sentry.update_issue': SentryUpdateIssueInput
   'sentry.resolve_issue': SentryResolveIssueInput
   'sentry.list_events': SentryListEventsInput
+  'sentry.get_event': SentryGetEventInput
+  'sentry.list_event_attachments': SentryListEventAttachmentsInput
+  'sentry.get_event_attachment': SentryGetEventAttachmentInput
+  'sentry.download_event_attachment': SentryDownloadEventAttachmentInput
+  'sentry.list_releases': SentryListReleasesInput
+  'sentry.create_release': SentryCreateReleaseInput
+  'sentry.create_deploy': SentryCreateDeployInput
+  'sentry.list_deploys': SentryListDeploysInput
+  'sentry.list_release_files': SentryListReleaseFilesInput
+  'sentry.get_release_file': SentryGetReleaseFileInput
+  'sentry.upload_release_file': SentryUploadReleaseFileInput
+  'sentry.delete_release_file': SentryDeleteReleaseFileInput
+  'sentry.bulk_update_issues': SentryBulkUpdateIssuesInput
+  'sentry.bulk_delete_issues': SentryBulkDeleteIssuesInput
+  'sentry.custom_api_call': SentryCustomApiCallInput
   'sequential-thinking.add_thought': SequentialThinkingAddThoughtInput
   'sequential-thinking.branch_thought': SequentialThinkingBranchThoughtInput
   'sequential-thinking.revise_thought': SequentialThinkingReviseThoughtInput
@@ -37467,6 +46512,11 @@ export interface IntegrationActionInputMap {
   'slack.get_message': SlackGetMessageInput
   'slack.get_channel_history': SlackGetChannelHistoryInput
   'slack.get_thread_replies': SlackGetThreadRepliesInput
+  'slack.schedule_message': SlackScheduleMessageInput
+  'slack.list_scheduled_messages': SlackListScheduledMessagesInput
+  'slack.delete_scheduled_message': SlackDeleteScheduledMessageInput
+  'slack.get_message_permalink': SlackGetMessagePermalinkInput
+  'slack.send_ephemeral_message': SlackSendEphemeralMessageInput
   'slack.search_messages': SlackSearchMessagesInput
   'slack.find_user_by_email': SlackFindUserByEmailInput
   'slack.find_user_by_handle': SlackFindUserByHandleInput
@@ -37479,9 +46529,23 @@ export interface IntegrationActionInputMap {
   'slack.create_channel': SlackCreateChannelInput
   'slack.set_channel_topic': SlackSetChannelTopicInput
   'slack.invite_user_to_channel': SlackInviteUserToChannelInput
+  'slack.create_canvas': SlackCreateCanvasInput
+  'slack.create_channel_canvas': SlackCreateChannelCanvasInput
+  'slack.edit_canvas': SlackEditCanvasInput
+  'slack.delete_canvas': SlackDeleteCanvasInput
+  'slack.list_canvases': SlackListCanvasesInput
+  'slack.list_bookmarks': SlackListBookmarksInput
+  'slack.add_bookmark': SlackAddBookmarkInput
+  'slack.edit_bookmark': SlackEditBookmarkInput
+  'slack.remove_bookmark': SlackRemoveBookmarkInput
   'slack.update_user_status': SlackUpdateUserStatusInput
   'slack.get_user_profile': SlackGetUserProfileInput
   'slack.list_usergroups': SlackListUsergroupsInput
+  'slack.create_usergroup': SlackCreateUsergroupInput
+  'slack.update_usergroup': SlackUpdateUsergroupInput
+  'slack.update_usergroup_users': SlackUpdateUsergroupUsersInput
+  'slack.enable_usergroup': SlackEnableUsergroupInput
+  'slack.disable_usergroup': SlackDisableUsergroupInput
   'slack.custom_api_call': SlackCustomApiCallInput
   'slite.list_notes': SliteListNotesInput
   'slite.get_note': SliteGetNoteInput
@@ -37578,6 +46642,39 @@ export interface IntegrationActionInputMap {
   'strapi.get_entry': StrapiGetEntryInput
   'strapi.create_entry': StrapiCreateEntryInput
   'strapi.update_entry': StrapiUpdateEntryInput
+  'strava.get_authenticated_athlete': StravaGetAuthenticatedAthleteInput
+  'strava.get_athlete_stats': StravaGetAthleteStatsInput
+  'strava.get_athlete_zones': StravaGetAthleteZonesInput
+  'strava.list_activities': StravaListActivitiesInput
+  'strava.get_activity': StravaGetActivityInput
+  'strava.create_activity': StravaCreateActivityInput
+  'strava.update_activity': StravaUpdateActivityInput
+  'strava.delete_activity': StravaDeleteActivityInput
+  'strava.list_activity_comments': StravaListActivityCommentsInput
+  'strava.list_activity_kudoers': StravaListActivityKudoersInput
+  'strava.list_activity_laps': StravaListActivityLapsInput
+  'strava.get_activity_zones': StravaGetActivityZonesInput
+  'strava.get_activity_streams': StravaGetActivityStreamsInput
+  'strava.list_athlete_clubs': StravaListAthleteClubsInput
+  'strava.get_club': StravaGetClubInput
+  'strava.list_club_activities': StravaListClubActivitiesInput
+  'strava.get_gear': StravaGetGearInput
+  'strava.list_routes': StravaListRoutesInput
+  'strava.get_route': StravaGetRouteInput
+  'strava.export_route_gpx': StravaExportRouteGpxInput
+  'strava.export_route_tcx': StravaExportRouteTcxInput
+  'strava.explore_segments': StravaExploreSegmentsInput
+  'strava.get_segment': StravaGetSegmentInput
+  'strava.list_starred_segments': StravaListStarredSegmentsInput
+  'strava.star_segment': StravaStarSegmentInput
+  'strava.list_segment_efforts': StravaListSegmentEffortsInput
+  'strava.get_segment_effort': StravaGetSegmentEffortInput
+  'strava.upload_activity': StravaUploadActivityInput
+  'strava.get_upload': StravaGetUploadInput
+  'strava.list_push_subscriptions': StravaListPushSubscriptionsInput
+  'strava.create_push_subscription': StravaCreatePushSubscriptionInput
+  'strava.delete_push_subscription': StravaDeletePushSubscriptionInput
+  'strava.custom_api_call': StravaCustomApiCallInput
   'streak.create_box': StreakCreateBoxInput
   'streak.list_boxes': StreakListBoxesInput
   'streak.get_box': StreakGetBoxInput
@@ -37608,6 +46705,25 @@ export interface IntegrationActionInputMap {
   'substack.get_stats': SubstackGetStatsInput
   'substack.custom_api_call': SubstackCustomApiCallInput
   'supabase.upload-file': SupabaseUploadFileInput
+  'supabase.list_storage_buckets': SupabaseListStorageBucketsInput
+  'supabase.get_storage_bucket': SupabaseGetStorageBucketInput
+  'supabase.create_storage_bucket': SupabaseCreateStorageBucketInput
+  'supabase.update_storage_bucket': SupabaseUpdateStorageBucketInput
+  'supabase.delete_storage_bucket': SupabaseDeleteStorageBucketInput
+  'supabase.empty_storage_bucket': SupabaseEmptyStorageBucketInput
+  'supabase.list_storage_files': SupabaseListStorageFilesInput
+  'supabase.delete_storage_files': SupabaseDeleteStorageFilesInput
+  'supabase.create_signed_url': SupabaseCreateSignedUrlInput
+  'supabase.create_signed_upload_url': SupabaseCreateSignedUploadUrlInput
+  'supabase.get_public_url': SupabaseGetPublicUrlInput
+  'supabase.invoke_edge_function': SupabaseInvokeEdgeFunctionInput
+  'supabase.list_auth_users': SupabaseListAuthUsersInput
+  'supabase.get_auth_user': SupabaseGetAuthUserInput
+  'supabase.create_auth_user': SupabaseCreateAuthUserInput
+  'supabase.invite_auth_user': SupabaseInviteAuthUserInput
+  'supabase.list_organizations': SupabaseListOrganizationsInput
+  'supabase.list_projects': SupabaseListProjectsInput
+  'supabase.get_project': SupabaseGetProjectInput
   'supabase.create_row': SupabaseCreateRowInput
   'supabase.update_row': SupabaseUpdateRowInput
   'supabase.upsert_row': SupabaseUpsertRowInput
@@ -37615,12 +46731,73 @@ export interface IntegrationActionInputMap {
   'supabase.search_rows': SupabaseSearchRowsInput
   'supabase.list_tables': SupabaseListTablesInput
   'supabase.get_table_schema': SupabaseGetTableSchemaInput
+  'supabase.custom_management_api_call': SupabaseCustomManagementApiCallInput
   'supabase.custom_api_call': SupabaseCustomApiCallInput
   'surveymonkey.list_surveys': SurveymonkeyListSurveysInput
   'surveymonkey.get_survey': SurveymonkeyGetSurveyInput
   'surveymonkey.get_responses': SurveymonkeyGetResponsesInput
   'surveymonkey.get_response_details': SurveymonkeyGetResponseDetailsInput
   'surveymonkey.custom_api_call': SurveymonkeyCustomApiCallInput
+  'swaggerhub.search_specs': SwaggerhubSearchSpecsInput
+  'swaggerhub.search_apis': SwaggerhubSearchApisInput
+  'swaggerhub.search_domains': SwaggerhubSearchDomainsInput
+  'swaggerhub.list_owner_apis': SwaggerhubListOwnerApisInput
+  'swaggerhub.list_owner_domains': SwaggerhubListOwnerDomainsInput
+  'swaggerhub.list_api_versions': SwaggerhubListApiVersionsInput
+  'swaggerhub.list_domain_versions': SwaggerhubListDomainVersionsInput
+  'swaggerhub.get_api_definition': SwaggerhubGetApiDefinitionInput
+  'swaggerhub.get_domain_definition': SwaggerhubGetDomainDefinitionInput
+  'swaggerhub.save_api_definition': SwaggerhubSaveApiDefinitionInput
+  'swaggerhub.save_domain_definition': SwaggerhubSaveDomainDefinitionInput
+  'swaggerhub.delete_api': SwaggerhubDeleteApiInput
+  'swaggerhub.delete_api_version': SwaggerhubDeleteApiVersionInput
+  'swaggerhub.clone_api_version': SwaggerhubCloneApiVersionInput
+  'swaggerhub.fork_api_version': SwaggerhubForkApiVersionInput
+  'swaggerhub.delete_domain': SwaggerhubDeleteDomainInput
+  'swaggerhub.delete_domain_version': SwaggerhubDeleteDomainVersionInput
+  'swaggerhub.clone_domain_version': SwaggerhubCloneDomainVersionInput
+  'swaggerhub.fork_domain_version': SwaggerhubForkDomainVersionInput
+  'swaggerhub.get_api_default_version': SwaggerhubGetApiDefaultVersionInput
+  'swaggerhub.set_api_default_version': SwaggerhubSetApiDefaultVersionInput
+  'swaggerhub.get_api_lifecycle': SwaggerhubGetApiLifecycleInput
+  'swaggerhub.set_api_lifecycle': SwaggerhubSetApiLifecycleInput
+  'swaggerhub.get_api_visibility': SwaggerhubGetApiVisibilityInput
+  'swaggerhub.set_api_visibility': SwaggerhubSetApiVisibilityInput
+  'swaggerhub.get_domain_default_version': SwaggerhubGetDomainDefaultVersionInput
+  'swaggerhub.set_domain_default_version': SwaggerhubSetDomainDefaultVersionInput
+  'swaggerhub.get_domain_lifecycle': SwaggerhubGetDomainLifecycleInput
+  'swaggerhub.set_domain_lifecycle': SwaggerhubSetDomainLifecycleInput
+  'swaggerhub.get_domain_visibility': SwaggerhubGetDomainVisibilityInput
+  'swaggerhub.set_domain_visibility': SwaggerhubSetDomainVisibilityInput
+  'swaggerhub.get_standardization_errors': SwaggerhubGetStandardizationErrorsInput
+  'swaggerhub.list_api_comments': SwaggerhubListApiCommentsInput
+  'swaggerhub.add_api_comment': SwaggerhubAddApiCommentInput
+  'swaggerhub.update_api_comment': SwaggerhubUpdateApiCommentInput
+  'swaggerhub.delete_api_comment': SwaggerhubDeleteApiCommentInput
+  'swaggerhub.set_api_comment_status': SwaggerhubSetApiCommentStatusInput
+  'swaggerhub.add_api_comment_reply': SwaggerhubAddApiCommentReplyInput
+  'swaggerhub.batch_update_api_comments': SwaggerhubBatchUpdateApiCommentsInput
+  'swaggerhub.list_domain_comments': SwaggerhubListDomainCommentsInput
+  'swaggerhub.add_domain_comment': SwaggerhubAddDomainCommentInput
+  'swaggerhub.update_domain_comment': SwaggerhubUpdateDomainCommentInput
+  'swaggerhub.delete_domain_comment': SwaggerhubDeleteDomainCommentInput
+  'swaggerhub.set_domain_comment_status': SwaggerhubSetDomainCommentStatusInput
+  'swaggerhub.add_domain_comment_reply': SwaggerhubAddDomainCommentReplyInput
+  'swaggerhub.batch_update_domain_comments': SwaggerhubBatchUpdateDomainCommentsInput
+  'swaggerhub.list_integrations': SwaggerhubListIntegrationsInput
+  'swaggerhub.create_integration': SwaggerhubCreateIntegrationInput
+  'swaggerhub.get_integration': SwaggerhubGetIntegrationInput
+  'swaggerhub.update_integration': SwaggerhubUpdateIntegrationInput
+  'swaggerhub.patch_integration': SwaggerhubPatchIntegrationInput
+  'swaggerhub.delete_integration': SwaggerhubDeleteIntegrationInput
+  'swaggerhub.execute_integration': SwaggerhubExecuteIntegrationInput
+  'swaggerhub.list_projects': SwaggerhubListProjectsInput
+  'swaggerhub.create_project': SwaggerhubCreateProjectInput
+  'swaggerhub.get_project': SwaggerhubGetProjectInput
+  'swaggerhub.update_project': SwaggerhubUpdateProjectInput
+  'swaggerhub.delete_project': SwaggerhubDeleteProjectInput
+  'swaggerhub.add_spec_to_project': SwaggerhubAddSpecToProjectInput
+  'swaggerhub.custom_api_call': SwaggerhubCustomApiCallInput
   'synthesia.create_video': SynthesiaCreateVideoInput
   'synthesia.get_video': SynthesiaGetVideoInput
   'synthesia.list_videos': SynthesiaListVideosInput
@@ -37732,6 +46909,15 @@ export interface IntegrationActionInputMap {
   'tithe-ly.get_campaigns': TitheLyGetCampaignsInput
   'tithe-ly.get_giving_report': TitheLyGetGivingReportInput
   'tithe-ly.custom_api_call': TitheLyCustomApiCallInput
+  'tldv.health_check': TldvHealthCheckInput
+  'tldv.import_meeting': TldvImportMeetingInput
+  'tldv.list_meetings': TldvListMeetingsInput
+  'tldv.get_meeting': TldvGetMeetingInput
+  'tldv.get_recording_download_url': TldvGetRecordingDownloadUrlInput
+  'tldv.get_transcript': TldvGetTranscriptInput
+  'tldv.get_notes': TldvGetNotesInput
+  'tldv.get_highlights': TldvGetHighlightsInput
+  'tldv.custom_api_call': TldvCustomApiCallInput
   'toast-pos.get_order': ToastPosGetOrderInput
   'toast-pos.list_orders': ToastPosListOrdersInput
   'toast-pos.list_menu': ToastPosListMenuInput
@@ -37830,6 +47016,22 @@ export interface IntegrationActionInputMap {
   'vercel.list_deployments': VercelListDeploymentsInput
   'vercel.create_deployment': VercelCreateDeploymentInput
   'vercel.get_deployment': VercelGetDeploymentInput
+  'vercel.cancel_deployment': VercelCancelDeploymentInput
+  'vercel.delete_deployment': VercelDeleteDeploymentInput
+  'vercel.list_domains': VercelListDomainsInput
+  'vercel.get_domain': VercelGetDomainInput
+  'vercel.add_account_domain': VercelAddAccountDomainInput
+  'vercel.list_project_domains': VercelListProjectDomainsInput
+  'vercel.add_project_domain': VercelAddProjectDomainInput
+  'vercel.verify_project_domain': VercelVerifyProjectDomainInput
+  'vercel.list_project_env_vars': VercelListProjectEnvVarsInput
+  'vercel.create_project_env_var': VercelCreateProjectEnvVarInput
+  'vercel.list_webhooks': VercelListWebhooksInput
+  'vercel.get_webhook': VercelGetWebhookInput
+  'vercel.create_webhook': VercelCreateWebhookInput
+  'vercel.delete_webhook': VercelDeleteWebhookInput
+  'vercel.trigger_deploy_hook': VercelTriggerDeployHookInput
+  'vercel.custom_api_call': VercelCustomApiCallInput
   'vidyard.list_videos': VidyardListVideosInput
   'vidyard.get_video': VidyardGetVideoInput
   'vidyard.get_analytics': VidyardGetAnalyticsInput
@@ -37903,6 +47105,25 @@ export interface IntegrationActionInputMap {
   'whatsapp.sendMessage': WhatsappSendMessageInput
   'whatsapp.sendMedia': WhatsappSendMediaInput
   'whatsapp.send-template-message': WhatsappSendTemplateMessageInput
+  'whimsical.get_user': WhimsicalGetUserInput
+  'whimsical.list_teams': WhimsicalListTeamsInput
+  'whimsical.list_comments': WhimsicalListCommentsInput
+  'whimsical.list_files': WhimsicalListFilesInput
+  'whimsical.get_file': WhimsicalGetFileInput
+  'whimsical.list_mcp_tools': WhimsicalListMcpToolsInput
+  'whimsical.call_mcp_tool': WhimsicalCallMcpToolInput
+  'whimsical.mcp_search': WhimsicalMcpSearchInput
+  'whimsical.mcp_fetch': WhimsicalMcpFetchInput
+  'whimsical.mcp_create': WhimsicalMcpCreateInput
+  'whimsical.mcp_create_doc': WhimsicalMcpCreateDocInput
+  'whimsical.mcp_edit': WhimsicalMcpEditInput
+  'whimsical.mcp_wireframe_edit': WhimsicalMcpWireframeEditInput
+  'whimsical.mcp_auto_layout': WhimsicalMcpAutoLayoutInput
+  'whimsical.mcp_file_tree': WhimsicalMcpFileTreeInput
+  'whimsical.mcp_list_workspaces': WhimsicalMcpListWorkspacesInput
+  'whimsical.mcp_read_comments': WhimsicalMcpReadCommentsInput
+  'whimsical.mcp_edit_comment': WhimsicalMcpEditCommentInput
+  'whimsical.custom_api_call': WhimsicalCustomApiCallInput
   'wise.list_profiles': WiseListProfilesInput
   'wise.create_quote': WiseCreateQuoteInput
   'wise.list_transfers': WiseListTransfersInput
@@ -37913,6 +47134,10 @@ export interface IntegrationActionInputMap {
   'wix.create_order': WixCreateOrderInput
   'wix.list_products': WixListProductsInput
   'wix.custom_api_call': WixCustomApiCallInput
+  'wolfram.full_results_query': WolframFullResultsQueryInput
+  'wolfram.short_answer': WolframShortAnswerInput
+  'wolfram.spoken_result': WolframSpokenResultInput
+  'wolfram.custom_api_call': WolframCustomApiCallInput
   'woocommerce.Create Customer': WoocommerceCreateCustomerInput
   'woocommerce.Create Coupon': WoocommerceCreateCouponInput
   'woocommerce.Create Product': WoocommerceCreateProductInput
@@ -37983,6 +47208,22 @@ export interface IntegrationActionInputMap {
   'youtube.add_to_playlist': YoutubeAddToPlaylistInput
   'youtube.list_channel_videos': YoutubeListChannelVideosInput
   'youtube.custom_api_call': YoutubeCustomApiCallInput
+  'zapier.list_apps': ZapierListAppsInput
+  'zapier.list_actions': ZapierListActionsInput
+  'zapier.list_authentications': ZapierListAuthenticationsInput
+  'zapier.get_input_fields': ZapierGetInputFieldsInput
+  'zapier.get_output_fields': ZapierGetOutputFieldsInput
+  'zapier.get_choices': ZapierGetChoicesInput
+  'zapier.test_action': ZapierTestActionInput
+  'zapier.create_action_run': ZapierCreateActionRunInput
+  'zapier.retrieve_action_run': ZapierRetrieveActionRunInput
+  'zapier.custom_api_call': ZapierCustomApiCallInput
+  'zapier.initialize_mcp_session': ZapierInitializeMcpSessionInput
+  'zapier.list_mcp_tools': ZapierListMcpToolsInput
+  'zapier.search_mcp_tools': ZapierSearchMcpToolsInput
+  'zapier.call_mcp_tool': ZapierCallMcpToolInput
+  'zapier.execute_configured_action': ZapierExecuteConfiguredActionInput
+  'zapier.custom_mcp_request': ZapierCustomMcpRequestInput
   'zendesk.create-ticket': ZendeskCreateTicketInput
   'zendesk.update-ticket': ZendeskUpdateTicketInput
   'zendesk.add-tag-to-ticket': ZendeskAddTagToTicketInput
@@ -38073,10 +47314,30 @@ export interface IntegrationActionInputMap {
   'zoho-mail.reply_email': ZohoMailReplyEmailInput
   'zoho-mail.custom_api_call': ZohoMailCustomApiCallInput
   'zoom.zoom_create_meeting': ZoomZoomCreateMeetingInput
+  'zoom.update_meeting': ZoomUpdateMeetingInput
   'zoom.zoom_create_meeting_registrant': ZoomZoomCreateMeetingRegistrantInput
+  'zoom.list_meeting_registrants': ZoomListMeetingRegistrantsInput
+  'zoom.update_meeting_registrant_status': ZoomUpdateMeetingRegistrantStatusInput
   'zoom.get_meeting': ZoomGetMeetingInput
+  'zoom.get_meeting_invitation': ZoomGetMeetingInvitationInput
   'zoom.list_meetings': ZoomListMeetingsInput
   'zoom.delete_meeting': ZoomDeleteMeetingInput
+  'zoom.list_users': ZoomListUsersInput
+  'zoom.get_user': ZoomGetUserInput
+  'zoom.list_webinars': ZoomListWebinarsInput
+  'zoom.create_webinar': ZoomCreateWebinarInput
+  'zoom.get_webinar': ZoomGetWebinarInput
+  'zoom.update_webinar': ZoomUpdateWebinarInput
+  'zoom.delete_webinar': ZoomDeleteWebinarInput
+  'zoom.create_webinar_registrant': ZoomCreateWebinarRegistrantInput
+  'zoom.list_webinar_registrants': ZoomListWebinarRegistrantsInput
+  'zoom.list_user_recordings': ZoomListUserRecordingsInput
+  'zoom.get_meeting_recordings': ZoomGetMeetingRecordingsInput
+  'zoom.get_recording_settings': ZoomGetRecordingSettingsInput
+  'zoom.list_event_subscriptions': ZoomListEventSubscriptionsInput
+  'zoom.create_event_subscription': ZoomCreateEventSubscriptionInput
+  'zoom.subscribe_event_subscription': ZoomSubscribeEventSubscriptionInput
+  'zoom.delete_event_subscription': ZoomDeleteEventSubscriptionInput
   'zoom.custom_api_call': ZoomCustomApiCallInput
   'zuora.create-invoice': ZuoraCreateInvoiceInput
   'zuora.find-account': ZuoraFindAccountInput
@@ -38125,6 +47386,18 @@ export interface IntegrationActionInputsByIntegration {
     'find_appointment': AcuitySchedulingFindAppointmentInput
     'find_client': AcuitySchedulingFindClientInput
     'custom_api_call': AcuitySchedulingCustomApiCallInput
+  }
+  'adobe-firefly-services': {
+    'generate_image': AdobeFireflyServicesGenerateImageInput
+    'generate_image_async': AdobeFireflyServicesGenerateImageAsyncInput
+    'upload_image': AdobeFireflyServicesUploadImageInput
+    'expand_image_async': AdobeFireflyServicesExpandImageAsyncInput
+    'fill_image': AdobeFireflyServicesFillImageInput
+    'get_firefly_job_status': AdobeFireflyServicesGetFireflyJobStatusInput
+    'remove_background': AdobeFireflyServicesRemoveBackgroundInput
+    'get_photoshop_job_status': AdobeFireflyServicesGetPhotoshopJobStatusInput
+    'custom_firefly_api_call': AdobeFireflyServicesCustomFireflyApiCallInput
+    'custom_photoshop_api_call': AdobeFireflyServicesCustomPhotoshopApiCallInput
   }
   'adp': {
     'list_workers': AdpListWorkersInput
@@ -38218,6 +47491,15 @@ export interface IntegrationActionInputsByIntegration {
     'add_comment': AirtableAddCommentInput
     'upload_attachment': AirtableUploadAttachmentInput
     'custom_api_call': AirtableCustomApiCallInput
+  }
+  'alma': {
+    'get_mcp_setup_info': AlmaGetMcpSetupInfoInput
+    'get_oauth_metadata': AlmaGetOauthMetadataInput
+    'initialize_mcp_session': AlmaInitializeMcpSessionInput
+    'list_mcp_tools': AlmaListMcpToolsInput
+    'search_mcp_tools': AlmaSearchMcpToolsInput
+    'call_mcp_tool': AlmaCallMcpToolInput
+    'custom_mcp_request': AlmaCustomMcpRequestInput
   }
   'amazon-s3': {
     'upload-file': AmazonS3UploadFileInput
@@ -38339,6 +47621,50 @@ export interface IntegrationActionInputsByIntegration {
     'list_appointments': AthenahealthListAppointmentsInput
     'list_providers': AthenahealthListProvidersInput
     'list_departments': AthenahealthListDepartmentsInput
+  }
+  'atlassian': {
+    'jira_list_sites': AtlassianJiraListSitesInput
+    'jira_list_projects': AtlassianJiraListProjectsInput
+    'jira_get_project': AtlassianJiraGetProjectInput
+    'jira_list_issue_types': AtlassianJiraListIssueTypesInput
+    'jira_get_create_metadata': AtlassianJiraGetCreateMetadataInput
+    'jira_search_issues_jql': AtlassianJiraSearchIssuesJqlInput
+    'jira_get_issue': AtlassianJiraGetIssueInput
+    'jira_create_issue': AtlassianJiraCreateIssueInput
+    'jira_update_issue': AtlassianJiraUpdateIssueInput
+    'jira_list_transitions': AtlassianJiraListTransitionsInput
+    'jira_transition_issue': AtlassianJiraTransitionIssueInput
+    'jira_assign_issue': AtlassianJiraAssignIssueInput
+    'jira_list_comments': AtlassianJiraListCommentsInput
+    'jira_add_comment': AtlassianJiraAddCommentInput
+    'jira_update_comment': AtlassianJiraUpdateCommentInput
+    'jira_add_attachment': AtlassianJiraAddAttachmentInput
+    'jira_get_attachment': AtlassianJiraGetAttachmentInput
+    'jira_link_issues': AtlassianJiraLinkIssuesInput
+    'jira_add_watcher': AtlassianJiraAddWatcherInput
+    'jira_find_user': AtlassianJiraFindUserInput
+    'jira_create_webhook': AtlassianJiraCreateWebhookInput
+    'jira_refresh_webhooks': AtlassianJiraRefreshWebhooksInput
+    'jira_delete_webhooks': AtlassianJiraDeleteWebhooksInput
+    'confluence_list_spaces': AtlassianConfluenceListSpacesInput
+    'confluence_list_pages': AtlassianConfluenceListPagesInput
+    'confluence_get_page': AtlassianConfluenceGetPageInput
+    'confluence_search_cql': AtlassianConfluenceSearchCqlInput
+    'confluence_create_page': AtlassianConfluenceCreatePageInput
+    'confluence_update_page': AtlassianConfluenceUpdatePageInput
+    'confluence_upsert_page_by_title': AtlassianConfluenceUpsertPageByTitleInput
+    'confluence_append_page_section': AtlassianConfluenceAppendPageSectionInput
+    'confluence_list_comments': AtlassianConfluenceListCommentsInput
+    'confluence_add_footer_comment': AtlassianConfluenceAddFooterCommentInput
+    'confluence_update_comment': AtlassianConfluenceUpdateCommentInput
+    'confluence_list_attachments': AtlassianConfluenceListAttachmentsInput
+    'confluence_upload_attachment': AtlassianConfluenceUploadAttachmentInput
+    'confluence_download_attachment': AtlassianConfluenceDownloadAttachmentInput
+    'confluence_get_children': AtlassianConfluenceGetChildrenInput
+    'confluence_get_ancestors': AtlassianConfluenceGetAncestorsInput
+    'confluence_add_label': AtlassianConfluenceAddLabelInput
+    'get_next_page': AtlassianGetNextPageInput
+    'custom_api_call': AtlassianCustomApiCallInput
   }
   'attio': {
     'create_record': AttioCreateRecordInput
@@ -38491,10 +47817,27 @@ export interface IntegrationActionInputsByIntegration {
   }
   'box': {
     'list_folder_items': BoxListFolderItemsInput
+    'get_folder_info': BoxGetFolderInfoInput
     'get_file_info': BoxGetFileInfoInput
     'create_folder': BoxCreateFolderInput
+    'update_file_info': BoxUpdateFileInfoInput
+    'update_folder_info': BoxUpdateFolderInfoInput
+    'upload_text_file': BoxUploadTextFileInput
+    'get_file_download_url': BoxGetFileDownloadUrlInput
+    'copy_file': BoxCopyFileInput
+    'copy_folder': BoxCopyFolderInput
     'search': BoxSearchInput
+    'create_collaboration': BoxCreateCollaborationInput
+    'list_collaborations': BoxListCollaborationsInput
+    'create_comment': BoxCreateCommentInput
+    'list_file_comments': BoxListFileCommentsInput
+    'create_task': BoxCreateTaskInput
+    'get_metadata_instances': BoxGetMetadataInstancesInput
+    'create_webhook': BoxCreateWebhookInput
+    'list_webhooks': BoxListWebhooksInput
+    'delete_webhook': BoxDeleteWebhookInput
     'delete_file': BoxDeleteFileInput
+    'delete_folder': BoxDeleteFolderInput
     'custom_api_call': BoxCustomApiCallInput
   }
   'brandfolder': {
@@ -38587,10 +47930,38 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': CantoCustomApiCallInput
   }
   'canva': {
+    'get_user': CanvaGetUserInput
+    'get_user_capabilities': CanvaGetUserCapabilitiesInput
     'create_design': CanvaCreateDesignInput
     'list_designs': CanvaListDesignsInput
-    'export_design': CanvaExportDesignInput
-    'upload_asset': CanvaUploadAssetInput
+    'get_design': CanvaGetDesignInput
+    'get_design_pages': CanvaGetDesignPagesInput
+    'get_design_export_formats': CanvaGetDesignExportFormatsInput
+    'create_export_job': CanvaCreateExportJobInput
+    'get_export_job': CanvaGetExportJobInput
+    'list_brand_templates': CanvaListBrandTemplatesInput
+    'get_brand_template': CanvaGetBrandTemplateInput
+    'get_brand_template_dataset': CanvaGetBrandTemplateDatasetInput
+    'create_design_autofill_job': CanvaCreateDesignAutofillJobInput
+    'get_design_autofill_job': CanvaGetDesignAutofillJobInput
+    'create_asset_upload_job': CanvaCreateAssetUploadJobInput
+    'get_asset_upload_job': CanvaGetAssetUploadJobInput
+    'create_asset_upload_job_from_url': CanvaCreateAssetUploadJobFromUrlInput
+    'get_asset_upload_job_from_url': CanvaGetAssetUploadJobFromUrlInput
+    'get_asset': CanvaGetAssetInput
+    'update_asset': CanvaUpdateAssetInput
+    'delete_asset': CanvaDeleteAssetInput
+    'create_folder': CanvaCreateFolderInput
+    'get_folder': CanvaGetFolderInput
+    'update_folder': CanvaUpdateFolderInput
+    'delete_folder': CanvaDeleteFolderInput
+    'list_folder_items': CanvaListFolderItemsInput
+    'move_folder_item': CanvaMoveFolderItemInput
+    'create_comment_thread': CanvaCreateCommentThreadInput
+    'create_comment_reply': CanvaCreateCommentReplyInput
+    'get_comment_thread': CanvaGetCommentThreadInput
+    'list_comment_replies': CanvaListCommentRepliesInput
+    'get_comment_reply': CanvaGetCommentReplyInput
     'custom_api_call': CanvaCustomApiCallInput
   }
   'canvas-lms': {
@@ -38789,10 +48160,19 @@ export interface IntegrationActionInputsByIntegration {
     'run_code': CodeRunCodeInput
   }
   'cognito-forms': {
+    'list_forms': CognitoFormsListFormsInput
+    'get_form_schema': CognitoFormsGetFormSchemaInput
+    'set_public_link_availability': CognitoFormsSetPublicLinkAvailabilityInput
     'create_entry': CognitoFormsCreateEntryInput
+    'get_entry': CognitoFormsGetEntryInput
     'update_entry': CognitoFormsUpdateEntryInput
     'delete_entry': CognitoFormsDeleteEntryInput
-    'get_entry': CognitoFormsGetEntryInput
+    'import_entries': CognitoFormsImportEntriesInput
+    'get_import_status': CognitoFormsGetImportStatusInput
+    'upload_file': CognitoFormsUploadFileInput
+    'get_file': CognitoFormsGetFileInput
+    'get_document': CognitoFormsGetDocumentInput
+    'query_odata_view': CognitoFormsQueryOdataViewInput
     'custom_api_call': CognitoFormsCustomApiCallInput
   }
   'cohere': {
@@ -38980,10 +48360,19 @@ export interface IntegrationActionInputsByIntegration {
     'ask_json': DeepseekAskJsonInput
   }
   'descript': {
+    'import_media': DescriptImportMediaInput
+    'upload_direct_media_file': DescriptUploadDirectMediaFileInput
+    'agent_edit': DescriptAgentEditInput
+    'publish_project': DescriptPublishProjectInput
+    'export_transcript': DescriptExportTranscriptInput
+    'list_jobs': DescriptListJobsInput
+    'get_job': DescriptGetJobInput
+    'cancel_job': DescriptCancelJobInput
     'list_projects': DescriptListProjectsInput
     'get_project': DescriptGetProjectInput
-    'export_media': DescriptExportMediaInput
-    'get_transcript': DescriptGetTranscriptInput
+    'check_status': DescriptCheckStatusInput
+    'create_edit_in_descript_import_url': DescriptCreateEditInDescriptImportUrlInput
+    'get_published_project_metadata': DescriptGetPublishedProjectMetadataInput
     'custom_api_call': DescriptCustomApiCallInput
   }
   'dialpad': {
@@ -39048,8 +48437,25 @@ export interface IntegrationActionInputsByIntegration {
   }
   'docusign': {
     'listEnvelopes': DocusignListEnvelopesInput
+    'createEnvelope': DocusignCreateEnvelopeInput
     'getEnvelope': DocusignGetEnvelopeInput
+    'updateEnvelope': DocusignUpdateEnvelopeInput
+    'listEnvelopeDocuments': DocusignListEnvelopeDocumentsInput
     'getDocument': DocusignGetDocumentInput
+    'listRecipients': DocusignListRecipientsInput
+    'updateRecipients': DocusignUpdateRecipientsInput
+    'listRecipientTabs': DocusignListRecipientTabsInput
+    'createRecipientTabs': DocusignCreateRecipientTabsInput
+    'updateRecipientTabs': DocusignUpdateRecipientTabsInput
+    'listTemplates': DocusignListTemplatesInput
+    'getTemplate': DocusignGetTemplateInput
+    'createRecipientView': DocusignCreateRecipientViewInput
+    'createSenderView': DocusignCreateSenderViewInput
+    'listConnectConfigurations': DocusignListConnectConfigurationsInput
+    'getConnectConfiguration': DocusignGetConnectConfigurationInput
+    'createConnectConfiguration': DocusignCreateConnectConfigurationInput
+    'updateConnectConfiguration': DocusignUpdateConnectConfigurationInput
+    'deleteConnectConfiguration': DocusignDeleteConnectConfigurationInput
     'custom_api_call': DocusignCustomApiCallInput
   }
   'donorbox': {
@@ -39182,6 +48588,46 @@ export interface IntegrationActionInputsByIntegration {
     'list_receipts': EtsyListReceiptsInput
     'custom_api_call': EtsyCustomApiCallInput
   }
+  'euler': {
+    'list_accounts': EulerListAccountsInput
+    'partners': EulerPartnersInput
+    'partner_directory_search': EulerPartnerDirectorySearchInput
+    'partner_artifacts': EulerPartnerArtifactsInput
+    'referrals': EulerReferralsInput
+    'submit_referral': EulerSubmitReferralInput
+    'get_search_deals': EulerGetSearchDealsInput
+    'list_partner_contacts': EulerListPartnerContactsInput
+    'create_partner_contact': EulerCreatePartnerContactInput
+    'invite_partners_to_portal': EulerInvitePartnersToPortalInput
+    'company_invoices': EulerCompanyInvoicesInput
+    'charges_lookup': EulerChargesLookupInput
+    'flow_lifecycle': EulerFlowLifecycleInput
+    'flow_details': EulerFlowDetailsInput
+    'partner_flow_details': EulerPartnerFlowDetailsInput
+    'partner_flow_progress': EulerPartnerFlowProgressInput
+    'flow_steps': EulerFlowStepsInput
+    'flow_attachable_resources': EulerFlowAttachableResourcesInput
+    'flow_assignment': EulerFlowAssignmentInput
+    'flow_assignment_candidates': EulerFlowAssignmentCandidatesInput
+    'incentives_summary': EulerIncentivesSummaryInput
+    'content_search': EulerContentSearchInput
+    'euler_help': EulerEulerHelpInput
+    'content_list': EulerContentListInput
+    'commissions': EulerCommissionsInput
+    'performance': EulerPerformanceInput
+    'influenced_sourced_deals': EulerInfluencedSourcedDealsInput
+    'submit_feedback': EulerSubmitFeedbackInput
+    'communications': EulerCommunicationsInput
+    'communications_manage': EulerCommunicationsManageInput
+    'si_service_projects': EulerSiServiceProjectsInput
+    'si_manage_service_project': EulerSiManageServiceProjectInput
+    'initialize_mcp_session': EulerInitializeMcpSessionInput
+    'list_mcp_tools': EulerListMcpToolsInput
+    'search_mcp_tools': EulerSearchMcpToolsInput
+    'call_mcp_tool': EulerCallMcpToolInput
+    'custom_mcp_request': EulerCustomMcpRequestInput
+    'get_connector_manifest': EulerGetConnectorManifestInput
+  }
   'eventbrite': {
     'create_event': EventbriteCreateEventInput
     'list_events': EventbriteListEventsInput
@@ -39229,9 +48675,43 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': FieldwireCustomApiCallInput
   }
   'figma': {
+    'get_me': FigmaGetMeInput
     'get_file': FigmaGetFileInput
-    'get_comments': FigmaGetCommentsInput
+    'get_file_metadata': FigmaGetFileMetadataInput
+    'get_file_nodes': FigmaGetFileNodesInput
+    'render_images': FigmaRenderImagesInput
+    'list_image_fills': FigmaListImageFillsInput
+    'list_comments': FigmaListCommentsInput
     'post_comment': FigmaPostCommentInput
+    'delete_comment': FigmaDeleteCommentInput
+    'list_comment_reactions': FigmaListCommentReactionsInput
+    'add_comment_reaction': FigmaAddCommentReactionInput
+    'delete_comment_reaction': FigmaDeleteCommentReactionInput
+    'list_versions': FigmaListVersionsInput
+    'list_file_components': FigmaListFileComponentsInput
+    'list_file_component_sets': FigmaListFileComponentSetsInput
+    'list_file_styles': FigmaListFileStylesInput
+    'get_component': FigmaGetComponentInput
+    'get_component_set': FigmaGetComponentSetInput
+    'get_style': FigmaGetStyleInput
+    'list_team_projects': FigmaListTeamProjectsInput
+    'list_project_files': FigmaListProjectFilesInput
+    'list_team_components': FigmaListTeamComponentsInput
+    'list_team_component_sets': FigmaListTeamComponentSetsInput
+    'list_team_styles': FigmaListTeamStylesInput
+    'get_local_variables': FigmaGetLocalVariablesInput
+    'get_published_variables': FigmaGetPublishedVariablesInput
+    'update_variables': FigmaUpdateVariablesInput
+    'list_dev_resources': FigmaListDevResourcesInput
+    'create_dev_resources': FigmaCreateDevResourcesInput
+    'update_dev_resources': FigmaUpdateDevResourcesInput
+    'delete_dev_resource': FigmaDeleteDevResourceInput
+    'list_webhooks': FigmaListWebhooksInput
+    'get_webhook': FigmaGetWebhookInput
+    'create_webhook': FigmaCreateWebhookInput
+    'update_webhook': FigmaUpdateWebhookInput
+    'delete_webhook': FigmaDeleteWebhookInput
+    'list_webhook_requests': FigmaListWebhookRequestsInput
     'custom_api_call': FigmaCustomApiCallInput
   }
   'filevine': {
@@ -39647,8 +49127,24 @@ export interface IntegrationActionInputsByIntegration {
     'list_alerts': GrafanaListAlertsInput
     'custom_api_call': GrafanaCustomApiCallInput
   }
+  'granola': {
+    'list_notes': GranolaListNotesInput
+    'get_note': GranolaGetNoteInput
+    'list_folders': GranolaListFoldersInput
+    'search_notes': GranolaSearchNotesInput
+    'custom_api_call': GranolaCustomApiCallInput
+  }
   'graphql': {
     'send_request': GraphqlSendRequestInput
+  }
+  'grasshopper-bank': {
+    'get_account': GrasshopperBankGetAccountInput
+    'list_account_transactions': GrasshopperBankListAccountTransactionsInput
+    'create_ach': GrasshopperBankCreateAchInput
+    'create_account_transfer': GrasshopperBankCreateAccountTransferInput
+    'create_bill_payment': GrasshopperBankCreateBillPaymentInput
+    'create_check_deposit': GrasshopperBankCreateCheckDepositInput
+    'custom_api_call': GrasshopperBankCustomApiCallInput
   }
   'greenhouse': {
     'list_candidates': GreenhouseListCandidatesInput
@@ -39898,6 +49394,29 @@ export interface IntegrationActionInputsByIntegration {
     'domain_search': HunterIoDomainSearchInput
     'custom_api_call': HunterIoCustomApiCallInput
   }
+  'ibkr': {
+    'get_auth_status': IbkrGetAuthStatusInput
+    'tickle': IbkrTickleInput
+    'initialize_brokerage_session': IbkrInitializeBrokerageSessionInput
+    'list_portfolio_accounts': IbkrListPortfolioAccountsInput
+    'list_subaccounts': IbkrListSubaccountsInput
+    'list_trading_accounts': IbkrListTradingAccountsInput
+    'get_account_summary': IbkrGetAccountSummaryInput
+    'get_account_ledger': IbkrGetAccountLedgerInput
+    'list_positions': IbkrListPositionsInput
+    'get_position_by_conid': IbkrGetPositionByConidInput
+    'search_contracts': IbkrSearchContractsInput
+    'get_market_data_snapshot': IbkrGetMarketDataSnapshotInput
+    'list_orders': IbkrListOrdersInput
+    'get_order_status': IbkrGetOrderStatusInput
+    'list_trades': IbkrListTradesInput
+    'preview_order': IbkrPreviewOrderInput
+    'place_order': IbkrPlaceOrderInput
+    'modify_order': IbkrModifyOrderInput
+    'cancel_order': IbkrCancelOrderInput
+    'reply_to_order_prompt': IbkrReplyToOrderPromptInput
+    'custom_api_call': IbkrCustomApiCallInput
+  }
   'ideogram': {
     'generate_image': IdeogramGenerateImageInput
     'remix_image': IdeogramRemixImageInput
@@ -40089,6 +49608,22 @@ export interface IntegrationActionInputsByIntegration {
     'find_company': KommoFindCompanyInput
     'custom_api_call': KommoCustomApiCallInput
   }
+  'kpler': {
+    'get_ais_latest': KplerGetAisLatestInput
+    'get_ais_historical': KplerGetAisHistoricalInput
+    'list_cargo_trades': KplerListCargoTradesInput
+    'list_cargo_flows': KplerListCargoFlowsInput
+    'list_cargo_port_calls': KplerListCargoPortCallsInput
+    'get_cargo_fleet_metrics': KplerGetCargoFleetMetricsInput
+    'list_cargo_products': KplerListCargoProductsInput
+    'get_maritime_route': KplerGetMaritimeRouteInput
+    'screen_compliance': KplerScreenComplianceInput
+    'get_vessel_risks': KplerGetVesselRisksInput
+    'get_power_day_ahead_prices': KplerGetPowerDayAheadPricesInput
+    'get_power_unit_availability': KplerGetPowerUnitAvailabilityInput
+    'execute_vessels_graphql': KplerExecuteVesselsGraphqlInput
+    'custom_api_call': KplerCustomApiCallInput
+  }
   'kv-store': {
     'put': KvStorePutInput
     'get': KvStoreGetInput
@@ -40268,6 +49803,24 @@ export interface IntegrationActionInputsByIntegration {
     'send_transactional': LoopsSendTransactionalInput
     'custom_api_call': LoopsCustomApiCallInput
   }
+  'lucid': {
+    'get_profile': LucidGetProfileInput
+    'search_documents': LucidSearchDocumentsInput
+    'search_account_documents': LucidSearchAccountDocumentsInput
+    'get_document': LucidGetDocumentInput
+    'export_document': LucidExportDocumentInput
+    'get_document_contents': LucidGetDocumentContentsInput
+    'create_document': LucidCreateDocumentInput
+    'update_document': LucidUpdateDocumentInput
+    'search_folders': LucidSearchFoldersInput
+    'list_folder_contents': LucidListFolderContentsInput
+    'create_document_share_link': LucidCreateDocumentShareLinkInput
+    'get_document_share_link': LucidGetDocumentShareLinkInput
+    'delete_document_share_link': LucidDeleteDocumentShareLinkInput
+    'create_document_embed': LucidCreateDocumentEmbedInput
+    'list_users': LucidListUsersInput
+    'custom_api_call': LucidCustomApiCallInput
+  }
   'magento': {
     'list_products': MagentoListProductsInput
     'get_product': MagentoGetProductInput
@@ -40341,12 +49894,95 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': MeistertaskCustomApiCallInput
   }
   'metabase': {
+    'list_cards': MetabaseListCardsInput
+    'get_card': MetabaseGetCardInput
+    'create_card': MetabaseCreateCardInput
+    'update_card': MetabaseUpdateCardInput
+    'delete_card': MetabaseDeleteCardInput
+    'query_card': MetabaseQueryCardInput
+    'export_card': MetabaseExportCardInput
+    'list_dashboards': MetabaseListDashboardsInput
+    'get_dashboard': MetabaseGetDashboardInput
+    'create_dashboard': MetabaseCreateDashboardInput
+    'update_dashboard': MetabaseUpdateDashboardInput
+    'delete_dashboard': MetabaseDeleteDashboardInput
+    'list_collections': MetabaseListCollectionsInput
+    'get_collection': MetabaseGetCollectionInput
+    'create_collection': MetabaseCreateCollectionInput
+    'update_collection': MetabaseUpdateCollectionInput
+    'delete_collection': MetabaseDeleteCollectionInput
+    'search_items': MetabaseSearchItemsInput
+    'execute_dataset_query': MetabaseExecuteDatasetQueryInput
+    'execute_native_query': MetabaseExecuteNativeQueryInput
+    'export_dataset_query': MetabaseExportDatasetQueryInput
+    'list_users': MetabaseListUsersInput
+    'get_user': MetabaseGetUserInput
+    'create_user': MetabaseCreateUserInput
+    'update_user': MetabaseUpdateUserInput
+    'list_permission_groups': MetabaseListPermissionGroupsInput
+    'create_permission_group': MetabaseCreatePermissionGroupInput
+    'list_channels': MetabaseListChannelsInput
+    'create_channel': MetabaseCreateChannelInput
+    'update_channel': MetabaseUpdateChannelInput
+    'test_channel': MetabaseTestChannelInput
+    'list_notifications': MetabaseListNotificationsInput
+    'get_notification': MetabaseGetNotificationInput
+    'create_notification': MetabaseCreateNotificationInput
+    'update_notification': MetabaseUpdateNotificationInput
+    'send_notification': MetabaseSendNotificationInput
+    'list_alerts': MetabaseListAlertsInput
+    'get_alert': MetabaseGetAlertInput
+    'list_pulses': MetabaseListPulsesInput
+    'get_pulse': MetabaseGetPulseInput
+    'create_pulse': MetabaseCreatePulseInput
+    'update_pulse': MetabaseUpdatePulseInput
+    'test_pulse': MetabaseTestPulseInput
     'getQuestion': MetabaseGetQuestionInput
     'getQuestionPngPreview': MetabaseGetQuestionPngPreviewInput
     'getDashboardQuestions': MetabaseGetDashboardQuestionsInput
     'embedQuestion': MetabaseEmbedQuestionInput
     'getEmbedUrl': MetabaseGetEmbedUrlInput
     'custom_api_call': MetabaseCustomApiCallInput
+  }
+  'microsoft-365': {
+    'get_me': Microsoft365GetMeInput
+    'list_users': Microsoft365ListUsersInput
+    'get_user': Microsoft365GetUserInput
+    'list_groups': Microsoft365ListGroupsInput
+    'list_messages': Microsoft365ListMessagesInput
+    'get_message': Microsoft365GetMessageInput
+    'send_mail': Microsoft365SendMailInput
+    'list_calendar_events': Microsoft365ListCalendarEventsInput
+    'create_calendar_event': Microsoft365CreateCalendarEventInput
+    'list_contacts': Microsoft365ListContactsInput
+    'get_contact': Microsoft365GetContactInput
+    'create_contact': Microsoft365CreateContactInput
+    'list_drive_items': Microsoft365ListDriveItemsInput
+    'get_drive_item': Microsoft365GetDriveItemInput
+    'upload_drive_text_file': Microsoft365UploadDriveTextFileInput
+    'drive_delta': Microsoft365DriveDeltaInput
+    'list_sites': Microsoft365ListSitesInput
+    'list_site_drives': Microsoft365ListSiteDrivesInput
+    'list_teams': Microsoft365ListTeamsInput
+    'list_team_channels': Microsoft365ListTeamChannelsInput
+    'send_channel_message': Microsoft365SendChannelMessageInput
+    'list_chats': Microsoft365ListChatsInput
+    'send_chat_message': Microsoft365SendChatMessageInput
+    'list_planner_plans': Microsoft365ListPlannerPlansInput
+    'list_planner_tasks': Microsoft365ListPlannerTasksInput
+    'create_planner_task': Microsoft365CreatePlannerTaskInput
+    'list_todo_lists': Microsoft365ListTodoListsInput
+    'list_todo_tasks': Microsoft365ListTodoTasksInput
+    'create_todo_task': Microsoft365CreateTodoTaskInput
+    'list_onenote_notebooks': Microsoft365ListOnenoteNotebooksInput
+    'list_workbook_worksheets': Microsoft365ListWorkbookWorksheetsInput
+    'get_workbook_range': Microsoft365GetWorkbookRangeInput
+    'list_subscriptions': Microsoft365ListSubscriptionsInput
+    'create_subscription': Microsoft365CreateSubscriptionInput
+    'update_subscription': Microsoft365UpdateSubscriptionInput
+    'delete_subscription': Microsoft365DeleteSubscriptionInput
+    'get_next_page': Microsoft365GetNextPageInput
+    'custom_api_call': Microsoft365CustomApiCallInput
   }
   'microsoft-365-planner': {
     'createPlan': Microsoft365PlannerCreatePlanInput
@@ -40378,6 +50014,27 @@ export interface IntegrationActionInputsByIntegration {
     'get_table': MicrosoftExcel365GetTableInput
     'list_tables': MicrosoftExcel365ListTablesInput
     'custom_api_call': MicrosoftExcel365CustomApiCallInput
+  }
+  'microsoft-learn': {
+    'list_mcp_tools': MicrosoftLearnListMcpToolsInput
+    'search_docs': MicrosoftLearnSearchDocsInput
+    'fetch_docs_page': MicrosoftLearnFetchDocsPageInput
+    'search_code_samples': MicrosoftLearnSearchCodeSamplesInput
+    'list_catalog_items': MicrosoftLearnListCatalogItemsInput
+    'list_courses': MicrosoftLearnListCoursesInput
+    'get_course': MicrosoftLearnGetCourseInput
+    'list_learning_paths': MicrosoftLearnListLearningPathsInput
+    'get_learning_path': MicrosoftLearnGetLearningPathInput
+    'list_modules': MicrosoftLearnListModulesInput
+    'get_module': MicrosoftLearnGetModuleInput
+    'get_unit': MicrosoftLearnGetUnitInput
+    'list_certifications': MicrosoftLearnListCertificationsInput
+    'get_certification': MicrosoftLearnGetCertificationInput
+    'list_exams': MicrosoftLearnListExamsInput
+    'get_exam': MicrosoftLearnGetExamInput
+    'list_applied_skills': MicrosoftLearnListAppliedSkillsInput
+    'get_applied_skill': MicrosoftLearnGetAppliedSkillInput
+    'custom_api_call': MicrosoftLearnCustomApiCallInput
   }
   'microsoft-onedrive': {
     'list_files': MicrosoftOnedriveListFilesInput
@@ -40476,8 +50133,31 @@ export interface IntegrationActionInputsByIntegration {
   'miro': {
     'list_boards': MiroListBoardsInput
     'get_board': MiroGetBoardInput
-    'create_sticky_note': MiroCreateStickyNoteInput
+    'create_board': MiroCreateBoardInput
+    'update_board': MiroUpdateBoardInput
+    'delete_board': MiroDeleteBoardInput
+    'list_board_members': MiroListBoardMembersInput
+    'share_board': MiroShareBoardInput
+    'update_board_member': MiroUpdateBoardMemberInput
+    'remove_board_member': MiroRemoveBoardMemberInput
     'list_items': MiroListItemsInput
+    'get_item': MiroGetItemInput
+    'update_item': MiroUpdateItemInput
+    'delete_item': MiroDeleteItemInput
+    'create_sticky_note': MiroCreateStickyNoteInput
+    'create_shape': MiroCreateShapeInput
+    'create_text': MiroCreateTextInput
+    'create_frame': MiroCreateFrameInput
+    'create_card': MiroCreateCardInput
+    'create_image': MiroCreateImageInput
+    'create_connector': MiroCreateConnectorInput
+    'create_group': MiroCreateGroupInput
+    'list_tags': MiroListTagsInput
+    'create_tag': MiroCreateTagInput
+    'create_board_export_job': MiroCreateBoardExportJobInput
+    'get_board_export_job': MiroGetBoardExportJobInput
+    'get_board_export_job_results': MiroGetBoardExportJobResultsInput
+    'custom_api_call': MiroCustomApiCallInput
   }
   'mistral': {
     'chat': MistralChatInput
@@ -40527,6 +50207,15 @@ export interface IntegrationActionInputsByIntegration {
     'create_user': MoodleCreateUserInput
     'get_grades': MoodleGetGradesInput
     'custom_api_call': MoodleCustomApiCallInput
+  }
+  'morningstar-credit-analytics': {
+    'get_mcp_setup_info': MorningstarCreditAnalyticsGetMcpSetupInfoInput
+    'get_oauth_metadata': MorningstarCreditAnalyticsGetOauthMetadataInput
+    'initialize_mcp_session': MorningstarCreditAnalyticsInitializeMcpSessionInput
+    'list_mcp_tools': MorningstarCreditAnalyticsListMcpToolsInput
+    'search_mcp_tools': MorningstarCreditAnalyticsSearchMcpToolsInput
+    'call_mcp_tool': MorningstarCreditAnalyticsCallMcpToolInput
+    'custom_mcp_request': MorningstarCreditAnalyticsCustomMcpRequestInput
   }
   'mrpeasy': {
     'get_inventory': MrpeasyGetInventoryInput
@@ -40593,10 +50282,33 @@ export interface IntegrationActionInputsByIntegration {
     'list_files': NetlifyListFilesInput
   }
   'netsuite': {
-    'getVendor': NetsuiteGetVendorInput
-    'getCustomer': NetsuiteGetCustomerInput
-    'runSuiteQL': NetsuiteRunSuiteQLInput
-    'executeDataset': NetsuiteExecuteDatasetInput
+    'test_connection': NetsuiteTestConnectionInput
+    'get_metadata_catalog': NetsuiteGetMetadataCatalogInput
+    'list_records': NetsuiteListRecordsInput
+    'get_record': NetsuiteGetRecordInput
+    'create_record': NetsuiteCreateRecordInput
+    'update_record': NetsuiteUpdateRecordInput
+    'replace_record': NetsuiteReplaceRecordInput
+    'upsert_record_by_external_id': NetsuiteUpsertRecordByExternalIdInput
+    'delete_record': NetsuiteDeleteRecordInput
+    'transform_record': NetsuiteTransformRecordInput
+    'execute_record_action': NetsuiteExecuteRecordActionInput
+    'run_suiteql': NetsuiteRunSuiteqlInput
+    'list_datasets': NetsuiteListDatasetsInput
+    'execute_dataset': NetsuiteExecuteDatasetInput
+    'get_customer': NetsuiteGetCustomerInput
+    'create_customer': NetsuiteCreateCustomerInput
+    'update_customer': NetsuiteUpdateCustomerInput
+    'get_vendor': NetsuiteGetVendorInput
+    'create_vendor': NetsuiteCreateVendorInput
+    'get_sales_order': NetsuiteGetSalesOrderInput
+    'create_sales_order': NetsuiteCreateSalesOrderInput
+    'get_invoice': NetsuiteGetInvoiceInput
+    'create_invoice': NetsuiteCreateInvoiceInput
+    'get_purchase_order': NetsuiteGetPurchaseOrderInput
+    'create_purchase_order': NetsuiteCreatePurchaseOrderInput
+    'get_inventory_item': NetsuiteGetInventoryItemInput
+    'create_journal_entry': NetsuiteCreateJournalEntryInput
     'custom_api_call': NetsuiteCustomApiCallInput
   }
   'nexhealth': {
@@ -40956,6 +50668,32 @@ export interface IntegrationActionInputsByIntegration {
     'create_project': PosthogCreateProjectInput
     'custom_api_call': PosthogCustomApiCallInput
   }
+  'postman': {
+    'get_authenticated_user': PostmanGetAuthenticatedUserInput
+    'list_workspaces': PostmanListWorkspacesInput
+    'get_workspace': PostmanGetWorkspaceInput
+    'create_workspace': PostmanCreateWorkspaceInput
+    'list_collections': PostmanListCollectionsInput
+    'get_collection': PostmanGetCollectionInput
+    'create_collection': PostmanCreateCollectionInput
+    'update_collection': PostmanUpdateCollectionInput
+    'delete_collection': PostmanDeleteCollectionInput
+    'list_environments': PostmanListEnvironmentsInput
+    'get_environment': PostmanGetEnvironmentInput
+    'create_environment': PostmanCreateEnvironmentInput
+    'update_environment': PostmanUpdateEnvironmentInput
+    'delete_environment': PostmanDeleteEnvironmentInput
+    'list_monitors': PostmanListMonitorsInput
+    'get_monitor': PostmanGetMonitorInput
+    'run_monitor': PostmanRunMonitorInput
+    'list_apis': PostmanListApisInput
+    'get_api': PostmanGetApiInput
+    'list_api_versions': PostmanListApiVersionsInput
+    'list_mock_servers': PostmanListMockServersInput
+    'get_mock_server': PostmanGetMockServerInput
+    'create_collection_webhook': PostmanCreateCollectionWebhookInput
+    'custom_api_call': PostmanCustomApiCallInput
+  }
   'powerschool': {
     'list_students': PowerschoolListStudentsInput
     'get_student': PowerschoolGetStudentInput
@@ -40995,6 +50733,63 @@ export interface IntegrationActionInputsByIntegration {
     'list_tenants': PropertywareListTenantsInput
     'list_work_orders': PropertywareListWorkOrdersInput
     'custom_api_call': PropertywareCustomApiCallInput
+  }
+  'protocols-io': {
+    'get_profile': ProtocolsIoGetProfileInput
+    'update_profile': ProtocolsIoUpdateProfileInput
+    'list_protocols': ProtocolsIoListProtocolsInput
+    'get_protocol': ProtocolsIoGetProtocolInput
+    'get_protocol_steps': ProtocolsIoGetProtocolStepsInput
+    'get_protocol_materials': ProtocolsIoGetProtocolMaterialsInput
+    'get_protocol_pdf_url': ProtocolsIoGetProtocolPdfUrlInput
+    'list_researcher_protocols': ProtocolsIoListResearcherProtocolsInput
+    'list_workspace_protocols': ProtocolsIoListWorkspaceProtocolsInput
+    'create_protocol': ProtocolsIoCreateProtocolInput
+    'update_protocol': ProtocolsIoUpdateProtocolInput
+    'publish_protocol': ProtocolsIoPublishProtocolInput
+    'bookmark_protocol': ProtocolsIoBookmarkProtocolInput
+    'unbookmark_protocol': ProtocolsIoUnbookmarkProtocolInput
+    'upsert_protocol_steps': ProtocolsIoUpsertProtocolStepsInput
+    'delete_protocol_steps': ProtocolsIoDeleteProtocolStepsInput
+    'list_publications': ProtocolsIoListPublicationsInput
+    'list_latest_publications': ProtocolsIoListLatestPublicationsInput
+    'list_protocol_comments': ProtocolsIoListProtocolCommentsInput
+    'add_protocol_comment': ProtocolsIoAddProtocolCommentInput
+    'reply_protocol_comment': ProtocolsIoReplyProtocolCommentInput
+    'add_step_discussion': ProtocolsIoAddStepDiscussionInput
+    'add_step_discussion_comment': ProtocolsIoAddStepDiscussionCommentInput
+    'reply_step_comment': ProtocolsIoReplyStepCommentInput
+    'edit_comment': ProtocolsIoEditCommentInput
+    'edit_discussion': ProtocolsIoEditDiscussionInput
+    'delete_comment': ProtocolsIoDeleteCommentInput
+    'delete_discussion': ProtocolsIoDeleteDiscussionInput
+    'list_records': ProtocolsIoListRecordsInput
+    'get_record': ProtocolsIoGetRecordInput
+    'create_record': ProtocolsIoCreateRecordInput
+    'update_record': ProtocolsIoUpdateRecordInput
+    'list_workspaces': ProtocolsIoListWorkspacesInput
+    'list_researcher_workspaces': ProtocolsIoListResearcherWorkspacesInput
+    'get_workspace': ProtocolsIoGetWorkspaceInput
+    'request_join_workspace': ProtocolsIoRequestJoinWorkspaceInput
+    'confirm_workspace_invite': ProtocolsIoConfirmWorkspaceInviteInput
+    'leave_workspace': ProtocolsIoLeaveWorkspaceInput
+    'list_conversations': ProtocolsIoListConversationsInput
+    'list_conversation_messages': ProtocolsIoListConversationMessagesInput
+    'list_new_conversations': ProtocolsIoListNewConversationsInput
+    'mark_message_read': ProtocolsIoMarkMessageReadInput
+    'send_conversation_message': ProtocolsIoSendConversationMessageInput
+    'delete_conversation': ProtocolsIoDeleteConversationInput
+    'search_folder_items': ProtocolsIoSearchFolderItemsInput
+    'search_workspace_items': ProtocolsIoSearchWorkspaceItemsInput
+    'search_all_workspace_items': ProtocolsIoSearchAllWorkspaceItemsInput
+    'move_items_to_trash': ProtocolsIoMoveItemsToTrashInput
+    'restore_items_from_trash': ProtocolsIoRestoreItemsFromTrashInput
+    'prepare_file_upload': ProtocolsIoPrepareFileUploadInput
+    'verify_file_upload': ProtocolsIoVerifyFileUploadInput
+    'list_notifications': ProtocolsIoListNotificationsInput
+    'initiate_content_export': ProtocolsIoInitiateContentExportInput
+    'get_content_export': ProtocolsIoGetContentExportInput
+    'custom_api_call': ProtocolsIoCustomApiCallInput
   }
   'proxycurl': {
     'get_person': ProxycurlGetPersonInput
@@ -41046,6 +50841,115 @@ export interface IntegrationActionInputsByIntegration {
     'create_invoice': QuickbooksCreateInvoiceInput
     'create_expense': QuickbooksCreateExpenseInput
     'custom_api_call': QuickbooksCustomApiCallInput
+  }
+  'quicknode': {
+    'list_chains': QuicknodeListChainsInput
+    'list_endpoints': QuicknodeListEndpointsInput
+    'create_endpoint': QuicknodeCreateEndpointInput
+    'get_endpoint': QuicknodeGetEndpointInput
+    'update_endpoint': QuicknodeUpdateEndpointInput
+    'delete_endpoint': QuicknodeDeleteEndpointInput
+    'update_endpoint_status': QuicknodeUpdateEndpointStatusInput
+    'get_endpoint_urls': QuicknodeGetEndpointUrlsInput
+    'get_endpoint_metrics': QuicknodeGetEndpointMetricsInput
+    'list_endpoint_logs': QuicknodeListEndpointLogsInput
+    'get_endpoint_log_details': QuicknodeGetEndpointLogDetailsInput
+    'get_endpoint_security': QuicknodeGetEndpointSecurityInput
+    'get_endpoint_security_options': QuicknodeGetEndpointSecurityOptionsInput
+    'update_endpoint_security_options': QuicknodeUpdateEndpointSecurityOptionsInput
+    'create_security_rule': QuicknodeCreateSecurityRuleInput
+    'delete_security_rule': QuicknodeDeleteSecurityRuleInput
+    'list_method_rate_limits': QuicknodeListMethodRateLimitsInput
+    'create_method_rate_limit': QuicknodeCreateMethodRateLimitInput
+    'update_method_rate_limit': QuicknodeUpdateMethodRateLimitInput
+    'delete_method_rate_limit': QuicknodeDeleteMethodRateLimitInput
+    'update_endpoint_rate_limits': QuicknodeUpdateEndpointRateLimitsInput
+    'get_rpc_usage': QuicknodeGetRpcUsageInput
+    'get_rpc_usage_by_chain': QuicknodeGetRpcUsageByChainInput
+    'get_rpc_usage_by_endpoint': QuicknodeGetRpcUsageByEndpointInput
+    'get_rpc_usage_by_method': QuicknodeGetRpcUsageByMethodInput
+    'get_rpc_usage_by_tag': QuicknodeGetRpcUsageByTagInput
+    'list_billing_invoices': QuicknodeListBillingInvoicesInput
+    'list_billing_payments': QuicknodeListBillingPaymentsInput
+    'list_teams': QuicknodeListTeamsInput
+    'create_team': QuicknodeCreateTeamInput
+    'get_team': QuicknodeGetTeamInput
+    'delete_team': QuicknodeDeleteTeamInput
+    'list_endpoint_tags': QuicknodeListEndpointTagsInput
+    'add_endpoint_tag': QuicknodeAddEndpointTagInput
+    'remove_endpoint_tag': QuicknodeRemoveEndpointTagInput
+    'list_streams': QuicknodeListStreamsInput
+    'create_stream': QuicknodeCreateStreamInput
+    'get_stream': QuicknodeGetStreamInput
+    'update_stream': QuicknodeUpdateStreamInput
+    'delete_stream': QuicknodeDeleteStreamInput
+    'pause_stream': QuicknodePauseStreamInput
+    'activate_stream': QuicknodeActivateStreamInput
+    'test_stream_filter': QuicknodeTestStreamFilterInput
+    'get_enabled_streams_count': QuicknodeGetEnabledStreamsCountInput
+    'list_webhooks': QuicknodeListWebhooksInput
+    'create_webhook_from_template': QuicknodeCreateWebhookFromTemplateInput
+    'get_webhook': QuicknodeGetWebhookInput
+    'update_webhook': QuicknodeUpdateWebhookInput
+    'update_webhook_template': QuicknodeUpdateWebhookTemplateInput
+    'delete_webhook': QuicknodeDeleteWebhookInput
+    'pause_webhook': QuicknodePauseWebhookInput
+    'activate_webhook': QuicknodeActivateWebhookInput
+    'get_enabled_webhooks_count': QuicknodeGetEnabledWebhooksCountInput
+    'list_values': QuicknodeListValuesInput
+    'create_value': QuicknodeCreateValueInput
+    'get_value': QuicknodeGetValueInput
+    'delete_value': QuicknodeDeleteValueInput
+    'bulk_values': QuicknodeBulkValuesInput
+    'get_values_size': QuicknodeGetValuesSizeInput
+    'list_sets': QuicknodeListSetsInput
+    'create_set': QuicknodeCreateSetInput
+    'get_set': QuicknodeGetSetInput
+    'delete_set': QuicknodeDeleteSetInput
+    'bulk_sets': QuicknodeBulkSetsInput
+    'get_sets_size': QuicknodeGetSetsSizeInput
+    'list_lists': QuicknodeListListsInput
+    'create_list': QuicknodeCreateListInput
+    'get_list': QuicknodeGetListInput
+    'update_list': QuicknodeUpdateListInput
+    'delete_list': QuicknodeDeleteListInput
+    'add_list_item': QuicknodeAddListItemInput
+    'delete_list_item': QuicknodeDeleteListItemInput
+    'list_contains_item': QuicknodeListContainsItemInput
+    'get_list_size': QuicknodeGetListSizeInput
+    'get_all_lists_size': QuicknodeGetAllListsSizeInput
+    'call_rpc_endpoint': QuicknodeCallRpcEndpointInput
+    'evm_get_block_number': QuicknodeEvmGetBlockNumberInput
+    'evm_get_balance': QuicknodeEvmGetBalanceInput
+    'evm_get_block': QuicknodeEvmGetBlockInput
+    'evm_get_transaction': QuicknodeEvmGetTransactionInput
+    'evm_get_transaction_receipt': QuicknodeEvmGetTransactionReceiptInput
+    'evm_get_logs': QuicknodeEvmGetLogsInput
+    'evm_call_contract': QuicknodeEvmCallContractInput
+    'evm_estimate_gas': QuicknodeEvmEstimateGasInput
+    'evm_get_gas_price': QuicknodeEvmGetGasPriceInput
+    'solana_get_slot': QuicknodeSolanaGetSlotInput
+    'solana_get_balance': QuicknodeSolanaGetBalanceInput
+    'solana_get_account_info': QuicknodeSolanaGetAccountInfoInput
+    'solana_get_transaction': QuicknodeSolanaGetTransactionInput
+    'solana_get_block': QuicknodeSolanaGetBlockInput
+    'get_sql_schema': QuicknodeGetSqlSchemaInput
+    'execute_sql_query': QuicknodeExecuteSqlQueryInput
+    'get_ipfs_account_usage': QuicknodeGetIpfsAccountUsageInput
+    'get_ipfs_daily_usage': QuicknodeGetIpfsDailyUsageInput
+    'list_ipfs_gateways': QuicknodeListIpfsGatewaysInput
+    'create_ipfs_gateway': QuicknodeCreateIpfsGatewayInput
+    'get_ipfs_gateway': QuicknodeGetIpfsGatewayInput
+    'update_ipfs_gateway': QuicknodeUpdateIpfsGatewayInput
+    'delete_ipfs_gateway': QuicknodeDeleteIpfsGatewayInput
+    'list_ipfs_pins': QuicknodeListIpfsPinsInput
+    'pin_ipfs_cid': QuicknodePinIpfsCidInput
+    'get_ipfs_pin': QuicknodeGetIpfsPinInput
+    'update_ipfs_pin': QuicknodeUpdateIpfsPinInput
+    'delete_ipfs_pin': QuicknodeDeleteIpfsPinInput
+    'get_ipfs_object': QuicknodeGetIpfsObjectInput
+    'upload_ipfs_object': QuicknodeUploadIpfsObjectInput
+    'custom_api_call': QuicknodeCustomApiCallInput
   }
   'rabbitmq': {
     'sendMessageToExchange': RabbitmqSendMessageToExchangeInput
@@ -41252,11 +51156,29 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': SendpulseCustomApiCallInput
   }
   'sentry': {
+    'list_organizations': SentryListOrganizationsInput
     'list_projects': SentryListProjectsInput
+    'list_teams': SentryListTeamsInput
     'list_issues': SentryListIssuesInput
     'get_issue': SentryGetIssueInput
+    'update_issue': SentryUpdateIssueInput
     'resolve_issue': SentryResolveIssueInput
     'list_events': SentryListEventsInput
+    'get_event': SentryGetEventInput
+    'list_event_attachments': SentryListEventAttachmentsInput
+    'get_event_attachment': SentryGetEventAttachmentInput
+    'download_event_attachment': SentryDownloadEventAttachmentInput
+    'list_releases': SentryListReleasesInput
+    'create_release': SentryCreateReleaseInput
+    'create_deploy': SentryCreateDeployInput
+    'list_deploys': SentryListDeploysInput
+    'list_release_files': SentryListReleaseFilesInput
+    'get_release_file': SentryGetReleaseFileInput
+    'upload_release_file': SentryUploadReleaseFileInput
+    'delete_release_file': SentryDeleteReleaseFileInput
+    'bulk_update_issues': SentryBulkUpdateIssuesInput
+    'bulk_delete_issues': SentryBulkDeleteIssuesInput
+    'custom_api_call': SentryCustomApiCallInput
   }
   'sequential-thinking': {
     'add_thought': SequentialThinkingAddThoughtInput
@@ -41357,6 +51279,11 @@ export interface IntegrationActionInputsByIntegration {
     'get_message': SlackGetMessageInput
     'get_channel_history': SlackGetChannelHistoryInput
     'get_thread_replies': SlackGetThreadRepliesInput
+    'schedule_message': SlackScheduleMessageInput
+    'list_scheduled_messages': SlackListScheduledMessagesInput
+    'delete_scheduled_message': SlackDeleteScheduledMessageInput
+    'get_message_permalink': SlackGetMessagePermalinkInput
+    'send_ephemeral_message': SlackSendEphemeralMessageInput
     'search_messages': SlackSearchMessagesInput
     'find_user_by_email': SlackFindUserByEmailInput
     'find_user_by_handle': SlackFindUserByHandleInput
@@ -41369,9 +51296,23 @@ export interface IntegrationActionInputsByIntegration {
     'create_channel': SlackCreateChannelInput
     'set_channel_topic': SlackSetChannelTopicInput
     'invite_user_to_channel': SlackInviteUserToChannelInput
+    'create_canvas': SlackCreateCanvasInput
+    'create_channel_canvas': SlackCreateChannelCanvasInput
+    'edit_canvas': SlackEditCanvasInput
+    'delete_canvas': SlackDeleteCanvasInput
+    'list_canvases': SlackListCanvasesInput
+    'list_bookmarks': SlackListBookmarksInput
+    'add_bookmark': SlackAddBookmarkInput
+    'edit_bookmark': SlackEditBookmarkInput
+    'remove_bookmark': SlackRemoveBookmarkInput
     'update_user_status': SlackUpdateUserStatusInput
     'get_user_profile': SlackGetUserProfileInput
     'list_usergroups': SlackListUsergroupsInput
+    'create_usergroup': SlackCreateUsergroupInput
+    'update_usergroup': SlackUpdateUsergroupInput
+    'update_usergroup_users': SlackUpdateUsergroupUsersInput
+    'enable_usergroup': SlackEnableUsergroupInput
+    'disable_usergroup': SlackDisableUsergroupInput
     'custom_api_call': SlackCustomApiCallInput
   }
   'slite': {
@@ -41505,6 +51446,41 @@ export interface IntegrationActionInputsByIntegration {
     'create_entry': StrapiCreateEntryInput
     'update_entry': StrapiUpdateEntryInput
   }
+  'strava': {
+    'get_authenticated_athlete': StravaGetAuthenticatedAthleteInput
+    'get_athlete_stats': StravaGetAthleteStatsInput
+    'get_athlete_zones': StravaGetAthleteZonesInput
+    'list_activities': StravaListActivitiesInput
+    'get_activity': StravaGetActivityInput
+    'create_activity': StravaCreateActivityInput
+    'update_activity': StravaUpdateActivityInput
+    'delete_activity': StravaDeleteActivityInput
+    'list_activity_comments': StravaListActivityCommentsInput
+    'list_activity_kudoers': StravaListActivityKudoersInput
+    'list_activity_laps': StravaListActivityLapsInput
+    'get_activity_zones': StravaGetActivityZonesInput
+    'get_activity_streams': StravaGetActivityStreamsInput
+    'list_athlete_clubs': StravaListAthleteClubsInput
+    'get_club': StravaGetClubInput
+    'list_club_activities': StravaListClubActivitiesInput
+    'get_gear': StravaGetGearInput
+    'list_routes': StravaListRoutesInput
+    'get_route': StravaGetRouteInput
+    'export_route_gpx': StravaExportRouteGpxInput
+    'export_route_tcx': StravaExportRouteTcxInput
+    'explore_segments': StravaExploreSegmentsInput
+    'get_segment': StravaGetSegmentInput
+    'list_starred_segments': StravaListStarredSegmentsInput
+    'star_segment': StravaStarSegmentInput
+    'list_segment_efforts': StravaListSegmentEffortsInput
+    'get_segment_effort': StravaGetSegmentEffortInput
+    'upload_activity': StravaUploadActivityInput
+    'get_upload': StravaGetUploadInput
+    'list_push_subscriptions': StravaListPushSubscriptionsInput
+    'create_push_subscription': StravaCreatePushSubscriptionInput
+    'delete_push_subscription': StravaDeletePushSubscriptionInput
+    'custom_api_call': StravaCustomApiCallInput
+  }
   'streak': {
     'create_box': StreakCreateBoxInput
     'list_boxes': StreakListBoxesInput
@@ -41542,6 +51518,25 @@ export interface IntegrationActionInputsByIntegration {
   }
   'supabase': {
     'upload-file': SupabaseUploadFileInput
+    'list_storage_buckets': SupabaseListStorageBucketsInput
+    'get_storage_bucket': SupabaseGetStorageBucketInput
+    'create_storage_bucket': SupabaseCreateStorageBucketInput
+    'update_storage_bucket': SupabaseUpdateStorageBucketInput
+    'delete_storage_bucket': SupabaseDeleteStorageBucketInput
+    'empty_storage_bucket': SupabaseEmptyStorageBucketInput
+    'list_storage_files': SupabaseListStorageFilesInput
+    'delete_storage_files': SupabaseDeleteStorageFilesInput
+    'create_signed_url': SupabaseCreateSignedUrlInput
+    'create_signed_upload_url': SupabaseCreateSignedUploadUrlInput
+    'get_public_url': SupabaseGetPublicUrlInput
+    'invoke_edge_function': SupabaseInvokeEdgeFunctionInput
+    'list_auth_users': SupabaseListAuthUsersInput
+    'get_auth_user': SupabaseGetAuthUserInput
+    'create_auth_user': SupabaseCreateAuthUserInput
+    'invite_auth_user': SupabaseInviteAuthUserInput
+    'list_organizations': SupabaseListOrganizationsInput
+    'list_projects': SupabaseListProjectsInput
+    'get_project': SupabaseGetProjectInput
     'create_row': SupabaseCreateRowInput
     'update_row': SupabaseUpdateRowInput
     'upsert_row': SupabaseUpsertRowInput
@@ -41549,6 +51544,7 @@ export interface IntegrationActionInputsByIntegration {
     'search_rows': SupabaseSearchRowsInput
     'list_tables': SupabaseListTablesInput
     'get_table_schema': SupabaseGetTableSchemaInput
+    'custom_management_api_call': SupabaseCustomManagementApiCallInput
     'custom_api_call': SupabaseCustomApiCallInput
   }
   'surveymonkey': {
@@ -41557,6 +51553,68 @@ export interface IntegrationActionInputsByIntegration {
     'get_responses': SurveymonkeyGetResponsesInput
     'get_response_details': SurveymonkeyGetResponseDetailsInput
     'custom_api_call': SurveymonkeyCustomApiCallInput
+  }
+  'swaggerhub': {
+    'search_specs': SwaggerhubSearchSpecsInput
+    'search_apis': SwaggerhubSearchApisInput
+    'search_domains': SwaggerhubSearchDomainsInput
+    'list_owner_apis': SwaggerhubListOwnerApisInput
+    'list_owner_domains': SwaggerhubListOwnerDomainsInput
+    'list_api_versions': SwaggerhubListApiVersionsInput
+    'list_domain_versions': SwaggerhubListDomainVersionsInput
+    'get_api_definition': SwaggerhubGetApiDefinitionInput
+    'get_domain_definition': SwaggerhubGetDomainDefinitionInput
+    'save_api_definition': SwaggerhubSaveApiDefinitionInput
+    'save_domain_definition': SwaggerhubSaveDomainDefinitionInput
+    'delete_api': SwaggerhubDeleteApiInput
+    'delete_api_version': SwaggerhubDeleteApiVersionInput
+    'clone_api_version': SwaggerhubCloneApiVersionInput
+    'fork_api_version': SwaggerhubForkApiVersionInput
+    'delete_domain': SwaggerhubDeleteDomainInput
+    'delete_domain_version': SwaggerhubDeleteDomainVersionInput
+    'clone_domain_version': SwaggerhubCloneDomainVersionInput
+    'fork_domain_version': SwaggerhubForkDomainVersionInput
+    'get_api_default_version': SwaggerhubGetApiDefaultVersionInput
+    'set_api_default_version': SwaggerhubSetApiDefaultVersionInput
+    'get_api_lifecycle': SwaggerhubGetApiLifecycleInput
+    'set_api_lifecycle': SwaggerhubSetApiLifecycleInput
+    'get_api_visibility': SwaggerhubGetApiVisibilityInput
+    'set_api_visibility': SwaggerhubSetApiVisibilityInput
+    'get_domain_default_version': SwaggerhubGetDomainDefaultVersionInput
+    'set_domain_default_version': SwaggerhubSetDomainDefaultVersionInput
+    'get_domain_lifecycle': SwaggerhubGetDomainLifecycleInput
+    'set_domain_lifecycle': SwaggerhubSetDomainLifecycleInput
+    'get_domain_visibility': SwaggerhubGetDomainVisibilityInput
+    'set_domain_visibility': SwaggerhubSetDomainVisibilityInput
+    'get_standardization_errors': SwaggerhubGetStandardizationErrorsInput
+    'list_api_comments': SwaggerhubListApiCommentsInput
+    'add_api_comment': SwaggerhubAddApiCommentInput
+    'update_api_comment': SwaggerhubUpdateApiCommentInput
+    'delete_api_comment': SwaggerhubDeleteApiCommentInput
+    'set_api_comment_status': SwaggerhubSetApiCommentStatusInput
+    'add_api_comment_reply': SwaggerhubAddApiCommentReplyInput
+    'batch_update_api_comments': SwaggerhubBatchUpdateApiCommentsInput
+    'list_domain_comments': SwaggerhubListDomainCommentsInput
+    'add_domain_comment': SwaggerhubAddDomainCommentInput
+    'update_domain_comment': SwaggerhubUpdateDomainCommentInput
+    'delete_domain_comment': SwaggerhubDeleteDomainCommentInput
+    'set_domain_comment_status': SwaggerhubSetDomainCommentStatusInput
+    'add_domain_comment_reply': SwaggerhubAddDomainCommentReplyInput
+    'batch_update_domain_comments': SwaggerhubBatchUpdateDomainCommentsInput
+    'list_integrations': SwaggerhubListIntegrationsInput
+    'create_integration': SwaggerhubCreateIntegrationInput
+    'get_integration': SwaggerhubGetIntegrationInput
+    'update_integration': SwaggerhubUpdateIntegrationInput
+    'patch_integration': SwaggerhubPatchIntegrationInput
+    'delete_integration': SwaggerhubDeleteIntegrationInput
+    'execute_integration': SwaggerhubExecuteIntegrationInput
+    'list_projects': SwaggerhubListProjectsInput
+    'create_project': SwaggerhubCreateProjectInput
+    'get_project': SwaggerhubGetProjectInput
+    'update_project': SwaggerhubUpdateProjectInput
+    'delete_project': SwaggerhubDeleteProjectInput
+    'add_spec_to_project': SwaggerhubAddSpecToProjectInput
+    'custom_api_call': SwaggerhubCustomApiCallInput
   }
   'synthesia': {
     'create_video': SynthesiaCreateVideoInput
@@ -41709,6 +51767,17 @@ export interface IntegrationActionInputsByIntegration {
     'get_giving_report': TitheLyGetGivingReportInput
     'custom_api_call': TitheLyCustomApiCallInput
   }
+  'tldv': {
+    'health_check': TldvHealthCheckInput
+    'import_meeting': TldvImportMeetingInput
+    'list_meetings': TldvListMeetingsInput
+    'get_meeting': TldvGetMeetingInput
+    'get_recording_download_url': TldvGetRecordingDownloadUrlInput
+    'get_transcript': TldvGetTranscriptInput
+    'get_notes': TldvGetNotesInput
+    'get_highlights': TldvGetHighlightsInput
+    'custom_api_call': TldvCustomApiCallInput
+  }
   'toast-pos': {
     'get_order': ToastPosGetOrderInput
     'list_orders': ToastPosListOrdersInput
@@ -41842,6 +51911,22 @@ export interface IntegrationActionInputsByIntegration {
     'list_deployments': VercelListDeploymentsInput
     'create_deployment': VercelCreateDeploymentInput
     'get_deployment': VercelGetDeploymentInput
+    'cancel_deployment': VercelCancelDeploymentInput
+    'delete_deployment': VercelDeleteDeploymentInput
+    'list_domains': VercelListDomainsInput
+    'get_domain': VercelGetDomainInput
+    'add_account_domain': VercelAddAccountDomainInput
+    'list_project_domains': VercelListProjectDomainsInput
+    'add_project_domain': VercelAddProjectDomainInput
+    'verify_project_domain': VercelVerifyProjectDomainInput
+    'list_project_env_vars': VercelListProjectEnvVarsInput
+    'create_project_env_var': VercelCreateProjectEnvVarInput
+    'list_webhooks': VercelListWebhooksInput
+    'get_webhook': VercelGetWebhookInput
+    'create_webhook': VercelCreateWebhookInput
+    'delete_webhook': VercelDeleteWebhookInput
+    'trigger_deploy_hook': VercelTriggerDeployHookInput
+    'custom_api_call': VercelCustomApiCallInput
   }
   'vidyard': {
     'list_videos': VidyardListVideosInput
@@ -41940,6 +52025,27 @@ export interface IntegrationActionInputsByIntegration {
     'sendMedia': WhatsappSendMediaInput
     'send-template-message': WhatsappSendTemplateMessageInput
   }
+  'whimsical': {
+    'get_user': WhimsicalGetUserInput
+    'list_teams': WhimsicalListTeamsInput
+    'list_comments': WhimsicalListCommentsInput
+    'list_files': WhimsicalListFilesInput
+    'get_file': WhimsicalGetFileInput
+    'list_mcp_tools': WhimsicalListMcpToolsInput
+    'call_mcp_tool': WhimsicalCallMcpToolInput
+    'mcp_search': WhimsicalMcpSearchInput
+    'mcp_fetch': WhimsicalMcpFetchInput
+    'mcp_create': WhimsicalMcpCreateInput
+    'mcp_create_doc': WhimsicalMcpCreateDocInput
+    'mcp_edit': WhimsicalMcpEditInput
+    'mcp_wireframe_edit': WhimsicalMcpWireframeEditInput
+    'mcp_auto_layout': WhimsicalMcpAutoLayoutInput
+    'mcp_file_tree': WhimsicalMcpFileTreeInput
+    'mcp_list_workspaces': WhimsicalMcpListWorkspacesInput
+    'mcp_read_comments': WhimsicalMcpReadCommentsInput
+    'mcp_edit_comment': WhimsicalMcpEditCommentInput
+    'custom_api_call': WhimsicalCustomApiCallInput
+  }
   'wise': {
     'list_profiles': WiseListProfilesInput
     'create_quote': WiseCreateQuoteInput
@@ -41953,6 +52059,12 @@ export interface IntegrationActionInputsByIntegration {
     'create_order': WixCreateOrderInput
     'list_products': WixListProductsInput
     'custom_api_call': WixCustomApiCallInput
+  }
+  'wolfram': {
+    'full_results_query': WolframFullResultsQueryInput
+    'short_answer': WolframShortAnswerInput
+    'spoken_result': WolframSpokenResultInput
+    'custom_api_call': WolframCustomApiCallInput
   }
   'woocommerce': {
     'Create Customer': WoocommerceCreateCustomerInput
@@ -42043,6 +52155,24 @@ export interface IntegrationActionInputsByIntegration {
     'add_to_playlist': YoutubeAddToPlaylistInput
     'list_channel_videos': YoutubeListChannelVideosInput
     'custom_api_call': YoutubeCustomApiCallInput
+  }
+  'zapier': {
+    'list_apps': ZapierListAppsInput
+    'list_actions': ZapierListActionsInput
+    'list_authentications': ZapierListAuthenticationsInput
+    'get_input_fields': ZapierGetInputFieldsInput
+    'get_output_fields': ZapierGetOutputFieldsInput
+    'get_choices': ZapierGetChoicesInput
+    'test_action': ZapierTestActionInput
+    'create_action_run': ZapierCreateActionRunInput
+    'retrieve_action_run': ZapierRetrieveActionRunInput
+    'custom_api_call': ZapierCustomApiCallInput
+    'initialize_mcp_session': ZapierInitializeMcpSessionInput
+    'list_mcp_tools': ZapierListMcpToolsInput
+    'search_mcp_tools': ZapierSearchMcpToolsInput
+    'call_mcp_tool': ZapierCallMcpToolInput
+    'execute_configured_action': ZapierExecuteConfiguredActionInput
+    'custom_mcp_request': ZapierCustomMcpRequestInput
   }
   'zendesk': {
     'create-ticket': ZendeskCreateTicketInput
@@ -42155,10 +52285,30 @@ export interface IntegrationActionInputsByIntegration {
   }
   'zoom': {
     'zoom_create_meeting': ZoomZoomCreateMeetingInput
+    'update_meeting': ZoomUpdateMeetingInput
     'zoom_create_meeting_registrant': ZoomZoomCreateMeetingRegistrantInput
+    'list_meeting_registrants': ZoomListMeetingRegistrantsInput
+    'update_meeting_registrant_status': ZoomUpdateMeetingRegistrantStatusInput
     'get_meeting': ZoomGetMeetingInput
+    'get_meeting_invitation': ZoomGetMeetingInvitationInput
     'list_meetings': ZoomListMeetingsInput
     'delete_meeting': ZoomDeleteMeetingInput
+    'list_users': ZoomListUsersInput
+    'get_user': ZoomGetUserInput
+    'list_webinars': ZoomListWebinarsInput
+    'create_webinar': ZoomCreateWebinarInput
+    'get_webinar': ZoomGetWebinarInput
+    'update_webinar': ZoomUpdateWebinarInput
+    'delete_webinar': ZoomDeleteWebinarInput
+    'create_webinar_registrant': ZoomCreateWebinarRegistrantInput
+    'list_webinar_registrants': ZoomListWebinarRegistrantsInput
+    'list_user_recordings': ZoomListUserRecordingsInput
+    'get_meeting_recordings': ZoomGetMeetingRecordingsInput
+    'get_recording_settings': ZoomGetRecordingSettingsInput
+    'list_event_subscriptions': ZoomListEventSubscriptionsInput
+    'create_event_subscription': ZoomCreateEventSubscriptionInput
+    'subscribe_event_subscription': ZoomSubscribeEventSubscriptionInput
+    'delete_event_subscription': ZoomDeleteEventSubscriptionInput
     'custom_api_call': ZoomCustomApiCallInput
   }
   'zuora': {
@@ -42181,6 +52331,7 @@ export const integrationNames = [
   'activecampaign',
   'acuity-health',
   'acuity-scheduling',
+  'adobe-firefly-services',
   'adp',
   'adyen',
   'affinity',
@@ -42192,6 +52343,7 @@ export const integrationNames = [
   'ai-toolkit',
   'aircall',
   'airtable',
+  'alma',
   'amazon-s3',
   'amazon-seller',
   'amazon-ses',
@@ -42206,6 +52358,7 @@ export const integrationNames = [
   'ashby',
   'assemblyai',
   'athenahealth',
+  'atlassian',
   'attio',
   'auth0',
   'autotask',
@@ -42314,6 +52467,7 @@ export const integrationNames = [
   'elevenlabs',
   'emailoctopus',
   'etsy',
+  'euler',
   'eventbrite',
   'exa',
   'facebook-ads',
@@ -42370,7 +52524,9 @@ export const integrationNames = [
   'gorgias',
   'goto-webinar',
   'grafana',
+  'granola',
   'graphql',
+  'grasshopper-bank',
   'greenhouse',
   'grist',
   'groq',
@@ -42395,6 +52551,7 @@ export const integrationNames = [
   'hubspot',
   'hugging-face',
   'hunter-io',
+  'ibkr',
   'ideogram',
   'imanage',
   'imap',
@@ -42419,6 +52576,7 @@ export const integrationNames = [
   'klaviyo',
   'knock',
   'kommo',
+  'kpler',
   'kv-store',
   'kvcore',
   'langchain',
@@ -42440,6 +52598,7 @@ export const integrationNames = [
   'linkedin-ads',
   'loom',
   'loops',
+  'lucid',
   'magento',
   'mailchimp',
   'mailer-lite',
@@ -42450,9 +52609,11 @@ export const integrationNames = [
   'medium',
   'meistertask',
   'metabase',
+  'microsoft-365',
   'microsoft-365-planner',
   'microsoft-dynamics-crm',
   'microsoft-excel-365',
+  'microsoft-learn',
   'microsoft-onedrive',
   'microsoft-onenote',
   'microsoft-outlook',
@@ -42470,6 +52631,7 @@ export const integrationNames = [
   'monday',
   'mongodb',
   'moodle',
+  'morningstar-credit-analytics',
   'mrpeasy',
   'mux',
   'mycase',
@@ -42526,12 +52688,14 @@ export const integrationNames = [
   'podio',
   'postgres',
   'posthog',
+  'postman',
   'powerschool',
   'practice-better',
   'practice-panther',
   'prismic',
   'procore',
   'propertyware',
+  'protocols-io',
   'proxycurl',
   'pulumi',
   'pushover',
@@ -42539,6 +52703,7 @@ export const integrationNames = [
   'qdrant-custom',
   'qr-code',
   'quickbooks',
+  'quicknode',
   'rabbitmq',
   'railway',
   'razorpay',
@@ -42600,11 +52765,13 @@ export const integrationNames = [
   'storage',
   'storyblok',
   'strapi',
+  'strava',
   'streak',
   'stripe',
   'substack',
   'supabase',
   'surveymonkey',
+  'swaggerhub',
   'synthesia',
   'talentlms',
   'talkdesk',
@@ -42625,6 +52792,7 @@ export const integrationNames = [
   'tiktok-ads',
   'timesolv',
   'tithe-ly',
+  'tldv',
   'toast-pos',
   'todoist',
   'together-ai',
@@ -42655,8 +52823,10 @@ export const integrationNames = [
   'webflow',
   'wellnessliving',
   'whatsapp',
+  'whimsical',
   'wise',
   'wix',
+  'wolfram',
   'woocommerce',
   'wordpress',
   'workable',
@@ -42667,6 +52837,7 @@ export const integrationNames = [
   'xml',
   'yotpo',
   'youtube',
+  'zapier',
   'zendesk',
   'zerobounce',
   'zillow',
@@ -42722,6 +52893,18 @@ export const integrationActions = {
     'find_appointment',
     'find_client',
     'custom_api_call',
+  ],
+  'adobe-firefly-services': [
+    'generate_image',
+    'generate_image_async',
+    'upload_image',
+    'expand_image_async',
+    'fill_image',
+    'get_firefly_job_status',
+    'remove_background',
+    'get_photoshop_job_status',
+    'custom_firefly_api_call',
+    'custom_photoshop_api_call',
   ],
   'adp': [
     'list_workers',
@@ -42815,6 +52998,15 @@ export const integrationActions = {
     'add_comment',
     'upload_attachment',
     'custom_api_call',
+  ],
+  'alma': [
+    'get_mcp_setup_info',
+    'get_oauth_metadata',
+    'initialize_mcp_session',
+    'list_mcp_tools',
+    'search_mcp_tools',
+    'call_mcp_tool',
+    'custom_mcp_request',
   ],
   'amazon-s3': [
     'upload-file',
@@ -42936,6 +53128,50 @@ export const integrationActions = {
     'list_appointments',
     'list_providers',
     'list_departments',
+  ],
+  'atlassian': [
+    'jira_list_sites',
+    'jira_list_projects',
+    'jira_get_project',
+    'jira_list_issue_types',
+    'jira_get_create_metadata',
+    'jira_search_issues_jql',
+    'jira_get_issue',
+    'jira_create_issue',
+    'jira_update_issue',
+    'jira_list_transitions',
+    'jira_transition_issue',
+    'jira_assign_issue',
+    'jira_list_comments',
+    'jira_add_comment',
+    'jira_update_comment',
+    'jira_add_attachment',
+    'jira_get_attachment',
+    'jira_link_issues',
+    'jira_add_watcher',
+    'jira_find_user',
+    'jira_create_webhook',
+    'jira_refresh_webhooks',
+    'jira_delete_webhooks',
+    'confluence_list_spaces',
+    'confluence_list_pages',
+    'confluence_get_page',
+    'confluence_search_cql',
+    'confluence_create_page',
+    'confluence_update_page',
+    'confluence_upsert_page_by_title',
+    'confluence_append_page_section',
+    'confluence_list_comments',
+    'confluence_add_footer_comment',
+    'confluence_update_comment',
+    'confluence_list_attachments',
+    'confluence_upload_attachment',
+    'confluence_download_attachment',
+    'confluence_get_children',
+    'confluence_get_ancestors',
+    'confluence_add_label',
+    'get_next_page',
+    'custom_api_call',
   ],
   'attio': [
     'create_record',
@@ -43088,10 +53324,27 @@ export const integrationActions = {
   ],
   'box': [
     'list_folder_items',
+    'get_folder_info',
     'get_file_info',
     'create_folder',
+    'update_file_info',
+    'update_folder_info',
+    'upload_text_file',
+    'get_file_download_url',
+    'copy_file',
+    'copy_folder',
     'search',
+    'create_collaboration',
+    'list_collaborations',
+    'create_comment',
+    'list_file_comments',
+    'create_task',
+    'get_metadata_instances',
+    'create_webhook',
+    'list_webhooks',
+    'delete_webhook',
     'delete_file',
+    'delete_folder',
     'custom_api_call',
   ],
   'brandfolder': [
@@ -43184,10 +53437,38 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'canva': [
+    'get_user',
+    'get_user_capabilities',
     'create_design',
     'list_designs',
-    'export_design',
-    'upload_asset',
+    'get_design',
+    'get_design_pages',
+    'get_design_export_formats',
+    'create_export_job',
+    'get_export_job',
+    'list_brand_templates',
+    'get_brand_template',
+    'get_brand_template_dataset',
+    'create_design_autofill_job',
+    'get_design_autofill_job',
+    'create_asset_upload_job',
+    'get_asset_upload_job',
+    'create_asset_upload_job_from_url',
+    'get_asset_upload_job_from_url',
+    'get_asset',
+    'update_asset',
+    'delete_asset',
+    'create_folder',
+    'get_folder',
+    'update_folder',
+    'delete_folder',
+    'list_folder_items',
+    'move_folder_item',
+    'create_comment_thread',
+    'create_comment_reply',
+    'get_comment_thread',
+    'list_comment_replies',
+    'get_comment_reply',
     'custom_api_call',
   ],
   'canvas-lms': [
@@ -43386,10 +53667,19 @@ export const integrationActions = {
     'run_code',
   ],
   'cognito-forms': [
+    'list_forms',
+    'get_form_schema',
+    'set_public_link_availability',
     'create_entry',
+    'get_entry',
     'update_entry',
     'delete_entry',
-    'get_entry',
+    'import_entries',
+    'get_import_status',
+    'upload_file',
+    'get_file',
+    'get_document',
+    'query_odata_view',
     'custom_api_call',
   ],
   'cohere': [
@@ -43577,10 +53867,19 @@ export const integrationActions = {
     'ask_json',
   ],
   'descript': [
+    'import_media',
+    'upload_direct_media_file',
+    'agent_edit',
+    'publish_project',
+    'export_transcript',
+    'list_jobs',
+    'get_job',
+    'cancel_job',
     'list_projects',
     'get_project',
-    'export_media',
-    'get_transcript',
+    'check_status',
+    'create_edit_in_descript_import_url',
+    'get_published_project_metadata',
     'custom_api_call',
   ],
   'dialpad': [
@@ -43645,8 +53944,25 @@ export const integrationActions = {
   ],
   'docusign': [
     'listEnvelopes',
+    'createEnvelope',
     'getEnvelope',
+    'updateEnvelope',
+    'listEnvelopeDocuments',
     'getDocument',
+    'listRecipients',
+    'updateRecipients',
+    'listRecipientTabs',
+    'createRecipientTabs',
+    'updateRecipientTabs',
+    'listTemplates',
+    'getTemplate',
+    'createRecipientView',
+    'createSenderView',
+    'listConnectConfigurations',
+    'getConnectConfiguration',
+    'createConnectConfiguration',
+    'updateConnectConfiguration',
+    'deleteConnectConfiguration',
     'custom_api_call',
   ],
   'donorbox': [
@@ -43779,6 +54095,46 @@ export const integrationActions = {
     'list_receipts',
     'custom_api_call',
   ],
+  'euler': [
+    'list_accounts',
+    'partners',
+    'partner_directory_search',
+    'partner_artifacts',
+    'referrals',
+    'submit_referral',
+    'get_search_deals',
+    'list_partner_contacts',
+    'create_partner_contact',
+    'invite_partners_to_portal',
+    'company_invoices',
+    'charges_lookup',
+    'flow_lifecycle',
+    'flow_details',
+    'partner_flow_details',
+    'partner_flow_progress',
+    'flow_steps',
+    'flow_attachable_resources',
+    'flow_assignment',
+    'flow_assignment_candidates',
+    'incentives_summary',
+    'content_search',
+    'euler_help',
+    'content_list',
+    'commissions',
+    'performance',
+    'influenced_sourced_deals',
+    'submit_feedback',
+    'communications',
+    'communications_manage',
+    'si_service_projects',
+    'si_manage_service_project',
+    'initialize_mcp_session',
+    'list_mcp_tools',
+    'search_mcp_tools',
+    'call_mcp_tool',
+    'custom_mcp_request',
+    'get_connector_manifest',
+  ],
   'eventbrite': [
     'create_event',
     'list_events',
@@ -43826,9 +54182,43 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'figma': [
+    'get_me',
     'get_file',
-    'get_comments',
+    'get_file_metadata',
+    'get_file_nodes',
+    'render_images',
+    'list_image_fills',
+    'list_comments',
     'post_comment',
+    'delete_comment',
+    'list_comment_reactions',
+    'add_comment_reaction',
+    'delete_comment_reaction',
+    'list_versions',
+    'list_file_components',
+    'list_file_component_sets',
+    'list_file_styles',
+    'get_component',
+    'get_component_set',
+    'get_style',
+    'list_team_projects',
+    'list_project_files',
+    'list_team_components',
+    'list_team_component_sets',
+    'list_team_styles',
+    'get_local_variables',
+    'get_published_variables',
+    'update_variables',
+    'list_dev_resources',
+    'create_dev_resources',
+    'update_dev_resources',
+    'delete_dev_resource',
+    'list_webhooks',
+    'get_webhook',
+    'create_webhook',
+    'update_webhook',
+    'delete_webhook',
+    'list_webhook_requests',
     'custom_api_call',
   ],
   'filevine': [
@@ -44244,8 +54634,24 @@ export const integrationActions = {
     'list_alerts',
     'custom_api_call',
   ],
+  'granola': [
+    'list_notes',
+    'get_note',
+    'list_folders',
+    'search_notes',
+    'custom_api_call',
+  ],
   'graphql': [
     'send_request',
+  ],
+  'grasshopper-bank': [
+    'get_account',
+    'list_account_transactions',
+    'create_ach',
+    'create_account_transfer',
+    'create_bill_payment',
+    'create_check_deposit',
+    'custom_api_call',
   ],
   'greenhouse': [
     'list_candidates',
@@ -44495,6 +54901,29 @@ export const integrationActions = {
     'domain_search',
     'custom_api_call',
   ],
+  'ibkr': [
+    'get_auth_status',
+    'tickle',
+    'initialize_brokerage_session',
+    'list_portfolio_accounts',
+    'list_subaccounts',
+    'list_trading_accounts',
+    'get_account_summary',
+    'get_account_ledger',
+    'list_positions',
+    'get_position_by_conid',
+    'search_contracts',
+    'get_market_data_snapshot',
+    'list_orders',
+    'get_order_status',
+    'list_trades',
+    'preview_order',
+    'place_order',
+    'modify_order',
+    'cancel_order',
+    'reply_to_order_prompt',
+    'custom_api_call',
+  ],
   'ideogram': [
     'generate_image',
     'remix_image',
@@ -44686,6 +55115,22 @@ export const integrationActions = {
     'find_company',
     'custom_api_call',
   ],
+  'kpler': [
+    'get_ais_latest',
+    'get_ais_historical',
+    'list_cargo_trades',
+    'list_cargo_flows',
+    'list_cargo_port_calls',
+    'get_cargo_fleet_metrics',
+    'list_cargo_products',
+    'get_maritime_route',
+    'screen_compliance',
+    'get_vessel_risks',
+    'get_power_day_ahead_prices',
+    'get_power_unit_availability',
+    'execute_vessels_graphql',
+    'custom_api_call',
+  ],
   'kv-store': [
     'put',
     'get',
@@ -44865,6 +55310,24 @@ export const integrationActions = {
     'send_transactional',
     'custom_api_call',
   ],
+  'lucid': [
+    'get_profile',
+    'search_documents',
+    'search_account_documents',
+    'get_document',
+    'export_document',
+    'get_document_contents',
+    'create_document',
+    'update_document',
+    'search_folders',
+    'list_folder_contents',
+    'create_document_share_link',
+    'get_document_share_link',
+    'delete_document_share_link',
+    'create_document_embed',
+    'list_users',
+    'custom_api_call',
+  ],
   'magento': [
     'list_products',
     'get_product',
@@ -44938,11 +55401,94 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'metabase': [
+    'list_cards',
+    'get_card',
+    'create_card',
+    'update_card',
+    'delete_card',
+    'query_card',
+    'export_card',
+    'list_dashboards',
+    'get_dashboard',
+    'create_dashboard',
+    'update_dashboard',
+    'delete_dashboard',
+    'list_collections',
+    'get_collection',
+    'create_collection',
+    'update_collection',
+    'delete_collection',
+    'search_items',
+    'execute_dataset_query',
+    'execute_native_query',
+    'export_dataset_query',
+    'list_users',
+    'get_user',
+    'create_user',
+    'update_user',
+    'list_permission_groups',
+    'create_permission_group',
+    'list_channels',
+    'create_channel',
+    'update_channel',
+    'test_channel',
+    'list_notifications',
+    'get_notification',
+    'create_notification',
+    'update_notification',
+    'send_notification',
+    'list_alerts',
+    'get_alert',
+    'list_pulses',
+    'get_pulse',
+    'create_pulse',
+    'update_pulse',
+    'test_pulse',
     'getQuestion',
     'getQuestionPngPreview',
     'getDashboardQuestions',
     'embedQuestion',
     'getEmbedUrl',
+    'custom_api_call',
+  ],
+  'microsoft-365': [
+    'get_me',
+    'list_users',
+    'get_user',
+    'list_groups',
+    'list_messages',
+    'get_message',
+    'send_mail',
+    'list_calendar_events',
+    'create_calendar_event',
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'list_drive_items',
+    'get_drive_item',
+    'upload_drive_text_file',
+    'drive_delta',
+    'list_sites',
+    'list_site_drives',
+    'list_teams',
+    'list_team_channels',
+    'send_channel_message',
+    'list_chats',
+    'send_chat_message',
+    'list_planner_plans',
+    'list_planner_tasks',
+    'create_planner_task',
+    'list_todo_lists',
+    'list_todo_tasks',
+    'create_todo_task',
+    'list_onenote_notebooks',
+    'list_workbook_worksheets',
+    'get_workbook_range',
+    'list_subscriptions',
+    'create_subscription',
+    'update_subscription',
+    'delete_subscription',
+    'get_next_page',
     'custom_api_call',
   ],
   'microsoft-365-planner': [
@@ -44974,6 +55520,27 @@ export const integrationActions = {
     'create_workbook',
     'get_table',
     'list_tables',
+    'custom_api_call',
+  ],
+  'microsoft-learn': [
+    'list_mcp_tools',
+    'search_docs',
+    'fetch_docs_page',
+    'search_code_samples',
+    'list_catalog_items',
+    'list_courses',
+    'get_course',
+    'list_learning_paths',
+    'get_learning_path',
+    'list_modules',
+    'get_module',
+    'get_unit',
+    'list_certifications',
+    'get_certification',
+    'list_exams',
+    'get_exam',
+    'list_applied_skills',
+    'get_applied_skill',
     'custom_api_call',
   ],
   'microsoft-onedrive': [
@@ -45073,8 +55640,31 @@ export const integrationActions = {
   'miro': [
     'list_boards',
     'get_board',
-    'create_sticky_note',
+    'create_board',
+    'update_board',
+    'delete_board',
+    'list_board_members',
+    'share_board',
+    'update_board_member',
+    'remove_board_member',
     'list_items',
+    'get_item',
+    'update_item',
+    'delete_item',
+    'create_sticky_note',
+    'create_shape',
+    'create_text',
+    'create_frame',
+    'create_card',
+    'create_image',
+    'create_connector',
+    'create_group',
+    'list_tags',
+    'create_tag',
+    'create_board_export_job',
+    'get_board_export_job',
+    'get_board_export_job_results',
+    'custom_api_call',
   ],
   'mistral': [
     'chat',
@@ -45124,6 +55714,15 @@ export const integrationActions = {
     'create_user',
     'get_grades',
     'custom_api_call',
+  ],
+  'morningstar-credit-analytics': [
+    'get_mcp_setup_info',
+    'get_oauth_metadata',
+    'initialize_mcp_session',
+    'list_mcp_tools',
+    'search_mcp_tools',
+    'call_mcp_tool',
+    'custom_mcp_request',
   ],
   'mrpeasy': [
     'get_inventory',
@@ -45190,10 +55789,33 @@ export const integrationActions = {
     'list_files',
   ],
   'netsuite': [
-    'getVendor',
-    'getCustomer',
-    'runSuiteQL',
-    'executeDataset',
+    'test_connection',
+    'get_metadata_catalog',
+    'list_records',
+    'get_record',
+    'create_record',
+    'update_record',
+    'replace_record',
+    'upsert_record_by_external_id',
+    'delete_record',
+    'transform_record',
+    'execute_record_action',
+    'run_suiteql',
+    'list_datasets',
+    'execute_dataset',
+    'get_customer',
+    'create_customer',
+    'update_customer',
+    'get_vendor',
+    'create_vendor',
+    'get_sales_order',
+    'create_sales_order',
+    'get_invoice',
+    'create_invoice',
+    'get_purchase_order',
+    'create_purchase_order',
+    'get_inventory_item',
+    'create_journal_entry',
     'custom_api_call',
   ],
   'nexhealth': [
@@ -45553,6 +56175,32 @@ export const integrationActions = {
     'create_project',
     'custom_api_call',
   ],
+  'postman': [
+    'get_authenticated_user',
+    'list_workspaces',
+    'get_workspace',
+    'create_workspace',
+    'list_collections',
+    'get_collection',
+    'create_collection',
+    'update_collection',
+    'delete_collection',
+    'list_environments',
+    'get_environment',
+    'create_environment',
+    'update_environment',
+    'delete_environment',
+    'list_monitors',
+    'get_monitor',
+    'run_monitor',
+    'list_apis',
+    'get_api',
+    'list_api_versions',
+    'list_mock_servers',
+    'get_mock_server',
+    'create_collection_webhook',
+    'custom_api_call',
+  ],
   'powerschool': [
     'list_students',
     'get_student',
@@ -45591,6 +56239,63 @@ export const integrationActions = {
     'list_units',
     'list_tenants',
     'list_work_orders',
+    'custom_api_call',
+  ],
+  'protocols-io': [
+    'get_profile',
+    'update_profile',
+    'list_protocols',
+    'get_protocol',
+    'get_protocol_steps',
+    'get_protocol_materials',
+    'get_protocol_pdf_url',
+    'list_researcher_protocols',
+    'list_workspace_protocols',
+    'create_protocol',
+    'update_protocol',
+    'publish_protocol',
+    'bookmark_protocol',
+    'unbookmark_protocol',
+    'upsert_protocol_steps',
+    'delete_protocol_steps',
+    'list_publications',
+    'list_latest_publications',
+    'list_protocol_comments',
+    'add_protocol_comment',
+    'reply_protocol_comment',
+    'add_step_discussion',
+    'add_step_discussion_comment',
+    'reply_step_comment',
+    'edit_comment',
+    'edit_discussion',
+    'delete_comment',
+    'delete_discussion',
+    'list_records',
+    'get_record',
+    'create_record',
+    'update_record',
+    'list_workspaces',
+    'list_researcher_workspaces',
+    'get_workspace',
+    'request_join_workspace',
+    'confirm_workspace_invite',
+    'leave_workspace',
+    'list_conversations',
+    'list_conversation_messages',
+    'list_new_conversations',
+    'mark_message_read',
+    'send_conversation_message',
+    'delete_conversation',
+    'search_folder_items',
+    'search_workspace_items',
+    'search_all_workspace_items',
+    'move_items_to_trash',
+    'restore_items_from_trash',
+    'prepare_file_upload',
+    'verify_file_upload',
+    'list_notifications',
+    'initiate_content_export',
+    'get_content_export',
     'custom_api_call',
   ],
   'proxycurl': [
@@ -45642,6 +56347,115 @@ export const integrationActions = {
     'find_payment',
     'create_invoice',
     'create_expense',
+    'custom_api_call',
+  ],
+  'quicknode': [
+    'list_chains',
+    'list_endpoints',
+    'create_endpoint',
+    'get_endpoint',
+    'update_endpoint',
+    'delete_endpoint',
+    'update_endpoint_status',
+    'get_endpoint_urls',
+    'get_endpoint_metrics',
+    'list_endpoint_logs',
+    'get_endpoint_log_details',
+    'get_endpoint_security',
+    'get_endpoint_security_options',
+    'update_endpoint_security_options',
+    'create_security_rule',
+    'delete_security_rule',
+    'list_method_rate_limits',
+    'create_method_rate_limit',
+    'update_method_rate_limit',
+    'delete_method_rate_limit',
+    'update_endpoint_rate_limits',
+    'get_rpc_usage',
+    'get_rpc_usage_by_chain',
+    'get_rpc_usage_by_endpoint',
+    'get_rpc_usage_by_method',
+    'get_rpc_usage_by_tag',
+    'list_billing_invoices',
+    'list_billing_payments',
+    'list_teams',
+    'create_team',
+    'get_team',
+    'delete_team',
+    'list_endpoint_tags',
+    'add_endpoint_tag',
+    'remove_endpoint_tag',
+    'list_streams',
+    'create_stream',
+    'get_stream',
+    'update_stream',
+    'delete_stream',
+    'pause_stream',
+    'activate_stream',
+    'test_stream_filter',
+    'get_enabled_streams_count',
+    'list_webhooks',
+    'create_webhook_from_template',
+    'get_webhook',
+    'update_webhook',
+    'update_webhook_template',
+    'delete_webhook',
+    'pause_webhook',
+    'activate_webhook',
+    'get_enabled_webhooks_count',
+    'list_values',
+    'create_value',
+    'get_value',
+    'delete_value',
+    'bulk_values',
+    'get_values_size',
+    'list_sets',
+    'create_set',
+    'get_set',
+    'delete_set',
+    'bulk_sets',
+    'get_sets_size',
+    'list_lists',
+    'create_list',
+    'get_list',
+    'update_list',
+    'delete_list',
+    'add_list_item',
+    'delete_list_item',
+    'list_contains_item',
+    'get_list_size',
+    'get_all_lists_size',
+    'call_rpc_endpoint',
+    'evm_get_block_number',
+    'evm_get_balance',
+    'evm_get_block',
+    'evm_get_transaction',
+    'evm_get_transaction_receipt',
+    'evm_get_logs',
+    'evm_call_contract',
+    'evm_estimate_gas',
+    'evm_get_gas_price',
+    'solana_get_slot',
+    'solana_get_balance',
+    'solana_get_account_info',
+    'solana_get_transaction',
+    'solana_get_block',
+    'get_sql_schema',
+    'execute_sql_query',
+    'get_ipfs_account_usage',
+    'get_ipfs_daily_usage',
+    'list_ipfs_gateways',
+    'create_ipfs_gateway',
+    'get_ipfs_gateway',
+    'update_ipfs_gateway',
+    'delete_ipfs_gateway',
+    'list_ipfs_pins',
+    'pin_ipfs_cid',
+    'get_ipfs_pin',
+    'update_ipfs_pin',
+    'delete_ipfs_pin',
+    'get_ipfs_object',
+    'upload_ipfs_object',
     'custom_api_call',
   ],
   'rabbitmq': [
@@ -45849,11 +56663,29 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'sentry': [
+    'list_organizations',
     'list_projects',
+    'list_teams',
     'list_issues',
     'get_issue',
+    'update_issue',
     'resolve_issue',
     'list_events',
+    'get_event',
+    'list_event_attachments',
+    'get_event_attachment',
+    'download_event_attachment',
+    'list_releases',
+    'create_release',
+    'create_deploy',
+    'list_deploys',
+    'list_release_files',
+    'get_release_file',
+    'upload_release_file',
+    'delete_release_file',
+    'bulk_update_issues',
+    'bulk_delete_issues',
+    'custom_api_call',
   ],
   'sequential-thinking': [
     'add_thought',
@@ -45954,6 +56786,11 @@ export const integrationActions = {
     'get_message',
     'get_channel_history',
     'get_thread_replies',
+    'schedule_message',
+    'list_scheduled_messages',
+    'delete_scheduled_message',
+    'get_message_permalink',
+    'send_ephemeral_message',
     'search_messages',
     'find_user_by_email',
     'find_user_by_handle',
@@ -45966,9 +56803,23 @@ export const integrationActions = {
     'create_channel',
     'set_channel_topic',
     'invite_user_to_channel',
+    'create_canvas',
+    'create_channel_canvas',
+    'edit_canvas',
+    'delete_canvas',
+    'list_canvases',
+    'list_bookmarks',
+    'add_bookmark',
+    'edit_bookmark',
+    'remove_bookmark',
     'update_user_status',
     'get_user_profile',
     'list_usergroups',
+    'create_usergroup',
+    'update_usergroup',
+    'update_usergroup_users',
+    'enable_usergroup',
+    'disable_usergroup',
     'custom_api_call',
   ],
   'slite': [
@@ -46102,6 +56953,41 @@ export const integrationActions = {
     'create_entry',
     'update_entry',
   ],
+  'strava': [
+    'get_authenticated_athlete',
+    'get_athlete_stats',
+    'get_athlete_zones',
+    'list_activities',
+    'get_activity',
+    'create_activity',
+    'update_activity',
+    'delete_activity',
+    'list_activity_comments',
+    'list_activity_kudoers',
+    'list_activity_laps',
+    'get_activity_zones',
+    'get_activity_streams',
+    'list_athlete_clubs',
+    'get_club',
+    'list_club_activities',
+    'get_gear',
+    'list_routes',
+    'get_route',
+    'export_route_gpx',
+    'export_route_tcx',
+    'explore_segments',
+    'get_segment',
+    'list_starred_segments',
+    'star_segment',
+    'list_segment_efforts',
+    'get_segment_effort',
+    'upload_activity',
+    'get_upload',
+    'list_push_subscriptions',
+    'create_push_subscription',
+    'delete_push_subscription',
+    'custom_api_call',
+  ],
   'streak': [
     'create_box',
     'list_boxes',
@@ -46139,6 +57025,25 @@ export const integrationActions = {
   ],
   'supabase': [
     'upload-file',
+    'list_storage_buckets',
+    'get_storage_bucket',
+    'create_storage_bucket',
+    'update_storage_bucket',
+    'delete_storage_bucket',
+    'empty_storage_bucket',
+    'list_storage_files',
+    'delete_storage_files',
+    'create_signed_url',
+    'create_signed_upload_url',
+    'get_public_url',
+    'invoke_edge_function',
+    'list_auth_users',
+    'get_auth_user',
+    'create_auth_user',
+    'invite_auth_user',
+    'list_organizations',
+    'list_projects',
+    'get_project',
     'create_row',
     'update_row',
     'upsert_row',
@@ -46146,6 +57051,7 @@ export const integrationActions = {
     'search_rows',
     'list_tables',
     'get_table_schema',
+    'custom_management_api_call',
     'custom_api_call',
   ],
   'surveymonkey': [
@@ -46153,6 +57059,68 @@ export const integrationActions = {
     'get_survey',
     'get_responses',
     'get_response_details',
+    'custom_api_call',
+  ],
+  'swaggerhub': [
+    'search_specs',
+    'search_apis',
+    'search_domains',
+    'list_owner_apis',
+    'list_owner_domains',
+    'list_api_versions',
+    'list_domain_versions',
+    'get_api_definition',
+    'get_domain_definition',
+    'save_api_definition',
+    'save_domain_definition',
+    'delete_api',
+    'delete_api_version',
+    'clone_api_version',
+    'fork_api_version',
+    'delete_domain',
+    'delete_domain_version',
+    'clone_domain_version',
+    'fork_domain_version',
+    'get_api_default_version',
+    'set_api_default_version',
+    'get_api_lifecycle',
+    'set_api_lifecycle',
+    'get_api_visibility',
+    'set_api_visibility',
+    'get_domain_default_version',
+    'set_domain_default_version',
+    'get_domain_lifecycle',
+    'set_domain_lifecycle',
+    'get_domain_visibility',
+    'set_domain_visibility',
+    'get_standardization_errors',
+    'list_api_comments',
+    'add_api_comment',
+    'update_api_comment',
+    'delete_api_comment',
+    'set_api_comment_status',
+    'add_api_comment_reply',
+    'batch_update_api_comments',
+    'list_domain_comments',
+    'add_domain_comment',
+    'update_domain_comment',
+    'delete_domain_comment',
+    'set_domain_comment_status',
+    'add_domain_comment_reply',
+    'batch_update_domain_comments',
+    'list_integrations',
+    'create_integration',
+    'get_integration',
+    'update_integration',
+    'patch_integration',
+    'delete_integration',
+    'execute_integration',
+    'list_projects',
+    'create_project',
+    'get_project',
+    'update_project',
+    'delete_project',
+    'add_spec_to_project',
     'custom_api_call',
   ],
   'synthesia': [
@@ -46306,6 +57274,17 @@ export const integrationActions = {
     'get_giving_report',
     'custom_api_call',
   ],
+  'tldv': [
+    'health_check',
+    'import_meeting',
+    'list_meetings',
+    'get_meeting',
+    'get_recording_download_url',
+    'get_transcript',
+    'get_notes',
+    'get_highlights',
+    'custom_api_call',
+  ],
   'toast-pos': [
     'get_order',
     'list_orders',
@@ -46439,6 +57418,22 @@ export const integrationActions = {
     'list_deployments',
     'create_deployment',
     'get_deployment',
+    'cancel_deployment',
+    'delete_deployment',
+    'list_domains',
+    'get_domain',
+    'add_account_domain',
+    'list_project_domains',
+    'add_project_domain',
+    'verify_project_domain',
+    'list_project_env_vars',
+    'create_project_env_var',
+    'list_webhooks',
+    'get_webhook',
+    'create_webhook',
+    'delete_webhook',
+    'trigger_deploy_hook',
+    'custom_api_call',
   ],
   'vidyard': [
     'list_videos',
@@ -46537,6 +57532,27 @@ export const integrationActions = {
     'sendMedia',
     'send-template-message',
   ],
+  'whimsical': [
+    'get_user',
+    'list_teams',
+    'list_comments',
+    'list_files',
+    'get_file',
+    'list_mcp_tools',
+    'call_mcp_tool',
+    'mcp_search',
+    'mcp_fetch',
+    'mcp_create',
+    'mcp_create_doc',
+    'mcp_edit',
+    'mcp_wireframe_edit',
+    'mcp_auto_layout',
+    'mcp_file_tree',
+    'mcp_list_workspaces',
+    'mcp_read_comments',
+    'mcp_edit_comment',
+    'custom_api_call',
+  ],
   'wise': [
     'list_profiles',
     'create_quote',
@@ -46549,6 +57565,12 @@ export const integrationActions = {
     'list_contacts',
     'create_order',
     'list_products',
+    'custom_api_call',
+  ],
+  'wolfram': [
+    'full_results_query',
+    'short_answer',
+    'spoken_result',
     'custom_api_call',
   ],
   'woocommerce': [
@@ -46640,6 +57662,24 @@ export const integrationActions = {
     'add_to_playlist',
     'list_channel_videos',
     'custom_api_call',
+  ],
+  'zapier': [
+    'list_apps',
+    'list_actions',
+    'list_authentications',
+    'get_input_fields',
+    'get_output_fields',
+    'get_choices',
+    'test_action',
+    'create_action_run',
+    'retrieve_action_run',
+    'custom_api_call',
+    'initialize_mcp_session',
+    'list_mcp_tools',
+    'search_mcp_tools',
+    'call_mcp_tool',
+    'execute_configured_action',
+    'custom_mcp_request',
   ],
   'zendesk': [
     'create-ticket',
@@ -46752,10 +57792,30 @@ export const integrationActions = {
   ],
   'zoom': [
     'zoom_create_meeting',
+    'update_meeting',
     'zoom_create_meeting_registrant',
+    'list_meeting_registrants',
+    'update_meeting_registrant_status',
     'get_meeting',
+    'get_meeting_invitation',
     'list_meetings',
     'delete_meeting',
+    'list_users',
+    'get_user',
+    'list_webinars',
+    'create_webinar',
+    'get_webinar',
+    'update_webinar',
+    'delete_webinar',
+    'create_webinar_registrant',
+    'list_webinar_registrants',
+    'list_user_recordings',
+    'get_meeting_recordings',
+    'get_recording_settings',
+    'list_event_subscriptions',
+    'create_event_subscription',
+    'subscribe_event_subscription',
+    'delete_event_subscription',
     'custom_api_call',
   ],
   'zuora': [
