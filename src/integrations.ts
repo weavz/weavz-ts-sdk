@@ -13989,7 +13989,7 @@ export interface GmailGetMessageInput {
 export interface GmailSendEmailInput {
   /** Recipient email addresses (comma-separated) */
   to: string
-  /** Optional verified Gmail send-as email address for this account */
+  /** Optional verified Gmail send-as address. Leave blank to use Gmail's default sender. (resolve via property options API) */
   from?: string
   /** Subject */
   subject: string
@@ -14007,6 +14007,8 @@ export interface GmailSendEmailInput {
 export interface GmailReplyToEmailInput {
   /** The message to reply to */
   messageId: string
+  /** Optional verified Gmail send-as address. Leave blank to use Gmail's default sender. (resolve via property options API) */
+  from?: string
   /** Reply Body */
   body: string
   /** Send as HTML */
@@ -14017,6 +14019,8 @@ export interface GmailReplyToEmailInput {
 export interface GmailForwardEmailInput {
   /** The ID of the email to forward */
   messageId: string
+  /** Optional verified Gmail send-as address. Leave blank to use Gmail's default sender. (resolve via property options API) */
+  from?: string
   /** Recipient email addresses (comma-separated) */
   to: string
   /** CC */
@@ -14027,6 +14031,112 @@ export interface GmailForwardEmailInput {
   additionalMessage?: string
   /** Send as HTML */
   isHtml?: boolean
+}
+
+/** Gmail — Modify Labels */
+export interface GmailModifyLabelsInput {
+  /** Message ID */
+  messageId: string
+  /** Labels to Add */
+  addLabelIds?: string[]
+  /** Labels to Remove */
+  removeLabelIds?: string[]
+}
+
+/** Gmail — Batch Modify Messages */
+export interface GmailBatchModifyMessagesInput {
+  /** Gmail message IDs to modify. */
+  messageIds: unknown[]
+  /** Labels to Add */
+  addLabelIds?: string[]
+  /** Labels to Remove */
+  removeLabelIds?: string[]
+}
+
+/** Gmail — Batch Delete Messages */
+export interface GmailBatchDeleteMessagesInput {
+  /** Message IDs */
+  messageIds: unknown[]
+  /** Required. Permanently deletes these messages without moving them to Trash. */
+  confirmPermanentDelete: boolean
+}
+
+/** Gmail — Trash Message */
+export interface GmailTrashMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Gmail — Untrash Message */
+export interface GmailUntrashMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Gmail — Delete Message */
+export interface GmailDeleteMessageInput {
+  /** Message ID */
+  messageId: string
+  /** Required. Permanently deletes this message without moving it to Trash. */
+  confirmPermanentDelete: boolean
+}
+
+/** Gmail — Get Attachment */
+export interface GmailGetAttachmentInput {
+  /** Message ID */
+  messageId: string
+  /** Attachment ID */
+  attachmentId: string
+}
+
+/** Gmail — List Threads */
+export interface GmailListThreadsInput {
+  /** Gmail search query. */
+  query?: string
+  /** Max Results */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+  /** Filter by one or more labels. */
+  labelIds?: string[]
+}
+
+/** Gmail — Get Thread */
+export interface GmailGetThreadInput {
+  /** Thread ID */
+  threadId: string
+  /** Format (values: `full`, `metadata`, `minimal`) */
+  format?: "full" | "metadata" | "minimal"
+}
+
+/** Gmail — Modify Thread Labels */
+export interface GmailModifyThreadLabelsInput {
+  /** Thread ID */
+  threadId: string
+  /** Labels to Add */
+  addLabelIds?: string[]
+  /** Labels to Remove */
+  removeLabelIds?: string[]
+}
+
+/** Gmail — Trash Thread */
+export interface GmailTrashThreadInput {
+  /** Thread ID */
+  threadId: string
+}
+
+/** Gmail — Untrash Thread */
+export interface GmailUntrashThreadInput {
+  /** Thread ID */
+  threadId: string
+}
+
+/** Gmail — Delete Thread */
+export interface GmailDeleteThreadInput {
+  /** Thread ID */
+  threadId: string
+  /** Required. Permanently deletes this thread without moving it to Trash. */
+  confirmPermanentDelete: boolean
 }
 
 /** Gmail — Add Label */
@@ -14047,6 +14157,188 @@ export interface GmailRemoveLabelInput {
 
 /** Gmail — List Labels */
 export type GmailListLabelsInput = Record<string, never>
+
+/** Gmail — Create Label */
+export interface GmailCreateLabelInput {
+  /** Name */
+  name: string
+  /** Label List Visibility (values: `labelShow`, `labelShowIfUnread`, `labelHide`) */
+  labelListVisibility?: "labelShow" | "labelShowIfUnread" | "labelHide"
+  /** Message List Visibility (values: `show`, `hide`) */
+  messageListVisibility?: "show" | "hide"
+  /** Optional hex color such as #ffffff. */
+  textColor?: string
+  /** Optional hex color such as #4285f4. */
+  backgroundColor?: string
+}
+
+/** Gmail — Get Label */
+export interface GmailGetLabelInput {
+  /** Label (resolve via property options API) */
+  labelId: string
+}
+
+/** Gmail — Patch Label */
+export interface GmailPatchLabelInput {
+  /** Label (resolve via property options API) */
+  labelId: string
+  /** Name */
+  name?: string
+  /** Label List Visibility (values: `labelShow`, `labelShowIfUnread`, `labelHide`) */
+  labelListVisibility?: "labelShow" | "labelShowIfUnread" | "labelHide"
+  /** Message List Visibility (values: `show`, `hide`) */
+  messageListVisibility?: "show" | "hide"
+  /** Optional hex color such as #ffffff. */
+  textColor?: string
+  /** Optional hex color such as #4285f4. */
+  backgroundColor?: string
+}
+
+/** Gmail — Update Label */
+export interface GmailUpdateLabelInput {
+  /** Label (resolve via property options API) */
+  labelId: string
+  /** Gmail label resource fields to send with PUT. */
+  body: unknown
+}
+
+/** Gmail — Delete Label */
+export interface GmailDeleteLabelInput {
+  /** Label (resolve via property options API) */
+  labelId: string
+  /** Required. Permanently deletes this label from the account. */
+  confirmPermanentDelete: boolean
+}
+
+/** Gmail — Create Draft */
+export interface GmailCreateDraftInput {
+  /** Recipient email addresses (comma-separated) */
+  to: string
+  /** Optional verified Gmail send-as address. Leave blank to use Gmail's default sender. (resolve via property options API) */
+  from?: string
+  /** Subject */
+  subject: string
+  /** Body */
+  body: string
+  /** CC */
+  cc?: string
+  /** BCC */
+  bcc?: string
+  /** Send as HTML */
+  isHtml?: boolean
+}
+
+/** Gmail — List Drafts */
+export interface GmailListDraftsInput {
+  /** Max Results */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Gmail — Get Draft */
+export interface GmailGetDraftInput {
+  /** Draft ID */
+  draftId: string
+  /** Format (values: `full`, `metadata`, `minimal`, `raw`) */
+  format?: "full" | "metadata" | "minimal" | "raw"
+}
+
+/** Gmail — Update Draft */
+export interface GmailUpdateDraftInput {
+  /** Draft ID */
+  draftId: string
+  /** Recipient email addresses (comma-separated) */
+  to: string
+  /** Optional verified Gmail send-as address. Leave blank to use Gmail's default sender. (resolve via property options API) */
+  from?: string
+  /** Subject */
+  subject: string
+  /** Body */
+  body: string
+  /** CC */
+  cc?: string
+  /** BCC */
+  bcc?: string
+  /** Send as HTML */
+  isHtml?: boolean
+}
+
+/** Gmail — Send Draft */
+export interface GmailSendDraftInput {
+  /** Draft ID */
+  draftId: string
+}
+
+/** Gmail — Delete Draft */
+export interface GmailDeleteDraftInput {
+  /** Draft ID */
+  draftId: string
+  /** Required. Permanently deletes this draft. */
+  confirmPermanentDelete: boolean
+}
+
+/** Gmail — Get Profile */
+export type GmailGetProfileInput = Record<string, never>
+
+/** Gmail — List History */
+export interface GmailListHistoryInput {
+  /** Start History ID */
+  startHistoryId: string
+  /** Examples: messageAdded, messageDeleted, labelAdded, labelRemoved. */
+  historyTypes?: unknown[]
+  /** Optional label to filter history. (resolve via property options API) */
+  labelId?: string
+  /** Page Token */
+  pageToken?: string
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Gmail — List Send-As Aliases */
+export type GmailListSendAsAliasesInput = Record<string, never>
+
+/** Gmail — Get Send-As Alias */
+export interface GmailGetSendAsAliasInput {
+  /** Send-As Email */
+  sendAsEmail: string
+}
+
+/** Gmail — Get Contacts */
+export interface GmailGetContactsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+  /** Comma-separated People API fields to return. */
+  personFields?: string
+  /** Sort Order (values: `LAST_MODIFIED_DESCENDING`, `LAST_MODIFIED_ASCENDING`, `FIRST_NAME_ASCENDING`, `LAST_NAME_ASCENDING`) */
+  sortOrder?: "LAST_MODIFIED_DESCENDING" | "LAST_MODIFIED_ASCENDING" | "FIRST_NAME_ASCENDING" | "LAST_NAME_ASCENDING"
+}
+
+/** Gmail — Get People */
+export interface GmailGetPeopleInput {
+  /** Examples: people/me or people/c1234567890. */
+  resourceName?: string
+  /** List Other Contacts instead of fetching one person resource. */
+  otherContacts?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+  /** Comma-separated People API fields to return. */
+  personFields?: string
+}
+
+/** Gmail — Search People */
+export interface GmailSearchPeopleInput {
+  /** Search Query */
+  query: string
+  /** Page Size */
+  pageSize?: number
+  /** Comma-separated People API fields to return. */
+  personFields?: string
+}
 
 /** Gmail — Custom API Call */
 export interface GmailCustomApiCallInput {
@@ -44682,9 +44974,40 @@ export interface IntegrationActionInputMap {
   'gmail.send_email': GmailSendEmailInput
   'gmail.reply_to_email': GmailReplyToEmailInput
   'gmail.forward_email': GmailForwardEmailInput
+  'gmail.modify_labels': GmailModifyLabelsInput
+  'gmail.batch_modify_messages': GmailBatchModifyMessagesInput
+  'gmail.batch_delete_messages': GmailBatchDeleteMessagesInput
+  'gmail.trash_message': GmailTrashMessageInput
+  'gmail.untrash_message': GmailUntrashMessageInput
+  'gmail.delete_message': GmailDeleteMessageInput
+  'gmail.get_attachment': GmailGetAttachmentInput
+  'gmail.list_threads': GmailListThreadsInput
+  'gmail.get_thread': GmailGetThreadInput
+  'gmail.modify_thread_labels': GmailModifyThreadLabelsInput
+  'gmail.trash_thread': GmailTrashThreadInput
+  'gmail.untrash_thread': GmailUntrashThreadInput
+  'gmail.delete_thread': GmailDeleteThreadInput
   'gmail.add_label': GmailAddLabelInput
   'gmail.remove_label': GmailRemoveLabelInput
   'gmail.list_labels': GmailListLabelsInput
+  'gmail.create_label': GmailCreateLabelInput
+  'gmail.get_label': GmailGetLabelInput
+  'gmail.patch_label': GmailPatchLabelInput
+  'gmail.update_label': GmailUpdateLabelInput
+  'gmail.delete_label': GmailDeleteLabelInput
+  'gmail.create_draft': GmailCreateDraftInput
+  'gmail.list_drafts': GmailListDraftsInput
+  'gmail.get_draft': GmailGetDraftInput
+  'gmail.update_draft': GmailUpdateDraftInput
+  'gmail.send_draft': GmailSendDraftInput
+  'gmail.delete_draft': GmailDeleteDraftInput
+  'gmail.get_profile': GmailGetProfileInput
+  'gmail.list_history': GmailListHistoryInput
+  'gmail.list_send_as_aliases': GmailListSendAsAliasesInput
+  'gmail.get_send_as_alias': GmailGetSendAsAliasInput
+  'gmail.get_contacts': GmailGetContactsInput
+  'gmail.get_people': GmailGetPeopleInput
+  'gmail.search_people': GmailSearchPeopleInput
   'gmail.custom_api_call': GmailCustomApiCallInput
   'gong.list_calls': GongListCallsInput
   'gong.get_call_transcript': GongGetCallTranscriptInput
@@ -48962,9 +49285,40 @@ export interface IntegrationActionInputsByIntegration {
     'send_email': GmailSendEmailInput
     'reply_to_email': GmailReplyToEmailInput
     'forward_email': GmailForwardEmailInput
+    'modify_labels': GmailModifyLabelsInput
+    'batch_modify_messages': GmailBatchModifyMessagesInput
+    'batch_delete_messages': GmailBatchDeleteMessagesInput
+    'trash_message': GmailTrashMessageInput
+    'untrash_message': GmailUntrashMessageInput
+    'delete_message': GmailDeleteMessageInput
+    'get_attachment': GmailGetAttachmentInput
+    'list_threads': GmailListThreadsInput
+    'get_thread': GmailGetThreadInput
+    'modify_thread_labels': GmailModifyThreadLabelsInput
+    'trash_thread': GmailTrashThreadInput
+    'untrash_thread': GmailUntrashThreadInput
+    'delete_thread': GmailDeleteThreadInput
     'add_label': GmailAddLabelInput
     'remove_label': GmailRemoveLabelInput
     'list_labels': GmailListLabelsInput
+    'create_label': GmailCreateLabelInput
+    'get_label': GmailGetLabelInput
+    'patch_label': GmailPatchLabelInput
+    'update_label': GmailUpdateLabelInput
+    'delete_label': GmailDeleteLabelInput
+    'create_draft': GmailCreateDraftInput
+    'list_drafts': GmailListDraftsInput
+    'get_draft': GmailGetDraftInput
+    'update_draft': GmailUpdateDraftInput
+    'send_draft': GmailSendDraftInput
+    'delete_draft': GmailDeleteDraftInput
+    'get_profile': GmailGetProfileInput
+    'list_history': GmailListHistoryInput
+    'list_send_as_aliases': GmailListSendAsAliasesInput
+    'get_send_as_alias': GmailGetSendAsAliasInput
+    'get_contacts': GmailGetContactsInput
+    'get_people': GmailGetPeopleInput
+    'search_people': GmailSearchPeopleInput
     'custom_api_call': GmailCustomApiCallInput
   }
   'gong': {
@@ -54473,9 +54827,40 @@ export const integrationActions = {
     'send_email',
     'reply_to_email',
     'forward_email',
+    'modify_labels',
+    'batch_modify_messages',
+    'batch_delete_messages',
+    'trash_message',
+    'untrash_message',
+    'delete_message',
+    'get_attachment',
+    'list_threads',
+    'get_thread',
+    'modify_thread_labels',
+    'trash_thread',
+    'untrash_thread',
+    'delete_thread',
     'add_label',
     'remove_label',
     'list_labels',
+    'create_label',
+    'get_label',
+    'patch_label',
+    'update_label',
+    'delete_label',
+    'create_draft',
+    'list_drafts',
+    'get_draft',
+    'update_draft',
+    'send_draft',
+    'delete_draft',
+    'get_profile',
+    'list_history',
+    'list_send_as_aliases',
+    'get_send_as_alias',
+    'get_contacts',
+    'get_people',
+    'search_people',
     'custom_api_call',
   ],
   'gong': [
