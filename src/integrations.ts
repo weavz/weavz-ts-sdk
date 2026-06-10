@@ -6770,14 +6770,6 @@ export interface CodacyCustomApiCallInput {
   body?: unknown
 }
 
-/** Code — Run Code */
-export interface CodeRunCodeInput {
-  /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
-  code: string
-  /** Data to pass as the `inputs` variable inside the code */
-  inputs?: unknown
-}
-
 /** Cognito Forms — List Forms */
 export type CognitoFormsListFormsInput = Record<string, never>
 
@@ -11890,6 +11882,46 @@ export interface FigmaCustomApiCallInput {
   failsafe?: boolean
 }
 
+/** Filesystem — Read File */
+export interface StorageReadFileInput {
+  /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
+  path: string
+  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
+  outputEncoding?: "utf8" | "base64"
+}
+
+/** Filesystem — Write File */
+export interface StorageWriteFileInput {
+  /** File path within the storage scope */
+  path: string
+  /** File content to write */
+  content: string
+  /** MIME type (e.g. "application/json", "text/plain") */
+  contentType?: string
+  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
+  contentEncoding?: "utf8" | "base64"
+}
+
+/** Filesystem — Delete File */
+export interface StorageDeleteFileInput {
+  /** File path to delete */
+  path: string
+}
+
+/** Filesystem — List Files */
+export interface StorageListFilesInput {
+  /** Path prefix to filter files (e.g. "data/" to list all files in data folder). Leave empty for all files. */
+  prefix?: string
+}
+
+/** Filesystem — Get Download URL */
+export interface StorageGetDownloadUrlInput {
+  /** File path within the storage scope */
+  path: string
+  /** URL lifetime from 60 to 3600 seconds. */
+  expiresInSeconds?: number
+}
+
 /** Filevine — Get Project */
 export interface FilevineGetProjectInput {
   /** Project ID */
@@ -13957,6 +13989,8 @@ export interface GmailGetMessageInput {
 export interface GmailSendEmailInput {
   /** Recipient email addresses (comma-separated) */
   to: string
+  /** Optional verified Gmail send-as email address for this account */
+  from?: string
   /** Subject */
   subject: string
   /** Body */
@@ -19237,6 +19271,14 @@ export interface IpinfoCustomApiCallInput {
   body?: unknown
 }
 
+/** JavaScript Sandbox — Run Code */
+export interface CodeRunCodeInput {
+  /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
+  code: string
+  /** Data to pass as the `inputs` variable inside the code */
+  inputs?: unknown
+}
+
 /** JazzHR — List Applicants */
 export interface JazzhrListApplicantsInput {
   /** Page number (results limited to 100 per page) */
@@ -20386,42 +20428,6 @@ export interface KplerCustomApiCallInput {
   queryParams?: unknown
   /** Body */
   body?: unknown
-}
-
-/** KV Store — Put */
-export interface KvStorePutInput {
-  /** The key to store the value under */
-  key: string
-  /** The value to store (any JSON-serializable value) */
-  value: unknown
-}
-
-/** KV Store — Get */
-export interface KvStoreGetInput {
-  /** The key to retrieve */
-  key: string
-}
-
-/** KV Store — Delete */
-export interface KvStoreDeleteInput {
-  /** The key to delete */
-  key: string
-}
-
-/** KV Store — Add to List */
-export interface KvStoreAddToListInput {
-  /** The key of the list */
-  key: string
-  /** The value to append to the list */
-  value: unknown
-}
-
-/** KV Store — Remove from List */
-export interface KvStoreRemoveFromListInput {
-  /** The key of the list */
-  key: string
-  /** The value to remove from the list */
-  value: unknown
 }
 
 /** kvCORE — List Leads */
@@ -32581,6 +32587,14 @@ export interface SalesloftCreatePersonInput {
 /** SalesLoft — List Cadences */
 export type SalesloftListCadencesInput = Record<string, never>
 
+/** Sandbox — Run Code */
+export interface AdvancedCodeRunCodeInput {
+  /** The language or mode to execute (values: `javascript`, `python`, `shell`) */
+  language: "javascript" | "python" | "shell"
+  /** Code or command to execute */
+  code: string
+}
+
 /** Sanity — Query (GROQ) */
 export interface SanityQueryInput {
   /** The GROQ query to execute (e.g., *[_type == "post"]) */
@@ -35167,44 +35181,40 @@ export interface StabilityAiCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Storage — Read File */
-export interface StorageReadFileInput {
-  /** File path within the storage scope (e.g. "config.json", "data/users.csv") */
-  path: string
-  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
-  outputEncoding?: "utf8" | "base64"
+/** State KV — Put */
+export interface KvStorePutInput {
+  /** The key to store the value under */
+  key: string
+  /** The value to store (any JSON-serializable value) */
+  value: unknown
 }
 
-/** Storage — Write File */
-export interface StorageWriteFileInput {
-  /** File path within the storage scope */
-  path: string
-  /** File content to write */
-  content: string
-  /** MIME type (e.g. "application/json", "text/plain") */
-  contentType?: string
-  /** Use Base64 for binary files downloaded from integrations. (values: `utf8`, `base64`) */
-  contentEncoding?: "utf8" | "base64"
+/** State KV — Get */
+export interface KvStoreGetInput {
+  /** The key to retrieve */
+  key: string
 }
 
-/** Storage — Delete File */
-export interface StorageDeleteFileInput {
-  /** File path to delete */
-  path: string
+/** State KV — Delete */
+export interface KvStoreDeleteInput {
+  /** The key to delete */
+  key: string
 }
 
-/** Storage — List Files */
-export interface StorageListFilesInput {
-  /** Path prefix to filter files (e.g. "data/" to list all files in data folder). Leave empty for all files. */
-  prefix?: string
+/** State KV — Add to List */
+export interface KvStoreAddToListInput {
+  /** The key of the list */
+  key: string
+  /** The value to append to the list */
+  value: unknown
 }
 
-/** Storage — Get Download URL */
-export interface StorageGetDownloadUrlInput {
-  /** File path within the storage scope */
-  path: string
-  /** URL lifetime from 60 to 3600 seconds. */
-  expiresInSeconds?: number
+/** State KV — Remove from List */
+export interface KvStoreRemoveFromListInput {
+  /** The key of the list */
+  key: string
+  /** The value to remove from the list */
+  value: unknown
 }
 
 /** Storyblok — List Spaces */
@@ -44048,7 +44058,6 @@ export interface IntegrationActionInputMap {
   'codacy.get_quality': CodacyGetQualityInput
   'codacy.list_issues': CodacyListIssuesInput
   'codacy.custom_api_call': CodacyCustomApiCallInput
-  'code.run_code': CodeRunCodeInput
   'cognito-forms.list_forms': CognitoFormsListFormsInput
   'cognito-forms.get_form_schema': CognitoFormsGetFormSchemaInput
   'cognito-forms.set_public_link_availability': CognitoFormsSetPublicLinkAvailabilityInput
@@ -44488,6 +44497,11 @@ export interface IntegrationActionInputMap {
   'figma.delete_webhook': FigmaDeleteWebhookInput
   'figma.list_webhook_requests': FigmaListWebhookRequestsInput
   'figma.custom_api_call': FigmaCustomApiCallInput
+  'storage.read_file': StorageReadFileInput
+  'storage.write_file': StorageWriteFileInput
+  'storage.delete_file': StorageDeleteFileInput
+  'storage.list_files': StorageListFilesInput
+  'storage.get_download_url': StorageGetDownloadUrlInput
   'filevine.get_project': FilevineGetProjectInput
   'filevine.create_project': FilevineCreateProjectInput
   'filevine.get_contact': FilevineGetContactInput
@@ -45099,6 +45113,7 @@ export interface IntegrationActionInputMap {
   'ipinfo.lookup_ip': IpinfoLookupIpInput
   'ipinfo.get_asn': IpinfoGetAsnInput
   'ipinfo.custom_api_call': IpinfoCustomApiCallInput
+  'code.run_code': CodeRunCodeInput
   'jazzhr.list_applicants': JazzhrListApplicantsInput
   'jazzhr.get_applicant': JazzhrGetApplicantInput
   'jazzhr.list_jobs': JazzhrListJobsInput
@@ -45196,11 +45211,6 @@ export interface IntegrationActionInputMap {
   'kpler.get_power_unit_availability': KplerGetPowerUnitAvailabilityInput
   'kpler.execute_vessels_graphql': KplerExecuteVesselsGraphqlInput
   'kpler.custom_api_call': KplerCustomApiCallInput
-  'kv-store.put': KvStorePutInput
-  'kv-store.get': KvStoreGetInput
-  'kv-store.delete': KvStoreDeleteInput
-  'kv-store.add_to_list': KvStoreAddToListInput
-  'kv-store.remove_from_list': KvStoreRemoveFromListInput
   'kvcore.list_leads': KvcoreListLeadsInput
   'kvcore.get_lead': KvcoreGetLeadInput
   'kvcore.create_lead': KvcoreCreateLeadInput
@@ -46385,6 +46395,7 @@ export interface IntegrationActionInputMap {
   'salesloft.get_person': SalesloftGetPersonInput
   'salesloft.create_person': SalesloftCreatePersonInput
   'salesloft.list_cadences': SalesloftListCadencesInput
+  'advanced-code.run_code': AdvancedCodeRunCodeInput
   'sanity.query': SanityQueryInput
   'sanity.create_document': SanityCreateDocumentInput
   'sanity.update_document': SanityUpdateDocumentInput
@@ -46628,11 +46639,11 @@ export interface IntegrationActionInputMap {
   'squarespace.custom_api_call': SquarespaceCustomApiCallInput
   'stability-ai.text-to-image': StabilityAiTextToImageInput
   'stability-ai.custom_api_call': StabilityAiCustomApiCallInput
-  'storage.read_file': StorageReadFileInput
-  'storage.write_file': StorageWriteFileInput
-  'storage.delete_file': StorageDeleteFileInput
-  'storage.list_files': StorageListFilesInput
-  'storage.get_download_url': StorageGetDownloadUrlInput
+  'kv-store.put': KvStorePutInput
+  'kv-store.get': KvStoreGetInput
+  'kv-store.delete': KvStoreDeleteInput
+  'kv-store.add_to_list': KvStoreAddToListInput
+  'kv-store.remove_from_list': KvStoreRemoveFromListInput
   'storyblok.list_spaces': StoryblokListSpacesInput
   'storyblok.list_stories': StoryblokListStoriesInput
   'storyblok.get_story': StoryblokGetStoryInput
@@ -48156,9 +48167,6 @@ export interface IntegrationActionInputsByIntegration {
     'list_issues': CodacyListIssuesInput
     'custom_api_call': CodacyCustomApiCallInput
   }
-  'code': {
-    'run_code': CodeRunCodeInput
-  }
   'cognito-forms': {
     'list_forms': CognitoFormsListFormsInput
     'get_form_schema': CognitoFormsGetFormSchemaInput
@@ -48713,6 +48721,13 @@ export interface IntegrationActionInputsByIntegration {
     'delete_webhook': FigmaDeleteWebhookInput
     'list_webhook_requests': FigmaListWebhookRequestsInput
     'custom_api_call': FigmaCustomApiCallInput
+  }
+  'storage': {
+    'read_file': StorageReadFileInput
+    'write_file': StorageWriteFileInput
+    'delete_file': StorageDeleteFileInput
+    'list_files': StorageListFilesInput
+    'get_download_url': StorageGetDownloadUrlInput
   }
   'filevine': {
     'get_project': FilevineGetProjectInput
@@ -49497,6 +49512,9 @@ export interface IntegrationActionInputsByIntegration {
     'get_asn': IpinfoGetAsnInput
     'custom_api_call': IpinfoCustomApiCallInput
   }
+  'code': {
+    'run_code': CodeRunCodeInput
+  }
   'jazzhr': {
     'list_applicants': JazzhrListApplicantsInput
     'get_applicant': JazzhrGetApplicantInput
@@ -49623,13 +49641,6 @@ export interface IntegrationActionInputsByIntegration {
     'get_power_unit_availability': KplerGetPowerUnitAvailabilityInput
     'execute_vessels_graphql': KplerExecuteVesselsGraphqlInput
     'custom_api_call': KplerCustomApiCallInput
-  }
-  'kv-store': {
-    'put': KvStorePutInput
-    'get': KvStoreGetInput
-    'delete': KvStoreDeleteInput
-    'add_to_list': KvStoreAddToListInput
-    'remove_from_list': KvStoreRemoveFromListInput
   }
   'kvcore': {
     'list_leads': KvcoreListLeadsInput
@@ -51111,6 +51122,9 @@ export interface IntegrationActionInputsByIntegration {
     'create_person': SalesloftCreatePersonInput
     'list_cadences': SalesloftListCadencesInput
   }
+  'advanced-code': {
+    'run_code': AdvancedCodeRunCodeInput
+  }
   'sanity': {
     'query': SanityQueryInput
     'create_document': SanityCreateDocumentInput
@@ -51426,12 +51440,12 @@ export interface IntegrationActionInputsByIntegration {
     'text-to-image': StabilityAiTextToImageInput
     'custom_api_call': StabilityAiCustomApiCallInput
   }
-  'storage': {
-    'read_file': StorageReadFileInput
-    'write_file': StorageWriteFileInput
-    'delete_file': StorageDeleteFileInput
-    'list_files': StorageListFilesInput
-    'get_download_url': StorageGetDownloadUrlInput
+  'kv-store': {
+    'put': KvStorePutInput
+    'get': KvStoreGetInput
+    'delete': KvStoreDeleteInput
+    'add_to_list': KvStoreAddToListInput
+    'remove_from_list': KvStoreRemoveFromListInput
   }
   'storyblok': {
     'list_spaces': StoryblokListSpacesInput
@@ -52417,7 +52431,6 @@ export const integrationNames = [
   'cloudinary',
   'coda',
   'codacy',
-  'code',
   'cognito-forms',
   'cohere',
   'companycam',
@@ -52476,6 +52489,7 @@ export const integrationNames = [
   'fellow',
   'fieldwire',
   'figma',
+  'storage',
   'filevine',
   'fillout-forms',
   'firebase',
@@ -52562,6 +52576,7 @@ export const integrationNames = [
   'intakeq',
   'intercom',
   'ipinfo',
+  'code',
   'jazzhr',
   'jina-ai',
   'jira-cloud',
@@ -52577,7 +52592,6 @@ export const integrationNames = [
   'knock',
   'kommo',
   'kpler',
-  'kv-store',
   'kvcore',
   'langchain',
   'langfuse',
@@ -52726,6 +52740,7 @@ export const integrationNames = [
   'saleor',
   'salesforce',
   'salesloft',
+  'advanced-code',
   'sanity',
   'schoology',
   'scraperapi',
@@ -52762,7 +52777,7 @@ export const integrationNames = [
   'square',
   'squarespace',
   'stability-ai',
-  'storage',
+  'kv-store',
   'storyblok',
   'strapi',
   'strava',
@@ -53663,9 +53678,6 @@ export const integrationActions = {
     'list_issues',
     'custom_api_call',
   ],
-  'code': [
-    'run_code',
-  ],
   'cognito-forms': [
     'list_forms',
     'get_form_schema',
@@ -54220,6 +54232,13 @@ export const integrationActions = {
     'delete_webhook',
     'list_webhook_requests',
     'custom_api_call',
+  ],
+  'storage': [
+    'read_file',
+    'write_file',
+    'delete_file',
+    'list_files',
+    'get_download_url',
   ],
   'filevine': [
     'get_project',
@@ -55004,6 +55023,9 @@ export const integrationActions = {
     'get_asn',
     'custom_api_call',
   ],
+  'code': [
+    'run_code',
+  ],
   'jazzhr': [
     'list_applicants',
     'get_applicant',
@@ -55130,13 +55152,6 @@ export const integrationActions = {
     'get_power_unit_availability',
     'execute_vessels_graphql',
     'custom_api_call',
-  ],
-  'kv-store': [
-    'put',
-    'get',
-    'delete',
-    'add_to_list',
-    'remove_from_list',
   ],
   'kvcore': [
     'list_leads',
@@ -56618,6 +56633,9 @@ export const integrationActions = {
     'create_person',
     'list_cadences',
   ],
+  'advanced-code': [
+    'run_code',
+  ],
   'sanity': [
     'query',
     'create_document',
@@ -56933,12 +56951,12 @@ export const integrationActions = {
     'text-to-image',
     'custom_api_call',
   ],
-  'storage': [
-    'read_file',
-    'write_file',
-    'delete_file',
-    'list_files',
-    'get_download_url',
+  'kv-store': [
+    'put',
+    'get',
+    'delete',
+    'add_to_list',
+    'remove_from_list',
   ],
   'storyblok': [
     'list_spaces',
