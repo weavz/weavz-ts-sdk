@@ -244,6 +244,10 @@ const codeRun = await client.mcpServers.executeCode(server.id, `
 `)
 ```
 
+Code Mode responses include `structuredContent.timings` for total execution and per-action latency.
+For Agent Browser workflows, batch several browser actions inside one Code Mode script instead of
+calling `executeCode()` once per click or screenshot.
+
 Read more:
 
 - [MCP servers](https://weavz.io/docs/concepts/mcp-servers)

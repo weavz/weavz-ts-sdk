@@ -3034,6 +3034,12 @@ export type ExecuteMcpCodeResponses = {
     content?: Array<{
       [key: string]: unknown;
     }>;
+    /**
+     * MCP structured content for Code Mode results. Executed runs include status, output, logs, action traces, and timing metadata; approval-required runs include approval links and continuation arguments.
+     */
+    structuredContent?: {
+      [key: string]: unknown;
+    };
     isError?: boolean;
   };
 };
