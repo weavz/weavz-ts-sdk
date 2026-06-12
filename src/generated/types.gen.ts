@@ -86,7 +86,11 @@ export type Error = {
     | "APPROVAL_EXPIRED"
     | "APPROVAL_UPDATE_CONFLICT"
     | "APPROVAL_DECISION_SCOPE_REQUIRED"
-    | "APPROVAL_DECISION_DENIED";
+    | "APPROVAL_DECISION_DENIED"
+    | "BROWSER_SANDBOX_UNAVAILABLE"
+    | "BROWSER_SESSION_START_FAILED"
+    | "SESSION_NOT_FOUND"
+    | "HANDOFF_FAILED";
   /**
    * Additional error context
    */
@@ -166,11 +170,11 @@ export type ConnectSession = {
 };
 
 /**
- * Owner-controlled Advanced Code execution policy for this workspace integration.
+ * Owner-controlled Sandbox execution policy for the advanced-code workspace integration.
  */
 export type AdvancedCodeWorkspaceSettings = {
   /**
-   * Maximum execution time per Advanced Code run.
+   * Maximum execution time per Sandbox run.
    */
   timeoutSeconds?: number;
   /**
@@ -178,7 +182,7 @@ export type AdvancedCodeWorkspaceSettings = {
    */
   sandboxPersistence?: "ephemeral" | "persistent";
   /**
-   * Persistent storage namespace mounted into the Advanced Code sandbox.
+   * Filesystem namespace mounted into the Sandbox.
    */
   storageMountScope?: "none" | "end_user" | "workspace" | "external";
   /**
@@ -197,7 +201,7 @@ export type WorkspaceIntegrationSettings = {
  */
 export type PersistenceWorkspaceSettings = {
   /**
-   * Persistent state namespace used by Storage, KV Store, Agent Memory, Agent Scratchpad, and Sequential Thinking.
+   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, and Sequential Thinking.
    */
   scope?: "end_user" | "workspace" | "external";
   /**
@@ -774,6 +778,98 @@ export type ApprovalDecisionResult = {
     id?: string;
     expiresAt?: string;
   };
+};
+
+export type BrowserSession = {
+  id: string;
+  status: "pending" | "active" | "paused" | "released" | "revoked" | "error";
+  /**
+   * Current control holder. `agent` allows CDP/actions, `user` allows the viewer to send input, and `paused` allows neither.
+   */
+  handoffState: "agent" | "user" | "paused" | "revoked";
+  workspaceId: string;
+  /**
+   * Internal Weavz end-user ID when the session is scoped to an end user.
+   */
+  endUserId?: string;
+  /**
+   * Optional browser egress allow-list. Empty means unrestricted browsing.
+   */
+  allowedHosts: Array<string>;
+  /**
+   * Viewer page URL. Tokenized URLs are returned only when a session is created or a fresh handoff link is minted.
+   */
+  viewerUrl: string;
+  /**
+   * CDP WebSocket URL. Tokenized URLs are returned only when a session is created.
+   */
+  connectUrl: string;
+  createdAt: string;
+  lastActiveAt: string;
+  expiresAt?: string;
+  releasedAt?: string;
+};
+
+export type CreateBrowserSessionRequest = {
+  workspaceId: string;
+  /**
+   * Optional external end-user ID. When provided, it must already exist in this workspace.
+   */
+  endUserId?: string;
+  /**
+   * Optional browser egress allow-list. Empty or omitted means unrestricted browsing.
+   */
+  allowedHosts?: Array<string>;
+  headless?: boolean;
+  /**
+   * Optional profile snapshot key returned by a previous revoke response.
+   */
+  restoreFromKey?: string;
+  /**
+   * Optional informational session lifetime in minutes.
+   */
+  ttlMinutes?: number;
+};
+
+export type CreateBrowserSessionResponse = BrowserSession & {
+  /**
+   * One-time plain viewer token. Store it securely; Weavz only stores its hash.
+   */
+  viewerToken: string;
+  /**
+   * One-time plain CDP token. Store it securely; Weavz only stores its hash.
+   */
+  cdpToken: string;
+  /**
+   * Tokenized human viewer URL.
+   */
+  viewerUrl?: string;
+  /**
+   * Tokenized CDP WebSocket URL.
+   */
+  connectUrl?: string;
+};
+
+export type BrowserSessionHandoffRequest = {
+  event: "to_agent" | "to_user" | "pause";
+  /**
+   * Optional audit detail explaining the handoff.
+   */
+  reason?: string;
+};
+
+export type BrowserSessionHandoffResponse = {
+  id: string;
+  handoffState: "agent" | "user" | "paused" | "revoked";
+};
+
+export type BrowserSessionRevokeResponse = {
+  id: string;
+  status: "revoked";
+  /**
+   * Profile snapshot key, when a snapshot was written.
+   */
+  profileKey?: string;
 };
 
 export type EndUser = {
@@ -1592,6 +1688,212 @@ export type ExecuteActionResponses = {
 
 export type ExecuteActionResponse =
   ExecuteActionResponses[keyof ExecuteActionResponses];
+
+export type ListBrowserSessionsData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/v1/browser-sessions";
+};
+
+export type ListBrowserSessionsResponses = {
+  /**
+   * Browser sessions visible to the API key
+   */
+  200: {
+    sessions: Array<BrowserSession>;
+  };
+};
+
+export type ListBrowserSessionsResponse =
+  ListBrowserSessionsResponses[keyof ListBrowserSessionsResponses];
+
+export type CreateBrowserSessionData = {
+  body: CreateBrowserSessionRequest;
+  path?: never;
+  query?: never;
+  url: "/api/v1/browser-sessions";
+};
+
+export type CreateBrowserSessionErrors = {
+  /**
+   * Invalid request
+   */
+  400: Error;
+  /**
+   * Workspace access denied
+   */
+  403: Error;
+  /**
+   * End user not found
+   */
+  404: Error;
+  /**
+   * Browser session failed to start
+   */
+  502: Error;
+  /**
+   * Browser sandbox is not configured
+   */
+  503: Error;
+};
+
+export type CreateBrowserSessionError =
+  CreateBrowserSessionErrors[keyof CreateBrowserSessionErrors];
+
+export type CreateBrowserSessionResponses = {
+  /**
+   * Browser session created
+   */
+  201: CreateBrowserSessionResponse;
+};
+
+export type CreateBrowserSessionResponse2 =
+  CreateBrowserSessionResponses[keyof CreateBrowserSessionResponses];
+
+export type DeleteBrowserSessionData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/browser-sessions/{id}";
+};
+
+export type DeleteBrowserSessionErrors = {
+  /**
+   * Workspace access denied
+   */
+  403: Error;
+  /**
+   * Session not found
+   */
+  404: Error;
+};
+
+export type DeleteBrowserSessionError =
+  DeleteBrowserSessionErrors[keyof DeleteBrowserSessionErrors];
+
+export type DeleteBrowserSessionResponses = {
+  /**
+   * Browser session revoked
+   */
+  200: BrowserSessionRevokeResponse;
+};
+
+export type DeleteBrowserSessionResponse =
+  DeleteBrowserSessionResponses[keyof DeleteBrowserSessionResponses];
+
+export type GetBrowserSessionData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/browser-sessions/{id}";
+};
+
+export type GetBrowserSessionErrors = {
+  /**
+   * Workspace access denied
+   */
+  403: Error;
+  /**
+   * Session not found
+   */
+  404: Error;
+};
+
+export type GetBrowserSessionError =
+  GetBrowserSessionErrors[keyof GetBrowserSessionErrors];
+
+export type GetBrowserSessionResponses = {
+  /**
+   * Browser session
+   */
+  200: BrowserSession;
+};
+
+export type GetBrowserSessionResponse =
+  GetBrowserSessionResponses[keyof GetBrowserSessionResponses];
+
+export type HandoffBrowserSessionData = {
+  body: BrowserSessionHandoffRequest;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/browser-sessions/{id}/handoff";
+};
+
+export type HandoffBrowserSessionErrors = {
+  /**
+   * Invalid request
+   */
+  400: Error;
+  /**
+   * Workspace access denied
+   */
+  403: Error;
+  /**
+   * Session not found
+   */
+  404: Error;
+  /**
+   * Handoff conflict
+   */
+  409: Error;
+  /**
+   * Browser sandbox is not configured
+   */
+  503: Error;
+};
+
+export type HandoffBrowserSessionError =
+  HandoffBrowserSessionErrors[keyof HandoffBrowserSessionErrors];
+
+export type HandoffBrowserSessionResponses = {
+  /**
+   * Browser session handoff updated
+   */
+  200: BrowserSessionHandoffResponse;
+};
+
+export type HandoffBrowserSessionResponse =
+  HandoffBrowserSessionResponses[keyof HandoffBrowserSessionResponses];
+
+export type RevokeBrowserSessionData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/browser-sessions/{id}/revoke";
+};
+
+export type RevokeBrowserSessionErrors = {
+  /**
+   * Workspace access denied
+   */
+  403: Error;
+  /**
+   * Session not found
+   */
+  404: Error;
+};
+
+export type RevokeBrowserSessionError =
+  RevokeBrowserSessionErrors[keyof RevokeBrowserSessionErrors];
+
+export type RevokeBrowserSessionResponses = {
+  /**
+   * Browser session revoked
+   */
+  200: BrowserSessionRevokeResponse;
+};
+
+export type RevokeBrowserSessionResponse =
+  RevokeBrowserSessionResponses[keyof RevokeBrowserSessionResponses];
 
 export type ListApprovalPoliciesData = {
   body?: never;

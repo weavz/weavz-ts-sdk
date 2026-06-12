@@ -6,8 +6,14 @@ import type {
   ApprovalPolicyInput,
   ApprovalRequest,
   ApprovalRequiredResult,
+  BrowserSession as GeneratedBrowserSession,
+  BrowserSessionHandoffRequest,
+  BrowserSessionHandoffResponse,
+  BrowserSessionRevokeResponse,
   Connection,
   AdvancedCodeWorkspaceSettings as GeneratedAdvancedCodeWorkspaceSettings,
+  CreateBrowserSessionRequest,
+  CreateBrowserSessionResponse,
   EndUser as GeneratedEndUser,
   InputPartial as GeneratedInputPartial,
   IntegrationMetadata,
@@ -65,6 +71,10 @@ export type PersistenceWorkspaceSettings = NonNullable<WorkspaceIntegrationSetti
 export type PersistenceScope = NonNullable<PersistenceWorkspaceSettings['scope']>
 export type InputPartial = GeneratedInputPartial
 export type EndUser = GeneratedEndUser
+export type BrowserSession = GeneratedBrowserSession
+export type CreateBrowserSessionOptions = CreateBrowserSessionRequest
+export type BrowserSessionCreateResult = CreateBrowserSessionResponse
+export type BrowserHandoffEvent = NonNullable<BrowserSessionHandoffRequest['event']>
 export type ConnectionType = 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
 export type ConnectionScope = 'ORGANIZATION' | 'WORKSPACE' | 'USER'
 export type ConnectionStrategy = 'fixed' | 'per_user' | 'per_user_with_fallback'
@@ -752,6 +762,28 @@ class EndUsersResource extends BaseResource {
   }
 }
 
+class BrowserSessionsResource extends BaseResource {
+  list() {
+    return this._get<{ sessions: BrowserSession[] }>('/api/v1/browser-sessions')
+  }
+  create(data: CreateBrowserSessionOptions) {
+    return this._post<BrowserSessionCreateResult>('/api/v1/browser-sessions', data)
+  }
+  get(id: string) {
+    return this._get<BrowserSession>(`/api/v1/browser-sessions/${id}`)
+  }
+  handoff(id: string, data: BrowserSessionHandoffRequest | BrowserHandoffEvent) {
+    const body = typeof data === 'string' ? { event: data } : data
+    return this._post<BrowserSessionHandoffResponse>(`/api/v1/browser-sessions/${id}/handoff`, body)
+  }
+  revoke(id: string) {
+    return this._post<BrowserSessionRevokeResponse>(`/api/v1/browser-sessions/${id}/revoke`)
+  }
+  delete(id: string) {
+    return this._del<BrowserSessionRevokeResponse>(`/api/v1/browser-sessions/${id}`)
+  }
+}
+
 // ============================================================================
 // Client
 // ============================================================================
@@ -777,6 +809,7 @@ export class WeavzClient {
   readonly integrations: IntegrationsResource
   readonly partials: PartialsResource
   readonly endUsers: EndUsersResource
+  readonly browserSessions: BrowserSessionsResource
 
   constructor(options: WeavzClientOptions) {
     this.apiKey = options.apiKey
@@ -800,6 +833,7 @@ export class WeavzClient {
     this.integrations = new IntegrationsResource(this)
     this.partials = new PartialsResource(this)
     this.endUsers = new EndUsersResource(this)
+    this.browserSessions = new BrowserSessionsResource(this)
   }
 
   /** Make an authenticated request to the Weavz API */

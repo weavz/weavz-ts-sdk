@@ -728,6 +728,248 @@ export interface AgencyzoomCustomApiCallInput {
   body?: unknown
 }
 
+/** Agent Browser — Snapshot Page */
+export interface AgentBrowserSnapshotInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Read Text */
+export interface AgentBrowserReadTextInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Read HTML */
+export interface AgentBrowserReadHtmlInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Screenshot */
+export interface AgentBrowserScreenshotInput {
+  /** Full page */
+  fullPage?: boolean
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Current Page */
+export interface AgentBrowserCurrentPageInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Navigate */
+export interface AgentBrowserNavigateInput {
+  /** URL */
+  url: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Navigate Back */
+export interface AgentBrowserNavigateBackInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Click */
+export interface AgentBrowserClickInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Type */
+export interface AgentBrowserTypeInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Text */
+  text: string
+  /** Submit */
+  submit?: boolean
+  /** Type slowly */
+  slowly?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Fill Form */
+export interface AgentBrowserFillFormInput {
+  /** [{ "target": "e5", "type": "textbox", "value": "..." }] */
+  fields: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Select Option */
+export interface AgentBrowserSelectOptionInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Values */
+  values: unknown[]
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Hover */
+export interface AgentBrowserHoverInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Drag and Drop */
+export interface AgentBrowserDragInput {
+  /** Element ref or selector. */
+  startTarget: string
+  /** Element ref or selector. */
+  endTarget: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Press Key */
+export interface AgentBrowserPressKeyInput {
+  /** Key */
+  key: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Upload File */
+export interface AgentBrowserFileUploadInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** File URL, base64 payload, data URL, Blob, or inline file object. */
+  file: string
+  /** Optional filename override. */
+  fileName?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Evaluate JavaScript */
+export interface AgentBrowserEvaluateInput {
+  /** For example: () => document.title */
+  function: string
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Wait For */
+export interface AgentBrowserWaitForInput {
+  /** Text appears */
+  text?: string
+  /** Text disappears */
+  textGone?: string
+  /** Seconds */
+  time?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Handle Dialog */
+export interface AgentBrowserHandleDialogInput {
+  /** Accept */
+  accept: boolean
+  /** Prompt text */
+  promptText?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Tabs */
+export interface AgentBrowserTabsInput {
+  /** Action (values: `list`, `new`, `close`, `select`) */
+  action: "list" | "new" | "close" | "select"
+  /** Tab index */
+  index?: number
+  /** URL for a new tab. */
+  url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Request Human Takeover */
+export interface AgentBrowserRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Resume Agent Control */
+export interface AgentBrowserResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Session Status */
+export interface AgentBrowserSessionStatusInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Start Session */
+export interface AgentBrowserStartSessionInput {
+  /** Restrict browsing to these hosts. Empty means unrestricted. */
+  allowedHosts?: unknown[]
+  /** Headless */
+  headless?: boolean
+  /** Restore from key */
+  restoreFromKey?: string
+}
+
+/** Agent Browser — End Session */
+export interface AgentBrowserEndSessionInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Act */
+export interface AgentBrowserAiActInput {
+  /** Instruction */
+  instruction: string
+  /** Max steps */
+  maxSteps?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Extract */
+export interface AgentBrowserAiExtractInput {
+  /** What to extract */
+  instruction: string
+  /** Optional JSON Schema for the result shape. */
+  schema?: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Observe */
+export interface AgentBrowserAiObserveInput {
+  /** Instruction */
+  instruction: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Memory — Create Entities */
 export interface AgentMemoryCreateEntitiesInput {
   /** Array of entities to create. Each entity: { name: string, type: string, observations?: string[] } */
@@ -43788,6 +44030,33 @@ export interface IntegrationActionInputMap {
   'agencyzoom.update_status': AgencyzoomUpdateStatusInput
   'agencyzoom.create_note': AgencyzoomCreateNoteInput
   'agencyzoom.custom_api_call': AgencyzoomCustomApiCallInput
+  'agent-browser.snapshot': AgentBrowserSnapshotInput
+  'agent-browser.read_text': AgentBrowserReadTextInput
+  'agent-browser.read_html': AgentBrowserReadHtmlInput
+  'agent-browser.screenshot': AgentBrowserScreenshotInput
+  'agent-browser.current_page': AgentBrowserCurrentPageInput
+  'agent-browser.navigate': AgentBrowserNavigateInput
+  'agent-browser.navigate_back': AgentBrowserNavigateBackInput
+  'agent-browser.click': AgentBrowserClickInput
+  'agent-browser.type': AgentBrowserTypeInput
+  'agent-browser.fill_form': AgentBrowserFillFormInput
+  'agent-browser.select_option': AgentBrowserSelectOptionInput
+  'agent-browser.hover': AgentBrowserHoverInput
+  'agent-browser.drag': AgentBrowserDragInput
+  'agent-browser.press_key': AgentBrowserPressKeyInput
+  'agent-browser.file_upload': AgentBrowserFileUploadInput
+  'agent-browser.evaluate': AgentBrowserEvaluateInput
+  'agent-browser.wait_for': AgentBrowserWaitForInput
+  'agent-browser.handle_dialog': AgentBrowserHandleDialogInput
+  'agent-browser.tabs': AgentBrowserTabsInput
+  'agent-browser.request_human': AgentBrowserRequestHumanInput
+  'agent-browser.resume': AgentBrowserResumeInput
+  'agent-browser.session_status': AgentBrowserSessionStatusInput
+  'agent-browser.start_session': AgentBrowserStartSessionInput
+  'agent-browser.end_session': AgentBrowserEndSessionInput
+  'agent-browser-ai.act': AgentBrowserAiActInput
+  'agent-browser-ai.extract': AgentBrowserAiExtractInput
+  'agent-browser-ai.observe': AgentBrowserAiObserveInput
   'agent-memory.create_entities': AgentMemoryCreateEntitiesInput
   'agent-memory.add_observations': AgentMemoryAddObservationsInput
   'agent-memory.create_relations': AgentMemoryCreateRelationsInput
@@ -47767,6 +48036,37 @@ export interface IntegrationActionInputsByIntegration {
     'update_status': AgencyzoomUpdateStatusInput
     'create_note': AgencyzoomCreateNoteInput
     'custom_api_call': AgencyzoomCustomApiCallInput
+  }
+  'agent-browser': {
+    'snapshot': AgentBrowserSnapshotInput
+    'read_text': AgentBrowserReadTextInput
+    'read_html': AgentBrowserReadHtmlInput
+    'screenshot': AgentBrowserScreenshotInput
+    'current_page': AgentBrowserCurrentPageInput
+    'navigate': AgentBrowserNavigateInput
+    'navigate_back': AgentBrowserNavigateBackInput
+    'click': AgentBrowserClickInput
+    'type': AgentBrowserTypeInput
+    'fill_form': AgentBrowserFillFormInput
+    'select_option': AgentBrowserSelectOptionInput
+    'hover': AgentBrowserHoverInput
+    'drag': AgentBrowserDragInput
+    'press_key': AgentBrowserPressKeyInput
+    'file_upload': AgentBrowserFileUploadInput
+    'evaluate': AgentBrowserEvaluateInput
+    'wait_for': AgentBrowserWaitForInput
+    'handle_dialog': AgentBrowserHandleDialogInput
+    'tabs': AgentBrowserTabsInput
+    'request_human': AgentBrowserRequestHumanInput
+    'resume': AgentBrowserResumeInput
+    'session_status': AgentBrowserSessionStatusInput
+    'start_session': AgentBrowserStartSessionInput
+    'end_session': AgentBrowserEndSessionInput
+  }
+  'agent-browser-ai': {
+    'act': AgentBrowserAiActInput
+    'extract': AgentBrowserAiExtractInput
+    'observe': AgentBrowserAiObserveInput
   }
   'agent-memory': {
     'create_entities': AgentMemoryCreateEntitiesInput
@@ -52705,6 +53005,8 @@ export const integrationNames = [
   'affinity',
   'aftership',
   'agencyzoom',
+  'agent-browser',
+  'agent-browser-ai',
   'agent-memory',
   'agent-scratchpad',
   'ahrefs',
@@ -53309,6 +53611,37 @@ export const integrationActions = {
     'update_status',
     'create_note',
     'custom_api_call',
+  ],
+  'agent-browser': [
+    'snapshot',
+    'read_text',
+    'read_html',
+    'screenshot',
+    'current_page',
+    'navigate',
+    'navigate_back',
+    'click',
+    'type',
+    'fill_form',
+    'select_option',
+    'hover',
+    'drag',
+    'press_key',
+    'file_upload',
+    'evaluate',
+    'wait_for',
+    'handle_dialog',
+    'tabs',
+    'request_human',
+    'resume',
+    'session_status',
+    'start_session',
+    'end_session',
+  ],
+  'agent-browser-ai': [
+    'act',
+    'extract',
+    'observe',
   ],
   'agent-memory': [
     'create_entities',
