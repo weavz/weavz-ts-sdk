@@ -936,8 +936,6 @@ export interface AgentBrowserStartSessionInput {
   allowedHosts?: unknown[]
   /** Headless */
   headless?: boolean
-  /** Restore from key */
-  restoreFromKey?: string
 }
 
 /** Agent Browser — End Session */
