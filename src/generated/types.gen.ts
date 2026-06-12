@@ -784,7 +784,7 @@ export type BrowserSession = {
   id: string;
   status: "pending" | "active" | "paused" | "released" | "revoked" | "error";
   /**
-   * Current control holder. `agent` allows CDP/actions, `user` allows the viewer to send input, and `paused` allows neither.
+   * Current control holder. `agent` allows automation actions, `user` allows the viewer to send input, and `paused` allows neither.
    */
   handoffState: "agent" | "user" | "paused" | "revoked";
   workspaceId: string;
@@ -801,7 +801,7 @@ export type BrowserSession = {
    */
   viewerUrl: string;
   /**
-   * CDP WebSocket URL. Tokenized URLs are returned only when a session is created.
+   * Direct browser automation WebSocket URL. Tokenized URLs are returned only when a session is created.
    */
   connectUrl: string;
   createdAt: string;
@@ -837,7 +837,7 @@ export type CreateBrowserSessionResponse = BrowserSession & {
    */
   viewerToken: string;
   /**
-   * One-time plain CDP token. Store it securely; Weavz only stores its hash.
+   * One-time plain automation connection token. Store it securely; Weavz only stores its hash.
    */
   cdpToken: string;
   /**
@@ -845,7 +845,7 @@ export type CreateBrowserSessionResponse = BrowserSession & {
    */
   viewerUrl?: string;
   /**
-   * Tokenized CDP WebSocket URL.
+   * Tokenized browser automation WebSocket URL.
    */
   connectUrl?: string;
 };
