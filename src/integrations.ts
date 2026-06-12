@@ -754,6 +754,10 @@ export interface AgentBrowserReadHtmlInput {
 export interface AgentBrowserScreenshotInput {
   /** Full page */
   fullPage?: boolean
+  /** Use original device scale. Leave off for an agent-optimized image. */
+  fullResolution?: boolean
+  /** 1-100. Defaults to 60 for agent-friendly output size. */
+  quality?: number
   /** Optional element ref or selector. */
   target?: string
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
