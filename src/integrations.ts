@@ -972,6 +972,222 @@ export interface AgentBrowserAiObserveInput {
   sessionId?: string
 }
 
+/** Agent Local Browser Control — Snapshot Page */
+export interface AgentLocalBrowserControlSnapshotInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Read Text */
+export interface AgentLocalBrowserControlReadTextInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Read HTML */
+export interface AgentLocalBrowserControlReadHtmlInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Screenshot */
+export interface AgentLocalBrowserControlScreenshotInput {
+  /** Full page */
+  fullPage?: boolean
+  /** Use original device scale. Leave off for an agent-optimized image. */
+  fullResolution?: boolean
+  /** 1-100. Defaults to 60 for agent-friendly output size. */
+  quality?: number
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Current Page */
+export interface AgentLocalBrowserControlCurrentPageInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Navigate */
+export interface AgentLocalBrowserControlNavigateInput {
+  /** URL */
+  url: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Navigate Back */
+export interface AgentLocalBrowserControlNavigateBackInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Click */
+export interface AgentLocalBrowserControlClickInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Type */
+export interface AgentLocalBrowserControlTypeInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Text */
+  text: string
+  /** Submit */
+  submit?: boolean
+  /** Type slowly */
+  slowly?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Fill Form */
+export interface AgentLocalBrowserControlFillFormInput {
+  /** [{ "target": "e5", "type": "textbox", "value": "..." }] */
+  fields: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Select Option */
+export interface AgentLocalBrowserControlSelectOptionInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Values */
+  values: unknown[]
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Hover */
+export interface AgentLocalBrowserControlHoverInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Drag and Drop */
+export interface AgentLocalBrowserControlDragInput {
+  /** Element ref or selector. */
+  startTarget: string
+  /** Element ref or selector. */
+  endTarget: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Press Key */
+export interface AgentLocalBrowserControlPressKeyInput {
+  /** Key */
+  key: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Upload File */
+export interface AgentLocalBrowserControlFileUploadInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** File URL, base64 payload, data URL, Blob, or inline file object. */
+  file: string
+  /** Optional filename override. */
+  fileName?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Evaluate JavaScript */
+export interface AgentLocalBrowserControlEvaluateInput {
+  /** For example: () => document.title */
+  function: string
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Wait For */
+export interface AgentLocalBrowserControlWaitForInput {
+  /** Text appears */
+  text?: string
+  /** Text disappears */
+  textGone?: string
+  /** Seconds */
+  time?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Handle Dialog */
+export interface AgentLocalBrowserControlHandleDialogInput {
+  /** Accept */
+  accept: boolean
+  /** Prompt text */
+  promptText?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Tabs */
+export interface AgentLocalBrowserControlTabsInput {
+  /** Action (values: `list`, `new`, `close`, `select`) */
+  action: "list" | "new" | "close" | "select"
+  /** Tab index */
+  index?: number
+  /** URL for a new tab. */
+  url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Request Human Takeover */
+export interface AgentLocalBrowserControlRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Resume Agent Control */
+export interface AgentLocalBrowserControlResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Session Status */
+export interface AgentLocalBrowserControlSessionStatusInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Start Session */
+export interface AgentLocalBrowserControlStartSessionInput {
+  /** Restrict browsing to these hosts. Empty means unrestricted. */
+  allowedHosts?: unknown[]
+  /** Headless */
+  headless?: boolean
+}
+
+/** Agent Local Browser Control — End Session */
+export interface AgentLocalBrowserControlEndSessionInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Memory — Create Entities */
 export interface AgentMemoryCreateEntitiesInput {
   /** Array of entities to create. Each entity: { name: string, type: string, observations?: string[] } */
@@ -44059,6 +44275,30 @@ export interface IntegrationActionInputMap {
   'agent-browser-ai.act': AgentBrowserAiActInput
   'agent-browser-ai.extract': AgentBrowserAiExtractInput
   'agent-browser-ai.observe': AgentBrowserAiObserveInput
+  'agent-local-browser-control.snapshot': AgentLocalBrowserControlSnapshotInput
+  'agent-local-browser-control.read_text': AgentLocalBrowserControlReadTextInput
+  'agent-local-browser-control.read_html': AgentLocalBrowserControlReadHtmlInput
+  'agent-local-browser-control.screenshot': AgentLocalBrowserControlScreenshotInput
+  'agent-local-browser-control.current_page': AgentLocalBrowserControlCurrentPageInput
+  'agent-local-browser-control.navigate': AgentLocalBrowserControlNavigateInput
+  'agent-local-browser-control.navigate_back': AgentLocalBrowserControlNavigateBackInput
+  'agent-local-browser-control.click': AgentLocalBrowserControlClickInput
+  'agent-local-browser-control.type': AgentLocalBrowserControlTypeInput
+  'agent-local-browser-control.fill_form': AgentLocalBrowserControlFillFormInput
+  'agent-local-browser-control.select_option': AgentLocalBrowserControlSelectOptionInput
+  'agent-local-browser-control.hover': AgentLocalBrowserControlHoverInput
+  'agent-local-browser-control.drag': AgentLocalBrowserControlDragInput
+  'agent-local-browser-control.press_key': AgentLocalBrowserControlPressKeyInput
+  'agent-local-browser-control.file_upload': AgentLocalBrowserControlFileUploadInput
+  'agent-local-browser-control.evaluate': AgentLocalBrowserControlEvaluateInput
+  'agent-local-browser-control.wait_for': AgentLocalBrowserControlWaitForInput
+  'agent-local-browser-control.handle_dialog': AgentLocalBrowserControlHandleDialogInput
+  'agent-local-browser-control.tabs': AgentLocalBrowserControlTabsInput
+  'agent-local-browser-control.request_human': AgentLocalBrowserControlRequestHumanInput
+  'agent-local-browser-control.resume': AgentLocalBrowserControlResumeInput
+  'agent-local-browser-control.session_status': AgentLocalBrowserControlSessionStatusInput
+  'agent-local-browser-control.start_session': AgentLocalBrowserControlStartSessionInput
+  'agent-local-browser-control.end_session': AgentLocalBrowserControlEndSessionInput
   'agent-memory.create_entities': AgentMemoryCreateEntitiesInput
   'agent-memory.add_observations': AgentMemoryAddObservationsInput
   'agent-memory.create_relations': AgentMemoryCreateRelationsInput
@@ -48069,6 +48309,32 @@ export interface IntegrationActionInputsByIntegration {
     'act': AgentBrowserAiActInput
     'extract': AgentBrowserAiExtractInput
     'observe': AgentBrowserAiObserveInput
+  }
+  'agent-local-browser-control': {
+    'snapshot': AgentLocalBrowserControlSnapshotInput
+    'read_text': AgentLocalBrowserControlReadTextInput
+    'read_html': AgentLocalBrowserControlReadHtmlInput
+    'screenshot': AgentLocalBrowserControlScreenshotInput
+    'current_page': AgentLocalBrowserControlCurrentPageInput
+    'navigate': AgentLocalBrowserControlNavigateInput
+    'navigate_back': AgentLocalBrowserControlNavigateBackInput
+    'click': AgentLocalBrowserControlClickInput
+    'type': AgentLocalBrowserControlTypeInput
+    'fill_form': AgentLocalBrowserControlFillFormInput
+    'select_option': AgentLocalBrowserControlSelectOptionInput
+    'hover': AgentLocalBrowserControlHoverInput
+    'drag': AgentLocalBrowserControlDragInput
+    'press_key': AgentLocalBrowserControlPressKeyInput
+    'file_upload': AgentLocalBrowserControlFileUploadInput
+    'evaluate': AgentLocalBrowserControlEvaluateInput
+    'wait_for': AgentLocalBrowserControlWaitForInput
+    'handle_dialog': AgentLocalBrowserControlHandleDialogInput
+    'tabs': AgentLocalBrowserControlTabsInput
+    'request_human': AgentLocalBrowserControlRequestHumanInput
+    'resume': AgentLocalBrowserControlResumeInput
+    'session_status': AgentLocalBrowserControlSessionStatusInput
+    'start_session': AgentLocalBrowserControlStartSessionInput
+    'end_session': AgentLocalBrowserControlEndSessionInput
   }
   'agent-memory': {
     'create_entities': AgentMemoryCreateEntitiesInput
@@ -53009,6 +53275,7 @@ export const integrationNames = [
   'agencyzoom',
   'agent-browser',
   'agent-browser-ai',
+  'agent-local-browser-control',
   'agent-memory',
   'agent-scratchpad',
   'ahrefs',
@@ -53644,6 +53911,32 @@ export const integrationActions = {
     'act',
     'extract',
     'observe',
+  ],
+  'agent-local-browser-control': [
+    'snapshot',
+    'read_text',
+    'read_html',
+    'screenshot',
+    'current_page',
+    'navigate',
+    'navigate_back',
+    'click',
+    'type',
+    'fill_form',
+    'select_option',
+    'hover',
+    'drag',
+    'press_key',
+    'file_upload',
+    'evaluate',
+    'wait_for',
+    'handle_dialog',
+    'tabs',
+    'request_human',
+    'resume',
+    'session_status',
+    'start_session',
+    'end_session',
   ],
   'agent-memory': [
     'create_entities',
