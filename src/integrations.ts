@@ -924,6 +924,14 @@ export interface AgentBrowserResumeInput {
   sessionId?: string
 }
 
+/** Agent Browser — Ensure Connected */
+export interface AgentBrowserEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Browser — Session Status */
 export interface AgentBrowserSessionStatusInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -940,6 +948,230 @@ export interface AgentBrowserStartSessionInput {
 
 /** Agent Browser — End Session */
 export interface AgentBrowserEndSessionInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Snapshot Page */
+export interface AgentBrowserAiSnapshotInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Read Text */
+export interface AgentBrowserAiReadTextInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Read HTML */
+export interface AgentBrowserAiReadHtmlInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Screenshot */
+export interface AgentBrowserAiScreenshotInput {
+  /** Full page */
+  fullPage?: boolean
+  /** Use original device scale. Leave off for an agent-optimized image. */
+  fullResolution?: boolean
+  /** 1-100. Defaults to 60 for agent-friendly output size. */
+  quality?: number
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Current Page */
+export interface AgentBrowserAiCurrentPageInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Navigate */
+export interface AgentBrowserAiNavigateInput {
+  /** URL */
+  url: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Navigate Back */
+export interface AgentBrowserAiNavigateBackInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Click */
+export interface AgentBrowserAiClickInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Type */
+export interface AgentBrowserAiTypeInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Text */
+  text: string
+  /** Submit */
+  submit?: boolean
+  /** Type slowly */
+  slowly?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Fill Form */
+export interface AgentBrowserAiFillFormInput {
+  /** [{ "target": "e5", "type": "textbox", "value": "..." }] */
+  fields: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Select Option */
+export interface AgentBrowserAiSelectOptionInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Values */
+  values: unknown[]
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Hover */
+export interface AgentBrowserAiHoverInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Drag and Drop */
+export interface AgentBrowserAiDragInput {
+  /** Element ref or selector. */
+  startTarget: string
+  /** Element ref or selector. */
+  endTarget: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Press Key */
+export interface AgentBrowserAiPressKeyInput {
+  /** Key */
+  key: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Upload File */
+export interface AgentBrowserAiFileUploadInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** File URL, base64 payload, data URL, Blob, or inline file object. */
+  file: string
+  /** Optional filename override. */
+  fileName?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Evaluate JavaScript */
+export interface AgentBrowserAiEvaluateInput {
+  /** For example: () => document.title */
+  function: string
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Wait For */
+export interface AgentBrowserAiWaitForInput {
+  /** Text appears */
+  text?: string
+  /** Text disappears */
+  textGone?: string
+  /** Seconds */
+  time?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Handle Dialog */
+export interface AgentBrowserAiHandleDialogInput {
+  /** Accept */
+  accept: boolean
+  /** Prompt text */
+  promptText?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Tabs */
+export interface AgentBrowserAiTabsInput {
+  /** Action (values: `list`, `new`, `close`, `select`) */
+  action: "list" | "new" | "close" | "select"
+  /** Tab index */
+  index?: number
+  /** URL for a new tab. */
+  url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Request Human Takeover */
+export interface AgentBrowserAiRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Resume Agent Control */
+export interface AgentBrowserAiResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Ensure Connected */
+export interface AgentBrowserAiEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Session Status */
+export interface AgentBrowserAiSessionStatusInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Start Session */
+export interface AgentBrowserAiStartSessionInput {
+  /** Restrict browsing to these hosts. Empty means unrestricted. */
+  allowedHosts?: unknown[]
+  /** Headless */
+  headless?: boolean
+}
+
+/** Agent Browser AI — End Session */
+export interface AgentBrowserAiEndSessionInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1164,6 +1396,14 @@ export interface AgentLocalBrowserControlRequestHumanInput {
 
 /** Agent Local Browser Control — Resume Agent Control */
 export interface AgentLocalBrowserControlResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Ensure Connected */
+export interface AgentLocalBrowserControlEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -44269,9 +44509,35 @@ export interface IntegrationActionInputMap {
   'agent-browser.tabs': AgentBrowserTabsInput
   'agent-browser.request_human': AgentBrowserRequestHumanInput
   'agent-browser.resume': AgentBrowserResumeInput
+  'agent-browser.ensure_connected': AgentBrowserEnsureConnectedInput
   'agent-browser.session_status': AgentBrowserSessionStatusInput
   'agent-browser.start_session': AgentBrowserStartSessionInput
   'agent-browser.end_session': AgentBrowserEndSessionInput
+  'agent-browser-ai.snapshot': AgentBrowserAiSnapshotInput
+  'agent-browser-ai.read_text': AgentBrowserAiReadTextInput
+  'agent-browser-ai.read_html': AgentBrowserAiReadHtmlInput
+  'agent-browser-ai.screenshot': AgentBrowserAiScreenshotInput
+  'agent-browser-ai.current_page': AgentBrowserAiCurrentPageInput
+  'agent-browser-ai.navigate': AgentBrowserAiNavigateInput
+  'agent-browser-ai.navigate_back': AgentBrowserAiNavigateBackInput
+  'agent-browser-ai.click': AgentBrowserAiClickInput
+  'agent-browser-ai.type': AgentBrowserAiTypeInput
+  'agent-browser-ai.fill_form': AgentBrowserAiFillFormInput
+  'agent-browser-ai.select_option': AgentBrowserAiSelectOptionInput
+  'agent-browser-ai.hover': AgentBrowserAiHoverInput
+  'agent-browser-ai.drag': AgentBrowserAiDragInput
+  'agent-browser-ai.press_key': AgentBrowserAiPressKeyInput
+  'agent-browser-ai.file_upload': AgentBrowserAiFileUploadInput
+  'agent-browser-ai.evaluate': AgentBrowserAiEvaluateInput
+  'agent-browser-ai.wait_for': AgentBrowserAiWaitForInput
+  'agent-browser-ai.handle_dialog': AgentBrowserAiHandleDialogInput
+  'agent-browser-ai.tabs': AgentBrowserAiTabsInput
+  'agent-browser-ai.request_human': AgentBrowserAiRequestHumanInput
+  'agent-browser-ai.resume': AgentBrowserAiResumeInput
+  'agent-browser-ai.ensure_connected': AgentBrowserAiEnsureConnectedInput
+  'agent-browser-ai.session_status': AgentBrowserAiSessionStatusInput
+  'agent-browser-ai.start_session': AgentBrowserAiStartSessionInput
+  'agent-browser-ai.end_session': AgentBrowserAiEndSessionInput
   'agent-browser-ai.act': AgentBrowserAiActInput
   'agent-browser-ai.extract': AgentBrowserAiExtractInput
   'agent-browser-ai.observe': AgentBrowserAiObserveInput
@@ -44296,6 +44562,7 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.tabs': AgentLocalBrowserControlTabsInput
   'agent-local-browser-control.request_human': AgentLocalBrowserControlRequestHumanInput
   'agent-local-browser-control.resume': AgentLocalBrowserControlResumeInput
+  'agent-local-browser-control.ensure_connected': AgentLocalBrowserControlEnsureConnectedInput
   'agent-local-browser-control.session_status': AgentLocalBrowserControlSessionStatusInput
   'agent-local-browser-control.start_session': AgentLocalBrowserControlStartSessionInput
   'agent-local-browser-control.end_session': AgentLocalBrowserControlEndSessionInput
@@ -48301,11 +48568,37 @@ export interface IntegrationActionInputsByIntegration {
     'tabs': AgentBrowserTabsInput
     'request_human': AgentBrowserRequestHumanInput
     'resume': AgentBrowserResumeInput
+    'ensure_connected': AgentBrowserEnsureConnectedInput
     'session_status': AgentBrowserSessionStatusInput
     'start_session': AgentBrowserStartSessionInput
     'end_session': AgentBrowserEndSessionInput
   }
   'agent-browser-ai': {
+    'snapshot': AgentBrowserAiSnapshotInput
+    'read_text': AgentBrowserAiReadTextInput
+    'read_html': AgentBrowserAiReadHtmlInput
+    'screenshot': AgentBrowserAiScreenshotInput
+    'current_page': AgentBrowserAiCurrentPageInput
+    'navigate': AgentBrowserAiNavigateInput
+    'navigate_back': AgentBrowserAiNavigateBackInput
+    'click': AgentBrowserAiClickInput
+    'type': AgentBrowserAiTypeInput
+    'fill_form': AgentBrowserAiFillFormInput
+    'select_option': AgentBrowserAiSelectOptionInput
+    'hover': AgentBrowserAiHoverInput
+    'drag': AgentBrowserAiDragInput
+    'press_key': AgentBrowserAiPressKeyInput
+    'file_upload': AgentBrowserAiFileUploadInput
+    'evaluate': AgentBrowserAiEvaluateInput
+    'wait_for': AgentBrowserAiWaitForInput
+    'handle_dialog': AgentBrowserAiHandleDialogInput
+    'tabs': AgentBrowserAiTabsInput
+    'request_human': AgentBrowserAiRequestHumanInput
+    'resume': AgentBrowserAiResumeInput
+    'ensure_connected': AgentBrowserAiEnsureConnectedInput
+    'session_status': AgentBrowserAiSessionStatusInput
+    'start_session': AgentBrowserAiStartSessionInput
+    'end_session': AgentBrowserAiEndSessionInput
     'act': AgentBrowserAiActInput
     'extract': AgentBrowserAiExtractInput
     'observe': AgentBrowserAiObserveInput
@@ -48332,6 +48625,7 @@ export interface IntegrationActionInputsByIntegration {
     'tabs': AgentLocalBrowserControlTabsInput
     'request_human': AgentLocalBrowserControlRequestHumanInput
     'resume': AgentLocalBrowserControlResumeInput
+    'ensure_connected': AgentLocalBrowserControlEnsureConnectedInput
     'session_status': AgentLocalBrowserControlSessionStatusInput
     'start_session': AgentLocalBrowserControlStartSessionInput
     'end_session': AgentLocalBrowserControlEndSessionInput
@@ -53903,11 +54197,37 @@ export const integrationActions = {
     'tabs',
     'request_human',
     'resume',
+    'ensure_connected',
     'session_status',
     'start_session',
     'end_session',
   ],
   'agent-browser-ai': [
+    'snapshot',
+    'read_text',
+    'read_html',
+    'screenshot',
+    'current_page',
+    'navigate',
+    'navigate_back',
+    'click',
+    'type',
+    'fill_form',
+    'select_option',
+    'hover',
+    'drag',
+    'press_key',
+    'file_upload',
+    'evaluate',
+    'wait_for',
+    'handle_dialog',
+    'tabs',
+    'request_human',
+    'resume',
+    'ensure_connected',
+    'session_status',
+    'start_session',
+    'end_session',
     'act',
     'extract',
     'observe',
@@ -53934,6 +54254,7 @@ export const integrationActions = {
     'tabs',
     'request_human',
     'resume',
+    'ensure_connected',
     'session_status',
     'start_session',
     'end_session',
