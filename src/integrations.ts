@@ -758,8 +758,30 @@ export interface AgentBrowserScreenshotInput {
   fullResolution?: boolean
   /** 1-100. Defaults to 60 for agent-friendly output size. */
   quality?: number
+  /** Fast viewport uses the browser frame capture path for the common current-view screenshot. (values: `fast_viewport`, `playwright`) */
+  mode?: "fast_viewport" | "playwright"
+  /** Also write the screenshot to Filesystem and return a URL. Leave off for faster agent/MCP use. */
+  saveToFilesystem?: boolean
   /** Optional element ref or selector. */
   target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser — Run Steps */
+export interface AgentBrowserRunStepsInput {
+  /** [{ "op": "navigate", "params": { "url": "https://example.com" } }, { "op": "snapshot" }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Adds a final inline MCP image. Screenshot steps inside the batch are summarized to avoid large JSON blobs. */
+  includeFinalScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  finalScreenshotQuality?: number
+  /** Final screenshot full page */
+  finalScreenshotFullPage?: boolean
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -982,8 +1004,30 @@ export interface AgentBrowserAiScreenshotInput {
   fullResolution?: boolean
   /** 1-100. Defaults to 60 for agent-friendly output size. */
   quality?: number
+  /** Fast viewport uses the browser frame capture path for the common current-view screenshot. (values: `fast_viewport`, `playwright`) */
+  mode?: "fast_viewport" | "playwright"
+  /** Also write the screenshot to Filesystem and return a URL. Leave off for faster agent/MCP use. */
+  saveToFilesystem?: boolean
   /** Optional element ref or selector. */
   target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Run Steps */
+export interface AgentBrowserAiRunStepsInput {
+  /** [{ "op": "navigate", "params": { "url": "https://example.com" } }, { "op": "snapshot" }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Adds a final inline MCP image. Screenshot steps inside the batch are summarized to avoid large JSON blobs. */
+  includeFinalScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  finalScreenshotQuality?: number
+  /** Final screenshot full page */
+  finalScreenshotFullPage?: boolean
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1234,8 +1278,30 @@ export interface AgentLocalBrowserControlScreenshotInput {
   fullResolution?: boolean
   /** 1-100. Defaults to 60 for agent-friendly output size. */
   quality?: number
+  /** Fast viewport uses the browser frame capture path for the common current-view screenshot. (values: `fast_viewport`, `playwright`) */
+  mode?: "fast_viewport" | "playwright"
+  /** Also write the screenshot to Filesystem and return a URL. Leave off for faster agent/MCP use. */
+  saveToFilesystem?: boolean
   /** Optional element ref or selector. */
   target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Run Steps */
+export interface AgentLocalBrowserControlRunStepsInput {
+  /** [{ "op": "navigate", "params": { "url": "https://example.com" } }, { "op": "snapshot" }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Adds a final inline MCP image. Screenshot steps inside the batch are summarized to avoid large JSON blobs. */
+  includeFinalScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  finalScreenshotQuality?: number
+  /** Final screenshot full page */
+  finalScreenshotFullPage?: boolean
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -44492,6 +44558,7 @@ export interface IntegrationActionInputMap {
   'agent-browser.read_text': AgentBrowserReadTextInput
   'agent-browser.read_html': AgentBrowserReadHtmlInput
   'agent-browser.screenshot': AgentBrowserScreenshotInput
+  'agent-browser.run_steps': AgentBrowserRunStepsInput
   'agent-browser.current_page': AgentBrowserCurrentPageInput
   'agent-browser.navigate': AgentBrowserNavigateInput
   'agent-browser.navigate_back': AgentBrowserNavigateBackInput
@@ -44517,6 +44584,7 @@ export interface IntegrationActionInputMap {
   'agent-browser-ai.read_text': AgentBrowserAiReadTextInput
   'agent-browser-ai.read_html': AgentBrowserAiReadHtmlInput
   'agent-browser-ai.screenshot': AgentBrowserAiScreenshotInput
+  'agent-browser-ai.run_steps': AgentBrowserAiRunStepsInput
   'agent-browser-ai.current_page': AgentBrowserAiCurrentPageInput
   'agent-browser-ai.navigate': AgentBrowserAiNavigateInput
   'agent-browser-ai.navigate_back': AgentBrowserAiNavigateBackInput
@@ -44545,6 +44613,7 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.read_text': AgentLocalBrowserControlReadTextInput
   'agent-local-browser-control.read_html': AgentLocalBrowserControlReadHtmlInput
   'agent-local-browser-control.screenshot': AgentLocalBrowserControlScreenshotInput
+  'agent-local-browser-control.run_steps': AgentLocalBrowserControlRunStepsInput
   'agent-local-browser-control.current_page': AgentLocalBrowserControlCurrentPageInput
   'agent-local-browser-control.navigate': AgentLocalBrowserControlNavigateInput
   'agent-local-browser-control.navigate_back': AgentLocalBrowserControlNavigateBackInput
@@ -48551,6 +48620,7 @@ export interface IntegrationActionInputsByIntegration {
     'read_text': AgentBrowserReadTextInput
     'read_html': AgentBrowserReadHtmlInput
     'screenshot': AgentBrowserScreenshotInput
+    'run_steps': AgentBrowserRunStepsInput
     'current_page': AgentBrowserCurrentPageInput
     'navigate': AgentBrowserNavigateInput
     'navigate_back': AgentBrowserNavigateBackInput
@@ -48578,6 +48648,7 @@ export interface IntegrationActionInputsByIntegration {
     'read_text': AgentBrowserAiReadTextInput
     'read_html': AgentBrowserAiReadHtmlInput
     'screenshot': AgentBrowserAiScreenshotInput
+    'run_steps': AgentBrowserAiRunStepsInput
     'current_page': AgentBrowserAiCurrentPageInput
     'navigate': AgentBrowserAiNavigateInput
     'navigate_back': AgentBrowserAiNavigateBackInput
@@ -48608,6 +48679,7 @@ export interface IntegrationActionInputsByIntegration {
     'read_text': AgentLocalBrowserControlReadTextInput
     'read_html': AgentLocalBrowserControlReadHtmlInput
     'screenshot': AgentLocalBrowserControlScreenshotInput
+    'run_steps': AgentLocalBrowserControlRunStepsInput
     'current_page': AgentLocalBrowserControlCurrentPageInput
     'navigate': AgentLocalBrowserControlNavigateInput
     'navigate_back': AgentLocalBrowserControlNavigateBackInput
@@ -54180,6 +54252,7 @@ export const integrationActions = {
     'read_text',
     'read_html',
     'screenshot',
+    'run_steps',
     'current_page',
     'navigate',
     'navigate_back',
@@ -54207,6 +54280,7 @@ export const integrationActions = {
     'read_text',
     'read_html',
     'screenshot',
+    'run_steps',
     'current_page',
     'navigate',
     'navigate_back',
@@ -54237,6 +54311,7 @@ export const integrationActions = {
     'read_text',
     'read_html',
     'screenshot',
+    'run_steps',
     'current_page',
     'navigate',
     'navigate_back',
