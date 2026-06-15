@@ -16,13 +16,13 @@ Weavz gives your product one API for connection management, end-user identity, h
 ## Installation
 
 ```bash
-npm install @weavz/sdk
+npm install @weavz-io/sdk
 ```
 
 The package ships ESM, CommonJS, and TypeScript declarations.
 
 ```typescript
-import { WeavzClient } from '@weavz/sdk'
+import { WeavzClient } from '@weavz-io/sdk'
 
 const client = new WeavzClient({
   apiKey: process.env.WEAVZ_API_KEY!,
@@ -48,7 +48,7 @@ const client = new WeavzClient({
 This example creates a workspace, enables a built-in integration, and executes an action through the SDK.
 
 ```typescript
-import { WeavzClient } from '@weavz/sdk'
+import { WeavzClient } from '@weavz-io/sdk'
 
 const client = new WeavzClient({
   apiKey: process.env.WEAVZ_API_KEY!,
@@ -345,13 +345,13 @@ Read more:
 The SDK includes generated TypeScript types and helper maps for integration action inputs.
 
 ```typescript
-import { integrationActions, integrationNames, isKnownActionName } from '@weavz/sdk'
+import { integrationActions, integrationNames, isKnownActionName } from '@weavz-io/sdk'
 import type {
   ActionInput,
   ActionName,
   IntegrationName,
   SlackSendChannelMessageInput,
-} from '@weavz/sdk'
+} from '@weavz-io/sdk'
 
 const integration: IntegrationName = 'slack'
 const action: ActionName<'slack'> = 'send_channel_message'
@@ -394,7 +394,7 @@ import {
   createMcpServerActionTools,
   toAnthropicTool,
   toOpenAIResponsesTool,
-} from '@weavz/sdk'
+} from '@weavz-io/sdk'
 
 const tools = await createMcpServerActionTools(client, server.id)
 
@@ -422,7 +422,7 @@ const anthropicTools = tools.map(toAnthropicTool)
 ## Error Handling
 
 ```typescript
-import { WeavzClient, WeavzError } from '@weavz/sdk'
+import { WeavzClient, WeavzError } from '@weavz-io/sdk'
 
 try {
   await client.actions.execute('slack', 'send_channel_message', {

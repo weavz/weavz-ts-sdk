@@ -1,5 +1,5 @@
 {
-  "name": "@weavz/sdk",
+  "name": "@weavz-io/sdk",
   "version": "0.1.0",
   "description": "TypeScript SDK for Weavz stateful agent runtime APIs",
   "type": "module",

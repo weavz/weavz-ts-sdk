@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   release:
-    name: Release @weavz/sdk
+    name: Release @weavz-io/sdk
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: npm-release
@@ -87,8 +87,8 @@ jobs:
           version="$(node -p "require('./package.json').version")"
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
-          if npm view "@weavz/sdk@${version}" version >/dev/null 2>&1; then
-            echo "@weavz/sdk@${version} is already published"
+          if npm view "@weavz-io/sdk@${version}" version >/dev/null 2>&1; then
+            echo "@weavz-io/sdk@${version} is already published"
             exit 1
           fi
 
@@ -128,8 +128,8 @@ jobs:
         if: inputs.dry_run == false
         run: |
           gh release create "v${VERSION}" \
-            --title "@weavz/sdk v${VERSION}" \
-            --notes "Published @weavz/sdk@${VERSION} to npm."
+            --title "@weavz-io/sdk v${VERSION}" \
+            --notes "Published @weavz-io/sdk@${VERSION} to npm."
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.package.outputs.version }}
