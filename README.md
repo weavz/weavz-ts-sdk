@@ -1,5 +1,12 @@
 # Weavz TypeScript SDK
 
+[![npm version](https://img.shields.io/npm/v/%40weavz-io%2Fsdk?label=npm)](https://www.npmjs.com/package/@weavz-io/sdk)
+[![npm downloads](https://img.shields.io/npm/dm/%40weavz-io%2Fsdk?label=downloads)](https://www.npmjs.com/package/@weavz-io/sdk)
+[![GitHub release](https://img.shields.io/github/v/release/weavz/weavz-ts-sdk?label=release)](https://github.com/weavz/weavz-ts-sdk/releases)
+[![Release workflow](https://github.com/weavz/weavz-ts-sdk/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/weavz/weavz-ts-sdk/actions/workflows/release.yml)
+[![TypeScript](https://img.shields.io/badge/types-TypeScript-3178c6)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/npm/l/%40weavz-io%2Fsdk?label=license)](https://github.com/weavz/weavz-ts-sdk/blob/main/LICENSE)
+
 Official TypeScript SDK for [Weavz](https://weavz.io), the stateful agent runtime for SaaS and AI products.
 
 Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, Filesystem, State KV, Sandbox execution, and 500+ integrations.
