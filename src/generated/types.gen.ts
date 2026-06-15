@@ -298,6 +298,12 @@ export type McpServerSettings = {
      */
     approvalWaitSeconds?: number;
   };
+  mcpApp?: {
+    /**
+     * Exposes the Weavz MCP App tools and HTML resources on this server endpoint. Defaults to false unless enabled explicitly.
+     */
+    enabled?: boolean;
+  };
 };
 
 export type McpServer = {

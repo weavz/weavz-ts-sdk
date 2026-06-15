@@ -75,6 +75,9 @@ export interface McpServerSettings {
   codeMode?: {
     approvalWaitSeconds?: number
   }
+  mcpApp?: {
+    enabled?: boolean
+  }
 }
 export type McpCodeExecutionInput = string | (({ code: string } | { approvalId: string }) & { waitForApprovalSeconds?: number })
 export interface McpAccessTokenResponse {

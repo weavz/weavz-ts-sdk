@@ -1,0 +1,132 @@
+name: Release TypeScript SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build and validate without publishing
+        required: true
+        default: true
+        type: boolean
+      npm_tag:
+        description: npm dist-tag to publish
+        required: true
+        default: latest
+        type: choice
+        options:
+          - latest
+          - next
+      confirm_release:
+        description: Type release-sdk to publish
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: ts-sdk-release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release @weavz/sdk
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: npm-release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org
+
+      - name: Validate release request
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "SDK releases must run from main. Current ref: ${GITHUB_REF_NAME}"
+            exit 1
+          fi
+
+          if [ "$DRY_RUN" = "false" ] && [ "$CONFIRM_RELEASE" != "release-sdk" ]; then
+            echo "Real SDK release requires confirm_release=release-sdk"
+            exit 1
+          fi
+
+          case "$NPM_TAG" in
+            latest|next) ;;
+            *)
+              echo "Unsupported npm tag: ${NPM_TAG}"
+              exit 1
+              ;;
+          esac
+        env:
+          CONFIRM_RELEASE: ${{ inputs.confirm_release }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          NPM_TAG: ${{ inputs.npm_tag }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build and typecheck
+        run: |
+          npm run build
+          npm run typecheck
+          npm run test:types
+
+      - name: Check package version
+        id: package
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+          if npm view "@weavz/sdk@${version}" version >/dev/null 2>&1; then
+            echo "@weavz/sdk@${version} is already published"
+            exit 1
+          fi
+
+      - name: Validate npm package contents
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        if: inputs.dry_run == false
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "NPM_TOKEN is required for npm publishing"
+            exit 1
+          fi
+
+          npm publish --access public --provenance --tag "$NPM_TAG"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TAG: ${{ inputs.npm_tag }}
+
+      - name: Tag release
+        if: inputs.dry_run == false
+        run: |
+          tag="v${VERSION}"
+          if git rev-parse "$tag" >/dev/null 2>&1; then
+            echo "Git tag ${tag} already exists"
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$tag"
+          git push origin "$tag"
+        env:
+          VERSION: ${{ steps.package.outputs.version }}
+
+      - name: Create GitHub release
+        if: inputs.dry_run == false
+        run: |
+          gh release create "v${VERSION}" \
+            --title "@weavz/sdk v${VERSION}" \
+            --notes "Published @weavz/sdk@${VERSION} to npm."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.package.outputs.version }}
