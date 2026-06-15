@@ -7,7 +7,7 @@ Weavz gives your product one API for connection management, end-user identity, h
 ## Links
 
 - [Weavz](https://weavz.io)
-- [Dashboard](https://platform.weavz.io)
+- [Dashboard](https://dashboard.weavz.io)
 - [Documentation](https://weavz.io/docs)
 - [TypeScript SDK docs](https://weavz.io/docs/sdks/typescript)
 - [API reference](https://weavz.io/docs/api-reference)
@@ -86,7 +86,7 @@ For a guided Slack setup, see the [Quick Start](https://weavz.io/docs/getting-st
 ```typescript
 const client = new WeavzClient({
   apiKey: process.env.WEAVZ_API_KEY!,
-  baseUrl: 'https://api.weavz.io',
+  baseUrl: 'https://platform.weavz.io',
   timeout: 310_000,
   maxRetries: 2,
   headers: { 'X-App-Version': '1.0.0' },
@@ -100,7 +100,7 @@ const client = new WeavzClient({
 | Option | Required | Default | Description |
 | --- | --- | --- | --- |
 | `apiKey` | Yes | - | Weavz API key with the `wvz_` prefix |
-| `baseUrl` | No | `https://api.weavz.io` | API base URL |
+| `baseUrl` | No | `https://platform.weavz.io` | API base URL |
 | `timeout` | No | `310000` | Request timeout in milliseconds |
 | `maxRetries` | No | `2` | Retry count for transient failures |
 | `fetch` | No | global `fetch` | Custom fetch implementation |

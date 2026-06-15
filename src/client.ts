@@ -32,7 +32,7 @@ import type {
 export interface WeavzClientOptions {
   /** API key (wvz_...) */
   apiKey: string
-  /** Base URL of the Weavz API (default: https://api.weavz.io) */
+  /** Base URL of the Weavz API (default: https://platform.weavz.io) */
   baseUrl?: string
   /** Request timeout in milliseconds (default: 310000) */
   timeout?: number
@@ -783,7 +783,7 @@ export class WeavzClient {
 
   constructor(options: WeavzClientOptions) {
     this.apiKey = options.apiKey
-    this.baseUrl = (options.baseUrl || 'https://api.weavz.io').replace(/\/+$/, '')
+    this.baseUrl = (options.baseUrl || 'https://platform.weavz.io').replace(/\/+$/, '')
     this.timeout = options.timeout ?? 310_000
     this.maxRetries = options.maxRetries ?? 2
     this.fetchImpl = options.fetch ?? fetch
