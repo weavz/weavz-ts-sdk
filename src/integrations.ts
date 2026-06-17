@@ -1499,7 +1499,7 @@ export interface AgentLocalComputerControlStartSessionInput {
   /** Target scope (values: `app_window`, `display`) */
   targetScope?: "app_window" | "display"
   /** Optional macOS bundle identifiers the local app may control. */
-  allowedApplications?: unknown[]
+  allowedApplications?: string[]
   /** Auto-pause on focus loss */
   autoPauseOnFocusLoss?: boolean
 }
@@ -1536,14 +1536,22 @@ export interface AgentLocalComputerControlScreenshotInput {
   sessionId?: string
 }
 
+/** Agent Local Computer Control — Move Mouse */
+export interface AgentLocalComputerControlMoveMouseInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Local Computer Control — Click */
 export interface AgentLocalComputerControlClickInput {
-  /** Optional element ref from snapshot. */
-  target?: string
-  /** Optional x coordinate when no target ref is provided. */
-  x?: number
-  /** Optional y coordinate when no target ref is provided. */
-  y?: number
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
   /** Button (values: `left`, `right`, `middle`) */
   button?: "left" | "right" | "middle"
   /** Double click */
@@ -1552,12 +1560,20 @@ export interface AgentLocalComputerControlClickInput {
   sessionId?: string
 }
 
+/** Agent Local Computer Control — Drag */
+export interface AgentLocalComputerControlDragInput {
+  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
+  path: Array<{ x: number; y: number } | [number, number]>
+  /** Optional total drag duration. Defaults to 400 ms. */
+  durationMs?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Local Computer Control — Type */
 export interface AgentLocalComputerControlTypeInput {
   /** Text */
   text: string
-  /** Target ref */
-  target?: string
   /** Submit with Enter */
   submit?: boolean
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
@@ -1569,7 +1585,7 @@ export interface AgentLocalComputerControlPressKeyInput {
   /** Examples: Enter, Escape, Tab, ArrowDown, a. */
   key: string
   /** Optional modifiers such as cmd, shift, option, control. */
-  modifiers?: unknown[]
+  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1580,8 +1596,6 @@ export interface AgentLocalComputerControlScrollInput {
   deltaX?: number
   /** Delta Y */
   deltaY?: number
-  /** Target ref */
-  target?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1596,8 +1610,8 @@ export interface AgentLocalComputerControlWaitInput {
 
 /** Agent Local Computer Control — Run Steps */
 export interface AgentLocalComputerControlRunStepsInput {
-  /** [{ "op": "snapshot" }, { "op": "click", "params": { "target": "e1" } }] */
-  steps: unknown
+  /** [{ "op": "screenshot" }, { "op": "click", "params": { "x": 120, "y": 180 } }] */
+  steps: Array<{ op: "snapshot" | "screenshot" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait"; params?: Record<string, unknown> }>
   /** Stop on error */
   stopOnError?: boolean
   /** Include final snapshot */
@@ -44862,7 +44876,9 @@ export interface IntegrationActionInputMap {
   'agent-local-computer-control.session_status': AgentLocalComputerControlSessionStatusInput
   'agent-local-computer-control.snapshot': AgentLocalComputerControlSnapshotInput
   'agent-local-computer-control.screenshot': AgentLocalComputerControlScreenshotInput
+  'agent-local-computer-control.move_mouse': AgentLocalComputerControlMoveMouseInput
   'agent-local-computer-control.click': AgentLocalComputerControlClickInput
+  'agent-local-computer-control.drag': AgentLocalComputerControlDragInput
   'agent-local-computer-control.type': AgentLocalComputerControlTypeInput
   'agent-local-computer-control.press_key': AgentLocalComputerControlPressKeyInput
   'agent-local-computer-control.scroll': AgentLocalComputerControlScrollInput
@@ -48948,7 +48964,9 @@ export interface IntegrationActionInputsByIntegration {
     'session_status': AgentLocalComputerControlSessionStatusInput
     'snapshot': AgentLocalComputerControlSnapshotInput
     'screenshot': AgentLocalComputerControlScreenshotInput
+    'move_mouse': AgentLocalComputerControlMoveMouseInput
     'click': AgentLocalComputerControlClickInput
+    'drag': AgentLocalComputerControlDragInput
     'type': AgentLocalComputerControlTypeInput
     'press_key': AgentLocalComputerControlPressKeyInput
     'scroll': AgentLocalComputerControlScrollInput
@@ -54604,7 +54622,9 @@ export const integrationActions = {
     'session_status',
     'snapshot',
     'screenshot',
+    'move_mouse',
     'click',
+    'drag',
     'type',
     'press_key',
     'scroll',
