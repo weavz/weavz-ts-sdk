@@ -14915,6 +14915,8 @@ export interface GmailSendEmailInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
+  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Reply to Email */
@@ -14927,6 +14929,8 @@ export interface GmailReplyToEmailInput {
   body: string
   /** Send as HTML */
   isHtml?: boolean
+  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Forward Email */
@@ -15140,6 +15144,8 @@ export interface GmailCreateDraftInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
+  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — List Drafts */
@@ -15176,6 +15182,8 @@ export interface GmailUpdateDraftInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
+  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Send Draft */
