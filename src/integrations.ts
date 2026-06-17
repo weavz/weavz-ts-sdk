@@ -1494,6 +1494,140 @@ export interface AgentLocalBrowserControlEndSessionInput {
   sessionId?: string
 }
 
+/** Agent Local Computer Control — Start Session */
+export interface AgentLocalComputerControlStartSessionInput {
+  /** Target scope (values: `app_window`, `display`) */
+  targetScope?: "app_window" | "display"
+  /** Optional macOS bundle identifiers the local app may control. */
+  allowedApplications?: unknown[]
+  /** Auto-pause on focus loss */
+  autoPauseOnFocusLoss?: boolean
+}
+
+/** Agent Local Computer Control — Ensure Connected */
+export interface AgentLocalComputerControlEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Session Status */
+export interface AgentLocalComputerControlSessionStatusInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Snapshot */
+export interface AgentLocalComputerControlSnapshotInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Screenshot */
+export interface AgentLocalComputerControlScreenshotInput {
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Full resolution */
+  fullResolution?: boolean
+  /** Also write the screenshot to Filesystem and return a URL. */
+  saveToFilesystem?: boolean
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Click */
+export interface AgentLocalComputerControlClickInput {
+  /** Optional element ref from snapshot. */
+  target?: string
+  /** Optional x coordinate when no target ref is provided. */
+  x?: number
+  /** Optional y coordinate when no target ref is provided. */
+  y?: number
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Type */
+export interface AgentLocalComputerControlTypeInput {
+  /** Text */
+  text: string
+  /** Target ref */
+  target?: string
+  /** Submit with Enter */
+  submit?: boolean
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Press Key */
+export interface AgentLocalComputerControlPressKeyInput {
+  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
+  key: string
+  /** Optional modifiers such as cmd, shift, option, control. */
+  modifiers?: unknown[]
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Scroll */
+export interface AgentLocalComputerControlScrollInput {
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Target ref */
+  target?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Wait */
+export interface AgentLocalComputerControlWaitInput {
+  /** Seconds */
+  seconds?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Run Steps */
+export interface AgentLocalComputerControlRunStepsInput {
+  /** [{ "op": "snapshot" }, { "op": "click", "params": { "target": "e1" } }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Include final screenshot */
+  includeFinalScreenshot?: boolean
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Request Human Takeover */
+export interface AgentLocalComputerControlRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Resume Agent Control */
+export interface AgentLocalComputerControlResumeInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — End Session */
+export interface AgentLocalComputerControlEndSessionInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Memory — Create Entities */
 export interface AgentMemoryCreateEntitiesInput {
   /** Array of entities to create. Each entity: { name: string, type: string, observations?: string[] } */
@@ -44635,6 +44769,20 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.session_status': AgentLocalBrowserControlSessionStatusInput
   'agent-local-browser-control.start_session': AgentLocalBrowserControlStartSessionInput
   'agent-local-browser-control.end_session': AgentLocalBrowserControlEndSessionInput
+  'agent-local-computer-control.start_session': AgentLocalComputerControlStartSessionInput
+  'agent-local-computer-control.ensure_connected': AgentLocalComputerControlEnsureConnectedInput
+  'agent-local-computer-control.session_status': AgentLocalComputerControlSessionStatusInput
+  'agent-local-computer-control.snapshot': AgentLocalComputerControlSnapshotInput
+  'agent-local-computer-control.screenshot': AgentLocalComputerControlScreenshotInput
+  'agent-local-computer-control.click': AgentLocalComputerControlClickInput
+  'agent-local-computer-control.type': AgentLocalComputerControlTypeInput
+  'agent-local-computer-control.press_key': AgentLocalComputerControlPressKeyInput
+  'agent-local-computer-control.scroll': AgentLocalComputerControlScrollInput
+  'agent-local-computer-control.wait': AgentLocalComputerControlWaitInput
+  'agent-local-computer-control.run_steps': AgentLocalComputerControlRunStepsInput
+  'agent-local-computer-control.request_human': AgentLocalComputerControlRequestHumanInput
+  'agent-local-computer-control.resume': AgentLocalComputerControlResumeInput
+  'agent-local-computer-control.end_session': AgentLocalComputerControlEndSessionInput
   'agent-memory.create_entities': AgentMemoryCreateEntitiesInput
   'agent-memory.add_observations': AgentMemoryAddObservationsInput
   'agent-memory.create_relations': AgentMemoryCreateRelationsInput
@@ -48701,6 +48849,22 @@ export interface IntegrationActionInputsByIntegration {
     'session_status': AgentLocalBrowserControlSessionStatusInput
     'start_session': AgentLocalBrowserControlStartSessionInput
     'end_session': AgentLocalBrowserControlEndSessionInput
+  }
+  'agent-local-computer-control': {
+    'start_session': AgentLocalComputerControlStartSessionInput
+    'ensure_connected': AgentLocalComputerControlEnsureConnectedInput
+    'session_status': AgentLocalComputerControlSessionStatusInput
+    'snapshot': AgentLocalComputerControlSnapshotInput
+    'screenshot': AgentLocalComputerControlScreenshotInput
+    'click': AgentLocalComputerControlClickInput
+    'type': AgentLocalComputerControlTypeInput
+    'press_key': AgentLocalComputerControlPressKeyInput
+    'scroll': AgentLocalComputerControlScrollInput
+    'wait': AgentLocalComputerControlWaitInput
+    'run_steps': AgentLocalComputerControlRunStepsInput
+    'request_human': AgentLocalComputerControlRequestHumanInput
+    'resume': AgentLocalComputerControlResumeInput
+    'end_session': AgentLocalComputerControlEndSessionInput
   }
   'agent-memory': {
     'create_entities': AgentMemoryCreateEntitiesInput
@@ -53642,6 +53806,7 @@ export const integrationNames = [
   'agent-browser',
   'agent-browser-ai',
   'agent-local-browser-control',
+  'agent-local-computer-control',
   'agent-memory',
   'agent-scratchpad',
   'ahrefs',
@@ -54332,6 +54497,22 @@ export const integrationActions = {
     'ensure_connected',
     'session_status',
     'start_session',
+    'end_session',
+  ],
+  'agent-local-computer-control': [
+    'start_session',
+    'ensure_connected',
+    'session_status',
+    'snapshot',
+    'screenshot',
+    'click',
+    'type',
+    'press_key',
+    'scroll',
+    'wait',
+    'run_steps',
+    'request_human',
+    'resume',
     'end_session',
   ],
   'agent-memory': [
