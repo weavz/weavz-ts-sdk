@@ -5,6 +5,8 @@
 // Integration Action Input Types
 // ============================================================================
 
+export type WeavzFileInput = string | { base64: string; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { url: string; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { data: string | Record<string, unknown>; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { content: string | Record<string, unknown>; filename?: string; mimeType?: string; contentType?: string; extension?: string }
+
 /** Abstract API — Validate Email */
 export interface AbstractApiValidateEmailInput {
   /** The email address to validate */
@@ -881,7 +883,7 @@ export interface AgentBrowserFileUploadInput {
   /** An element ref from snapshot, such as "e5", or a CSS selector. */
   target: string
   /** File URL, base64 payload, data URL, Blob, or inline file object. */
-  file: string
+  file: WeavzFileInput
   /** Optional filename override. */
   fileName?: string
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -1127,7 +1129,7 @@ export interface AgentBrowserAiFileUploadInput {
   /** An element ref from snapshot, such as "e5", or a CSS selector. */
   target: string
   /** File URL, base64 payload, data URL, Blob, or inline file object. */
-  file: string
+  file: WeavzFileInput
   /** Optional filename override. */
   fileName?: string
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -1401,7 +1403,7 @@ export interface AgentLocalBrowserControlFileUploadInput {
   /** An element ref from snapshot, such as "e5", or a CSS selector. */
   target: string
   /** File URL, base64 payload, data URL, Blob, or inline file object. */
-  file: string
+  file: WeavzFileInput
   /** Optional filename override. */
   fileName?: string
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -2090,7 +2092,7 @@ export interface AlmaCustomMcpRequestInput {
 /** Amazon S3 — Upload File */
 export interface AmazonS3UploadFileInput {
   /** The file to upload to S3. */
-  file: string
+  file: WeavzFileInput
   /** File Name (Optional) */
   fileName?: string
   /** Access Control (ACL) (values: `private`, `public-read`, `public-read-write`, `authenticated-read`, `aws-exec-read`, `bucket-owner-read`, `bucket-owner-full-control`) */
@@ -2397,7 +2399,7 @@ export interface ClaudeAskClaudeInput {
   /** Question */
   prompt: string
   /** URL of image to be used as input for the model. */
-  image?: string
+  image?: WeavzFileInput
   /** Array of roles to specify more accurate response. */
   roles?: unknown
   /** Uses claude 3.7 sonnet enhanced reasoning capabilities for complex tasks. */
@@ -2413,7 +2415,7 @@ export interface ClaudeExtractStructuredDataInput {
   /** Text to extract structured data from. */
   text?: string
   /** Image or PDF to extract structured data from. */
-  image?: string
+  image?: WeavzFileInput
   /** Prompt to guide the AI. */
   prompt?: string
   /** For complex schema, you can use advanced mode. (values: `simple`, `advanced`) */
@@ -2891,7 +2893,7 @@ export interface AshbyCustomApiCallInput {
 /** AssemblyAI — Upload File */
 export interface AssemblyaiUploadFileInput {
   /** The File or URL of the audio or video file. */
-  file: string
+  file: WeavzFileInput
 }
 
 /** AssemblyAI — Transcribe */
@@ -3322,7 +3324,7 @@ export interface AtlassianJiraAddAttachmentInput {
   /** Issue ID or Key */
   issueIdOrKey: string
   /** File */
-  file: string
+  file: WeavzFileInput
 }
 
 /** Atlassian — Jira Get Attachment */
@@ -3560,7 +3562,7 @@ export interface AtlassianConfluenceUploadAttachmentInput {
   /** Page ID */
   pageId: string
   /** File */
-  file: string
+  file: WeavzFileInput
   /** Comment */
   comment?: string
 }
@@ -5872,7 +5874,7 @@ export interface CanvaGetDesignAutofillJobInput {
 /** Canva — Create Asset Upload Job */
 export interface CanvaCreateAssetUploadJobInput {
   /** File */
-  file: string
+  file: WeavzFileInput
   /** Asset Name */
   name: string
 }
@@ -7774,7 +7776,7 @@ export interface CognitoFormsGetImportStatusInput {
 /** Cognito Forms — Upload File */
 export interface CognitoFormsUploadFileInput {
   /** File */
-  file: string
+  file: WeavzFileInput
   /** Field Name */
   fieldName?: string
 }
@@ -9430,7 +9432,7 @@ export interface DeelCreateInvoiceInput {
 /** Deepgram — Create Summary */
 export interface DeepgramCreateSummaryInput {
   /** Audio File */
-  audioFile: string
+  audioFile: WeavzFileInput
   /** Model */
   model?: "nova-3" | "nova-3-general" | "nova-3-medical" | "nova-2" | "nova-2-general" | "nova-2-meeting" | "nova-2-finance" | "nova-2-conversationalai" | "nova-2-voicemail" | "nova-2-video" | "nova-2-medical" | "nova-2-drivethru" | "nova-2-automotive" | "nova" | "nova-general" | "nova-phonecall" | "nova-medical" | "enhanced" | "enhanced-general" | "enhanced-meeting" | "enhanced-phonecall" | "enhanced-finance" | "base" | "meeting" | "phonecall" | "finance" | "conversationalai" | "voicemail" | "video"
   /** en */
@@ -9442,7 +9444,7 @@ export interface DeepgramCreateSummaryInput {
 /** Deepgram — Create Transcription (Callback) */
 export interface DeepgramCreateTranscriptionCallbackInput {
   /** Audio File */
-  audioFile: string
+  audioFile: WeavzFileInput
   /** Model */
   model?: "nova-3" | "nova-3-general" | "nova-3-medical" | "nova-2" | "nova-2-general" | "nova-2-meeting" | "nova-2-finance" | "nova-2-conversationalai" | "nova-2-voicemail" | "nova-2-video" | "nova-2-medical" | "nova-2-drivethru" | "nova-2-automotive" | "nova" | "nova-general" | "nova-phonecall" | "nova-medical" | "enhanced" | "enhanced-general" | "enhanced-meeting" | "enhanced-phonecall" | "enhanced-finance" | "base" | "meeting" | "phonecall" | "finance" | "conversationalai" | "voicemail" | "video"
   /** en */
@@ -9631,7 +9633,7 @@ export interface DescriptUploadDirectMediaFileInput {
   /** Signed Upload URL */
   uploadUrl: string
   /** File */
-  file: string
+  file: WeavzFileInput
   /** Content Type */
   contentType?: string
 }
@@ -10911,7 +10913,7 @@ export interface DropboxUploadDropboxFileInput {
   /** The path where the file should be saved (e.g. /folder1/file.txt) */
   path: string
   /** The file URL or base64 to upload */
-  file: string
+  file: WeavzFileInput
   /** If there's a conflict, as determined by mode, have the Dropbox server try to autorename the file to avoid conflict. */
   autorename?: boolean
   /** Normally, users are made aware of any file modifications in their Dropbox account via notifications in the client software. If true, this tells the clients that this modification shouldn't result in a user notification. */
@@ -13938,7 +13940,7 @@ export interface FrontCreateContactInput {
   /** List of contact handles (e.g., email, phone). */
   handles: Array<{   handle: string;   source: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom" }>
   /** URL of the contact’s avatar image. */
-  avatar_url?: string
+  avatar_url?: WeavzFileInput
   /** List of URLs associated with the contact. */
   links?: Array<{   link: string }>
   /** List of group names to associate with the contact. */
@@ -14178,7 +14180,7 @@ export interface SftpUploadFileInput {
   /** The path on the sftp server to store the file. e.g. `./myfolder/test.mp3` */
   fileName: string
   /** File content */
-  fileContent: string
+  fileContent: WeavzFileInput
 }
 
 /** FTP/SFTP — Read File Content */
@@ -14936,7 +14938,7 @@ export interface GmailSendEmailInput {
   /** Send as HTML */
   isHtml?: boolean
   /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
-  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
+  attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Reply to Email */
@@ -14950,7 +14952,7 @@ export interface GmailReplyToEmailInput {
   /** Send as HTML */
   isHtml?: boolean
   /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
-  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
+  attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Forward Email */
@@ -15165,7 +15167,7 @@ export interface GmailCreateDraftInput {
   /** Send as HTML */
   isHtml?: boolean
   /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
-  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
+  attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — List Drafts */
@@ -15203,7 +15205,7 @@ export interface GmailUpdateDraftInput {
   /** Send as HTML */
   isHtml?: boolean
   /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
-  attachments?: Array<{   file: string;   filename?: string;   mimeType?: string }>
+  attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
 /** Gmail — Send Draft */
@@ -17341,7 +17343,7 @@ export interface GristGristUploadAttachmentsToDocumentInput {
   /** Document (resolve via property options API) */
   document_id: string
   /** Attachment */
-  attachment: string
+  attachment: WeavzFileInput
   /** In case you want to change the name of the attachment. */
   attachment_name?: string
 }
@@ -17395,7 +17397,7 @@ export interface GroqAskAiInput {
 /** Groq — Transcribe Audio */
 export interface GroqTranscribeAudioInput {
   /** The audio file to transcribe. Supported formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm. */
-  file: string
+  file: WeavzFileInput
   /** The model to use for transcription. (resolve via property options API) */
   model: string
   /** The language of the input audio in ISO-639-1 format (e.g., "en" for English). This will improve accuracy and latency. */
@@ -17411,7 +17413,7 @@ export interface GroqTranscribeAudioInput {
 /** Groq — Translate Audio */
 export interface GroqTranslateAudioInput {
   /** The audio file to translate. Supported formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm. */
-  file: string
+  file: WeavzFileInput
   /** The model to use for translation. (resolve via property options API) */
   model: string
   /** An optional text in English to guide the model's style or continue a previous audio segment. */
@@ -18180,7 +18182,7 @@ export interface HeygenRetrieveSharableVideoUrlInput {
 /** HeyGen — Upload an Asset */
 export interface HeygenUploadAssetInput {
   /** The file to upload (JPEG, PNG, MP4, WEBM, or MPEG). */
-  file: string
+  file: WeavzFileInput
 }
 
 /** HeyGen — Translate Video */
@@ -18665,7 +18667,7 @@ export interface HousecallProAddJobAttachmentInput {
   /** The ID of the job to add attachment to */
   job_id: string
   /** The file to upload */
-  file: string
+  file: WeavzFileInput
 }
 
 /** Housecall Pro — Add a line item to a job */
@@ -18901,7 +18903,7 @@ export interface HousecallProCreateEstimateOptionAttachmentInput {
   /** Option ID */
   option_id: string
   /** File */
-  file: string
+  file: WeavzFileInput
 }
 
 /** Housecall Pro — Create estimate option link */
@@ -19465,7 +19467,7 @@ export interface HuggingFaceDocumentQuestionAnsweringInput {
   /** Hugging Face document question answering model (values: `impira/layoutlm-document-qa`, `microsoft/layoutlmv3-base`, `nielsr/layoutlmv2-finetuned-docvqa`) */
   model: "impira/layoutlm-document-qa" | "microsoft/layoutlmv3-base" | "nielsr/layoutlmv2-finetuned-docvqa"
   /** Image of the document to analyze. */
-  image: string
+  image: WeavzFileInput
   /** Question to ask about the document. */
   question: string
   /** Number of Answers */
@@ -19623,7 +19625,7 @@ export interface HuggingFaceObjectDetectionInput {
   /** Select an object detection model. (resolve via property options API) */
   model: string
   /** Image to Analyze */
-  image: string
+  image: WeavzFileInput
   /** Confidence Threshold */
   confidenceThreshold?: number
   /** Max Detections */
@@ -19645,7 +19647,7 @@ export interface HuggingFaceImageClassificationInput {
   /** How do you want to provide the image? (values: `upload`, `url`) */
   imageSource: "upload" | "url"
   /** Image File */
-  imageFile: string
+  imageFile: WeavzFileInput
   /** Image URL */
   imageUrl?: string
   /** Custom Categories */
@@ -22954,7 +22956,7 @@ export interface LinkedinCreateShareUpdateInput {
   /** Visibility (resolve via property options API) */
   visibility: string
   /** Image */
-  imageUrl?: string
+  imageUrl?: WeavzFileInput
   /** Content - URL */
   link?: string
   /** Content - Title */
@@ -22968,7 +22970,7 @@ export interface LinkedinCreateCompanyUpdateInput {
   /** Company Page (resolve via property options API) */
   company: string
   /** Image */
-  imageUrl?: string
+  imageUrl?: WeavzFileInput
   /** Text */
   text: string
   /** Content - URL */
@@ -23776,7 +23778,7 @@ export interface MastodonPostStatusInput {
   /** The text of your status */
   status: string
   /** The media attachment for your status */
-  media?: string
+  media?: WeavzFileInput
 }
 
 /** Mastodon — Custom API Call */
@@ -23890,7 +23892,7 @@ export interface MeistertaskCreateAttachmentInput {
   /** Task (resolve via property options API) */
   task_id: string
   /** URL of the file to attach */
-  file_url: string
+  file_url: WeavzFileInput
   /** Attachment Name */
   name?: string
 }
@@ -23968,7 +23970,7 @@ export interface MeistertaskFindOrCreateAttachmentInput {
   /** Attachment Name */
   name: string
   /** URL of the file to attach (used if creating) */
-  file_url: string
+  file_url: WeavzFileInput
 }
 
 /** MeisterTask — Find or Create Task */
@@ -25586,7 +25588,7 @@ export interface MicrosoftSharepointMicrosoftSharepointUploadFileInput {
   /** Drive (resolve via property options API) */
   driveId: string
   /** The file or url you want to upload */
-  file: string
+  file: WeavzFileInput
   /** Parent folder, like "/demo/" or "/docs/assignment/".Leave it default if you want to create folder at the root (**CHANGE THIS BACK//**) level. */
   parentFolder: string
   /** File Name */
@@ -25867,7 +25869,7 @@ export interface MicrosoftTodoAddAttachmentInput {
   /** The task to which you are adding the attachment. (resolve via property options API) */
   task_id: string
   /** The file to attach (up to 25 MB supported). */
-  file: string
+  file: WeavzFileInput
   /** The name to display for the attachment. If left blank, the original filename will be used. */
   filename?: string
 }
@@ -26747,7 +26749,7 @@ export interface MondayMondayUploadFileToColumnInput {
   /** File Column ID (resolve via property options API) */
   file_column_id: string
   /** The file URL or base64 to upload. */
-  file: string
+  file: WeavzFileInput
   /** File Name */
   file_name: string
 }
@@ -31648,7 +31650,7 @@ export interface QdrantAddPointsToCollectionInput {
   /** The name of the collection needed for this action */
   collectionName: string
   /** Embeddings (= vectors) for the points */
-  embeddings: string
+  embeddings: WeavzFileInput
   /** The ids of the embeddings for the points. If not provided, the ids will be generated automatically */
   embeddingsIds?: unknown[]
   /** The calculation method helps to rank vectors when you want to find the closest points, the method to use depends on the model that's created the embeddings. (values: `Cosine`, `Euclid`, `Dot`) */
@@ -31699,13 +31701,13 @@ export interface QdrantSearchPointsInput {
   /** The name of the collection needed for this action */
   collectionName: string
   /** The vector (= embedding) you want to search for. */
-  vector: string
+  vector: WeavzFileInput
   /** If the point has this property in its payload it will be selected */
   must?: Record<string, unknown>
   /** If the point has this property in its payload it will not be selected */
   must_not?: Record<string, unknown>
   /** The vector (= embedding) you want to be the farthest. */
-  negativeVector?: string
+  negativeVector?: WeavzFileInput
   /** The max number of results you want to get. */
   limitResult?: number
 }
@@ -33475,7 +33477,7 @@ export interface SalesforceAddFileToRecordInput {
   /** The record to select. The list shows the 20 most recently created records. (resolve via property options API) */
   record_id: string
   /** The file to upload. */
-  file: string
+  file: WeavzFileInput
   /** The name of the file, including its extension (e.g., "report.pdf"). */
   file_name: string
 }
@@ -33497,7 +33499,7 @@ export interface SalesforceCreateAttachmentInput {
   /** The record to select. The list shows the 20 most recently created records. (resolve via property options API) */
   parent_id: string
   /** The file to attach. */
-  file: string
+  file: WeavzFileInput
   /** The name of the file, including its extension (e.g., "attachment.pdf"). */
   file_name: string
 }
@@ -34368,7 +34370,7 @@ export interface SentryUploadReleaseFileInput {
   /** Release Version */
   version: string
   /** File URL, base64 payload, or inline file object to upload */
-  file: string
+  file: WeavzFileInput
   /** Optional absolute path or URI Sentry should reference for this file */
   name?: string
   /** Optional release distribution name */
@@ -35676,7 +35678,7 @@ export interface SmartsheetAttachFileToRowInput {
   /** Type of attachment to add (values: `FILE`, `LINK`, `BOX_COM`, `DROPBOX`, `EGNYTE`, `EVERNOTE`, `GOOGLE_DRIVE`, `ONEDRIVE`) */
   attachment_type: "FILE" | "LINK" | "BOX_COM" | "DROPBOX" | "EGNYTE" | "EVERNOTE" | "GOOGLE_DRIVE" | "ONEDRIVE"
   /** The file to attach (required for FILE type) */
-  file?: string
+  file?: WeavzFileInput
   /** The URL to attach (required for URL-based attachment types) */
   url?: string
   /** Name for the attachment (optional, will use file name or URL if not provided) */
@@ -35816,7 +35818,7 @@ export interface SmtpSendEmailInput {
   /** Custom Headers */
   customHeaders?: Record<string, unknown>
   /** Attachments */
-  attachments?: Array<{   file: string;   name?: string }>
+  attachments?: Array<{   file: WeavzFileInput;   name?: string }>
 }
 
 /** Snov.io — Find Email */
@@ -36777,7 +36779,7 @@ export interface StravaGetSegmentEffortInput {
 /** Strava — Upload Activity File */
 export interface StravaUploadActivityInput {
   /** Activity File */
-  file: string
+  file: WeavzFileInput
   /** Data Type (values: `fit`, `fit.gz`, `tcx`, `tcx.gz`, `gpx`, `gpx.gz`) */
   dataType: "fit" | "fit.gz" | "tcx" | "tcx.gz" | "gpx" | "gpx.gz"
   /** Name */
@@ -37165,7 +37167,7 @@ export interface SupabaseUploadFileInput {
   /** Bucket */
   bucket: string
   /** Base64 or URL */
-  file: string
+  file: WeavzFileInput
 }
 
 /** Supabase — List Storage Buckets */
@@ -38693,7 +38695,7 @@ export interface TeamworkCreateTaskInput {
   /** Tags to associate with the task. */
   tagIds?: string[]
   /** A file to attach to the task. */
-  attachment?: string
+  attachment?: WeavzFileInput
   /** Custom fields for this task. */
   customFields?: Record<string, unknown>
 }
@@ -38785,7 +38787,7 @@ export interface TeamworkCreateTaskCommentInput {
   /** The content of the comment. */
   body: string
   /** A file to attach to the comment. */
-  attachment?: string
+  attachment?: WeavzFileInput
   /** Who to notify about this comment. (values: ``, `true`, `all`) */
   notify?: "" | "true" | "all"
   /** Set to true to make the comment private. */
@@ -38829,7 +38831,7 @@ export interface TeamworkUploadFileToProjectInput {
   /** The project to upload the file to. (resolve via property options API) */
   projectId: string
   /** The file to upload. */
-  file: string
+  file: WeavzFileInput
   /** A description for the file. */
   description?: string
   /** The category to assign the file to. (resolve via property options API) */
@@ -39804,7 +39806,7 @@ export interface TrelloAddCardAttachmentInput {
   /** The ID of the card to add attachment to */
   card_id: string
   /** Attachment File */
-  attachment: string
+  attachment: WeavzFileInput
   /** Attachment Name */
   name?: string
   /** MIME Type */
@@ -42283,7 +42285,7 @@ export interface WrikeUploadAttachmentInput {
   /** The ID of the task or folder to attach the file to */
   entityId: string
   /** The file to upload and attach */
-  file: string
+  file: WeavzFileInput
   /** Optional custom name for the uploaded file */
   fileName?: string
 }
@@ -42603,7 +42605,7 @@ export interface XeroXeroUploadAttachmentInput {
   /** Select the specific resource to attach the file to. (resolve via property options API) */
   resource_id: string
   /** The file to upload. Max 10MB per Xero limits. */
-  file: string
+  file: WeavzFileInput
   /** Optional file name to use in Xero. Avoid characters: < > : " / \ | ? * */
   file_name?: string
   /** MIME type of the file (e.g., image/png). If not set, will be inferred or default to application/octet-stream. */
@@ -44348,7 +44350,7 @@ export interface ZohoMailUploadAttachmentInput {
   /** Account (resolve via property options API) */
   accountId: string
   /** Attachment */
-  attachment: string
+  attachment: WeavzFileInput
   /** Attachment Name */
   attachmentName?: string
 }
@@ -44374,7 +44376,7 @@ export interface ZohoMailSendEmailInput {
   /** Ask for Read Receipt (values: `yes`, `no`) */
   askReceipt?: "yes" | "no"
   /** Attachment */
-  attachment?: string
+  attachment?: WeavzFileInput
   /** In case you want to change the name of the attachment. */
   attachmentName?: string
 }
@@ -44404,7 +44406,7 @@ export interface ZohoMailReplyEmailInput {
   /** Ask for Read Receipt (values: `yes`, `no`) */
   askReceipt?: "yes" | "no"
   /** Attachment */
-  attachment?: string
+  attachment?: WeavzFileInput
   /** Attachment Name */
   attachmentName?: string
 }
