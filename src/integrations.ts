@@ -41185,6 +41185,94 @@ export interface WeaviateCustomCustomApiCallInput {
   body?: unknown
 }
 
+/** Weavz Dynamic Dashboard — Profile Data */
+export interface WeavzDynamicDashboardProfileDataInput {
+  /** Array of named datasets: [{ id, label?, data, source?, role? }]. Data should be JSON from other tools. Do not include credentials, raw request headers, or secrets. */
+  datasets: unknown
+  /** Default masks sensitive field names; strict also masks token-like values. Use off only for already sanitized data. (values: `default`, `strict`, `off`) */
+  redactionMode?: "default" | "strict" | "off"
+  /** Maximum display rows per dataset. Default and maximum are 1000. */
+  maxRows?: number
+}
+
+/** Weavz Dynamic Dashboard — Suggest Dashboard */
+export interface WeavzDynamicDashboardSuggestDashboardInput {
+  /** Array of named datasets: [{ id, label?, data, source?, role? }]. Data should be JSON from other tools. Do not include credentials, raw request headers, or secrets. */
+  datasets: unknown
+  /** Optional dashboard title. */
+  title?: string
+  /** Optional dashboard description. */
+  description?: string
+  /** Dashboard shape to optimize for. (values: `overview`, `comparison`, `trend`, `operations`, `funnel`, `finance`, `report`) */
+  intent?: "overview" | "comparison" | "trend" | "operations" | "funnel" | "finance" | "report"
+  /** Who will read this dashboard, such as ops, finance, support, or leadership. */
+  audience?: string
+  /** Preferred layout density. (values: `balanced`, `compact`, `wide`, `single_column`) */
+  layoutHint?: "balanced" | "compact" | "wide" | "single_column"
+  /** Preferred date/time field for trend charts. */
+  timeField?: string
+  /** Preferred numeric field for metric cards and charts. */
+  primaryMetric?: string
+  /** Preferred category field for breakdown charts. */
+  primaryDimension?: string
+  /** Optional grouping field for grouped or stacked charts. */
+  groupBy?: string
+  /** Optional comparison field for multi-series charts. */
+  compareBy?: string
+  /** Dataset id to use as a baseline for comparisons. */
+  baselineDatasetId?: string
+  /** Maximum display rows per dataset. Default and maximum are 1000. */
+  maxRows?: number
+  /** Renderer theme preference. (values: `system`, `light`, `dark`) */
+  theme?: "system" | "light" | "dark"
+  /** Default masks sensitive field names; strict also masks token-like values. Use off only for already sanitized data. (values: `default`, `strict`, `off`) */
+  redactionMode?: "default" | "strict" | "off"
+}
+
+/** Weavz Dynamic Dashboard — Validate Dashboard */
+export interface WeavzDynamicDashboardValidateDashboardInput {
+  /** Array of named datasets: [{ id, label?, data, source?, role? }]. Data should be JSON from other tools. Do not include credentials, raw request headers, or secrets. */
+  datasets: unknown
+  /** Dashboard spec with layout sections, widgets, filters, and formatting. */
+  spec: unknown
+}
+
+/** Weavz Dynamic Dashboard — Render Dashboard */
+export interface WeavzDynamicDashboardRenderDashboardInput {
+  /** Array of named datasets: [{ id, label?, data, source?, role? }]. Data should be JSON from other tools. Do not include credentials, raw request headers, or secrets. */
+  datasets: unknown
+  /** Optional dashboard spec. If omitted, Weavz infers one from datasets and hints. */
+  spec?: unknown
+  /** Optional dashboard title. */
+  title?: string
+  /** Optional dashboard description. */
+  description?: string
+  /** Dashboard shape to optimize for. (values: `overview`, `comparison`, `trend`, `operations`, `funnel`, `finance`, `report`) */
+  intent?: "overview" | "comparison" | "trend" | "operations" | "funnel" | "finance" | "report"
+  /** Who will read this dashboard, such as ops, finance, support, or leadership. */
+  audience?: string
+  /** Preferred layout density. (values: `balanced`, `compact`, `wide`, `single_column`) */
+  layoutHint?: "balanced" | "compact" | "wide" | "single_column"
+  /** Preferred date/time field for trend charts. */
+  timeField?: string
+  /** Preferred numeric field for metric cards and charts. */
+  primaryMetric?: string
+  /** Preferred category field for breakdown charts. */
+  primaryDimension?: string
+  /** Optional grouping field for grouped or stacked charts. */
+  groupBy?: string
+  /** Optional comparison field for multi-series charts. */
+  compareBy?: string
+  /** Dataset id to use as a baseline for comparisons. */
+  baselineDatasetId?: string
+  /** Maximum display rows per dataset. Default and maximum are 1000. */
+  maxRows?: number
+  /** Renderer theme preference. (values: `system`, `light`, `dark`) */
+  theme?: "system" | "light" | "dark"
+  /** Default masks sensitive field names; strict also masks token-like values. Use off only for already sanitized data. (values: `default`, `strict`, `off`) */
+  redactionMode?: "default" | "strict" | "off"
+}
+
 /** Web Reader — Fetch as Markdown */
 export interface WebReaderFetchAsMarkdownInput {
   /** The URL to fetch */
@@ -48406,6 +48494,10 @@ export interface IntegrationActionInputMap {
   'weaviate-custom.search_objects': WeaviateCustomSearchObjectsInput
   'weaviate-custom.list_classes': WeaviateCustomListClassesInput
   'weaviate-custom.custom_api_call': WeaviateCustomCustomApiCallInput
+  'weavz-dynamic-dashboard.profile_data': WeavzDynamicDashboardProfileDataInput
+  'weavz-dynamic-dashboard.suggest_dashboard': WeavzDynamicDashboardSuggestDashboardInput
+  'weavz-dynamic-dashboard.validate_dashboard': WeavzDynamicDashboardValidateDashboardInput
+  'weavz-dynamic-dashboard.render_dashboard': WeavzDynamicDashboardRenderDashboardInput
   'web-reader.fetch_as_markdown': WebReaderFetchAsMarkdownInput
   'web-reader.fetch_as_text': WebReaderFetchAsTextInput
   'web-reader.extract_links': WebReaderExtractLinksInput
@@ -53453,6 +53545,12 @@ export interface IntegrationActionInputsByIntegration {
     'list_classes': WeaviateCustomListClassesInput
     'custom_api_call': WeaviateCustomCustomApiCallInput
   }
+  'weavz-dynamic-dashboard': {
+    'profile_data': WeavzDynamicDashboardProfileDataInput
+    'suggest_dashboard': WeavzDynamicDashboardSuggestDashboardInput
+    'validate_dashboard': WeavzDynamicDashboardValidateDashboardInput
+    'render_dashboard': WeavzDynamicDashboardRenderDashboardInput
+  }
   'web-reader': {
     'fetch_as_markdown': WebReaderFetchAsMarkdownInput
     'fetch_as_text': WebReaderFetchAsTextInput
@@ -54289,6 +54387,7 @@ export const integrationNames = [
   'vtex',
   'weaviate',
   'weaviate-custom',
+  'weavz-dynamic-dashboard',
   'web-reader',
   'webex',
   'webflow',
@@ -59101,6 +59200,12 @@ export const integrationActions = {
     'search_objects',
     'list_classes',
     'custom_api_call',
+  ],
+  'weavz-dynamic-dashboard': [
+    'profile_data',
+    'suggest_dashboard',
+    'validate_dashboard',
+    'render_dashboard',
   ],
   'web-reader': [
     'fetch_as_markdown',
