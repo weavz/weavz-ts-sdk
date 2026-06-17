@@ -1520,6 +1520,8 @@ export interface AgentLocalComputerControlSessionStatusInput {
 
 /** Agent Local Computer Control — Snapshot */
 export interface AgentLocalComputerControlSnapshotInput {
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1532,6 +1534,8 @@ export interface AgentLocalComputerControlScreenshotInput {
   fullResolution?: boolean
   /** Also write the screenshot to Filesystem and return a URL. */
   saveToFilesystem?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1542,6 +1546,8 @@ export interface AgentLocalComputerControlMoveMouseInput {
   x: number
   /** Y coordinate in screenshot/display space. */
   y: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1556,6 +1562,8 @@ export interface AgentLocalComputerControlClickInput {
   button?: "left" | "right" | "middle"
   /** Double click */
   doubleClick?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1566,6 +1574,8 @@ export interface AgentLocalComputerControlDragInput {
   path: Array<{ x: number; y: number } | [number, number]>
   /** Optional total drag duration. Defaults to 400 ms. */
   durationMs?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1576,6 +1586,8 @@ export interface AgentLocalComputerControlTypeInput {
   text: string
   /** Submit with Enter */
   submit?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1586,6 +1598,8 @@ export interface AgentLocalComputerControlPressKeyInput {
   key: string
   /** Optional modifiers such as cmd, shift, option, control. */
   modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1596,6 +1610,8 @@ export interface AgentLocalComputerControlScrollInput {
   deltaX?: number
   /** Delta Y */
   deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1604,6 +1620,8 @@ export interface AgentLocalComputerControlScrollInput {
 export interface AgentLocalComputerControlWaitInput {
   /** Seconds */
   seconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1618,6 +1636,8 @@ export interface AgentLocalComputerControlRunStepsInput {
   includeFinalSnapshot?: boolean
   /** Include final screenshot */
   includeFinalScreenshot?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
