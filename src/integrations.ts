@@ -1528,6 +1528,18 @@ export interface AgentLocalComputerControlSnapshotInput {
   sessionId?: string
 }
 
+/** Agent Local Computer Control — Observe */
+export interface AgentLocalComputerControlObserveInput {
+  /** Include screenshot */
+  includeScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Local Computer Control — Screenshot */
 export interface AgentLocalComputerControlScreenshotInput {
   /** 1-100. Defaults to 60. */
@@ -1536,6 +1548,90 @@ export interface AgentLocalComputerControlScreenshotInput {
   fullResolution?: boolean
   /** Also write the screenshot to Filesystem and return a URL. */
   saveToFilesystem?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — List Targets */
+export interface AgentLocalComputerControlListTargetsInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Activate Target */
+export interface AgentLocalComputerControlActivateTargetInput {
+  /** targetRef returned by list_targets. */
+  targetRef: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Focus Element */
+export interface AgentLocalComputerControlFocusRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Press Element */
+export interface AgentLocalComputerControlPressRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Set Text Element */
+export interface AgentLocalComputerControlSetTextRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Text */
+  text: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Select Element */
+export interface AgentLocalComputerControlSelectRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
+  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer Control — Scroll Element */
+export interface AgentLocalComputerControlScrollRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
   /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
   intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
@@ -1628,9 +1724,31 @@ export interface AgentLocalComputerControlWaitInput {
   sessionId?: string
 }
 
+/** Agent Local Computer Control — Wait For */
+export interface AgentLocalComputerControlWaitForInput {
+  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
+  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
+  /** Observation ID */
+  observationId?: string
+  /** Element ref */
+  ref?: string
+  /** Text */
+  text?: string
+  /** Bundle identifier */
+  bundleIdentifier?: string
+  /** Application name */
+  applicationName?: string
+  /** Timeout seconds */
+  timeoutSeconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Local Computer Control — Run Steps */
 export interface AgentLocalComputerControlRunStepsInput {
-  /** [{ "op": "screenshot" }, { "op": "click", "params": { "x": 120, "y": 180 } }] */
+  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
   steps: Array<{ op: "snapshot" | "screenshot" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait"; params?: Record<string, unknown> }>
   /** Stop on error */
   stopOnError?: boolean
@@ -14937,7 +15055,7 @@ export interface GmailSendEmailInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
-  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  /** Files to attach. Use uploaded file data, a data URL, valid base64 content, an inline file object, or an HTTP(S) download URL. Do not pass local filesystem paths such as /Users/...; the action cannot read local disk paths. */
   attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
@@ -14951,7 +15069,7 @@ export interface GmailReplyToEmailInput {
   body: string
   /** Send as HTML */
   isHtml?: boolean
-  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  /** Files to attach. Use uploaded file data, a data URL, valid base64 content, an inline file object, or an HTTP(S) download URL. Do not pass local filesystem paths such as /Users/...; the action cannot read local disk paths. */
   attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
@@ -15166,7 +15284,7 @@ export interface GmailCreateDraftInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
-  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  /** Files to attach. Use uploaded file data, a data URL, valid base64 content, an inline file object, or an HTTP(S) download URL. Do not pass local filesystem paths such as /Users/...; the action cannot read local disk paths. */
   attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
@@ -15204,7 +15322,7 @@ export interface GmailUpdateDraftInput {
   bcc?: string
   /** Send as HTML */
   isHtml?: boolean
-  /** Files to attach. Each file can be an uploaded file, base64 payload, data URL, or HTTP(S) URL such as a Weavz filesystem download URL. */
+  /** Files to attach. Use uploaded file data, a data URL, valid base64 content, an inline file object, or an HTTP(S) download URL. Do not pass local filesystem paths such as /Users/...; the action cannot read local disk paths. */
   attachments?: Array<{   file: WeavzFileInput;   filename?: string;   mimeType?: string }>
 }
 
@@ -44905,7 +45023,15 @@ export interface IntegrationActionInputMap {
   'agent-local-computer-control.ensure_connected': AgentLocalComputerControlEnsureConnectedInput
   'agent-local-computer-control.session_status': AgentLocalComputerControlSessionStatusInput
   'agent-local-computer-control.snapshot': AgentLocalComputerControlSnapshotInput
+  'agent-local-computer-control.observe': AgentLocalComputerControlObserveInput
   'agent-local-computer-control.screenshot': AgentLocalComputerControlScreenshotInput
+  'agent-local-computer-control.list_targets': AgentLocalComputerControlListTargetsInput
+  'agent-local-computer-control.activate_target': AgentLocalComputerControlActivateTargetInput
+  'agent-local-computer-control.focus_ref': AgentLocalComputerControlFocusRefInput
+  'agent-local-computer-control.press_ref': AgentLocalComputerControlPressRefInput
+  'agent-local-computer-control.set_text_ref': AgentLocalComputerControlSetTextRefInput
+  'agent-local-computer-control.select_ref': AgentLocalComputerControlSelectRefInput
+  'agent-local-computer-control.scroll_ref': AgentLocalComputerControlScrollRefInput
   'agent-local-computer-control.move_mouse': AgentLocalComputerControlMoveMouseInput
   'agent-local-computer-control.click': AgentLocalComputerControlClickInput
   'agent-local-computer-control.drag': AgentLocalComputerControlDragInput
@@ -44913,6 +45039,7 @@ export interface IntegrationActionInputMap {
   'agent-local-computer-control.press_key': AgentLocalComputerControlPressKeyInput
   'agent-local-computer-control.scroll': AgentLocalComputerControlScrollInput
   'agent-local-computer-control.wait': AgentLocalComputerControlWaitInput
+  'agent-local-computer-control.wait_for': AgentLocalComputerControlWaitForInput
   'agent-local-computer-control.run_steps': AgentLocalComputerControlRunStepsInput
   'agent-local-computer-control.request_human': AgentLocalComputerControlRequestHumanInput
   'agent-local-computer-control.resume': AgentLocalComputerControlResumeInput
@@ -48993,7 +49120,15 @@ export interface IntegrationActionInputsByIntegration {
     'ensure_connected': AgentLocalComputerControlEnsureConnectedInput
     'session_status': AgentLocalComputerControlSessionStatusInput
     'snapshot': AgentLocalComputerControlSnapshotInput
+    'observe': AgentLocalComputerControlObserveInput
     'screenshot': AgentLocalComputerControlScreenshotInput
+    'list_targets': AgentLocalComputerControlListTargetsInput
+    'activate_target': AgentLocalComputerControlActivateTargetInput
+    'focus_ref': AgentLocalComputerControlFocusRefInput
+    'press_ref': AgentLocalComputerControlPressRefInput
+    'set_text_ref': AgentLocalComputerControlSetTextRefInput
+    'select_ref': AgentLocalComputerControlSelectRefInput
+    'scroll_ref': AgentLocalComputerControlScrollRefInput
     'move_mouse': AgentLocalComputerControlMoveMouseInput
     'click': AgentLocalComputerControlClickInput
     'drag': AgentLocalComputerControlDragInput
@@ -49001,6 +49136,7 @@ export interface IntegrationActionInputsByIntegration {
     'press_key': AgentLocalComputerControlPressKeyInput
     'scroll': AgentLocalComputerControlScrollInput
     'wait': AgentLocalComputerControlWaitInput
+    'wait_for': AgentLocalComputerControlWaitForInput
     'run_steps': AgentLocalComputerControlRunStepsInput
     'request_human': AgentLocalComputerControlRequestHumanInput
     'resume': AgentLocalComputerControlResumeInput
@@ -54651,7 +54787,15 @@ export const integrationActions = {
     'ensure_connected',
     'session_status',
     'snapshot',
+    'observe',
     'screenshot',
+    'list_targets',
+    'activate_target',
+    'focus_ref',
+    'press_ref',
+    'set_text_ref',
+    'select_ref',
+    'scroll_ref',
     'move_mouse',
     'click',
     'drag',
@@ -54659,6 +54803,7 @@ export const integrationActions = {
     'press_key',
     'scroll',
     'wait',
+    'wait_for',
     'run_steps',
     'request_human',
     'resume',
