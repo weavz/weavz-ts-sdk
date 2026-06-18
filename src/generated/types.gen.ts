@@ -197,6 +197,7 @@ export type AdvancedCodeWorkspaceSettings = {
 export type WorkspaceIntegrationSettings = {
   advancedCode?: AdvancedCodeWorkspaceSettings;
   persistence?: PersistenceWorkspaceSettings;
+  localBrowser?: LocalBrowserWorkspaceSettings;
 };
 
 /**
@@ -211,6 +212,13 @@ export type PersistenceWorkspaceSettings = {
    * Required when scope is external.
    */
   externalId?: string;
+};
+
+/**
+ * Owner-controlled runtime policy for the Agent Local Browser Control workspace integration.
+ */
+export type LocalBrowserWorkspaceSettings = {
+  runtime?: "chrome_extension" | "managed_profile";
 };
 
 export type WorkspaceIntegration = {
