@@ -934,6 +934,12 @@ export interface AgentBrowserTabsInput {
   sessionId?: string
 }
 
+/** Agent Browser — Show Live View */
+export interface AgentBrowserShowLiveViewInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Browser — Request Human Takeover */
 export interface AgentBrowserRequestHumanInput {
   /** Reason */
@@ -1180,6 +1186,12 @@ export interface AgentBrowserStealthTabsInput {
   sessionId?: string
 }
 
+/** Agent Browser (Stealth) — Show Live View */
+export interface AgentBrowserStealthShowLiveViewInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Browser (Stealth) — Request Human Takeover */
 export interface AgentBrowserStealthRequestHumanInput {
   /** Reason */
@@ -1422,6 +1434,12 @@ export interface AgentBrowserAiTabsInput {
   index?: number
   /** URL for a new tab. */
   url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser AI — Show Live View */
+export interface AgentBrowserAiShowLiveViewInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -1696,6 +1714,12 @@ export interface AgentLocalBrowserControlTabsInput {
   index?: number
   /** URL for a new tab. */
   url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Browser Control — Show Live View */
+export interface AgentLocalBrowserControlShowLiveViewInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
   sessionId?: string
 }
@@ -47567,6 +47591,7 @@ export interface IntegrationActionInputMap {
   'agent-browser.wait_for': AgentBrowserWaitForInput
   'agent-browser.handle_dialog': AgentBrowserHandleDialogInput
   'agent-browser.tabs': AgentBrowserTabsInput
+  'agent-browser.show_live_view': AgentBrowserShowLiveViewInput
   'agent-browser.request_human': AgentBrowserRequestHumanInput
   'agent-browser.resume': AgentBrowserResumeInput
   'agent-browser.ensure_connected': AgentBrowserEnsureConnectedInput
@@ -47593,6 +47618,7 @@ export interface IntegrationActionInputMap {
   'agent-browser-stealth.wait_for': AgentBrowserStealthWaitForInput
   'agent-browser-stealth.handle_dialog': AgentBrowserStealthHandleDialogInput
   'agent-browser-stealth.tabs': AgentBrowserStealthTabsInput
+  'agent-browser-stealth.show_live_view': AgentBrowserStealthShowLiveViewInput
   'agent-browser-stealth.request_human': AgentBrowserStealthRequestHumanInput
   'agent-browser-stealth.resume': AgentBrowserStealthResumeInput
   'agent-browser-stealth.ensure_connected': AgentBrowserStealthEnsureConnectedInput
@@ -47619,6 +47645,7 @@ export interface IntegrationActionInputMap {
   'agent-browser-ai.wait_for': AgentBrowserAiWaitForInput
   'agent-browser-ai.handle_dialog': AgentBrowserAiHandleDialogInput
   'agent-browser-ai.tabs': AgentBrowserAiTabsInput
+  'agent-browser-ai.show_live_view': AgentBrowserAiShowLiveViewInput
   'agent-browser-ai.request_human': AgentBrowserAiRequestHumanInput
   'agent-browser-ai.resume': AgentBrowserAiResumeInput
   'agent-browser-ai.ensure_connected': AgentBrowserAiEnsureConnectedInput
@@ -47648,6 +47675,7 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.wait_for': AgentLocalBrowserControlWaitForInput
   'agent-local-browser-control.handle_dialog': AgentLocalBrowserControlHandleDialogInput
   'agent-local-browser-control.tabs': AgentLocalBrowserControlTabsInput
+  'agent-local-browser-control.show_live_view': AgentLocalBrowserControlShowLiveViewInput
   'agent-local-browser-control.request_human': AgentLocalBrowserControlRequestHumanInput
   'agent-local-browser-control.resume': AgentLocalBrowserControlResumeInput
   'agent-local-browser-control.ensure_connected': AgentLocalBrowserControlEnsureConnectedInput
@@ -51867,6 +51895,7 @@ export interface IntegrationActionInputsByIntegration {
     'wait_for': AgentBrowserWaitForInput
     'handle_dialog': AgentBrowserHandleDialogInput
     'tabs': AgentBrowserTabsInput
+    'show_live_view': AgentBrowserShowLiveViewInput
     'request_human': AgentBrowserRequestHumanInput
     'resume': AgentBrowserResumeInput
     'ensure_connected': AgentBrowserEnsureConnectedInput
@@ -51895,6 +51924,7 @@ export interface IntegrationActionInputsByIntegration {
     'wait_for': AgentBrowserStealthWaitForInput
     'handle_dialog': AgentBrowserStealthHandleDialogInput
     'tabs': AgentBrowserStealthTabsInput
+    'show_live_view': AgentBrowserStealthShowLiveViewInput
     'request_human': AgentBrowserStealthRequestHumanInput
     'resume': AgentBrowserStealthResumeInput
     'ensure_connected': AgentBrowserStealthEnsureConnectedInput
@@ -51923,6 +51953,7 @@ export interface IntegrationActionInputsByIntegration {
     'wait_for': AgentBrowserAiWaitForInput
     'handle_dialog': AgentBrowserAiHandleDialogInput
     'tabs': AgentBrowserAiTabsInput
+    'show_live_view': AgentBrowserAiShowLiveViewInput
     'request_human': AgentBrowserAiRequestHumanInput
     'resume': AgentBrowserAiResumeInput
     'ensure_connected': AgentBrowserAiEnsureConnectedInput
@@ -51954,6 +51985,7 @@ export interface IntegrationActionInputsByIntegration {
     'wait_for': AgentLocalBrowserControlWaitForInput
     'handle_dialog': AgentLocalBrowserControlHandleDialogInput
     'tabs': AgentLocalBrowserControlTabsInput
+    'show_live_view': AgentLocalBrowserControlShowLiveViewInput
     'request_human': AgentLocalBrowserControlRequestHumanInput
     'resume': AgentLocalBrowserControlResumeInput
     'ensure_connected': AgentLocalBrowserControlEnsureConnectedInput
@@ -57770,6 +57802,7 @@ export const integrationActions = {
     'wait_for',
     'handle_dialog',
     'tabs',
+    'show_live_view',
     'request_human',
     'resume',
     'ensure_connected',
@@ -57798,6 +57831,7 @@ export const integrationActions = {
     'wait_for',
     'handle_dialog',
     'tabs',
+    'show_live_view',
     'request_human',
     'resume',
     'ensure_connected',
@@ -57826,6 +57860,7 @@ export const integrationActions = {
     'wait_for',
     'handle_dialog',
     'tabs',
+    'show_live_view',
     'request_human',
     'resume',
     'ensure_connected',
@@ -57857,6 +57892,7 @@ export const integrationActions = {
     'wait_for',
     'handle_dialog',
     'tabs',
+    'show_live_view',
     'request_human',
     'resume',
     'ensure_connected',
