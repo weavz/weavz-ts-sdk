@@ -6195,6 +6195,307 @@ export interface BrevoSendSmsInput {
   content: string
 }
 
+/** Brex — Get Current User */
+export type BrexGetCurrentUserInput = Record<string, never>
+
+/** Brex — Get Company */
+export type BrexGetCompanyInput = Record<string, never>
+
+/** Brex — List Users */
+export interface BrexListUsersInput {
+  /** Email */
+  email?: string
+  /** Remote Display ID */
+  remoteDisplayId?: string
+  /** Values for the official expand[] query parameter. */
+  expand?: unknown[]
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get User */
+export interface BrexGetUserInput {
+  /** User ID */
+  id: string
+}
+
+/** Brex — List Departments */
+export interface BrexListDepartmentsInput {
+  /** Name */
+  name?: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Department */
+export interface BrexGetDepartmentInput {
+  /** Department ID */
+  id: string
+}
+
+/** Brex — List Locations */
+export interface BrexListLocationsInput {
+  /** Name */
+  name?: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Location */
+export interface BrexGetLocationInput {
+  /** Location ID */
+  id: string
+}
+
+/** Brex — List Titles */
+export interface BrexListTitlesInput {
+  /** Name */
+  name?: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Title */
+export interface BrexGetTitleInput {
+  /** Title ID */
+  id: string
+}
+
+/** Brex — List Legal Entities */
+export interface BrexListLegalEntitiesInput {
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Legal Entity */
+export interface BrexGetLegalEntityInput {
+  /** Legal Entity ID */
+  id: string
+}
+
+/** Brex — List Card Accounts */
+export type BrexListCardAccountsInput = Record<string, never>
+
+/** Brex — List Cards */
+export interface BrexListCardsInput {
+  /** User ID */
+  userId?: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Card */
+export interface BrexGetCardInput {
+  /** Card ID */
+  id: string
+}
+
+/** Brex — List Cash Accounts */
+export type BrexListCashAccountsInput = Record<string, never>
+
+/** Brex — Get Primary Cash Account */
+export type BrexGetPrimaryCashAccountInput = Record<string, never>
+
+/** Brex — Get Cash Account */
+export interface BrexGetCashAccountInput {
+  /** Cash Account ID */
+  id: string
+}
+
+/** Brex — List Card Transactions */
+export interface BrexListCardTransactionsInput {
+  /** Values for the official user_ids query parameter. */
+  userIds?: unknown[]
+  /** Posted At Start */
+  postedAtStart?: string
+  /** Values for the official expand[] query parameter. */
+  expand?: unknown[]
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — List Cash Transactions */
+export interface BrexListCashTransactionsInput {
+  /** Cash Account ID */
+  id: string
+  /** Posted At Start */
+  postedAtStart?: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — List Card Statements */
+export interface BrexListCardStatementsInput {
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — List Cash Statements */
+export interface BrexListCashStatementsInput {
+  /** Cash Account ID */
+  id: string
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — List Expenses */
+export interface BrexListExpensesInput {
+  /** Expand */
+  expand?: unknown[]
+  /** User IDs */
+  userIds?: unknown[]
+  /** Parent Expense IDs */
+  parentExpenseIds?: unknown[]
+  /** Budget IDs */
+  budgetIds?: unknown[]
+  /** Spending Entity IDs */
+  spendingEntityIds?: unknown[]
+  /** Expense Types */
+  expenseTypes?: unknown[]
+  /** Statuses */
+  statuses?: unknown[]
+  /** Payment Statuses */
+  paymentStatuses?: unknown[]
+  /** Purchased At Start */
+  purchasedAtStart?: string
+  /** Purchased At End */
+  purchasedAtEnd?: string
+  /** Updated At Start */
+  updatedAtStart?: string
+  /** Updated At End */
+  updatedAtEnd?: string
+  /** Payment Posted At Start */
+  paymentPostedAtStart?: string
+  /** Payment Posted At End */
+  paymentPostedAtEnd?: string
+  /** Load Custom Fields */
+  loadCustomFields?: boolean
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Expense */
+export interface BrexGetExpenseInput {
+  /** Expense ID */
+  id: string
+  /** Expand */
+  expand?: unknown[]
+  /** Load Custom Fields */
+  loadCustomFields?: boolean
+}
+
+/** Brex — List Card Expenses */
+export interface BrexListCardExpensesInput {
+  /** Expand */
+  expand?: unknown[]
+  /** User IDs */
+  userIds?: unknown[]
+  /** Parent Expense IDs */
+  parentExpenseIds?: unknown[]
+  /** Budget IDs */
+  budgetIds?: unknown[]
+  /** Spending Entity IDs */
+  spendingEntityIds?: unknown[]
+  /** Statuses */
+  statuses?: unknown[]
+  /** Payment Statuses */
+  paymentStatuses?: unknown[]
+  /** Purchased At Start */
+  purchasedAtStart?: string
+  /** Purchased At End */
+  purchasedAtEnd?: string
+  /** Updated At Start */
+  updatedAtStart?: string
+  /** Updated At End */
+  updatedAtEnd?: string
+  /** Payment Posted At Start */
+  paymentPostedAtStart?: string
+  /** Payment Posted At End */
+  paymentPostedAtEnd?: string
+  /** Load Custom Fields */
+  loadCustomFields?: boolean
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Card Expense */
+export interface BrexGetCardExpenseInput {
+  /** Card Expense ID */
+  expenseId: string
+  /** Expand */
+  expand?: unknown[]
+  /** Load Custom Fields */
+  loadCustomFields?: boolean
+}
+
+/** Brex — List Budget Programs */
+export interface BrexListBudgetProgramsInput {
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Budget Program */
+export interface BrexGetBudgetProgramInput {
+  /** Budget Program ID */
+  id: string
+}
+
+/** Brex — List Budgets */
+export interface BrexListBudgetsInput {
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Budget */
+export interface BrexGetBudgetInput {
+  /** Budget ID */
+  id: string
+}
+
+/** Brex — List Spend Limits */
+export interface BrexListSpendLimitsInput {
+  /** Values for the official member_user_id[] query parameter. */
+  memberUserIds?: unknown[]
+  /** Brex pagination cursor returned by the previous response. */
+  cursor?: string
+  /** Maximum number of results Brex should return. */
+  limit?: number
+}
+
+/** Brex — Get Spend Limit */
+export interface BrexGetSpendLimitInput {
+  /** Spend Limit ID */
+  id: string
+}
+
 /** Buffer — Create Post */
 export interface BufferCreatePostInput {
   /** Array of profile IDs to post to */
@@ -46764,6 +47065,38 @@ export interface IntegrationActionInputMap {
   'brevo.list_contacts': BrevoListContactsInput
   'brevo.create_contact': BrevoCreateContactInput
   'brevo.send_sms': BrevoSendSmsInput
+  'brex.get_current_user': BrexGetCurrentUserInput
+  'brex.get_company': BrexGetCompanyInput
+  'brex.list_users': BrexListUsersInput
+  'brex.get_user': BrexGetUserInput
+  'brex.list_departments': BrexListDepartmentsInput
+  'brex.get_department': BrexGetDepartmentInput
+  'brex.list_locations': BrexListLocationsInput
+  'brex.get_location': BrexGetLocationInput
+  'brex.list_titles': BrexListTitlesInput
+  'brex.get_title': BrexGetTitleInput
+  'brex.list_legal_entities': BrexListLegalEntitiesInput
+  'brex.get_legal_entity': BrexGetLegalEntityInput
+  'brex.list_card_accounts': BrexListCardAccountsInput
+  'brex.list_cards': BrexListCardsInput
+  'brex.get_card': BrexGetCardInput
+  'brex.list_cash_accounts': BrexListCashAccountsInput
+  'brex.get_primary_cash_account': BrexGetPrimaryCashAccountInput
+  'brex.get_cash_account': BrexGetCashAccountInput
+  'brex.list_card_transactions': BrexListCardTransactionsInput
+  'brex.list_cash_transactions': BrexListCashTransactionsInput
+  'brex.list_card_statements': BrexListCardStatementsInput
+  'brex.list_cash_statements': BrexListCashStatementsInput
+  'brex.list_expenses': BrexListExpensesInput
+  'brex.get_expense': BrexGetExpenseInput
+  'brex.list_card_expenses': BrexListCardExpensesInput
+  'brex.get_card_expense': BrexGetCardExpenseInput
+  'brex.list_budget_programs': BrexListBudgetProgramsInput
+  'brex.get_budget_program': BrexGetBudgetProgramInput
+  'brex.list_budgets': BrexListBudgetsInput
+  'brex.get_budget': BrexGetBudgetInput
+  'brex.list_spend_limits': BrexListSpendLimitsInput
+  'brex.get_spend_limit': BrexGetSpendLimitInput
   'buffer.create_post': BufferCreatePostInput
   'buffer.list_profiles': BufferListProfilesInput
   'buffer.get_post': BufferGetPostInput
@@ -51046,6 +51379,40 @@ export interface IntegrationActionInputsByIntegration {
     'list_contacts': BrevoListContactsInput
     'create_contact': BrevoCreateContactInput
     'send_sms': BrevoSendSmsInput
+  }
+  'brex': {
+    'get_current_user': BrexGetCurrentUserInput
+    'get_company': BrexGetCompanyInput
+    'list_users': BrexListUsersInput
+    'get_user': BrexGetUserInput
+    'list_departments': BrexListDepartmentsInput
+    'get_department': BrexGetDepartmentInput
+    'list_locations': BrexListLocationsInput
+    'get_location': BrexGetLocationInput
+    'list_titles': BrexListTitlesInput
+    'get_title': BrexGetTitleInput
+    'list_legal_entities': BrexListLegalEntitiesInput
+    'get_legal_entity': BrexGetLegalEntityInput
+    'list_card_accounts': BrexListCardAccountsInput
+    'list_cards': BrexListCardsInput
+    'get_card': BrexGetCardInput
+    'list_cash_accounts': BrexListCashAccountsInput
+    'get_primary_cash_account': BrexGetPrimaryCashAccountInput
+    'get_cash_account': BrexGetCashAccountInput
+    'list_card_transactions': BrexListCardTransactionsInput
+    'list_cash_transactions': BrexListCashTransactionsInput
+    'list_card_statements': BrexListCardStatementsInput
+    'list_cash_statements': BrexListCashStatementsInput
+    'list_expenses': BrexListExpensesInput
+    'get_expense': BrexGetExpenseInput
+    'list_card_expenses': BrexListCardExpensesInput
+    'get_card_expense': BrexGetCardExpenseInput
+    'list_budget_programs': BrexListBudgetProgramsInput
+    'get_budget_program': BrexGetBudgetProgramInput
+    'list_budgets': BrexListBudgetsInput
+    'get_budget': BrexGetBudgetInput
+    'list_spend_limits': BrexListSpendLimitsInput
+    'get_spend_limit': BrexGetSpendLimitInput
   }
   'buffer': {
     'create_post': BufferCreatePostInput
@@ -55660,6 +56027,7 @@ export const integrationNames = [
   'brave-search',
   'breezy-hr',
   'brevo',
+  'brex',
   'buffer',
   'bugsnag',
   'buildium',
@@ -56813,6 +57181,40 @@ export const integrationActions = {
     'list_contacts',
     'create_contact',
     'send_sms',
+  ],
+  'brex': [
+    'get_current_user',
+    'get_company',
+    'list_users',
+    'get_user',
+    'list_departments',
+    'get_department',
+    'list_locations',
+    'get_location',
+    'list_titles',
+    'get_title',
+    'list_legal_entities',
+    'get_legal_entity',
+    'list_card_accounts',
+    'list_cards',
+    'get_card',
+    'list_cash_accounts',
+    'get_primary_cash_account',
+    'get_cash_account',
+    'list_card_transactions',
+    'list_cash_transactions',
+    'list_card_statements',
+    'list_cash_statements',
+    'list_expenses',
+    'get_expense',
+    'list_card_expenses',
+    'get_card_expense',
+    'list_budget_programs',
+    'get_budget_program',
+    'list_budgets',
+    'get_budget',
+    'list_spend_limits',
+    'get_spend_limit',
   ],
   'buffer': [
     'create_post',
