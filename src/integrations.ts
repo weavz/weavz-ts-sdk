@@ -21721,6 +21721,214 @@ export interface ImapDeleteEmailInput {
   permanentDeletionNotice?: string
 }
 
+/** incident.io — Validate Connection */
+export type IncidentIoValidateConnectionInput = Record<string, never>
+
+/** incident.io — List Incidents */
+export interface IncidentIoListIncidentsInput {
+  /** Maximum 250. */
+  pageSize?: number
+  /** Incident ID from the previous page metadata. */
+  after?: string
+  /** Sort By (values: `created_at_newest_first`, `created_at_oldest_first`) */
+  sortBy?: "created_at_newest_first" | "created_at_oldest_first"
+  /** Use all for AND logic, any for OR logic. (values: `all`, `any`) */
+  filterMode?: "all" | "any"
+  /** Status ID */
+  statusId?: string
+  /** Status Operator (values: `one_of`, `not_in`) */
+  statusOperator?: "one_of" | "not_in"
+  /** Status Category (values: `triage`, `declined`, `merged`, `canceled`, `live`, `learning`, `closed`) */
+  statusCategory?: "triage" | "declined" | "merged" | "canceled" | "live" | "learning" | "closed"
+  /** Severity ID */
+  severityId?: string
+  /** Severity Operator (values: `one_of`, `not_in`, `gte`, `lte`) */
+  severityOperator?: "one_of" | "not_in" | "gte" | "lte"
+  /** Incident Type ID */
+  incidentTypeId?: string
+  /** Incident Type Operator (values: `one_of`, `not_in`) */
+  incidentTypeOperator?: "one_of" | "not_in"
+  /** Incident Mode (values: `standard`, `retrospective`, `test`, `tutorial`, `stream`) */
+  mode?: "standard" | "retrospective" | "test" | "tutorial" | "stream"
+  /** ISO 8601 date or date-time. */
+  createdAtGte?: string
+  /** ISO 8601 date or date-time. */
+  createdAtLte?: string
+  /** Tilde-separated range, for example 2026-06-01~2026-06-07. */
+  createdAtDateRange?: string
+  /** ISO 8601 date or date-time. */
+  updatedAtGte?: string
+  /** ISO 8601 date or date-time. */
+  updatedAtLte?: string
+  /** Tilde-separated range, for example 2026-06-01~2026-06-07. */
+  updatedAtDateRange?: string
+}
+
+/** incident.io — Search Incidents */
+export interface IncidentIoSearchIncidentsInput {
+  /** Maximum 250. */
+  pageSize?: number
+  /** Incident ID from the previous page metadata. */
+  after?: string
+  /** Sort By (values: `created_at_newest_first`, `created_at_oldest_first`) */
+  sortBy?: "created_at_newest_first" | "created_at_oldest_first"
+  /** Use all for AND logic, any for OR logic. (values: `all`, `any`) */
+  filterMode?: "all" | "any"
+  /** Status ID */
+  statusId?: string
+  /** Status Operator (values: `one_of`, `not_in`) */
+  statusOperator?: "one_of" | "not_in"
+  /** Status Category (values: `triage`, `declined`, `merged`, `canceled`, `live`, `learning`, `closed`) */
+  statusCategory?: "triage" | "declined" | "merged" | "canceled" | "live" | "learning" | "closed"
+  /** Severity ID */
+  severityId?: string
+  /** Severity Operator (values: `one_of`, `not_in`, `gte`, `lte`) */
+  severityOperator?: "one_of" | "not_in" | "gte" | "lte"
+  /** Incident Type ID */
+  incidentTypeId?: string
+  /** Incident Type Operator (values: `one_of`, `not_in`) */
+  incidentTypeOperator?: "one_of" | "not_in"
+  /** Incident Mode (values: `standard`, `retrospective`, `test`, `tutorial`, `stream`) */
+  mode?: "standard" | "retrospective" | "test" | "tutorial" | "stream"
+  /** ISO 8601 date or date-time. */
+  createdAtGte?: string
+  /** ISO 8601 date or date-time. */
+  createdAtLte?: string
+  /** Tilde-separated range, for example 2026-06-01~2026-06-07. */
+  createdAtDateRange?: string
+  /** ISO 8601 date or date-time. */
+  updatedAtGte?: string
+  /** ISO 8601 date or date-time. */
+  updatedAtLte?: string
+  /** Tilde-separated range, for example 2026-06-01~2026-06-07. */
+  updatedAtDateRange?: string
+}
+
+/** incident.io — Get Incident */
+export interface IncidentIoGetIncidentInput {
+  /** Incident ID Or Reference Number */
+  incidentId: string
+}
+
+/** incident.io — List Severities */
+export type IncidentIoListSeveritiesInput = Record<string, never>
+
+/** incident.io — List Incident Statuses */
+export type IncidentIoListIncidentStatusesInput = Record<string, never>
+
+/** incident.io — List Incident Types */
+export type IncidentIoListIncidentTypesInput = Record<string, never>
+
+/** incident.io — List Users */
+export interface IncidentIoListUsersInput {
+  /** Email */
+  email?: string
+  /** Slack User ID */
+  slackUserId?: string
+  /** Maximum 1000 in this integration. */
+  pageSize?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** incident.io — Create Incident */
+export interface IncidentIoCreateIncidentInput {
+  /** Unique string used by incident.io to de-duplicate create requests. */
+  idempotencyKey: string
+  /** Visibility (values: `public`, `private`) */
+  visibility: "public" | "private"
+  /** Short explanation of the incident. */
+  name?: string
+  /** Detailed description of the incident. */
+  summary?: string
+  /** Mode (values: `standard`, `retrospective`, `test`, `tutorial`) */
+  mode?: "standard" | "retrospective" | "test" | "tutorial"
+  /** Severity ID */
+  severityId?: string
+  /** Incident Type ID */
+  incidentTypeId?: string
+  /** Incident Status ID */
+  incidentStatusId?: string
+  /** Slack Team ID */
+  slackTeamId?: string
+  /** Slack Channel Name Override */
+  slackChannelNameOverride?: string
+  /** Array matching incident.io custom_field_entries. */
+  customFieldEntries?: unknown
+  /** Array matching incident.io incident_role_assignments. */
+  incidentRoleAssignments?: unknown
+  /** Array matching incident.io incident_timestamp_values. */
+  incidentTimestampValues?: unknown
+  /** Retrospective Incident Options */
+  retrospectiveIncidentOptions?: unknown
+}
+
+/** incident.io — Edit Incident */
+export interface IncidentIoEditIncidentInput {
+  /** Incident ID Or Reference Number */
+  incidentId: string
+  /** Name */
+  name?: string
+  /** Summary */
+  summary?: string
+  /** Call URL */
+  callUrl?: string
+  /** Severity ID */
+  severityId?: string
+  /** Incident Type ID */
+  incidentTypeId?: string
+  /** Incident Status ID */
+  incidentStatusId?: string
+  /** Array matching incident.io custom_field_entries. */
+  customFieldEntries?: unknown
+  /** Array matching incident.io incident_role_assignments. */
+  incidentRoleAssignments?: unknown
+  /** Array matching incident.io incident_timestamp_values. */
+  incidentTimestampValues?: unknown
+  /** Request a notification in the incident channel. */
+  notifyIncidentChannel: boolean
+}
+
+/** incident.io — List Incident Updates */
+export interface IncidentIoListIncidentUpdatesInput {
+  /** Incident ID */
+  incidentId?: string
+  /** Maximum 250. */
+  pageSize?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** incident.io — List Actions */
+export interface IncidentIoListActionsInput {
+  /** Incident ID */
+  incidentId?: string
+  /** Incident Mode (values: `standard`, `retrospective`, `test`, `tutorial`, `stream`) */
+  incidentMode?: "standard" | "retrospective" | "test" | "tutorial" | "stream"
+}
+
+/** incident.io — Get Action */
+export interface IncidentIoGetActionInput {
+  /** Action ID */
+  actionId: string
+}
+
+/** incident.io — List Follow-ups */
+export interface IncidentIoListFollowUpsInput {
+  /** Incident ID */
+  incidentId?: string
+  /** Incident Mode (values: `standard`, `retrospective`, `test`, `tutorial`, `stream`) */
+  incidentMode?: "standard" | "retrospective" | "test" | "tutorial" | "stream"
+  /** Assignee Team ID */
+  assigneeTeamId?: string
+}
+
+/** incident.io — Get Follow-up */
+export interface IncidentIoGetFollowUpInput {
+  /** Follow-up ID */
+  followUpId: string
+}
+
 /** Infobip — Send SMS */
 export interface InfobipSendSmsInput {
   /** Sender ID or phone number */
@@ -48485,6 +48693,21 @@ export interface IntegrationActionInputMap {
   'imap.copy_email': ImapCopyEmailInput
   'imap.move_email': ImapMoveEmailInput
   'imap.delete_email': ImapDeleteEmailInput
+  'incident-io.validate_connection': IncidentIoValidateConnectionInput
+  'incident-io.list_incidents': IncidentIoListIncidentsInput
+  'incident-io.search_incidents': IncidentIoSearchIncidentsInput
+  'incident-io.get_incident': IncidentIoGetIncidentInput
+  'incident-io.list_severities': IncidentIoListSeveritiesInput
+  'incident-io.list_incident_statuses': IncidentIoListIncidentStatusesInput
+  'incident-io.list_incident_types': IncidentIoListIncidentTypesInput
+  'incident-io.list_users': IncidentIoListUsersInput
+  'incident-io.create_incident': IncidentIoCreateIncidentInput
+  'incident-io.edit_incident': IncidentIoEditIncidentInput
+  'incident-io.list_incident_updates': IncidentIoListIncidentUpdatesInput
+  'incident-io.list_actions': IncidentIoListActionsInput
+  'incident-io.get_action': IncidentIoGetActionInput
+  'incident-io.list_follow_ups': IncidentIoListFollowUpsInput
+  'incident-io.get_follow_up': IncidentIoGetFollowUpInput
   'infobip.send_sms': InfobipSendSmsInput
   'infobip.send_email': InfobipSendEmailInput
   'infobip.get_delivery_report': InfobipGetDeliveryReportInput
@@ -53158,6 +53381,23 @@ export interface IntegrationActionInputsByIntegration {
     'move_email': ImapMoveEmailInput
     'delete_email': ImapDeleteEmailInput
   }
+  'incident-io': {
+    'validate_connection': IncidentIoValidateConnectionInput
+    'list_incidents': IncidentIoListIncidentsInput
+    'search_incidents': IncidentIoSearchIncidentsInput
+    'get_incident': IncidentIoGetIncidentInput
+    'list_severities': IncidentIoListSeveritiesInput
+    'list_incident_statuses': IncidentIoListIncidentStatusesInput
+    'list_incident_types': IncidentIoListIncidentTypesInput
+    'list_users': IncidentIoListUsersInput
+    'create_incident': IncidentIoCreateIncidentInput
+    'edit_incident': IncidentIoEditIncidentInput
+    'list_incident_updates': IncidentIoListIncidentUpdatesInput
+    'list_actions': IncidentIoListActionsInput
+    'get_action': IncidentIoGetActionInput
+    'list_follow_ups': IncidentIoListFollowUpsInput
+    'get_follow_up': IncidentIoGetFollowUpInput
+  }
   'infobip': {
     'send_sms': InfobipSendSmsInput
     'send_email': InfobipSendEmailInput
@@ -56301,6 +56541,7 @@ export const integrationNames = [
   'ideogram',
   'imanage',
   'imap',
+  'incident-io',
   'infobip',
   'insightly',
   'instagram-business',
@@ -58968,6 +59209,23 @@ export const integrationActions = {
     'copy_email',
     'move_email',
     'delete_email',
+  ],
+  'incident-io': [
+    'validate_connection',
+    'list_incidents',
+    'search_incidents',
+    'get_incident',
+    'list_severities',
+    'list_incident_statuses',
+    'list_incident_types',
+    'list_users',
+    'create_incident',
+    'edit_incident',
+    'list_incident_updates',
+    'list_actions',
+    'get_action',
+    'list_follow_ups',
+    'get_follow_up',
   ],
   'infobip': [
     'send_sms',
