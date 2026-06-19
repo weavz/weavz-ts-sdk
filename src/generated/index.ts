@@ -245,6 +245,7 @@ export type {
   ListWorkspacesData,
   ListWorkspacesResponse,
   ListWorkspacesResponses,
+  LocalBrowserWorkspaceSettings,
   McpServer,
   McpServerSettings,
   McpServerTool,
