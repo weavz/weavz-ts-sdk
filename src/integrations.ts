@@ -1497,14 +1497,7 @@ export interface AgentLocalBrowserControlEndSessionInput {
 }
 
 /** Agent Local Computer Control — Start Session */
-export interface AgentLocalComputerControlStartSessionInput {
-  /** Target scope (values: `app_window`, `display`) */
-  targetScope?: "app_window" | "display"
-  /** Optional macOS bundle identifiers the local app may control. */
-  allowedApplications?: string[]
-  /** Auto-pause on focus loss */
-  autoPauseOnFocusLoss?: boolean
-}
+export type AgentLocalComputerControlStartSessionInput = Record<string, never>
 
 /** Agent Local Computer Control — Ensure Connected */
 export interface AgentLocalComputerControlEnsureConnectedInput {
