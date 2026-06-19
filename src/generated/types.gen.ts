@@ -205,7 +205,7 @@ export type WorkspaceIntegrationSettings = {
  */
 export type PersistenceWorkspaceSettings = {
   /**
-   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, and Agent Browser AI. Agent Browser uses this scope for durable browser profiles and live session reuse.
+   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
    */
   scope?: "end_user" | "workspace" | "external";
   /**
@@ -1053,7 +1053,7 @@ export type CreateConnectionData = {
     integrationName: string;
     workspaceId?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     scope?: "ORGANIZATION" | "WORKSPACE" | "USER";
@@ -1179,7 +1179,7 @@ export type ResolveConnectionData = {
     externalId?: string;
     workspaceId: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
   };
@@ -1229,7 +1229,7 @@ export type ConnectCreateTokenData = {
      */
     externalId: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     /**
@@ -1556,7 +1556,7 @@ export type ExecuteActionData = {
      */
     workspaceIntegrationId?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     /**
@@ -2225,7 +2225,7 @@ export type EnableTriggerData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {
@@ -3162,7 +3162,7 @@ export type ResolveIntegrationPropertyOptionsData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {
@@ -3226,7 +3226,7 @@ export type ResolveIntegrationPropertyData = {
      */
     integrationAlias?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including Agent Browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
     input?: {

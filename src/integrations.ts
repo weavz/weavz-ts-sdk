@@ -976,6 +976,252 @@ export interface AgentBrowserEndSessionInput {
   sessionId?: string
 }
 
+/** Agent Browser (Stealth) — Snapshot Page */
+export interface AgentBrowserStealthSnapshotInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Read Text */
+export interface AgentBrowserStealthReadTextInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Read HTML */
+export interface AgentBrowserStealthReadHtmlInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Screenshot */
+export interface AgentBrowserStealthScreenshotInput {
+  /** Full page */
+  fullPage?: boolean
+  /** Use original device scale. Leave off for an agent-optimized image. */
+  fullResolution?: boolean
+  /** 1-100. Defaults to 60 for agent-friendly output size. */
+  quality?: number
+  /** Fast viewport uses the browser frame capture path for the common current-view screenshot. (values: `fast_viewport`, `playwright`) */
+  mode?: "fast_viewport" | "playwright"
+  /** Also write the screenshot to Filesystem and return a URL. Leave off for faster agent/MCP use. */
+  saveToFilesystem?: boolean
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Run Steps */
+export interface AgentBrowserStealthRunStepsInput {
+  /** [{ "op": "navigate", "params": { "url": "https://example.com" } }, { "op": "snapshot" }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Adds a final inline MCP image. Screenshot steps inside the batch are summarized to avoid large JSON blobs. */
+  includeFinalScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  finalScreenshotQuality?: number
+  /** Final screenshot full page */
+  finalScreenshotFullPage?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Current Page */
+export interface AgentBrowserStealthCurrentPageInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Navigate */
+export interface AgentBrowserStealthNavigateInput {
+  /** URL */
+  url: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Navigate Back */
+export interface AgentBrowserStealthNavigateBackInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Click */
+export interface AgentBrowserStealthClickInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Type */
+export interface AgentBrowserStealthTypeInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Text */
+  text: string
+  /** Submit */
+  submit?: boolean
+  /** Type slowly */
+  slowly?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Fill Form */
+export interface AgentBrowserStealthFillFormInput {
+  /** [{ "target": "e5", "type": "textbox", "value": "..." }] */
+  fields: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Select Option */
+export interface AgentBrowserStealthSelectOptionInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Values */
+  values: unknown[]
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Hover */
+export interface AgentBrowserStealthHoverInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Drag and Drop */
+export interface AgentBrowserStealthDragInput {
+  /** Element ref or selector. */
+  startTarget: string
+  /** Element ref or selector. */
+  endTarget: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Press Key */
+export interface AgentBrowserStealthPressKeyInput {
+  /** Key */
+  key: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Upload File */
+export interface AgentBrowserStealthFileUploadInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** File URL, base64 payload, data URL, Blob, or inline file object. */
+  file: WeavzFileInput
+  /** Optional filename override. */
+  fileName?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Evaluate JavaScript */
+export interface AgentBrowserStealthEvaluateInput {
+  /** For example: () => document.title */
+  function: string
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Wait For */
+export interface AgentBrowserStealthWaitForInput {
+  /** Text appears */
+  text?: string
+  /** Text disappears */
+  textGone?: string
+  /** Seconds */
+  time?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Handle Dialog */
+export interface AgentBrowserStealthHandleDialogInput {
+  /** Accept */
+  accept: boolean
+  /** Prompt text */
+  promptText?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Tabs */
+export interface AgentBrowserStealthTabsInput {
+  /** Action (values: `list`, `new`, `close`, `select`) */
+  action: "list" | "new" | "close" | "select"
+  /** Tab index */
+  index?: number
+  /** URL for a new tab. */
+  url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Request Human Takeover */
+export interface AgentBrowserStealthRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Resume Agent Control */
+export interface AgentBrowserStealthResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Ensure Connected */
+export interface AgentBrowserStealthEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Session Status */
+export interface AgentBrowserStealthSessionStatusInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth) — Start Session */
+export interface AgentBrowserStealthStartSessionInput {
+  /** Restrict browsing to these hosts. Empty means unrestricted. */
+  allowedHosts?: unknown[]
+  /** Headless */
+  headless?: boolean
+}
+
+/** Agent Browser (Stealth) — End Session */
+export interface AgentBrowserStealthEndSessionInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Browser AI — Snapshot Page */
 export interface AgentBrowserAiSnapshotInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -1493,6 +1739,345 @@ export interface AgentLocalBrowserControlStartSessionInput {
 /** Agent Local Browser Control — End Session */
 export interface AgentLocalBrowserControlEndSessionInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Start Session */
+export type AgentLocalComputerAiStartSessionInput = Record<string, never>
+
+/** Agent Local Computer AI — Ensure Connected */
+export interface AgentLocalComputerAiEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Session Status */
+export interface AgentLocalComputerAiSessionStatusInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Snapshot */
+export interface AgentLocalComputerAiSnapshotInput {
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Observe */
+export interface AgentLocalComputerAiObserveInput {
+  /** Include screenshot */
+  includeScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Screenshot */
+export interface AgentLocalComputerAiScreenshotInput {
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Full resolution */
+  fullResolution?: boolean
+  /** Also write the screenshot to Filesystem and return a URL. */
+  saveToFilesystem?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — List Targets */
+export interface AgentLocalComputerAiListTargetsInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Activate Target */
+export interface AgentLocalComputerAiActivateTargetInput {
+  /** targetRef returned by list_targets. */
+  targetRef: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Focus Element */
+export interface AgentLocalComputerAiFocusRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Press Element */
+export interface AgentLocalComputerAiPressRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Set Text Element */
+export interface AgentLocalComputerAiSetTextRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Text */
+  text: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Select Element */
+export interface AgentLocalComputerAiSelectRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
+  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Scroll Element */
+export interface AgentLocalComputerAiScrollRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Move Mouse */
+export interface AgentLocalComputerAiMoveMouseInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Click */
+export interface AgentLocalComputerAiClickInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Drag */
+export interface AgentLocalComputerAiDragInput {
+  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
+  path: Array<{ x: number; y: number } | [number, number]>
+  /** Optional total drag duration. Defaults to 400 ms. */
+  durationMs?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Type */
+export interface AgentLocalComputerAiTypeInput {
+  /** Text */
+  text: string
+  /** Submit with Enter */
+  submit?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Press Key */
+export interface AgentLocalComputerAiPressKeyInput {
+  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
+  key: string
+  /** Optional modifiers such as cmd, shift, option, control. */
+  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Scroll */
+export interface AgentLocalComputerAiScrollInput {
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Wait */
+export interface AgentLocalComputerAiWaitInput {
+  /** Seconds */
+  seconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Wait For */
+export interface AgentLocalComputerAiWaitForInput {
+  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
+  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
+  /** Observation ID */
+  observationId?: string
+  /** Element ref */
+  ref?: string
+  /** Text */
+  text?: string
+  /** Bundle identifier */
+  bundleIdentifier?: string
+  /** Application name */
+  applicationName?: string
+  /** Timeout seconds */
+  timeoutSeconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Run Steps */
+export interface AgentLocalComputerAiRunStepsInput {
+  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
+  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Include final screenshot */
+  includeFinalScreenshot?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Request Human Takeover */
+export interface AgentLocalComputerAiRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Resume Agent Control */
+export interface AgentLocalComputerAiResumeInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — End Session */
+export interface AgentLocalComputerAiEndSessionInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Act */
+export interface AgentLocalComputerAiActInput {
+  /** Describe the local computer task. Do not include passwords, tokens, or other secrets. */
+  instruction: string
+  /** Max steps */
+  maxSteps?: number
+  /** Optional task-scoped capability names such as gui, browser_dom, shell, files, clipboard, app_management, full_display, or full_computer. The local companion must also grant them. */
+  allowedCapabilities?: string[]
+  /** When true, the driver stops before sending messages, posting, payments, deletes, or other external effects. */
+  requireConfirmationForExternalEffects?: boolean
+  /** Evidence mode (values: `summary`, `final_observation`) */
+  evidenceMode?: "summary" | "final_observation"
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Plan */
+export interface AgentLocalComputerAiPlanInput {
+  /** Instruction */
+  instruction: string
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Observe Goal */
+export interface AgentLocalComputerAiObserveGoalInput {
+  /** Instruction */
+  instruction: string
+  /** Include screenshot metadata/image in observation */
+  includeScreenshot?: boolean
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Extract From Screen */
+export interface AgentLocalComputerAiExtractFromScreenInput {
+  /** What to extract */
+  instruction: string
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Run Recipe */
+export interface AgentLocalComputerAiRunRecipeInput {
+  /** JSON object with optional allowedCapabilities and steps: [{ op, params, intent?, waitUntil?, delayMs? }]. Shell/file/clipboard recipe steps require matching allowedCapabilities and local Mac approval. */
+  recipe: { allowedCapabilities?: string[]; steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for" | "shell_exec" | "file_list" | "file_read" | "file_write" | "clipboard_read" | "clipboard_write"; params?: Record<string, unknown>; intent?: string; delayMs?: number; waitUntil?: Record<string, unknown> }>; }
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Agent Local Computer AI — Stop Task */
+export interface AgentLocalComputerAiStopTaskInput {
+  /** Reason */
+  reason?: string
+  /** Session ID */
   sessionId?: string
 }
 
@@ -13813,6 +14398,101 @@ export interface FacebookPagesCreateVideoPostInput {
   title?: string
   /** Description */
   description?: string
+}
+
+/** Fathom — Validate Connection */
+export type FathomValidateConnectionInput = Record<string, never>
+
+/** Fathom — List Meetings */
+export interface FathomListMeetingsInput {
+  /** Exact company domains to match, for example acme.com. */
+  calendarInviteeDomains?: unknown[]
+  /** Invitee Domain Type (values: `all`, `only_internal`, `one_or_more_external`) */
+  calendarInviteeDomainsType?: "all" | "only_internal" | "one_or_more_external"
+  /** ISO 8601 timestamp. */
+  createdAfter?: string
+  /** ISO 8601 timestamp. */
+  createdBefore?: string
+  /** Pagination cursor from next_cursor. */
+  cursor?: string
+  /** Use List Meeting Types to discover valid names. */
+  meetingType?: string
+  /** Emails of users who recorded meetings. */
+  recordedBy?: unknown[]
+  /** Team names to filter by. */
+  teams?: unknown[]
+  /** Include Summary */
+  includeSummary?: boolean
+  /** Include Transcript */
+  includeTranscript?: boolean
+  /** Include Action Items */
+  includeActionItems?: boolean
+  /** Include CRM Matches */
+  includeCrmMatches?: boolean
+  /** Include Highlights */
+  includeHighlights?: boolean
+}
+
+/** Fathom — Find Meetings */
+export interface FathomFindMeetingsInput {
+  /** Exact company domains to match, for example acme.com. */
+  calendarInviteeDomains?: unknown[]
+  /** Invitee Domain Type (values: `all`, `only_internal`, `one_or_more_external`) */
+  calendarInviteeDomainsType?: "all" | "only_internal" | "one_or_more_external"
+  /** ISO 8601 timestamp. */
+  createdAfter?: string
+  /** ISO 8601 timestamp. */
+  createdBefore?: string
+  /** Pagination cursor from next_cursor. */
+  cursor?: string
+  /** Use List Meeting Types to discover valid names. */
+  meetingType?: string
+  /** Emails of users who recorded meetings. */
+  recordedBy?: unknown[]
+  /** Team names to filter by. */
+  teams?: unknown[]
+  /** Include Summary */
+  includeSummary?: boolean
+  /** Include Transcript */
+  includeTranscript?: boolean
+  /** Include Action Items */
+  includeActionItems?: boolean
+  /** Include CRM Matches */
+  includeCrmMatches?: boolean
+  /** Include Highlights */
+  includeHighlights?: boolean
+}
+
+/** Fathom — Get Recording Summary */
+export interface FathomGetRecordingSummaryInput {
+  /** Recording ID */
+  recordingId: number
+}
+
+/** Fathom — Get Recording Transcript */
+export interface FathomGetRecordingTranscriptInput {
+  /** Recording ID */
+  recordingId: number
+}
+
+/** Fathom — List Meeting Types */
+export interface FathomListMeetingTypesInput {
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fathom — List Teams */
+export interface FathomListTeamsInput {
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fathom — List Team Members */
+export interface FathomListTeamMembersInput {
+  /** Cursor */
+  cursor?: string
+  /** Team */
+  team?: string
 }
 
 /** Fellow.ai — Get AI Note */
@@ -46893,6 +47573,32 @@ export interface IntegrationActionInputMap {
   'agent-browser.session_status': AgentBrowserSessionStatusInput
   'agent-browser.start_session': AgentBrowserStartSessionInput
   'agent-browser.end_session': AgentBrowserEndSessionInput
+  'agent-browser-stealth.snapshot': AgentBrowserStealthSnapshotInput
+  'agent-browser-stealth.read_text': AgentBrowserStealthReadTextInput
+  'agent-browser-stealth.read_html': AgentBrowserStealthReadHtmlInput
+  'agent-browser-stealth.screenshot': AgentBrowserStealthScreenshotInput
+  'agent-browser-stealth.run_steps': AgentBrowserStealthRunStepsInput
+  'agent-browser-stealth.current_page': AgentBrowserStealthCurrentPageInput
+  'agent-browser-stealth.navigate': AgentBrowserStealthNavigateInput
+  'agent-browser-stealth.navigate_back': AgentBrowserStealthNavigateBackInput
+  'agent-browser-stealth.click': AgentBrowserStealthClickInput
+  'agent-browser-stealth.type': AgentBrowserStealthTypeInput
+  'agent-browser-stealth.fill_form': AgentBrowserStealthFillFormInput
+  'agent-browser-stealth.select_option': AgentBrowserStealthSelectOptionInput
+  'agent-browser-stealth.hover': AgentBrowserStealthHoverInput
+  'agent-browser-stealth.drag': AgentBrowserStealthDragInput
+  'agent-browser-stealth.press_key': AgentBrowserStealthPressKeyInput
+  'agent-browser-stealth.file_upload': AgentBrowserStealthFileUploadInput
+  'agent-browser-stealth.evaluate': AgentBrowserStealthEvaluateInput
+  'agent-browser-stealth.wait_for': AgentBrowserStealthWaitForInput
+  'agent-browser-stealth.handle_dialog': AgentBrowserStealthHandleDialogInput
+  'agent-browser-stealth.tabs': AgentBrowserStealthTabsInput
+  'agent-browser-stealth.request_human': AgentBrowserStealthRequestHumanInput
+  'agent-browser-stealth.resume': AgentBrowserStealthResumeInput
+  'agent-browser-stealth.ensure_connected': AgentBrowserStealthEnsureConnectedInput
+  'agent-browser-stealth.session_status': AgentBrowserStealthSessionStatusInput
+  'agent-browser-stealth.start_session': AgentBrowserStealthStartSessionInput
+  'agent-browser-stealth.end_session': AgentBrowserStealthEndSessionInput
   'agent-browser-ai.snapshot': AgentBrowserAiSnapshotInput
   'agent-browser-ai.read_text': AgentBrowserAiReadTextInput
   'agent-browser-ai.read_html': AgentBrowserAiReadHtmlInput
@@ -46948,6 +47654,37 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.session_status': AgentLocalBrowserControlSessionStatusInput
   'agent-local-browser-control.start_session': AgentLocalBrowserControlStartSessionInput
   'agent-local-browser-control.end_session': AgentLocalBrowserControlEndSessionInput
+  'agent-local-computer-ai.start_session': AgentLocalComputerAiStartSessionInput
+  'agent-local-computer-ai.ensure_connected': AgentLocalComputerAiEnsureConnectedInput
+  'agent-local-computer-ai.session_status': AgentLocalComputerAiSessionStatusInput
+  'agent-local-computer-ai.snapshot': AgentLocalComputerAiSnapshotInput
+  'agent-local-computer-ai.observe': AgentLocalComputerAiObserveInput
+  'agent-local-computer-ai.screenshot': AgentLocalComputerAiScreenshotInput
+  'agent-local-computer-ai.list_targets': AgentLocalComputerAiListTargetsInput
+  'agent-local-computer-ai.activate_target': AgentLocalComputerAiActivateTargetInput
+  'agent-local-computer-ai.focus_ref': AgentLocalComputerAiFocusRefInput
+  'agent-local-computer-ai.press_ref': AgentLocalComputerAiPressRefInput
+  'agent-local-computer-ai.set_text_ref': AgentLocalComputerAiSetTextRefInput
+  'agent-local-computer-ai.select_ref': AgentLocalComputerAiSelectRefInput
+  'agent-local-computer-ai.scroll_ref': AgentLocalComputerAiScrollRefInput
+  'agent-local-computer-ai.move_mouse': AgentLocalComputerAiMoveMouseInput
+  'agent-local-computer-ai.click': AgentLocalComputerAiClickInput
+  'agent-local-computer-ai.drag': AgentLocalComputerAiDragInput
+  'agent-local-computer-ai.type': AgentLocalComputerAiTypeInput
+  'agent-local-computer-ai.press_key': AgentLocalComputerAiPressKeyInput
+  'agent-local-computer-ai.scroll': AgentLocalComputerAiScrollInput
+  'agent-local-computer-ai.wait': AgentLocalComputerAiWaitInput
+  'agent-local-computer-ai.wait_for': AgentLocalComputerAiWaitForInput
+  'agent-local-computer-ai.run_steps': AgentLocalComputerAiRunStepsInput
+  'agent-local-computer-ai.request_human': AgentLocalComputerAiRequestHumanInput
+  'agent-local-computer-ai.resume': AgentLocalComputerAiResumeInput
+  'agent-local-computer-ai.end_session': AgentLocalComputerAiEndSessionInput
+  'agent-local-computer-ai.act': AgentLocalComputerAiActInput
+  'agent-local-computer-ai.plan': AgentLocalComputerAiPlanInput
+  'agent-local-computer-ai.observe_goal': AgentLocalComputerAiObserveGoalInput
+  'agent-local-computer-ai.extract_from_screen': AgentLocalComputerAiExtractFromScreenInput
+  'agent-local-computer-ai.run_recipe': AgentLocalComputerAiRunRecipeInput
+  'agent-local-computer-ai.stop_task': AgentLocalComputerAiStopTaskInput
   'agent-local-computer-control.start_session': AgentLocalComputerControlStartSessionInput
   'agent-local-computer-control.ensure_connected': AgentLocalComputerControlEnsureConnectedInput
   'agent-local-computer-control.session_status': AgentLocalComputerControlSessionStatusInput
@@ -48028,6 +48765,14 @@ export interface IntegrationActionInputMap {
   'facebook-pages.create_post': FacebookPagesCreatePostInput
   'facebook-pages.create_photo_post': FacebookPagesCreatePhotoPostInput
   'facebook-pages.create_video_post': FacebookPagesCreateVideoPostInput
+  'fathom.validate_connection': FathomValidateConnectionInput
+  'fathom.list_meetings': FathomListMeetingsInput
+  'fathom.find_meetings': FathomFindMeetingsInput
+  'fathom.get_recording_summary': FathomGetRecordingSummaryInput
+  'fathom.get_recording_transcript': FathomGetRecordingTranscriptInput
+  'fathom.list_meeting_types': FathomListMeetingTypesInput
+  'fathom.list_teams': FathomListTeamsInput
+  'fathom.list_team_members': FathomListTeamMembersInput
   'fellow.get-note': FellowGetNoteInput
   'fellow.custom_api_call': FellowCustomApiCallInput
   'fieldwire.get_task': FieldwireGetTaskInput
@@ -51129,6 +51874,34 @@ export interface IntegrationActionInputsByIntegration {
     'start_session': AgentBrowserStartSessionInput
     'end_session': AgentBrowserEndSessionInput
   }
+  'agent-browser-stealth': {
+    'snapshot': AgentBrowserStealthSnapshotInput
+    'read_text': AgentBrowserStealthReadTextInput
+    'read_html': AgentBrowserStealthReadHtmlInput
+    'screenshot': AgentBrowserStealthScreenshotInput
+    'run_steps': AgentBrowserStealthRunStepsInput
+    'current_page': AgentBrowserStealthCurrentPageInput
+    'navigate': AgentBrowserStealthNavigateInput
+    'navigate_back': AgentBrowserStealthNavigateBackInput
+    'click': AgentBrowserStealthClickInput
+    'type': AgentBrowserStealthTypeInput
+    'fill_form': AgentBrowserStealthFillFormInput
+    'select_option': AgentBrowserStealthSelectOptionInput
+    'hover': AgentBrowserStealthHoverInput
+    'drag': AgentBrowserStealthDragInput
+    'press_key': AgentBrowserStealthPressKeyInput
+    'file_upload': AgentBrowserStealthFileUploadInput
+    'evaluate': AgentBrowserStealthEvaluateInput
+    'wait_for': AgentBrowserStealthWaitForInput
+    'handle_dialog': AgentBrowserStealthHandleDialogInput
+    'tabs': AgentBrowserStealthTabsInput
+    'request_human': AgentBrowserStealthRequestHumanInput
+    'resume': AgentBrowserStealthResumeInput
+    'ensure_connected': AgentBrowserStealthEnsureConnectedInput
+    'session_status': AgentBrowserStealthSessionStatusInput
+    'start_session': AgentBrowserStealthStartSessionInput
+    'end_session': AgentBrowserStealthEndSessionInput
+  }
   'agent-browser-ai': {
     'snapshot': AgentBrowserAiSnapshotInput
     'read_text': AgentBrowserAiReadTextInput
@@ -51187,6 +51960,39 @@ export interface IntegrationActionInputsByIntegration {
     'session_status': AgentLocalBrowserControlSessionStatusInput
     'start_session': AgentLocalBrowserControlStartSessionInput
     'end_session': AgentLocalBrowserControlEndSessionInput
+  }
+  'agent-local-computer-ai': {
+    'start_session': AgentLocalComputerAiStartSessionInput
+    'ensure_connected': AgentLocalComputerAiEnsureConnectedInput
+    'session_status': AgentLocalComputerAiSessionStatusInput
+    'snapshot': AgentLocalComputerAiSnapshotInput
+    'observe': AgentLocalComputerAiObserveInput
+    'screenshot': AgentLocalComputerAiScreenshotInput
+    'list_targets': AgentLocalComputerAiListTargetsInput
+    'activate_target': AgentLocalComputerAiActivateTargetInput
+    'focus_ref': AgentLocalComputerAiFocusRefInput
+    'press_ref': AgentLocalComputerAiPressRefInput
+    'set_text_ref': AgentLocalComputerAiSetTextRefInput
+    'select_ref': AgentLocalComputerAiSelectRefInput
+    'scroll_ref': AgentLocalComputerAiScrollRefInput
+    'move_mouse': AgentLocalComputerAiMoveMouseInput
+    'click': AgentLocalComputerAiClickInput
+    'drag': AgentLocalComputerAiDragInput
+    'type': AgentLocalComputerAiTypeInput
+    'press_key': AgentLocalComputerAiPressKeyInput
+    'scroll': AgentLocalComputerAiScrollInput
+    'wait': AgentLocalComputerAiWaitInput
+    'wait_for': AgentLocalComputerAiWaitForInput
+    'run_steps': AgentLocalComputerAiRunStepsInput
+    'request_human': AgentLocalComputerAiRequestHumanInput
+    'resume': AgentLocalComputerAiResumeInput
+    'end_session': AgentLocalComputerAiEndSessionInput
+    'act': AgentLocalComputerAiActInput
+    'plan': AgentLocalComputerAiPlanInput
+    'observe_goal': AgentLocalComputerAiObserveGoalInput
+    'extract_from_screen': AgentLocalComputerAiExtractFromScreenInput
+    'run_recipe': AgentLocalComputerAiRunRecipeInput
+    'stop_task': AgentLocalComputerAiStopTaskInput
   }
   'agent-local-computer-control': {
     'start_session': AgentLocalComputerControlStartSessionInput
@@ -52545,6 +53351,16 @@ export interface IntegrationActionInputsByIntegration {
     'create_post': FacebookPagesCreatePostInput
     'create_photo_post': FacebookPagesCreatePhotoPostInput
     'create_video_post': FacebookPagesCreateVideoPostInput
+  }
+  'fathom': {
+    'validate_connection': FathomValidateConnectionInput
+    'list_meetings': FathomListMeetingsInput
+    'find_meetings': FathomFindMeetingsInput
+    'get_recording_summary': FathomGetRecordingSummaryInput
+    'get_recording_transcript': FathomGetRecordingTranscriptInput
+    'list_meeting_types': FathomListMeetingTypesInput
+    'list_teams': FathomListTeamsInput
+    'list_team_members': FathomListTeamMembersInput
   }
   'fellow': {
     'get-note': FellowGetNoteInput
@@ -56315,8 +57131,10 @@ export const integrationNames = [
   'aftership',
   'agencyzoom',
   'agent-browser',
+  'agent-browser-stealth',
   'agent-browser-ai',
   'agent-local-browser-control',
+  'agent-local-computer-ai',
   'agent-local-computer-control',
   'agent-memory',
   'agent-scratchpad',
@@ -56456,6 +57274,7 @@ export const integrationNames = [
   'facebook-ads',
   'facebook-leads',
   'facebook-pages',
+  'fathom',
   'fellow',
   'fieldwire',
   'figma',
@@ -56958,6 +57777,34 @@ export const integrationActions = {
     'start_session',
     'end_session',
   ],
+  'agent-browser-stealth': [
+    'snapshot',
+    'read_text',
+    'read_html',
+    'screenshot',
+    'run_steps',
+    'current_page',
+    'navigate',
+    'navigate_back',
+    'click',
+    'type',
+    'fill_form',
+    'select_option',
+    'hover',
+    'drag',
+    'press_key',
+    'file_upload',
+    'evaluate',
+    'wait_for',
+    'handle_dialog',
+    'tabs',
+    'request_human',
+    'resume',
+    'ensure_connected',
+    'session_status',
+    'start_session',
+    'end_session',
+  ],
   'agent-browser-ai': [
     'snapshot',
     'read_text',
@@ -57016,6 +57863,39 @@ export const integrationActions = {
     'session_status',
     'start_session',
     'end_session',
+  ],
+  'agent-local-computer-ai': [
+    'start_session',
+    'ensure_connected',
+    'session_status',
+    'snapshot',
+    'observe',
+    'screenshot',
+    'list_targets',
+    'activate_target',
+    'focus_ref',
+    'press_ref',
+    'set_text_ref',
+    'select_ref',
+    'scroll_ref',
+    'move_mouse',
+    'click',
+    'drag',
+    'type',
+    'press_key',
+    'scroll',
+    'wait',
+    'wait_for',
+    'run_steps',
+    'request_human',
+    'resume',
+    'end_session',
+    'act',
+    'plan',
+    'observe_goal',
+    'extract_from_screen',
+    'run_recipe',
+    'stop_task',
   ],
   'agent-local-computer-control': [
     'start_session',
@@ -58374,6 +59254,16 @@ export const integrationActions = {
     'create_post',
     'create_photo_post',
     'create_video_post',
+  ],
+  'fathom': [
+    'validate_connection',
+    'list_meetings',
+    'find_meetings',
+    'get_recording_summary',
+    'get_recording_transcript',
+    'list_meeting_types',
+    'list_teams',
+    'list_team_members',
   ],
   'fellow': [
     'get-note',
