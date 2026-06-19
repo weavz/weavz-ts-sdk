@@ -16318,6 +16318,8 @@ export interface GoogleBigqueryRunQueryInput {
   useLegacySql?: boolean
   /** Validate and estimate bytes without running the query. */
   dryRun?: boolean
+  /** Required when the SQL appears to insert, update, delete, create, drop, alter, call, load, export, or otherwise mutate BigQuery state. */
+  confirmMutationOrDdl?: boolean
   /** Parameter Mode (values: ``, `NAMED`, `POSITIONAL`) */
   parameterMode?: "" | "NAMED" | "POSITIONAL"
   /** Optional BigQuery queryParameters JSON array. */
@@ -16420,6 +16422,8 @@ export interface GoogleBigqueryCustomApiCallInput {
   headers?: Record<string, unknown>
   /** Body */
   body?: unknown
+  /** Required for POST, PUT, PATCH, and DELETE custom API calls because BigQuery REST v2 includes destructive endpoints. */
+  confirmWrite?: boolean
 }
 
 /** Google Calendar — List Calendars */
@@ -25872,47 +25876,142 @@ export interface Microsoft365PlannerCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Microsoft Dynamics CRM — Create Record */
-export interface MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput {
-  /** Select or map the entity for which you want to create the record. (resolve via property options API) */
-  entityType: string
-  /** Entity Fields */
-  fields: Record<string, unknown>
+/** Microsoft Dataverse / Dynamics 365 CRM — Who Am I */
+export type MicrosoftDynamicsCrmWhoAmIInput = Record<string, never>
+
+/** Microsoft Dataverse / Dynamics 365 CRM — List Tables */
+export interface MicrosoftDynamicsCrmListTablesInput {
+  /** Include Custom Tables */
+  includeCustom?: boolean
+  /** Include System Tables */
+  includeSystem?: boolean
+  /** Search */
+  search?: string
 }
 
-/** Microsoft Dynamics CRM — Delete Record */
-export interface MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput {
-  /** Select or map the entity name whose records you want to delete. (resolve via property options API) */
-  entityType: string
-  /** Record ID (resolve via property options API) */
+/** Microsoft Dataverse / Dynamics 365 CRM — Get Table Metadata */
+export interface MicrosoftDynamicsCrmGetTableMetadataInput {
+  /** Dataverse logical table name, for example account. Use list_tables if the dropdown cannot load metadata. (resolve via property options API) */
+  logicalName: string
+  /** Include Attributes */
+  includeAttributes?: boolean
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — List Records */
+export interface MicrosoftDynamicsCrmListRecordsInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** Comma-separated column names. */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** $orderby */
+  orderby?: string
+  /** Maximum 1000. */
+  top?: number
+  /** Include Formatted Values */
+  includeFormattedValues?: boolean
+  /** Prefer: odata.maxpagesize, maximum 1000. */
+  maxPageSize?: number
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Get Record */
+export interface MicrosoftDynamicsCrmGetRecordInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** Dataverse row GUID. */
   recordId: string
+  /** Comma-separated column names. */
+  select?: string
+  /** $expand */
+  expand?: string
+  /** Include Formatted Values */
+  includeFormattedValues?: boolean
 }
 
-/** Microsoft Dynamics CRM — Get Record */
-export interface MicrosoftDynamicsCrmDynamicsCrmGetRecordInput {
-  /** Select or map the entity name whose records you want to retrieve. (resolve via property options API) */
-  entityType: string
-  /** Record ID (resolve via property options API) */
+/** Microsoft Dataverse / Dynamics 365 CRM — Create Record */
+export interface MicrosoftDynamicsCrmCreateRecordInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** JSON object of Dataverse column values and @odata.bind lookup values. */
+  fields: unknown
+  /** Return Representation */
+  returnRepresentation?: boolean
+  /** Columns to return when Return Representation is enabled. */
+  select?: string
+  /** Suppress Duplicate Detection */
+  suppressDuplicateDetection?: boolean
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Update Record */
+export interface MicrosoftDynamicsCrmUpdateRecordInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** Dataverse row GUID. */
   recordId: string
+  /** JSON object containing only fields to update. */
+  fields: unknown
+  /** Defaults to * to prevent accidental upsert. */
+  ifMatch?: string
+  /** Return Representation */
+  returnRepresentation?: boolean
+  /** Columns to return when Return Representation is enabled. */
+  select?: string
+  /** Suppress Duplicate Detection */
+  suppressDuplicateDetection?: boolean
 }
 
-/** Microsoft Dynamics CRM — Update Record */
-export interface MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput {
-  /** Select or map the entity for which you want to update the record. (resolve via property options API) */
-  entityType: string
-  /** Record ID (resolve via property options API) */
+/** Microsoft Dataverse / Dynamics 365 CRM — Upsert Record */
+export interface MicrosoftDynamicsCrmUpsertRecordInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** For example accountnumber='ABC-123' or accountid=00000000-0000-0000-0000-000000000000. */
+  keyPredicate: string
+  /** JSON object of Dataverse column values. Do not include alternate key values. */
+  fields: unknown
+  /** Mode (values: `allow_create_or_update`, `prevent_create`, `prevent_update`) */
+  mode: "allow_create_or_update" | "prevent_create" | "prevent_update"
+  /** Return Representation */
+  returnRepresentation?: boolean
+  /** Columns to return when Return Representation is enabled. */
+  select?: string
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Delete Record */
+export interface MicrosoftDynamicsCrmDeleteRecordInput {
+  /** Dataverse EntitySetName. Use the metadata action if the dropdown cannot load tables. (resolve via property options API) */
+  entitySetName: string
+  /** Dataverse row GUID. */
   recordId: string
-  /** Entity Fields */
-  fields: Record<string, unknown>
+  /** Optional ETag or *. */
+  ifMatch?: string
+  /** Required to delete the record. */
+  confirmDelete: boolean
 }
 
-/** Microsoft Dynamics CRM — Custom API Call */
+/** Microsoft Dataverse / Dynamics 365 CRM — Dataverse API Call */
+export interface MicrosoftDynamicsCrmDataverseApiCallInput {
+  /** Relative Dataverse path starting with /, for example /WhoAmI. */
+  path: string
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Custom headers. Authorization, host, content type, and OData version headers are not allowed. */
+  headers?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for POST, PATCH, PUT, and DELETE custom calls. */
+  confirmMutation?: boolean
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Custom API Call */
 export interface MicrosoftDynamicsCrmCustomApiCallInput {
   /** url */
   url: Record<string, unknown>
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
+  /** Authorization and Dataverse protocol headers are injected automatically. */
   headers: Record<string, unknown>
   /** Query Parameters */
   queryParams: Record<string, unknown>
@@ -25928,6 +26027,40 @@ export interface MicrosoftDynamicsCrmCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Create Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput {
+  /** Dataverse EntitySetName, for example accounts. (resolve via property options API) */
+  entityType: string
+  /** Fields */
+  fields: unknown
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Get Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmGetRecordInput {
+  /** Dataverse EntitySetName, for example accounts. (resolve via property options API) */
+  entityType: string
+  /** Record ID */
+  recordId: string
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Update Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput {
+  /** Dataverse EntitySetName, for example accounts. (resolve via property options API) */
+  entityType: string
+  /** Record ID */
+  recordId: string
+  /** Fields */
+  fields: unknown
+}
+
+/** Microsoft Dataverse / Dynamics 365 CRM — Delete Record */
+export interface MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput {
+  /** Dataverse EntitySetName, for example accounts. (resolve via property options API) */
+  entityType: string
+  /** Record ID */
+  recordId: string
 }
 
 /** Microsoft Excel 365 — List Worksheets */
@@ -48096,11 +48229,21 @@ export interface IntegrationActionInputMap {
   'microsoft-365-planner.getABucket': Microsoft365PlannerGetABucketInput
   'microsoft-365-planner.findTask': Microsoft365PlannerFindTaskInput
   'microsoft-365-planner.custom_api_call': Microsoft365PlannerCustomApiCallInput
+  'microsoft-dynamics-crm.who_am_i': MicrosoftDynamicsCrmWhoAmIInput
+  'microsoft-dynamics-crm.list_tables': MicrosoftDynamicsCrmListTablesInput
+  'microsoft-dynamics-crm.get_table_metadata': MicrosoftDynamicsCrmGetTableMetadataInput
+  'microsoft-dynamics-crm.list_records': MicrosoftDynamicsCrmListRecordsInput
+  'microsoft-dynamics-crm.get_record': MicrosoftDynamicsCrmGetRecordInput
+  'microsoft-dynamics-crm.create_record': MicrosoftDynamicsCrmCreateRecordInput
+  'microsoft-dynamics-crm.update_record': MicrosoftDynamicsCrmUpdateRecordInput
+  'microsoft-dynamics-crm.upsert_record': MicrosoftDynamicsCrmUpsertRecordInput
+  'microsoft-dynamics-crm.delete_record': MicrosoftDynamicsCrmDeleteRecordInput
+  'microsoft-dynamics-crm.dataverse_api_call': MicrosoftDynamicsCrmDataverseApiCallInput
+  'microsoft-dynamics-crm.custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
   'microsoft-dynamics-crm.dynamics_crm_create_record': MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput
-  'microsoft-dynamics-crm.dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
   'microsoft-dynamics-crm.dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
   'microsoft-dynamics-crm.dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
-  'microsoft-dynamics-crm.custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
+  'microsoft-dynamics-crm.dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
   'microsoft-excel-365.list_worksheets': MicrosoftExcel365ListWorksheetsInput
   'microsoft-excel-365.read_range': MicrosoftExcel365ReadRangeInput
   'microsoft-excel-365.write_range': MicrosoftExcel365WriteRangeInput
@@ -52805,11 +52948,21 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': Microsoft365PlannerCustomApiCallInput
   }
   'microsoft-dynamics-crm': {
+    'who_am_i': MicrosoftDynamicsCrmWhoAmIInput
+    'list_tables': MicrosoftDynamicsCrmListTablesInput
+    'get_table_metadata': MicrosoftDynamicsCrmGetTableMetadataInput
+    'list_records': MicrosoftDynamicsCrmListRecordsInput
+    'get_record': MicrosoftDynamicsCrmGetRecordInput
+    'create_record': MicrosoftDynamicsCrmCreateRecordInput
+    'update_record': MicrosoftDynamicsCrmUpdateRecordInput
+    'upsert_record': MicrosoftDynamicsCrmUpsertRecordInput
+    'delete_record': MicrosoftDynamicsCrmDeleteRecordInput
+    'dataverse_api_call': MicrosoftDynamicsCrmDataverseApiCallInput
+    'custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
     'dynamics_crm_create_record': MicrosoftDynamicsCrmDynamicsCrmCreateRecordInput
-    'dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
     'dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
     'dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
-    'custom_api_call': MicrosoftDynamicsCrmCustomApiCallInput
+    'dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
   }
   'microsoft-excel-365': {
     'list_worksheets': MicrosoftExcel365ListWorksheetsInput
@@ -58536,11 +58689,21 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'microsoft-dynamics-crm': [
+    'who_am_i',
+    'list_tables',
+    'get_table_metadata',
+    'list_records',
+    'get_record',
+    'create_record',
+    'update_record',
+    'upsert_record',
+    'delete_record',
+    'dataverse_api_call',
+    'custom_api_call',
     'dynamics_crm_create_record',
-    'dynamics_crm_delete_record',
     'dynamics_crm_get_record',
     'dynamics_crm_update_record',
-    'custom_api_call',
+    'dynamics_crm_delete_record',
   ],
   'microsoft-excel-365': [
     'list_worksheets',
