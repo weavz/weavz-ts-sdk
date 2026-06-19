@@ -16228,6 +16228,200 @@ export interface GoogleAnalyticsGetMetadataInput {
   propertyId: string
 }
 
+/** Google BigQuery — List Projects */
+export interface GoogleBigqueryListProjectsInput {
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google BigQuery — List Datasets */
+export interface GoogleBigqueryListDatasetsInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Include Hidden Datasets */
+  all?: boolean
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google BigQuery — Get Dataset */
+export interface GoogleBigqueryGetDatasetInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+}
+
+/** Google BigQuery — List Tables */
+export interface GoogleBigqueryListTablesInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google BigQuery — Get Table */
+export interface GoogleBigqueryGetTableInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Optional comma-separated table metadata fields to return. */
+  selectedFields?: string
+  /** Metadata View (values: ``, `BASIC`, `STORAGE_STATS`, `FULL`) */
+  view?: "" | "BASIC" | "STORAGE_STATS" | "FULL"
+}
+
+/** Google BigQuery — List Table Rows */
+export interface GoogleBigqueryListTableRowsInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** Optional comma-separated columns to return. */
+  selectedFields?: string
+  /** Zero-based row offset. */
+  startIndex?: string
+  /** Page Token */
+  pageToken?: string
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+}
+
+/** Google BigQuery — Run Query */
+export interface GoogleBigqueryRunQueryInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** GoogleSQL query to run. */
+  query: string
+  /** Optional job location, for example US, EU, or us-central1. */
+  location?: string
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** How long BigQuery should wait for query completion before returning jobComplete=false. */
+  timeoutMs?: number
+  /** Optional cost guard, expressed as an integer string. */
+  maximumBytesBilled?: string
+  /** Use Legacy SQL */
+  useLegacySql?: boolean
+  /** Validate and estimate bytes without running the query. */
+  dryRun?: boolean
+  /** Parameter Mode (values: ``, `NAMED`, `POSITIONAL`) */
+  parameterMode?: "" | "NAMED" | "POSITIONAL"
+  /** Optional BigQuery queryParameters JSON array. */
+  queryParameters?: unknown
+}
+
+/** Google BigQuery — Get Query Results */
+export interface GoogleBigqueryGetQueryResultsInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Job ID */
+  jobId: string
+  /** Required for single-region jobs outside US/EU. */
+  location?: string
+  /** Start Index */
+  startIndex?: string
+  /** Page Token */
+  pageToken?: string
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** Timeout (ms) */
+  timeoutMs?: number
+}
+
+/** Google BigQuery — List Jobs */
+export interface GoogleBigqueryListJobsInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** List jobs from all users when permissions allow it. */
+  allUsers?: boolean
+  /** State Filter (values: ``, `PENDING`, `RUNNING`, `DONE`) */
+  stateFilter?: "" | "PENDING" | "RUNNING" | "DONE"
+  /** Projection (values: `minimal`, `full`) */
+  projection?: "minimal" | "full"
+  /** Epoch milliseconds lower bound. */
+  minCreationTime?: string
+  /** Epoch milliseconds upper bound. */
+  maxCreationTime?: string
+  /** Parent Job ID */
+  parentJobId?: string
+  /** Maximum number of results to return. Capped at 1000. */
+  maxResults?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Google BigQuery — Get Job */
+export interface GoogleBigqueryGetJobInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Job ID */
+  jobId: string
+  /** Location */
+  location?: string
+}
+
+/** Google BigQuery — Cancel Job */
+export interface GoogleBigqueryCancelJobInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Job ID */
+  jobId: string
+  /** Location */
+  location?: string
+  /** Required because cancelled BigQuery jobs may still incur costs. */
+  confirmCancel: boolean
+}
+
+/** Google BigQuery — Insert Rows */
+export interface GoogleBigqueryInsertRowsInput {
+  /** Google Cloud project available to this BigQuery account. (resolve via property options API) */
+  projectId: string
+  /** Dataset (resolve via property options API) */
+  datasetId: string
+  /** Table (resolve via property options API) */
+  tableId: string
+  /** JSON array of row objects to stream into the table. */
+  rows: unknown
+  /** Optional row property to use as BigQuery insertId for deduplication. */
+  insertIdField?: string
+  /** Skip Invalid Rows */
+  skipInvalidRows?: boolean
+  /** Ignore Unknown Values */
+  ignoreUnknownValues?: boolean
+  /** Template Suffix */
+  templateSuffix?: string
+  /** Trace ID */
+  traceId?: string
+}
+
+/** Google BigQuery — Custom API Call */
+export interface GoogleBigqueryCustomApiCallInput {
+  /** Relative path like /projects, /projects/{projectId}/datasets, or a https://bigquery.googleapis.com/bigquery/v2 URL. */
+  pathOrUrl: string
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Headers */
+  headers?: Record<string, unknown>
+  /** Body */
+  body?: unknown
+}
+
 /** Google Calendar — List Calendars */
 export interface GoogleCalendarListCalendarsInput {
   /** Page Token */
@@ -47071,6 +47265,19 @@ export interface IntegrationActionInputMap {
   'google-ads.search': GoogleAdsSearchInput
   'google-analytics.run_report': GoogleAnalyticsRunReportInput
   'google-analytics.get_metadata': GoogleAnalyticsGetMetadataInput
+  'google-bigquery.list_projects': GoogleBigqueryListProjectsInput
+  'google-bigquery.list_datasets': GoogleBigqueryListDatasetsInput
+  'google-bigquery.get_dataset': GoogleBigqueryGetDatasetInput
+  'google-bigquery.list_tables': GoogleBigqueryListTablesInput
+  'google-bigquery.get_table': GoogleBigqueryGetTableInput
+  'google-bigquery.list_table_rows': GoogleBigqueryListTableRowsInput
+  'google-bigquery.run_query': GoogleBigqueryRunQueryInput
+  'google-bigquery.get_query_results': GoogleBigqueryGetQueryResultsInput
+  'google-bigquery.list_jobs': GoogleBigqueryListJobsInput
+  'google-bigquery.get_job': GoogleBigqueryGetJobInput
+  'google-bigquery.cancel_job': GoogleBigqueryCancelJobInput
+  'google-bigquery.insert_rows': GoogleBigqueryInsertRowsInput
+  'google-bigquery.custom_api_call': GoogleBigqueryCustomApiCallInput
   'google-calendar.list_calendars': GoogleCalendarListCalendarsInput
   'google-calendar.list_events': GoogleCalendarListEventsInput
   'google-calendar.create_event': GoogleCalendarCreateEventInput
@@ -51554,6 +51761,21 @@ export interface IntegrationActionInputsByIntegration {
     'run_report': GoogleAnalyticsRunReportInput
     'get_metadata': GoogleAnalyticsGetMetadataInput
   }
+  'google-bigquery': {
+    'list_projects': GoogleBigqueryListProjectsInput
+    'list_datasets': GoogleBigqueryListDatasetsInput
+    'get_dataset': GoogleBigqueryGetDatasetInput
+    'list_tables': GoogleBigqueryListTablesInput
+    'get_table': GoogleBigqueryGetTableInput
+    'list_table_rows': GoogleBigqueryListTableRowsInput
+    'run_query': GoogleBigqueryRunQueryInput
+    'get_query_results': GoogleBigqueryGetQueryResultsInput
+    'list_jobs': GoogleBigqueryListJobsInput
+    'get_job': GoogleBigqueryGetJobInput
+    'cancel_job': GoogleBigqueryCancelJobInput
+    'insert_rows': GoogleBigqueryInsertRowsInput
+    'custom_api_call': GoogleBigqueryCustomApiCallInput
+  }
   'google-calendar': {
     'list_calendars': GoogleCalendarListCalendarsInput
     'list_events': GoogleCalendarListEventsInput
@@ -55104,6 +55326,7 @@ export const integrationNames = [
   'gong',
   'google-ads',
   'google-analytics',
+  'google-bigquery',
   'google-calendar',
   'googlechat',
   'google-classroom',
@@ -57268,6 +57491,21 @@ export const integrationActions = {
   'google-analytics': [
     'run_report',
     'get_metadata',
+  ],
+  'google-bigquery': [
+    'list_projects',
+    'list_datasets',
+    'get_dataset',
+    'list_tables',
+    'get_table',
+    'list_table_rows',
+    'run_query',
+    'get_query_results',
+    'list_jobs',
+    'get_job',
+    'cancel_job',
+    'insert_rows',
+    'custom_api_call',
   ],
   'google-calendar': [
     'list_calendars',
