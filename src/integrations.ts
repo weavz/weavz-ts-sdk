@@ -10116,6 +10116,269 @@ export interface DataTransformerBatchArrayInput {
   batchSize: number
 }
 
+/** Databricks — Validate Connection */
+export type DatabricksValidateConnectionInput = Record<string, never>
+
+/** Databricks — Execute SQL Statement */
+export interface DatabricksExecuteSqlStatementInput {
+  /** SQL Warehouse ID */
+  warehouseId: string
+  /** Read-only SQL such as SELECT, WITH, SHOW, DESCRIBE, EXPLAIN, LIST, or VALUES is allowed by default. */
+  statement: string
+  /** Catalog */
+  catalog?: string
+  /** Schema */
+  schema?: string
+  /** Optional Databricks statement parameters JSON array. */
+  parameters?: unknown
+  /** Maximum inline rows to return. */
+  rowLimit?: number
+  /** Optional result byte limit for inline results, clamped to Databricks 25 MiB maximum. */
+  byteLimit?: number
+  /** How long Databricks should wait before returning a pending statement response. (values: `0s`, `5s`, `10s`, `30s`, `50s`) */
+  waitTimeout?: "0s" | "5s" | "10s" | "30s" | "50s"
+  /** On Wait Timeout (values: `CONTINUE`, `CANCEL`) */
+  onWaitTimeout?: "CONTINUE" | "CANCEL"
+  /** Result Disposition (values: `INLINE`, `EXTERNAL_LINKS`) */
+  disposition?: "INLINE" | "EXTERNAL_LINKS"
+  /** Result Format (values: `JSON_ARRAY`, `CSV`, `ARROW_STREAM`) */
+  format?: "JSON_ARRAY" | "CSV" | "ARROW_STREAM"
+  /** Required for DDL, DML, admin, multi-statement, or procedural SQL. Leave off for normal agent read queries. */
+  allowNonReadOnlySql?: boolean
+}
+
+/** Databricks — Get SQL Statement */
+export interface DatabricksGetSqlStatementInput {
+  /** Statement ID */
+  statementId: string
+}
+
+/** Databricks — Get SQL Result Chunk */
+export interface DatabricksGetSqlResultChunkInput {
+  /** Statement ID */
+  statementId: string
+  /** Chunk Index */
+  chunkIndex: number
+}
+
+/** Databricks — Cancel SQL Statement */
+export interface DatabricksCancelSqlStatementInput {
+  /** Statement ID */
+  statementId: string
+}
+
+/** Databricks — List Jobs */
+export interface DatabricksListJobsInput {
+  /** Optional job name filter. */
+  name?: string
+  /** Maximum number of records to request, clamped to 100. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Include task arrays when Databricks returns them. */
+  expandTasks?: boolean
+}
+
+/** Databricks — Get Job */
+export interface DatabricksGetJobInput {
+  /** Job ID */
+  jobId: string
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+}
+
+/** Databricks — Run Job Now */
+export interface DatabricksRunJobNowInput {
+  /** Job ID */
+  jobId: string
+  /** Required to intentionally start a Databricks job run. */
+  confirmRun: boolean
+  /** Optional token to prevent duplicate runs across retries. */
+  idempotencyToken?: string
+  /** Key/value parameters for jobs using task parameter pushdown. */
+  jobParameters?: Record<string, unknown>
+  /** Optional JSON array of task keys to run. Leave blank to run all tasks in the job. */
+  onlyTaskKeys?: unknown
+  /** Optional serverless performance mode for this run. (values: `STANDARD`, `PERFORMANCE_OPTIMIZED`) */
+  performanceTarget?: "STANDARD" | "PERFORMANCE_OPTIMIZED"
+  /** Pipeline Parameters */
+  pipelineParams?: Record<string, unknown>
+  /** Optional run queue setting. Leave blank to use the job default. */
+  queueEnabled?: boolean
+}
+
+/** Databricks — Cancel Job Run */
+export interface DatabricksCancelJobRunInput {
+  /** Run ID */
+  runId: string
+  /** Required to intentionally cancel a Databricks run. */
+  confirmCancel: boolean
+}
+
+/** Databricks — List Job Runs */
+export interface DatabricksListJobRunsInput {
+  /** Job ID */
+  jobId?: string
+  /** Active Only */
+  activeOnly?: boolean
+  /** Completed Only */
+  completedOnly?: boolean
+  /** Run Type (values: ``, `JOB_RUN`, `SUBMIT_RUN`, `WORKFLOW_RUN`) */
+  runType?: "" | "JOB_RUN" | "SUBMIT_RUN" | "WORKFLOW_RUN"
+  /** Unix epoch milliseconds. */
+  startTimeFromMs?: string
+  /** Unix epoch milliseconds. */
+  startTimeToMs?: string
+  /** Maximum number of records to request, clamped to 100. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Expand Tasks */
+  expandTasks?: boolean
+}
+
+/** Databricks — Get Job Run */
+export interface DatabricksGetJobRunInput {
+  /** Run ID */
+  runId: string
+  /** Include History */
+  includeHistory?: boolean
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+}
+
+/** Databricks — Get Job Run Output */
+export interface DatabricksGetJobRunOutputInput {
+  /** Run ID */
+  runId: string
+}
+
+/** Databricks — List Catalogs */
+export interface DatabricksListCatalogsInput {
+  /** Maximum number of records to request, clamped to 1000. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Ask Databricks to include objects visible through browse permissions when supported. */
+  includeBrowse?: boolean
+}
+
+/** Databricks — Get Catalog */
+export interface DatabricksGetCatalogInput {
+  /** Catalog Name */
+  name: string
+  /** Include objects visible through browse permissions when supported. */
+  includeBrowse?: boolean
+}
+
+/** Databricks — List Schemas */
+export interface DatabricksListSchemasInput {
+  /** Catalog Name */
+  catalogName: string
+  /** Maximum number of records to request, clamped to 1000. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Include Browse */
+  includeBrowse?: boolean
+}
+
+/** Databricks — Get Schema */
+export interface DatabricksGetSchemaInput {
+  /** catalog.schema */
+  fullName: string
+  /** Include objects visible through browse permissions when supported. */
+  includeBrowse?: boolean
+}
+
+/** Databricks — List Tables */
+export interface DatabricksListTablesInput {
+  /** Catalog Name */
+  catalogName: string
+  /** Schema Name */
+  schemaName: string
+  /** Maximum number of records to request, clamped to 1000. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Include Manifest Capabilities */
+  includeManifestCapabilities?: boolean
+  /** Include Browse */
+  includeBrowse?: boolean
+  /** Return lighter table metadata without column arrays when supported. */
+  omitColumns?: boolean
+  /** Return lighter table metadata without properties when supported. */
+  omitProperties?: boolean
+  /** Return lighter table metadata without username fields when supported. */
+  omitUsername?: boolean
+}
+
+/** Databricks — Get Table */
+export interface DatabricksGetTableInput {
+  /** catalog.schema.table */
+  fullName: string
+  /** Include Delta Metadata */
+  includeDeltaMetadata?: boolean
+  /** Include Manifest Capabilities */
+  includeManifestCapabilities?: boolean
+  /** Include objects visible through browse permissions when supported. */
+  includeBrowse?: boolean
+}
+
+/** Databricks — List Table Summaries */
+export interface DatabricksListTableSummariesInput {
+  /** Catalog Name */
+  catalogName: string
+  /** Schema Name Pattern */
+  schemaNamePattern?: string
+  /** Table Name Pattern */
+  tableNamePattern?: string
+  /** Maximum number of records to request, clamped to 1000. */
+  pageSize?: number
+  /** Pagination token returned by a previous Databricks response. */
+  pageToken?: string
+  /** Include Manifest Capabilities */
+  includeManifestCapabilities?: boolean
+}
+
+/** Databricks — List Workspace Objects */
+export interface DatabricksListWorkspaceObjectsInput {
+  /** Workspace path such as /Users or /Shared. */
+  path: string
+  /** Optional Unix epoch milliseconds filter for notebooks. */
+  notebooksModifiedAfterMs?: string
+}
+
+/** Databricks — Get Workspace Object Status */
+export interface DatabricksGetWorkspaceObjectStatusInput {
+  /** Workspace Path */
+  path: string
+}
+
+/** Databricks — Export Workspace Object */
+export interface DatabricksExportWorkspaceObjectInput {
+  /** Workspace Path */
+  path: string
+  /** Export Format (values: `SOURCE`, `HTML`, `JUPYTER`, `DBC`, `R_MARKDOWN`, `RAW`, `AUTO`) */
+  format?: "SOURCE" | "HTML" | "JUPYTER" | "DBC" | "R_MARKDOWN" | "RAW" | "AUTO"
+  /** When enabled, returns base64 file content instead of the normal JSON content response. */
+  directDownload?: boolean
+}
+
+/** Databricks — Custom API Call */
+export interface DatabricksCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative Databricks path starting with /api/, for example /api/2.0/clusters/list. Do not include query strings. */
+  path: string
+  /** Query Parameters */
+  queryParams?: Record<string, unknown>
+  /** JSON body for POST, PUT, PATCH, or DELETE requests. */
+  body?: unknown
+  /** No Error on Failure */
+  failsafe?: boolean
+}
+
 /** Datadog — Send Multiple logs */
 export interface DatadogSendMultipleLogsInput {
   /** Logs to send to Datadog, must contain a `logs` key with an array of objects. Documentation: https://docs.datadoghq.com/api/latest/logs/#send-logs */
@@ -46848,6 +47111,29 @@ export interface IntegrationActionInputMap {
   'data-transformer.merge_objects': DataTransformerMergeObjectsInput
   'data-transformer.filter_array': DataTransformerFilterArrayInput
   'data-transformer.batch_array': DataTransformerBatchArrayInput
+  'databricks.validate_connection': DatabricksValidateConnectionInput
+  'databricks.execute_sql_statement': DatabricksExecuteSqlStatementInput
+  'databricks.get_sql_statement': DatabricksGetSqlStatementInput
+  'databricks.get_sql_result_chunk': DatabricksGetSqlResultChunkInput
+  'databricks.cancel_sql_statement': DatabricksCancelSqlStatementInput
+  'databricks.list_jobs': DatabricksListJobsInput
+  'databricks.get_job': DatabricksGetJobInput
+  'databricks.run_job_now': DatabricksRunJobNowInput
+  'databricks.cancel_job_run': DatabricksCancelJobRunInput
+  'databricks.list_job_runs': DatabricksListJobRunsInput
+  'databricks.get_job_run': DatabricksGetJobRunInput
+  'databricks.get_job_run_output': DatabricksGetJobRunOutputInput
+  'databricks.list_catalogs': DatabricksListCatalogsInput
+  'databricks.get_catalog': DatabricksGetCatalogInput
+  'databricks.list_schemas': DatabricksListSchemasInput
+  'databricks.get_schema': DatabricksGetSchemaInput
+  'databricks.list_tables': DatabricksListTablesInput
+  'databricks.get_table': DatabricksGetTableInput
+  'databricks.list_table_summaries': DatabricksListTableSummariesInput
+  'databricks.list_workspace_objects': DatabricksListWorkspaceObjectsInput
+  'databricks.get_workspace_object_status': DatabricksGetWorkspaceObjectStatusInput
+  'databricks.export_workspace_object': DatabricksExportWorkspaceObjectInput
+  'databricks.custom_api_call': DatabricksCustomApiCallInput
   'datadog.sendMultipleLogs': DatadogSendMultipleLogsInput
   'datadog.sendOneLog': DatadogSendOneLogInput
   'datadog.custom_api_call': DatadogCustomApiCallInput
@@ -51206,6 +51492,31 @@ export interface IntegrationActionInputsByIntegration {
     'filter_array': DataTransformerFilterArrayInput
     'batch_array': DataTransformerBatchArrayInput
   }
+  'databricks': {
+    'validate_connection': DatabricksValidateConnectionInput
+    'execute_sql_statement': DatabricksExecuteSqlStatementInput
+    'get_sql_statement': DatabricksGetSqlStatementInput
+    'get_sql_result_chunk': DatabricksGetSqlResultChunkInput
+    'cancel_sql_statement': DatabricksCancelSqlStatementInput
+    'list_jobs': DatabricksListJobsInput
+    'get_job': DatabricksGetJobInput
+    'run_job_now': DatabricksRunJobNowInput
+    'cancel_job_run': DatabricksCancelJobRunInput
+    'list_job_runs': DatabricksListJobRunsInput
+    'get_job_run': DatabricksGetJobRunInput
+    'get_job_run_output': DatabricksGetJobRunOutputInput
+    'list_catalogs': DatabricksListCatalogsInput
+    'get_catalog': DatabricksGetCatalogInput
+    'list_schemas': DatabricksListSchemasInput
+    'get_schema': DatabricksGetSchemaInput
+    'list_tables': DatabricksListTablesInput
+    'get_table': DatabricksGetTableInput
+    'list_table_summaries': DatabricksListTableSummariesInput
+    'list_workspace_objects': DatabricksListWorkspaceObjectsInput
+    'get_workspace_object_status': DatabricksGetWorkspaceObjectStatusInput
+    'export_workspace_object': DatabricksExportWorkspaceObjectInput
+    'custom_api_call': DatabricksCustomApiCallInput
+  }
   'datadog': {
     'sendMultipleLogs': DatadogSendMultipleLogsInput
     'sendOneLog': DatadogSendOneLogInput
@@ -55398,6 +55709,7 @@ export const integrationNames = [
   'customer-io',
   'cvent',
   'data-transformer',
+  'databricks',
   'datadog',
   'datetime',
   'datocms',
@@ -56946,6 +57258,31 @@ export const integrationActions = {
     'merge_objects',
     'filter_array',
     'batch_array',
+  ],
+  'databricks': [
+    'validate_connection',
+    'execute_sql_statement',
+    'get_sql_statement',
+    'get_sql_result_chunk',
+    'cancel_sql_statement',
+    'list_jobs',
+    'get_job',
+    'run_job_now',
+    'cancel_job_run',
+    'list_job_runs',
+    'get_job_run',
+    'get_job_run_output',
+    'list_catalogs',
+    'get_catalog',
+    'list_schemas',
+    'get_schema',
+    'list_tables',
+    'get_table',
+    'list_table_summaries',
+    'list_workspace_objects',
+    'get_workspace_object_status',
+    'export_workspace_object',
+    'custom_api_call',
   ],
   'datadog': [
     'sendMultipleLogs',
