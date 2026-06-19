@@ -8922,118 +8922,261 @@ export interface ClioListActivitiesInput {
   limit?: number
 }
 
+/** Clockify — Validate Connection */
+export type ClockifyValidateConnectionInput = Record<string, never>
+
+/** Clockify — Get Current User */
+export type ClockifyGetCurrentUserInput = Record<string, never>
+
+/** Clockify — List Workspaces */
+export type ClockifyListWorkspacesInput = Record<string, never>
+
+/** Clockify — Get Workspace */
+export interface ClockifyGetWorkspaceInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+}
+
+/** Clockify — List Users */
+export interface ClockifyListUsersInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Email */
+  email?: string
+  /** Name */
+  name?: string
+  /** Status (values: `ACTIVE`, `INACTIVE`, `PENDING`) */
+  status?: "ACTIVE" | "INACTIVE" | "PENDING"
+  /** Memberships (values: `ALL`, `PROJECT`, `NONE`) */
+  memberships?: "ALL" | "PROJECT" | "NONE"
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — List Clients */
+export interface ClockifyListClientsInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Name */
+  name?: string
+  /** Archived */
+  archived?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — List Projects */
+export interface ClockifyListProjectsInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Name */
+  name?: string
+  /** Archived */
+  archived?: boolean
+  /** Billable */
+  billable?: boolean
+  /** Include additional project fields when supported by Clockify. */
+  hydrated?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — Get Project */
+export interface ClockifyGetProjectInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Clockify — List Tasks */
+export interface ClockifyListTasksInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Project ID */
+  projectId: string
+  /** Name */
+  name?: string
+  /** Filter to active tasks when true, or completed tasks when false. */
+  active?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — Get Task */
+export interface ClockifyGetTaskInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Project ID */
+  projectId: string
+  /** Task ID */
+  taskId: string
+}
+
 /** Clockify — Create Task */
 export interface ClockifyCreateTaskInput {
-  /** Workspace (resolve via property options API) */
+  /** Clockify workspace ID. */
   workspaceId: string
-  /** Project (resolve via property options API) */
+  /** Project ID */
   projectId: string
-  /** Task Name */
+  /** Name */
   name: string
-  /** Status (values: `ACTIVE`, `DONE`, `ALL`) */
-  status?: "ACTIVE" | "DONE" | "ALL"
-  /** Assignee */
-  assigneeIds?: string[]
+  /** Assignee User IDs */
+  assigneeIds?: unknown[]
+  /** Clockify duration value, for example PT1H30M. */
+  estimate?: string
+  /** Status (values: `ACTIVE`, `DONE`) */
+  status?: "ACTIVE" | "DONE"
+}
+
+/** Clockify — List Tags */
+export interface ClockifyListTagsInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Name */
+  name?: string
+  /** Archived */
+  archived?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — List Time Entries */
+export interface ClockifyListTimeEntriesInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Clockify user ID. Omit to use the API key owner. */
+  userId?: string
+  /** Description Search */
+  description?: string
+  /** ISO 8601 lower bound. */
+  start?: string
+  /** ISO 8601 upper bound. */
+  end?: string
+  /** Project ID */
+  projectId?: string
+  /** Task ID */
+  taskId?: string
+  /** Tag IDs */
+  tagIds?: unknown[]
+  /** Project Required */
+  projectRequired?: boolean
+  /** Task Required */
+  taskRequired?: boolean
+  /** Hydrated */
+  hydrated?: boolean
+  /** In Progress */
+  inProgress?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Clockify — Get Time Entry */
+export interface ClockifyGetTimeEntryInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Time Entry ID */
+  timeEntryId: string
+  /** Hydrated */
+  hydrated?: boolean
 }
 
 /** Clockify — Create Time Entry */
 export interface ClockifyCreateTimeEntryInput {
-  /** Workspace (resolve via property options API) */
+  /** Clockify workspace ID. */
   workspaceId: string
-  /** Start Datetime */
+  /** ISO 8601 start time. */
   start: string
-  /** End Datetime */
+  /** ISO 8601 end time. */
   end: string
-  /** Entry Description */
+  /** Description */
   description?: string
-  /** Project (resolve via property options API) */
+  /** Project ID */
   projectId?: string
-  /** Task (resolve via property options API) */
+  /** Task ID */
   taskId?: string
+  /** Tag IDs */
+  tagIds?: unknown[]
   /** Billable */
   billable?: boolean
-  /** Tags */
-  tagIds?: string[]
+  /** Type (values: `REGULAR`, `BREAK`) */
+  type?: "REGULAR" | "BREAK"
+}
+
+/** Clockify — Update Time Entry */
+export interface ClockifyUpdateTimeEntryInput {
+  /** Clockify workspace ID. */
+  workspaceId: string
+  /** Time Entry ID */
+  timeEntryId: string
+  /** ISO 8601 start time. Clockify requires this when updating a time entry. */
+  start: string
+  /** ISO 8601 end time. */
+  end?: string
+  /** Description */
+  description?: string
+  /** Project ID */
+  projectId?: string
+  /** Task ID */
+  taskId?: string
+  /** Tag IDs */
+  tagIds?: unknown[]
+  /** Billable */
+  billable?: boolean
+  /** Type (values: `REGULAR`, `BREAK`) */
+  type?: "REGULAR" | "BREAK"
 }
 
 /** Clockify — Start Timer */
 export interface ClockifyStartTimerInput {
-  /** Workspace (resolve via property options API) */
+  /** Clockify workspace ID. */
   workspaceId: string
-  /** Entry Description */
+  /** ISO 8601 start time. Defaults to the current time. */
+  start?: string
+  /** Description */
   description?: string
-  /** Project (resolve via property options API) */
+  /** Project ID */
   projectId?: string
-  /** Task (resolve via property options API) */
+  /** Task ID */
   taskId?: string
+  /** Tag IDs */
+  tagIds?: unknown[]
   /** Billable */
   billable?: boolean
-  /** Tags */
-  tagIds?: string[]
+  /** Type (values: `REGULAR`, `BREAK`) */
+  type?: "REGULAR" | "BREAK"
 }
 
 /** Clockify — Stop Timer */
 export interface ClockifyStopTimerInput {
-  /** Workspace (resolve via property options API) */
+  /** Clockify workspace ID. */
   workspaceId: string
-}
-
-/** Clockify — Find Task */
-export interface ClockifyFindTaskInput {
-  /** Workspace (resolve via property options API) */
-  workspaceId: string
-  /** Project (resolve via property options API) */
-  projectId: string
-  /** Task Name */
-  name: string
-  /** Exact Match ? */
-  exactMatch?: boolean
-}
-
-/** Clockify — Find Time Entry */
-export interface ClockifyFindTimeEntryInput {
-  /** Workspace (resolve via property options API) */
-  workspaceId: string
-  /** Start Datetime */
-  start?: string
-  /** End Datetime */
+  /** Clockify user ID. Omit to use the API key owner. */
+  userId?: string
+  /** ISO 8601 stop time. Defaults to the current time. */
   end?: string
-  /** Entry Description */
-  description?: string
-  /** Project (resolve via property options API) */
-  projectId?: string
-  /** Task (resolve via property options API) */
-  taskId?: string
 }
 
-/** Clockify — Find Running Timer */
-export interface ClockifyFindRunningTimerInput {
-  /** Workspace (resolve via property options API) */
+/** Clockify — List Running Time Entries */
+export interface ClockifyListRunningTimeEntriesInput {
+  /** Clockify workspace ID. */
   workspaceId: string
-}
-
-/** Clockify — Custom API Call */
-export interface ClockifyCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
 }
 
 /** Close — Create Lead */
@@ -48304,14 +48447,25 @@ export interface IntegrationActionInputMap {
   'clio.get_matter': ClioGetMatterInput
   'clio.list_contacts': ClioListContactsInput
   'clio.list_activities': ClioListActivitiesInput
-  'clockify.create-task': ClockifyCreateTaskInput
-  'clockify.create-time-entry': ClockifyCreateTimeEntryInput
-  'clockify.start-timer': ClockifyStartTimerInput
-  'clockify.stop-timer': ClockifyStopTimerInput
-  'clockify.find-task': ClockifyFindTaskInput
-  'clockify.find-time-entry': ClockifyFindTimeEntryInput
-  'clockify.find-running-timer': ClockifyFindRunningTimerInput
-  'clockify.custom_api_call': ClockifyCustomApiCallInput
+  'clockify.validate_connection': ClockifyValidateConnectionInput
+  'clockify.get_current_user': ClockifyGetCurrentUserInput
+  'clockify.list_workspaces': ClockifyListWorkspacesInput
+  'clockify.get_workspace': ClockifyGetWorkspaceInput
+  'clockify.list_users': ClockifyListUsersInput
+  'clockify.list_clients': ClockifyListClientsInput
+  'clockify.list_projects': ClockifyListProjectsInput
+  'clockify.get_project': ClockifyGetProjectInput
+  'clockify.list_tasks': ClockifyListTasksInput
+  'clockify.get_task': ClockifyGetTaskInput
+  'clockify.create_task': ClockifyCreateTaskInput
+  'clockify.list_tags': ClockifyListTagsInput
+  'clockify.list_time_entries': ClockifyListTimeEntriesInput
+  'clockify.get_time_entry': ClockifyGetTimeEntryInput
+  'clockify.create_time_entry': ClockifyCreateTimeEntryInput
+  'clockify.update_time_entry': ClockifyUpdateTimeEntryInput
+  'clockify.start_timer': ClockifyStartTimerInput
+  'clockify.stop_timer': ClockifyStopTimerInput
+  'clockify.list_running_time_entries': ClockifyListRunningTimeEntriesInput
   'close.create_lead': CloseCreateLeadInput
   'close.create_contact': CloseCreateContactInput
   'close.find_lead': CloseFindLeadInput
@@ -52764,14 +52918,25 @@ export interface IntegrationActionInputsByIntegration {
     'list_activities': ClioListActivitiesInput
   }
   'clockify': {
-    'create-task': ClockifyCreateTaskInput
-    'create-time-entry': ClockifyCreateTimeEntryInput
-    'start-timer': ClockifyStartTimerInput
-    'stop-timer': ClockifyStopTimerInput
-    'find-task': ClockifyFindTaskInput
-    'find-time-entry': ClockifyFindTimeEntryInput
-    'find-running-timer': ClockifyFindRunningTimerInput
-    'custom_api_call': ClockifyCustomApiCallInput
+    'validate_connection': ClockifyValidateConnectionInput
+    'get_current_user': ClockifyGetCurrentUserInput
+    'list_workspaces': ClockifyListWorkspacesInput
+    'get_workspace': ClockifyGetWorkspaceInput
+    'list_users': ClockifyListUsersInput
+    'list_clients': ClockifyListClientsInput
+    'list_projects': ClockifyListProjectsInput
+    'get_project': ClockifyGetProjectInput
+    'list_tasks': ClockifyListTasksInput
+    'get_task': ClockifyGetTaskInput
+    'create_task': ClockifyCreateTaskInput
+    'list_tags': ClockifyListTagsInput
+    'list_time_entries': ClockifyListTimeEntriesInput
+    'get_time_entry': ClockifyGetTimeEntryInput
+    'create_time_entry': ClockifyCreateTimeEntryInput
+    'update_time_entry': ClockifyUpdateTimeEntryInput
+    'start_timer': ClockifyStartTimerInput
+    'stop_timer': ClockifyStopTimerInput
+    'list_running_time_entries': ClockifyListRunningTimeEntriesInput
   }
   'close': {
     'create_lead': CloseCreateLeadInput
@@ -58667,14 +58832,25 @@ export const integrationActions = {
     'list_activities',
   ],
   'clockify': [
-    'create-task',
-    'create-time-entry',
-    'start-timer',
-    'stop-timer',
-    'find-task',
-    'find-time-entry',
-    'find-running-timer',
-    'custom_api_call',
+    'validate_connection',
+    'get_current_user',
+    'list_workspaces',
+    'get_workspace',
+    'list_users',
+    'list_clients',
+    'list_projects',
+    'get_project',
+    'list_tasks',
+    'get_task',
+    'create_task',
+    'list_tags',
+    'list_time_entries',
+    'get_time_entry',
+    'create_time_entry',
+    'update_time_entry',
+    'start_timer',
+    'stop_timer',
+    'list_running_time_entries',
   ],
   'close': [
     'create_lead',
