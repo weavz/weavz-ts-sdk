@@ -2161,6 +2161,759 @@ export interface AirtableCustomApiCallInput {
   query_params?: unknown
 }
 
+/** Airwallex — Get Account */
+export type AirwallexGetAccountInput = Record<string, never>
+
+/** Airwallex — List Connected Accounts */
+export interface AirwallexListConnectedAccountsInput {
+  /** Page number starting from 0 */
+  page_num?: number
+  /** Number of results per page */
+  page_size?: number
+}
+
+/** Airwallex — List Global Accounts */
+export interface AirwallexListGlobalAccountsInput {
+  /** Country Code */
+  country_code?: string
+  /** Currency */
+  currency?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Nickname */
+  nick_name?: string
+  /** Status */
+  status?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Global Account */
+export interface AirwallexGetGlobalAccountInput {
+  /** Global Account ID */
+  global_account_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Deposits */
+export interface AirwallexListDepositsInput {
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Current Balances */
+export interface AirwallexGetCurrentBalancesInput {
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Balance History */
+export interface AirwallexGetBalanceHistoryInput {
+  /** ISO 4217 currency code */
+  currency?: string
+  /** Optional account type filter, for example cash */
+  account_type?: string
+  /** Start posted_at timestamp, inclusive */
+  from_post_at?: string
+  /** End posted_at timestamp, exclusive */
+  to_post_at?: string
+  /** Client request_id for the transaction */
+  request_id?: string
+  /** Page number starting from 0 */
+  page_num?: number
+  /** Number of results per page, max 2000 */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Financial Transactions */
+export interface AirwallexListFinancialTransactionsInput {
+  /** Batch ID */
+  batch_id?: string
+  /** Source ID */
+  source_id?: string
+  /** Status (values: `PENDING`, `SETTLED`) */
+  status?: "PENDING" | "SETTLED"
+  /** Start created_at timestamp, inclusive */
+  from_created_at?: string
+  /** End created_at timestamp, inclusive */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Number of results per page, max 1000 */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Financial Transaction */
+export interface AirwallexGetFinancialTransactionInput {
+  /** Financial Transaction ID */
+  financial_transaction_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Beneficiaries */
+export interface AirwallexListBeneficiariesInput {
+  /** Personal beneficiary name filter */
+  name?: string
+  /** Company beneficiary name filter */
+  company_name?: string
+  /** Nickname */
+  nick_name?: string
+  /** Bank Account Number */
+  bank_account_number?: string
+  /** Entity Type (values: `COMPANY`, `PERSONAL`) */
+  entity_type?: "COMPANY" | "PERSONAL"
+  /** From Date */
+  from_date?: string
+  /** To Date */
+  to_date?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests */
+  on_behalf_of?: string
+}
+
+/** Airwallex — Get Beneficiary */
+export interface AirwallexGetBeneficiaryInput {
+  /** Beneficiary ID */
+  beneficiary_id: string
+  /** Connected account open ID for platform requests */
+  on_behalf_of?: string
+}
+
+/** Airwallex — Create Beneficiary */
+export interface AirwallexCreateBeneficiaryInput {
+  /** Request body for POST /api/v1/beneficiaries/create */
+  body: unknown
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Validate Beneficiary */
+export interface AirwallexValidateBeneficiaryInput {
+  /** Request body for POST /api/v1/beneficiaries/validate */
+  body: unknown
+  /** Connected account open ID for platform requests */
+  on_behalf_of?: string
+}
+
+/** Airwallex — Verify Beneficiary Account */
+export interface AirwallexVerifyBeneficiaryAccountInput {
+  /** Request body for POST /api/v1/beneficiaries/verify_account */
+  body: unknown
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Transfers */
+export interface AirwallexListTransfersInput {
+  /** ISO 4217 currency code */
+  currency?: string
+  /** Airwallex account ID or destination filter */
+  destination?: string
+  /** Request ID */
+  request_id?: string
+  /** Optional Airwallex transfer status filter, for example PROCESSING, SENT, PAID, FAILED, or CANCELLED */
+  status?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Number of results per page, max 2000 */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Transfer */
+export interface AirwallexGetTransferInput {
+  /** Transfer ID */
+  transfer_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Create Transfer */
+export interface AirwallexCreateTransferInput {
+  /** Request body for POST /api/v1/transfers/create */
+  body: unknown
+  /** Required for transfers, conversions, and mutating custom Airwallex API requests. */
+  confirmFundsMovement: boolean
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Validate Transfer */
+export interface AirwallexValidateTransferInput {
+  /** Request body for POST /api/v1/transfers/validate */
+  body: unknown
+  /** Connected account open ID for platform requests */
+  on_behalf_of?: string
+}
+
+/** Airwallex — Get Indicative FX Quote */
+export interface AirwallexGetIndicativeFxQuoteInput {
+  /** ISO 4217 currency code to buy */
+  buy_currency: string
+  /** ISO 4217 currency code to sell */
+  sell_currency: string
+  /** Amount to buy. Provide either buy amount or sell amount. */
+  buy_amount?: number
+  /** Amount to sell. Provide either buy amount or sell amount. */
+  sell_amount?: number
+  /** Optional settlement date in YYYY-MM-DD format */
+  settlement_date?: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Conversions */
+export interface AirwallexListConversionsInput {
+  /** Buy Currency */
+  buy_currency?: string
+  /** Sell Currency */
+  sell_currency?: string
+  /** Request ID */
+  request_id?: string
+  /** Status */
+  status?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Conversion */
+export interface AirwallexGetConversionInput {
+  /** Conversion ID */
+  conversion_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Create Conversion */
+export interface AirwallexCreateConversionInput {
+  /** Request body for POST /api/v1/conversions/create */
+  body: unknown
+  /** Required for transfers, conversions, and mutating custom Airwallex API requests. */
+  confirmFundsMovement: boolean
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Payment Intents */
+export interface AirwallexListPaymentIntentsInput {
+  /** Connected Account ID */
+  connected_account_id?: string
+  /** Currency */
+  currency?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Merchant Order ID */
+  merchant_order_id?: string
+  /** Payment Consent ID */
+  payment_consent_id?: string
+  /** Status */
+  status?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Payment Intent */
+export interface AirwallexGetPaymentIntentInput {
+  /** Payment Intent ID */
+  payment_intent_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Payment Links */
+export interface AirwallexListPaymentLinksInput {
+  /** Active (values: `true`, `false`) */
+  active?: true | false
+  /** Reusable (values: `true`, `false`) */
+  reusable?: true | false
+  /** Status */
+  status?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Payment Link */
+export interface AirwallexGetPaymentLinkInput {
+  /** Payment Link ID */
+  payment_link_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Charges */
+export interface AirwallexListChargesInput {
+  /** Currency */
+  currency?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Request ID */
+  request_id?: string
+  /** Source */
+  source?: string
+  /** Status */
+  status?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Charge */
+export interface AirwallexGetChargeInput {
+  /** Charge ID */
+  charge_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Invoices */
+export interface AirwallexListInvoicesInput {
+  /** Customer ID */
+  customer_id?: string
+  /** Subscription ID */
+  subscription_id?: string
+  /** Status */
+  status?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Invoice */
+export interface AirwallexGetInvoiceInput {
+  /** Invoice ID */
+  invoice_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Invoice Items */
+export interface AirwallexListInvoiceItemsInput {
+  /** Invoice ID */
+  invoice_id: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Bills */
+export interface AirwallexListBillsInput {
+  /** Page Cursor */
+  page?: string
+  /** Bill status, for example AWAITING_PAYMENT, SCHEDULED, or PAID */
+  status?: string
+  /** Sync Status */
+  sync_status?: string
+  /** Legal Entity ID */
+  legal_entity_id?: string
+  /** Purchase Order ID */
+  purchase_order_id?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** From Updated At */
+  from_updated_at?: string
+  /** To Updated At */
+  to_updated_at?: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Bill */
+export interface AirwallexGetBillInput {
+  /** Bill ID */
+  bill_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Expenses */
+export interface AirwallexListExpensesInput {
+  /** Page Cursor */
+  page?: string
+  /** Optional array of expense statuses */
+  status?: unknown
+  /** Optional array of sync statuses */
+  sync_status?: unknown
+  /** Legal Entity ID */
+  legal_entity_id?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Expense */
+export interface AirwallexGetExpenseInput {
+  /** Expense ID */
+  expense_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Reimbursement Reports */
+export interface AirwallexListReimbursementReportsInput {
+  /** Page Cursor */
+  page?: string
+  /** Optional array of reimbursement report statuses */
+  status?: unknown
+  /** Optional array of sync statuses */
+  sync_status?: unknown
+  /** Legal Entity ID */
+  legal_entity_id?: string
+  /** Approver */
+  approver?: string
+  /** From Updated At */
+  from_updated_at?: string
+  /** To Updated At */
+  to_updated_at?: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Reimbursement Report */
+export interface AirwallexGetReimbursementReportInput {
+  /** Reimbursement Report ID */
+  reimbursement_report_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Cardholders */
+export interface AirwallexListCardholdersInput {
+  /** For example PENDING, READY, DISABLED, or INCOMPLETE */
+  cardholder_status?: string
+  /** Email */
+  email?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Cardholder */
+export interface AirwallexGetCardholderInput {
+  /** Cardholder ID */
+  cardholder_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Cards */
+export interface AirwallexListCardsInput {
+  /** For example ACTIVE, INACTIVE, LOST, STOLEN, CLOSED, or BLOCKED */
+  card_status?: string
+  /** Cardholder ID */
+  cardholder_id?: string
+  /** Nickname */
+  nick_name?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** From Updated At */
+  from_updated_at?: string
+  /** To Updated At */
+  to_updated_at?: string
+  /** Page Number */
+  page_num?: number
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Card */
+export interface AirwallexGetCardInput {
+  /** Card ID */
+  card_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — List Card Transactions */
+export interface AirwallexListCardTransactionsInput {
+  /** Billing Currency */
+  billing_currency?: string
+  /** Card ID */
+  card_id?: string
+  /** Lifecycle ID */
+  lifecycle_id?: string
+  /** For example AUTHORIZED, CLEARED, DECLINED, EXPIRED, or REVERSED */
+  status?: string
+  /** From Created At */
+  from_created_at?: string
+  /** To Created At */
+  to_created_at?: string
+  /** Page Cursor */
+  page?: string
+  /** Page Size */
+  page_size?: number
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Get Card Transaction */
+export interface AirwallexGetCardTransactionInput {
+  /** Card Transaction ID */
+  card_transaction_id: string
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Custom API Call */
+export interface AirwallexCustomApiCallInput {
+  /** Method (values: `GET`) */
+  method: "GET"
+  /** Relative path starting with /api/v1/ */
+  path: string
+  /** JSON object of query parameters */
+  query_params?: unknown
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
+/** Airwallex — Custom Write API Call */
+export interface AirwallexCustomWriteApiCallInput {
+  /** Method (values: `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative path starting with /api/v1/ */
+  path: string
+  /** JSON object of query parameters */
+  query_params?: unknown
+  /** JSON request body */
+  body?: unknown
+  /** Required for transfers, conversions, and mutating custom Airwallex API requests. */
+  confirmFundsMovement: boolean
+  /** Connected account open ID for platform requests, for example acct_xxxxxx */
+  on_behalf_of?: string
+  /** x-auth-2fa-token value when Airwallex requires second-factor authorization */
+  auth_2fa_token?: string
+  /** x-sca-session-code value from Airwallex SCA Verify when applicable */
+  sca_session_code?: string
+}
+
 /** Alma — Get MCP Setup Info */
 export type AlmaGetMcpSetupInfoInput = Record<string, never>
 
@@ -45090,6 +45843,51 @@ export interface IntegrationActionInputMap {
   'airtable.add_comment': AirtableAddCommentInput
   'airtable.upload_attachment': AirtableUploadAttachmentInput
   'airtable.custom_api_call': AirtableCustomApiCallInput
+  'airwallex.get_account': AirwallexGetAccountInput
+  'airwallex.list_connected_accounts': AirwallexListConnectedAccountsInput
+  'airwallex.list_global_accounts': AirwallexListGlobalAccountsInput
+  'airwallex.get_global_account': AirwallexGetGlobalAccountInput
+  'airwallex.list_deposits': AirwallexListDepositsInput
+  'airwallex.get_current_balances': AirwallexGetCurrentBalancesInput
+  'airwallex.get_balance_history': AirwallexGetBalanceHistoryInput
+  'airwallex.list_financial_transactions': AirwallexListFinancialTransactionsInput
+  'airwallex.get_financial_transaction': AirwallexGetFinancialTransactionInput
+  'airwallex.list_beneficiaries': AirwallexListBeneficiariesInput
+  'airwallex.get_beneficiary': AirwallexGetBeneficiaryInput
+  'airwallex.create_beneficiary': AirwallexCreateBeneficiaryInput
+  'airwallex.validate_beneficiary': AirwallexValidateBeneficiaryInput
+  'airwallex.verify_beneficiary_account': AirwallexVerifyBeneficiaryAccountInput
+  'airwallex.list_transfers': AirwallexListTransfersInput
+  'airwallex.get_transfer': AirwallexGetTransferInput
+  'airwallex.create_transfer': AirwallexCreateTransferInput
+  'airwallex.validate_transfer': AirwallexValidateTransferInput
+  'airwallex.get_indicative_fx_quote': AirwallexGetIndicativeFxQuoteInput
+  'airwallex.list_conversions': AirwallexListConversionsInput
+  'airwallex.get_conversion': AirwallexGetConversionInput
+  'airwallex.create_conversion': AirwallexCreateConversionInput
+  'airwallex.list_payment_intents': AirwallexListPaymentIntentsInput
+  'airwallex.get_payment_intent': AirwallexGetPaymentIntentInput
+  'airwallex.list_payment_links': AirwallexListPaymentLinksInput
+  'airwallex.get_payment_link': AirwallexGetPaymentLinkInput
+  'airwallex.list_charges': AirwallexListChargesInput
+  'airwallex.get_charge': AirwallexGetChargeInput
+  'airwallex.list_invoices': AirwallexListInvoicesInput
+  'airwallex.get_invoice': AirwallexGetInvoiceInput
+  'airwallex.list_invoice_items': AirwallexListInvoiceItemsInput
+  'airwallex.list_bills': AirwallexListBillsInput
+  'airwallex.get_bill': AirwallexGetBillInput
+  'airwallex.list_expenses': AirwallexListExpensesInput
+  'airwallex.get_expense': AirwallexGetExpenseInput
+  'airwallex.list_reimbursement_reports': AirwallexListReimbursementReportsInput
+  'airwallex.get_reimbursement_report': AirwallexGetReimbursementReportInput
+  'airwallex.list_cardholders': AirwallexListCardholdersInput
+  'airwallex.get_cardholder': AirwallexGetCardholderInput
+  'airwallex.list_cards': AirwallexListCardsInput
+  'airwallex.get_card': AirwallexGetCardInput
+  'airwallex.list_card_transactions': AirwallexListCardTransactionsInput
+  'airwallex.get_card_transaction': AirwallexGetCardTransactionInput
+  'airwallex.custom_api_call': AirwallexCustomApiCallInput
+  'airwallex.custom_write_api_call': AirwallexCustomWriteApiCallInput
   'alma.get_mcp_setup_info': AlmaGetMcpSetupInfoInput
   'alma.get_oauth_metadata': AlmaGetOauthMetadataInput
   'alma.initialize_mcp_session': AlmaInitializeMcpSessionInput
@@ -49199,6 +49997,53 @@ export interface IntegrationActionInputsByIntegration {
     'add_comment': AirtableAddCommentInput
     'upload_attachment': AirtableUploadAttachmentInput
     'custom_api_call': AirtableCustomApiCallInput
+  }
+  'airwallex': {
+    'get_account': AirwallexGetAccountInput
+    'list_connected_accounts': AirwallexListConnectedAccountsInput
+    'list_global_accounts': AirwallexListGlobalAccountsInput
+    'get_global_account': AirwallexGetGlobalAccountInput
+    'list_deposits': AirwallexListDepositsInput
+    'get_current_balances': AirwallexGetCurrentBalancesInput
+    'get_balance_history': AirwallexGetBalanceHistoryInput
+    'list_financial_transactions': AirwallexListFinancialTransactionsInput
+    'get_financial_transaction': AirwallexGetFinancialTransactionInput
+    'list_beneficiaries': AirwallexListBeneficiariesInput
+    'get_beneficiary': AirwallexGetBeneficiaryInput
+    'create_beneficiary': AirwallexCreateBeneficiaryInput
+    'validate_beneficiary': AirwallexValidateBeneficiaryInput
+    'verify_beneficiary_account': AirwallexVerifyBeneficiaryAccountInput
+    'list_transfers': AirwallexListTransfersInput
+    'get_transfer': AirwallexGetTransferInput
+    'create_transfer': AirwallexCreateTransferInput
+    'validate_transfer': AirwallexValidateTransferInput
+    'get_indicative_fx_quote': AirwallexGetIndicativeFxQuoteInput
+    'list_conversions': AirwallexListConversionsInput
+    'get_conversion': AirwallexGetConversionInput
+    'create_conversion': AirwallexCreateConversionInput
+    'list_payment_intents': AirwallexListPaymentIntentsInput
+    'get_payment_intent': AirwallexGetPaymentIntentInput
+    'list_payment_links': AirwallexListPaymentLinksInput
+    'get_payment_link': AirwallexGetPaymentLinkInput
+    'list_charges': AirwallexListChargesInput
+    'get_charge': AirwallexGetChargeInput
+    'list_invoices': AirwallexListInvoicesInput
+    'get_invoice': AirwallexGetInvoiceInput
+    'list_invoice_items': AirwallexListInvoiceItemsInput
+    'list_bills': AirwallexListBillsInput
+    'get_bill': AirwallexGetBillInput
+    'list_expenses': AirwallexListExpensesInput
+    'get_expense': AirwallexGetExpenseInput
+    'list_reimbursement_reports': AirwallexListReimbursementReportsInput
+    'get_reimbursement_report': AirwallexGetReimbursementReportInput
+    'list_cardholders': AirwallexListCardholdersInput
+    'get_cardholder': AirwallexGetCardholderInput
+    'list_cards': AirwallexListCardsInput
+    'get_card': AirwallexGetCardInput
+    'list_card_transactions': AirwallexListCardTransactionsInput
+    'get_card_transaction': AirwallexGetCardTransactionInput
+    'custom_api_call': AirwallexCustomApiCallInput
+    'custom_write_api_call': AirwallexCustomWriteApiCallInput
   }
   'alma': {
     'get_mcp_setup_info': AlmaGetMcpSetupInfoInput
@@ -54095,6 +54940,7 @@ export const integrationNames = [
   'ai-toolkit',
   'aircall',
   'airtable',
+  'airwallex',
   'alma',
   'amazon-s3',
   'amazon-seller',
@@ -54866,6 +55712,53 @@ export const integrationActions = {
     'add_comment',
     'upload_attachment',
     'custom_api_call',
+  ],
+  'airwallex': [
+    'get_account',
+    'list_connected_accounts',
+    'list_global_accounts',
+    'get_global_account',
+    'list_deposits',
+    'get_current_balances',
+    'get_balance_history',
+    'list_financial_transactions',
+    'get_financial_transaction',
+    'list_beneficiaries',
+    'get_beneficiary',
+    'create_beneficiary',
+    'validate_beneficiary',
+    'verify_beneficiary_account',
+    'list_transfers',
+    'get_transfer',
+    'create_transfer',
+    'validate_transfer',
+    'get_indicative_fx_quote',
+    'list_conversions',
+    'get_conversion',
+    'create_conversion',
+    'list_payment_intents',
+    'get_payment_intent',
+    'list_payment_links',
+    'get_payment_link',
+    'list_charges',
+    'get_charge',
+    'list_invoices',
+    'get_invoice',
+    'list_invoice_items',
+    'list_bills',
+    'get_bill',
+    'list_expenses',
+    'get_expense',
+    'list_reimbursement_reports',
+    'get_reimbursement_report',
+    'list_cardholders',
+    'get_cardholder',
+    'list_cards',
+    'get_card',
+    'list_card_transactions',
+    'get_card_transaction',
+    'custom_api_call',
+    'custom_write_api_call',
   ],
   'alma': [
     'get_mcp_setup_info',
