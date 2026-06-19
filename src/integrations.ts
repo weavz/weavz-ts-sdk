@@ -14548,6 +14548,90 @@ export interface FirecrawlCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Fireflies.ai — Validate Connection */
+export type FirefliesValidateConnectionInput = Record<string, never>
+
+/** Fireflies.ai — List Users */
+export type FirefliesListUsersInput = Record<string, never>
+
+/** Fireflies.ai — List Transcripts */
+export interface FirefliesListTranscriptsInput {
+  /** Search meeting title and/or spoken words. Maximum 255 characters. */
+  keyword?: string
+  /** Used only when Keyword is provided. Fireflies defaults to title. (values: `title`, `sentences`, `all`) */
+  scope?: "title" | "sentences" | "all"
+  /** ISO 8601 date-time. */
+  fromDate?: string
+  /** ISO 8601 date-time. */
+  toDate?: string
+  /** Maximum 50. */
+  limit?: number
+  /** Skip */
+  skip?: number
+  /** User ID */
+  userId?: string
+  /** Only My Organized Meetings */
+  mine?: boolean
+  /** Emails to match against organizers. */
+  organizers?: unknown[]
+  /** Emails to match against attendees. */
+  participants?: unknown[]
+  /** Channel ID */
+  channelId?: string
+}
+
+/** Fireflies.ai — Search Transcripts */
+export interface FirefliesSearchTranscriptsInput {
+  /** Search meeting title and/or spoken words. Maximum 255 characters. */
+  keyword: string
+  /** Used only when Keyword is provided. Fireflies defaults to title. (values: `title`, `sentences`, `all`) */
+  scope?: "title" | "sentences" | "all"
+  /** ISO 8601 date-time. */
+  fromDate?: string
+  /** ISO 8601 date-time. */
+  toDate?: string
+  /** Maximum 50. */
+  limit?: number
+  /** Skip */
+  skip?: number
+  /** User ID */
+  userId?: string
+  /** Only My Organized Meetings */
+  mine?: boolean
+  /** Emails to match against organizers. */
+  organizers?: unknown[]
+  /** Emails to match against attendees. */
+  participants?: unknown[]
+  /** Channel ID */
+  channelId?: string
+}
+
+/** Fireflies.ai — Get Transcript */
+export interface FirefliesGetTranscriptInput {
+  /** Transcript ID */
+  transcriptId: string
+  /** Include Sentences */
+  includeSentences?: boolean
+  /** Include Speakers */
+  includeSpeakers?: boolean
+  /** Include Participants */
+  includeParticipants?: boolean
+  /** Include Meeting Attendees */
+  includeMeetingAttendees?: boolean
+  /** Requires a Fireflies.ai plan that can query analytics. */
+  includeAnalytics?: boolean
+  /** Requests audio_url and video_url. These may require a paid Fireflies.ai plan. */
+  includeMediaUrls?: boolean
+}
+
+/** Fireflies.ai — Get Active Meetings */
+export interface FirefliesGetActiveMeetingsInput {
+  /** Omit to query active meetings for the authenticated user. Admin permissions are required to query another team user. */
+  email?: string
+  /** Omit to return both active and paused meetings. */
+  states?: string[]
+}
+
 /** Fishbowl — Get Product */
 export interface FishbowlGetProductInput {
   /** Product ID */
@@ -47808,6 +47892,12 @@ export interface IntegrationActionInputMap {
   'firecrawl.crawlResults': FirecrawlCrawlResultsInput
   'firecrawl.map': FirecrawlMapInput
   'firecrawl.custom_api_call': FirecrawlCustomApiCallInput
+  'fireflies.validate_connection': FirefliesValidateConnectionInput
+  'fireflies.list_users': FirefliesListUsersInput
+  'fireflies.list_transcripts': FirefliesListTranscriptsInput
+  'fireflies.search_transcripts': FirefliesSearchTranscriptsInput
+  'fireflies.get_transcript': FirefliesGetTranscriptInput
+  'fireflies.get_active_meetings': FirefliesGetActiveMeetingsInput
   'fishbowl.get_product': FishbowlGetProductInput
   'fishbowl.create_product': FishbowlCreateProductInput
   'fishbowl.create_sales_order': FishbowlCreateSalesOrderInput
@@ -52321,6 +52411,14 @@ export interface IntegrationActionInputsByIntegration {
     'map': FirecrawlMapInput
     'custom_api_call': FirecrawlCustomApiCallInput
   }
+  'fireflies': {
+    'validate_connection': FirefliesValidateConnectionInput
+    'list_users': FirefliesListUsersInput
+    'list_transcripts': FirefliesListTranscriptsInput
+    'search_transcripts': FirefliesSearchTranscriptsInput
+    'get_transcript': FirefliesGetTranscriptInput
+    'get_active_meetings': FirefliesGetActiveMeetingsInput
+  }
   'fishbowl': {
     'get_product': FishbowlGetProductInput
     'create_product': FishbowlCreateProductInput
@@ -56126,6 +56224,7 @@ export const integrationNames = [
   'fillout-forms',
   'firebase',
   'firecrawl',
+  'fireflies',
   'fishbowl',
   'fleetio',
   'fly-io',
@@ -58122,6 +58221,14 @@ export const integrationActions = {
     'crawlResults',
     'map',
     'custom_api_call',
+  ],
+  'fireflies': [
+    'validate_connection',
+    'list_users',
+    'list_transcripts',
+    'search_transcripts',
+    'get_transcript',
+    'get_active_meetings',
   ],
   'fishbowl': [
     'get_product',
