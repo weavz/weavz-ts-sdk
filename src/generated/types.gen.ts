@@ -92,6 +92,8 @@ export type Error = {
     | "APPROVAL_DECISION_DENIED"
     | "BROWSER_SANDBOX_UNAVAILABLE"
     | "BROWSER_SESSION_START_FAILED"
+    | "BROWSER_CONTROL_REQUIRED"
+    | "BROWSER_RECOVERY_REQUIRED"
     | "SESSION_NOT_FOUND"
     | "HANDOFF_FAILED";
   /**
@@ -225,7 +227,7 @@ export type WorkspaceIntegrationSettings = {
  */
 export type PersistenceWorkspaceSettings = {
   /**
-   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
+   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, Agent Browser (Stealth AI), and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
    */
   scope?: "end_user" | "workspace" | "external";
   /**

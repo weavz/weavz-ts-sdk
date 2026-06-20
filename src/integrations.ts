@@ -982,6 +982,286 @@ export interface AgentBrowserEndSessionInput {
   sessionId?: string
 }
 
+/** Agent Browser (Stealth AI) — Snapshot Page */
+export interface AgentBrowserStealthAiSnapshotInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Read Text */
+export interface AgentBrowserStealthAiReadTextInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Read HTML */
+export interface AgentBrowserStealthAiReadHtmlInput {
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Screenshot */
+export interface AgentBrowserStealthAiScreenshotInput {
+  /** Full page */
+  fullPage?: boolean
+  /** Use original device scale. Leave off for an agent-optimized image. */
+  fullResolution?: boolean
+  /** 1-100. Defaults to 60 for agent-friendly output size. */
+  quality?: number
+  /** Fast viewport uses the browser frame capture path for the common current-view screenshot. (values: `fast_viewport`, `playwright`) */
+  mode?: "fast_viewport" | "playwright"
+  /** Also write the screenshot to Filesystem and return a URL. Leave off for faster agent/MCP use. */
+  saveToFilesystem?: boolean
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Run Steps */
+export interface AgentBrowserStealthAiRunStepsInput {
+  /** [{ "op": "navigate", "params": { "url": "https://example.com" } }, { "op": "snapshot" }] */
+  steps: unknown
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Adds a final inline MCP image. Screenshot steps inside the batch are summarized to avoid large JSON blobs. */
+  includeFinalScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  finalScreenshotQuality?: number
+  /** Final screenshot full page */
+  finalScreenshotFullPage?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Current Page */
+export interface AgentBrowserStealthAiCurrentPageInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Navigate */
+export interface AgentBrowserStealthAiNavigateInput {
+  /** URL */
+  url: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Navigate Back */
+export interface AgentBrowserStealthAiNavigateBackInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Click */
+export interface AgentBrowserStealthAiClickInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Type */
+export interface AgentBrowserStealthAiTypeInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Text */
+  text: string
+  /** Submit */
+  submit?: boolean
+  /** Type slowly */
+  slowly?: boolean
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Fill Form */
+export interface AgentBrowserStealthAiFillFormInput {
+  /** [{ "target": "e5", "type": "textbox", "value": "..." }] */
+  fields: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Select Option */
+export interface AgentBrowserStealthAiSelectOptionInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Values */
+  values: unknown[]
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Hover */
+export interface AgentBrowserStealthAiHoverInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Drag and Drop */
+export interface AgentBrowserStealthAiDragInput {
+  /** Element ref or selector. */
+  startTarget: string
+  /** Element ref or selector. */
+  endTarget: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Press Key */
+export interface AgentBrowserStealthAiPressKeyInput {
+  /** Key */
+  key: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Upload File */
+export interface AgentBrowserStealthAiFileUploadInput {
+  /** An element ref from snapshot, such as "e5", or a CSS selector. */
+  target: string
+  /** File URL, base64 payload, data URL, Blob, or inline file object. */
+  file: WeavzFileInput
+  /** Optional filename override. */
+  fileName?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Evaluate JavaScript */
+export interface AgentBrowserStealthAiEvaluateInput {
+  /** For example: () => document.title */
+  function: string
+  /** Optional element ref or selector. */
+  target?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Wait For */
+export interface AgentBrowserStealthAiWaitForInput {
+  /** Text appears */
+  text?: string
+  /** Text disappears */
+  textGone?: string
+  /** Seconds */
+  time?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Handle Dialog */
+export interface AgentBrowserStealthAiHandleDialogInput {
+  /** Accept */
+  accept: boolean
+  /** Prompt text */
+  promptText?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Tabs */
+export interface AgentBrowserStealthAiTabsInput {
+  /** Action (values: `list`, `new`, `close`, `select`) */
+  action: "list" | "new" | "close" | "select"
+  /** Tab index */
+  index?: number
+  /** URL for a new tab. */
+  url?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Show Live View */
+export interface AgentBrowserStealthAiShowLiveViewInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Request Human Takeover */
+export interface AgentBrowserStealthAiRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Resume Agent Control */
+export interface AgentBrowserStealthAiResumeInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Ensure Connected */
+export interface AgentBrowserStealthAiEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Session Status */
+export interface AgentBrowserStealthAiSessionStatusInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Start Session */
+export interface AgentBrowserStealthAiStartSessionInput {
+  /** Restrict browsing to these hosts. Empty means unrestricted. */
+  allowedHosts?: unknown[]
+  /** Headless */
+  headless?: boolean
+}
+
+/** Agent Browser (Stealth AI) — End Session */
+export interface AgentBrowserStealthAiEndSessionInput {
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Act */
+export interface AgentBrowserStealthAiActInput {
+  /** Instruction */
+  instruction: string
+  /** Max steps */
+  maxSteps?: number
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Extract */
+export interface AgentBrowserStealthAiExtractInput {
+  /** What to extract */
+  instruction: string
+  /** Optional JSON Schema for the result shape. */
+  schema?: unknown
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Agent Browser (Stealth AI) — Observe */
+export interface AgentBrowserStealthAiObserveInput {
+  /** Instruction */
+  instruction: string
+  /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
 /** Agent Browser (Stealth) — Snapshot Page */
 export interface AgentBrowserStealthSnapshotInput {
   /** Target a specific browser session. Omit to use the auto-managed session for this end user. */
@@ -47598,6 +47878,36 @@ export interface IntegrationActionInputMap {
   'agent-browser.session_status': AgentBrowserSessionStatusInput
   'agent-browser.start_session': AgentBrowserStartSessionInput
   'agent-browser.end_session': AgentBrowserEndSessionInput
+  'agent-browser-stealth-ai.snapshot': AgentBrowserStealthAiSnapshotInput
+  'agent-browser-stealth-ai.read_text': AgentBrowserStealthAiReadTextInput
+  'agent-browser-stealth-ai.read_html': AgentBrowserStealthAiReadHtmlInput
+  'agent-browser-stealth-ai.screenshot': AgentBrowserStealthAiScreenshotInput
+  'agent-browser-stealth-ai.run_steps': AgentBrowserStealthAiRunStepsInput
+  'agent-browser-stealth-ai.current_page': AgentBrowserStealthAiCurrentPageInput
+  'agent-browser-stealth-ai.navigate': AgentBrowserStealthAiNavigateInput
+  'agent-browser-stealth-ai.navigate_back': AgentBrowserStealthAiNavigateBackInput
+  'agent-browser-stealth-ai.click': AgentBrowserStealthAiClickInput
+  'agent-browser-stealth-ai.type': AgentBrowserStealthAiTypeInput
+  'agent-browser-stealth-ai.fill_form': AgentBrowserStealthAiFillFormInput
+  'agent-browser-stealth-ai.select_option': AgentBrowserStealthAiSelectOptionInput
+  'agent-browser-stealth-ai.hover': AgentBrowserStealthAiHoverInput
+  'agent-browser-stealth-ai.drag': AgentBrowserStealthAiDragInput
+  'agent-browser-stealth-ai.press_key': AgentBrowserStealthAiPressKeyInput
+  'agent-browser-stealth-ai.file_upload': AgentBrowserStealthAiFileUploadInput
+  'agent-browser-stealth-ai.evaluate': AgentBrowserStealthAiEvaluateInput
+  'agent-browser-stealth-ai.wait_for': AgentBrowserStealthAiWaitForInput
+  'agent-browser-stealth-ai.handle_dialog': AgentBrowserStealthAiHandleDialogInput
+  'agent-browser-stealth-ai.tabs': AgentBrowserStealthAiTabsInput
+  'agent-browser-stealth-ai.show_live_view': AgentBrowserStealthAiShowLiveViewInput
+  'agent-browser-stealth-ai.request_human': AgentBrowserStealthAiRequestHumanInput
+  'agent-browser-stealth-ai.resume': AgentBrowserStealthAiResumeInput
+  'agent-browser-stealth-ai.ensure_connected': AgentBrowserStealthAiEnsureConnectedInput
+  'agent-browser-stealth-ai.session_status': AgentBrowserStealthAiSessionStatusInput
+  'agent-browser-stealth-ai.start_session': AgentBrowserStealthAiStartSessionInput
+  'agent-browser-stealth-ai.end_session': AgentBrowserStealthAiEndSessionInput
+  'agent-browser-stealth-ai.act': AgentBrowserStealthAiActInput
+  'agent-browser-stealth-ai.extract': AgentBrowserStealthAiExtractInput
+  'agent-browser-stealth-ai.observe': AgentBrowserStealthAiObserveInput
   'agent-browser-stealth.snapshot': AgentBrowserStealthSnapshotInput
   'agent-browser-stealth.read_text': AgentBrowserStealthReadTextInput
   'agent-browser-stealth.read_html': AgentBrowserStealthReadHtmlInput
@@ -51902,6 +52212,38 @@ export interface IntegrationActionInputsByIntegration {
     'session_status': AgentBrowserSessionStatusInput
     'start_session': AgentBrowserStartSessionInput
     'end_session': AgentBrowserEndSessionInput
+  }
+  'agent-browser-stealth-ai': {
+    'snapshot': AgentBrowserStealthAiSnapshotInput
+    'read_text': AgentBrowserStealthAiReadTextInput
+    'read_html': AgentBrowserStealthAiReadHtmlInput
+    'screenshot': AgentBrowserStealthAiScreenshotInput
+    'run_steps': AgentBrowserStealthAiRunStepsInput
+    'current_page': AgentBrowserStealthAiCurrentPageInput
+    'navigate': AgentBrowserStealthAiNavigateInput
+    'navigate_back': AgentBrowserStealthAiNavigateBackInput
+    'click': AgentBrowserStealthAiClickInput
+    'type': AgentBrowserStealthAiTypeInput
+    'fill_form': AgentBrowserStealthAiFillFormInput
+    'select_option': AgentBrowserStealthAiSelectOptionInput
+    'hover': AgentBrowserStealthAiHoverInput
+    'drag': AgentBrowserStealthAiDragInput
+    'press_key': AgentBrowserStealthAiPressKeyInput
+    'file_upload': AgentBrowserStealthAiFileUploadInput
+    'evaluate': AgentBrowserStealthAiEvaluateInput
+    'wait_for': AgentBrowserStealthAiWaitForInput
+    'handle_dialog': AgentBrowserStealthAiHandleDialogInput
+    'tabs': AgentBrowserStealthAiTabsInput
+    'show_live_view': AgentBrowserStealthAiShowLiveViewInput
+    'request_human': AgentBrowserStealthAiRequestHumanInput
+    'resume': AgentBrowserStealthAiResumeInput
+    'ensure_connected': AgentBrowserStealthAiEnsureConnectedInput
+    'session_status': AgentBrowserStealthAiSessionStatusInput
+    'start_session': AgentBrowserStealthAiStartSessionInput
+    'end_session': AgentBrowserStealthAiEndSessionInput
+    'act': AgentBrowserStealthAiActInput
+    'extract': AgentBrowserStealthAiExtractInput
+    'observe': AgentBrowserStealthAiObserveInput
   }
   'agent-browser-stealth': {
     'snapshot': AgentBrowserStealthSnapshotInput
@@ -57163,6 +57505,7 @@ export const integrationNames = [
   'aftership',
   'agencyzoom',
   'agent-browser',
+  'agent-browser-stealth-ai',
   'agent-browser-stealth',
   'agent-browser-ai',
   'agent-local-browser-control',
@@ -57809,6 +58152,38 @@ export const integrationActions = {
     'session_status',
     'start_session',
     'end_session',
+  ],
+  'agent-browser-stealth-ai': [
+    'snapshot',
+    'read_text',
+    'read_html',
+    'screenshot',
+    'run_steps',
+    'current_page',
+    'navigate',
+    'navigate_back',
+    'click',
+    'type',
+    'fill_form',
+    'select_option',
+    'hover',
+    'drag',
+    'press_key',
+    'file_upload',
+    'evaluate',
+    'wait_for',
+    'handle_dialog',
+    'tabs',
+    'show_live_view',
+    'request_human',
+    'resume',
+    'ensure_connected',
+    'session_status',
+    'start_session',
+    'end_session',
+    'act',
+    'extract',
+    'observe',
   ],
   'agent-browser-stealth': [
     'snapshot',
