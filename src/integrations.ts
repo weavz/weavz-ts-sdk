@@ -7570,6 +7570,103 @@ export interface BuildkiteCustomApiCallInput {
   body?: unknown
 }
 
+/** Buzzsprout — List Podcasts */
+export type BuzzsproutListPodcastsInput = Record<string, never>
+
+/** Buzzsprout — Get Podcast */
+export interface BuzzsproutGetPodcastInput {
+  /** Podcast ID */
+  podcastId: string
+}
+
+/** Buzzsprout — List Episodes */
+export interface BuzzsproutListEpisodesInput {
+  /** Podcast ID */
+  podcastId: string
+}
+
+/** Buzzsprout — Get Episode */
+export interface BuzzsproutGetEpisodeInput {
+  /** Podcast ID */
+  podcastId: string
+  /** Episode ID */
+  episodeId: string
+}
+
+/** Buzzsprout — Create Episode Draft */
+export interface BuzzsproutCreateEpisodeDraftInput {
+  /** Podcast ID */
+  podcastId: string
+  /** Title */
+  title: string
+  /** Description */
+  description?: string
+  /** Summary */
+  summary?: string
+  /** Artist */
+  artist?: string
+  /** Comma-separated tags. */
+  tags?: string
+  /** ISO 8601 timestamp accepted by Buzzsprout. */
+  publishedAt?: string
+  /** Duration in seconds. */
+  duration?: number
+  /** GUID */
+  guid?: string
+  /** Episode Number */
+  episodeNumber?: number
+  /** Season Number */
+  seasonNumber?: number
+  /** Explicit */
+  explicit?: boolean
+  /** Keep enabled to create the episode as a draft/private episode. */
+  private?: boolean
+  /** Email After Audio Processed */
+  emailUserAfterAudioProcessed?: boolean
+  /** Publicly reachable audio URL. File upload is intentionally not included. */
+  audioUrl?: string
+  /** Publicly reachable artwork image URL. */
+  artworkUrl?: string
+}
+
+/** Buzzsprout — Update Episode Metadata */
+export interface BuzzsproutUpdateEpisodeMetadataInput {
+  /** Podcast ID */
+  podcastId: string
+  /** Episode ID */
+  episodeId: string
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+  /** Summary */
+  summary?: string
+  /** Artist */
+  artist?: string
+  /** Comma-separated tags. */
+  tags?: string
+  /** ISO 8601 timestamp accepted by Buzzsprout. */
+  publishedAt?: string
+  /** Duration in seconds. */
+  duration?: number
+  /** GUID */
+  guid?: string
+  /** Episode Number */
+  episodeNumber?: number
+  /** Season Number */
+  seasonNumber?: number
+  /** Explicit (values: `true`, `false`) */
+  explicit?: "true" | "false"
+  /** Private (values: `true`, `false`) */
+  private?: "true" | "false"
+  /** Email After Audio Processed (values: `true`, `false`) */
+  emailUserAfterAudioProcessed?: "true" | "false"
+  /** Publicly reachable audio URL. File upload is intentionally not included. */
+  audioUrl?: string
+  /** Publicly reachable artwork image URL. */
+  artworkUrl?: string
+}
+
 /** Bynder — Search Assets */
 export interface BynderSearchAssetsInput {
   /** Keyword */
@@ -24736,6 +24833,168 @@ export interface LangsmithListProjectsInput {
   limit?: number
 }
 
+/** Last.fm — Search Artist */
+export interface LastfmSearchArtistInput {
+  /** Artist name to search for. */
+  artist: string
+  /** Number of results to fetch per page. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Search Track */
+export interface LastfmSearchTrackInput {
+  /** Track title to search for. */
+  track: string
+  /** Optional artist name to narrow the search. */
+  artist?: string
+  /** Number of results to fetch per page. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get Artist Info */
+export interface LastfmGetArtistInfoInput {
+  /** Artist name. Required unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz artist ID. Required unless Artist is provided. */
+  mbid?: string
+  /** Optional ISO 639 alpha-2 biography language code. */
+  lang?: string
+  /** Optional Last.fm username for user-specific playcount context. */
+  username?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+}
+
+/** Last.fm — Get Similar Artists */
+export interface LastfmGetSimilarArtistsInput {
+  /** Artist name. Required unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz artist ID. Required unless Artist is provided. */
+  mbid?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+  /** Number of similar artists to fetch. */
+  limit?: number
+}
+
+/** Last.fm — Get Artist Top Tracks */
+export interface LastfmGetArtistTopTracksInput {
+  /** Artist name. Required unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz artist ID. Required unless Artist is provided. */
+  mbid?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+  /** Number of results to fetch per page. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get Artist Top Albums */
+export interface LastfmGetArtistTopAlbumsInput {
+  /** Artist name. Required unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz artist ID. Required unless Artist is provided. */
+  mbid?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+  /** Number of results to fetch per page. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get Track Info */
+export interface LastfmGetTrackInfoInput {
+  /** Track title. Required with Artist unless MBID is provided. */
+  track?: string
+  /** Artist name. Required with Track unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz track ID. Required unless Track and Artist are provided. */
+  mbid?: string
+  /** Optional Last.fm username for user-specific playcount context. */
+  username?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+}
+
+/** Last.fm — Get Album Info */
+export interface LastfmGetAlbumInfoInput {
+  /** Album name. Required with Artist unless MBID is provided. */
+  album?: string
+  /** Artist name. Required with Album unless MBID is provided. */
+  artist?: string
+  /** MusicBrainz album ID. Required unless Album and Artist are provided. */
+  mbid?: string
+  /** Optional ISO 639 alpha-2 wiki language code. */
+  lang?: string
+  /** Optional Last.fm username for user-specific playcount context. */
+  username?: string
+  /** Ask Last.fm to correct misspelled artist, album, or track names. */
+  autocorrect?: boolean
+}
+
+/** Last.fm — Get User Recent Tracks */
+export interface LastfmGetUserRecentTracksInput {
+  /** Last.fm username. */
+  user: string
+  /** Optional Unix timestamp lower bound. */
+  from?: number
+  /** Optional Unix timestamp upper bound. */
+  to?: number
+  /** Include extended artist data when available. */
+  extended?: boolean
+  /** Number of recent tracks to fetch per page. Defaults to 50. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get User Top Artists */
+export interface LastfmGetUserTopArtistsInput {
+  /** Last.fm username. */
+  user: string
+  /** Time period for a user top chart. (values: `overall`, `7day`, `1month`, `3month`, `6month`, `12month`) */
+  period?: "overall" | "7day" | "1month" | "3month" | "6month" | "12month"
+  /** Number of artists to fetch per page. Defaults to 50. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get User Top Tracks */
+export interface LastfmGetUserTopTracksInput {
+  /** Last.fm username. */
+  user: string
+  /** Time period for a user top chart. (values: `overall`, `7day`, `1month`, `3month`, `6month`, `12month`) */
+  period?: "overall" | "7day" | "1month" | "3month" | "6month" | "12month"
+  /** Number of tracks to fetch per page. Defaults to 50. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get Chart Top Artists */
+export interface LastfmGetChartTopArtistsInput {
+  /** Number of artists to fetch per page. Defaults to 50. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
+/** Last.fm — Get Chart Top Tracks */
+export interface LastfmGetChartTopTracksInput {
+  /** Number of tracks to fetch per page. Defaults to 50. */
+  limit?: number
+  /** Page number to fetch. */
+  page?: number
+}
+
 /** Later — Create Post */
 export interface LaterCreatePostInput {
   /** The social profile ID to post to */
@@ -26677,6 +26936,90 @@ export interface ManychatSetCustomFieldInput {
   field_id: string
   /** Field Value */
   field_value: Record<string, unknown>
+}
+
+/** Mapbox — Forward Geocode */
+export interface MapboxForwardGeocodeInput {
+  /** Address, place, street, postal code, or locality to geocode. */
+  query: string
+  /** Maximum number of results to return (1-10). */
+  limit?: number
+  /** ISO 3166-1 country code or country name to filter results. */
+  country?: string
+  /** Comma-separated feature types such as address, street, place, region, postcode, locality, neighborhood, or country. */
+  types?: string
+  /** IETF language tag or comma-separated list, for example en or en,es. */
+  language?: string
+  /** Bias results toward longitude,latitude, or use ip. */
+  proximity?: string
+  /** Limit results to minLon,minLat,maxLon,maxLat. */
+  bbox?: string
+  /** Return autocomplete matches. Disabled by default to avoid one request per keystroke. */
+  autocomplete?: boolean
+  /** Boundary worldview code such as us, cn, in, jp, or ar. */
+  worldview?: string
+  /** Set only when your Mapbox plan and use case allow storing results. */
+  permanent?: boolean
+}
+
+/** Mapbox — Reverse Geocode */
+export interface MapboxReverseGeocodeInput {
+  /** Longitude between -180 and 180. */
+  longitude: number
+  /** Latitude between -90 and 90. */
+  latitude: number
+  /** Maximum number of results (1-5). Values above 1 require a single Feature Type. Omit for Mapbox default of 1. */
+  limit?: number
+  /** A single feature type when Limit is above 1, or comma-separated types when Limit is omitted. */
+  types?: string
+  /** IETF language tag or comma-separated list, for example en or en,es. */
+  language?: string
+  /** Boundary worldview code such as us, cn, in, jp, or ar. */
+  worldview?: string
+  /** Set only when your Mapbox plan and use case allow storing results. */
+  permanent?: boolean
+}
+
+/** Mapbox — Get Directions */
+export interface MapboxGetDirectionsInput {
+  /** Semicolon-separated longitude,latitude pairs, for example -122.42,37.78;-77.03,38.91. */
+  coordinates: string
+  /** Routing Profile (values: `driving`, `driving-traffic`, `walking`, `cycling`) */
+  profile: "driving" | "driving-traffic" | "walking" | "cycling"
+  /** Geometry Format (values: `geojson`, `polyline`, `polyline6`) */
+  geometries?: "geojson" | "polyline" | "polyline6"
+  /** Overview (values: `simplified`, `full`, `false`) */
+  overview?: "simplified" | "full" | "false"
+  /** Return route steps and maneuvers. */
+  steps?: boolean
+  /** Return alternative routes when available. */
+  alternatives?: boolean
+  /** Comma-separated annotations such as distance,duration,speed. Forces Overview to Full. */
+  annotations?: string
+  /** Language for turn-by-turn instructions, for example en, es, or de. */
+  language?: string
+}
+
+/** Mapbox — Create Isochrone */
+export interface MapboxCreateIsochroneInput {
+  /** Longitude between -180 and 180. */
+  longitude: number
+  /** Latitude between -90 and 90. */
+  latitude: number
+  /** Routing Profile (values: `driving`, `walking`, `cycling`) */
+  profile: "driving" | "walking" | "cycling"
+  /** Comma-separated increasing minute contours, each 1-60. Use this or Contours Meters, not both. */
+  contoursMinutes?: string
+  /** Comma-separated increasing meter contours, each 1-100000. Use this or Contours Minutes, not both. */
+  contoursMeters?: string
+  /** Return polygon contours instead of lines. */
+  polygons?: boolean
+  /** Remove smaller contours using a value from 0 to 1. */
+  denoise?: number
+  /** Simplify the returned geometry in meters. */
+  generalize?: number
+  /** Comma-separated hex colors without #, one per contour. */
+  contoursColors?: string
 }
 
 /** Mastodon — Post Status */
@@ -31329,6 +31672,44 @@ export interface OpenaiCustomApiCallInput {
   path: string
   /** Request body (JSON) */
   body?: unknown
+}
+
+/** OpenCage Geocoding — Forward Geocode */
+export interface OpencageForwardGeocodeInput {
+  /** Address, place, postal code, or location text to geocode. */
+  query: string
+  /** Maximum number of results to return (1-100). */
+  limit?: number
+  /** Optional bounding box as minLon,minLat,maxLon,maxLat. */
+  bounds?: string
+  /** Bias results toward latitude,longitude. */
+  proximity?: string
+  /** Return duplicate results when OpenCage has them. */
+  noDedupe?: boolean
+  /** Optional ISO 3166-1 alpha-2 country code filter, for example us,gb. */
+  countrycode?: string
+  /** IETF language code such as en, es, de, pt-BR, or native. */
+  language?: string
+  /** Remove timezone, currency, what3words, and other annotation details from results. */
+  noAnnotations?: boolean
+  /** Ask OpenCage not to log the query contents. */
+  noRecord?: boolean
+}
+
+/** OpenCage Geocoding — Reverse Geocode */
+export interface OpencageReverseGeocodeInput {
+  /** Latitude between -90 and 90. */
+  latitude: number
+  /** Longitude between -180 and 180. */
+  longitude: number
+  /** Attempt to match the nearest road and include roadinfo annotations. */
+  roadinfo?: boolean
+  /** IETF language code such as en, es, de, pt-BR, or native. */
+  language?: string
+  /** Remove timezone, currency, what3words, and other annotation details from results. */
+  noAnnotations?: boolean
+  /** Ask OpenCage not to log the query contents. */
+  noRecord?: boolean
 }
 
 /** OpenRouter — Ask LLM */
@@ -42741,6 +43122,164 @@ export interface TogetherAiEmbedInput {
 /** Together AI — List Models */
 export type TogetherAiListModelsInput = Record<string, never>
 
+/** TomTom — Geocode Address */
+export interface TomtomGeocodeAddressInput {
+  /** Address, intersection, street, postal code, city, or geography to geocode. */
+  query: string
+  /** Maximum results to return. TomTom supports up to 100. */
+  limit?: number
+  /** Optional comma-separated ISO 3166-1 alpha-2 or alpha-3 country codes, such as US,CA or USA,CAN. */
+  countrySet?: string
+  /** Optional latitude used with Bias Longitude to rank nearby results. */
+  lat?: number
+  /** Optional longitude used with Bias Latitude to rank nearby results. */
+  lon?: number
+  /** Optional radius around the bias coordinates. */
+  radius?: number
+  /** Optional TomTom-supported IETF language tag, such as en-US or fr-FR. */
+  language?: string
+  /** Interpret the query as partial predictive input. */
+  typeahead?: boolean
+}
+
+/** TomTom — Reverse Geocode */
+export interface TomtomReverseGeocodeInput {
+  /** Latitude of the position to reverse geocode. */
+  lat: number
+  /** Longitude of the position to reverse geocode. */
+  lon: number
+  /** Optional search radius around the position. */
+  radius?: number
+  /** Optional TomTom-supported IETF language tag, such as en-US or fr-FR. */
+  language?: string
+  /** Include speed limit information when available. */
+  returnSpeedLimit?: boolean
+  /** Include road class information when available. */
+  returnRoadClass?: boolean
+  /** Include the match type in the response. */
+  returnMatchType?: boolean
+}
+
+/** TomTom — Search Places */
+export interface TomtomSearchPlacesInput {
+  /** Free-form search text, such as a business name, address, or landmark. */
+  query: string
+  /** Maximum results to return. TomTom supports up to 100. */
+  limit?: number
+  /** Optional comma-separated ISO 3166-1 alpha-2 or alpha-3 country codes. */
+  countrySet?: string
+  /** Optional latitude used with Bias Longitude to rank nearby results. */
+  lat?: number
+  /** Optional longitude used with Bias Latitude to rank nearby results. */
+  lon?: number
+  /** Optional radius around the bias coordinates. */
+  radius?: number
+  /** Optional comma-separated TomTom POI category IDs to restrict results. */
+  categorySet?: string
+  /** Optional TomTom-supported IETF language tag. */
+  language?: string
+  /** Interpret the query as partial predictive input. */
+  typeahead?: boolean
+}
+
+/** TomTom — Search POIs */
+export interface TomtomSearchPoisInput {
+  /** Point-of-interest search text, such as coffee, airport, or Eiffel. */
+  query: string
+  /** Maximum results to return. TomTom supports up to 100. */
+  limit?: number
+  /** Optional comma-separated ISO 3166-1 alpha-2 or alpha-3 country codes. */
+  countrySet?: string
+  /** Optional latitude used with Longitude to search nearby. */
+  lat?: number
+  /** Optional longitude used with Latitude to search nearby. */
+  lon?: number
+  /** Optional radius around the latitude and longitude. */
+  radius?: number
+  /** Optional comma-separated TomTom POI category IDs. */
+  categorySet?: string
+  /** Optional comma-separated brand names to restrict POIs. */
+  brandSet?: string
+  /** Optional comma-separated EV connector types for EV station searches. */
+  connectorSet?: string
+  /** Optional comma-separated fuel types for fuel station searches. */
+  fuelSet?: string
+  /** Optional TomTom-supported IETF language tag. */
+  language?: string
+  /** Include opening hours when supported. (values: `nextSevenDays`) */
+  openingHours?: "nextSevenDays"
+}
+
+/** TomTom — Calculate Route */
+export interface TomtomCalculateRouteInput {
+  /** Origin Latitude */
+  originLat: number
+  /** Origin Longitude */
+  originLon: number
+  /** Destination Latitude */
+  destinationLat: number
+  /** Destination Longitude */
+  destinationLon: number
+  /** Optional semicolon-separated coordinates between origin and destination, formatted as "lat,lon;lat,lon". */
+  waypoints?: string
+  /** Travel Mode (values: `car`, `truck`, `taxi`, `bus`, `van`, `motorcycle`, `bicycle`, `pedestrian`) */
+  travelMode?: "car" | "truck" | "taxi" | "bus" | "van" | "motorcycle" | "bicycle" | "pedestrian"
+  /** Route Type (values: `fastest`, `shortest`, `eco`, `thrilling`) */
+  routeType?: "fastest" | "shortest" | "eco" | "thrilling"
+  /** Use Summary Only for compact agent responses, or Polyline when geometry is needed. (values: `summaryOnly`, `polyline`) */
+  routeRepresentation?: "summaryOnly" | "polyline"
+  /** Include current traffic when calculating the route. */
+  traffic?: boolean
+  /** Optional departure time, such as now or an ISO 8601 timestamp. Do not combine with Arrive At. */
+  departAt?: string
+  /** Optional arrival time as an ISO 8601 timestamp. Do not combine with Depart At. */
+  arriveAt?: string
+  /** Optional comma-separated avoid values, such as tollRoads, motorways, ferries, or unpavedRoads. */
+  avoid?: string
+  /** Optionally include route guidance instructions. (values: `text`, `tagged`, `coded`) */
+  instructionsType?: "text" | "tagged" | "coded"
+  /** Optional language for route instructions. */
+  language?: string
+  /** Optional number of alternative routes to request. */
+  maxAlternatives?: number
+}
+
+/** TomTom — Get Traffic Flow */
+export interface TomtomGetTrafficFlowInput {
+  /** Latitude */
+  lat: number
+  /** Longitude */
+  lon: number
+  /** Style (values: `absolute`, `relative`, `relative0`, `relative0-dark`, `relative-delay`, `reduced-sensitivity`) */
+  style?: "absolute" | "relative" | "relative0" | "relative0-dark" | "relative-delay" | "reduced-sensitivity"
+  /** Traffic zoom level from 0 to 22. */
+  zoom?: number
+  /** Speed Unit (values: `kmph`, `mph`) */
+  unit?: "kmph" | "mph"
+  /** Include OpenLR code in the response. */
+  openLr?: boolean
+}
+
+/** TomTom — Get Traffic Incidents */
+export interface TomtomGetTrafficIncidentsInput {
+  /** Minimum Longitude */
+  minLon: number
+  /** Minimum Latitude */
+  minLat: number
+  /** Maximum Longitude */
+  maxLon: number
+  /** Maximum Latitude */
+  maxLat: number
+  /** Return incident IDs, delay, road names, timing, and event descriptions when available. */
+  includeDetails?: boolean
+  /** Optional language code for incident descriptions. Defaults to en-GB in TomTom. */
+  language?: string
+  /** Time Validity Filter (values: `present`, `future`) */
+  timeValidityFilter?: "present" | "future"
+  /** Optional comma-separated incident category filter values. */
+  categoryFilter?: string
+}
+
 /** Totango — Search Accounts */
 export interface TotangoSearchAccountsInput {
   /** Search query object */
@@ -42778,6 +43317,144 @@ export interface TotangoCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Transistor.fm — List Shows */
+export interface TransistorListShowsInput {
+  /** Search Query */
+  query?: string
+  /** Private (values: `true`, `false`) */
+  private?: "true" | "false"
+  /** Transistor pagination page. Defaults to 0. */
+  page?: number
+  /** Resources per page. Defaults to 10. */
+  perPage?: number
+}
+
+/** Transistor.fm — Get Show */
+export interface TransistorGetShowInput {
+  /** Show ID or Slug */
+  showId: string
+}
+
+/** Transistor.fm — List Episodes */
+export interface TransistorListEpisodesInput {
+  /** Show ID or Slug */
+  showId?: string
+  /** Search Query */
+  query?: string
+  /** Status (values: `draft`, `scheduled`, `published`) */
+  status?: "draft" | "scheduled" | "published"
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+  /** Transistor pagination page. Defaults to 0. */
+  page?: number
+  /** Resources per page. Defaults to 10. */
+  perPage?: number
+}
+
+/** Transistor.fm — Get Episode */
+export interface TransistorGetEpisodeInput {
+  /** Episode ID */
+  episodeId: string
+  /** Include Show */
+  includeShow?: boolean
+}
+
+/** Transistor.fm — Create Episode Draft */
+export interface TransistorCreateEpisodeDraftInput {
+  /** Show ID or Slug */
+  showId: string
+  /** Title */
+  title: string
+  /** Summary */
+  summary?: string
+  /** Longer episode description. HTML is accepted by Transistor. */
+  description?: string
+  /** Public audio URL. The local upload authorization workflow is intentionally not included. */
+  audioUrl?: string
+  /** Author */
+  author?: string
+  /** Image URL */
+  imageUrl?: string
+  /** Comma-separated keywords. */
+  keywords?: string
+  /** Episode Number */
+  number?: number
+  /** Season Number */
+  season?: number
+  /** Episode Type (values: `full`, `trailer`, `bonus`) */
+  type?: "full" | "trailer" | "bonus"
+  /** Explicit */
+  explicit?: boolean
+  /** Automatically set the number to the next episode number of the current season. */
+  incrementNumber?: boolean
+  /** Alternate URL */
+  alternateUrl?: string
+  /** YouTube video URL for episode pages. */
+  videoUrl?: string
+  /** Email Notifications (values: `true`, `false`) */
+  emailNotifications?: "true" | "false"
+}
+
+/** Transistor.fm — Update Episode Metadata */
+export interface TransistorUpdateEpisodeMetadataInput {
+  /** Episode ID */
+  episodeId: string
+  /** Title */
+  title?: string
+  /** Summary */
+  summary?: string
+  /** Longer episode description. HTML is accepted by Transistor. */
+  description?: string
+  /** Public audio URL. The local upload authorization workflow is intentionally not included. */
+  audioUrl?: string
+  /** Author */
+  author?: string
+  /** Image URL */
+  imageUrl?: string
+  /** Comma-separated keywords. */
+  keywords?: string
+  /** Episode Number */
+  number?: number
+  /** Season Number */
+  season?: number
+  /** Episode Type (values: `full`, `trailer`, `bonus`) */
+  type?: "full" | "trailer" | "bonus"
+  /** Explicit (values: `true`, `false`) */
+  explicit?: "true" | "false"
+  /** Alternate URL */
+  alternateUrl?: string
+  /** YouTube video URL for episode pages. */
+  videoUrl?: string
+  /** Email Notifications (values: `true`, `false`) */
+  emailNotifications?: "true" | "false"
+}
+
+/** Transistor.fm — List Subscribers */
+export interface TransistorListSubscribersInput {
+  /** Show ID or Slug */
+  showId: string
+  /** Search Query */
+  query?: string
+  /** Activated (values: `true`, `false`) */
+  activated?: "true" | "false"
+  /** Transistor pagination page. Defaults to 0. */
+  page?: number
+  /** Resources per page. Defaults to 10. */
+  perPage?: number
+}
+
+/** Transistor.fm — Get Show Analytics */
+export interface TransistorGetShowAnalyticsInput {
+  /** Show ID or Slug */
+  showId: string
+  /** Date in dd-mm-yyyy format. Required by Transistor when an end date is provided. */
+  startDate?: string
+  /** Date in dd-mm-yyyy format. Required by Transistor when a start date is provided. */
+  endDate?: string
+  /** Include Show */
+  includeShow?: boolean
 }
 
 /** Trello — Create Card */
@@ -43844,6 +44521,96 @@ export interface VimeoCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Visual Crossing Weather — Get Current Conditions */
+export interface VisualCrossingGetCurrentConditionsInput {
+  /** Address, city, ZIP/postal code, location ID, or latitude,longitude. */
+  location: string
+  /** Measurement units to return. Defaults to metric. (values: `metric`, `us`, `uk`, `base`) */
+  unitGroup?: "metric" | "us" | "uk" | "base"
+  /** Optional comma-separated weather elements to include, such as tempmax,tempmin,temp,humidity,precip. */
+  elements?: string
+  /** Optional language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+  /** Optional comma-separated options such as nonulls. */
+  options?: string
+  /** Optional timezone for input and result dates. Use Z for UTC or an IANA timezone. */
+  timezone?: string
+}
+
+/** Visual Crossing Weather — Get Forecast */
+export interface VisualCrossingGetForecastInput {
+  /** Address, city, ZIP/postal code, location ID, or latitude,longitude. */
+  location: string
+  /** Optional forecast start date in yyyy-MM-dd format. Leave empty for the provider default. */
+  startDate?: string
+  /** Optional forecast end date in yyyy-MM-dd format. */
+  endDate?: string
+  /** Include Hourly Data */
+  includeHourly?: boolean
+  /** Include Current Conditions */
+  includeCurrent?: boolean
+  /** Include Alerts */
+  includeAlerts?: boolean
+  /** Measurement units to return. Defaults to metric. (values: `metric`, `us`, `uk`, `base`) */
+  unitGroup?: "metric" | "us" | "uk" | "base"
+  /** Optional comma-separated weather elements to include, such as tempmax,tempmin,temp,humidity,precip. */
+  elements?: string
+  /** Optional language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+  /** Optional comma-separated options such as nonulls. */
+  options?: string
+  /** Optional timezone for input and result dates. Use Z for UTC or an IANA timezone. */
+  timezone?: string
+}
+
+/** Visual Crossing Weather — Get Historical Weather */
+export interface VisualCrossingGetHistoricalWeatherInput {
+  /** Address, city, ZIP/postal code, location ID, or latitude,longitude. */
+  location: string
+  /** Historical start date in yyyy-MM-dd format. */
+  startDate: string
+  /** Optional historical end date in yyyy-MM-dd format. Leave empty for a single day. */
+  endDate?: string
+  /** Include Hourly Data */
+  includeHourly?: boolean
+  /** Include Alerts */
+  includeAlerts?: boolean
+  /** Measurement units to return. Defaults to metric. (values: `metric`, `us`, `uk`, `base`) */
+  unitGroup?: "metric" | "us" | "uk" | "base"
+  /** Optional comma-separated weather elements to include, such as tempmax,tempmin,temp,humidity,precip. */
+  elements?: string
+  /** Optional language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+  /** Optional comma-separated options such as nonulls. */
+  options?: string
+  /** Optional timezone for input and result dates. Use Z for UTC or an IANA timezone. */
+  timezone?: string
+}
+
+/** Visual Crossing Weather — Get Weather Timeline */
+export interface VisualCrossingGetWeatherTimelineInput {
+  /** Address, city, ZIP/postal code, location ID, or latitude,longitude. */
+  location: string
+  /** Optional yyyy-MM-dd date or supported dynamic period such as today, yesterday, or last30days. */
+  startDate?: string
+  /** Optional yyyy-MM-dd end date for a date range. */
+  endDate?: string
+  /** Measurement units to return. Defaults to metric. (values: `metric`, `us`, `uk`, `base`) */
+  unitGroup?: "metric" | "us" | "uk" | "base"
+  /** Comma-separated sections such as days,current,alerts. Defaults to days,current to avoid hourly data. */
+  include?: string
+  /** Optional comma-separated weather elements to include, such as tempmax,tempmin,temp,humidity,precip. */
+  elements?: string
+  /** Optional language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+  /** Optional comma-separated options such as nonulls. */
+  options?: string
+  /** Optional timezone for input and result dates. Use Z for UTC or an IANA timezone. */
+  timezone?: string
+  /** Response format. JSON is recommended for agents. (values: `json`, `flatjson`, `csv`) */
+  contentType?: "json" | "flatjson" | "csv"
+}
+
 /** Vitally — Create Account */
 export interface VitallyCreateAccountInput {
   /** Account Name */
@@ -44176,6 +44943,74 @@ export interface VtexCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** WeatherAPI.com — Search Locations */
+export interface WeatherapiSearchLocationsInput {
+  /** Location search text such as Lond, Paris, 10001, iata:DXB, or 48.8567,2.3508. */
+  query: string
+}
+
+/** WeatherAPI.com — Get Current Weather */
+export interface WeatherapiGetCurrentWeatherInput {
+  /** City, postcode, IP address, airport code, latitude/longitude pair, auto:ip, or id:<location id>. */
+  q: string
+  /** Request air quality data when available on your WeatherAPI.com plan. */
+  includeAirQuality?: boolean
+  /** Request pollen data when available on your WeatherAPI.com plan. */
+  includePollen?: boolean
+  /** Optional WeatherAPI language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+}
+
+/** WeatherAPI.com — Get Forecast */
+export interface WeatherapiGetForecastInput {
+  /** City, postcode, IP address, airport code, latitude/longitude pair, auto:ip, or id:<location id>. */
+  q: string
+  /** Number of forecast days to return, from 1 to 14. Defaults to 3. */
+  days?: number
+  /** Optional local hour to return, from 0 to 23. */
+  hour?: number
+  /** Request weather alerts when available. */
+  includeAlerts?: boolean
+  /** Request air quality data when available on your WeatherAPI.com plan. */
+  includeAirQuality?: boolean
+  /** Request pollen data when available on your WeatherAPI.com plan. */
+  includePollen?: boolean
+  /** Optional WeatherAPI language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+}
+
+/** WeatherAPI.com — Get Historical Weather */
+export interface WeatherapiGetHistoryInput {
+  /** City, postcode, IP address, airport code, latitude/longitude pair, auto:ip, or id:<location id>. */
+  q: string
+  /** Historical date in yyyy-MM-dd format. WeatherAPI.com supports history from 2010-01-01. */
+  date: string
+  /** Optional end date in yyyy-MM-dd format. Ranges are plan-gated and limited by WeatherAPI.com. */
+  endDate?: string
+  /** Optional local hour to return, from 0 to 23. */
+  hour?: number
+  /** Request air quality data when available on your WeatherAPI.com plan. */
+  includeAirQuality?: boolean
+  /** Request pollen data when available on your WeatherAPI.com plan. */
+  includePollen?: boolean
+  /** Optional WeatherAPI language code such as en, es, fr, de, ja, or zh. */
+  lang?: string
+}
+
+/** WeatherAPI.com — Get Timezone */
+export interface WeatherapiGetTimezoneInput {
+  /** City, postcode, IP address, airport code, latitude/longitude pair, auto:ip, or id:<location id>. */
+  q: string
+}
+
+/** WeatherAPI.com — Get Astronomy */
+export interface WeatherapiGetAstronomyInput {
+  /** City, postcode, IP address, airport code, latitude/longitude pair, auto:ip, or id:<location id>. */
+  q: string
+  /** Optional date in yyyy-MM-dd format. Leave empty for the provider default. */
+  date?: string
 }
 
 /** Weaviate — List Collections */
@@ -44596,6 +45431,69 @@ export interface WellnesslivingCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** what3words — Convert To Coordinates */
+export interface What3wordsConvertToCoordinatesInput {
+  /** A 3 word address such as filled.count.soap, with or without the leading ///. */
+  words: string
+  /** Format (values: `json`, `geojson`) */
+  format?: "json" | "geojson"
+}
+
+/** what3words — Convert To 3 Word Address */
+export interface What3wordsConvertTo3waInput {
+  /** Latitude to convert. */
+  lat: number
+  /** Longitude to convert. */
+  lng: number
+  /** Optional supported 2-letter language code. Defaults to en. */
+  language?: string
+  /** Optional locale variant, such as mn_la, zh_tr, or oo_cy. */
+  locale?: string
+  /** Format (values: `json`, `geojson`) */
+  format?: "json" | "geojson"
+}
+
+/** what3words — AutoSuggest */
+export interface What3wordsAutosuggestInput {
+  /** Full or partial 3 word address. Partial input must include the first two words and at least one character of the third. */
+  input: string
+  /** Optional latitude used with Focus Longitude to rank suggestions near a user or place. */
+  focusLat?: number
+  /** Optional longitude used with Focus Latitude to rank suggestions near a user or place. */
+  focusLng?: number
+  /** Optional comma-separated ISO 3166-1 alpha-2 country codes, such as GB,BE. */
+  clipToCountry?: string
+  /** Optional south_lat,west_lng,north_lat,east_lng bounding box. */
+  clipToBoundingBox?: string
+  /** Optional lat,lng,kilometres circle used to restrict results. */
+  clipToCircle?: string
+  /** Optional fallback 2-letter language code. Required for voice input modes. */
+  language?: string
+  /** Optional locale variant, such as mn_la, zh_tr, or oo_cy. */
+  locale?: string
+  /** Input Type (values: `text`, `generic-voice`) */
+  inputType?: "text" | "generic-voice"
+  /** Prefer land-based suggestions. Enabled by default in what3words. */
+  preferLand?: boolean
+}
+
+/** what3words — Get Available Languages */
+export type What3wordsGetAvailableLanguagesInput = Record<string, never>
+
+/** what3words — Get Grid Section */
+export interface What3wordsGetGridSectionInput {
+  /** South Latitude */
+  southLat: number
+  /** West Longitude */
+  westLng: number
+  /** North Latitude */
+  northLat: number
+  /** East Longitude */
+  eastLng: number
+  /** Format (values: `json`, `geojson`) */
+  format?: "json" | "geojson"
 }
 
 /** WhatsApp Business — Send Message */
@@ -48487,6 +49385,12 @@ export interface IntegrationActionInputMap {
   'buildkite.create_build': BuildkiteCreateBuildInput
   'buildkite.list_pipelines': BuildkiteListPipelinesInput
   'buildkite.custom_api_call': BuildkiteCustomApiCallInput
+  'buzzsprout.list_podcasts': BuzzsproutListPodcastsInput
+  'buzzsprout.get_podcast': BuzzsproutGetPodcastInput
+  'buzzsprout.list_episodes': BuzzsproutListEpisodesInput
+  'buzzsprout.get_episode': BuzzsproutGetEpisodeInput
+  'buzzsprout.create_episode_draft': BuzzsproutCreateEpisodeDraftInput
+  'buzzsprout.update_episode_metadata': BuzzsproutUpdateEpisodeMetadataInput
   'bynder.search_assets': BynderSearchAssetsInput
   'bynder.upload_asset': BynderUploadAssetInput
   'bynder.get_collection': BynderGetCollectionInput
@@ -49958,6 +50862,19 @@ export interface IntegrationActionInputMap {
   'langsmith.get_run': LangsmithGetRunInput
   'langsmith.list_datasets': LangsmithListDatasetsInput
   'langsmith.list_projects': LangsmithListProjectsInput
+  'lastfm.search_artist': LastfmSearchArtistInput
+  'lastfm.search_track': LastfmSearchTrackInput
+  'lastfm.get_artist_info': LastfmGetArtistInfoInput
+  'lastfm.get_similar_artists': LastfmGetSimilarArtistsInput
+  'lastfm.get_artist_top_tracks': LastfmGetArtistTopTracksInput
+  'lastfm.get_artist_top_albums': LastfmGetArtistTopAlbumsInput
+  'lastfm.get_track_info': LastfmGetTrackInfoInput
+  'lastfm.get_album_info': LastfmGetAlbumInfoInput
+  'lastfm.get_user_recent_tracks': LastfmGetUserRecentTracksInput
+  'lastfm.get_user_top_artists': LastfmGetUserTopArtistsInput
+  'lastfm.get_user_top_tracks': LastfmGetUserTopTracksInput
+  'lastfm.get_chart_top_artists': LastfmGetChartTopArtistsInput
+  'lastfm.get_chart_top_tracks': LastfmGetChartTopTracksInput
   'later.create_post': LaterCreatePostInput
   'later.list_posts': LaterListPostsInput
   'later.list_profiles': LaterListProfilesInput
@@ -50121,6 +51038,10 @@ export interface IntegrationActionInputMap {
   'manychat.removeTagFromUser': ManychatRemoveTagFromUserInput
   'manychat.sendContentToUser': ManychatSendContentToUserInput
   'manychat.setCustomField': ManychatSetCustomFieldInput
+  'mapbox.forward_geocode': MapboxForwardGeocodeInput
+  'mapbox.reverse_geocode': MapboxReverseGeocodeInput
+  'mapbox.get_directions': MapboxGetDirectionsInput
+  'mapbox.create_isochrone': MapboxCreateIsochroneInput
   'mastodon.post_status': MastodonPostStatusInput
   'mastodon.custom_api_call': MastodonCustomApiCallInput
   'mattermost.send_message': MattermostSendMessageInput
@@ -50572,6 +51493,8 @@ export interface IntegrationActionInputMap {
   'openai.text_to_speech': OpenaiTextToSpeechInput
   'openai.list_models': OpenaiListModelsInput
   'openai.custom_api_call': OpenaiCustomApiCallInput
+  'opencage.forward_geocode': OpencageForwardGeocodeInput
+  'opencage.reverse_geocode': OpencageReverseGeocodeInput
   'open-router.ask-lmm': OpenRouterAskLmmInput
   'open-router.custom_api_call': OpenRouterCustomApiCallInput
   'opentable.list_reservations': OpentableListReservationsInput
@@ -51682,11 +52605,26 @@ export interface IntegrationActionInputMap {
   'together-ai.chat': TogetherAiChatInput
   'together-ai.embed': TogetherAiEmbedInput
   'together-ai.list_models': TogetherAiListModelsInput
+  'tomtom.geocode_address': TomtomGeocodeAddressInput
+  'tomtom.reverse_geocode': TomtomReverseGeocodeInput
+  'tomtom.search_places': TomtomSearchPlacesInput
+  'tomtom.search_pois': TomtomSearchPoisInput
+  'tomtom.calculate_route': TomtomCalculateRouteInput
+  'tomtom.get_traffic_flow': TomtomGetTrafficFlowInput
+  'tomtom.get_traffic_incidents': TomtomGetTrafficIncidentsInput
   'totango.search_accounts': TotangoSearchAccountsInput
   'totango.create_touchpoint': TotangoCreateTouchpointInput
   'totango.list_segments': TotangoListSegmentsInput
   'totango.get_health': TotangoGetHealthInput
   'totango.custom_api_call': TotangoCustomApiCallInput
+  'transistor.list_shows': TransistorListShowsInput
+  'transistor.get_show': TransistorGetShowInput
+  'transistor.list_episodes': TransistorListEpisodesInput
+  'transistor.get_episode': TransistorGetEpisodeInput
+  'transistor.create_episode_draft': TransistorCreateEpisodeDraftInput
+  'transistor.update_episode_metadata': TransistorUpdateEpisodeMetadataInput
+  'transistor.list_subscribers': TransistorListSubscribersInput
+  'transistor.get_show_analytics': TransistorGetShowAnalyticsInput
   'trello.create_card': TrelloCreateCardInput
   'trello.get_card': TrelloGetCardInput
   'trello.update_card': TrelloUpdateCardInput
@@ -51791,6 +52729,10 @@ export interface IntegrationActionInputMap {
   'vimeo.add_video_to_showcase': VimeoAddVideoToShowcaseInput
   'vimeo.add_video_to_folder': VimeoAddVideoToFolderInput
   'vimeo.custom_api_call': VimeoCustomApiCallInput
+  'visual-crossing.get_current_conditions': VisualCrossingGetCurrentConditionsInput
+  'visual-crossing.get_forecast': VisualCrossingGetForecastInput
+  'visual-crossing.get_historical_weather': VisualCrossingGetHistoricalWeatherInput
+  'visual-crossing.get_weather_timeline': VisualCrossingGetWeatherTimelineInput
   'vitally.create_account': VitallyCreateAccountInput
   'vitally.list_accounts': VitallyListAccountsInput
   'vitally.get_account': VitallyGetAccountInput
@@ -51818,6 +52760,12 @@ export interface IntegrationActionInputMap {
   'vtex.get-order-by-id': VtexGetOrderByIdInput
   'vtex.get-order-list': VtexGetOrderListInput
   'vtex.custom_api_call': VtexCustomApiCallInput
+  'weatherapi.search_locations': WeatherapiSearchLocationsInput
+  'weatherapi.get_current_weather': WeatherapiGetCurrentWeatherInput
+  'weatherapi.get_forecast': WeatherapiGetForecastInput
+  'weatherapi.get_history': WeatherapiGetHistoryInput
+  'weatherapi.get_timezone': WeatherapiGetTimezoneInput
+  'weatherapi.get_astronomy': WeatherapiGetAstronomyInput
   'weaviate.list_collections': WeaviateListCollectionsInput
   'weaviate.create_object': WeaviateCreateObjectInput
   'weaviate.get_object': WeaviateGetObjectInput
@@ -51856,6 +52804,11 @@ export interface IntegrationActionInputMap {
   'wellnessliving.list_clients': WellnesslivingListClientsInput
   'wellnessliving.book_appointment': WellnesslivingBookAppointmentInput
   'wellnessliving.custom_api_call': WellnesslivingCustomApiCallInput
+  'what3words.convert_to_coordinates': What3wordsConvertToCoordinatesInput
+  'what3words.convert_to_3wa': What3wordsConvertTo3waInput
+  'what3words.autosuggest': What3wordsAutosuggestInput
+  'what3words.get_available_languages': What3wordsGetAvailableLanguagesInput
+  'what3words.get_grid_section': What3wordsGetGridSectionInput
   'whatsapp.sendMessage': WhatsappSendMessageInput
   'whatsapp.sendMedia': WhatsappSendMediaInput
   'whatsapp.send-template-message': WhatsappSendTemplateMessageInput
@@ -52937,6 +53890,14 @@ export interface IntegrationActionInputsByIntegration {
     'create_build': BuildkiteCreateBuildInput
     'list_pipelines': BuildkiteListPipelinesInput
     'custom_api_call': BuildkiteCustomApiCallInput
+  }
+  'buzzsprout': {
+    'list_podcasts': BuzzsproutListPodcastsInput
+    'get_podcast': BuzzsproutGetPodcastInput
+    'list_episodes': BuzzsproutListEpisodesInput
+    'get_episode': BuzzsproutGetEpisodeInput
+    'create_episode_draft': BuzzsproutCreateEpisodeDraftInput
+    'update_episode_metadata': BuzzsproutUpdateEpisodeMetadataInput
   }
   'bynder': {
     'search_assets': BynderSearchAssetsInput
@@ -54809,6 +55770,21 @@ export interface IntegrationActionInputsByIntegration {
     'list_datasets': LangsmithListDatasetsInput
     'list_projects': LangsmithListProjectsInput
   }
+  'lastfm': {
+    'search_artist': LastfmSearchArtistInput
+    'search_track': LastfmSearchTrackInput
+    'get_artist_info': LastfmGetArtistInfoInput
+    'get_similar_artists': LastfmGetSimilarArtistsInput
+    'get_artist_top_tracks': LastfmGetArtistTopTracksInput
+    'get_artist_top_albums': LastfmGetArtistTopAlbumsInput
+    'get_track_info': LastfmGetTrackInfoInput
+    'get_album_info': LastfmGetAlbumInfoInput
+    'get_user_recent_tracks': LastfmGetUserRecentTracksInput
+    'get_user_top_artists': LastfmGetUserTopArtistsInput
+    'get_user_top_tracks': LastfmGetUserTopTracksInput
+    'get_chart_top_artists': LastfmGetChartTopArtistsInput
+    'get_chart_top_tracks': LastfmGetChartTopTracksInput
+  }
   'later': {
     'create_post': LaterCreatePostInput
     'list_posts': LaterListPostsInput
@@ -55015,6 +55991,12 @@ export interface IntegrationActionInputsByIntegration {
     'removeTagFromUser': ManychatRemoveTagFromUserInput
     'sendContentToUser': ManychatSendContentToUserInput
     'setCustomField': ManychatSetCustomFieldInput
+  }
+  'mapbox': {
+    'forward_geocode': MapboxForwardGeocodeInput
+    'reverse_geocode': MapboxReverseGeocodeInput
+    'get_directions': MapboxGetDirectionsInput
+    'create_isochrone': MapboxCreateIsochroneInput
   }
   'mastodon': {
     'post_status': MastodonPostStatusInput
@@ -55566,6 +56548,10 @@ export interface IntegrationActionInputsByIntegration {
     'text_to_speech': OpenaiTextToSpeechInput
     'list_models': OpenaiListModelsInput
     'custom_api_call': OpenaiCustomApiCallInput
+  }
+  'opencage': {
+    'forward_geocode': OpencageForwardGeocodeInput
+    'reverse_geocode': OpencageReverseGeocodeInput
   }
   'open-router': {
     'ask-lmm': OpenRouterAskLmmInput
@@ -56963,12 +57949,31 @@ export interface IntegrationActionInputsByIntegration {
     'embed': TogetherAiEmbedInput
     'list_models': TogetherAiListModelsInput
   }
+  'tomtom': {
+    'geocode_address': TomtomGeocodeAddressInput
+    'reverse_geocode': TomtomReverseGeocodeInput
+    'search_places': TomtomSearchPlacesInput
+    'search_pois': TomtomSearchPoisInput
+    'calculate_route': TomtomCalculateRouteInput
+    'get_traffic_flow': TomtomGetTrafficFlowInput
+    'get_traffic_incidents': TomtomGetTrafficIncidentsInput
+  }
   'totango': {
     'search_accounts': TotangoSearchAccountsInput
     'create_touchpoint': TotangoCreateTouchpointInput
     'list_segments': TotangoListSegmentsInput
     'get_health': TotangoGetHealthInput
     'custom_api_call': TotangoCustomApiCallInput
+  }
+  'transistor': {
+    'list_shows': TransistorListShowsInput
+    'get_show': TransistorGetShowInput
+    'list_episodes': TransistorListEpisodesInput
+    'get_episode': TransistorGetEpisodeInput
+    'create_episode_draft': TransistorCreateEpisodeDraftInput
+    'update_episode_metadata': TransistorUpdateEpisodeMetadataInput
+    'list_subscribers': TransistorListSubscribersInput
+    'get_show_analytics': TransistorGetShowAnalyticsInput
   }
   'trello': {
     'create_card': TrelloCreateCardInput
@@ -57106,6 +58111,12 @@ export interface IntegrationActionInputsByIntegration {
     'add_video_to_folder': VimeoAddVideoToFolderInput
     'custom_api_call': VimeoCustomApiCallInput
   }
+  'visual-crossing': {
+    'get_current_conditions': VisualCrossingGetCurrentConditionsInput
+    'get_forecast': VisualCrossingGetForecastInput
+    'get_historical_weather': VisualCrossingGetHistoricalWeatherInput
+    'get_weather_timeline': VisualCrossingGetWeatherTimelineInput
+  }
   'vitally': {
     'create_account': VitallyCreateAccountInput
     'list_accounts': VitallyListAccountsInput
@@ -57138,6 +58149,14 @@ export interface IntegrationActionInputsByIntegration {
     'get-order-by-id': VtexGetOrderByIdInput
     'get-order-list': VtexGetOrderListInput
     'custom_api_call': VtexCustomApiCallInput
+  }
+  'weatherapi': {
+    'search_locations': WeatherapiSearchLocationsInput
+    'get_current_weather': WeatherapiGetCurrentWeatherInput
+    'get_forecast': WeatherapiGetForecastInput
+    'get_history': WeatherapiGetHistoryInput
+    'get_timezone': WeatherapiGetTimezoneInput
+    'get_astronomy': WeatherapiGetAstronomyInput
   }
   'weaviate': {
     'list_collections': WeaviateListCollectionsInput
@@ -57190,6 +58209,13 @@ export interface IntegrationActionInputsByIntegration {
     'list_clients': WellnesslivingListClientsInput
     'book_appointment': WellnesslivingBookAppointmentInput
     'custom_api_call': WellnesslivingCustomApiCallInput
+  }
+  'what3words': {
+    'convert_to_coordinates': What3wordsConvertToCoordinatesInput
+    'convert_to_3wa': What3wordsConvertTo3waInput
+    'autosuggest': What3wordsAutosuggestInput
+    'get_available_languages': What3wordsGetAvailableLanguagesInput
+    'get_grid_section': What3wordsGetGridSectionInput
   }
   'whatsapp': {
     'sendMessage': WhatsappSendMessageInput
@@ -57567,6 +58593,7 @@ export const integrationNames = [
   'bugsnag',
   'buildium',
   'buildkite',
+  'buzzsprout',
   'bynder',
   'cal-com',
   'calendly',
@@ -57767,6 +58794,7 @@ export const integrationNames = [
   'langchain',
   'langfuse',
   'langsmith',
+  'lastfm',
   'later',
   'lawmatics',
   'lead-connector',
@@ -57789,6 +58817,7 @@ export const integrationNames = [
   'mailer-lite',
   'mailjet',
   'manychat',
+  'mapbox',
   'mastodon',
   'mattermost',
   'medium',
@@ -57839,6 +58868,7 @@ export const integrationNames = [
   'onesignal',
   'onfleet',
   'openai',
+  'opencage',
   'open-router',
   'opentable',
   'openweather',
@@ -57982,7 +59012,9 @@ export const integrationNames = [
   'toast-pos',
   'todoist',
   'together-ai',
+  'tomtom',
   'totango',
+  'transistor',
   'trello',
   'trustpilot',
   'turso',
@@ -57999,9 +59031,11 @@ export const integrationNames = [
   'vercel',
   'vidyard',
   'vimeo',
+  'visual-crossing',
   'vitally',
   'vonage',
   'vtex',
+  'weatherapi',
   'weaviate',
   'weaviate-custom',
   'weavz-dynamic-dashboard',
@@ -58009,6 +59043,7 @@ export const integrationNames = [
   'webex',
   'webflow',
   'wellnessliving',
+  'what3words',
   'whatsapp',
   'whimsical',
   'wise',
@@ -58877,6 +59912,14 @@ export const integrationActions = {
     'create_build',
     'list_pipelines',
     'custom_api_call',
+  ],
+  'buzzsprout': [
+    'list_podcasts',
+    'get_podcast',
+    'list_episodes',
+    'get_episode',
+    'create_episode_draft',
+    'update_episode_metadata',
   ],
   'bynder': [
     'search_assets',
@@ -60749,6 +61792,21 @@ export const integrationActions = {
     'list_datasets',
     'list_projects',
   ],
+  'lastfm': [
+    'search_artist',
+    'search_track',
+    'get_artist_info',
+    'get_similar_artists',
+    'get_artist_top_tracks',
+    'get_artist_top_albums',
+    'get_track_info',
+    'get_album_info',
+    'get_user_recent_tracks',
+    'get_user_top_artists',
+    'get_user_top_tracks',
+    'get_chart_top_artists',
+    'get_chart_top_tracks',
+  ],
   'later': [
     'create_post',
     'list_posts',
@@ -60955,6 +62013,12 @@ export const integrationActions = {
     'removeTagFromUser',
     'sendContentToUser',
     'setCustomField',
+  ],
+  'mapbox': [
+    'forward_geocode',
+    'reverse_geocode',
+    'get_directions',
+    'create_isochrone',
   ],
   'mastodon': [
     'post_status',
@@ -61506,6 +62570,10 @@ export const integrationActions = {
     'text_to_speech',
     'list_models',
     'custom_api_call',
+  ],
+  'opencage': [
+    'forward_geocode',
+    'reverse_geocode',
   ],
   'open-router': [
     'ask-lmm',
@@ -62903,12 +63971,31 @@ export const integrationActions = {
     'embed',
     'list_models',
   ],
+  'tomtom': [
+    'geocode_address',
+    'reverse_geocode',
+    'search_places',
+    'search_pois',
+    'calculate_route',
+    'get_traffic_flow',
+    'get_traffic_incidents',
+  ],
   'totango': [
     'search_accounts',
     'create_touchpoint',
     'list_segments',
     'get_health',
     'custom_api_call',
+  ],
+  'transistor': [
+    'list_shows',
+    'get_show',
+    'list_episodes',
+    'get_episode',
+    'create_episode_draft',
+    'update_episode_metadata',
+    'list_subscribers',
+    'get_show_analytics',
   ],
   'trello': [
     'create_card',
@@ -63046,6 +64133,12 @@ export const integrationActions = {
     'add_video_to_folder',
     'custom_api_call',
   ],
+  'visual-crossing': [
+    'get_current_conditions',
+    'get_forecast',
+    'get_historical_weather',
+    'get_weather_timeline',
+  ],
   'vitally': [
     'create_account',
     'list_accounts',
@@ -63078,6 +64171,14 @@ export const integrationActions = {
     'get-order-by-id',
     'get-order-list',
     'custom_api_call',
+  ],
+  'weatherapi': [
+    'search_locations',
+    'get_current_weather',
+    'get_forecast',
+    'get_history',
+    'get_timezone',
+    'get_astronomy',
   ],
   'weaviate': [
     'list_collections',
@@ -63130,6 +64231,13 @@ export const integrationActions = {
     'list_clients',
     'book_appointment',
     'custom_api_call',
+  ],
+  'what3words': [
+    'convert_to_coordinates',
+    'convert_to_3wa',
+    'autosuggest',
+    'get_available_languages',
+    'get_grid_section',
   ],
   'whatsapp': [
     'sendMessage',
