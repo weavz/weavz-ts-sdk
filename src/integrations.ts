@@ -2077,6 +2077,8 @@ export interface AgentLocalComputerAiObserveInput {
   includeScreenshot?: boolean
   /** 1-100. Defaults to 60. */
   quality?: number
+  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
+  targetRef?: string
   /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
   intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
@@ -2416,6 +2418,8 @@ export interface AgentLocalComputerControlObserveInput {
   includeScreenshot?: boolean
   /** 1-100. Defaults to 60. */
   quality?: number
+  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
+  targetRef?: string
   /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
   intent?: string
   /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
@@ -2631,7 +2635,7 @@ export interface AgentLocalComputerControlWaitForInput {
 /** Agent Local Computer Control — Run Steps */
 export interface AgentLocalComputerControlRunStepsInput {
   /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
-  steps: Array<{ op: "snapshot" | "screenshot" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait"; params?: Record<string, unknown> }>
+  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
   /** Stop on error */
   stopOnError?: boolean
   /** Include final snapshot */
