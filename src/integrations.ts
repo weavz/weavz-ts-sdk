@@ -2046,628 +2046,6 @@ export interface AgentLocalBrowserControlEndSessionInput {
   sessionId?: string
 }
 
-/** Agent Local Computer AI — Start Session */
-export type AgentLocalComputerAiStartSessionInput = Record<string, never>
-
-/** Agent Local Computer AI — Ensure Connected */
-export interface AgentLocalComputerAiEnsureConnectedInput {
-  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
-  timeoutSeconds?: number
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Session Status */
-export interface AgentLocalComputerAiSessionStatusInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Snapshot */
-export interface AgentLocalComputerAiSnapshotInput {
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Observe */
-export interface AgentLocalComputerAiObserveInput {
-  /** Include screenshot */
-  includeScreenshot?: boolean
-  /** 1-100. Defaults to 60. */
-  quality?: number
-  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
-  targetRef?: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Screenshot */
-export interface AgentLocalComputerAiScreenshotInput {
-  /** 1-100. Defaults to 60. */
-  quality?: number
-  /** Full resolution */
-  fullResolution?: boolean
-  /** Also write the screenshot to Filesystem and return a URL. */
-  saveToFilesystem?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — List Targets */
-export interface AgentLocalComputerAiListTargetsInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Activate Target */
-export interface AgentLocalComputerAiActivateTargetInput {
-  /** targetRef returned by list_targets. */
-  targetRef: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Focus Element */
-export interface AgentLocalComputerAiFocusRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Press Element */
-export interface AgentLocalComputerAiPressRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Set Text Element */
-export interface AgentLocalComputerAiSetTextRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Text */
-  text: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Select Element */
-export interface AgentLocalComputerAiSelectRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
-  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Scroll Element */
-export interface AgentLocalComputerAiScrollRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Delta X */
-  deltaX?: number
-  /** Delta Y */
-  deltaY?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Move Mouse */
-export interface AgentLocalComputerAiMoveMouseInput {
-  /** X coordinate in screenshot/display space. */
-  x: number
-  /** Y coordinate in screenshot/display space. */
-  y: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Click */
-export interface AgentLocalComputerAiClickInput {
-  /** X coordinate in screenshot/display space. */
-  x: number
-  /** Y coordinate in screenshot/display space. */
-  y: number
-  /** Button (values: `left`, `right`, `middle`) */
-  button?: "left" | "right" | "middle"
-  /** Double click */
-  doubleClick?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Drag */
-export interface AgentLocalComputerAiDragInput {
-  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
-  path: Array<{ x: number; y: number } | [number, number]>
-  /** Optional total drag duration. Defaults to 400 ms. */
-  durationMs?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Type */
-export interface AgentLocalComputerAiTypeInput {
-  /** Text */
-  text: string
-  /** Submit with Enter */
-  submit?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Press Key */
-export interface AgentLocalComputerAiPressKeyInput {
-  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
-  key: string
-  /** Optional modifiers such as cmd, shift, option, control. */
-  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Scroll */
-export interface AgentLocalComputerAiScrollInput {
-  /** Delta X */
-  deltaX?: number
-  /** Delta Y */
-  deltaY?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Wait */
-export interface AgentLocalComputerAiWaitInput {
-  /** Seconds */
-  seconds?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Wait For */
-export interface AgentLocalComputerAiWaitForInput {
-  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
-  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
-  /** Observation ID */
-  observationId?: string
-  /** Element ref */
-  ref?: string
-  /** Text */
-  text?: string
-  /** Bundle identifier */
-  bundleIdentifier?: string
-  /** Application name */
-  applicationName?: string
-  /** Timeout seconds */
-  timeoutSeconds?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Run Steps */
-export interface AgentLocalComputerAiRunStepsInput {
-  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
-  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
-  /** Stop on error */
-  stopOnError?: boolean
-  /** Include final snapshot */
-  includeFinalSnapshot?: boolean
-  /** Include final screenshot */
-  includeFinalScreenshot?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Request Human Takeover */
-export interface AgentLocalComputerAiRequestHumanInput {
-  /** Reason */
-  reason?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Resume Agent Control */
-export interface AgentLocalComputerAiResumeInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — End Session */
-export interface AgentLocalComputerAiEndSessionInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Act */
-export interface AgentLocalComputerAiActInput {
-  /** Describe the local computer task. Do not include passwords, tokens, or other secrets. */
-  instruction: string
-  /** Max steps */
-  maxSteps?: number
-  /** Optional task-scoped capability names such as gui, browser_dom, shell, files, clipboard, app_management, full_display, or full_computer. The local companion must also grant them. */
-  allowedCapabilities?: string[]
-  /** When true, the driver stops before sending messages, posting, payments, deletes, or other external effects. */
-  requireConfirmationForExternalEffects?: boolean
-  /** Evidence mode (values: `summary`, `final_observation`) */
-  evidenceMode?: "summary" | "final_observation"
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Plan */
-export interface AgentLocalComputerAiPlanInput {
-  /** Instruction */
-  instruction: string
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Observe Goal */
-export interface AgentLocalComputerAiObserveGoalInput {
-  /** Instruction */
-  instruction: string
-  /** Include screenshot metadata/image in observation */
-  includeScreenshot?: boolean
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Extract From Screen */
-export interface AgentLocalComputerAiExtractFromScreenInput {
-  /** What to extract */
-  instruction: string
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Run Recipe */
-export interface AgentLocalComputerAiRunRecipeInput {
-  /** JSON object with optional allowedCapabilities and steps: [{ op, params, intent?, waitUntil?, delayMs? }]. Shell/file/clipboard recipe steps require matching allowedCapabilities and local Mac approval. */
-  recipe: { allowedCapabilities?: string[]; steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for" | "shell_exec" | "file_list" | "file_read" | "file_write" | "clipboard_read" | "clipboard_write"; params?: Record<string, unknown>; intent?: string; delayMs?: number; waitUntil?: Record<string, unknown> }>; }
-  /** Stop on error */
-  stopOnError?: boolean
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer AI — Stop Task */
-export interface AgentLocalComputerAiStopTaskInput {
-  /** Reason */
-  reason?: string
-  /** Session ID */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Start Session */
-export type AgentLocalComputerControlStartSessionInput = Record<string, never>
-
-/** Agent Local Computer Control — Ensure Connected */
-export interface AgentLocalComputerControlEnsureConnectedInput {
-  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
-  timeoutSeconds?: number
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Session Status */
-export interface AgentLocalComputerControlSessionStatusInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Snapshot */
-export interface AgentLocalComputerControlSnapshotInput {
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Observe */
-export interface AgentLocalComputerControlObserveInput {
-  /** Include screenshot */
-  includeScreenshot?: boolean
-  /** 1-100. Defaults to 60. */
-  quality?: number
-  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
-  targetRef?: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Screenshot */
-export interface AgentLocalComputerControlScreenshotInput {
-  /** 1-100. Defaults to 60. */
-  quality?: number
-  /** Full resolution */
-  fullResolution?: boolean
-  /** Also write the screenshot to Filesystem and return a URL. */
-  saveToFilesystem?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — List Targets */
-export interface AgentLocalComputerControlListTargetsInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Activate Target */
-export interface AgentLocalComputerControlActivateTargetInput {
-  /** targetRef returned by list_targets. */
-  targetRef: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Focus Element */
-export interface AgentLocalComputerControlFocusRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Press Element */
-export interface AgentLocalComputerControlPressRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Set Text Element */
-export interface AgentLocalComputerControlSetTextRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Text */
-  text: string
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Select Element */
-export interface AgentLocalComputerControlSelectRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
-  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Scroll Element */
-export interface AgentLocalComputerControlScrollRefInput {
-  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
-  observationId: string
-  /** Element ref returned by observe or snapshot. */
-  ref: string
-  /** Delta X */
-  deltaX?: number
-  /** Delta Y */
-  deltaY?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Move Mouse */
-export interface AgentLocalComputerControlMoveMouseInput {
-  /** X coordinate in screenshot/display space. */
-  x: number
-  /** Y coordinate in screenshot/display space. */
-  y: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Click */
-export interface AgentLocalComputerControlClickInput {
-  /** X coordinate in screenshot/display space. */
-  x: number
-  /** Y coordinate in screenshot/display space. */
-  y: number
-  /** Button (values: `left`, `right`, `middle`) */
-  button?: "left" | "right" | "middle"
-  /** Double click */
-  doubleClick?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Drag */
-export interface AgentLocalComputerControlDragInput {
-  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
-  path: Array<{ x: number; y: number } | [number, number]>
-  /** Optional total drag duration. Defaults to 400 ms. */
-  durationMs?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Type */
-export interface AgentLocalComputerControlTypeInput {
-  /** Text */
-  text: string
-  /** Submit with Enter */
-  submit?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Press Key */
-export interface AgentLocalComputerControlPressKeyInput {
-  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
-  key: string
-  /** Optional modifiers such as cmd, shift, option, control. */
-  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Scroll */
-export interface AgentLocalComputerControlScrollInput {
-  /** Delta X */
-  deltaX?: number
-  /** Delta Y */
-  deltaY?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Wait */
-export interface AgentLocalComputerControlWaitInput {
-  /** Seconds */
-  seconds?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Wait For */
-export interface AgentLocalComputerControlWaitForInput {
-  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
-  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
-  /** Observation ID */
-  observationId?: string
-  /** Element ref */
-  ref?: string
-  /** Text */
-  text?: string
-  /** Bundle identifier */
-  bundleIdentifier?: string
-  /** Application name */
-  applicationName?: string
-  /** Timeout seconds */
-  timeoutSeconds?: number
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Run Steps */
-export interface AgentLocalComputerControlRunStepsInput {
-  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
-  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
-  /** Stop on error */
-  stopOnError?: boolean
-  /** Include final snapshot */
-  includeFinalSnapshot?: boolean
-  /** Include final screenshot */
-  includeFinalScreenshot?: boolean
-  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
-  intent?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Request Human Takeover */
-export interface AgentLocalComputerControlRequestHumanInput {
-  /** Reason */
-  reason?: string
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — Resume Agent Control */
-export interface AgentLocalComputerControlResumeInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
-/** Agent Local Computer Control — End Session */
-export interface AgentLocalComputerControlEndSessionInput {
-  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
-  sessionId?: string
-}
-
 /** Agent Memory — Create Entities */
 export interface AgentMemoryCreateEntitiesInput {
   /** Array of entities to create. Each entity: { name: string, type: string, observations?: string[] } */
@@ -26216,6 +25594,628 @@ export interface LinkedinAdsListCampaignGroupsInput {
   count?: number
 }
 
+/** Local Computer Control — Start Session */
+export type LocalComputerControlStartSessionInput = Record<string, never>
+
+/** Local Computer Control — Ensure Connected */
+export interface LocalComputerControlEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Session Status */
+export interface LocalComputerControlSessionStatusInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Snapshot */
+export interface LocalComputerControlSnapshotInput {
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Observe */
+export interface LocalComputerControlObserveInput {
+  /** Include screenshot */
+  includeScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
+  targetRef?: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Screenshot */
+export interface LocalComputerControlScreenshotInput {
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Full resolution */
+  fullResolution?: boolean
+  /** Also write the screenshot to Filesystem and return a URL. */
+  saveToFilesystem?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — List Targets */
+export interface LocalComputerControlListTargetsInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Activate Target */
+export interface LocalComputerControlActivateTargetInput {
+  /** targetRef returned by list_targets. */
+  targetRef: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Focus Element */
+export interface LocalComputerControlFocusRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Press Element */
+export interface LocalComputerControlPressRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Set Text Element */
+export interface LocalComputerControlSetTextRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Text */
+  text: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Select Element */
+export interface LocalComputerControlSelectRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
+  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Scroll Element */
+export interface LocalComputerControlScrollRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Move Mouse */
+export interface LocalComputerControlMoveMouseInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Click */
+export interface LocalComputerControlClickInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Drag */
+export interface LocalComputerControlDragInput {
+  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
+  path: Array<{ x: number; y: number } | [number, number]>
+  /** Optional total drag duration. Defaults to 400 ms. */
+  durationMs?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Type */
+export interface LocalComputerControlTypeInput {
+  /** Text */
+  text: string
+  /** Submit with Enter */
+  submit?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Press Key */
+export interface LocalComputerControlPressKeyInput {
+  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
+  key: string
+  /** Optional modifiers such as cmd, shift, option, control. */
+  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Scroll */
+export interface LocalComputerControlScrollInput {
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Wait */
+export interface LocalComputerControlWaitInput {
+  /** Seconds */
+  seconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Wait For */
+export interface LocalComputerControlWaitForInput {
+  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
+  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
+  /** Observation ID */
+  observationId?: string
+  /** Element ref */
+  ref?: string
+  /** Text */
+  text?: string
+  /** Bundle identifier */
+  bundleIdentifier?: string
+  /** Application name */
+  applicationName?: string
+  /** Timeout seconds */
+  timeoutSeconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Run Steps */
+export interface LocalComputerControlRunStepsInput {
+  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
+  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Include final screenshot */
+  includeFinalScreenshot?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Request Human Takeover */
+export interface LocalComputerControlRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — Resume Agent Control */
+export interface LocalComputerControlResumeInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control — End Session */
+export interface LocalComputerControlEndSessionInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Start Session */
+export type LocalComputerControlAgentStartSessionInput = Record<string, never>
+
+/** Local Computer Control Agent — Ensure Connected */
+export interface LocalComputerControlAgentEnsureConnectedInput {
+  /** How long to wait for the local companion before returning recovery instructions. Defaults to 8 seconds. */
+  timeoutSeconds?: number
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Session Status */
+export interface LocalComputerControlAgentSessionStatusInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Snapshot */
+export interface LocalComputerControlAgentSnapshotInput {
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Observe */
+export interface LocalComputerControlAgentObserveInput {
+  /** Include screenshot */
+  includeScreenshot?: boolean
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Optional targetRef returned by list_targets. Use it to observe a locally approved app/window without bringing it frontmost. */
+  targetRef?: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Screenshot */
+export interface LocalComputerControlAgentScreenshotInput {
+  /** 1-100. Defaults to 60. */
+  quality?: number
+  /** Full resolution */
+  fullResolution?: boolean
+  /** Also write the screenshot to Filesystem and return a URL. */
+  saveToFilesystem?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — List Targets */
+export interface LocalComputerControlAgentListTargetsInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Activate Target */
+export interface LocalComputerControlAgentActivateTargetInput {
+  /** targetRef returned by list_targets. */
+  targetRef: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Focus Element */
+export interface LocalComputerControlAgentFocusRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Press Element */
+export interface LocalComputerControlAgentPressRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Set Text Element */
+export interface LocalComputerControlAgentSetTextRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Text */
+  text: string
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Select Element */
+export interface LocalComputerControlAgentSelectRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Selection (values: `select`, `check`, `uncheck`, `toggle`, `expand`, `collapse`) */
+  selection?: "select" | "check" | "uncheck" | "toggle" | "expand" | "collapse"
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Scroll Element */
+export interface LocalComputerControlAgentScrollRefInput {
+  /** observationId returned by observe or snapshot. Re-observe after navigation, focus changes, or stale-ref errors. */
+  observationId: string
+  /** Element ref returned by observe or snapshot. */
+  ref: string
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Move Mouse */
+export interface LocalComputerControlAgentMoveMouseInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Click */
+export interface LocalComputerControlAgentClickInput {
+  /** X coordinate in screenshot/display space. */
+  x: number
+  /** Y coordinate in screenshot/display space. */
+  y: number
+  /** Button (values: `left`, `right`, `middle`) */
+  button?: "left" | "right" | "middle"
+  /** Double click */
+  doubleClick?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Drag */
+export interface LocalComputerControlAgentDragInput {
+  /** Array of coordinate pairs or objects, for example [{ "x": 120, "y": 180 }, { "x": 360, "y": 180 }]. */
+  path: Array<{ x: number; y: number } | [number, number]>
+  /** Optional total drag duration. Defaults to 400 ms. */
+  durationMs?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Type */
+export interface LocalComputerControlAgentTypeInput {
+  /** Text */
+  text: string
+  /** Submit with Enter */
+  submit?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Press Key */
+export interface LocalComputerControlAgentPressKeyInput {
+  /** Examples: Enter, Escape, Tab, ArrowDown, a. */
+  key: string
+  /** Optional modifiers such as cmd, shift, option, control. */
+  modifiers?: Array<"cmd" | "command" | "shift" | "option" | "alt" | "control" | "ctrl">
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Scroll */
+export interface LocalComputerControlAgentScrollInput {
+  /** Delta X */
+  deltaX?: number
+  /** Delta Y */
+  deltaY?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Wait */
+export interface LocalComputerControlAgentWaitInput {
+  /** Seconds */
+  seconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Wait For */
+export interface LocalComputerControlAgentWaitForInput {
+  /** Condition (values: `app_active`, `window_title_contains`, `element_exists`, `element_focused`, `element_enabled`, `text_present`, `dialog_present`, `screen_stable`) */
+  condition: "app_active" | "window_title_contains" | "element_exists" | "element_focused" | "element_enabled" | "text_present" | "dialog_present" | "screen_stable"
+  /** Observation ID */
+  observationId?: string
+  /** Element ref */
+  ref?: string
+  /** Text */
+  text?: string
+  /** Bundle identifier */
+  bundleIdentifier?: string
+  /** Application name */
+  applicationName?: string
+  /** Timeout seconds */
+  timeoutSeconds?: number
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Run Steps */
+export interface LocalComputerControlAgentRunStepsInput {
+  /** [{ "op": "observe" }, { "op": "press_ref", "params": { "observationId": "...", "ref": "..." }, "delayMs": 150 }] */
+  steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for"; params?: Record<string, unknown>; delayMs?: number; waitUntil?: Record<string, unknown> }>
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Include final snapshot */
+  includeFinalSnapshot?: boolean
+  /** Include final screenshot */
+  includeFinalScreenshot?: boolean
+  /** Optional short caption shown to the local user while the operation runs, for example "Opening LinkedIn". Do not include secrets, credentials, personal data, raw URLs, or tokens. */
+  intent?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Request Human Takeover */
+export interface LocalComputerControlAgentRequestHumanInput {
+  /** Reason */
+  reason?: string
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Resume Agent Control */
+export interface LocalComputerControlAgentResumeInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — End Session */
+export interface LocalComputerControlAgentEndSessionInput {
+  /** Target a specific local computer session. Omit to use the auto-managed session for this end user. */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Act */
+export interface LocalComputerControlAgentActInput {
+  /** Describe the local computer task. Do not include passwords, tokens, or other secrets. */
+  instruction: string
+  /** Max steps */
+  maxSteps?: number
+  /** Optional task-scoped capability names such as gui, app_management, full_display, or full_computer. Shell, files, and clipboard are experimental and work only when the companion build explicitly supports and grants them. browser_dom is reserved for a future browser adapter and does not enable DOM control by itself. */
+  allowedCapabilities?: string[]
+  /** When true, the driver stops before sending messages, posting, payments, deletes, or other external effects. */
+  requireConfirmationForExternalEffects?: boolean
+  /** Evidence mode (values: `summary`, `final_observation`) */
+  evidenceMode?: "summary" | "final_observation"
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Plan */
+export interface LocalComputerControlAgentPlanInput {
+  /** Instruction */
+  instruction: string
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Observe Goal */
+export interface LocalComputerControlAgentObserveGoalInput {
+  /** Instruction */
+  instruction: string
+  /** Include screenshot metadata/image in observation */
+  includeScreenshot?: boolean
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Extract From Screen */
+export interface LocalComputerControlAgentExtractFromScreenInput {
+  /** What to extract */
+  instruction: string
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Run Recipe */
+export interface LocalComputerControlAgentRunRecipeInput {
+  /** JSON object with optional allowedCapabilities and steps: [{ op, params, intent?, waitUntil?, delayMs? }]. Shell/file/clipboard recipe steps are experimental and are blocked unless the companion build explicitly supports and grants them. */
+  recipe: { allowedCapabilities?: string[]; steps: Array<{ op: "snapshot" | "observe" | "screenshot" | "list_targets" | "activate_target" | "focus_ref" | "press_ref" | "set_text_ref" | "select_ref" | "scroll_ref" | "move_mouse" | "click" | "drag" | "type" | "press_key" | "scroll" | "wait" | "wait_for" | "shell_exec" | "file_list" | "file_read" | "file_write" | "clipboard_read" | "clipboard_write"; params?: Record<string, unknown>; intent?: string; delayMs?: number; waitUntil?: Record<string, unknown> }>; }
+  /** Stop on error */
+  stopOnError?: boolean
+  /** Session ID */
+  sessionId?: string
+}
+
+/** Local Computer Control Agent — Stop Task */
+export interface LocalComputerControlAgentStopTaskInput {
+  /** Reason */
+  reason?: string
+  /** Session ID */
+  sessionId?: string
+}
+
 /** Loom — List Videos */
 export interface LoomListVideosInput {
   /** Page number for pagination */
@@ -48894,62 +48894,6 @@ export interface IntegrationActionInputMap {
   'agent-local-browser-control.session_status': AgentLocalBrowserControlSessionStatusInput
   'agent-local-browser-control.start_session': AgentLocalBrowserControlStartSessionInput
   'agent-local-browser-control.end_session': AgentLocalBrowserControlEndSessionInput
-  'agent-local-computer-ai.start_session': AgentLocalComputerAiStartSessionInput
-  'agent-local-computer-ai.ensure_connected': AgentLocalComputerAiEnsureConnectedInput
-  'agent-local-computer-ai.session_status': AgentLocalComputerAiSessionStatusInput
-  'agent-local-computer-ai.snapshot': AgentLocalComputerAiSnapshotInput
-  'agent-local-computer-ai.observe': AgentLocalComputerAiObserveInput
-  'agent-local-computer-ai.screenshot': AgentLocalComputerAiScreenshotInput
-  'agent-local-computer-ai.list_targets': AgentLocalComputerAiListTargetsInput
-  'agent-local-computer-ai.activate_target': AgentLocalComputerAiActivateTargetInput
-  'agent-local-computer-ai.focus_ref': AgentLocalComputerAiFocusRefInput
-  'agent-local-computer-ai.press_ref': AgentLocalComputerAiPressRefInput
-  'agent-local-computer-ai.set_text_ref': AgentLocalComputerAiSetTextRefInput
-  'agent-local-computer-ai.select_ref': AgentLocalComputerAiSelectRefInput
-  'agent-local-computer-ai.scroll_ref': AgentLocalComputerAiScrollRefInput
-  'agent-local-computer-ai.move_mouse': AgentLocalComputerAiMoveMouseInput
-  'agent-local-computer-ai.click': AgentLocalComputerAiClickInput
-  'agent-local-computer-ai.drag': AgentLocalComputerAiDragInput
-  'agent-local-computer-ai.type': AgentLocalComputerAiTypeInput
-  'agent-local-computer-ai.press_key': AgentLocalComputerAiPressKeyInput
-  'agent-local-computer-ai.scroll': AgentLocalComputerAiScrollInput
-  'agent-local-computer-ai.wait': AgentLocalComputerAiWaitInput
-  'agent-local-computer-ai.wait_for': AgentLocalComputerAiWaitForInput
-  'agent-local-computer-ai.run_steps': AgentLocalComputerAiRunStepsInput
-  'agent-local-computer-ai.request_human': AgentLocalComputerAiRequestHumanInput
-  'agent-local-computer-ai.resume': AgentLocalComputerAiResumeInput
-  'agent-local-computer-ai.end_session': AgentLocalComputerAiEndSessionInput
-  'agent-local-computer-ai.act': AgentLocalComputerAiActInput
-  'agent-local-computer-ai.plan': AgentLocalComputerAiPlanInput
-  'agent-local-computer-ai.observe_goal': AgentLocalComputerAiObserveGoalInput
-  'agent-local-computer-ai.extract_from_screen': AgentLocalComputerAiExtractFromScreenInput
-  'agent-local-computer-ai.run_recipe': AgentLocalComputerAiRunRecipeInput
-  'agent-local-computer-ai.stop_task': AgentLocalComputerAiStopTaskInput
-  'agent-local-computer-control.start_session': AgentLocalComputerControlStartSessionInput
-  'agent-local-computer-control.ensure_connected': AgentLocalComputerControlEnsureConnectedInput
-  'agent-local-computer-control.session_status': AgentLocalComputerControlSessionStatusInput
-  'agent-local-computer-control.snapshot': AgentLocalComputerControlSnapshotInput
-  'agent-local-computer-control.observe': AgentLocalComputerControlObserveInput
-  'agent-local-computer-control.screenshot': AgentLocalComputerControlScreenshotInput
-  'agent-local-computer-control.list_targets': AgentLocalComputerControlListTargetsInput
-  'agent-local-computer-control.activate_target': AgentLocalComputerControlActivateTargetInput
-  'agent-local-computer-control.focus_ref': AgentLocalComputerControlFocusRefInput
-  'agent-local-computer-control.press_ref': AgentLocalComputerControlPressRefInput
-  'agent-local-computer-control.set_text_ref': AgentLocalComputerControlSetTextRefInput
-  'agent-local-computer-control.select_ref': AgentLocalComputerControlSelectRefInput
-  'agent-local-computer-control.scroll_ref': AgentLocalComputerControlScrollRefInput
-  'agent-local-computer-control.move_mouse': AgentLocalComputerControlMoveMouseInput
-  'agent-local-computer-control.click': AgentLocalComputerControlClickInput
-  'agent-local-computer-control.drag': AgentLocalComputerControlDragInput
-  'agent-local-computer-control.type': AgentLocalComputerControlTypeInput
-  'agent-local-computer-control.press_key': AgentLocalComputerControlPressKeyInput
-  'agent-local-computer-control.scroll': AgentLocalComputerControlScrollInput
-  'agent-local-computer-control.wait': AgentLocalComputerControlWaitInput
-  'agent-local-computer-control.wait_for': AgentLocalComputerControlWaitForInput
-  'agent-local-computer-control.run_steps': AgentLocalComputerControlRunStepsInput
-  'agent-local-computer-control.request_human': AgentLocalComputerControlRequestHumanInput
-  'agent-local-computer-control.resume': AgentLocalComputerControlResumeInput
-  'agent-local-computer-control.end_session': AgentLocalComputerControlEndSessionInput
   'agent-memory.create_entities': AgentMemoryCreateEntitiesInput
   'agent-memory.add_observations': AgentMemoryAddObservationsInput
   'agent-memory.create_relations': AgentMemoryCreateRelationsInput
@@ -50979,6 +50923,62 @@ export interface IntegrationActionInputMap {
   'linkedin-ads.get_campaign': LinkedinAdsGetCampaignInput
   'linkedin-ads.get_ad_analytics': LinkedinAdsGetAdAnalyticsInput
   'linkedin-ads.list_campaign_groups': LinkedinAdsListCampaignGroupsInput
+  'local-computer-control.start_session': LocalComputerControlStartSessionInput
+  'local-computer-control.ensure_connected': LocalComputerControlEnsureConnectedInput
+  'local-computer-control.session_status': LocalComputerControlSessionStatusInput
+  'local-computer-control.snapshot': LocalComputerControlSnapshotInput
+  'local-computer-control.observe': LocalComputerControlObserveInput
+  'local-computer-control.screenshot': LocalComputerControlScreenshotInput
+  'local-computer-control.list_targets': LocalComputerControlListTargetsInput
+  'local-computer-control.activate_target': LocalComputerControlActivateTargetInput
+  'local-computer-control.focus_ref': LocalComputerControlFocusRefInput
+  'local-computer-control.press_ref': LocalComputerControlPressRefInput
+  'local-computer-control.set_text_ref': LocalComputerControlSetTextRefInput
+  'local-computer-control.select_ref': LocalComputerControlSelectRefInput
+  'local-computer-control.scroll_ref': LocalComputerControlScrollRefInput
+  'local-computer-control.move_mouse': LocalComputerControlMoveMouseInput
+  'local-computer-control.click': LocalComputerControlClickInput
+  'local-computer-control.drag': LocalComputerControlDragInput
+  'local-computer-control.type': LocalComputerControlTypeInput
+  'local-computer-control.press_key': LocalComputerControlPressKeyInput
+  'local-computer-control.scroll': LocalComputerControlScrollInput
+  'local-computer-control.wait': LocalComputerControlWaitInput
+  'local-computer-control.wait_for': LocalComputerControlWaitForInput
+  'local-computer-control.run_steps': LocalComputerControlRunStepsInput
+  'local-computer-control.request_human': LocalComputerControlRequestHumanInput
+  'local-computer-control.resume': LocalComputerControlResumeInput
+  'local-computer-control.end_session': LocalComputerControlEndSessionInput
+  'local-computer-control-agent.start_session': LocalComputerControlAgentStartSessionInput
+  'local-computer-control-agent.ensure_connected': LocalComputerControlAgentEnsureConnectedInput
+  'local-computer-control-agent.session_status': LocalComputerControlAgentSessionStatusInput
+  'local-computer-control-agent.snapshot': LocalComputerControlAgentSnapshotInput
+  'local-computer-control-agent.observe': LocalComputerControlAgentObserveInput
+  'local-computer-control-agent.screenshot': LocalComputerControlAgentScreenshotInput
+  'local-computer-control-agent.list_targets': LocalComputerControlAgentListTargetsInput
+  'local-computer-control-agent.activate_target': LocalComputerControlAgentActivateTargetInput
+  'local-computer-control-agent.focus_ref': LocalComputerControlAgentFocusRefInput
+  'local-computer-control-agent.press_ref': LocalComputerControlAgentPressRefInput
+  'local-computer-control-agent.set_text_ref': LocalComputerControlAgentSetTextRefInput
+  'local-computer-control-agent.select_ref': LocalComputerControlAgentSelectRefInput
+  'local-computer-control-agent.scroll_ref': LocalComputerControlAgentScrollRefInput
+  'local-computer-control-agent.move_mouse': LocalComputerControlAgentMoveMouseInput
+  'local-computer-control-agent.click': LocalComputerControlAgentClickInput
+  'local-computer-control-agent.drag': LocalComputerControlAgentDragInput
+  'local-computer-control-agent.type': LocalComputerControlAgentTypeInput
+  'local-computer-control-agent.press_key': LocalComputerControlAgentPressKeyInput
+  'local-computer-control-agent.scroll': LocalComputerControlAgentScrollInput
+  'local-computer-control-agent.wait': LocalComputerControlAgentWaitInput
+  'local-computer-control-agent.wait_for': LocalComputerControlAgentWaitForInput
+  'local-computer-control-agent.run_steps': LocalComputerControlAgentRunStepsInput
+  'local-computer-control-agent.request_human': LocalComputerControlAgentRequestHumanInput
+  'local-computer-control-agent.resume': LocalComputerControlAgentResumeInput
+  'local-computer-control-agent.end_session': LocalComputerControlAgentEndSessionInput
+  'local-computer-control-agent.act': LocalComputerControlAgentActInput
+  'local-computer-control-agent.plan': LocalComputerControlAgentPlanInput
+  'local-computer-control-agent.observe_goal': LocalComputerControlAgentObserveGoalInput
+  'local-computer-control-agent.extract_from_screen': LocalComputerControlAgentExtractFromScreenInput
+  'local-computer-control-agent.run_recipe': LocalComputerControlAgentRunRecipeInput
+  'local-computer-control-agent.stop_task': LocalComputerControlAgentStopTaskInput
   'loom.list_videos': LoomListVideosInput
   'loom.get_video': LoomGetVideoInput
   'loom.update_video': LoomUpdateVideoInput
@@ -53291,66 +53291,6 @@ export interface IntegrationActionInputsByIntegration {
     'session_status': AgentLocalBrowserControlSessionStatusInput
     'start_session': AgentLocalBrowserControlStartSessionInput
     'end_session': AgentLocalBrowserControlEndSessionInput
-  }
-  'agent-local-computer-ai': {
-    'start_session': AgentLocalComputerAiStartSessionInput
-    'ensure_connected': AgentLocalComputerAiEnsureConnectedInput
-    'session_status': AgentLocalComputerAiSessionStatusInput
-    'snapshot': AgentLocalComputerAiSnapshotInput
-    'observe': AgentLocalComputerAiObserveInput
-    'screenshot': AgentLocalComputerAiScreenshotInput
-    'list_targets': AgentLocalComputerAiListTargetsInput
-    'activate_target': AgentLocalComputerAiActivateTargetInput
-    'focus_ref': AgentLocalComputerAiFocusRefInput
-    'press_ref': AgentLocalComputerAiPressRefInput
-    'set_text_ref': AgentLocalComputerAiSetTextRefInput
-    'select_ref': AgentLocalComputerAiSelectRefInput
-    'scroll_ref': AgentLocalComputerAiScrollRefInput
-    'move_mouse': AgentLocalComputerAiMoveMouseInput
-    'click': AgentLocalComputerAiClickInput
-    'drag': AgentLocalComputerAiDragInput
-    'type': AgentLocalComputerAiTypeInput
-    'press_key': AgentLocalComputerAiPressKeyInput
-    'scroll': AgentLocalComputerAiScrollInput
-    'wait': AgentLocalComputerAiWaitInput
-    'wait_for': AgentLocalComputerAiWaitForInput
-    'run_steps': AgentLocalComputerAiRunStepsInput
-    'request_human': AgentLocalComputerAiRequestHumanInput
-    'resume': AgentLocalComputerAiResumeInput
-    'end_session': AgentLocalComputerAiEndSessionInput
-    'act': AgentLocalComputerAiActInput
-    'plan': AgentLocalComputerAiPlanInput
-    'observe_goal': AgentLocalComputerAiObserveGoalInput
-    'extract_from_screen': AgentLocalComputerAiExtractFromScreenInput
-    'run_recipe': AgentLocalComputerAiRunRecipeInput
-    'stop_task': AgentLocalComputerAiStopTaskInput
-  }
-  'agent-local-computer-control': {
-    'start_session': AgentLocalComputerControlStartSessionInput
-    'ensure_connected': AgentLocalComputerControlEnsureConnectedInput
-    'session_status': AgentLocalComputerControlSessionStatusInput
-    'snapshot': AgentLocalComputerControlSnapshotInput
-    'observe': AgentLocalComputerControlObserveInput
-    'screenshot': AgentLocalComputerControlScreenshotInput
-    'list_targets': AgentLocalComputerControlListTargetsInput
-    'activate_target': AgentLocalComputerControlActivateTargetInput
-    'focus_ref': AgentLocalComputerControlFocusRefInput
-    'press_ref': AgentLocalComputerControlPressRefInput
-    'set_text_ref': AgentLocalComputerControlSetTextRefInput
-    'select_ref': AgentLocalComputerControlSelectRefInput
-    'scroll_ref': AgentLocalComputerControlScrollRefInput
-    'move_mouse': AgentLocalComputerControlMoveMouseInput
-    'click': AgentLocalComputerControlClickInput
-    'drag': AgentLocalComputerControlDragInput
-    'type': AgentLocalComputerControlTypeInput
-    'press_key': AgentLocalComputerControlPressKeyInput
-    'scroll': AgentLocalComputerControlScrollInput
-    'wait': AgentLocalComputerControlWaitInput
-    'wait_for': AgentLocalComputerControlWaitForInput
-    'run_steps': AgentLocalComputerControlRunStepsInput
-    'request_human': AgentLocalComputerControlRequestHumanInput
-    'resume': AgentLocalComputerControlResumeInput
-    'end_session': AgentLocalComputerControlEndSessionInput
   }
   'agent-memory': {
     'create_entities': AgentMemoryCreateEntitiesInput
@@ -55916,6 +55856,66 @@ export interface IntegrationActionInputsByIntegration {
     'get_campaign': LinkedinAdsGetCampaignInput
     'get_ad_analytics': LinkedinAdsGetAdAnalyticsInput
     'list_campaign_groups': LinkedinAdsListCampaignGroupsInput
+  }
+  'local-computer-control': {
+    'start_session': LocalComputerControlStartSessionInput
+    'ensure_connected': LocalComputerControlEnsureConnectedInput
+    'session_status': LocalComputerControlSessionStatusInput
+    'snapshot': LocalComputerControlSnapshotInput
+    'observe': LocalComputerControlObserveInput
+    'screenshot': LocalComputerControlScreenshotInput
+    'list_targets': LocalComputerControlListTargetsInput
+    'activate_target': LocalComputerControlActivateTargetInput
+    'focus_ref': LocalComputerControlFocusRefInput
+    'press_ref': LocalComputerControlPressRefInput
+    'set_text_ref': LocalComputerControlSetTextRefInput
+    'select_ref': LocalComputerControlSelectRefInput
+    'scroll_ref': LocalComputerControlScrollRefInput
+    'move_mouse': LocalComputerControlMoveMouseInput
+    'click': LocalComputerControlClickInput
+    'drag': LocalComputerControlDragInput
+    'type': LocalComputerControlTypeInput
+    'press_key': LocalComputerControlPressKeyInput
+    'scroll': LocalComputerControlScrollInput
+    'wait': LocalComputerControlWaitInput
+    'wait_for': LocalComputerControlWaitForInput
+    'run_steps': LocalComputerControlRunStepsInput
+    'request_human': LocalComputerControlRequestHumanInput
+    'resume': LocalComputerControlResumeInput
+    'end_session': LocalComputerControlEndSessionInput
+  }
+  'local-computer-control-agent': {
+    'start_session': LocalComputerControlAgentStartSessionInput
+    'ensure_connected': LocalComputerControlAgentEnsureConnectedInput
+    'session_status': LocalComputerControlAgentSessionStatusInput
+    'snapshot': LocalComputerControlAgentSnapshotInput
+    'observe': LocalComputerControlAgentObserveInput
+    'screenshot': LocalComputerControlAgentScreenshotInput
+    'list_targets': LocalComputerControlAgentListTargetsInput
+    'activate_target': LocalComputerControlAgentActivateTargetInput
+    'focus_ref': LocalComputerControlAgentFocusRefInput
+    'press_ref': LocalComputerControlAgentPressRefInput
+    'set_text_ref': LocalComputerControlAgentSetTextRefInput
+    'select_ref': LocalComputerControlAgentSelectRefInput
+    'scroll_ref': LocalComputerControlAgentScrollRefInput
+    'move_mouse': LocalComputerControlAgentMoveMouseInput
+    'click': LocalComputerControlAgentClickInput
+    'drag': LocalComputerControlAgentDragInput
+    'type': LocalComputerControlAgentTypeInput
+    'press_key': LocalComputerControlAgentPressKeyInput
+    'scroll': LocalComputerControlAgentScrollInput
+    'wait': LocalComputerControlAgentWaitInput
+    'wait_for': LocalComputerControlAgentWaitForInput
+    'run_steps': LocalComputerControlAgentRunStepsInput
+    'request_human': LocalComputerControlAgentRequestHumanInput
+    'resume': LocalComputerControlAgentResumeInput
+    'end_session': LocalComputerControlAgentEndSessionInput
+    'act': LocalComputerControlAgentActInput
+    'plan': LocalComputerControlAgentPlanInput
+    'observe_goal': LocalComputerControlAgentObserveGoalInput
+    'extract_from_screen': LocalComputerControlAgentExtractFromScreenInput
+    'run_recipe': LocalComputerControlAgentRunRecipeInput
+    'stop_task': LocalComputerControlAgentStopTaskInput
   }
   'loom': {
     'list_videos': LoomListVideosInput
@@ -58539,8 +58539,6 @@ export const integrationNames = [
   'agent-browser-stealth',
   'agent-browser-ai',
   'agent-local-browser-control',
-  'agent-local-computer-ai',
-  'agent-local-computer-control',
   'agent-memory',
   'agent-scratchpad',
   'ahrefs',
@@ -58809,6 +58807,8 @@ export const integrationNames = [
   'linear',
   'linkedin',
   'linkedin-ads',
+  'local-computer-control',
+  'local-computer-control-agent',
   'loom',
   'loops',
   'lucid',
@@ -59312,66 +59312,6 @@ export const integrationActions = {
     'ensure_connected',
     'session_status',
     'start_session',
-    'end_session',
-  ],
-  'agent-local-computer-ai': [
-    'start_session',
-    'ensure_connected',
-    'session_status',
-    'snapshot',
-    'observe',
-    'screenshot',
-    'list_targets',
-    'activate_target',
-    'focus_ref',
-    'press_ref',
-    'set_text_ref',
-    'select_ref',
-    'scroll_ref',
-    'move_mouse',
-    'click',
-    'drag',
-    'type',
-    'press_key',
-    'scroll',
-    'wait',
-    'wait_for',
-    'run_steps',
-    'request_human',
-    'resume',
-    'end_session',
-    'act',
-    'plan',
-    'observe_goal',
-    'extract_from_screen',
-    'run_recipe',
-    'stop_task',
-  ],
-  'agent-local-computer-control': [
-    'start_session',
-    'ensure_connected',
-    'session_status',
-    'snapshot',
-    'observe',
-    'screenshot',
-    'list_targets',
-    'activate_target',
-    'focus_ref',
-    'press_ref',
-    'set_text_ref',
-    'select_ref',
-    'scroll_ref',
-    'move_mouse',
-    'click',
-    'drag',
-    'type',
-    'press_key',
-    'scroll',
-    'wait',
-    'wait_for',
-    'run_steps',
-    'request_human',
-    'resume',
     'end_session',
   ],
   'agent-memory': [
@@ -61938,6 +61878,66 @@ export const integrationActions = {
     'get_campaign',
     'get_ad_analytics',
     'list_campaign_groups',
+  ],
+  'local-computer-control': [
+    'start_session',
+    'ensure_connected',
+    'session_status',
+    'snapshot',
+    'observe',
+    'screenshot',
+    'list_targets',
+    'activate_target',
+    'focus_ref',
+    'press_ref',
+    'set_text_ref',
+    'select_ref',
+    'scroll_ref',
+    'move_mouse',
+    'click',
+    'drag',
+    'type',
+    'press_key',
+    'scroll',
+    'wait',
+    'wait_for',
+    'run_steps',
+    'request_human',
+    'resume',
+    'end_session',
+  ],
+  'local-computer-control-agent': [
+    'start_session',
+    'ensure_connected',
+    'session_status',
+    'snapshot',
+    'observe',
+    'screenshot',
+    'list_targets',
+    'activate_target',
+    'focus_ref',
+    'press_ref',
+    'set_text_ref',
+    'select_ref',
+    'scroll_ref',
+    'move_mouse',
+    'click',
+    'drag',
+    'type',
+    'press_key',
+    'scroll',
+    'wait',
+    'wait_for',
+    'run_steps',
+    'request_human',
+    'resume',
+    'end_session',
+    'act',
+    'plan',
+    'observe_goal',
+    'extract_from_screen',
+    'run_recipe',
+    'stop_task',
   ],
   'loom': [
     'list_videos',
