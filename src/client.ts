@@ -68,6 +68,7 @@ export type EndUser = GeneratedEndUser
 export type ConnectionType = 'SECRET_TEXT' | 'BASIC_AUTH' | 'CUSTOM_AUTH' | 'OAUTH2' | 'PLATFORM_OAUTH2'
 export type ConnectionScope = 'ORGANIZATION' | 'WORKSPACE' | 'USER'
 export type ConnectionStrategy = 'fixed' | 'per_user' | 'per_user_with_fallback'
+export type OAuthAppMode = 'weavz_managed' | 'custom'
 export type McpAuthMode = 'oauth' | 'bearer' | 'oauth_and_bearer'
 export type McpEndUserAccess = 'restricted' | 'open'
 export type McpMode = 'TOOLS' | 'CODE'
@@ -116,6 +117,7 @@ export interface IntegrationSummary {
   description: string
   logoUrl: string
   auth: { type: string } | null
+  authOptions?: Array<{ key: string; type: string; displayName: string }>
   categories: string[]
   actionCount: number
   triggerCount: number
@@ -136,6 +138,7 @@ export interface ExecuteActionOptions<Input = Record<string, unknown>> {
   workspaceId: string
   input?: Input
   connectionExternalId?: string
+  authMethodKey?: string
   workspaceIntegrationId?: string
   endUserId?: string
   integrationAlias?: string
@@ -151,6 +154,7 @@ export interface ResolveActionPropertyOptions<
   actionName: A
   triggerName?: never
   connectionExternalId?: string
+  authMethodKey?: string
   workspaceId?: string
   workspaceIntegrationId?: string
   integrationAlias?: string
@@ -165,6 +169,7 @@ export interface ResolvePropertyOptions {
   actionName?: string
   triggerName?: string
   connectionExternalId?: string
+  authMethodKey?: string
   workspaceId?: string
   workspaceIntegrationId?: string
   integrationAlias?: string
@@ -221,6 +226,9 @@ class WorkspacesResource extends BaseResource {
     integrationName: string
     alias?: string
     connectionStrategy?: ConnectionStrategy
+    authMethodKey?: string
+    oauthAppMode?: OAuthAppMode
+    oauthAppId?: string
     connectionId?: string
     displayName?: string
     enabledActions?: string[]
@@ -232,6 +240,9 @@ class WorkspacesResource extends BaseResource {
   updateIntegration(workspaceId: string, id: string, data: {
     alias?: string
     connectionStrategy?: ConnectionStrategy
+    authMethodKey?: string
+    oauthAppMode?: OAuthAppMode | null
+    oauthAppId?: string | null
     connectionId?: string | null
     displayName?: string | null
     enabledActions?: string[] | null
@@ -264,6 +275,7 @@ class ConnectionsResource extends BaseResource {
     externalId: string
     displayName: string
     integrationName: string
+    authMethodKey?: string
     workspaceId?: string
     endUserId?: string
     scope?: ConnectionScope
@@ -284,7 +296,7 @@ class ConnectionsResource extends BaseResource {
   delete(id: string) {
     return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
   }
-  resolve(data: { integrationName: string; workspaceId: string; externalId?: string; endUserId?: string }) {
+  resolve(data: { integrationName: string; workspaceId: string; authMethodKey?: string; externalId?: string; endUserId?: string }) {
     return this._post<{ connection: Connection }>('/api/v1/connections/resolve', data)
   }
 }
@@ -293,11 +305,14 @@ class ConnectResource extends BaseResource {
   /** Create a connect session token for the hosted connect flow */
   createToken(data: {
     integrationName: string
+    workspaceIntegrationId?: string
+    authMethodKey?: string
     connectionName: string
     externalId: string
     workspaceId: string
     endUserId?: string
     scope?: ConnectionScope
+    oauthAppMode?: OAuthAppMode
     oauthAppId?: string
     successRedirectUri?: string
     errorRedirectUri?: string
@@ -306,7 +321,7 @@ class ConnectResource extends BaseResource {
   }
   /** Poll connect session status */
   getSession(sessionId: string) {
-    return this._get<{ session: { id: string; integrationName: string; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
+    return this._get<{ session: { id: string; integrationName: string; workspaceIntegrationId: string | null; authMethodKey: string | null; oauthAppMode: OAuthAppMode | null; oauthAppId: string | null; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
   }
   /** Poll connect session status using the short-lived cst_ token returned by createToken(). */
   poll(token: string) {
@@ -314,6 +329,10 @@ class ConnectResource extends BaseResource {
       status: 'PENDING' | 'CONNECTING' | 'COMPLETED' | 'FAILED'
       connectionId: string | null
       integrationName: string
+      workspaceIntegrationId: string | null
+      authMethodKey: string | null
+      oauthAppMode: OAuthAppMode | null
+      oauthAppId: string | null
       externalId: string
       error: string | null
     }>('/api/v1/connect/session/poll', { token })
@@ -397,6 +416,7 @@ class ActionsResource extends BaseResource {
     workspaceId: string
     input?: Record<string, unknown>
     connectionExternalId?: string
+    authMethodKey?: string
     workspaceIntegrationId?: string
     endUserId?: string
     integrationAlias?: string
@@ -408,6 +428,7 @@ class ActionsResource extends BaseResource {
       actionName,
       input: options.input ?? {},
       connectionExternalId: options.connectionExternalId,
+      authMethodKey: options.authMethodKey,
       workspaceId: options.workspaceId,
       workspaceIntegrationId: options.workspaceIntegrationId,
       endUserId: options.endUserId,
@@ -515,6 +536,7 @@ class TriggersResource extends BaseResource {
     callbackHeaders?: Record<string, string>
     callbackMetadata?: Record<string, unknown>
     connectionExternalId?: string
+    authMethodKey?: string
     workspaceIntegrationId?: string
     integrationAlias?: string
     endUserId?: string

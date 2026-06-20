@@ -35,6 +35,49 @@ client.integrations.resolveProperty('http', {
   input: { body_type: 'json' },
 })
 
+client.workspaces.addIntegration('00000000-0000-0000-0000-000000000000', {
+  integrationName: 'digital-ocean',
+  authMethodKey: 'oauth2',
+  oauthAppMode: 'weavz_managed',
+})
+
+client.workspaces.updateIntegration(
+  '00000000-0000-0000-0000-000000000000',
+  '00000000-0000-0000-0000-000000000001',
+  {
+    authMethodKey: 'api_key',
+    oauthAppMode: null,
+    oauthAppId: null,
+  },
+)
+
+client.connections.create({
+  type: 'SECRET_TEXT',
+  externalId: 'workspace_api_key',
+  displayName: 'Workspace API key',
+  integrationName: 'digital-ocean',
+  authMethodKey: 'api_key',
+  secretText: 'token',
+})
+
+client.connections.resolve({
+  integrationName: 'digital-ocean',
+  workspaceId: '00000000-0000-0000-0000-000000000000',
+  authMethodKey: 'api_key',
+  externalId: 'workspace_api_key',
+})
+
+client.connect.createToken({
+  integrationName: 'digital-ocean',
+  workspaceIntegrationId: '00000000-0000-0000-0000-000000000001',
+  authMethodKey: 'oauth2',
+  connectionName: 'DigitalOcean',
+  externalId: 'workspace_oauth',
+  workspaceId: '00000000-0000-0000-0000-000000000000',
+  oauthAppMode: 'custom',
+  oauthAppId: '00000000-0000-0000-0000-000000000002',
+})
+
 const dynamicIntegrationName: string = 'future-integration'
 client.actions.execute(dynamicIntegrationName, 'future_action', {
   workspaceId: '00000000-0000-0000-0000-000000000000',
