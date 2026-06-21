@@ -2061,6 +2061,96 @@ export interface AgentScratchpadDeletePageInput {
 /** Agent Scratchpad — Clear All Pages */
 export type AgentScratchpadClearAllInput = Record<string, never>
 
+/** Aha! — List Products */
+export interface AhaListProductsInput {
+  /** 1-indexed page number. */
+  page?: number
+  /** 1 to 200 records. */
+  perPage?: number
+}
+
+/** Aha! — List Features */
+export interface AhaListFeaturesInput {
+  /** Optional Aha! product/workspace ID. */
+  productId?: string
+  /** Release ID */
+  releaseId?: string
+  /** Initiative ID */
+  initiativeId?: string
+  /** Goal ID */
+  goalId?: string
+  /** Page */
+  page?: number
+  /** 1 to 200 records. */
+  perPage?: number
+}
+
+/** Aha! — Get Feature */
+export interface AhaGetFeatureInput {
+  /** Feature ID or Reference */
+  featureId: string
+}
+
+/** Aha! — Create Feature */
+export interface AhaCreateFeatureInput {
+  /** Parent Type (values: `product`, `release`) */
+  parentType: "product" | "release"
+  /** Product ID for product parent or release ID for release parent. */
+  parentId: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Workflow Status */
+  workflowStatus?: string
+  /** Assigned To User Email or ID */
+  assignedToUser?: string
+  /** Extra fields merged into the feature object. */
+  additionalFields?: unknown
+}
+
+/** Aha! — Update Feature */
+export interface AhaUpdateFeatureInput {
+  /** Feature ID or Reference */
+  featureId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Workflow Status */
+  workflowStatus?: string
+  /** Additional Feature Fields */
+  additionalFields?: unknown
+}
+
+/** Aha! — List Ideas */
+export interface AhaListIdeasInput {
+  /** Product ID */
+  productId?: string
+  /** Page */
+  page?: number
+  /** 1 to 200 records. */
+  perPage?: number
+}
+
+/** Aha! — Promote Idea */
+export interface AhaPromoteIdeaInput {
+  /** Idea ID */
+  ideaId: string
+  /** Aha! promotion payload fields. */
+  fields?: unknown
+}
+
+/** Aha! — Add Comment */
+export interface AhaAddCommentInput {
+  /** Parent Type (values: `features`, `ideas`, `releases`, `requirements`, `initiatives`, `products`) */
+  parentType: "features" | "ideas" | "releases" | "requirements" | "initiatives" | "products"
+  /** Parent ID */
+  parentId: string
+  /** Comment Body */
+  body: string
+}
+
 /** Ahrefs — Get Backlinks */
 export interface AhrefsGetBacklinksInput {
   /** Domain or URL to get backlinks for */
@@ -3098,6 +3188,122 @@ export interface AirwallexCustomWriteApiCallInput {
   auth_2fa_token?: string
   /** x-sca-session-code value from Airwallex SCA Verify when applicable */
   sca_session_code?: string
+}
+
+/** Aiven — List Projects */
+export type AivenListProjectsInput = Record<string, never>
+
+/** Aiven — List Clouds */
+export type AivenListCloudsInput = Record<string, never>
+
+/** Aiven — List Services */
+export interface AivenListServicesInput {
+  /** Project */
+  project: string
+}
+
+/** Aiven — Get Service */
+export interface AivenGetServiceInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+}
+
+/** Aiven — Create Service */
+export interface AivenCreateServiceInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+  /** For example pg, kafka, redis, clickhouse, opensearch, or mysql. */
+  serviceType: string
+  /** Aiven cloud region, for example aws-us-east-1. */
+  cloud: string
+  /** Plan */
+  plan: string
+  /** Disk Space MB */
+  diskSpaceMb?: number
+  /** Termination Protection */
+  terminationProtection?: boolean
+  /** Optional service tags as a JSON object. */
+  tags?: unknown
+  /** Optional Aiven service user_config JSON object. */
+  userConfig?: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Aiven — Update Service */
+export interface AivenUpdateServiceInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+  /** Update Body */
+  update: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Aiven — Terminate Service */
+export interface AivenTerminateServiceInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+  /** Confirm Service Name */
+  confirmServiceName: string
+  /** Confirm Termination */
+  confirmDelete: boolean
+}
+
+/** Aiven — List Project Events */
+export interface AivenListProjectEventsInput {
+  /** Project */
+  project: string
+}
+
+/** Aiven — List Service Logs */
+export interface AivenListServiceLogsInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+  /** Limit */
+  limit?: number
+  /** Opaque Aiven log offset. */
+  offset?: string
+  /** Minimum Severity (values: `emerg`, `alert`, `crit`, `err`, `warning`, `notice`, `info`, `debug`) */
+  severity?: "emerg" | "alert" | "crit" | "err" | "warning" | "notice" | "info" | "debug"
+  /** Sort Order (values: `desc`, `asc`) */
+  sortOrder?: "desc" | "asc"
+}
+
+/** Aiven — Fetch Service Metrics */
+export interface AivenFetchServiceMetricsInput {
+  /** Project */
+  project: string
+  /** Service Name */
+  serviceName: string
+  /** Period (values: `hour`, `day`, `week`, `month`, `year`) */
+  period: "hour" | "day" | "week" | "month" | "year"
+  /** Kafka Topic Name */
+  kafkaTopicName?: string
+}
+
+/** Aiven — Custom API Call */
+export interface AivenCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** Path under /v1, for example /project/my-project/service. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for POST, PUT, and DELETE custom calls. */
+  confirmMutation?: boolean
 }
 
 /** Algolia — List Indexes */
@@ -4997,6 +5203,469 @@ export interface AutotaskCustomApiCallInput {
   body?: unknown
 }
 
+/** Avalara AvaTax — Test Connection */
+export type AvalaraTestConnectionInput = Record<string, never>
+
+/** Avalara AvaTax — List Companies */
+export interface AvalaraListCompaniesInput {
+  /** Top */
+  top?: number
+  /** Skip */
+  skip?: number
+}
+
+/** Avalara AvaTax — Calculate Transaction Tax */
+export interface AvalaraCalculateTransactionTaxInput {
+  /** Overrides the connection company code. */
+  companyCode?: string
+  /** Transaction Type (values: `SalesOrder`, `SalesInvoice`, `ReturnOrder`, `ReturnInvoice`) */
+  type: "SalesOrder" | "SalesInvoice" | "ReturnOrder" | "ReturnInvoice"
+  /** Unique document/order code. */
+  code: string
+  /** YYYY-MM-DD. */
+  date: string
+  /** Customer Code */
+  customerCode: string
+  /** Currency Code */
+  currencyCode: string
+  /** Commit only when the transaction should be recorded for reporting. */
+  commit?: boolean
+  /** AvaTax addresses object, for example ShipFrom and ShipTo. */
+  addresses: unknown
+  /** AvaTax lines array with number, quantity, amount, itemCode, taxCode, and description. */
+  lines: unknown
+  /** Discount Amount */
+  discount?: number
+  /** Purchase Order Number */
+  purchaseOrderNo?: string
+}
+
+/** Avalara AvaTax — Get Transaction */
+export interface AvalaraGetTransactionInput {
+  /** Overrides the connection company code. */
+  companyCode?: string
+  /** Transaction Code */
+  transactionCode: string
+  /** Transaction Type (values: `SalesOrder`, `SalesInvoice`, `ReturnOrder`, `ReturnInvoice`) */
+  type: "SalesOrder" | "SalesInvoice" | "ReturnOrder" | "ReturnInvoice"
+}
+
+/** Avalara AvaTax — Void Transaction */
+export interface AvalaraVoidTransactionInput {
+  /** Overrides the connection company code. */
+  companyCode?: string
+  /** Transaction Code */
+  transactionCode: string
+  /** Transaction Type (values: `SalesOrder`, `SalesInvoice`) */
+  type: "SalesOrder" | "SalesInvoice"
+  /** Void Code (values: `DocVoided`, `DocDeleted`, `AdjustmentCancelled`) */
+  voidCode: "DocVoided" | "DocDeleted" | "AdjustmentCancelled"
+  /** Confirm Void */
+  confirm: boolean
+}
+
+/** Avalara AvaTax — Resolve Address */
+export interface AvalaraResolveAddressInput {
+  /** Address Line 1 */
+  line1: string
+  /** Address Line 2 */
+  line2?: string
+  /** City */
+  city?: string
+  /** Region/State */
+  region?: string
+  /** Postal Code */
+  postalCode: string
+  /** Two-letter country code. */
+  country: string
+}
+
+/** AWS CloudWatch — List Metrics */
+export interface AwsCloudwatchListMetricsInput {
+  /** Namespace */
+  namespace?: string
+  /** Metric Name */
+  metricName?: string
+  /** Optional object such as {"FunctionName":"my-function"}. */
+  dimensionsJson?: unknown
+  /** Recently Active (values: ``, `PT3H`) */
+  recentlyActive?: "" | "PT3H"
+  /** Next Token */
+  nextToken?: string
+}
+
+/** AWS CloudWatch — Get Metric Statistics */
+export interface AwsCloudwatchGetMetricStatisticsInput {
+  /** Namespace */
+  namespace: string
+  /** Metric Name */
+  metricName: string
+  /** ISO timestamp. */
+  startTime: string
+  /** ISO timestamp. Defaults are not used for this action. */
+  endTime: string
+  /** Period Seconds */
+  period?: number
+  /** Comma- or newline-separated values such as Average, Sum, Minimum, Maximum. */
+  statistics?: string
+  /** Unit */
+  unit?: string
+  /** Dimensions JSON */
+  dimensionsJson?: unknown
+}
+
+/** AWS CloudWatch — Describe Alarms */
+export interface AwsCloudwatchDescribeAlarmsInput {
+  /** Alarm Name Prefix */
+  alarmNamePrefix?: string
+  /** State Value (values: ``, `OK`, `ALARM`, `INSUFFICIENT_DATA`) */
+  stateValue?: "" | "OK" | "ALARM" | "INSUFFICIENT_DATA"
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 100 alarms per call. */
+  maxRecords?: number
+}
+
+/** AWS CloudWatch — Put Metric Data */
+export interface AwsCloudwatchPutMetricDataInput {
+  /** Namespace */
+  namespace: string
+  /** Metric Name */
+  metricName: string
+  /** Value */
+  value: number
+  /** For example Count, Seconds, Percent, or Bytes. */
+  unit?: string
+  /** Dimensions JSON */
+  dimensionsJson?: unknown
+  /** Optional ISO timestamp. Defaults to AWS receive time. */
+  timestamp?: string
+}
+
+/** AWS CloudWatch — Describe Log Groups */
+export interface AwsCloudwatchDescribeLogGroupsInput {
+  /** Log Group Name Prefix */
+  logGroupNamePrefix?: string
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 50 log groups per call. */
+  limit?: number
+}
+
+/** AWS CloudWatch — Filter Log Events */
+export interface AwsCloudwatchFilterLogEventsInput {
+  /** Log Group Name */
+  logGroupName: string
+  /** Filter Pattern */
+  filterPattern?: string
+  /** Optional comma- or newline-separated stream names. */
+  logStreamNames?: string
+  /** ISO timestamp or epoch milliseconds. */
+  startTime?: string
+  /** ISO timestamp or epoch milliseconds. */
+  endTime?: string
+  /** 1 to 100 events per call. */
+  limit?: number
+  /** Next Token */
+  nextToken?: string
+}
+
+/** AWS DynamoDB — List Tables */
+export interface AwsDynamodbListTablesInput {
+  /** Exclusive Start Table Name */
+  exclusiveStartTableName?: string
+  /** 1 to 100 table names per call. */
+  limit?: number
+}
+
+/** AWS DynamoDB — Describe Table */
+export interface AwsDynamodbDescribeTableInput {
+  /** Table Name */
+  tableName: string
+}
+
+/** AWS DynamoDB — Get Item */
+export interface AwsDynamodbGetItemInput {
+  /** Table Name */
+  tableName: string
+  /** Normal JSON key object, for example {"pk":"USER#1","sk":"PROFILE"}. */
+  keyJson: unknown
+  /** Projection Expression */
+  projectionExpression?: string
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Consistent Read */
+  consistentRead?: boolean
+}
+
+/** AWS DynamoDB — Put Item */
+export interface AwsDynamodbPutItemInput {
+  /** Table Name */
+  tableName: string
+  /** Normal JSON item object. Existing items with the same key may be replaced unless you provide a condition. */
+  itemJson: unknown
+  /** Condition Expression */
+  conditionExpression?: string
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Expression Attribute Values JSON */
+  expressionAttributeValuesJson?: unknown
+  /** Return Values (values: `NONE`, `ALL_OLD`) */
+  returnValues?: "NONE" | "ALL_OLD"
+}
+
+/** AWS DynamoDB — Update Item */
+export interface AwsDynamodbUpdateItemInput {
+  /** Table Name */
+  tableName: string
+  /** Key JSON */
+  keyJson: unknown
+  /** For example SET #name = :name. */
+  updateExpression: string
+  /** Expression Attribute Values JSON */
+  expressionAttributeValuesJson?: unknown
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Condition Expression */
+  conditionExpression?: string
+  /** Return Values (values: `NONE`, `ALL_OLD`, `UPDATED_OLD`, `ALL_NEW`, `UPDATED_NEW`) */
+  returnValues?: "NONE" | "ALL_OLD" | "UPDATED_OLD" | "ALL_NEW" | "UPDATED_NEW"
+}
+
+/** AWS DynamoDB — Delete Item */
+export interface AwsDynamodbDeleteItemInput {
+  /** Table Name */
+  tableName: string
+  /** Key JSON */
+  keyJson: unknown
+  /** Condition Expression */
+  conditionExpression?: string
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Expression Attribute Values JSON */
+  expressionAttributeValuesJson?: unknown
+  /** Return Values (values: `NONE`, `ALL_OLD`) */
+  returnValues?: "NONE" | "ALL_OLD"
+  /** Type DELETE_ITEM to delete this item. */
+  confirmation: string
+}
+
+/** AWS DynamoDB — Query */
+export interface AwsDynamodbQueryInput {
+  /** Table Name */
+  tableName: string
+  /** Key Condition Expression */
+  keyConditionExpression: string
+  /** Expression Attribute Values JSON */
+  expressionAttributeValuesJson: unknown
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Index Name */
+  indexName?: string
+  /** Filter Expression */
+  filterExpression?: string
+  /** Projection Expression */
+  projectionExpression?: string
+  /** 1 to 100 items evaluated per call. */
+  limit?: number
+  /** Exclusive Start Key JSON */
+  exclusiveStartKeyJson?: unknown
+  /** Scan Index Forward */
+  scanIndexForward?: boolean
+  /** Consistent Read */
+  consistentRead?: boolean
+}
+
+/** AWS DynamoDB — Scan */
+export interface AwsDynamodbScanInput {
+  /** Table Name */
+  tableName: string
+  /** Index Name */
+  indexName?: string
+  /** Filter Expression */
+  filterExpression?: string
+  /** Expression Attribute Values JSON */
+  expressionAttributeValuesJson?: unknown
+  /** Expression Attribute Names JSON */
+  expressionAttributeNamesJson?: unknown
+  /** Projection Expression */
+  projectionExpression?: string
+  /** 1 to 100 items evaluated per call. */
+  limit?: number
+  /** Exclusive Start Key JSON */
+  exclusiveStartKeyJson?: unknown
+  /** Consistent Read */
+  consistentRead?: boolean
+}
+
+/** AWS EventBridge — List Event Buses */
+export interface AwsEventbridgeListEventBusesInput {
+  /** Name Prefix */
+  namePrefix?: string
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 100 event buses per call. */
+  limit?: number
+}
+
+/** AWS EventBridge — List Rules */
+export interface AwsEventbridgeListRulesInput {
+  /** Event Bus Name */
+  eventBusName?: string
+  /** Name Prefix */
+  namePrefix?: string
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 100 rules per call. */
+  limit?: number
+}
+
+/** AWS EventBridge — Describe Rule */
+export interface AwsEventbridgeDescribeRuleInput {
+  /** Rule Name */
+  name: string
+  /** Event Bus Name */
+  eventBusName?: string
+}
+
+/** AWS EventBridge — Put Rule */
+export interface AwsEventbridgePutRuleInput {
+  /** Rule Name */
+  name: string
+  /** Event Bus Name */
+  eventBusName?: string
+  /** Description */
+  description?: string
+  /** Event Pattern JSON */
+  eventPatternJson?: unknown
+  /** For example rate(5 minutes) or cron(...). */
+  scheduleExpression?: string
+  /** State (values: `ENABLED`, `DISABLED`, `ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS`) */
+  state?: "ENABLED" | "DISABLED" | "ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS"
+  /** Role ARN */
+  roleArn?: string
+  /** Optional tags object used when creating a rule. */
+  tagsJson?: unknown
+}
+
+/** AWS EventBridge — List Targets By Rule */
+export interface AwsEventbridgeListTargetsByRuleInput {
+  /** Rule Name */
+  rule: string
+  /** Event Bus Name */
+  eventBusName?: string
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 100 targets per call. */
+  limit?: number
+}
+
+/** AWS EventBridge — Put Targets */
+export interface AwsEventbridgePutTargetsInput {
+  /** Rule Name */
+  rule: string
+  /** Array of official EventBridge target objects. Maximum 10. */
+  targetsJson: unknown
+  /** Event Bus Name */
+  eventBusName?: string
+}
+
+/** AWS EventBridge — Put Events */
+export interface AwsEventbridgePutEventsInput {
+  /** Array of events with source, detailType, and detail. Maximum 10. */
+  entriesJson: unknown
+}
+
+/** AWS EventBridge — Remove Targets */
+export interface AwsEventbridgeRemoveTargetsInput {
+  /** Rule Name */
+  rule: string
+  /** Comma- or newline-separated target IDs. Maximum 10. */
+  targetIds: string
+  /** Event Bus Name */
+  eventBusName?: string
+  /** Force */
+  force?: boolean
+  /** Type REMOVE_TARGETS to remove these targets. */
+  confirmation: string
+}
+
+/** AWS EventBridge — Delete Rule */
+export interface AwsEventbridgeDeleteRuleInput {
+  /** Rule Name */
+  name: string
+  /** Event Bus Name */
+  eventBusName?: string
+  /** Force */
+  force?: boolean
+  /** Type DELETE_RULE to delete this rule. */
+  confirmation: string
+}
+
+/** AWS Lambda — List Functions */
+export interface AwsLambdaListFunctionsInput {
+  /** Marker */
+  marker?: string
+  /** 1 to 50 functions per call. */
+  maxItems?: number
+  /** Function Version (values: ``, `ALL`) */
+  functionVersion?: "" | "ALL"
+}
+
+/** AWS Lambda — Get Function */
+export interface AwsLambdaGetFunctionInput {
+  /** Function Name or ARN */
+  functionName: string
+  /** Optional version or alias. */
+  qualifier?: string
+}
+
+/** AWS Lambda — Get Function Configuration */
+export interface AwsLambdaGetFunctionConfigurationInput {
+  /** Function Name or ARN */
+  functionName: string
+  /** Optional version or alias. */
+  qualifier?: string
+}
+
+/** AWS Lambda — Invoke Function */
+export interface AwsLambdaInvokeFunctionInput {
+  /** Function Name or ARN */
+  functionName: string
+  /** Optional JSON payload sent as the invocation body. */
+  payload?: unknown
+  /** Invocation Type (values: `RequestResponse`, `Event`, `DryRun`) */
+  invocationType?: "RequestResponse" | "Event" | "DryRun"
+  /** Log Type (values: `None`, `Tail`) */
+  logType?: "None" | "Tail"
+  /** Optional version or alias. */
+  qualifier?: string
+  /** Optional base64-encoded client context for synchronous invocations. */
+  clientContextBase64?: string
+}
+
+/** AWS Lambda — List Versions */
+export interface AwsLambdaListVersionsInput {
+  /** Function Name or ARN */
+  functionName: string
+  /** Marker */
+  marker?: string
+  /** 1 to 50 versions per call. */
+  maxItems?: number
+}
+
+/** AWS Lambda — List Aliases */
+export interface AwsLambdaListAliasesInput {
+  /** Function Name or ARN */
+  functionName: string
+  /** Function Version */
+  functionVersion?: string
+  /** Marker */
+  marker?: string
+  /** 1 to 50 aliases per call. */
+  maxItems?: number
+}
+
 /** AWS S3 — List Objects */
 export interface AwsS3ListObjectsInput {
   /** Filter objects by prefix (e.g., folder/) */
@@ -5189,6 +5858,90 @@ export interface AwsSesGetEmailIdentityInput {
 
 /** AWS SES — Get Account Details */
 export type AwsSesGetAccountInput = Record<string, never>
+
+/** AWS SNS — List Topics */
+export interface AwsSnsListTopicsInput {
+  /** Next Token */
+  nextToken?: string
+  /** 1 to 100 topics per call. */
+  maxResults?: number
+}
+
+/** AWS SNS — Get Topic Attributes */
+export interface AwsSnsGetTopicAttributesInput {
+  /** Topic ARN */
+  topicArn: string
+}
+
+/** AWS SNS — Create Topic */
+export interface AwsSnsCreateTopicInput {
+  /** Topic Name */
+  name: string
+  /** Optional SNS topic attributes object. */
+  attributesJson?: unknown
+  /** Optional tags object such as {"env":"prod"}. */
+  tagsJson?: unknown
+}
+
+/** AWS SNS — Publish Message */
+export interface AwsSnsPublishMessageInput {
+  /** Topic ARN */
+  topicArn?: string
+  /** Target ARN */
+  targetArn?: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** Message */
+  message: string
+  /** Optional subject for email-capable subscriptions. */
+  subject?: string
+  /** Message Structure (values: ``, `json`) */
+  messageStructure?: "" | "json"
+  /** Optional object of SNS message attributes. */
+  messageAttributesJson?: unknown
+  /** Required for FIFO topics. */
+  messageGroupId?: string
+  /** Optional for FIFO topics with content-based deduplication. */
+  messageDeduplicationId?: string
+}
+
+/** AWS SNS — List Subscriptions */
+export interface AwsSnsListSubscriptionsInput {
+  /** When set, uses ListSubscriptionsByTopic. */
+  topicArn?: string
+  /** Next Token */
+  nextToken?: string
+}
+
+/** AWS SNS — Subscribe Endpoint */
+export interface AwsSnsSubscribeInput {
+  /** Topic ARN */
+  topicArn: string
+  /** Protocol (values: `email`, `email-json`, `http`, `https`, `lambda`, `sqs`, `sms`, `application`, `firehose`) */
+  protocol: "email" | "email-json" | "http" | "https" | "lambda" | "sqs" | "sms" | "application" | "firehose"
+  /** Endpoint */
+  endpoint: string
+  /** Attributes JSON */
+  attributesJson?: unknown
+  /** Return Subscription ARN */
+  returnSubscriptionArn?: boolean
+}
+
+/** AWS SNS — Unsubscribe */
+export interface AwsSnsUnsubscribeInput {
+  /** Subscription ARN */
+  subscriptionArn: string
+  /** Type UNSUBSCRIBE to unsubscribe this endpoint. */
+  confirmation: string
+}
+
+/** AWS SNS — Delete Topic */
+export interface AwsSnsDeleteTopicInput {
+  /** Topic ARN */
+  topicArn: string
+  /** Type DELETE_TOPIC to delete this topic. */
+  confirmation: string
+}
 
 /** AWS STS — Get Caller Identity */
 export type AwsStsGetCallerIdentityInput = Record<string, never>
@@ -6248,70 +7001,76 @@ export interface BloomerangCustomApiCallInput {
 
 /** Bluesky — Create Post */
 export interface BlueskyCreatePostInput {
-  /** Type of content you're sharing (values: `text`, `photo`, `link`, `reply`, `quote`) */
-  postType?: "text" | "photo" | "link" | "reply" | "quote"
-  /** What do you want to post? (Max 300 characters) */
+  /** Text */
   text: string
-  /** Language of your post */
-  language?: "en" | "es" | "fr" | "de" | "it" | "pt" | "ja" | "ko" | "zh" | "ru" | "ar" | "hi" | "nl" | "sv" | "other"
-  /** Add up to 4 images by URL */
-  imageUrls?: unknown[]
-  /** Describe each image for accessibility */
-  imageDescriptions?: unknown[]
-  /** Link to video file (MP4, max 100MB) */
-  videoUrl?: string
-  /** Describe the video for accessibility */
-  videoAltText?: string
-  /** Caption file URLs (optional) */
-  videoCaptions?: unknown[]
-  /** URL to share with your post */
-  linkUrl?: string
-  /** URL of post to reply to */
-  replyToPost?: string
-  /** Create additional connected posts */
-  threadContent?: unknown[]
-  /** Add hashtags (e.g., tech,bluesky) */
-  additionalHashtags?: string
-  /** Add warnings for sensitive content */
-  contentWarnings?: string[]
-  /** Who can see this post (values: `public`, `followers`, `unlisted`) */
-  audience?: "public" | "followers" | "unlisted"
+  /** Optional comma-separated BCP 47 language tags. */
+  languages?: string
+  /** Reply Root URI */
+  reply_root_uri?: string
+  /** Reply Root CID */
+  reply_root_cid?: string
+  /** Reply Parent URI */
+  reply_parent_uri?: string
+  /** Reply Parent CID */
+  reply_parent_cid?: string
+}
+
+/** Bluesky — Delete Record */
+export interface BlueskyDeleteRecordInput {
+  /** Optional full AT URI, for example at://did/app.bsky.feed.post/rkey. */
+  at_uri?: string
+  /** Repo DID or Handle */
+  repo?: string
+  /** Collection */
+  collection?: string
+  /** Record Key */
+  rkey?: string
+}
+
+/** Bluesky — Search Posts */
+export interface BlueskySearchPostsInput {
+  /** Query */
+  query: string
+  /** Optional handle or DID to filter results. */
+  author?: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Bluesky — Get Post Thread */
+export interface BlueskyGetPostThreadInput {
+  /** Post AT URI */
+  uri: string
+  /** Depth */
+  depth?: number
+  /** Parent Height */
+  parent_height?: number
+}
+
+/** Bluesky — List Author Feed */
+export interface BlueskyListAuthorFeedInput {
+  /** Handle or DID. */
+  actor: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Bluesky — Get Profile */
+export interface BlueskyGetProfileInput {
+  /** Actor */
+  actor: string
 }
 
 /** Bluesky — Like Post */
 export interface BlueskyLikePostInput {
-  /** How to choose the post (values: `timeline`, `manual`) */
-  selectionMethod: "timeline" | "manual"
-  /** Choose from your recent timeline posts (only when "From my timeline" is selected above) (resolve via property options API) */
-  postSelection?: string
-  /** Paste the Bluesky post URL */
-  postUrl?: string
-}
-
-/** Bluesky — Repost Post */
-export interface BlueskyRepostPostInput {
-  /** How to choose the post (values: `timeline`, `manual`) */
-  selectionMethod: "timeline" | "manual"
-  /** Choose from your recent timeline posts (only when "From my timeline" is selected above) (resolve via property options API) */
-  postSelection?: string
-  /** Paste the Bluesky post URL */
-  postUrl?: string
-}
-
-/** Bluesky — Find Post */
-export interface BlueskyFindPostInput {
-  /** Paste the Bluesky post URL (e.g., https://bsky.app/profile/username.bsky.social/post/xxx) */
-  postUrl: string
-}
-
-/** Bluesky — Find Thread */
-export interface BlueskyFindThreadInput {
-  /** Paste the Bluesky post URL (e.g., https://bsky.app/profile/username.bsky.social/post/xxx) */
-  postUrl: string
-  /** How many levels deep to retrieve replies (values: `1`, `2`, `3`, `5`, `10`, `20`, `50`, `100`) */
-  depth?: "1" | "2" | "3" | "5" | "10" | "20" | "50" | "100"
-  /** How many parent posts to retrieve (values: `0`, `1`, `2`, `3`, `5`, `10`, `20`, `80`) */
-  parentHeight?: "0" | "1" | "2" | "3" | "5" | "10" | "20" | "80"
+  /** Post AT URI */
+  uri: string
+  /** Post CID */
+  cid: string
 }
 
 /** Box — List Folder Items */
@@ -7700,6 +8459,124 @@ export interface CampaignMonitorFindSubscriberInput {
   email: string
 }
 
+/** Canny — List Boards */
+export type CannyListBoardsInput = Record<string, never>
+
+/** Canny — List Posts */
+export interface CannyListPostsInput {
+  /** Board ID */
+  boardId?: string
+  /** Status */
+  status?: string
+  /** Author ID */
+  authorId?: string
+  /** Tag ID */
+  tagId?: string
+  /** Limit */
+  limit?: number
+  /** Skip */
+  skip?: number
+  /** Sort (values: `newest`, `oldest`, `score`, `trending`) */
+  sort?: "newest" | "oldest" | "score" | "trending"
+}
+
+/** Canny — Retrieve Post */
+export interface CannyRetrievePostInput {
+  /** Post ID */
+  postId: string
+}
+
+/** Canny — Create Post */
+export interface CannyCreatePostInput {
+  /** Board ID */
+  boardId: string
+  /** Title */
+  title: string
+  /** Details */
+  details?: string
+  /** Author ID */
+  authorId?: string
+  /** Author Email */
+  authorEmail?: string
+  /** Author Name */
+  authorName?: string
+  /** Optional Canny user object for the creator. */
+  by?: unknown
+  /** Custom Fields */
+  customFields?: unknown
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Canny — Update Post */
+export interface CannyUpdatePostInput {
+  /** Post ID */
+  postId: string
+  /** Title */
+  title?: string
+  /** Details */
+  details?: string
+  /** Status */
+  status?: string
+  /** Owner ID */
+  ownerId?: string
+  /** ETA */
+  eta?: string
+  /** Category ID */
+  categoryId?: string
+  /** Custom Fields */
+  customFields?: unknown
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Canny — Delete Post */
+export interface CannyDeletePostInput {
+  /** Post ID */
+  postId: string
+}
+
+/** Canny — List Comments */
+export interface CannyListCommentsInput {
+  /** Post ID */
+  postId: string
+  /** Limit */
+  limit?: number
+  /** Skip */
+  skip?: number
+}
+
+/** Canny — Create Comment */
+export interface CannyCreateCommentInput {
+  /** Post ID */
+  postId: string
+  /** Comment */
+  value: string
+  /** Author ID */
+  authorId?: string
+  /** Author Email */
+  authorEmail?: string
+  /** Author Name */
+  authorName?: string
+  /** Internal */
+  internal?: boolean
+}
+
+/** Canny — Create Vote */
+export interface CannyCreateVoteInput {
+  /** Post ID */
+  postId: string
+  /** Voter ID */
+  voterId?: string
+  /** Voter Email */
+  voterEmail?: string
+  /** Voter Name */
+  voterName?: string
+}
+
+/** Canny — List Tags */
+export type CannyListTagsInput = Record<string, never>
+
 /** Canto — Search Assets */
 export interface CantoSearchAssetsInput {
   /** Keyword */
@@ -8223,6 +9100,192 @@ export interface CapsuleCrmFindProjectInput {
 export interface CapsuleCrmFindOpportunityInput {
   /** The structured filter query. See the [documentation](https://capsulecrm.com/developer/api-v2/filters/) for examples. */
   filter: unknown
+}
+
+/** Cartesia — Synthesize Speech */
+export interface CartesiaSynthesizeSpeechInput {
+  /** Model ID */
+  modelId: string
+  /** Text to synthesize. Keep length explicit to control spend. */
+  transcript: string
+  /** Voice ID */
+  voiceId: string
+  /** Container (values: `mp3`, `wav`, `raw`) */
+  container: "mp3" | "wav" | "raw"
+  /** Sample Rate */
+  sampleRate?: number
+  /** Speed (values: `slow`, `normal`, `fast`) */
+  speed?: "slow" | "normal" | "fast"
+  /** Optional generation_config JSON, for example volume and numeric speed. */
+  generationConfig?: unknown
+}
+
+/** Cartesia — Transcribe Audio */
+export interface CartesiaTranscribeAudioInput {
+  /** HTTP(S) URL for the audio file to transcribe. */
+  audioUrl: string
+  /** Model */
+  model: string
+  /** Optional BCP-47/ISO language code such as en. */
+  language?: string
+  /** Optional values such as word. */
+  timestampGranularities?: unknown[]
+}
+
+/** Cartesia — List Voices */
+export interface CartesiaListVoicesInput {
+  /** Limit */
+  limit?: number
+  /** Starting After */
+  startingAfter?: string
+  /** Owned Voices Only */
+  isOwner?: boolean
+}
+
+/** Cartesia — Get Voice */
+export interface CartesiaGetVoiceInput {
+  /** Voice ID */
+  voiceId: string
+  /** Include Preview URL */
+  includePreviewUrl?: boolean
+}
+
+/** Cartesia — Delete Voice */
+export interface CartesiaDeleteVoiceInput {
+  /** Voice ID */
+  voiceId: string
+  /** Confirm Delete */
+  confirm: boolean
+}
+
+/** Cartesia — Create Access Token */
+export interface CartesiaCreateAccessTokenInput {
+  /** Grant TTS */
+  tts?: boolean
+  /** Grant STT */
+  stt?: boolean
+  /** Grant Agent */
+  agent?: boolean
+  /** Expires In Seconds */
+  expiresIn: number
+}
+
+/** Census — List Sources */
+export interface CensusListSourcesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+}
+
+/** Census — Get Source */
+export interface CensusGetSourceInput {
+  /** Source ID */
+  sourceId: number
+}
+
+/** Census — List Destinations */
+export interface CensusListDestinationsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+}
+
+/** Census — Get Destination */
+export interface CensusGetDestinationInput {
+  /** Destination ID */
+  destinationId: number
+}
+
+/** Census — List Destination Types */
+export interface CensusListDestinationTypesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+}
+
+/** Census — List Syncs */
+export interface CensusListSyncsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+}
+
+/** Census — Get Sync */
+export interface CensusGetSyncInput {
+  /** Sync ID */
+  syncId: number
+}
+
+/** Census — Trigger Sync */
+export interface CensusTriggerSyncInput {
+  /** Sync ID */
+  syncId: number
+  /** Full Sync */
+  fullSync?: boolean
+}
+
+/** Census — List Sync Runs */
+export interface CensusListSyncRunsInput {
+  /** Sync ID */
+  syncId: number
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Order (values: `desc`, `asc`) */
+  order?: "desc" | "asc"
+}
+
+/** Census — Get Sync Run */
+export interface CensusGetSyncRunInput {
+  /** Sync Run ID */
+  syncRunId: number
+}
+
+/** Census — Cancel Sync Run */
+export interface CensusCancelSyncRunInput {
+  /** Sync Run ID */
+  syncRunId: number
+  /** Confirm Cancel */
+  confirmCancel: boolean
+}
+
+/** Census — Get Sync Run Records Count */
+export interface CensusGetSyncRunRecordsCountInput {
+  /** Sync Run ID */
+  syncRunId: number
+  /** Primary Identifier */
+  primaryIdentifier?: string
+  /** Record Status (values: `succeeded`, `rejected`, `invalid`) */
+  status?: "succeeded" | "rejected" | "invalid"
+  /** Operation (values: `upsert`, `delete`) */
+  operation?: "upsert" | "delete"
+}
+
+/** Census — Custom API Call */
+export interface CensusCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Path relative to /api/v1, for example /syncs or /sources/{sourceId}. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm DELETE */
+  confirmDelete?: boolean
 }
 
 /** Chargebee — List Subscriptions */
@@ -10400,6 +11463,106 @@ export interface ConfluenceCustomApiCallInput {
   query_params?: string
 }
 
+/** Confluent Cloud — List Environments */
+export interface ConfluentCloudListEnvironmentsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Get Environment */
+export interface ConfluentCloudGetEnvironmentInput {
+  /** Environment ID */
+  environmentId: string
+}
+
+/** Confluent Cloud — List Kafka Clusters */
+export interface ConfluentCloudListKafkaClustersInput {
+  /** Environment ID */
+  environmentId: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Get Kafka Cluster */
+export interface ConfluentCloudGetKafkaClusterInput {
+  /** Environment ID */
+  environmentId: string
+  /** Cluster ID */
+  clusterId: string
+}
+
+/** Confluent Cloud — List Service Accounts */
+export interface ConfluentCloudListServiceAccountsInput {
+  /** Display Name Filter */
+  displayName?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Get Service Account */
+export interface ConfluentCloudGetServiceAccountInput {
+  /** Service Account ID */
+  serviceAccountId: string
+}
+
+/** Confluent Cloud — List API Keys */
+export interface ConfluentCloudListApiKeysInput {
+  /** Exact spec.owner filter such as a user or service account ID. */
+  owner?: string
+  /** Exact spec.resource filter such as a cluster ID. */
+  resource?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Get API Key */
+export interface ConfluentCloudGetApiKeyInput {
+  /** API Key ID */
+  apiKeyId: string
+}
+
+/** Confluent Cloud — List Metric Descriptors */
+export interface ConfluentCloudListMetricDescriptorsInput {
+  /** Dataset (values: `cloud`, `cloud-custom`, `USM`) */
+  dataset: "cloud" | "cloud-custom" | "USM"
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Query Metrics */
+export interface ConfluentCloudQueryMetricsInput {
+  /** Dataset (values: `cloud`, `cloud-custom`, `USM`) */
+  dataset: "cloud" | "cloud-custom" | "USM"
+  /** Metrics API query body, for example aggregations, filter, group_by, intervals, granularity, and limit. */
+  query: unknown
+}
+
+/** Confluent Cloud — Custom API Call */
+export interface ConfluentCloudCustomApiCallInput {
+  /** API Surface (values: `management`, `metrics`) */
+  surface: "management" | "metrics"
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Path under the selected API origin, for example /org/v2/environments. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm Mutation */
+  confirmMutation?: boolean
+}
+
 /** ConnectWise — Create Ticket */
 export interface ConnectwiseCreateTicketInput {
   /** Your ConnectWise site URL (e.g., api-na.myconnectwise.net) */
@@ -11576,6 +12739,124 @@ export interface CrispCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Crowdin — List Projects */
+export interface CrowdinListProjectsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Crowdin — Get Project */
+export interface CrowdinGetProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Crowdin — List Files */
+export interface CrowdinListFilesInput {
+  /** Project ID */
+  projectId: string
+  /** Directory ID */
+  directoryId?: number
+  /** Branch ID */
+  branchId?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Crowdin — List Strings */
+export interface CrowdinListStringsInput {
+  /** Project ID */
+  projectId: string
+  /** File ID */
+  fileId?: number
+  /** Label IDs CSV */
+  labelIdsCsv?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Crowdin — Get String */
+export interface CrowdinGetStringInput {
+  /** Project ID */
+  projectId: string
+  /** String ID */
+  stringId: string
+}
+
+/** Crowdin — Create String */
+export interface CrowdinCreateStringInput {
+  /** Project ID */
+  projectId: string
+  /** Source text to localize. Keep PII-sensitive text explicit and bounded. */
+  text: string
+  /** Identifier */
+  identifier: string
+  /** File ID */
+  fileId?: number
+  /** Context */
+  context?: string
+  /** Max Length */
+  maxLength?: number
+  /** Hidden */
+  hidden?: boolean
+}
+
+/** Crowdin — Update String */
+export interface CrowdinUpdateStringInput {
+  /** Project ID */
+  projectId: string
+  /** String ID */
+  stringId: string
+  /** Source Text */
+  text?: string
+  /** Context */
+  context?: string
+  /** Hidden */
+  hidden?: boolean
+}
+
+/** Crowdin — Upload File */
+export interface CrowdinUploadFileInput {
+  /** Project ID */
+  projectId: string
+  /** Filename */
+  filename: string
+  /** Text content to upload. Avoid secrets or unbounded export payloads. */
+  fileContent: string
+  /** Crowdin file type such as json, yaml, gettext, android, ios_strings, or xml. */
+  fileType: string
+  /** Directory ID */
+  directoryId?: number
+  /** Branch ID */
+  branchId?: number
+}
+
+/** Crowdin — Create Translation Build */
+export interface CrowdinCreateTranslationBuildInput {
+  /** Project ID */
+  projectId: string
+  /** Comma-separated Crowdin target language IDs. */
+  targetLanguageIdsCsv: string
+  /** Skip Untranslated Strings */
+  skipUntranslatedStrings?: boolean
+  /** Export Approved Only */
+  exportApprovedOnly?: boolean
+}
+
+/** Crowdin — Get Translation Build */
+export interface CrowdinGetTranslationBuildInput {
+  /** Project ID */
+  projectId: string
+  /** Build ID */
+  buildId: string
+}
+
 /** Culture Amp — Validate Connection */
 export type CultureAmpValidateConnectionInput = Record<string, never>
 
@@ -12145,6 +13426,48 @@ export interface DatadogSendLogInput {
   tags?: unknown[]
   /** Optional JSON object merged into the log. */
   attributes?: unknown
+}
+
+/** DataForSEO — Google Organic Live SERP */
+export interface DataforseoGoogleOrganicLiveAdvancedInput {
+  /** One keyword or search query. This action sends exactly one live SERP task. */
+  keyword: string
+  /** Optional DataForSEO location code. Use this or Location Name. */
+  locationCode?: number
+  /** Optional full location name if no location code is provided. */
+  locationName?: string
+  /** Language Code */
+  languageCode?: string
+  /** Device (values: `desktop`, `mobile`) */
+  device?: "desktop" | "mobile"
+  /** Operating System (values: `windows`, `macos`, `android`, `ios`) */
+  os?: "windows" | "macos" | "android" | "ios"
+  /** Number of SERP results to return, capped at 100. */
+  depth?: number
+}
+
+/** DataForSEO — Google Maps Live SERP */
+export interface DataforseoGoogleMapsLiveAdvancedInput {
+  /** One keyword or search query. This action sends exactly one live SERP task. */
+  keyword: string
+  /** Optional DataForSEO location code. Use this or Location Name. */
+  locationCode?: number
+  /** Optional full location name if no location code is provided. */
+  locationName?: string
+  /** Language Code */
+  languageCode?: string
+  /** Device (values: `desktop`, `mobile`) */
+  device?: "desktop" | "mobile"
+  /** Operating System (values: `windows`, `macos`, `android`, `ios`) */
+  os?: "windows" | "macos" | "android" | "ios"
+  /** Number of SERP results to return, capped at 100. */
+  depth?: number
+}
+
+/** DataForSEO — List Google Locations */
+export interface DataforseoListGoogleLocationsInput {
+  /** Maximum locations to return from the full DataForSEO list. */
+  limit?: number
 }
 
 /** Datetime — Parse Date */
@@ -13223,72 +14546,71 @@ export interface DiscordCustomApiCallInput {
   body?: unknown
 }
 
-/** Discourse — Create Post */
-export interface DiscourseCreatePostInput {
-  /** Content of the post */
-  raw: string
-  /** ID of the topic to post in (resolve via property options API) */
-  topic_id: string
+/** Discourse — List Latest Topics */
+export interface DiscourseListLatestTopicsInput {
+  /** Page */
+  page?: number
 }
+
+/** Discourse — Search Topics */
+export interface DiscourseSearchTopicsInput {
+  /** Query */
+  query: string
+}
+
+/** Discourse — Get Topic */
+export interface DiscourseGetTopicInput {
+  /** Topic ID */
+  topic_id: number
+}
+
+/** Discourse — List Categories */
+export type DiscourseListCategoriesInput = Record<string, never>
 
 /** Discourse — Create Topic */
 export interface DiscourseCreateTopicInput {
-  /** Title of the Topic */
+  /** Title */
   title: string
-  /** Content of the topic */
-  raw: string
-  /** ID of the category to post in (resolve via property options API) */
-  category?: string
-}
-
-/** Discourse — Change User Trust Level */
-export interface DiscourseChangeUserTrustLevelInput {
-  /** ID of the user */
-  user_id: string
-  /** New trust level of the user (resolve via property options API) */
-  new_trust_level: string
-}
-
-/** Discourse — Add Users to Group */
-export interface DiscourseAddUsersToGroupInput {
-  /** Id of the group (resolve via property options API) */
-  group_id: string
-  /** List of users to add to the group */
-  users: unknown[]
-}
-
-/** Discourse — Send Private Message */
-export interface DiscourseSendPrivateMessageInput {
-  /** Title for the PM */
-  title: string
-  /** Content of the post */
-  raw: string
-  /** List of users to send the PM to (can be one or more) */
-  target_recipients: unknown[]
-}
-
-/** Discourse — Custom API Call */
-export interface DiscourseCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  raw: string
+  /** Category ID */
+  category?: number
+  /** Optional JSON array of tag names. */
+  tags?: unknown
+}
+
+/** Discourse — Create Reply */
+export interface DiscourseCreateReplyInput {
+  /** Topic ID */
+  topic_id: number
+  /** Body */
+  raw: string
+  /** Reply To Post Number */
+  reply_to_post_number?: number
+}
+
+/** Discourse — Update Post */
+export interface DiscourseUpdatePostInput {
+  /** Post ID */
+  post_id: number
+  /** Body */
+  raw: string
+}
+
+/** Discourse — Delete Post */
+export interface DiscourseDeletePostInput {
+  /** Post ID */
+  post_id: number
+}
+
+/** Discourse — Update Topic Status */
+export interface DiscourseUpdateTopicStatusInput {
+  /** Topic ID */
+  topic_id: number
+  /** Status (values: `closed`, `archived`, `pinned`, `visible`) */
+  status: "closed" | "archived" | "pinned" | "visible"
+  /** Enabled */
+  enabled: boolean
 }
 
 /** Docebo — Get User */
@@ -13843,6 +15165,102 @@ export interface DoodleCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Doppler — List Projects */
+export interface DopplerListProjectsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Doppler — Get Project */
+export interface DopplerGetProjectInput {
+  /** Project slug or ID. */
+  project: string
+}
+
+/** Doppler — List Configs */
+export interface DopplerListConfigsInput {
+  /** Project */
+  project: string
+  /** Environment */
+  environment?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Doppler — List Secret Names */
+export interface DopplerListSecretNamesInput {
+  /** Project */
+  project: string
+  /** Config */
+  config: string
+  /** Include Dynamic Secrets */
+  includeDynamicSecrets?: boolean
+  /** Include Managed Secrets */
+  includeManagedSecrets?: boolean
+}
+
+/** Doppler — Get Secret */
+export interface DopplerGetSecretInput {
+  /** Project */
+  project: string
+  /** Config */
+  config: string
+  /** Secret Name */
+  name: string
+  /** Type ACCESS_SECRET to retrieve the secret value. */
+  confirmation: string
+}
+
+/** Doppler — Get Secret Values */
+export interface DopplerGetSecretsInput {
+  /** Not required when using a config-scoped service token. */
+  project?: string
+  /** Not required when using a config-scoped service token. */
+  config?: string
+  /** Comma-separated names to return. Leave empty only when Include All Secrets is enabled. */
+  secretNames?: string
+  /** Include All Secrets */
+  includeAllSecrets?: boolean
+  /** Include Dynamic Secrets */
+  includeDynamicSecrets?: boolean
+  /** Type ACCESS_SECRETS to retrieve values. */
+  confirmation: string
+}
+
+/** Doppler — Update Secrets */
+export interface DopplerUpdateSecretsInput {
+  /** Project */
+  project: string
+  /** Config */
+  config: string
+  /** JSON object of secret names to values. */
+  secrets: unknown
+  /** Type WRITE_SECRETS to update secrets. */
+  confirmation: string
+}
+
+/** Doppler — Delete Secret */
+export interface DopplerDeleteSecretInput {
+  /** Project */
+  project: string
+  /** Config */
+  config: string
+  /** Secret Name */
+  name: string
+  /** Type DELETE_SECRET to delete this secret. */
+  confirmation: string
+}
+
+/** Doppler — List Webhooks */
+export interface DopplerListWebhooksInput {
+  /** Project */
+  project: string
 }
 
 /** Dotloop — Create Loop */
@@ -15723,6 +17141,56 @@ export interface FacebookPagesCreateVideoPostInput {
   description?: string
 }
 
+/** Fal.ai — Submit Request */
+export interface FalAiSubmitRequestInput {
+  /** Fal endpoint slug, for example fal-ai/flux/dev. */
+  endpoint: string
+  /** Model input JSON. Include prompt/media/duration/limit fields explicitly for costly requests. */
+  arguments: unknown
+  /** Optional endpoint subpath. */
+  path?: string
+  /** Optional Fal webhook URL for completion callbacks. */
+  webhookUrl?: string
+  /** Priority (values: ``, `low`) */
+  priority?: "" | "low"
+}
+
+/** Fal.ai — Get Status */
+export interface FalAiGetStatusInput {
+  /** Fal endpoint slug used for the original request. */
+  endpoint: string
+  /** Request ID */
+  requestId: string
+  /** Include Logs */
+  includeLogs?: boolean
+}
+
+/** Fal.ai — Get Result */
+export interface FalAiGetResultInput {
+  /** Fal endpoint slug used for the original request. */
+  endpoint: string
+  /** Request ID */
+  requestId: string
+}
+
+/** Fal.ai — Cancel Request */
+export interface FalAiCancelRequestInput {
+  /** Fal endpoint slug used for the original request. */
+  endpoint: string
+  /** Request ID */
+  requestId: string
+  /** Confirm Cancellation */
+  confirm: boolean
+}
+
+/** Fal.ai — List Models */
+export interface FalAiListModelsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
 /** Fathom — Validate Connection */
 export type FathomValidateConnectionInput = Record<string, never>
 
@@ -16608,6 +18076,70 @@ export interface FirefliesGetActiveMeetingsInput {
   email?: string
   /** Omit to return both active and paused meetings. */
   states?: string[]
+}
+
+/** Fireworks AI — Chat Completion */
+export interface FireworksAiChatCompletionInput {
+  /** Fireworks model name, for example accounts/fireworks/models/llama-v3p1-70b-instruct. */
+  model: string
+  /** Array of OpenAI-compatible messages. Include only the conversation needed for this request. */
+  messages: unknown
+  /** Maximum output tokens. Set this explicitly to control spend. */
+  maxTokens: number
+  /** Temperature */
+  temperature?: number
+  /** Top P */
+  topP?: number
+  /** Stop Sequences */
+  stop?: unknown[]
+  /** Optional response_format object. */
+  responseFormat?: unknown
+}
+
+/** Fireworks AI — Create Embedding */
+export interface FireworksAiCreateEmbeddingInput {
+  /** Embedding model, for example nomic-ai/nomic-embed-text-v1.5 or a Fireworks account model path. */
+  model: string
+  /** String or array of strings to embed. Avoid sending unnecessary sensitive text. */
+  input: unknown
+  /** Dimensions */
+  dimensions?: number
+}
+
+/** Fireworks AI — Rerank Documents */
+export interface FireworksAiRerankDocumentsInput {
+  /** Reranker model, for example accounts/fireworks/models/qwen3-reranker-8b. */
+  model: string
+  /** Query */
+  query: string
+  /** Candidate document strings to rank. */
+  documents: unknown[]
+  /** Maximum number of results to return. */
+  topN?: number
+  /** Return Documents */
+  returnDocuments?: boolean
+}
+
+/** Fireworks AI — Generate Image */
+export interface FireworksAiGenerateImageInput {
+  /** Fireworks image endpoint path from the model docs, for example /v1/workflows/accounts/fireworks/models/flux-1-schnell-fp8/text_to_image. */
+  endpointPath: string
+  /** Prompt */
+  prompt: string
+  /** Optional endpoint-specific JSON fields such as aspect ratio, seed, or safety settings. */
+  modelInputs?: unknown
+}
+
+/** Fireworks AI — List Models */
+export interface FireworksAiListModelsInput {
+  /** Fireworks account ID. */
+  accountId: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+  /** Filter */
+  filter?: string
 }
 
 /** Fishbowl — Get Product */
@@ -22436,6 +23968,94 @@ export interface HibobListTimeOffInput {
 /** HiBob — List Company Lists */
 export type HibobListCompanyListsInput = Record<string, never>
 
+/** Hightouch — List Sources */
+export interface HightouchListSourcesInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Hightouch — Get Source */
+export interface HightouchGetSourceInput {
+  /** Source ID */
+  sourceId: string
+}
+
+/** Hightouch — List Models */
+export interface HightouchListModelsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Hightouch — Get Model */
+export interface HightouchGetModelInput {
+  /** Model ID */
+  modelId: string
+}
+
+/** Hightouch — List Destinations */
+export interface HightouchListDestinationsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Hightouch — Get Destination */
+export interface HightouchGetDestinationInput {
+  /** Destination ID */
+  destinationId: string
+}
+
+/** Hightouch — List Syncs */
+export interface HightouchListSyncsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Hightouch — Get Sync */
+export interface HightouchGetSyncInput {
+  /** Sync ID or Slug */
+  syncIdOrSlug: string
+}
+
+/** Hightouch — Trigger Sync */
+export interface HightouchTriggerSyncInput {
+  /** Sync ID or Slug */
+  syncIdOrSlug: string
+  /** Run a full resync instead of an incremental sync. */
+  fullResync?: boolean
+}
+
+/** Hightouch — List Sync Runs */
+export interface HightouchListSyncRunsInput {
+  /** Sync ID or Slug */
+  syncIdOrSlug: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Hightouch — Custom API Call */
+export interface HightouchCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path relative to /api/v1, for example /syncs or /models/{modelId}. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm DELETE */
+  confirmDelete?: boolean
+}
+
 /** Hive — Create Action */
 export interface HiveCreateActionInput {
   /** Title */
@@ -22480,6 +24100,73 @@ export interface HiveCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Honeycomb — List Datasets */
+export type HoneycombListDatasetsInput = Record<string, never>
+
+/** Honeycomb — Create Dataset */
+export interface HoneycombCreateDatasetInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Expand JSON Depth */
+  expandJsonDepth?: number
+}
+
+/** Honeycomb — Create Query */
+export interface HoneycombCreateQueryInput {
+  /** Use __all__ for environment-wide query endpoints that support it. */
+  datasetSlug: string
+  /** Honeycomb query JSON, for example calculations and time_range. */
+  query: unknown
+}
+
+/** Honeycomb — Create Query Result */
+export interface HoneycombCreateQueryResultInput {
+  /** Dataset Slug */
+  datasetSlug: string
+  /** Query ID */
+  queryId: string
+  /** Disable Series */
+  disableSeries?: boolean
+  /** Disable Total By Aggregate */
+  disableTotalByAggregate?: boolean
+  /** Disable Other By Aggregate */
+  disableOtherByAggregate?: boolean
+  /** Used when Disable Series is true. Maximum 10000. */
+  limit?: number
+}
+
+/** Honeycomb — Get Query Result */
+export interface HoneycombGetQueryResultInput {
+  /** Dataset Slug */
+  datasetSlug: string
+  /** Query Result ID */
+  queryResultId: string
+}
+
+/** Honeycomb — Create Marker */
+export interface HoneycombCreateMarkerInput {
+  /** Use __all__ for an environment marker. */
+  datasetSlug: string
+  /** Message */
+  message: string
+  /** Groups similar markers, for example deploy. */
+  type?: string
+  /** Unix time. Defaults to Honeycomb request time when omitted. */
+  startTime?: number
+  /** Unix time for range markers. */
+  endTime?: number
+  /** URL */
+  url?: string
+}
+
+/** Honeycomb — List Triggers */
+export interface HoneycombListTriggersInput {
+  /** Use __all__ for environment-level triggers. */
+  datasetSlug: string
 }
 
 /** Hostaway — List Reservations */
@@ -23849,6 +25536,64 @@ export interface HuggingFaceImageClassificationInput {
   outputFormat?: "business" | "technical" | "analytics" | "comprehensive"
 }
 
+/** Hume AI — Synthesize Speech */
+export interface HumeAiSynthesizeSpeechInput {
+  /** Text to synthesize. Keep inputs bounded to control cost. */
+  text: string
+  /** Optional voice name from Hume voice library or custom voices. */
+  voiceName?: string
+  /** Optional voice ID. Preferred when using a saved custom voice. */
+  voiceId?: string
+  /** Voice Provider (values: `HUME_AI`, `CUSTOM_VOICE`) */
+  voiceProvider?: "HUME_AI" | "CUSTOM_VOICE"
+  /** Optional style/prosody instruction for this utterance. */
+  description?: string
+  /** Audio Format (values: `mp3`, `wav`, `pcm`) */
+  format?: "mp3" | "wav" | "pcm"
+  /** 1 to 5. Higher values spend more credits. */
+  numGenerations: number
+  /** Octave Version (values: ``, `1`, `2`) */
+  version?: "" | "1" | "2"
+  /** Temperature */
+  temperature?: number
+  /** Optional Hume TTS context object. */
+  context?: unknown
+}
+
+/** Hume AI — List Voices */
+export interface HumeAiListVoicesInput {
+  /** Provider (values: `HUME_AI`, `CUSTOM_VOICE`) */
+  provider: "HUME_AI" | "CUSTOM_VOICE"
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+  /** Optional tags like GENDER:Male or LANGUAGE:Japanese. */
+  filterTags?: unknown[]
+}
+
+/** Hume AI — List EVI Configs */
+export interface HumeAiListEviConfigsInput {
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Hume AI — List EVI Chats */
+export interface HumeAiListChatsInput {
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Hume AI — Get Chat Audio */
+export interface HumeAiGetChatAudioInput {
+  /** Chat ID */
+  chatId: string
+}
+
 /** Hunter.io — Find Email */
 export interface HunterIoFindEmailInput {
   /** The company domain (e.g. stripe.com) */
@@ -24404,6 +26149,101 @@ export interface IncidentIoListFollowUpsInput {
 export interface IncidentIoGetFollowUpInput {
   /** Follow-up ID */
   followUpId: string
+}
+
+/** InfluxDB — Health */
+export type InfluxdbHealthInput = Record<string, never>
+
+/** InfluxDB — List Organizations */
+export interface InfluxdbListOrganizationsInput {
+  /** Org Name Filter */
+  org?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** InfluxDB — List Buckets */
+export interface InfluxdbListBucketsInput {
+  /** Org */
+  org?: string
+  /** Org ID */
+  orgId?: string
+  /** Bucket Name Filter */
+  name?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** InfluxDB — Get Bucket */
+export interface InfluxdbGetBucketInput {
+  /** Bucket ID */
+  bucketId: string
+}
+
+/** InfluxDB — Query Flux */
+export interface InfluxdbQueryFluxInput {
+  /** Org */
+  org?: string
+  /** Org ID */
+  orgId?: string
+  /** Flux Query */
+  query: string
+  /** Optional InfluxDB CSV dialect JSON object. */
+  dialect?: unknown
+  /** Response Format (values: `csv`, `json`) */
+  responseFormat: "csv" | "json"
+}
+
+/** InfluxDB — Write Line Protocol */
+export interface InfluxdbWriteLineProtocolInput {
+  /** Org */
+  org?: string
+  /** Org ID */
+  orgId?: string
+  /** Bucket */
+  bucket: string
+  /** Precision (values: `ns`, `us`, `ms`, `s`, `m`, `h`) */
+  precision: "ns" | "us" | "ms" | "s" | "m" | "h"
+  /** Line Protocol */
+  lineProtocol: string
+}
+
+/** InfluxDB — Delete Data */
+export interface InfluxdbDeleteDataInput {
+  /** Org */
+  org?: string
+  /** Org ID */
+  orgId?: string
+  /** Bucket */
+  bucket: string
+  /** RFC3339 timestamp. */
+  start: string
+  /** RFC3339 timestamp. */
+  stop: string
+  /** Optional delete predicate, for example _measurement="cpu". */
+  predicate?: string
+  /** Confirm Bucket */
+  confirmBucket: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** InfluxDB — Custom API Call */
+export interface InfluxdbCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** For example /api/v2/buckets. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm Mutation */
+  confirmMutation?: boolean
 }
 
 /** Infobip — Send SMS */
@@ -28522,6 +30362,110 @@ export interface LocalComputerControlAgentStopTaskInput {
   sessionId?: string
 }
 
+/** Lokalise — List Projects */
+export interface LokaliseListProjectsInput {
+  /** Page */
+  page?: number
+  /** Maximum projects to return, up to the Lokalise API limit. */
+  limit?: number
+}
+
+/** Lokalise — Get Project */
+export interface LokaliseGetProjectInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+}
+
+/** Lokalise — List Languages */
+export interface LokaliseListLanguagesInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+}
+
+/** Lokalise — List Keys */
+export interface LokaliseListKeysInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Cursor from Lokalise cursor pagination. */
+  cursor?: string
+  /** Include translation values in the response. This can contain localized user-facing text. */
+  includeTranslations?: boolean
+  /** Optional key-name filter supported by Lokalise. */
+  filterKeys?: string
+}
+
+/** Lokalise — Get Key */
+export interface LokaliseGetKeyInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Key ID */
+  keyId: string
+}
+
+/** Lokalise — Create Key */
+export interface LokaliseCreateKeyInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Key Name */
+  keyName: string
+  /** Platform (values: `web`, `ios`, `android`, `other`) */
+  platform: "web" | "ios" | "android" | "other"
+  /** Description */
+  description?: string
+  /** Optional language ISO for the initial translation. */
+  languageIso?: string
+  /** Optional localized text to store with the key. */
+  translation?: string
+}
+
+/** Lokalise — Update Key */
+export interface LokaliseUpdateKeyInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Key ID */
+  keyId: string
+  /** Key Name */
+  keyName?: string
+  /** Description */
+  description?: string
+  /** Optional comma-separated platforms such as web,ios,android. */
+  platformsCsv?: string
+}
+
+/** Lokalise — Upload File */
+export interface LokaliseUploadFileInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Filename */
+  filename: string
+  /** Language ISO */
+  languageIso: string
+  /** Lokalise file format such as json, yaml, po, strings, or xml. */
+  format: string
+  /** Text content to upload. Avoid pasting secrets or unbounded production exports. */
+  fileContent: string
+  /** Replace Modified */
+  replaceModified?: boolean
+}
+
+/** Lokalise — Download File */
+export interface LokaliseDownloadFileInput {
+  /** Lokalise project ID, including branch suffix when using branches. */
+  projectId: string
+  /** Format */
+  format: string
+  /** Original Filenames */
+  originalFilenames?: boolean
+  /** All Platforms */
+  allPlatforms?: boolean
+  /** Optional single language ISO to export. */
+  languageIso?: string
+}
+
 /** Loom — List Videos */
 export interface LoomListVideosInput {
   /** Page number for pagination */
@@ -29378,36 +31322,116 @@ export interface MapboxCreateIsochroneInput {
   contoursColors?: string
 }
 
-/** Mastodon — Post Status */
-export interface MastodonPostStatusInput {
-  /** The text of your status */
+/** Mastodon — Create Status */
+export interface MastodonCreateStatusInput {
+  /** Status Text */
   status: string
-  /** The media attachment for your status */
-  media?: WeavzFileInput
+  /** Visibility (values: `public`, `unlisted`, `private`, `direct`) */
+  visibility?: "public" | "unlisted" | "private" | "direct"
+  /** Reply To Status ID */
+  in_reply_to_id?: string
+  /** Sensitive Media */
+  sensitive?: boolean
+  /** Content Warning */
+  spoiler_text?: string
+  /** Optional ISO 639-1 language code. */
+  language?: string
+  /** Optional ISO datetime at least 5 minutes in the future. */
+  scheduled_at?: string
 }
 
-/** Mastodon — Custom API Call */
-export interface MastodonCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+/** Mastodon — Update Status */
+export interface MastodonUpdateStatusInput {
+  /** Status ID */
+  status_id: string
+  /** Status Text */
+  status: string
+  /** Sensitive Media */
+  sensitive?: boolean
+  /** Content Warning */
+  spoiler_text?: string
+  /** Language */
+  language?: string
+}
+
+/** Mastodon — Delete Status */
+export interface MastodonDeleteStatusInput {
+  /** Status ID */
+  status_id: string
+}
+
+/** Mastodon — Get Status */
+export interface MastodonGetStatusInput {
+  /** Status ID */
+  status_id: string
+}
+
+/** Mastodon — Search */
+export interface MastodonSearchInput {
+  /** Query */
+  query: string
+  /** Type (values: ``, `statuses`, `accounts`, `hashtags`) */
+  type?: "" | "statuses" | "accounts" | "hashtags"
+  /** Limit */
+  limit?: number
+  /** Resolve Remote Results */
+  resolve?: boolean
+}
+
+/** Mastodon — List Home Timeline */
+export interface MastodonListHomeTimelineInput {
+  /** Limit */
+  limit?: number
+  /** Return results older than this status ID. */
+  max_id?: string
+  /** Return results newer than this status ID. */
+  since_id?: string
+}
+
+/** Mastodon — List Account Statuses */
+export interface MastodonListAccountStatusesInput {
+  /** Account ID */
+  account_id: string
+  /** Limit */
+  limit?: number
+  /** Exclude Replies */
+  exclude_replies?: boolean
+  /** Exclude Boosts */
+  exclude_reblogs?: boolean
+  /** Max ID */
+  max_id?: string
+  /** Since ID */
+  since_id?: string
+}
+
+/** Mastodon — Get Account */
+export interface MastodonGetAccountInput {
+  /** Account ID */
+  account_id: string
+}
+
+/** Mastodon — Favourite Status */
+export interface MastodonFavouriteStatusInput {
+  /** Status ID */
+  status_id: string
+}
+
+/** Mastodon — Unfavourite Status */
+export interface MastodonUnfavouriteStatusInput {
+  /** Status ID */
+  status_id: string
+}
+
+/** Mastodon — Boost Status */
+export interface MastodonBoostStatusInput {
+  /** Status ID */
+  status_id: string
+}
+
+/** Mastodon — Unboost Status */
+export interface MastodonUnboostStatusInput {
+  /** Status ID */
+  status_id: string
 }
 
 /** Mattermost — Send Message */
@@ -34824,43 +36848,50 @@ export interface OpencageReverseGeocodeInput {
   noRecord?: boolean
 }
 
-/** OpenRouter — Ask LLM */
-export interface OpenRouterAskLmmInput {
-  /** The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code. (resolve via property options API) */
+/** OpenRouter — Chat Completion */
+export interface OpenRouterChatCompletionInput {
+  /** OpenRouter model slug, for example openai/gpt-5.2 or anthropic/claude-sonnet-4.5. */
   model: string
-  /** The prompt to send to the model. */
-  prompt: string
-  /** Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive. */
+  /** Array of chat messages. Include only needed context to control token spend. */
+  messages: unknown
+  /** Maximum output tokens. Set explicitly to control cost. */
+  maxTokens: number
+  /** Temperature */
   temperature?: number
-  /** The maximum number of tokens to generate. Requests can use up to 2,048 or 4,096 tokens shared between prompt and completion, don't set the value to maximum and leave some tokens for the input. The exact limit varies by model. (One token is roughly 4 characters for normal English text) */
-  maxTokens?: number
-  /** An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. */
+  /** Top P */
   topP?: number
+  /** Optional response_format object. */
+  responseFormat?: unknown
+  /** Optional OpenRouter provider routing preferences. */
+  providerRouting?: unknown
+  /** Include Routing Metadata */
+  includeMetadata?: boolean
 }
 
-/** OpenRouter — Custom API Call */
-export interface OpenRouterCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+/** OpenRouter — List Models */
+export interface OpenRouterListModelsInput {
+  /** Search Query */
+  query?: string
+  /** Comma-separated values: text,image,audio,file. */
+  inputModalities?: string
+  /** Comma-separated values: text,image,audio,embeddings or all. */
+  outputModalities?: string
+  /** Comma-separated parameter names such as tools,max_tokens. */
+  supportedParameters?: string
+  /** Comma-separated provider names. */
+  providers?: string
+  /** Sort (values: ``, `most-popular`, `newest`, `context-high-to-low`, `latency-low-to-high`, `pricing-low-to-high`) */
+  sort?: "" | "most-popular" | "newest" | "context-high-to-low" | "latency-low-to-high" | "pricing-low-to-high"
 }
+
+/** OpenRouter — List Model Endpoints */
+export interface OpenRouterListModelEndpointsInput {
+  /** Model slug like openai/gpt-4. Use author/slug format. */
+  model: string
+}
+
+/** OpenRouter — Get Credits */
+export type OpenRouterGetCreditsInput = Record<string, never>
 
 /** OpenTable — List Reservations */
 export interface OpentableListReservationsInput {
@@ -36400,6 +38431,100 @@ export interface PhantombusterCustomApiCallInput {
   body?: unknown
 }
 
+/** Phrase — List Projects */
+export interface PhraseListProjectsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Phrase — Get Project */
+export interface PhraseGetProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Phrase — List Locales */
+export interface PhraseListLocalesInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Phrase — List Keys */
+export interface PhraseListKeysInput {
+  /** Project ID */
+  projectId: string
+  /** Optional Phrase key search query. */
+  query?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Phrase — Get Key */
+export interface PhraseGetKeyInput {
+  /** Project ID */
+  projectId: string
+  /** Key ID */
+  keyId: string
+}
+
+/** Phrase — Create Key */
+export interface PhraseCreateKeyInput {
+  /** Project ID */
+  projectId: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Optional comma-separated tags. */
+  tagsCsv?: string
+}
+
+/** Phrase — Upload File */
+export interface PhraseUploadFileInput {
+  /** Project ID */
+  projectId: string
+  /** Locale ID */
+  localeId: string
+  /** Phrase file format such as simple_json, yml, gettext, strings, or xml. */
+  fileFormat: string
+  /** Filename */
+  filename: string
+  /** Text content to upload. Keep payloads bounded and avoid secrets. */
+  fileContent: string
+  /** Update Translations */
+  updateTranslations?: boolean
+  /** Tags CSV */
+  tagsCsv?: string
+}
+
+/** Phrase — List Uploads */
+export interface PhraseListUploadsInput {
+  /** Project ID */
+  projectId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Phrase — Download Locale File */
+export interface PhraseDownloadLocaleFileInput {
+  /** Project ID */
+  projectId: string
+  /** Locale ID */
+  localeId: string
+  /** File Format */
+  fileFormat: string
+  /** Include Empty Translations */
+  includeEmptyTranslations?: boolean
+  /** Tag */
+  tag?: string
+}
+
 /** Pika — Create Video */
 export interface PikaCreateVideoInput {
   /** Text description of the video to generate */
@@ -37920,6 +40045,241 @@ export interface PracticePantherCustomApiCallInput {
   body?: unknown
 }
 
+/** Printful — List Stores */
+export interface PrintfulListStoresInput {
+  /** 1-100 results. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Printful — List Catalog Products */
+export interface PrintfulListCatalogProductsInput {
+  /** Category ID */
+  categoryId?: string
+  /** Example: usa, europe, brazil. */
+  sellingRegionName?: string
+  /** 1-100 results. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Printful — Get Catalog Product */
+export interface PrintfulGetCatalogProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Printful — List Catalog Variants */
+export interface PrintfulListCatalogVariantsInput {
+  /** Product ID */
+  productId: string
+  /** 1-100 results. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Printful — List Orders */
+export interface PrintfulListOrdersInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Optional Printful order status filter. */
+  status?: string
+  /** 1-100 results. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Printful — Get Order */
+export interface PrintfulGetOrderInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Order ID */
+  orderId: string
+}
+
+/** Printful — Create Draft Order */
+export interface PrintfulCreateOrderInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Printful v2 order JSON body. */
+  order: unknown
+}
+
+/** Printful — Update Draft Order */
+export interface PrintfulUpdateOrderInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Order ID */
+  orderId: string
+  /** Printful v2 PATCH body. */
+  patch: unknown
+}
+
+/** Printful — Confirm Order */
+export interface PrintfulConfirmOrderInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Order ID */
+  orderId: string
+  /** Confirm Fulfillment */
+  confirm: boolean
+}
+
+/** Printful — Cancel Order */
+export interface PrintfulCancelOrderInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Order ID */
+  orderId: string
+  /** Confirm Cancel */
+  confirm: boolean
+}
+
+/** Printful — Calculate Shipping Rates */
+export interface PrintfulCalculateShippingRatesInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Printful v2 shipping rates JSON body. */
+  shipping: unknown
+}
+
+/** Printful — List Order Shipments */
+export interface PrintfulListOrderShipmentsInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Order ID */
+  orderId: string
+  /** 1-100 results. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Printful — Create Order Estimation */
+export interface PrintfulCreateOrderEstimationInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Printful v2 order estimation JSON body. */
+  estimation: unknown
+}
+
+/** Printful — Get Order Estimation */
+export interface PrintfulGetOrderEstimationInput {
+  /** Required when using an account-level Printful token and targeting a specific store. */
+  storeId?: string
+  /** Task ID */
+  taskId: string
+}
+
+/** Printify — List Shops */
+export type PrintifyListShopsInput = Record<string, never>
+
+/** Printify — List Catalog Blueprints */
+export interface PrintifyListCatalogBlueprintsInput {
+  /** Page */
+  page?: number
+  /** 1-100 results. */
+  limit?: number
+}
+
+/** Printify — List Products */
+export interface PrintifyListProductsInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Page */
+  page?: number
+  /** 1-100 results. */
+  limit?: number
+}
+
+/** Printify — Get Product */
+export interface PrintifyGetProductInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Product ID */
+  productId: string
+}
+
+/** Printify — Create Product */
+export interface PrintifyCreateProductInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Printify product JSON body. */
+  product: unknown
+}
+
+/** Printify — Publish Product */
+export interface PrintifyPublishProductInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Product ID */
+  productId: string
+  /** Publish flags such as title, description, images, variants, tags, and keyFeatures. */
+  publish: unknown
+}
+
+/** Printify — List Orders */
+export interface PrintifyListOrdersInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Optional Printify order status filter. */
+  status?: string
+  /** Optional ISO/date lower bound if supported by your Printify account. */
+  createdAtMin?: string
+  /** Optional ISO/date upper bound if supported by your Printify account. */
+  createdAtMax?: string
+  /** Page */
+  page?: number
+  /** 1-100 results. */
+  limit?: number
+}
+
+/** Printify — Get Order */
+export interface PrintifyGetOrderInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Order ID */
+  orderId: string
+}
+
+/** Printify — Create Order */
+export interface PrintifyCreateOrderInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Printify order JSON body. */
+  order: unknown
+}
+
+/** Printify — Calculate Shipping */
+export interface PrintifyCalculateShippingInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Printify shipping calculation JSON body. */
+  shipping: unknown
+}
+
+/** Printify — Cancel Order */
+export interface PrintifyCancelOrderInput {
+  /** Printify shop ID from List Shops. */
+  shopId: string
+  /** Order ID */
+  orderId: string
+  /** Confirm Cancel */
+  confirm: boolean
+}
+
+/** Printify — Upload Image From URL */
+export interface PrintifyUploadImageFromUrlInput {
+  /** File Name */
+  fileName: string
+  /** Image URL */
+  url: string
+}
+
 /** Prismic — Query Documents */
 export interface PrismicQueryDocumentsInput {
   /** Prismic query predicate (e.g., [[at(document.type, "blog_post")]]) */
@@ -37984,6 +40344,287 @@ export interface ProcoreListSubmittalsInput {
   companyId: string
   /** Project ID */
   projectId: string
+}
+
+/** Productboard — List Entities */
+export interface ProductboardListEntitiesInput {
+  /** Entity Type (values: `feature`, `subfeature`, `product`, `component`, `initiative`, `objective`, `keyResult`, `release`, `releaseGroup`) */
+  type: "feature" | "subfeature" | "product" | "component" | "initiative" | "objective" | "keyResult" | "release" | "releaseGroup"
+  /** Page Cursor */
+  pageCursor?: string
+  /** Optional field IDs or all. */
+  fields?: unknown[]
+  /** Parent ID */
+  parentId?: string
+  /** Status */
+  status?: string
+  /** ISO 8601 date-time filter. */
+  updatedFrom?: string
+}
+
+/** Productboard — Search Entities */
+export interface ProductboardSearchEntitiesInput {
+  /** Entity Type (values: `feature`, `subfeature`, `product`, `component`, `initiative`, `objective`, `keyResult`, `release`, `releaseGroup`) */
+  type: "feature" | "subfeature" | "product" | "component" | "initiative" | "objective" | "keyResult" | "release" | "releaseGroup"
+  /** Body data for POST /v2/entities/search. */
+  searchPayload?: unknown
+  /** Page Cursor */
+  pageCursor?: string
+}
+
+/** Productboard — Get Entity */
+export interface ProductboardGetEntityInput {
+  /** Entity ID */
+  entityId: string
+  /** Fields */
+  fields?: unknown[]
+}
+
+/** Productboard — Create Entity */
+export interface ProductboardCreateEntityInput {
+  /** Entity Type (values: `feature`, `subfeature`, `product`, `component`, `initiative`, `objective`, `keyResult`, `release`, `releaseGroup`) */
+  type: "feature" | "subfeature" | "product" | "component" | "initiative" | "objective" | "keyResult" | "release" | "releaseGroup"
+  /** Productboard fields object. Use configurations to discover required fields. */
+  fields: unknown
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** Productboard — Update Entity */
+export interface ProductboardUpdateEntityInput {
+  /** Entity ID */
+  entityId: string
+  /** Fields */
+  fields?: unknown
+  /** Array of Productboard patch operations. */
+  patch?: unknown
+}
+
+/** Productboard — Delete Entity */
+export interface ProductboardDeleteEntityInput {
+  /** Entity ID */
+  entityId: string
+}
+
+/** Productboard — List Notes */
+export interface ProductboardListNotesInput {
+  /** Page Cursor */
+  pageCursor?: string
+  /** textNote, conversationNote, or opportunityNote. */
+  type?: unknown[]
+  /** Archived */
+  archived?: boolean
+  /** Processed */
+  processed?: boolean
+  /** Source System */
+  sourceSystem?: string
+  /** Source Record ID */
+  sourceRecordId?: string
+  /** Created From */
+  createdFrom?: string
+  /** Updated From */
+  updatedFrom?: string
+  /** Fields */
+  fields?: unknown[]
+}
+
+/** Productboard — Create Note */
+export interface ProductboardCreateNoteInput {
+  /** Note Type (values: `textNote`, `conversationNote`) */
+  type: "textNote" | "conversationNote"
+  /** Name */
+  name: string
+  /** Content */
+  content?: string
+  /** Optional metadata such as source system and recordId. */
+  metadata?: unknown
+  /** Optional customer/link relationships supported by Productboard. */
+  relationships?: unknown
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Productboard — Update Note */
+export interface ProductboardUpdateNoteInput {
+  /** Note ID */
+  noteId: string
+  /** Fields */
+  fields?: unknown
+  /** Patch Operations */
+  patch?: unknown
+}
+
+/** Productboard — List Webhooks */
+export interface ProductboardListWebhooksInput {
+  /** Page Cursor */
+  pageCursor?: string
+}
+
+/** Productboard — Create Webhook */
+export interface ProductboardCreateWebhookInput {
+  /** The data object for POST /v2/webhooks. Include notification.url and event subscriptions per Productboard configuration. */
+  webhookData: unknown
+}
+
+/** Productboard — Delete Webhook */
+export interface ProductboardDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
+/** Productlane — Get Authenticated Identity */
+export type ProductlaneGetAuthenticatedIdentityInput = Record<string, never>
+
+/** Productlane — List Threads */
+export interface ProductlaneListThreadsInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Status (values: `open`, `snoozed`, `done`) */
+  status?: "open" | "snoozed" | "done"
+  /** Contact Email */
+  contactEmail?: string
+  /** Project ID */
+  projectId?: string
+  /** Issue ID */
+  issueId?: string
+}
+
+/** Productlane — Create Thread */
+export interface ProductlaneCreateThreadInput {
+  /** Title */
+  title?: string
+  /** Thread body; Productlane accepts HTML. */
+  text: string
+  /** Contact Email */
+  contactEmail: string
+  /** Contact Name */
+  contactName?: string
+  /** Pain Level (values: `UNKNOWN`, `LOW`, `MEDIUM`, `HIGH`) */
+  painLevel?: "UNKNOWN" | "LOW" | "MEDIUM" | "HIGH"
+  /** Status (values: `open`, `snoozed`, `done`) */
+  status?: "open" | "snoozed" | "done"
+  /** Defaults to api. */
+  origin?: string
+  /** Project ID */
+  projectId?: string
+  /** Issue ID */
+  issueId?: string
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Productlane — Update Thread */
+export interface ProductlaneUpdateThreadInput {
+  /** Thread ID */
+  threadId: string
+  /** Title */
+  title?: string
+  /** Status (values: `open`, `snoozed`, `done`) */
+  status?: "open" | "snoozed" | "done"
+  /** Assignee ID */
+  assigneeId?: string
+  /** Pain Level (values: `UNKNOWN`, `LOW`, `MEDIUM`, `HIGH`) */
+  painLevel?: "UNKNOWN" | "LOW" | "MEDIUM" | "HIGH"
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Productlane — Post Internal Comment */
+export interface ProductlanePostInternalCommentInput {
+  /** Thread ID */
+  threadId: string
+  /** Content */
+  content: string
+  /** Optional attachment array. */
+  attachments?: unknown
+}
+
+/** Productlane — List Projects */
+export interface ProductlaneListProjectsInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** State */
+  state?: string
+}
+
+/** Productlane — Create Project */
+export interface ProductlaneCreateProjectInput {
+  /** Name */
+  name: string
+  /** Linear Team ID */
+  teamId: string
+  /** Description */
+  description?: string
+  /** State (values: `backlog`, `planned`, `started`, `completed`, `canceled`) */
+  state?: "backlog" | "planned" | "started" | "completed" | "canceled"
+  /** Linear Status ID */
+  linearStatusId?: string
+  /** Hex color. */
+  color?: string
+  /** Icon */
+  icon?: string
+}
+
+/** Productlane — List Issues */
+export interface ProductlaneListIssuesInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Project ID */
+  projectId?: string
+}
+
+/** Productlane — Create Issue */
+export interface ProductlaneCreateIssueInput {
+  /** Title */
+  title: string
+  /** Linear Team ID */
+  teamId: string
+  /** Linear Workflow State ID */
+  stateId: string
+  /** Priority (values: `0`, `1`, `2`, `3`, `4`) */
+  priority: 0 | 1 | 2 | 3 | 4
+  /** Description */
+  description?: string
+  /** Project ID */
+  projectId?: string
+  /** Assignee ID */
+  assigneeId?: string
+  /** Array of Linear label IDs. */
+  labelIds?: unknown
+}
+
+/** Productlane — List Changelogs */
+export interface ProductlaneListChangelogsInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Published */
+  published?: boolean
+}
+
+/** Productlane — Create Changelog */
+export interface ProductlaneCreateChangelogInput {
+  /** Title */
+  title: string
+  /** Markdown body. */
+  content: string
+  /** ISO 8601 date-time. */
+  date?: string
+  /** Published */
+  published?: boolean
+  /** Image URL */
+  imageUrl?: string
+  /** Optional BCP-47 language code. */
+  language?: string
+  /** Array of changelog tag IDs. */
+  tagIds?: unknown
 }
 
 /** Propertyware — List Units */
@@ -40268,100 +42909,106 @@ export interface RecurlyGetPlanInput {
   planId: string
 }
 
-/** Reddit — Retrieve Post */
-export interface RedditRetrieveRedditPostInput {
-  /** Select the category of posts to retrieve (values: `hot`, `new`, `top`, `rising`, `controversial`) */
-  post_category: "hot" | "new" | "top" | "rising" | "controversial"
-  /** The subreddit to fetch posts from */
+/** Reddit — List Subreddit Posts */
+export interface RedditListSubredditPostsInput {
+  /** Subreddit name without r/. */
   subreddit: string
-  /** Number of posts to fetch (max 100) */
-  size?: number
+  /** Sort (values: `hot`, `new`, `top`, `rising`, `controversial`) */
+  sort?: "hot" | "new" | "top" | "rising" | "controversial"
+  /** Time (values: `hour`, `day`, `week`, `month`, `year`, `all`) */
+  time?: "hour" | "day" | "week" | "month" | "year" | "all"
+  /** Limit */
+  limit?: number
+  /** After Cursor */
+  after?: string
 }
 
-/** Reddit — Get Post Details */
-export interface RedditGetRedditPostDetailsInput {
-  /** The ID of the Reddit post (e.g. "t3_abc123" or "abc123") */
-  post_id: string
-}
-
-/** Reddit — Create Post */
-export interface RedditCreateRedditPostInput {
-  /** The subreddit to post in (without r/). */
+/** Reddit — Search Subreddit */
+export interface RedditSearchSubredditInput {
+  /** Subreddit */
   subreddit: string
-  /** Title of the Reddit post. */
-  title: string
-  /** Text content of the post. */
-  content: string
-}
-
-/** Reddit — Create Comment */
-export interface RedditCreateRedditCommentInput {
-  /** ID of the post (t3_*) or comment (t1_*) to reply to. */
-  parent_id: string
-  /** Text of the comment. */
-  content: string
-}
-
-/** Reddit — Fetch Post Comments */
-export interface RedditFetchPostCommentsInput {
-  /** The ID of the Reddit post (e.g. "abc123" or "t3_abc123"). */
-  post_id: string
-  /** Sorting method for comments (values: `new`, `top`, `hot`, `best`, `old`, `controversial`) */
-  sort?: "new" | "top" | "hot" | "best" | "old" | "controversial"
-  /** Maximum number of top-level comments to fetch */
+  /** Query */
+  query: string
+  /** Sort (values: `relevance`, `hot`, `top`, `new`, `comments`) */
+  sort?: "relevance" | "hot" | "top" | "new" | "comments"
+  /** Time (values: `hour`, `day`, `week`, `month`, `year`, `all`) */
+  time?: "hour" | "day" | "week" | "month" | "year" | "all"
+  /** Limit */
   limit?: number
 }
 
-/** Reddit — Edit Post */
-export interface RedditEditRedditPostInput {
-  /** ID of the Reddit post to edit (e.g., "abc123" or "t3_abc123"). */
+/** Reddit — Get Post Details */
+export interface RedditGetPostDetailsInput {
+  /** Subreddit */
+  subreddit: string
+  /** Base36 ID or t3_ fullname. */
   post_id: string
-  /** Updated text content for the post. */
-  content: string
+  /** Comment Sort (values: `confidence`, `top`, `new`, `old`, `controversial`, `qa`) */
+  comment_sort?: "confidence" | "top" | "new" | "old" | "controversial" | "qa"
+  /** Comment Limit */
+  limit?: number
 }
 
-/** Reddit — Edit Comment */
-export interface RedditEditRedditCommentInput {
-  /** ID of the Reddit comment to edit (e.g., "def456" or "t1_def456"). */
-  comment_id: string
-  /** Updated text content for the comment. */
-  content: string
+/** Reddit — Create Text Post */
+export interface RedditCreateTextPostInput {
+  /** Subreddit */
+  subreddit: string
+  /** Title */
+  title: string
+  /** Text */
+  text: string
+  /** NSFW */
+  nsfw?: boolean
+  /** Spoiler */
+  spoiler?: boolean
+  /** Send Replies */
+  sendreplies?: boolean
 }
 
-/** Reddit — Delete Post */
-export interface RedditDeleteRedditPostInput {
-  /** ID of the Reddit post to delete (e.g., "abc123" or "t3_abc123"). */
-  post_id: string
+/** Reddit — Create Link Post */
+export interface RedditCreateLinkPostInput {
+  /** Subreddit */
+  subreddit: string
+  /** Title */
+  title: string
+  /** URL */
+  url: string
+  /** NSFW */
+  nsfw?: boolean
+  /** Spoiler */
+  spoiler?: boolean
+  /** Send Replies */
+  sendreplies?: boolean
 }
 
-/** Reddit — Delete Comment */
-export interface RedditDeleteRedditCommentInput {
-  /** ID of the Reddit comment to delete (e.g., "def456" or "t1_def456"). */
-  comment_id: string
+/** Reddit — Create Comment */
+export interface RedditCreateCommentInput {
+  /** Post/comment fullname such as t3_abc123 or t1_def456. */
+  thing_id: string
+  /** Text */
+  text: string
 }
 
-/** Reddit — Custom API Call */
-export interface RedditCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+/** Reddit — Edit Post Or Comment */
+export interface RedditEditThingInput {
+  /** Post/comment fullname such as t3_abc123 or t1_def456. */
+  thing_id: string
+  /** Text */
+  text: string
+}
+
+/** Reddit — Delete Post Or Comment */
+export interface RedditDeleteThingInput {
+  /** Post/comment fullname such as t3_abc123 or t1_def456. */
+  thing_id: string
+}
+
+/** Reddit — Report Post Or Comment */
+export interface RedditReportThingInput {
+  /** Thing ID */
+  thing_id: string
+  /** Reason */
+  reason: string
 }
 
 /** Redis Cloud — List Pro Subscriptions */
@@ -41072,6 +43719,118 @@ export interface RssSearchEntriesInput {
   limit?: number
 }
 
+/** RudderStack — Track Event */
+export interface RudderstackTrackInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Event */
+  event: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** RudderStack — Identify User */
+export interface RudderstackIdentifyInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Traits */
+  traits?: unknown
+}
+
+/** RudderStack — Group User */
+export interface RudderstackGroupInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Group ID */
+  groupId: string
+  /** Group Traits */
+  traits?: unknown
+}
+
+/** RudderStack — Page View */
+export interface RudderstackPageInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Page Name */
+  name?: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** RudderStack — Screen View */
+export interface RudderstackScreenInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Screen Name */
+  name: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** RudderStack — Alias User */
+export interface RudderstackAliasInput {
+  /** Previous ID */
+  previousId: string
+  /** User ID */
+  userId: string
+  /** Timestamp */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+}
+
+/** RudderStack — Batch Events */
+export interface RudderstackBatchInput {
+  /** Array of RudderStack event payloads. Each item must include a type. */
+  batch: unknown
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+}
+
 /** Runway — Generate Video */
 export interface RunwayGenerateVideoInput {
   /** Model (values: `gen3a_turbo`, `gen3a`) */
@@ -41647,6 +44406,38 @@ export interface ScraperapiCustomApiCallInput {
   body?: unknown
 }
 
+/** ScrapingBee — Scrape URL */
+export interface ScrapingbeeScrapeUrlInput {
+  /** Absolute http or https URL to scrape. */
+  url: string
+  /** Render JavaScript */
+  renderJs?: boolean
+  /** Use only when the target needs premium proxy handling. */
+  premiumProxy?: boolean
+  /** Optional two-letter country code for geotargeting. */
+  countryCode?: string
+  /** Optional wait before returning the page, capped at 10000 ms. */
+  waitMs?: number
+  /** Block images and CSS where possible to reduce cost and latency. */
+  blockResources?: boolean
+  /** Return HTML page source instead of rendered DOM when supported. */
+  returnPageSource?: boolean
+}
+
+/** ScrapingBee — Google Search */
+export interface ScrapingbeeGoogleSearchInput {
+  /** Search query to run. */
+  query: string
+  /** Optional two-letter country code. */
+  countryCode?: string
+  /** Optional Google interface language code. */
+  language?: string
+  /** Maximum organic results requested, capped at 100. */
+  resultLimit?: number
+  /** Include the full Google HTML response when supported. */
+  includeHtml?: boolean
+}
+
 /** ScreenshotOne — Take Screenshot */
 export interface ScreenshotOneTakeScreenshotInput {
   /** The webpage URL to screenshot */
@@ -41684,9 +44475,198 @@ export interface ScreenshotOneCustomApiCallInput {
 /** Segment — Identify User */
 export interface SegmentIdentifyUserInput {
   /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Traits */
+  traits?: unknown
+}
+
+/** Segment — Track Event */
+export interface SegmentTrackEventInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Event */
+  event: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** Segment — Group User */
+export interface SegmentGroupUserInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Group ID */
+  groupId: string
+  /** Group Traits */
+  traits?: unknown
+}
+
+/** Segment — Page View */
+export interface SegmentPageViewInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Page Name */
+  name?: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** Segment — Screen View */
+export interface SegmentScreenViewInput {
+  /** User ID */
+  userId?: string
+  /** Anonymous ID */
+  anonymousId?: string
+  /** Optional ISO-8601 timestamp. */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+  /** Screen Name */
+  name: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** Segment — Alias User */
+export interface SegmentAliasUserInput {
+  /** Previous ID */
+  previousId: string
+  /** User ID */
   userId: string
-  /** The traits to associate with the user */
-  traits: Record<string, unknown>
+  /** Timestamp */
+  timestamp?: string
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+}
+
+/** Segment — Batch Events */
+export interface SegmentBatchEventsInput {
+  /** Array of Segment event payloads. Each item must include a type. */
+  batch: unknown
+  /** Context */
+  context?: unknown
+  /** Integrations */
+  integrations?: unknown
+}
+
+/** Semgrep — List Deployments */
+export type SemgrepListDeploymentsInput = Record<string, never>
+
+/** Semgrep — List Projects */
+export interface SemgrepListProjectsInput {
+  /** Deployment Slug */
+  deploymentSlug: string
+  /** Pages are numbered from 0. */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Semgrep — Get Project */
+export interface SemgrepGetProjectInput {
+  /** Deployment Slug */
+  deploymentSlug: string
+  /** Repository-style project name, for example org/repo. */
+  projectName: string
+}
+
+/** Semgrep — List Findings */
+export interface SemgrepListFindingsInput {
+  /** Deployment Slug */
+  deploymentSlug: string
+  /** Issue Type (values: `sast`, `sca`) */
+  issueType?: "sast" | "sca"
+  /** Filter by relevant_since using epoch seconds. */
+  sinceEpoch?: number
+  /** Page */
+  page?: number
+  /** Semgrep supports 100 to 3000. */
+  pageSize?: number
+  /** Status (values: `open`, `fixed`, `ignored`, `reviewing`, `fixing`) */
+  status?: "open" | "fixed" | "ignored" | "reviewing" | "fixing"
+  /** Comma-separated: low, medium, high, critical. */
+  severities?: string
+  /** Comma-separated repository names. */
+  repos?: string
+  /** Ref */
+  ref?: string
+  /** Deduplicate Across Refs */
+  dedup?: boolean
+}
+
+/** Semgrep — List Secret Findings */
+export interface SemgrepListSecretFindingsInput {
+  /** Numeric deployment ID. */
+  deploymentId: string
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** ISO date-time filter. */
+  since?: string
+  /** Status (values: `FINDING_STATUS_UNSPECIFIED`, `FINDING_STATUS_OPEN`, `FINDING_STATUS_IGNORED`, `FINDING_STATUS_FIXED`, `FINDING_STATUS_REMOVED`) */
+  status?: "FINDING_STATUS_UNSPECIFIED" | "FINDING_STATUS_OPEN" | "FINDING_STATUS_IGNORED" | "FINDING_STATUS_FIXED" | "FINDING_STATUS_REMOVED"
+  /** Severity (values: `SEVERITY_CRITICAL`, `SEVERITY_HIGH`, `SEVERITY_MEDIUM`, `SEVERITY_LOW`) */
+  severity?: "SEVERITY_CRITICAL" | "SEVERITY_HIGH" | "SEVERITY_MEDIUM" | "SEVERITY_LOW"
+  /** Comma-separated repository names. */
+  repos?: string
+}
+
+/** Semgrep — Bulk Triage Findings */
+export interface SemgrepBulkTriageFindingsInput {
+  /** Deployment Slug */
+  deploymentSlug: string
+  /** Issue Type (values: `sast`, `sca`, `secrets`) */
+  issueType: "sast" | "sca" | "secrets"
+  /** New Triage State (values: `ignored`, `reviewing`, `fixing`, `reopened`) */
+  newTriageState?: "ignored" | "reviewing" | "fixing" | "reopened"
+  /** New Triage Reason (values: `acceptable_risk`, `false_positive`, `no_time`, `no_triage_reason`) */
+  newTriageReason?: "acceptable_risk" | "false_positive" | "no_time" | "no_triage_reason"
+  /** New Note */
+  newNote?: string
+  /** JSON array of numeric finding IDs. Preferred for precise triage. */
+  issueIds?: unknown
+  /** Optional Semgrep triage filters when issue IDs are not used. */
+  filters?: unknown
+  /** Limit */
+  limit?: number
+  /** Type TRIAGE_FINDINGS to update matching findings. */
+  confirmation: string
 }
 
 /** SEMrush — Get Domain Overview */
@@ -42216,6 +45196,31 @@ export interface SequentialThinkingSummarizeChainInput {
   chainId: string
 }
 
+/** SerpApi — Google Search */
+export interface SerpapiGoogleSearchInput {
+  /** Query */
+  query: string
+  /** Optional SerpApi location such as Austin, Texas, United States. */
+  location?: string
+  /** Optional domain such as google.com. */
+  googleDomain?: string
+  /** Optional Google country code, for example us. */
+  country?: string
+  /** Optional Google language code, for example en. */
+  language?: string
+  /** Number of results requested, capped at 100. */
+  resultLimit?: number
+  /** Zero-based result offset. */
+  start?: number
+  /** Safe Search (values: `active`, `off`) */
+  safe?: "active" | "off"
+  /** Use only when fresh paid results are required. */
+  noCache?: boolean
+}
+
+/** SerpApi — Account Status */
+export type SerpapiAccountStatusInput = Record<string, never>
+
 /** ServiceNow — List Records */
 export interface ServiceNowListRecordsInput {
   /** The ServiceNow table name (e.g., incident, sys_user, change_request) */
@@ -42693,6 +45698,115 @@ export interface ShortIoCustomApiCallInput {
   /** Body */
   body?: unknown
 }
+
+/** Shortcut — List Stories */
+export interface ShortcutListStoriesInput {
+  /** Include Description */
+  includesDescription?: boolean
+}
+
+/** Shortcut — Search Stories */
+export interface ShortcutSearchStoriesInput {
+  /** Example: state:started owner:me text. */
+  query: string
+  /** Page Size */
+  pageSize?: number
+  /** Next Cursor */
+  next?: string
+}
+
+/** Shortcut — Get Story */
+export interface ShortcutGetStoryInput {
+  /** Story ID */
+  storyId: number
+}
+
+/** Shortcut — Create Story */
+export interface ShortcutCreateStoryInput {
+  /** Name */
+  name: string
+  /** Project ID */
+  projectId: number
+  /** Story Type (values: `feature`, `bug`, `chore`) */
+  storyType?: "feature" | "bug" | "chore"
+  /** Description */
+  description?: string
+  /** Workflow State ID */
+  workflowStateId?: number
+  /** Epic ID */
+  epicId?: number
+  /** Estimate */
+  estimate?: number
+  /** JSON array of member UUIDs. */
+  ownerIds?: unknown
+  /** JSON array of numeric label IDs. */
+  labelIds?: unknown
+  /** Additional Story Fields */
+  additionalFields?: unknown
+}
+
+/** Shortcut — Update Story */
+export interface ShortcutUpdateStoryInput {
+  /** Story ID */
+  storyId: number
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Workflow State ID */
+  workflowStateId?: number
+  /** Epic ID */
+  epicId?: number
+  /** Estimate */
+  estimate?: number
+  /** Archived */
+  archived?: boolean
+  /** Additional Story Fields */
+  additionalFields?: unknown
+}
+
+/** Shortcut — Delete Story */
+export interface ShortcutDeleteStoryInput {
+  /** Story ID */
+  storyId: number
+}
+
+/** Shortcut — Add Story Comment */
+export interface ShortcutAddStoryCommentInput {
+  /** Story ID */
+  storyId: number
+  /** Comment Text */
+  text: string
+}
+
+/** Shortcut — List Epics */
+export type ShortcutListEpicsInput = Record<string, never>
+
+/** Shortcut — Create Epic */
+export interface ShortcutCreateEpicInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** State (values: `to do`, `in progress`, `done`) */
+  state?: "to do" | "in progress" | "done"
+  /** YYYY-MM-DD. */
+  plannedStartDate?: string
+  /** YYYY-MM-DD. */
+  deadline?: string
+}
+
+/** Shortcut — List Projects */
+export type ShortcutListProjectsInput = Record<string, never>
+
+/** Shortcut — List Workflows */
+export type ShortcutListWorkflowsInput = Record<string, never>
+
+/** Shortcut — List Iterations */
+export type ShortcutListIterationsInput = Record<string, never>
+
+/** Shortcut — List Webhooks */
+export type ShortcutListWebhooksInput = Record<string, never>
 
 /** Sierra Interactive — List Leads */
 export interface SierraInteractiveListLeadsInput {
@@ -46864,6 +49978,115 @@ export interface TavilyExtractInput {
   include_images?: boolean
 }
 
+/** TaxJar — Calculate Tax */
+export interface TaxjarCalculateTaxInput {
+  /** From Country */
+  fromCountry?: string
+  /** From ZIP/Postal Code */
+  fromZip?: string
+  /** From State/Region */
+  fromState?: string
+  /** From City */
+  fromCity?: string
+  /** From Street */
+  fromStreet?: string
+  /** To Country */
+  toCountry: string
+  /** To ZIP/Postal Code */
+  toZip: string
+  /** To State/Region */
+  toState?: string
+  /** To City */
+  toCity?: string
+  /** To Street */
+  toStreet?: string
+  /** Order subtotal excluding shipping. */
+  amount: number
+  /** Shipping Amount */
+  shipping?: number
+  /** ISO currency code where applicable. */
+  currency?: string
+  /** Customer ID */
+  customerId?: string
+  /** Exemption Type */
+  exemptionType?: string
+  /** Optional TaxJar nexus_addresses array. */
+  nexusAddresses?: unknown
+  /** Optional TaxJar line_items array with quantity, unit_price, discount, product_tax_code, and identifiers. */
+  lineItems?: unknown
+}
+
+/** TaxJar — Get Rates For Location */
+export interface TaxjarGetRatesForLocationInput {
+  /** Two-letter country code, for example US. */
+  country: string
+  /** ZIP/Postal Code */
+  zip: string
+  /** State/Region */
+  state?: string
+  /** City */
+  city?: string
+  /** Street */
+  street?: string
+}
+
+/** TaxJar — Validate Address */
+export interface TaxjarValidateAddressInput {
+  /** Two-letter country code, for example US. */
+  country: string
+  /** ZIP/Postal Code */
+  zip: string
+  /** State/Region */
+  state?: string
+  /** City */
+  city?: string
+  /** Street */
+  street?: string
+}
+
+/** TaxJar — List Tax Categories */
+export type TaxjarListCategoriesInput = Record<string, never>
+
+/** TaxJar — Create Order Transaction */
+export interface TaxjarCreateOrderTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** YYYY/MM/DD or ISO date. */
+  transactionDate: string
+  /** To Country */
+  toCountry: string
+  /** To ZIP/Postal Code */
+  toZip: string
+  /** To State/Region */
+  toState?: string
+  /** To City */
+  toCity?: string
+  /** To Street */
+  toStreet?: string
+  /** Order Amount */
+  amount: number
+  /** Shipping Amount */
+  shipping?: number
+  /** Sales Tax Amount */
+  salesTax: number
+  /** TaxJar transaction line_items array. */
+  lineItems?: unknown
+}
+
+/** TaxJar — Get Order Transaction */
+export interface TaxjarGetOrderTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** TaxJar — Delete Order Transaction */
+export interface TaxjarDeleteOrderTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Confirm Delete */
+  confirm: boolean
+}
+
 /** Teachable — List Courses */
 export interface TeachableListCoursesInput {
   /** Page */
@@ -47721,6 +50944,107 @@ export interface TiktokAdsGetAdReportInput {
   dimensions?: unknown[]
   /** Page Size */
   pageSize?: number
+}
+
+/** Timescale — Get Auth Info */
+export type TimescaleGetAuthInfoInput = Record<string, never>
+
+/** Timescale — List Services */
+export interface TimescaleListServicesInput {
+  /** Overrides the connection default project ID. */
+  projectId?: string
+}
+
+/** Timescale — Get Service */
+export interface TimescaleGetServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service ID */
+  serviceId: string
+}
+
+/** Timescale — Create Service */
+export interface TimescaleCreateServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service Name */
+  name: string
+  /** Region Code */
+  regionCode: string
+  /** CPU Millis */
+  cpuMillis: number
+  /** Memory GBs */
+  memoryGbs: number
+  /** Replica Count */
+  replicaCount?: number
+  /** Optional JSON array of service addons. */
+  addons?: unknown
+  /** Optional additional create-service fields as a JSON object. */
+  extraBody?: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Timescale — Resize Service */
+export interface TimescaleResizeServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service ID */
+  serviceId: string
+  /** CPU Millis */
+  cpuMillis: number
+  /** Memory GBs */
+  memoryGbs: number
+  /** Confirm Service ID */
+  confirmServiceId: string
+  /** Confirm Resize */
+  confirmResize: boolean
+}
+
+/** Timescale — Start Service */
+export interface TimescaleStartServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service ID */
+  serviceId: string
+}
+
+/** Timescale — Stop Service */
+export interface TimescaleStopServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service ID */
+  serviceId: string
+  /** Confirm Service ID */
+  confirmServiceId: string
+  /** Confirm Stop */
+  confirmStop: boolean
+}
+
+/** Timescale — Delete Service */
+export interface TimescaleDeleteServiceInput {
+  /** Project ID */
+  projectId?: string
+  /** Service ID */
+  serviceId: string
+  /** Confirm Service ID */
+  confirmServiceId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Timescale — Custom API Call */
+export interface TimescaleCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Path under /public/api/v1, for example /projects/{project_id}/services. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm Mutation */
+  confirmMutation?: boolean
 }
 
 /** TimeSolv — List Time Entries */
@@ -53424,6 +56748,30 @@ export interface ZuoraFindProductInput {
   sku: string
 }
 
+/** Zyte — Fetch Page */
+export interface ZyteFetchPageInput {
+  /** Absolute http or https URL with a domain hostname. */
+  url: string
+  /** Fetch Mode (values: `http`, `browser`) */
+  mode: "http" | "browser"
+  /** Include Response Headers */
+  includeResponseHeaders?: boolean
+  /** Only valid with Browser HTML mode. */
+  screenshot?: boolean
+  /** Leave automatic unless a site requires a specific type. (values: ``, `datacenter`, `residential`) */
+  ipType?: "" | "datacenter" | "residential"
+}
+
+/** Zyte — Extract Structured Data */
+export interface ZyteExtractStructuredDataInput {
+  /** URL */
+  url: string
+  /** Extraction Type (values: `article`, `articleList`, `product`, `productList`, `jobPosting`, `serp`) */
+  extractionType: "article" | "articleList" | "product" | "productList" | "jobPosting" | "serp"
+  /** SERP extraction ignores this setting because Zyte SERP cannot be combined with body/browser fields. (values: `httpResponseBody`, `browserHtml`, `browserHtmlOnly`) */
+  extractFrom?: "httpResponseBody" | "browserHtml" | "browserHtmlOnly"
+}
+
 // ============================================================================
 // Action Input Type Map — maps integrationName.actionName to input types
 // ============================================================================
@@ -53650,6 +56998,14 @@ export interface IntegrationActionInputMap {
   'agent-scratchpad.search_pages': AgentScratchpadSearchPagesInput
   'agent-scratchpad.delete_page': AgentScratchpadDeletePageInput
   'agent-scratchpad.clear_all': AgentScratchpadClearAllInput
+  'aha.list_products': AhaListProductsInput
+  'aha.list_features': AhaListFeaturesInput
+  'aha.get_feature': AhaGetFeatureInput
+  'aha.create_feature': AhaCreateFeatureInput
+  'aha.update_feature': AhaUpdateFeatureInput
+  'aha.list_ideas': AhaListIdeasInput
+  'aha.promote_idea': AhaPromoteIdeaInput
+  'aha.add_comment': AhaAddCommentInput
   'ahrefs.get_backlinks': AhrefsGetBacklinksInput
   'ahrefs.get_organic_keywords': AhrefsGetOrganicKeywordsInput
   'ahrefs.get_domain_rating': AhrefsGetDomainRatingInput
@@ -53725,6 +57081,17 @@ export interface IntegrationActionInputMap {
   'airwallex.get_card_transaction': AirwallexGetCardTransactionInput
   'airwallex.custom_api_call': AirwallexCustomApiCallInput
   'airwallex.custom_write_api_call': AirwallexCustomWriteApiCallInput
+  'aiven.list_projects': AivenListProjectsInput
+  'aiven.list_clouds': AivenListCloudsInput
+  'aiven.list_services': AivenListServicesInput
+  'aiven.get_service': AivenGetServiceInput
+  'aiven.create_service': AivenCreateServiceInput
+  'aiven.update_service': AivenUpdateServiceInput
+  'aiven.terminate_service': AivenTerminateServiceInput
+  'aiven.list_project_events': AivenListProjectEventsInput
+  'aiven.list_service_logs': AivenListServiceLogsInput
+  'aiven.fetch_service_metrics': AivenFetchServiceMetricsInput
+  'aiven.custom_api_call': AivenCustomApiCallInput
   'algolia.list_indexes': AlgoliaListIndexesInput
   'algolia.search_index': AlgoliaSearchIndexInput
   'algolia.browse_records': AlgoliaBrowseRecordsInput
@@ -53895,6 +57262,41 @@ export interface IntegrationActionInputMap {
   'autotask.list_companies': AutotaskListCompaniesInput
   'autotask.list_contacts': AutotaskListContactsInput
   'autotask.custom_api_call': AutotaskCustomApiCallInput
+  'avalara.test_connection': AvalaraTestConnectionInput
+  'avalara.list_companies': AvalaraListCompaniesInput
+  'avalara.calculate_transaction_tax': AvalaraCalculateTransactionTaxInput
+  'avalara.get_transaction': AvalaraGetTransactionInput
+  'avalara.void_transaction': AvalaraVoidTransactionInput
+  'avalara.resolve_address': AvalaraResolveAddressInput
+  'aws-cloudwatch.list_metrics': AwsCloudwatchListMetricsInput
+  'aws-cloudwatch.get_metric_statistics': AwsCloudwatchGetMetricStatisticsInput
+  'aws-cloudwatch.describe_alarms': AwsCloudwatchDescribeAlarmsInput
+  'aws-cloudwatch.put_metric_data': AwsCloudwatchPutMetricDataInput
+  'aws-cloudwatch.describe_log_groups': AwsCloudwatchDescribeLogGroupsInput
+  'aws-cloudwatch.filter_log_events': AwsCloudwatchFilterLogEventsInput
+  'aws-dynamodb.list_tables': AwsDynamodbListTablesInput
+  'aws-dynamodb.describe_table': AwsDynamodbDescribeTableInput
+  'aws-dynamodb.get_item': AwsDynamodbGetItemInput
+  'aws-dynamodb.put_item': AwsDynamodbPutItemInput
+  'aws-dynamodb.update_item': AwsDynamodbUpdateItemInput
+  'aws-dynamodb.delete_item': AwsDynamodbDeleteItemInput
+  'aws-dynamodb.query': AwsDynamodbQueryInput
+  'aws-dynamodb.scan': AwsDynamodbScanInput
+  'aws-eventbridge.list_event_buses': AwsEventbridgeListEventBusesInput
+  'aws-eventbridge.list_rules': AwsEventbridgeListRulesInput
+  'aws-eventbridge.describe_rule': AwsEventbridgeDescribeRuleInput
+  'aws-eventbridge.put_rule': AwsEventbridgePutRuleInput
+  'aws-eventbridge.list_targets_by_rule': AwsEventbridgeListTargetsByRuleInput
+  'aws-eventbridge.put_targets': AwsEventbridgePutTargetsInput
+  'aws-eventbridge.put_events': AwsEventbridgePutEventsInput
+  'aws-eventbridge.remove_targets': AwsEventbridgeRemoveTargetsInput
+  'aws-eventbridge.delete_rule': AwsEventbridgeDeleteRuleInput
+  'aws-lambda.list_functions': AwsLambdaListFunctionsInput
+  'aws-lambda.get_function': AwsLambdaGetFunctionInput
+  'aws-lambda.get_function_configuration': AwsLambdaGetFunctionConfigurationInput
+  'aws-lambda.invoke_function': AwsLambdaInvokeFunctionInput
+  'aws-lambda.list_versions': AwsLambdaListVersionsInput
+  'aws-lambda.list_aliases': AwsLambdaListAliasesInput
   'aws-s3.list_objects': AwsS3ListObjectsInput
   'aws-s3.get_object': AwsS3GetObjectInput
   'aws-s3.put_object': AwsS3PutObjectInput
@@ -53913,6 +57315,14 @@ export interface IntegrationActionInputMap {
   'aws-ses.list_identities': AwsSesListIdentitiesInput
   'aws-ses.get_email_identity': AwsSesGetEmailIdentityInput
   'aws-ses.get_account': AwsSesGetAccountInput
+  'aws-sns.list_topics': AwsSnsListTopicsInput
+  'aws-sns.get_topic_attributes': AwsSnsGetTopicAttributesInput
+  'aws-sns.create_topic': AwsSnsCreateTopicInput
+  'aws-sns.publish_message': AwsSnsPublishMessageInput
+  'aws-sns.list_subscriptions': AwsSnsListSubscriptionsInput
+  'aws-sns.subscribe': AwsSnsSubscribeInput
+  'aws-sns.unsubscribe': AwsSnsUnsubscribeInput
+  'aws-sns.delete_topic': AwsSnsDeleteTopicInput
   'aws-sts.get_caller_identity': AwsStsGetCallerIdentityInput
   'aws-sts.get_access_key_info': AwsStsGetAccessKeyInfoInput
   'aws-sts.assume_role': AwsStsAssumeRoleInput
@@ -53999,11 +57409,13 @@ export interface IntegrationActionInputMap {
   'bloomerang.create_donation': BloomerangCreateDonationInput
   'bloomerang.get_campaigns': BloomerangGetCampaignsInput
   'bloomerang.custom_api_call': BloomerangCustomApiCallInput
-  'bluesky.createPost': BlueskyCreatePostInput
-  'bluesky.likePost': BlueskyLikePostInput
-  'bluesky.repostPost': BlueskyRepostPostInput
-  'bluesky.findPost': BlueskyFindPostInput
-  'bluesky.findThread': BlueskyFindThreadInput
+  'bluesky.create_post': BlueskyCreatePostInput
+  'bluesky.delete_record': BlueskyDeleteRecordInput
+  'bluesky.search_posts': BlueskySearchPostsInput
+  'bluesky.get_post_thread': BlueskyGetPostThreadInput
+  'bluesky.list_author_feed': BlueskyListAuthorFeedInput
+  'bluesky.get_profile': BlueskyGetProfileInput
+  'bluesky.like_post': BlueskyLikePostInput
   'box.list_folder_items': BoxListFolderItemsInput
   'box.get_folder_info': BoxGetFolderInfoInput
   'box.get_file_info': BoxGetFileInfoInput
@@ -54139,6 +57551,16 @@ export interface IntegrationActionInputMap {
   'campaign-monitor.update_subscriber_details': CampaignMonitorUpdateSubscriberDetailsInput
   'campaign-monitor.unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
   'campaign-monitor.find_subscriber': CampaignMonitorFindSubscriberInput
+  'canny.list_boards': CannyListBoardsInput
+  'canny.list_posts': CannyListPostsInput
+  'canny.retrieve_post': CannyRetrievePostInput
+  'canny.create_post': CannyCreatePostInput
+  'canny.update_post': CannyUpdatePostInput
+  'canny.delete_post': CannyDeletePostInput
+  'canny.list_comments': CannyListCommentsInput
+  'canny.create_comment': CannyCreateCommentInput
+  'canny.create_vote': CannyCreateVoteInput
+  'canny.list_tags': CannyListTagsInput
   'canto.search_assets': CantoSearchAssetsInput
   'canto.get_folders': CantoGetFoldersInput
   'canto.upload_asset': CantoUploadAssetInput
@@ -54191,6 +57613,25 @@ export interface IntegrationActionInputMap {
   'capsule-crm.find_contact': CapsuleCrmFindContactInput
   'capsule-crm.find_project': CapsuleCrmFindProjectInput
   'capsule-crm.find_opportunity': CapsuleCrmFindOpportunityInput
+  'cartesia.synthesize_speech': CartesiaSynthesizeSpeechInput
+  'cartesia.transcribe_audio': CartesiaTranscribeAudioInput
+  'cartesia.list_voices': CartesiaListVoicesInput
+  'cartesia.get_voice': CartesiaGetVoiceInput
+  'cartesia.delete_voice': CartesiaDeleteVoiceInput
+  'cartesia.create_access_token': CartesiaCreateAccessTokenInput
+  'census.list_sources': CensusListSourcesInput
+  'census.get_source': CensusGetSourceInput
+  'census.list_destinations': CensusListDestinationsInput
+  'census.get_destination': CensusGetDestinationInput
+  'census.list_destination_types': CensusListDestinationTypesInput
+  'census.list_syncs': CensusListSyncsInput
+  'census.get_sync': CensusGetSyncInput
+  'census.trigger_sync': CensusTriggerSyncInput
+  'census.list_sync_runs': CensusListSyncRunsInput
+  'census.get_sync_run': CensusGetSyncRunInput
+  'census.cancel_sync_run': CensusCancelSyncRunInput
+  'census.get_sync_run_records_count': CensusGetSyncRunRecordsCountInput
+  'census.custom_api_call': CensusCustomApiCallInput
   'chargebee.list_subscriptions': ChargebeeListSubscriptionsInput
   'chargebee.get_subscription': ChargebeeGetSubscriptionInput
   'chargebee.list_customers': ChargebeeListCustomersInput
@@ -54400,6 +57841,17 @@ export interface IntegrationActionInputMap {
   'confluence.update_page': ConfluenceUpdatePageInput
   'confluence.search': ConfluenceSearchInput
   'confluence.custom_api_call': ConfluenceCustomApiCallInput
+  'confluent-cloud.list_environments': ConfluentCloudListEnvironmentsInput
+  'confluent-cloud.get_environment': ConfluentCloudGetEnvironmentInput
+  'confluent-cloud.list_kafka_clusters': ConfluentCloudListKafkaClustersInput
+  'confluent-cloud.get_kafka_cluster': ConfluentCloudGetKafkaClusterInput
+  'confluent-cloud.list_service_accounts': ConfluentCloudListServiceAccountsInput
+  'confluent-cloud.get_service_account': ConfluentCloudGetServiceAccountInput
+  'confluent-cloud.list_api_keys': ConfluentCloudListApiKeysInput
+  'confluent-cloud.get_api_key': ConfluentCloudGetApiKeyInput
+  'confluent-cloud.list_metric_descriptors': ConfluentCloudListMetricDescriptorsInput
+  'confluent-cloud.query_metrics': ConfluentCloudQueryMetricsInput
+  'confluent-cloud.custom_api_call': ConfluentCloudCustomApiCallInput
   'connectwise.create_ticket': ConnectwiseCreateTicketInput
   'connectwise.list_tickets': ConnectwiseListTicketsInput
   'connectwise.update_ticket': ConnectwiseUpdateTicketInput
@@ -54482,6 +57934,16 @@ export interface IntegrationActionInputMap {
   'crisp.find_conversation': CrispFindConversationInput
   'crisp.find_user_profile': CrispFindUserProfileInput
   'crisp.custom_api_call': CrispCustomApiCallInput
+  'crowdin.list_projects': CrowdinListProjectsInput
+  'crowdin.get_project': CrowdinGetProjectInput
+  'crowdin.list_files': CrowdinListFilesInput
+  'crowdin.list_strings': CrowdinListStringsInput
+  'crowdin.get_string': CrowdinGetStringInput
+  'crowdin.create_string': CrowdinCreateStringInput
+  'crowdin.update_string': CrowdinUpdateStringInput
+  'crowdin.upload_file': CrowdinUploadFileInput
+  'crowdin.create_translation_build': CrowdinCreateTranslationBuildInput
+  'crowdin.get_translation_build': CrowdinGetTranslationBuildInput
   'culture-amp.validate_connection': CultureAmpValidateConnectionInput
   'culture-amp.list_employees': CultureAmpListEmployeesInput
   'culture-amp.get_employee': CultureAmpGetEmployeeInput
@@ -54540,6 +58002,9 @@ export interface IntegrationActionInputMap {
   'datadog.post_event': DatadogPostEventInput
   'datadog.search_logs': DatadogSearchLogsInput
   'datadog.send_log': DatadogSendLogInput
+  'dataforseo.google_organic_live_advanced': DataforseoGoogleOrganicLiveAdvancedInput
+  'dataforseo.google_maps_live_advanced': DataforseoGoogleMapsLiveAdvancedInput
+  'dataforseo.list_google_locations': DataforseoListGoogleLocationsInput
   'datetime.parse_date': DatetimeParseDateInput
   'datetime.format_date': DatetimeFormatDateInput
   'datetime.date_math': DatetimeDateMathInput
@@ -54636,12 +58101,15 @@ export interface IntegrationActionInputMap {
   'discord.create_role': DiscordCreateRoleInput
   'discord.delete_role': DiscordDeleteRoleInput
   'discord.custom_api_call': DiscordCustomApiCallInput
-  'discourse.create_post': DiscourseCreatePostInput
+  'discourse.list_latest_topics': DiscourseListLatestTopicsInput
+  'discourse.search_topics': DiscourseSearchTopicsInput
+  'discourse.get_topic': DiscourseGetTopicInput
+  'discourse.list_categories': DiscourseListCategoriesInput
   'discourse.create_topic': DiscourseCreateTopicInput
-  'discourse.change_user_trust_level': DiscourseChangeUserTrustLevelInput
-  'discourse.add_users_to_group': DiscourseAddUsersToGroupInput
-  'discourse.send_private_message': DiscourseSendPrivateMessageInput
-  'discourse.custom_api_call': DiscourseCustomApiCallInput
+  'discourse.create_reply': DiscourseCreateReplyInput
+  'discourse.update_post': DiscourseUpdatePostInput
+  'discourse.delete_post': DiscourseDeletePostInput
+  'discourse.update_topic_status': DiscourseUpdateTopicStatusInput
   'docebo.get_user': DoceboGetUserInput
   'docebo.create_user': DoceboCreateUserInput
   'docebo.enroll_course': DoceboEnrollCourseInput
@@ -54699,6 +58167,15 @@ export interface IntegrationActionInputMap {
   'doodle.list_polls': DoodleListPollsInput
   'doodle.get_poll': DoodleGetPollInput
   'doodle.custom_api_call': DoodleCustomApiCallInput
+  'doppler.list_projects': DopplerListProjectsInput
+  'doppler.get_project': DopplerGetProjectInput
+  'doppler.list_configs': DopplerListConfigsInput
+  'doppler.list_secret_names': DopplerListSecretNamesInput
+  'doppler.get_secret': DopplerGetSecretInput
+  'doppler.get_secrets': DopplerGetSecretsInput
+  'doppler.update_secrets': DopplerUpdateSecretsInput
+  'doppler.delete_secret': DopplerDeleteSecretInput
+  'doppler.list_webhooks': DopplerListWebhooksInput
   'dotloop.create_loop': DotloopCreateLoopInput
   'dotloop.get_loop': DotloopGetLoopInput
   'dotloop.add_participant': DotloopAddParticipantInput
@@ -54859,6 +58336,11 @@ export interface IntegrationActionInputMap {
   'facebook-pages.create_post': FacebookPagesCreatePostInput
   'facebook-pages.create_photo_post': FacebookPagesCreatePhotoPostInput
   'facebook-pages.create_video_post': FacebookPagesCreateVideoPostInput
+  'fal-ai.submit_request': FalAiSubmitRequestInput
+  'fal-ai.get_status': FalAiGetStatusInput
+  'fal-ai.get_result': FalAiGetResultInput
+  'fal-ai.cancel_request': FalAiCancelRequestInput
+  'fal-ai.list_models': FalAiListModelsInput
   'fathom.validate_connection': FathomValidateConnectionInput
   'fathom.list_meetings': FathomListMeetingsInput
   'fathom.find_meetings': FathomFindMeetingsInput
@@ -54946,6 +58428,11 @@ export interface IntegrationActionInputMap {
   'fireflies.search_transcripts': FirefliesSearchTranscriptsInput
   'fireflies.get_transcript': FirefliesGetTranscriptInput
   'fireflies.get_active_meetings': FirefliesGetActiveMeetingsInput
+  'fireworks-ai.chat_completion': FireworksAiChatCompletionInput
+  'fireworks-ai.create_embedding': FireworksAiCreateEmbeddingInput
+  'fireworks-ai.rerank_documents': FireworksAiRerankDocumentsInput
+  'fireworks-ai.generate_image': FireworksAiGenerateImageInput
+  'fireworks-ai.list_models': FireworksAiListModelsInput
   'fishbowl.get_product': FishbowlGetProductInput
   'fishbowl.create_product': FishbowlCreateProductInput
   'fishbowl.create_sales_order': FishbowlCreateSalesOrderInput
@@ -55444,11 +58931,29 @@ export interface IntegrationActionInputMap {
   'hibob.get_employee': HibobGetEmployeeInput
   'hibob.list_time_off': HibobListTimeOffInput
   'hibob.list_company_lists': HibobListCompanyListsInput
+  'hightouch.list_sources': HightouchListSourcesInput
+  'hightouch.get_source': HightouchGetSourceInput
+  'hightouch.list_models': HightouchListModelsInput
+  'hightouch.get_model': HightouchGetModelInput
+  'hightouch.list_destinations': HightouchListDestinationsInput
+  'hightouch.get_destination': HightouchGetDestinationInput
+  'hightouch.list_syncs': HightouchListSyncsInput
+  'hightouch.get_sync': HightouchGetSyncInput
+  'hightouch.trigger_sync': HightouchTriggerSyncInput
+  'hightouch.list_sync_runs': HightouchListSyncRunsInput
+  'hightouch.custom_api_call': HightouchCustomApiCallInput
   'hive.create_action': HiveCreateActionInput
   'hive.list_actions': HiveListActionsInput
   'hive.get_action': HiveGetActionInput
   'hive.list_projects': HiveListProjectsInput
   'hive.custom_api_call': HiveCustomApiCallInput
+  'honeycomb.list_datasets': HoneycombListDatasetsInput
+  'honeycomb.create_dataset': HoneycombCreateDatasetInput
+  'honeycomb.create_query': HoneycombCreateQueryInput
+  'honeycomb.create_query_result': HoneycombCreateQueryResultInput
+  'honeycomb.get_query_result': HoneycombGetQueryResultInput
+  'honeycomb.create_marker': HoneycombCreateMarkerInput
+  'honeycomb.list_triggers': HoneycombListTriggersInput
   'hostaway.list_reservations': HostawayListReservationsInput
   'hostaway.get_reservation': HostawayGetReservationInput
   'hostaway.list_listings': HostawayListListingsInput
@@ -55543,6 +59048,11 @@ export interface IntegrationActionInputMap {
   'hugging-face.create_image': HuggingFaceCreateImageInput
   'hugging-face.object_detection': HuggingFaceObjectDetectionInput
   'hugging-face.image_classification': HuggingFaceImageClassificationInput
+  'hume-ai.synthesize_speech': HumeAiSynthesizeSpeechInput
+  'hume-ai.list_voices': HumeAiListVoicesInput
+  'hume-ai.list_evi_configs': HumeAiListEviConfigsInput
+  'hume-ai.list_chats': HumeAiListChatsInput
+  'hume-ai.get_chat_audio': HumeAiGetChatAudioInput
   'hunter-io.find_email': HunterIoFindEmailInput
   'hunter-io.verify_email': HunterIoVerifyEmailInput
   'hunter-io.domain_search': HunterIoDomainSearchInput
@@ -55596,6 +59106,14 @@ export interface IntegrationActionInputMap {
   'incident-io.get_action': IncidentIoGetActionInput
   'incident-io.list_follow_ups': IncidentIoListFollowUpsInput
   'incident-io.get_follow_up': IncidentIoGetFollowUpInput
+  'influxdb.health': InfluxdbHealthInput
+  'influxdb.list_organizations': InfluxdbListOrganizationsInput
+  'influxdb.list_buckets': InfluxdbListBucketsInput
+  'influxdb.get_bucket': InfluxdbGetBucketInput
+  'influxdb.query_flux': InfluxdbQueryFluxInput
+  'influxdb.write_line_protocol': InfluxdbWriteLineProtocolInput
+  'influxdb.delete_data': InfluxdbDeleteDataInput
+  'influxdb.custom_api_call': InfluxdbCustomApiCallInput
   'infobip.send_sms': InfobipSendSmsInput
   'infobip.send_email': InfobipSendEmailInput
   'infobip.get_delivery_report': InfobipGetDeliveryReportInput
@@ -55957,6 +59475,15 @@ export interface IntegrationActionInputMap {
   'local-computer-control-agent.extract_from_screen': LocalComputerControlAgentExtractFromScreenInput
   'local-computer-control-agent.run_recipe': LocalComputerControlAgentRunRecipeInput
   'local-computer-control-agent.stop_task': LocalComputerControlAgentStopTaskInput
+  'lokalise.list_projects': LokaliseListProjectsInput
+  'lokalise.get_project': LokaliseGetProjectInput
+  'lokalise.list_languages': LokaliseListLanguagesInput
+  'lokalise.list_keys': LokaliseListKeysInput
+  'lokalise.get_key': LokaliseGetKeyInput
+  'lokalise.create_key': LokaliseCreateKeyInput
+  'lokalise.update_key': LokaliseUpdateKeyInput
+  'lokalise.upload_file': LokaliseUploadFileInput
+  'lokalise.download_file': LokaliseDownloadFileInput
   'loom.list_videos': LoomListVideosInput
   'loom.get_video': LoomGetVideoInput
   'loom.update_video': LoomUpdateVideoInput
@@ -56025,8 +59552,18 @@ export interface IntegrationActionInputMap {
   'mapbox.reverse_geocode': MapboxReverseGeocodeInput
   'mapbox.get_directions': MapboxGetDirectionsInput
   'mapbox.create_isochrone': MapboxCreateIsochroneInput
-  'mastodon.post_status': MastodonPostStatusInput
-  'mastodon.custom_api_call': MastodonCustomApiCallInput
+  'mastodon.create_status': MastodonCreateStatusInput
+  'mastodon.update_status': MastodonUpdateStatusInput
+  'mastodon.delete_status': MastodonDeleteStatusInput
+  'mastodon.get_status': MastodonGetStatusInput
+  'mastodon.search': MastodonSearchInput
+  'mastodon.list_home_timeline': MastodonListHomeTimelineInput
+  'mastodon.list_account_statuses': MastodonListAccountStatusesInput
+  'mastodon.get_account': MastodonGetAccountInput
+  'mastodon.favourite_status': MastodonFavouriteStatusInput
+  'mastodon.unfavourite_status': MastodonUnfavouriteStatusInput
+  'mastodon.boost_status': MastodonBoostStatusInput
+  'mastodon.unboost_status': MastodonUnboostStatusInput
   'mattermost.send_message': MattermostSendMessageInput
   'mattermost.custom_api_call': MattermostCustomApiCallInput
   'medium.create_post': MediumCreatePostInput
@@ -56553,8 +60090,10 @@ export interface IntegrationActionInputMap {
   'openai.custom_api_call': OpenaiCustomApiCallInput
   'opencage.forward_geocode': OpencageForwardGeocodeInput
   'opencage.reverse_geocode': OpencageReverseGeocodeInput
-  'open-router.ask-lmm': OpenRouterAskLmmInput
-  'open-router.custom_api_call': OpenRouterCustomApiCallInput
+  'open-router.chat_completion': OpenRouterChatCompletionInput
+  'open-router.list_models': OpenRouterListModelsInput
+  'open-router.list_model_endpoints': OpenRouterListModelEndpointsInput
+  'open-router.get_credits': OpenRouterGetCreditsInput
   'opentable.list_reservations': OpentableListReservationsInput
   'opentable.get_availability': OpentableGetAvailabilityInput
   'opentable.list_restaurants': OpentableListRestaurantsInput
@@ -56689,6 +60228,15 @@ export interface IntegrationActionInputMap {
   'phantombuster.list_agents': PhantombusterListAgentsInput
   'phantombuster.get_agent': PhantombusterGetAgentInput
   'phantombuster.custom_api_call': PhantombusterCustomApiCallInput
+  'phrase.list_projects': PhraseListProjectsInput
+  'phrase.get_project': PhraseGetProjectInput
+  'phrase.list_locales': PhraseListLocalesInput
+  'phrase.list_keys': PhraseListKeysInput
+  'phrase.get_key': PhraseGetKeyInput
+  'phrase.create_key': PhraseCreateKeyInput
+  'phrase.upload_file': PhraseUploadFileInput
+  'phrase.list_uploads': PhraseListUploadsInput
+  'phrase.download_locale_file': PhraseDownloadLocaleFileInput
   'pika.create_video': PikaCreateVideoInput
   'pika.get_video': PikaGetVideoInput
   'pika.list_videos': PikaListVideosInput
@@ -56823,6 +60371,32 @@ export interface IntegrationActionInputMap {
   'practice-panther.create_contact': PracticePantherCreateContactInput
   'practice-panther.list_tasks': PracticePantherListTasksInput
   'practice-panther.custom_api_call': PracticePantherCustomApiCallInput
+  'printful.list_stores': PrintfulListStoresInput
+  'printful.list_catalog_products': PrintfulListCatalogProductsInput
+  'printful.get_catalog_product': PrintfulGetCatalogProductInput
+  'printful.list_catalog_variants': PrintfulListCatalogVariantsInput
+  'printful.list_orders': PrintfulListOrdersInput
+  'printful.get_order': PrintfulGetOrderInput
+  'printful.create_order': PrintfulCreateOrderInput
+  'printful.update_order': PrintfulUpdateOrderInput
+  'printful.confirm_order': PrintfulConfirmOrderInput
+  'printful.cancel_order': PrintfulCancelOrderInput
+  'printful.calculate_shipping_rates': PrintfulCalculateShippingRatesInput
+  'printful.list_order_shipments': PrintfulListOrderShipmentsInput
+  'printful.create_order_estimation': PrintfulCreateOrderEstimationInput
+  'printful.get_order_estimation': PrintfulGetOrderEstimationInput
+  'printify.list_shops': PrintifyListShopsInput
+  'printify.list_catalog_blueprints': PrintifyListCatalogBlueprintsInput
+  'printify.list_products': PrintifyListProductsInput
+  'printify.get_product': PrintifyGetProductInput
+  'printify.create_product': PrintifyCreateProductInput
+  'printify.publish_product': PrintifyPublishProductInput
+  'printify.list_orders': PrintifyListOrdersInput
+  'printify.get_order': PrintifyGetOrderInput
+  'printify.create_order': PrintifyCreateOrderInput
+  'printify.calculate_shipping': PrintifyCalculateShippingInput
+  'printify.cancel_order': PrintifyCancelOrderInput
+  'printify.upload_image_from_url': PrintifyUploadImageFromUrlInput
   'prismic.query_documents': PrismicQueryDocumentsInput
   'prismic.get_document_by_id': PrismicGetDocumentByIdInput
   'prismic.get_document_by_uid': PrismicGetDocumentByUidInput
@@ -56831,6 +60405,29 @@ export interface IntegrationActionInputMap {
   'procore.get_project': ProcoreGetProjectInput
   'procore.list_rfis': ProcoreListRfisInput
   'procore.list_submittals': ProcoreListSubmittalsInput
+  'productboard.list_entities': ProductboardListEntitiesInput
+  'productboard.search_entities': ProductboardSearchEntitiesInput
+  'productboard.get_entity': ProductboardGetEntityInput
+  'productboard.create_entity': ProductboardCreateEntityInput
+  'productboard.update_entity': ProductboardUpdateEntityInput
+  'productboard.delete_entity': ProductboardDeleteEntityInput
+  'productboard.list_notes': ProductboardListNotesInput
+  'productboard.create_note': ProductboardCreateNoteInput
+  'productboard.update_note': ProductboardUpdateNoteInput
+  'productboard.list_webhooks': ProductboardListWebhooksInput
+  'productboard.create_webhook': ProductboardCreateWebhookInput
+  'productboard.delete_webhook': ProductboardDeleteWebhookInput
+  'productlane.get_authenticated_identity': ProductlaneGetAuthenticatedIdentityInput
+  'productlane.list_threads': ProductlaneListThreadsInput
+  'productlane.create_thread': ProductlaneCreateThreadInput
+  'productlane.update_thread': ProductlaneUpdateThreadInput
+  'productlane.post_internal_comment': ProductlanePostInternalCommentInput
+  'productlane.list_projects': ProductlaneListProjectsInput
+  'productlane.create_project': ProductlaneCreateProjectInput
+  'productlane.list_issues': ProductlaneListIssuesInput
+  'productlane.create_issue': ProductlaneCreateIssueInput
+  'productlane.list_changelogs': ProductlaneListChangelogsInput
+  'productlane.create_changelog': ProductlaneCreateChangelogInput
   'propertyware.list_units': PropertywareListUnitsInput
   'propertyware.list_tenants': PropertywareListTenantsInput
   'propertyware.list_work_orders': PropertywareListWorkOrdersInput
@@ -57103,16 +60700,15 @@ export interface IntegrationActionInputMap {
   'recurly.get_invoice': RecurlyGetInvoiceInput
   'recurly.list_plans': RecurlyListPlansInput
   'recurly.get_plan': RecurlyGetPlanInput
-  'reddit.retrieveRedditPost': RedditRetrieveRedditPostInput
-  'reddit.getRedditPostDetails': RedditGetRedditPostDetailsInput
-  'reddit.createRedditPost': RedditCreateRedditPostInput
-  'reddit.createRedditComment': RedditCreateRedditCommentInput
-  'reddit.fetchPostComments': RedditFetchPostCommentsInput
-  'reddit.editRedditPost': RedditEditRedditPostInput
-  'reddit.editRedditComment': RedditEditRedditCommentInput
-  'reddit.deleteRedditPost': RedditDeleteRedditPostInput
-  'reddit.deleteRedditComment': RedditDeleteRedditCommentInput
-  'reddit.custom_api_call': RedditCustomApiCallInput
+  'reddit.list_subreddit_posts': RedditListSubredditPostsInput
+  'reddit.search_subreddit': RedditSearchSubredditInput
+  'reddit.get_post_details': RedditGetPostDetailsInput
+  'reddit.create_text_post': RedditCreateTextPostInput
+  'reddit.create_link_post': RedditCreateLinkPostInput
+  'reddit.create_comment': RedditCreateCommentInput
+  'reddit.edit_thing': RedditEditThingInput
+  'reddit.delete_thing': RedditDeleteThingInput
+  'reddit.report_thing': RedditReportThingInput
   'redis-cloud.list_pro_subscriptions': RedisCloudListProSubscriptionsInput
   'redis-cloud.get_pro_subscription': RedisCloudGetProSubscriptionInput
   'redis-cloud.list_essentials_subscriptions': RedisCloudListEssentialsSubscriptionsInput
@@ -57193,6 +60789,13 @@ export interface IntegrationActionInputMap {
   'rss.parse_feed': RssParseFeedInput
   'rss.get_entries': RssGetEntriesInput
   'rss.search_entries': RssSearchEntriesInput
+  'rudderstack.track': RudderstackTrackInput
+  'rudderstack.identify': RudderstackIdentifyInput
+  'rudderstack.group': RudderstackGroupInput
+  'rudderstack.page': RudderstackPageInput
+  'rudderstack.screen': RudderstackScreenInput
+  'rudderstack.alias': RudderstackAliasInput
+  'rudderstack.batch': RudderstackBatchInput
   'runway.generate_video': RunwayGenerateVideoInput
   'runway.get_task': RunwayGetTaskInput
   'runway.list_assets': RunwayListAssetsInput
@@ -57246,9 +60849,23 @@ export interface IntegrationActionInputMap {
   'scraperapi.scrape_url': ScraperapiScrapeUrlInput
   'scraperapi.structured_data': ScraperapiStructuredDataInput
   'scraperapi.custom_api_call': ScraperapiCustomApiCallInput
+  'scrapingbee.scrape_url': ScrapingbeeScrapeUrlInput
+  'scrapingbee.google_search': ScrapingbeeGoogleSearchInput
   'screenshot-one.take_screenshot': ScreenshotOneTakeScreenshotInput
   'screenshot-one.custom_api_call': ScreenshotOneCustomApiCallInput
   'segment.identifyUser': SegmentIdentifyUserInput
+  'segment.track_event': SegmentTrackEventInput
+  'segment.group_user': SegmentGroupUserInput
+  'segment.page_view': SegmentPageViewInput
+  'segment.screen_view': SegmentScreenViewInput
+  'segment.alias_user': SegmentAliasUserInput
+  'segment.batch_events': SegmentBatchEventsInput
+  'semgrep.list_deployments': SemgrepListDeploymentsInput
+  'semgrep.list_projects': SemgrepListProjectsInput
+  'semgrep.get_project': SemgrepGetProjectInput
+  'semgrep.list_findings': SemgrepListFindingsInput
+  'semgrep.list_secret_findings': SemgrepListSecretFindingsInput
+  'semgrep.bulk_triage_findings': SemgrepBulkTriageFindingsInput
   'semrush.get_domain_overview': SemrushGetDomainOverviewInput
   'semrush.get_organic_keywords': SemrushGetOrganicKeywordsInput
   'semrush.get_backlinks': SemrushGetBacklinksInput
@@ -57292,6 +60909,8 @@ export interface IntegrationActionInputMap {
   'sequential-thinking.revise_thought': SequentialThinkingReviseThoughtInput
   'sequential-thinking.get_chain': SequentialThinkingGetChainInput
   'sequential-thinking.summarize_chain': SequentialThinkingSummarizeChainInput
+  'serpapi.google_search': SerpapiGoogleSearchInput
+  'serpapi.account_status': SerpapiAccountStatusInput
   'service-now.list_records': ServiceNowListRecordsInput
   'service-now.get_record': ServiceNowGetRecordInput
   'service-now.create_record': ServiceNowCreateRecordInput
@@ -57337,6 +60956,19 @@ export interface IntegrationActionInputMap {
   'short-io.get_link': ShortIoGetLinkInput
   'short-io.list_links': ShortIoListLinksInput
   'short-io.custom_api_call': ShortIoCustomApiCallInput
+  'shortcut.list_stories': ShortcutListStoriesInput
+  'shortcut.search_stories': ShortcutSearchStoriesInput
+  'shortcut.get_story': ShortcutGetStoryInput
+  'shortcut.create_story': ShortcutCreateStoryInput
+  'shortcut.update_story': ShortcutUpdateStoryInput
+  'shortcut.delete_story': ShortcutDeleteStoryInput
+  'shortcut.add_story_comment': ShortcutAddStoryCommentInput
+  'shortcut.list_epics': ShortcutListEpicsInput
+  'shortcut.create_epic': ShortcutCreateEpicInput
+  'shortcut.list_projects': ShortcutListProjectsInput
+  'shortcut.list_workflows': ShortcutListWorkflowsInput
+  'shortcut.list_iterations': ShortcutListIterationsInput
+  'shortcut.list_webhooks': ShortcutListWebhooksInput
   'sierra-interactive.list_leads': SierraInteractiveListLeadsInput
   'sierra-interactive.create_lead': SierraInteractiveCreateLeadInput
   'sierra-interactive.list_properties': SierraInteractiveListPropertiesInput
@@ -57718,6 +61350,13 @@ export interface IntegrationActionInputMap {
   'tally.list_webhooks': TallyListWebhooksInput
   'tavily.search': TavilySearchInput
   'tavily.extract': TavilyExtractInput
+  'taxjar.calculate_tax': TaxjarCalculateTaxInput
+  'taxjar.get_rates_for_location': TaxjarGetRatesForLocationInput
+  'taxjar.validate_address': TaxjarValidateAddressInput
+  'taxjar.list_categories': TaxjarListCategoriesInput
+  'taxjar.create_order_transaction': TaxjarCreateOrderTransactionInput
+  'taxjar.get_order_transaction': TaxjarGetOrderTransactionInput
+  'taxjar.delete_order_transaction': TaxjarDeleteOrderTransactionInput
   'teachable.list_courses': TeachableListCoursesInput
   'teachable.get_course': TeachableGetCourseInput
   'teachable.list_users': TeachableListUsersInput
@@ -57799,6 +61438,15 @@ export interface IntegrationActionInputMap {
   'tiktok-ads.get_campaign': TiktokAdsGetCampaignInput
   'tiktok-ads.list_ad_groups': TiktokAdsListAdGroupsInput
   'tiktok-ads.get_ad_report': TiktokAdsGetAdReportInput
+  'timescale.get_auth_info': TimescaleGetAuthInfoInput
+  'timescale.list_services': TimescaleListServicesInput
+  'timescale.get_service': TimescaleGetServiceInput
+  'timescale.create_service': TimescaleCreateServiceInput
+  'timescale.resize_service': TimescaleResizeServiceInput
+  'timescale.start_service': TimescaleStartServiceInput
+  'timescale.stop_service': TimescaleStopServiceInput
+  'timescale.delete_service': TimescaleDeleteServiceInput
+  'timescale.custom_api_call': TimescaleCustomApiCallInput
   'timesolv.list_time_entries': TimesolvListTimeEntriesInput
   'timesolv.create_time_entry': TimesolvCreateTimeEntryInput
   'timesolv.list_matters': TimesolvListMattersInput
@@ -58279,6 +61927,8 @@ export interface IntegrationActionInputMap {
   'zuora.find-account': ZuoraFindAccountInput
   'zuora.find-product-rate-plan': ZuoraFindProductRatePlanInput
   'zuora.find-product': ZuoraFindProductInput
+  'zyte.fetch_page': ZyteFetchPageInput
+  'zyte.extract_structured_data': ZyteExtractStructuredDataInput
 }
 
 export interface IntegrationActionInputsByIntegration {
@@ -58539,6 +62189,16 @@ export interface IntegrationActionInputsByIntegration {
     'delete_page': AgentScratchpadDeletePageInput
     'clear_all': AgentScratchpadClearAllInput
   }
+  'aha': {
+    'list_products': AhaListProductsInput
+    'list_features': AhaListFeaturesInput
+    'get_feature': AhaGetFeatureInput
+    'create_feature': AhaCreateFeatureInput
+    'update_feature': AhaUpdateFeatureInput
+    'list_ideas': AhaListIdeasInput
+    'promote_idea': AhaPromoteIdeaInput
+    'add_comment': AhaAddCommentInput
+  }
   'ahrefs': {
     'get_backlinks': AhrefsGetBacklinksInput
     'get_organic_keywords': AhrefsGetOrganicKeywordsInput
@@ -58623,6 +62283,19 @@ export interface IntegrationActionInputsByIntegration {
     'get_card_transaction': AirwallexGetCardTransactionInput
     'custom_api_call': AirwallexCustomApiCallInput
     'custom_write_api_call': AirwallexCustomWriteApiCallInput
+  }
+  'aiven': {
+    'list_projects': AivenListProjectsInput
+    'list_clouds': AivenListCloudsInput
+    'list_services': AivenListServicesInput
+    'get_service': AivenGetServiceInput
+    'create_service': AivenCreateServiceInput
+    'update_service': AivenUpdateServiceInput
+    'terminate_service': AivenTerminateServiceInput
+    'list_project_events': AivenListProjectEventsInput
+    'list_service_logs': AivenListServiceLogsInput
+    'fetch_service_metrics': AivenFetchServiceMetricsInput
+    'custom_api_call': AivenCustomApiCallInput
   }
   'algolia': {
     'list_indexes': AlgoliaListIndexesInput
@@ -58836,6 +62509,51 @@ export interface IntegrationActionInputsByIntegration {
     'list_contacts': AutotaskListContactsInput
     'custom_api_call': AutotaskCustomApiCallInput
   }
+  'avalara': {
+    'test_connection': AvalaraTestConnectionInput
+    'list_companies': AvalaraListCompaniesInput
+    'calculate_transaction_tax': AvalaraCalculateTransactionTaxInput
+    'get_transaction': AvalaraGetTransactionInput
+    'void_transaction': AvalaraVoidTransactionInput
+    'resolve_address': AvalaraResolveAddressInput
+  }
+  'aws-cloudwatch': {
+    'list_metrics': AwsCloudwatchListMetricsInput
+    'get_metric_statistics': AwsCloudwatchGetMetricStatisticsInput
+    'describe_alarms': AwsCloudwatchDescribeAlarmsInput
+    'put_metric_data': AwsCloudwatchPutMetricDataInput
+    'describe_log_groups': AwsCloudwatchDescribeLogGroupsInput
+    'filter_log_events': AwsCloudwatchFilterLogEventsInput
+  }
+  'aws-dynamodb': {
+    'list_tables': AwsDynamodbListTablesInput
+    'describe_table': AwsDynamodbDescribeTableInput
+    'get_item': AwsDynamodbGetItemInput
+    'put_item': AwsDynamodbPutItemInput
+    'update_item': AwsDynamodbUpdateItemInput
+    'delete_item': AwsDynamodbDeleteItemInput
+    'query': AwsDynamodbQueryInput
+    'scan': AwsDynamodbScanInput
+  }
+  'aws-eventbridge': {
+    'list_event_buses': AwsEventbridgeListEventBusesInput
+    'list_rules': AwsEventbridgeListRulesInput
+    'describe_rule': AwsEventbridgeDescribeRuleInput
+    'put_rule': AwsEventbridgePutRuleInput
+    'list_targets_by_rule': AwsEventbridgeListTargetsByRuleInput
+    'put_targets': AwsEventbridgePutTargetsInput
+    'put_events': AwsEventbridgePutEventsInput
+    'remove_targets': AwsEventbridgeRemoveTargetsInput
+    'delete_rule': AwsEventbridgeDeleteRuleInput
+  }
+  'aws-lambda': {
+    'list_functions': AwsLambdaListFunctionsInput
+    'get_function': AwsLambdaGetFunctionInput
+    'get_function_configuration': AwsLambdaGetFunctionConfigurationInput
+    'invoke_function': AwsLambdaInvokeFunctionInput
+    'list_versions': AwsLambdaListVersionsInput
+    'list_aliases': AwsLambdaListAliasesInput
+  }
   'aws-s3': {
     'list_objects': AwsS3ListObjectsInput
     'get_object': AwsS3GetObjectInput
@@ -58859,6 +62577,16 @@ export interface IntegrationActionInputsByIntegration {
     'list_identities': AwsSesListIdentitiesInput
     'get_email_identity': AwsSesGetEmailIdentityInput
     'get_account': AwsSesGetAccountInput
+  }
+  'aws-sns': {
+    'list_topics': AwsSnsListTopicsInput
+    'get_topic_attributes': AwsSnsGetTopicAttributesInput
+    'create_topic': AwsSnsCreateTopicInput
+    'publish_message': AwsSnsPublishMessageInput
+    'list_subscriptions': AwsSnsListSubscriptionsInput
+    'subscribe': AwsSnsSubscribeInput
+    'unsubscribe': AwsSnsUnsubscribeInput
+    'delete_topic': AwsSnsDeleteTopicInput
   }
   'aws-sts': {
     'get_caller_identity': AwsStsGetCallerIdentityInput
@@ -58975,11 +62703,13 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': BloomerangCustomApiCallInput
   }
   'bluesky': {
-    'createPost': BlueskyCreatePostInput
-    'likePost': BlueskyLikePostInput
-    'repostPost': BlueskyRepostPostInput
-    'findPost': BlueskyFindPostInput
-    'findThread': BlueskyFindThreadInput
+    'create_post': BlueskyCreatePostInput
+    'delete_record': BlueskyDeleteRecordInput
+    'search_posts': BlueskySearchPostsInput
+    'get_post_thread': BlueskyGetPostThreadInput
+    'list_author_feed': BlueskyListAuthorFeedInput
+    'get_profile': BlueskyGetProfileInput
+    'like_post': BlueskyLikePostInput
   }
   'box': {
     'list_folder_items': BoxListFolderItemsInput
@@ -59150,6 +62880,18 @@ export interface IntegrationActionInputsByIntegration {
     'unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
     'find_subscriber': CampaignMonitorFindSubscriberInput
   }
+  'canny': {
+    'list_boards': CannyListBoardsInput
+    'list_posts': CannyListPostsInput
+    'retrieve_post': CannyRetrievePostInput
+    'create_post': CannyCreatePostInput
+    'update_post': CannyUpdatePostInput
+    'delete_post': CannyDeletePostInput
+    'list_comments': CannyListCommentsInput
+    'create_comment': CannyCreateCommentInput
+    'create_vote': CannyCreateVoteInput
+    'list_tags': CannyListTagsInput
+  }
   'canto': {
     'search_assets': CantoSearchAssetsInput
     'get_folders': CantoGetFoldersInput
@@ -59209,6 +62951,29 @@ export interface IntegrationActionInputsByIntegration {
     'find_contact': CapsuleCrmFindContactInput
     'find_project': CapsuleCrmFindProjectInput
     'find_opportunity': CapsuleCrmFindOpportunityInput
+  }
+  'cartesia': {
+    'synthesize_speech': CartesiaSynthesizeSpeechInput
+    'transcribe_audio': CartesiaTranscribeAudioInput
+    'list_voices': CartesiaListVoicesInput
+    'get_voice': CartesiaGetVoiceInput
+    'delete_voice': CartesiaDeleteVoiceInput
+    'create_access_token': CartesiaCreateAccessTokenInput
+  }
+  'census': {
+    'list_sources': CensusListSourcesInput
+    'get_source': CensusGetSourceInput
+    'list_destinations': CensusListDestinationsInput
+    'get_destination': CensusGetDestinationInput
+    'list_destination_types': CensusListDestinationTypesInput
+    'list_syncs': CensusListSyncsInput
+    'get_sync': CensusGetSyncInput
+    'trigger_sync': CensusTriggerSyncInput
+    'list_sync_runs': CensusListSyncRunsInput
+    'get_sync_run': CensusGetSyncRunInput
+    'cancel_sync_run': CensusCancelSyncRunInput
+    'get_sync_run_records_count': CensusGetSyncRunRecordsCountInput
+    'custom_api_call': CensusCustomApiCallInput
   }
   'chargebee': {
     'list_subscriptions': ChargebeeListSubscriptionsInput
@@ -59479,6 +63244,19 @@ export interface IntegrationActionInputsByIntegration {
     'search': ConfluenceSearchInput
     'custom_api_call': ConfluenceCustomApiCallInput
   }
+  'confluent-cloud': {
+    'list_environments': ConfluentCloudListEnvironmentsInput
+    'get_environment': ConfluentCloudGetEnvironmentInput
+    'list_kafka_clusters': ConfluentCloudListKafkaClustersInput
+    'get_kafka_cluster': ConfluentCloudGetKafkaClusterInput
+    'list_service_accounts': ConfluentCloudListServiceAccountsInput
+    'get_service_account': ConfluentCloudGetServiceAccountInput
+    'list_api_keys': ConfluentCloudListApiKeysInput
+    'get_api_key': ConfluentCloudGetApiKeyInput
+    'list_metric_descriptors': ConfluentCloudListMetricDescriptorsInput
+    'query_metrics': ConfluentCloudQueryMetricsInput
+    'custom_api_call': ConfluentCloudCustomApiCallInput
+  }
   'connectwise': {
     'create_ticket': ConnectwiseCreateTicketInput
     'list_tickets': ConnectwiseListTicketsInput
@@ -59577,6 +63355,18 @@ export interface IntegrationActionInputsByIntegration {
     'find_user_profile': CrispFindUserProfileInput
     'custom_api_call': CrispCustomApiCallInput
   }
+  'crowdin': {
+    'list_projects': CrowdinListProjectsInput
+    'get_project': CrowdinGetProjectInput
+    'list_files': CrowdinListFilesInput
+    'list_strings': CrowdinListStringsInput
+    'get_string': CrowdinGetStringInput
+    'create_string': CrowdinCreateStringInput
+    'update_string': CrowdinUpdateStringInput
+    'upload_file': CrowdinUploadFileInput
+    'create_translation_build': CrowdinCreateTranslationBuildInput
+    'get_translation_build': CrowdinGetTranslationBuildInput
+  }
   'culture-amp': {
     'validate_connection': CultureAmpValidateConnectionInput
     'list_employees': CultureAmpListEmployeesInput
@@ -59646,6 +63436,11 @@ export interface IntegrationActionInputsByIntegration {
     'post_event': DatadogPostEventInput
     'search_logs': DatadogSearchLogsInput
     'send_log': DatadogSendLogInput
+  }
+  'dataforseo': {
+    'google_organic_live_advanced': DataforseoGoogleOrganicLiveAdvancedInput
+    'google_maps_live_advanced': DataforseoGoogleMapsLiveAdvancedInput
+    'list_google_locations': DataforseoListGoogleLocationsInput
   }
   'datetime': {
     'parse_date': DatetimeParseDateInput
@@ -59770,12 +63565,15 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': DiscordCustomApiCallInput
   }
   'discourse': {
-    'create_post': DiscourseCreatePostInput
+    'list_latest_topics': DiscourseListLatestTopicsInput
+    'search_topics': DiscourseSearchTopicsInput
+    'get_topic': DiscourseGetTopicInput
+    'list_categories': DiscourseListCategoriesInput
     'create_topic': DiscourseCreateTopicInput
-    'change_user_trust_level': DiscourseChangeUserTrustLevelInput
-    'add_users_to_group': DiscourseAddUsersToGroupInput
-    'send_private_message': DiscourseSendPrivateMessageInput
-    'custom_api_call': DiscourseCustomApiCallInput
+    'create_reply': DiscourseCreateReplyInput
+    'update_post': DiscourseUpdatePostInput
+    'delete_post': DiscourseDeletePostInput
+    'update_topic_status': DiscourseUpdateTopicStatusInput
   }
   'docebo': {
     'get_user': DoceboGetUserInput
@@ -59847,6 +63645,17 @@ export interface IntegrationActionInputsByIntegration {
     'list_polls': DoodleListPollsInput
     'get_poll': DoodleGetPollInput
     'custom_api_call': DoodleCustomApiCallInput
+  }
+  'doppler': {
+    'list_projects': DopplerListProjectsInput
+    'get_project': DopplerGetProjectInput
+    'list_configs': DopplerListConfigsInput
+    'list_secret_names': DopplerListSecretNamesInput
+    'get_secret': DopplerGetSecretInput
+    'get_secrets': DopplerGetSecretsInput
+    'update_secrets': DopplerUpdateSecretsInput
+    'delete_secret': DopplerDeleteSecretInput
+    'list_webhooks': DopplerListWebhooksInput
   }
   'dotloop': {
     'create_loop': DotloopCreateLoopInput
@@ -60054,6 +63863,13 @@ export interface IntegrationActionInputsByIntegration {
     'create_photo_post': FacebookPagesCreatePhotoPostInput
     'create_video_post': FacebookPagesCreateVideoPostInput
   }
+  'fal-ai': {
+    'submit_request': FalAiSubmitRequestInput
+    'get_status': FalAiGetStatusInput
+    'get_result': FalAiGetResultInput
+    'cancel_request': FalAiCancelRequestInput
+    'list_models': FalAiListModelsInput
+  }
   'fathom': {
     'validate_connection': FathomValidateConnectionInput
     'list_meetings': FathomListMeetingsInput
@@ -60160,6 +63976,13 @@ export interface IntegrationActionInputsByIntegration {
     'search_transcripts': FirefliesSearchTranscriptsInput
     'get_transcript': FirefliesGetTranscriptInput
     'get_active_meetings': FirefliesGetActiveMeetingsInput
+  }
+  'fireworks-ai': {
+    'chat_completion': FireworksAiChatCompletionInput
+    'create_embedding': FireworksAiCreateEmbeddingInput
+    'rerank_documents': FireworksAiRerankDocumentsInput
+    'generate_image': FireworksAiGenerateImageInput
+    'list_models': FireworksAiListModelsInput
   }
   'fishbowl': {
     'get_product': FishbowlGetProductInput
@@ -60795,12 +64618,34 @@ export interface IntegrationActionInputsByIntegration {
     'list_time_off': HibobListTimeOffInput
     'list_company_lists': HibobListCompanyListsInput
   }
+  'hightouch': {
+    'list_sources': HightouchListSourcesInput
+    'get_source': HightouchGetSourceInput
+    'list_models': HightouchListModelsInput
+    'get_model': HightouchGetModelInput
+    'list_destinations': HightouchListDestinationsInput
+    'get_destination': HightouchGetDestinationInput
+    'list_syncs': HightouchListSyncsInput
+    'get_sync': HightouchGetSyncInput
+    'trigger_sync': HightouchTriggerSyncInput
+    'list_sync_runs': HightouchListSyncRunsInput
+    'custom_api_call': HightouchCustomApiCallInput
+  }
   'hive': {
     'create_action': HiveCreateActionInput
     'list_actions': HiveListActionsInput
     'get_action': HiveGetActionInput
     'list_projects': HiveListProjectsInput
     'custom_api_call': HiveCustomApiCallInput
+  }
+  'honeycomb': {
+    'list_datasets': HoneycombListDatasetsInput
+    'create_dataset': HoneycombCreateDatasetInput
+    'create_query': HoneycombCreateQueryInput
+    'create_query_result': HoneycombCreateQueryResultInput
+    'get_query_result': HoneycombGetQueryResultInput
+    'create_marker': HoneycombCreateMarkerInput
+    'list_triggers': HoneycombListTriggersInput
   }
   'hostaway': {
     'list_reservations': HostawayListReservationsInput
@@ -60908,6 +64753,13 @@ export interface IntegrationActionInputsByIntegration {
     'object_detection': HuggingFaceObjectDetectionInput
     'image_classification': HuggingFaceImageClassificationInput
   }
+  'hume-ai': {
+    'synthesize_speech': HumeAiSynthesizeSpeechInput
+    'list_voices': HumeAiListVoicesInput
+    'list_evi_configs': HumeAiListEviConfigsInput
+    'list_chats': HumeAiListChatsInput
+    'get_chat_audio': HumeAiGetChatAudioInput
+  }
   'hunter-io': {
     'find_email': HunterIoFindEmailInput
     'verify_email': HunterIoVerifyEmailInput
@@ -60972,6 +64824,16 @@ export interface IntegrationActionInputsByIntegration {
     'get_action': IncidentIoGetActionInput
     'list_follow_ups': IncidentIoListFollowUpsInput
     'get_follow_up': IncidentIoGetFollowUpInput
+  }
+  'influxdb': {
+    'health': InfluxdbHealthInput
+    'list_organizations': InfluxdbListOrganizationsInput
+    'list_buckets': InfluxdbListBucketsInput
+    'get_bucket': InfluxdbGetBucketInput
+    'query_flux': InfluxdbQueryFluxInput
+    'write_line_protocol': InfluxdbWriteLineProtocolInput
+    'delete_data': InfluxdbDeleteDataInput
+    'custom_api_call': InfluxdbCustomApiCallInput
   }
   'infobip': {
     'send_sms': InfobipSendSmsInput
@@ -61426,6 +65288,17 @@ export interface IntegrationActionInputsByIntegration {
     'run_recipe': LocalComputerControlAgentRunRecipeInput
     'stop_task': LocalComputerControlAgentStopTaskInput
   }
+  'lokalise': {
+    'list_projects': LokaliseListProjectsInput
+    'get_project': LokaliseGetProjectInput
+    'list_languages': LokaliseListLanguagesInput
+    'list_keys': LokaliseListKeysInput
+    'get_key': LokaliseGetKeyInput
+    'create_key': LokaliseCreateKeyInput
+    'update_key': LokaliseUpdateKeyInput
+    'upload_file': LokaliseUploadFileInput
+    'download_file': LokaliseDownloadFileInput
+  }
   'loom': {
     'list_videos': LoomListVideosInput
     'get_video': LoomGetVideoInput
@@ -61515,8 +65388,18 @@ export interface IntegrationActionInputsByIntegration {
     'create_isochrone': MapboxCreateIsochroneInput
   }
   'mastodon': {
-    'post_status': MastodonPostStatusInput
-    'custom_api_call': MastodonCustomApiCallInput
+    'create_status': MastodonCreateStatusInput
+    'update_status': MastodonUpdateStatusInput
+    'delete_status': MastodonDeleteStatusInput
+    'get_status': MastodonGetStatusInput
+    'search': MastodonSearchInput
+    'list_home_timeline': MastodonListHomeTimelineInput
+    'list_account_statuses': MastodonListAccountStatusesInput
+    'get_account': MastodonGetAccountInput
+    'favourite_status': MastodonFavouriteStatusInput
+    'unfavourite_status': MastodonUnfavouriteStatusInput
+    'boost_status': MastodonBoostStatusInput
+    'unboost_status': MastodonUnboostStatusInput
   }
   'mattermost': {
     'send_message': MattermostSendMessageInput
@@ -62157,8 +66040,10 @@ export interface IntegrationActionInputsByIntegration {
     'reverse_geocode': OpencageReverseGeocodeInput
   }
   'open-router': {
-    'ask-lmm': OpenRouterAskLmmInput
-    'custom_api_call': OpenRouterCustomApiCallInput
+    'chat_completion': OpenRouterChatCompletionInput
+    'list_models': OpenRouterListModelsInput
+    'list_model_endpoints': OpenRouterListModelEndpointsInput
+    'get_credits': OpenRouterGetCreditsInput
   }
   'opentable': {
     'list_reservations': OpentableListReservationsInput
@@ -62334,6 +66219,17 @@ export interface IntegrationActionInputsByIntegration {
     'get_agent': PhantombusterGetAgentInput
     'custom_api_call': PhantombusterCustomApiCallInput
   }
+  'phrase': {
+    'list_projects': PhraseListProjectsInput
+    'get_project': PhraseGetProjectInput
+    'list_locales': PhraseListLocalesInput
+    'list_keys': PhraseListKeysInput
+    'get_key': PhraseGetKeyInput
+    'create_key': PhraseCreateKeyInput
+    'upload_file': PhraseUploadFileInput
+    'list_uploads': PhraseListUploadsInput
+    'download_locale_file': PhraseDownloadLocaleFileInput
+  }
   'pika': {
     'create_video': PikaCreateVideoInput
     'get_video': PikaGetVideoInput
@@ -62508,6 +66404,36 @@ export interface IntegrationActionInputsByIntegration {
     'list_tasks': PracticePantherListTasksInput
     'custom_api_call': PracticePantherCustomApiCallInput
   }
+  'printful': {
+    'list_stores': PrintfulListStoresInput
+    'list_catalog_products': PrintfulListCatalogProductsInput
+    'get_catalog_product': PrintfulGetCatalogProductInput
+    'list_catalog_variants': PrintfulListCatalogVariantsInput
+    'list_orders': PrintfulListOrdersInput
+    'get_order': PrintfulGetOrderInput
+    'create_order': PrintfulCreateOrderInput
+    'update_order': PrintfulUpdateOrderInput
+    'confirm_order': PrintfulConfirmOrderInput
+    'cancel_order': PrintfulCancelOrderInput
+    'calculate_shipping_rates': PrintfulCalculateShippingRatesInput
+    'list_order_shipments': PrintfulListOrderShipmentsInput
+    'create_order_estimation': PrintfulCreateOrderEstimationInput
+    'get_order_estimation': PrintfulGetOrderEstimationInput
+  }
+  'printify': {
+    'list_shops': PrintifyListShopsInput
+    'list_catalog_blueprints': PrintifyListCatalogBlueprintsInput
+    'list_products': PrintifyListProductsInput
+    'get_product': PrintifyGetProductInput
+    'create_product': PrintifyCreateProductInput
+    'publish_product': PrintifyPublishProductInput
+    'list_orders': PrintifyListOrdersInput
+    'get_order': PrintifyGetOrderInput
+    'create_order': PrintifyCreateOrderInput
+    'calculate_shipping': PrintifyCalculateShippingInput
+    'cancel_order': PrintifyCancelOrderInput
+    'upload_image_from_url': PrintifyUploadImageFromUrlInput
+  }
   'prismic': {
     'query_documents': PrismicQueryDocumentsInput
     'get_document_by_id': PrismicGetDocumentByIdInput
@@ -62519,6 +66445,33 @@ export interface IntegrationActionInputsByIntegration {
     'get_project': ProcoreGetProjectInput
     'list_rfis': ProcoreListRfisInput
     'list_submittals': ProcoreListSubmittalsInput
+  }
+  'productboard': {
+    'list_entities': ProductboardListEntitiesInput
+    'search_entities': ProductboardSearchEntitiesInput
+    'get_entity': ProductboardGetEntityInput
+    'create_entity': ProductboardCreateEntityInput
+    'update_entity': ProductboardUpdateEntityInput
+    'delete_entity': ProductboardDeleteEntityInput
+    'list_notes': ProductboardListNotesInput
+    'create_note': ProductboardCreateNoteInput
+    'update_note': ProductboardUpdateNoteInput
+    'list_webhooks': ProductboardListWebhooksInput
+    'create_webhook': ProductboardCreateWebhookInput
+    'delete_webhook': ProductboardDeleteWebhookInput
+  }
+  'productlane': {
+    'get_authenticated_identity': ProductlaneGetAuthenticatedIdentityInput
+    'list_threads': ProductlaneListThreadsInput
+    'create_thread': ProductlaneCreateThreadInput
+    'update_thread': ProductlaneUpdateThreadInput
+    'post_internal_comment': ProductlanePostInternalCommentInput
+    'list_projects': ProductlaneListProjectsInput
+    'create_project': ProductlaneCreateProjectInput
+    'list_issues': ProductlaneListIssuesInput
+    'create_issue': ProductlaneCreateIssueInput
+    'list_changelogs': ProductlaneListChangelogsInput
+    'create_changelog': ProductlaneCreateChangelogInput
   }
   'propertyware': {
     'list_units': PropertywareListUnitsInput
@@ -62827,16 +66780,15 @@ export interface IntegrationActionInputsByIntegration {
     'get_plan': RecurlyGetPlanInput
   }
   'reddit': {
-    'retrieveRedditPost': RedditRetrieveRedditPostInput
-    'getRedditPostDetails': RedditGetRedditPostDetailsInput
-    'createRedditPost': RedditCreateRedditPostInput
-    'createRedditComment': RedditCreateRedditCommentInput
-    'fetchPostComments': RedditFetchPostCommentsInput
-    'editRedditPost': RedditEditRedditPostInput
-    'editRedditComment': RedditEditRedditCommentInput
-    'deleteRedditPost': RedditDeleteRedditPostInput
-    'deleteRedditComment': RedditDeleteRedditCommentInput
-    'custom_api_call': RedditCustomApiCallInput
+    'list_subreddit_posts': RedditListSubredditPostsInput
+    'search_subreddit': RedditSearchSubredditInput
+    'get_post_details': RedditGetPostDetailsInput
+    'create_text_post': RedditCreateTextPostInput
+    'create_link_post': RedditCreateLinkPostInput
+    'create_comment': RedditCreateCommentInput
+    'edit_thing': RedditEditThingInput
+    'delete_thing': RedditDeleteThingInput
+    'report_thing': RedditReportThingInput
   }
   'redis-cloud': {
     'list_pro_subscriptions': RedisCloudListProSubscriptionsInput
@@ -62946,6 +66898,15 @@ export interface IntegrationActionInputsByIntegration {
     'get_entries': RssGetEntriesInput
     'search_entries': RssSearchEntriesInput
   }
+  'rudderstack': {
+    'track': RudderstackTrackInput
+    'identify': RudderstackIdentifyInput
+    'group': RudderstackGroupInput
+    'page': RudderstackPageInput
+    'screen': RudderstackScreenInput
+    'alias': RudderstackAliasInput
+    'batch': RudderstackBatchInput
+  }
   'runway': {
     'generate_video': RunwayGenerateVideoInput
     'get_task': RunwayGetTaskInput
@@ -63015,12 +66976,30 @@ export interface IntegrationActionInputsByIntegration {
     'structured_data': ScraperapiStructuredDataInput
     'custom_api_call': ScraperapiCustomApiCallInput
   }
+  'scrapingbee': {
+    'scrape_url': ScrapingbeeScrapeUrlInput
+    'google_search': ScrapingbeeGoogleSearchInput
+  }
   'screenshot-one': {
     'take_screenshot': ScreenshotOneTakeScreenshotInput
     'custom_api_call': ScreenshotOneCustomApiCallInput
   }
   'segment': {
     'identifyUser': SegmentIdentifyUserInput
+    'track_event': SegmentTrackEventInput
+    'group_user': SegmentGroupUserInput
+    'page_view': SegmentPageViewInput
+    'screen_view': SegmentScreenViewInput
+    'alias_user': SegmentAliasUserInput
+    'batch_events': SegmentBatchEventsInput
+  }
+  'semgrep': {
+    'list_deployments': SemgrepListDeploymentsInput
+    'list_projects': SemgrepListProjectsInput
+    'get_project': SemgrepGetProjectInput
+    'list_findings': SemgrepListFindingsInput
+    'list_secret_findings': SemgrepListSecretFindingsInput
+    'bulk_triage_findings': SemgrepBulkTriageFindingsInput
   }
   'semrush': {
     'get_domain_overview': SemrushGetDomainOverviewInput
@@ -63074,6 +67053,10 @@ export interface IntegrationActionInputsByIntegration {
     'revise_thought': SequentialThinkingReviseThoughtInput
     'get_chain': SequentialThinkingGetChainInput
     'summarize_chain': SequentialThinkingSummarizeChainInput
+  }
+  'serpapi': {
+    'google_search': SerpapiGoogleSearchInput
+    'account_status': SerpapiAccountStatusInput
   }
   'service-now': {
     'list_records': ServiceNowListRecordsInput
@@ -63131,6 +67114,21 @@ export interface IntegrationActionInputsByIntegration {
     'get_link': ShortIoGetLinkInput
     'list_links': ShortIoListLinksInput
     'custom_api_call': ShortIoCustomApiCallInput
+  }
+  'shortcut': {
+    'list_stories': ShortcutListStoriesInput
+    'search_stories': ShortcutSearchStoriesInput
+    'get_story': ShortcutGetStoryInput
+    'create_story': ShortcutCreateStoryInput
+    'update_story': ShortcutUpdateStoryInput
+    'delete_story': ShortcutDeleteStoryInput
+    'add_story_comment': ShortcutAddStoryCommentInput
+    'list_epics': ShortcutListEpicsInput
+    'create_epic': ShortcutCreateEpicInput
+    'list_projects': ShortcutListProjectsInput
+    'list_workflows': ShortcutListWorkflowsInput
+    'list_iterations': ShortcutListIterationsInput
+    'list_webhooks': ShortcutListWebhooksInput
   }
   'sierra-interactive': {
     'list_leads': SierraInteractiveListLeadsInput
@@ -63589,6 +67587,15 @@ export interface IntegrationActionInputsByIntegration {
     'search': TavilySearchInput
     'extract': TavilyExtractInput
   }
+  'taxjar': {
+    'calculate_tax': TaxjarCalculateTaxInput
+    'get_rates_for_location': TaxjarGetRatesForLocationInput
+    'validate_address': TaxjarValidateAddressInput
+    'list_categories': TaxjarListCategoriesInput
+    'create_order_transaction': TaxjarCreateOrderTransactionInput
+    'get_order_transaction': TaxjarGetOrderTransactionInput
+    'delete_order_transaction': TaxjarDeleteOrderTransactionInput
+  }
   'teachable': {
     'list_courses': TeachableListCoursesInput
     'get_course': TeachableGetCourseInput
@@ -63695,6 +67702,17 @@ export interface IntegrationActionInputsByIntegration {
     'get_campaign': TiktokAdsGetCampaignInput
     'list_ad_groups': TiktokAdsListAdGroupsInput
     'get_ad_report': TiktokAdsGetAdReportInput
+  }
+  'timescale': {
+    'get_auth_info': TimescaleGetAuthInfoInput
+    'list_services': TimescaleListServicesInput
+    'get_service': TimescaleGetServiceInput
+    'create_service': TimescaleCreateServiceInput
+    'resize_service': TimescaleResizeServiceInput
+    'start_service': TimescaleStartServiceInput
+    'stop_service': TimescaleStopServiceInput
+    'delete_service': TimescaleDeleteServiceInput
+    'custom_api_call': TimescaleCustomApiCallInput
   }
   'timesolv': {
     'list_time_entries': TimesolvListTimeEntriesInput
@@ -64312,6 +68330,10 @@ export interface IntegrationActionInputsByIntegration {
     'find-product-rate-plan': ZuoraFindProductRatePlanInput
     'find-product': ZuoraFindProductInput
   }
+  'zyte': {
+    'fetch_page': ZyteFetchPageInput
+    'extract_structured_data': ZyteExtractStructuredDataInput
+  }
 }
 
 export type IntegrationName = keyof IntegrationActionInputsByIntegration & string
@@ -64339,11 +68361,13 @@ export const integrationNames = [
   'agent-local-browser-control',
   'agent-memory',
   'agent-scratchpad',
+  'aha',
   'ahrefs',
   'ai-toolkit',
   'aircall',
   'airtable',
   'airwallex',
+  'aiven',
   'algolia',
   'alma',
   'amazon-s3',
@@ -64365,9 +68389,15 @@ export const integrationNames = [
   'auth0',
   'authorize-net',
   'autotask',
+  'avalara',
+  'aws-cloudwatch',
+  'aws-dynamodb',
+  'aws-eventbridge',
+  'aws-lambda',
   'aws-s3',
   'aws-secrets-manager',
   'aws-ses',
+  'aws-sns',
   'aws-sts',
   'azure-blob-storage',
   'azure-devops',
@@ -64400,10 +68430,13 @@ export const integrationNames = [
   'cal-com',
   'calendly',
   'campaign-monitor',
+  'canny',
   'canto',
   'canva',
   'canvas-lms',
   'capsule-crm',
+  'cartesia',
+  'census',
   'chargebee',
   'chromadb',
   'churnzero',
@@ -64434,6 +68467,7 @@ export const integrationNames = [
   'common-room',
   'companycam',
   'confluence',
+  'confluent-cloud',
   'connectwise',
   'constant-contact',
   'contentful',
@@ -64442,12 +68476,14 @@ export const integrationNames = [
   'courier',
   'crates-io',
   'crisp',
+  'crowdin',
   'culture-amp',
   'customer-io',
   'cvent',
   'data-transformer',
   'databricks',
   'datadog',
+  'dataforseo',
   'datetime',
   'datocms',
   'dbt-cloud',
@@ -64469,6 +68505,7 @@ export const integrationNames = [
   'docusign',
   'donorbox',
   'doodle',
+  'doppler',
   'dotloop',
   'doxy-me',
   'drata',
@@ -64492,6 +68529,7 @@ export const integrationNames = [
   'facebook-ads',
   'facebook-leads',
   'facebook-pages',
+  'fal-ai',
   'fathom',
   'fellow',
   'fieldwire',
@@ -64502,6 +68540,7 @@ export const integrationNames = [
   'firebase',
   'firecrawl',
   'fireflies',
+  'fireworks-ai',
   'fishbowl',
   'fivetran',
   'fleetio',
@@ -64570,19 +68609,23 @@ export const integrationNames = [
   'hex',
   'heygen',
   'hibob',
+  'hightouch',
   'hive',
+  'honeycomb',
   'hostaway',
   'hotjar',
   'housecall-pro',
   'http',
   'hubspot',
   'hugging-face',
+  'hume-ai',
   'hunter-io',
   'ibkr',
   'ideogram',
   'imanage',
   'imap',
   'incident-io',
+  'influxdb',
   'infobip',
   'insightly',
   'instagram-business',
@@ -64629,6 +68672,7 @@ export const integrationNames = [
   'linkedin-ads',
   'local-computer-control',
   'local-computer-control-agent',
+  'lokalise',
   'loom',
   'loops',
   'lucid',
@@ -64717,6 +68761,7 @@ export const integrationNames = [
   'perplexity-ai',
   'personio',
   'phantombuster',
+  'phrase',
   'pika',
   'pinecone',
   'pinterest',
@@ -64737,8 +68782,12 @@ export const integrationNames = [
   'powerschool',
   'practice-better',
   'practice-panther',
+  'printful',
+  'printify',
   'prismic',
   'procore',
+  'productboard',
+  'productlane',
   'propertyware',
   'protocols-io',
   'proxycurl',
@@ -64771,6 +68820,7 @@ export const integrationNames = [
   'rollbar',
   'route4me',
   'rss',
+  'rudderstack',
   'runway',
   'saleor',
   'salesforce',
@@ -64779,19 +68829,23 @@ export const integrationNames = [
   'sanity',
   'schoology',
   'scraperapi',
+  'scrapingbee',
   'screenshot-one',
   'segment',
+  'semgrep',
   'semrush',
   'sendgrid',
   'sendpulse',
   'sentry',
   'sequential-thinking',
+  'serpapi',
   'service-now',
   'service-titan',
   'shippo',
   'shipstation',
   'shopify',
   'short-io',
+  'shortcut',
   'sierra-interactive',
   'similarweb',
   'simple-practice',
@@ -64830,6 +68884,7 @@ export const integrationNames = [
   'talkdesk',
   'tally',
   'tavily',
+  'taxjar',
   'teachable',
   'teamtailor',
   'teamwork',
@@ -64843,6 +68898,7 @@ export const integrationNames = [
   'tidycal',
   'tiktok',
   'tiktok-ads',
+  'timescale',
   'timesolv',
   'tithe-ly',
   'tldv',
@@ -64911,6 +68967,7 @@ export const integrationNames = [
   'zoho-mail',
   'zoom',
   'zuora',
+  'zyte',
 ] as const satisfies readonly IntegrationName[]
 
 export const integrationActions = {
@@ -65171,6 +69228,16 @@ export const integrationActions = {
     'delete_page',
     'clear_all',
   ],
+  'aha': [
+    'list_products',
+    'list_features',
+    'get_feature',
+    'create_feature',
+    'update_feature',
+    'list_ideas',
+    'promote_idea',
+    'add_comment',
+  ],
   'ahrefs': [
     'get_backlinks',
     'get_organic_keywords',
@@ -65255,6 +69322,19 @@ export const integrationActions = {
     'get_card_transaction',
     'custom_api_call',
     'custom_write_api_call',
+  ],
+  'aiven': [
+    'list_projects',
+    'list_clouds',
+    'list_services',
+    'get_service',
+    'create_service',
+    'update_service',
+    'terminate_service',
+    'list_project_events',
+    'list_service_logs',
+    'fetch_service_metrics',
+    'custom_api_call',
   ],
   'algolia': [
     'list_indexes',
@@ -65468,6 +69548,51 @@ export const integrationActions = {
     'list_contacts',
     'custom_api_call',
   ],
+  'avalara': [
+    'test_connection',
+    'list_companies',
+    'calculate_transaction_tax',
+    'get_transaction',
+    'void_transaction',
+    'resolve_address',
+  ],
+  'aws-cloudwatch': [
+    'list_metrics',
+    'get_metric_statistics',
+    'describe_alarms',
+    'put_metric_data',
+    'describe_log_groups',
+    'filter_log_events',
+  ],
+  'aws-dynamodb': [
+    'list_tables',
+    'describe_table',
+    'get_item',
+    'put_item',
+    'update_item',
+    'delete_item',
+    'query',
+    'scan',
+  ],
+  'aws-eventbridge': [
+    'list_event_buses',
+    'list_rules',
+    'describe_rule',
+    'put_rule',
+    'list_targets_by_rule',
+    'put_targets',
+    'put_events',
+    'remove_targets',
+    'delete_rule',
+  ],
+  'aws-lambda': [
+    'list_functions',
+    'get_function',
+    'get_function_configuration',
+    'invoke_function',
+    'list_versions',
+    'list_aliases',
+  ],
   'aws-s3': [
     'list_objects',
     'get_object',
@@ -65491,6 +69616,16 @@ export const integrationActions = {
     'list_identities',
     'get_email_identity',
     'get_account',
+  ],
+  'aws-sns': [
+    'list_topics',
+    'get_topic_attributes',
+    'create_topic',
+    'publish_message',
+    'list_subscriptions',
+    'subscribe',
+    'unsubscribe',
+    'delete_topic',
   ],
   'aws-sts': [
     'get_caller_identity',
@@ -65607,11 +69742,13 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'bluesky': [
-    'createPost',
-    'likePost',
-    'repostPost',
-    'findPost',
-    'findThread',
+    'create_post',
+    'delete_record',
+    'search_posts',
+    'get_post_thread',
+    'list_author_feed',
+    'get_profile',
+    'like_post',
   ],
   'box': [
     'list_folder_items',
@@ -65782,6 +69919,18 @@ export const integrationActions = {
     'unsubscribe_subscriber',
     'find_subscriber',
   ],
+  'canny': [
+    'list_boards',
+    'list_posts',
+    'retrieve_post',
+    'create_post',
+    'update_post',
+    'delete_post',
+    'list_comments',
+    'create_comment',
+    'create_vote',
+    'list_tags',
+  ],
   'canto': [
     'search_assets',
     'get_folders',
@@ -65841,6 +69990,29 @@ export const integrationActions = {
     'find_contact',
     'find_project',
     'find_opportunity',
+  ],
+  'cartesia': [
+    'synthesize_speech',
+    'transcribe_audio',
+    'list_voices',
+    'get_voice',
+    'delete_voice',
+    'create_access_token',
+  ],
+  'census': [
+    'list_sources',
+    'get_source',
+    'list_destinations',
+    'get_destination',
+    'list_destination_types',
+    'list_syncs',
+    'get_sync',
+    'trigger_sync',
+    'list_sync_runs',
+    'get_sync_run',
+    'cancel_sync_run',
+    'get_sync_run_records_count',
+    'custom_api_call',
   ],
   'chargebee': [
     'list_subscriptions',
@@ -66111,6 +70283,19 @@ export const integrationActions = {
     'search',
     'custom_api_call',
   ],
+  'confluent-cloud': [
+    'list_environments',
+    'get_environment',
+    'list_kafka_clusters',
+    'get_kafka_cluster',
+    'list_service_accounts',
+    'get_service_account',
+    'list_api_keys',
+    'get_api_key',
+    'list_metric_descriptors',
+    'query_metrics',
+    'custom_api_call',
+  ],
   'connectwise': [
     'create_ticket',
     'list_tickets',
@@ -66209,6 +70394,18 @@ export const integrationActions = {
     'find_user_profile',
     'custom_api_call',
   ],
+  'crowdin': [
+    'list_projects',
+    'get_project',
+    'list_files',
+    'list_strings',
+    'get_string',
+    'create_string',
+    'update_string',
+    'upload_file',
+    'create_translation_build',
+    'get_translation_build',
+  ],
   'culture-amp': [
     'validate_connection',
     'list_employees',
@@ -66278,6 +70475,11 @@ export const integrationActions = {
     'post_event',
     'search_logs',
     'send_log',
+  ],
+  'dataforseo': [
+    'google_organic_live_advanced',
+    'google_maps_live_advanced',
+    'list_google_locations',
   ],
   'datetime': [
     'parse_date',
@@ -66402,12 +70604,15 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'discourse': [
-    'create_post',
+    'list_latest_topics',
+    'search_topics',
+    'get_topic',
+    'list_categories',
     'create_topic',
-    'change_user_trust_level',
-    'add_users_to_group',
-    'send_private_message',
-    'custom_api_call',
+    'create_reply',
+    'update_post',
+    'delete_post',
+    'update_topic_status',
   ],
   'docebo': [
     'get_user',
@@ -66479,6 +70684,17 @@ export const integrationActions = {
     'list_polls',
     'get_poll',
     'custom_api_call',
+  ],
+  'doppler': [
+    'list_projects',
+    'get_project',
+    'list_configs',
+    'list_secret_names',
+    'get_secret',
+    'get_secrets',
+    'update_secrets',
+    'delete_secret',
+    'list_webhooks',
   ],
   'dotloop': [
     'create_loop',
@@ -66686,6 +70902,13 @@ export const integrationActions = {
     'create_photo_post',
     'create_video_post',
   ],
+  'fal-ai': [
+    'submit_request',
+    'get_status',
+    'get_result',
+    'cancel_request',
+    'list_models',
+  ],
   'fathom': [
     'validate_connection',
     'list_meetings',
@@ -66792,6 +71015,13 @@ export const integrationActions = {
     'search_transcripts',
     'get_transcript',
     'get_active_meetings',
+  ],
+  'fireworks-ai': [
+    'chat_completion',
+    'create_embedding',
+    'rerank_documents',
+    'generate_image',
+    'list_models',
   ],
   'fishbowl': [
     'get_product',
@@ -67427,12 +71657,34 @@ export const integrationActions = {
     'list_time_off',
     'list_company_lists',
   ],
+  'hightouch': [
+    'list_sources',
+    'get_source',
+    'list_models',
+    'get_model',
+    'list_destinations',
+    'get_destination',
+    'list_syncs',
+    'get_sync',
+    'trigger_sync',
+    'list_sync_runs',
+    'custom_api_call',
+  ],
   'hive': [
     'create_action',
     'list_actions',
     'get_action',
     'list_projects',
     'custom_api_call',
+  ],
+  'honeycomb': [
+    'list_datasets',
+    'create_dataset',
+    'create_query',
+    'create_query_result',
+    'get_query_result',
+    'create_marker',
+    'list_triggers',
   ],
   'hostaway': [
     'list_reservations',
@@ -67540,6 +71792,13 @@ export const integrationActions = {
     'object_detection',
     'image_classification',
   ],
+  'hume-ai': [
+    'synthesize_speech',
+    'list_voices',
+    'list_evi_configs',
+    'list_chats',
+    'get_chat_audio',
+  ],
   'hunter-io': [
     'find_email',
     'verify_email',
@@ -67604,6 +71863,16 @@ export const integrationActions = {
     'get_action',
     'list_follow_ups',
     'get_follow_up',
+  ],
+  'influxdb': [
+    'health',
+    'list_organizations',
+    'list_buckets',
+    'get_bucket',
+    'query_flux',
+    'write_line_protocol',
+    'delete_data',
+    'custom_api_call',
   ],
   'infobip': [
     'send_sms',
@@ -68058,6 +72327,17 @@ export const integrationActions = {
     'run_recipe',
     'stop_task',
   ],
+  'lokalise': [
+    'list_projects',
+    'get_project',
+    'list_languages',
+    'list_keys',
+    'get_key',
+    'create_key',
+    'update_key',
+    'upload_file',
+    'download_file',
+  ],
   'loom': [
     'list_videos',
     'get_video',
@@ -68147,8 +72427,18 @@ export const integrationActions = {
     'create_isochrone',
   ],
   'mastodon': [
-    'post_status',
-    'custom_api_call',
+    'create_status',
+    'update_status',
+    'delete_status',
+    'get_status',
+    'search',
+    'list_home_timeline',
+    'list_account_statuses',
+    'get_account',
+    'favourite_status',
+    'unfavourite_status',
+    'boost_status',
+    'unboost_status',
   ],
   'mattermost': [
     'send_message',
@@ -68789,8 +73079,10 @@ export const integrationActions = {
     'reverse_geocode',
   ],
   'open-router': [
-    'ask-lmm',
-    'custom_api_call',
+    'chat_completion',
+    'list_models',
+    'list_model_endpoints',
+    'get_credits',
   ],
   'opentable': [
     'list_reservations',
@@ -68966,6 +73258,17 @@ export const integrationActions = {
     'get_agent',
     'custom_api_call',
   ],
+  'phrase': [
+    'list_projects',
+    'get_project',
+    'list_locales',
+    'list_keys',
+    'get_key',
+    'create_key',
+    'upload_file',
+    'list_uploads',
+    'download_locale_file',
+  ],
   'pika': [
     'create_video',
     'get_video',
@@ -69140,6 +73443,36 @@ export const integrationActions = {
     'list_tasks',
     'custom_api_call',
   ],
+  'printful': [
+    'list_stores',
+    'list_catalog_products',
+    'get_catalog_product',
+    'list_catalog_variants',
+    'list_orders',
+    'get_order',
+    'create_order',
+    'update_order',
+    'confirm_order',
+    'cancel_order',
+    'calculate_shipping_rates',
+    'list_order_shipments',
+    'create_order_estimation',
+    'get_order_estimation',
+  ],
+  'printify': [
+    'list_shops',
+    'list_catalog_blueprints',
+    'list_products',
+    'get_product',
+    'create_product',
+    'publish_product',
+    'list_orders',
+    'get_order',
+    'create_order',
+    'calculate_shipping',
+    'cancel_order',
+    'upload_image_from_url',
+  ],
   'prismic': [
     'query_documents',
     'get_document_by_id',
@@ -69151,6 +73484,33 @@ export const integrationActions = {
     'get_project',
     'list_rfis',
     'list_submittals',
+  ],
+  'productboard': [
+    'list_entities',
+    'search_entities',
+    'get_entity',
+    'create_entity',
+    'update_entity',
+    'delete_entity',
+    'list_notes',
+    'create_note',
+    'update_note',
+    'list_webhooks',
+    'create_webhook',
+    'delete_webhook',
+  ],
+  'productlane': [
+    'get_authenticated_identity',
+    'list_threads',
+    'create_thread',
+    'update_thread',
+    'post_internal_comment',
+    'list_projects',
+    'create_project',
+    'list_issues',
+    'create_issue',
+    'list_changelogs',
+    'create_changelog',
   ],
   'propertyware': [
     'list_units',
@@ -69459,16 +73819,15 @@ export const integrationActions = {
     'get_plan',
   ],
   'reddit': [
-    'retrieveRedditPost',
-    'getRedditPostDetails',
-    'createRedditPost',
-    'createRedditComment',
-    'fetchPostComments',
-    'editRedditPost',
-    'editRedditComment',
-    'deleteRedditPost',
-    'deleteRedditComment',
-    'custom_api_call',
+    'list_subreddit_posts',
+    'search_subreddit',
+    'get_post_details',
+    'create_text_post',
+    'create_link_post',
+    'create_comment',
+    'edit_thing',
+    'delete_thing',
+    'report_thing',
   ],
   'redis-cloud': [
     'list_pro_subscriptions',
@@ -69578,6 +73937,15 @@ export const integrationActions = {
     'get_entries',
     'search_entries',
   ],
+  'rudderstack': [
+    'track',
+    'identify',
+    'group',
+    'page',
+    'screen',
+    'alias',
+    'batch',
+  ],
   'runway': [
     'generate_video',
     'get_task',
@@ -69647,12 +74015,30 @@ export const integrationActions = {
     'structured_data',
     'custom_api_call',
   ],
+  'scrapingbee': [
+    'scrape_url',
+    'google_search',
+  ],
   'screenshot-one': [
     'take_screenshot',
     'custom_api_call',
   ],
   'segment': [
     'identifyUser',
+    'track_event',
+    'group_user',
+    'page_view',
+    'screen_view',
+    'alias_user',
+    'batch_events',
+  ],
+  'semgrep': [
+    'list_deployments',
+    'list_projects',
+    'get_project',
+    'list_findings',
+    'list_secret_findings',
+    'bulk_triage_findings',
   ],
   'semrush': [
     'get_domain_overview',
@@ -69706,6 +74092,10 @@ export const integrationActions = {
     'revise_thought',
     'get_chain',
     'summarize_chain',
+  ],
+  'serpapi': [
+    'google_search',
+    'account_status',
   ],
   'service-now': [
     'list_records',
@@ -69763,6 +74153,21 @@ export const integrationActions = {
     'get_link',
     'list_links',
     'custom_api_call',
+  ],
+  'shortcut': [
+    'list_stories',
+    'search_stories',
+    'get_story',
+    'create_story',
+    'update_story',
+    'delete_story',
+    'add_story_comment',
+    'list_epics',
+    'create_epic',
+    'list_projects',
+    'list_workflows',
+    'list_iterations',
+    'list_webhooks',
   ],
   'sierra-interactive': [
     'list_leads',
@@ -70221,6 +74626,15 @@ export const integrationActions = {
     'search',
     'extract',
   ],
+  'taxjar': [
+    'calculate_tax',
+    'get_rates_for_location',
+    'validate_address',
+    'list_categories',
+    'create_order_transaction',
+    'get_order_transaction',
+    'delete_order_transaction',
+  ],
   'teachable': [
     'list_courses',
     'get_course',
@@ -70327,6 +74741,17 @@ export const integrationActions = {
     'get_campaign',
     'list_ad_groups',
     'get_ad_report',
+  ],
+  'timescale': [
+    'get_auth_info',
+    'list_services',
+    'get_service',
+    'create_service',
+    'resize_service',
+    'start_service',
+    'stop_service',
+    'delete_service',
+    'custom_api_call',
   ],
   'timesolv': [
     'list_time_entries',
@@ -70943,6 +75368,10 @@ export const integrationActions = {
     'find-account',
     'find-product-rate-plan',
     'find-product',
+  ],
+  'zyte': [
+    'fetch_page',
+    'extract_structured_data',
   ],
 } as const satisfies { readonly [I in IntegrationName]: readonly ActionName<I>[] }
 
