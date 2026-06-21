@@ -4877,6 +4877,76 @@ export interface Auth0ListConnectionsInput {
   perPage?: number
 }
 
+/** Authorize.net — Create Transaction */
+export interface AuthorizeNetCreateTransactionInput {
+  /** Transaction Type (values: `authCaptureTransaction`, `authOnlyTransaction`) */
+  transactionType: "authCaptureTransaction" | "authOnlyTransaction"
+  /** Decimal amount, for example 10.00. */
+  amount: string
+  /** Authorize.net payment object, for example opaqueData. */
+  payment?: unknown
+  /** Optional profile object with customerProfileId/paymentProfile. */
+  profile?: unknown
+  /** Order */
+  order?: unknown
+  /** Customer */
+  customer?: unknown
+  /** Bill To */
+  billTo?: unknown
+  /** Line Items */
+  lineItems?: unknown
+  /** Reference ID */
+  refId?: string
+}
+
+/** Authorize.net — Get Transaction */
+export interface AuthorizeNetGetTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Reference ID */
+  refId?: string
+}
+
+/** Authorize.net — Refund Transaction */
+export interface AuthorizeNetRefundTransactionInput {
+  /** Original Transaction ID */
+  transactionId: string
+  /** Amount */
+  amount: string
+  /** Card Last Four */
+  cardLastFour: string
+  /** Use XXXX for opaque refund profile flows when allowed. */
+  expirationDate?: string
+  /** Reference ID */
+  refId?: string
+}
+
+/** Authorize.net — Void Transaction */
+export interface AuthorizeNetVoidTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Reference ID */
+  refId?: string
+}
+
+/** Authorize.net — Create Customer Profile */
+export interface AuthorizeNetCreateCustomerProfileInput {
+  /** Merchant Customer ID */
+  merchantCustomerId?: string
+  /** Description */
+  description?: string
+  /** Email */
+  email?: string
+  /** Payment Profiles */
+  paymentProfiles?: unknown
+  /** Ship To List */
+  shipToList?: unknown
+  /** Validation Mode (values: `none`, `testMode`, `liveMode`) */
+  validationMode?: "none" | "testMode" | "liveMode"
+  /** Reference ID */
+  refId?: string
+}
+
 /** Autotask — Create Ticket */
 export interface AutotaskCreateTicketInput {
   /** Title */
@@ -4967,6 +5037,122 @@ export interface AwsS3HeadObjectInput {
   key: string
 }
 
+/** AWS Secrets Manager — List Secrets */
+export interface AwsSecretsManagerListSecretsInput {
+  /** Optional value for a name filter. */
+  nameFilter?: string
+  /** Tag Key Filter */
+  tagKey?: string
+  /** Tag Value Filter */
+  tagValue?: string
+  /** Include Planned Deletion */
+  includePlannedDeletion?: boolean
+  /** Sort By (values: `created-date`, `last-accessed-date`, `last-changed-date`, `name`) */
+  sortBy?: "created-date" | "last-accessed-date" | "last-changed-date" | "name"
+  /** Sort Order (values: `desc`, `asc`) */
+  sortOrder?: "desc" | "asc"
+  /** Max Results */
+  maxResults?: number
+  /** Next Token */
+  nextToken?: string
+}
+
+/** AWS Secrets Manager — Describe Secret */
+export interface AwsSecretsManagerDescribeSecretInput {
+  /** Secret name or ARN. */
+  secretId: string
+}
+
+/** AWS Secrets Manager — Get Secret Value */
+export interface AwsSecretsManagerGetSecretValueInput {
+  /** Secret name or ARN. */
+  secretId: string
+  /** Version ID */
+  versionId?: string
+  /** For example AWSCURRENT or AWSPREVIOUS. */
+  versionStage?: string
+  /** Type ACCESS_SECRET to return the secret value. */
+  confirmation: string
+}
+
+/** AWS Secrets Manager — List Secret Version IDs */
+export interface AwsSecretsManagerListSecretVersionIdsInput {
+  /** Secret ID */
+  secretId: string
+  /** Include Deprecated */
+  includeDeprecated?: boolean
+  /** Max Results */
+  maxResults?: number
+  /** Next Token */
+  nextToken?: string
+}
+
+/** AWS Secrets Manager — Create Secret */
+export interface AwsSecretsManagerCreateSecretInput {
+  /** Name */
+  name: string
+  /** Secret String */
+  secretString: string
+  /** Description */
+  description?: string
+  /** KMS Key ID */
+  kmsKeyId?: string
+  /** Client Request Token */
+  clientRequestToken?: string
+  /** Optional object such as {"env":"prod"}. */
+  tagsJson?: string
+  /** Type WRITE_SECRET to create this secret value. */
+  confirmation: string
+}
+
+/** AWS Secrets Manager — Put Secret Value */
+export interface AwsSecretsManagerPutSecretValueInput {
+  /** Secret ID */
+  secretId: string
+  /** Secret String */
+  secretString: string
+  /** Client Request Token */
+  clientRequestToken?: string
+  /** Optional comma- or newline-separated staging labels. */
+  versionStages?: string
+  /** Type WRITE_SECRET to write this secret value. */
+  confirmation: string
+}
+
+/** AWS Secrets Manager — Update Secret */
+export interface AwsSecretsManagerUpdateSecretInput {
+  /** Secret ID */
+  secretId: string
+  /** Description */
+  description?: string
+  /** KMS Key ID */
+  kmsKeyId?: string
+  /** Secret String */
+  secretString?: string
+  /** Client Request Token */
+  clientRequestToken?: string
+  /** Required as WRITE_SECRET when Secret String is provided. */
+  confirmation?: string
+}
+
+/** AWS Secrets Manager — Delete Secret */
+export interface AwsSecretsManagerDeleteSecretInput {
+  /** Secret ID */
+  secretId: string
+  /** 7 to 30 days. Leave empty when force deleting. */
+  recoveryWindowInDays?: number
+  /** Force Delete Without Recovery */
+  forceDeleteWithoutRecovery?: boolean
+  /** Type DELETE to delete this secret. */
+  confirmation: string
+}
+
+/** AWS Secrets Manager — Restore Secret */
+export interface AwsSecretsManagerRestoreSecretInput {
+  /** Secret ID */
+  secretId: string
+}
+
 /** AWS SES — Send Email */
 export interface AwsSesSendEmailInput {
   /** Sender email address (must be verified in SES) */
@@ -5003,6 +5189,41 @@ export interface AwsSesGetEmailIdentityInput {
 
 /** AWS SES — Get Account Details */
 export type AwsSesGetAccountInput = Record<string, never>
+
+/** AWS STS — Get Caller Identity */
+export type AwsStsGetCallerIdentityInput = Record<string, never>
+
+/** AWS STS — Get Access Key Info */
+export interface AwsStsGetAccessKeyInfoInput {
+  /** Access Key ID */
+  accessKeyId: string
+}
+
+/** AWS STS — Assume Role */
+export interface AwsStsAssumeRoleInput {
+  /** Role ARN */
+  roleArn: string
+  /** Role Session Name */
+  roleSessionName: string
+  /** 900 to 43200, subject to the role maximum session duration. */
+  durationSeconds?: number
+  /** External ID */
+  externalId?: string
+  /** Source Identity */
+  sourceIdentity?: string
+  /** MFA Serial Number */
+  serialNumber?: string
+  /** MFA Token Code */
+  tokenCode?: string
+  /** Inline Session Policy JSON */
+  policyJson?: string
+  /** Optional object such as {"project":"weavz"}. */
+  tagsJson?: string
+  /** Optional comma- or newline-separated tag keys. */
+  transitiveTagKeys?: string
+  /** Type ASSUME_ROLE to return temporary credentials. */
+  confirmation: string
+}
 
 /** Azure Blob Storage — List Containers */
 export interface AzureBlobStorageListContainersInput {
@@ -6309,6 +6530,50 @@ export interface BoxCustomApiCallInput {
   queryParams?: unknown
 }
 
+/** Braintree — Get Payment */
+export interface BraintreeGetPaymentInput {
+  /** Payment ID */
+  paymentId: string
+}
+
+/** Braintree — Capture Transaction */
+export interface BraintreeCaptureTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Optional decimal amount for partial capture. */
+  amount?: string
+  /** Client Mutation ID */
+  clientMutationId?: string
+}
+
+/** Braintree — Reverse Transaction */
+export interface BraintreeReverseTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Client Mutation ID */
+  clientMutationId?: string
+}
+
+/** Braintree — Refund Transaction */
+export interface BraintreeRefundTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Optional decimal amount for partial refunds. */
+  amount?: string
+  /** Refund Order ID */
+  orderId?: string
+  /** Client Mutation ID */
+  clientMutationId?: string
+}
+
+/** Braintree — Void Transaction */
+export interface BraintreeVoidTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Client Mutation ID */
+  clientMutationId?: string
+}
+
 /** Brandfolder — Get Asset */
 export interface BrandfolderGetAssetInput {
   /** Asset ID */
@@ -6391,6 +6656,118 @@ export interface BraveSearchCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** Braze — Create or Update Users */
+export interface BrazeTrackUsersInput {
+  /** Array of Braze user attribute objects. */
+  attributes?: unknown
+  /** Array of Braze event objects. */
+  events?: unknown
+  /** Array of Braze purchase objects. */
+  purchases?: unknown
+}
+
+/** Braze — Export Users by Identifier */
+export interface BrazeExportUsersByIdentifierInput {
+  /** Array of external_id values. */
+  externalIds?: unknown
+  /** Array of braze_id values. */
+  brazeIds?: unknown
+  /** Array of user alias objects. */
+  userAliases?: unknown
+  /** Array of email addresses. */
+  emailAddresses?: unknown
+  /** Array of phone numbers. */
+  phoneNumbers?: unknown
+  /** Optional array of profile fields to return. */
+  fieldsToExport?: unknown
+}
+
+/** Braze — Delete Users */
+export interface BrazeDeleteUsersInput {
+  /** Array of external_id values. */
+  externalIds?: unknown
+  /** Array of braze_id values. */
+  brazeIds?: unknown
+  /** Array of user alias objects. */
+  userAliases?: unknown
+  /** Required because this permanently deletes user profiles. */
+  confirmDelete: boolean
+}
+
+/** Braze — List Campaigns */
+export interface BrazeListCampaignsInput {
+  /** Page */
+  page?: number
+  /** Include Archived */
+  includeArchived?: boolean
+  /** Sort Direction (values: `desc`, `asc`) */
+  sortDirection?: "desc" | "asc"
+}
+
+/** Braze — Get Campaign Details */
+export interface BrazeGetCampaignDetailsInput {
+  /** Campaign ID */
+  campaignId: string
+}
+
+/** Braze — Send Triggered Campaign */
+export interface BrazeSendTriggeredCampaignInput {
+  /** Campaign ID */
+  campaignId: string
+  /** Array of Braze recipient objects. */
+  recipients: unknown
+  /** Trigger Properties */
+  triggerProperties?: unknown
+  /** Send to the campaign audience instead of explicit recipients. */
+  broadcast?: boolean
+}
+
+/** Braze — List Segments */
+export interface BrazeListSegmentsInput {
+  /** Page */
+  page?: number
+  /** Sort Direction (values: `desc`, `asc`) */
+  sortDirection?: "desc" | "asc"
+}
+
+/** Braze — Get Segment Details */
+export interface BrazeGetSegmentDetailsInput {
+  /** Segment ID */
+  segmentId: string
+}
+
+/** Braze — Update Subscription Group Status */
+export interface BrazeUpdateSubscriptionGroupStatusInput {
+  /** Subscription Group ID */
+  subscriptionGroupId: string
+  /** Subscription State (values: `subscribed`, `unsubscribed`) */
+  subscriptionState: "subscribed" | "unsubscribed"
+  /** External ID */
+  externalId?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+}
+
+/** Braze — Change Email Subscription Status */
+export interface BrazeChangeEmailSubscriptionStatusInput {
+  /** Email */
+  email: string
+  /** Subscription State (values: `subscribed`, `unsubscribed`, `opted_in`) */
+  subscriptionState: "subscribed" | "unsubscribed" | "opted_in"
+}
+
+/** Braze — Custom API Call */
+export interface BrazeCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path starting with /, for example /campaigns/list. */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Breezy HR — List Candidates */
@@ -8339,6 +8716,218 @@ export interface ClearbitCustomApiCallInput {
   body?: unknown
 }
 
+/** Clerk — List Users */
+export interface ClerkListUsersInput {
+  /** Search by user ID, name, email, or phone. */
+  query?: string
+  /** Optional comma- or newline-separated exact email addresses. */
+  emailAddress?: string
+  /** Optional comma- or newline-separated organization IDs. */
+  organizationId?: string
+  /** Banned Only */
+  banned?: boolean
+  /** Order By (values: `-created_at`, `created_at`, `-updated_at`, `updated_at`, `email_address`, `-email_address`) */
+  orderBy?: "-created_at" | "created_at" | "-updated_at" | "updated_at" | "email_address" | "-email_address"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Clerk — Get User */
+export interface ClerkGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Clerk — Create User */
+export interface ClerkCreateUserInput {
+  /** Email Addresses */
+  emailAddress?: string
+  /** Phone Numbers */
+  phoneNumber?: string
+  /** Username */
+  username?: string
+  /** Optional plaintext password to set on the new user. */
+  password?: string
+  /** External ID */
+  externalId?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Public Metadata JSON */
+  publicMetadata?: string
+  /** Private Metadata JSON */
+  privateMetadata?: string
+  /** Skip Password Requirement */
+  skipPasswordRequirement?: boolean
+}
+
+/** Clerk — Update User */
+export interface ClerkUpdateUserInput {
+  /** User ID */
+  userId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Username */
+  username?: string
+  /** External ID */
+  externalId?: string
+  /** Public Metadata JSON */
+  publicMetadata?: string
+  /** Private Metadata JSON */
+  privateMetadata?: string
+  /** Unsafe Metadata JSON */
+  unsafeMetadata?: string
+}
+
+/** Clerk — Delete User */
+export interface ClerkDeleteUserInput {
+  /** User ID */
+  userId: string
+  /** Type DELETE to delete the user. */
+  confirmation: string
+}
+
+/** Clerk — List Organizations */
+export interface ClerkListOrganizationsInput {
+  /** Query */
+  query?: string
+  /** Optional comma- or newline-separated user IDs. */
+  userId?: string
+  /** Include Members Count */
+  includeMembersCount?: boolean
+  /** Order By (values: `-created_at`, `created_at`, `name`, `-name`) */
+  orderBy?: "-created_at" | "created_at" | "name" | "-name"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Clerk — Get Organization */
+export interface ClerkGetOrganizationInput {
+  /** Organization ID */
+  organizationId: string
+}
+
+/** Clerk — Create Organization */
+export interface ClerkCreateOrganizationInput {
+  /** Name */
+  name: string
+  /** Slug */
+  slug?: string
+  /** Created By User ID */
+  createdBy?: string
+  /** Public Metadata JSON */
+  publicMetadata?: string
+  /** Private Metadata JSON */
+  privateMetadata?: string
+}
+
+/** Clerk — Update Organization */
+export interface ClerkUpdateOrganizationInput {
+  /** Organization ID */
+  organizationId: string
+  /** Name */
+  name?: string
+  /** Slug */
+  slug?: string
+  /** Max Allowed Memberships */
+  maxAllowedMemberships?: number
+  /** Public Metadata JSON */
+  publicMetadata?: string
+  /** Private Metadata JSON */
+  privateMetadata?: string
+}
+
+/** Clerk — Delete Organization */
+export interface ClerkDeleteOrganizationInput {
+  /** Organization ID */
+  organizationId: string
+  /** Type DELETE to delete the organization. */
+  confirmation: string
+}
+
+/** Clerk — List Organization Memberships */
+export interface ClerkListOrganizationMembershipsInput {
+  /** Organization ID */
+  organizationId: string
+  /** Query */
+  query?: string
+  /** Optional comma- or newline-separated role keys. */
+  role?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Clerk — Create Organization Membership */
+export interface ClerkCreateOrganizationMembershipInput {
+  /** Organization ID */
+  organizationId: string
+  /** User ID */
+  userId: string
+  /** Organization role key, for example org:member or org:admin. */
+  role: string
+  /** Public Metadata JSON */
+  publicMetadata?: string
+  /** Private Metadata JSON */
+  privateMetadata?: string
+}
+
+/** Clerk — Update Organization Membership */
+export interface ClerkUpdateOrganizationMembershipInput {
+  /** Organization ID */
+  organizationId: string
+  /** User ID */
+  userId: string
+  /** Role */
+  role: string
+}
+
+/** Clerk — Remove Organization Membership */
+export interface ClerkRemoveOrganizationMembershipInput {
+  /** Organization ID */
+  organizationId: string
+  /** User ID */
+  userId: string
+  /** Type DELETE to remove the membership. */
+  confirmation: string
+}
+
+/** Clerk — List Sessions */
+export interface ClerkListSessionsInput {
+  /** User ID */
+  userId?: string
+  /** Client ID */
+  clientId?: string
+  /** Status (values: `active`, `revoked`, `ended`, `expired`, `removed`, `abandoned`) */
+  status?: "active" | "revoked" | "ended" | "expired" | "removed" | "abandoned"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Clerk — Get Session */
+export interface ClerkGetSessionInput {
+  /** Session ID */
+  sessionId: string
+}
+
+/** Clerk — Revoke Session */
+export interface ClerkRevokeSessionInput {
+  /** Session ID */
+  sessionId: string
+  /** Type REVOKE to revoke the session. */
+  confirmation: string
+}
+
 /** ClickFunnels — Create Opportunity */
 export interface ClickfunnelsCreateOpportunityInput {
   /** The name or title of the opportunity. */
@@ -8449,6 +9038,85 @@ export interface ClickfunnelsCustomApiCallInput {
   timeout?: number
   /** Follow redirects */
   followRedirects?: boolean
+}
+
+/** ClickHouse — Ping */
+export type ClickhousePingInput = Record<string, never>
+
+/** ClickHouse — Execute Query */
+export interface ClickhouseExecuteQueryInput {
+  /** Query */
+  query: string
+  /** Overrides the default database from the connection. */
+  database?: string
+  /** Response Format (values: `JSON`, `JSONEachRow`, `CSV`, `TabSeparated`, `PrettyCompact`) */
+  format?: "JSON" | "JSONEachRow" | "CSV" | "TabSeparated" | "PrettyCompact"
+  /** Optional ClickHouse HTTP settings as a JSON object. */
+  settings?: unknown
+  /** Named parameters used as {name:Type} in SQL. */
+  params?: unknown
+  /** Optional query_id for tracking or cancellation. */
+  queryId?: string
+  /** Required for INSERT, ALTER, DROP, KILL, and other non-read-only SQL. */
+  allowMutatingQuery?: boolean
+}
+
+/** ClickHouse — List Databases */
+export interface ClickhouseListDatabasesInput {
+  /** Limit */
+  limit?: number
+}
+
+/** ClickHouse — List Tables */
+export interface ClickhouseListTablesInput {
+  /** Database */
+  database: string
+  /** Optional SQL LIKE pattern, for example events_%. */
+  tableNamePattern?: string
+  /** Limit */
+  limit?: number
+}
+
+/** ClickHouse — Describe Table */
+export interface ClickhouseDescribeTableInput {
+  /** Database */
+  database: string
+  /** Table */
+  table: string
+}
+
+/** ClickHouse — Show Create Table */
+export interface ClickhouseShowCreateTableInput {
+  /** Database */
+  database: string
+  /** Table */
+  table: string
+}
+
+/** ClickHouse — Kill Query */
+export interface ClickhouseKillQueryInput {
+  /** Query ID */
+  queryId: string
+  /** Optional database context. */
+  database?: string
+  /** Wait for Cancellation */
+  sync?: boolean
+  /** Must be enabled to cancel a running query. */
+  confirmKill: boolean
+}
+
+/** ClickHouse — Cloud API Call */
+export interface ClickhouseCloudApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** ClickHouse Cloud API path beginning with /v1/. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required when Method is DELETE. */
+  confirmDelete?: boolean
 }
 
 /** ClickSend SMS — Send SMS */
@@ -9327,6 +9995,78 @@ export interface CodacyCustomApiCallInput {
   body?: unknown
 }
 
+/** Cognism — Search Contacts */
+export interface CognismSearchContactsInput {
+  /** Cognism contact search JSON body. */
+  filters: unknown
+  /** Number of records to return. */
+  indexSize?: number
+  /** Pagination key from the previous response. */
+  lastReturnedKey?: string
+}
+
+/** Cognism — Search Accounts */
+export interface CognismSearchAccountsInput {
+  /** Cognism account search JSON body. */
+  filters: unknown
+  /** Page Size */
+  indexSize?: number
+  /** Last Returned Key */
+  lastReturnedKey?: string
+}
+
+/** Cognism — Redeem Contacts */
+export interface CognismRedeemContactsInput {
+  /** Cognism contact IDs to redeem. */
+  ids: unknown[]
+  /** Merge Phones And Locations */
+  mergePhonesAndLocations?: boolean
+}
+
+/** Cognism — Redeem Accounts */
+export interface CognismRedeemAccountsInput {
+  /** Account IDs */
+  ids: unknown[]
+  /** Merge Phones And Locations */
+  mergePhonesAndLocations?: boolean
+}
+
+/** Cognism — Enrich Contact */
+export interface CognismEnrichContactInput {
+  /** Contact enrichment JSON, for example email, name, account, country, or LinkedIn URL fields. */
+  identifiers: unknown
+}
+
+/** Cognism — Enrich Account */
+export interface CognismEnrichAccountInput {
+  /** Account enrichment JSON, for example domain, name, country, or city. */
+  identifiers: unknown
+}
+
+/** Cognism — Get Contact Entitlements */
+export type CognismGetContactEntitlementsInput = Record<string, never>
+
+/** Cognism — Get Account Entitlements */
+export type CognismGetAccountEntitlementsInput = Record<string, never>
+
+/** Cognism — List Filter Values */
+export interface CognismListFilterValuesInput {
+  /** Filter */
+  filter: "technologiesSearch" | "managementLevels" | "companySizes" | "industries" | "jobFunctions" | "regions" | "countries" | "states" | "sic" | "isic" | "naics" | "skills" | "companyTypes" | "seniority"
+  /** Optional search term for technologiesSearch. */
+  search?: string
+  /** Last Returned Key */
+  lastReturnedKey?: string
+  /** Page Size */
+  indexSize?: number
+}
+
+/** Cognism — Get Opt-Out By Email */
+export interface CognismGetOptOutByEmailInput {
+  /** Email */
+  email: string
+}
+
 /** Cognito Forms — List Forms */
 export type CognitoFormsListFormsInput = Record<string, never>
 
@@ -9486,6 +10226,80 @@ export interface CohereRerankInput {
   documents: unknown[]
   /** Number of results to return */
   topN?: number
+}
+
+/** Common Room — Get Token Status */
+export type CommonRoomGetTokenStatusInput = Record<string, never>
+
+/** Common Room — Add Or Update Contact */
+export interface CommonRoomAddOrUpdateContactInput {
+  /** Destination Source ID */
+  destinationSourceId: number
+  /** External Contact ID */
+  id: string
+  /** Full Name */
+  fullName?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** LinkedIn Handle Or URL */
+  linkedin?: string
+  /** Twitter/X Handle */
+  twitter?: string
+  /** GitHub Handle */
+  github?: string
+  /** Organization */
+  organization?: string
+  /** Title */
+  title?: string
+  /** Custom Fields */
+  customFields?: unknown
+}
+
+/** Common Room — Get Contact By Email */
+export interface CommonRoomGetContactByEmailInput {
+  /** Email */
+  email: string
+}
+
+/** Common Room — Anonymize Contact */
+export interface CommonRoomAnonymizeContactInput {
+  /** Email */
+  email: string
+}
+
+/** Common Room — Add Or Update Activity */
+export interface CommonRoomAddOrUpdateActivityInput {
+  /** Destination Source ID */
+  destinationSourceId: number
+  /** Common Room ApiActivity request body. */
+  activity: unknown
+}
+
+/** Common Room — Get Activity Types */
+export type CommonRoomGetActivityTypesInput = Record<string, never>
+
+/** Common Room — List Segments */
+export type CommonRoomListSegmentsInput = Record<string, never>
+
+/** Common Room — List Tags */
+export type CommonRoomListTagsInput = Record<string, never>
+
+/** Common Room — Create Tag */
+export interface CommonRoomCreateTagInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+}
+
+/** Common Room — Delete Tag */
+export interface CommonRoomDeleteTagInput {
+  /** Tag ID */
+  tagId: string
 }
 
 /** CompanyCam — List Projects */
@@ -10762,6 +11576,97 @@ export interface CrispCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Culture Amp — Validate Connection */
+export type CultureAmpValidateConnectionInput = Record<string, never>
+
+/** Culture Amp — List Employees */
+export interface CultureAmpListEmployeesInput {
+  /** Email */
+  email?: string
+  /** Employee Identifier */
+  employee_identifier?: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Culture Amp — Get Employee */
+export interface CultureAmpGetEmployeeInput {
+  /** Employee ID */
+  employee_id: string
+}
+
+/** Culture Amp — List Employee Demographics */
+export interface CultureAmpListEmployeeDemographicsInput {
+  /** Employee ID */
+  employee_id: string
+}
+
+/** Culture Amp — List Performance Cycles */
+export interface CultureAmpListPerformanceCyclesInput {
+  /** ISO date or datetime. */
+  after?: string
+  /** Cursor */
+  cursor?: string
+  /** State (values: `active`, `complete`, `draft`) */
+  state?: "active" | "complete" | "draft"
+}
+
+/** Culture Amp — Get Performance Cycle */
+export interface CultureAmpGetPerformanceCycleInput {
+  /** Performance Cycle ID */
+  performance_cycle_id: string
+}
+
+/** Culture Amp — List Manager Reviews */
+export interface CultureAmpListManagerReviewsInput {
+  /** ISO date or datetime. */
+  after?: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Culture Amp — Get Manager Review */
+export interface CultureAmpGetManagerReviewInput {
+  /** Manager Review ID */
+  manager_review_id: string
+}
+
+/** Culture Amp — List Employee Manager Reviews */
+export interface CultureAmpListEmployeeManagerReviewsInput {
+  /** Employee ID */
+  employee_id: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Culture Amp — List Cycle Manager Reviews */
+export interface CultureAmpListCycleManagerReviewsInput {
+  /** Performance Cycle ID */
+  performance_cycle_id: string
+  /** Cursor */
+  cursor?: string
+}
+
+/** Culture Amp — List Surveys */
+export interface CultureAmpListSurveysInput {
+  /** Cursor */
+  cursor?: string
+}
+
+/** Culture Amp — Get Survey */
+export interface CultureAmpGetSurveyInput {
+  /** Survey ID */
+  survey_id: string
+}
+
+/** Culture Amp — Custom API Call */
+export interface CultureAmpCustomApiCallInput {
+  /** Relative API path, for example /employees. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+}
+
 /** Customer.io — Identify Person */
 export interface CustomerIoIdentifyPersonInput {
   /** Unique identifier for the customer */
@@ -11339,6 +12244,138 @@ export interface DatocmsCustomApiCallInput {
   body?: unknown
 }
 
+/** dbt Cloud — List Projects */
+export interface DbtCloudListProjectsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** dbt Cloud — Get Project */
+export interface DbtCloudGetProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** dbt Cloud — List Jobs */
+export interface DbtCloudListJobsInput {
+  /** Project ID */
+  projectId?: string
+  /** Environment ID */
+  environmentId?: string
+  /** Order By */
+  orderBy?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** dbt Cloud — Get Job */
+export interface DbtCloudGetJobInput {
+  /** Job ID */
+  jobId: string
+}
+
+/** dbt Cloud — Trigger Job Run */
+export interface DbtCloudTriggerJobRunInput {
+  /** Job ID */
+  jobId: string
+  /** Cause */
+  cause?: string
+  /** Git SHA */
+  gitSha?: string
+  /** Git Branch */
+  gitBranch?: string
+  /** Schema Override */
+  schemaOverride?: string
+  /** dbt Version Override */
+  dbtVersionOverride?: string
+  /** Threads Override */
+  threadsOverride?: number
+  /** Target Name Override */
+  targetNameOverride?: string
+  /** Generate Docs Override */
+  generateDocsOverride?: boolean
+  /** Timeout Seconds Override */
+  timeoutSecondsOverride?: number
+  /** Optional JSON array of dbt command strings. */
+  stepsOverride?: unknown
+}
+
+/** dbt Cloud — List Runs */
+export interface DbtCloudListRunsInput {
+  /** Job ID */
+  jobId?: string
+  /** Project ID */
+  projectId?: string
+  /** Environment ID */
+  environmentId?: string
+  /** Optional numeric dbt run status code. */
+  status?: string
+  /** Order By */
+  orderBy?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** dbt Cloud — Get Run */
+export interface DbtCloudGetRunInput {
+  /** Run ID */
+  runId: string
+  /** Optional include_related array or object accepted by the dbt Cloud API. */
+  includeRelated?: unknown
+}
+
+/** dbt Cloud — Cancel Run */
+export interface DbtCloudCancelRunInput {
+  /** Run ID */
+  runId: string
+  /** Confirm Cancel */
+  confirmCancel: boolean
+}
+
+/** dbt Cloud — List Run Artifacts */
+export interface DbtCloudListRunArtifactsInput {
+  /** Run ID */
+  runId: string
+  /** Step */
+  step?: number
+}
+
+/** dbt Cloud — Get Run Artifact */
+export interface DbtCloudGetRunArtifactInput {
+  /** Run ID */
+  runId: string
+  /** Artifact Path */
+  path: string
+  /** Step */
+  step?: number
+}
+
+/** dbt Cloud — Get Step */
+export interface DbtCloudGetStepInput {
+  /** Step ID */
+  stepId: string
+}
+
+/** dbt Cloud — Custom API Call */
+export interface DbtCloudCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path relative to /api/v2/accounts/{accountId}, for example /jobs/ or /runs/{runId}/. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required when Method is DELETE. */
+  confirmDelete?: boolean
+}
+
 /** Deel — List Contracts */
 export interface DeelListContractsInput {
   /** Limit */
@@ -11564,6 +12601,107 @@ export interface DeepseekAskJsonInput {
   temperature?: number
   /** The maximum number of tokens to generate. */
   maxTokens?: number
+}
+
+/** Deputy — Validate Connection */
+export type DeputyValidateConnectionInput = Record<string, never>
+
+/** Deputy — List Employees */
+export interface DeputyListEmployeesInput {
+  /** Start */
+  start?: number
+  /** Deputy generally caps list responses at 500 records. */
+  max?: number
+}
+
+/** Deputy — Get Employee */
+export interface DeputyGetEmployeeInput {
+  /** Employee ID */
+  employee_id: string
+}
+
+/** Deputy — List Locations */
+export interface DeputyListLocationsInput {
+  /** Start */
+  start?: number
+  /** Max Records */
+  max?: number
+}
+
+/** Deputy — List Operational Units */
+export interface DeputyListOperationalUnitsInput {
+  /** Start */
+  start?: number
+  /** Max Records */
+  max?: number
+}
+
+/** Deputy — Query Resource */
+export interface DeputyQueryResourceInput {
+  /** Resource (values: `Employee`, `Company`, `OperationalUnit`, `Roster`, `Timesheet`, `Leave`, `Webhook`) */
+  resource: "Employee" | "Company" | "OperationalUnit" | "Roster" | "Timesheet" | "Leave" | "Webhook"
+  /** Deputy QUERY payload. */
+  query: unknown
+}
+
+/** Deputy — List Rosters */
+export interface DeputyListRostersInput {
+  /** Optional Deputy Roster QUERY payload. */
+  query?: unknown
+}
+
+/** Deputy — List Timesheets */
+export interface DeputyListTimesheetsInput {
+  /** Optional Deputy Timesheet QUERY payload. */
+  query?: unknown
+}
+
+/** Deputy — Create Resource */
+export interface DeputyCreateResourceInput {
+  /** Resource (values: `Employee`, `Company`, `OperationalUnit`, `Roster`, `Webhook`) */
+  resource: "Employee" | "Company" | "OperationalUnit" | "Roster" | "Webhook"
+  /** Resource Data */
+  data: unknown
+  /** Confirm Create */
+  confirm: boolean
+}
+
+/** Deputy — Delete Resource */
+export interface DeputyDeleteResourceInput {
+  /** Resource (values: `Employee`, `Company`, `OperationalUnit`, `Roster`, `Timesheet`, `Leave`, `Webhook`) */
+  resource: "Employee" | "Company" | "OperationalUnit" | "Roster" | "Timesheet" | "Leave" | "Webhook"
+  /** Resource ID */
+  resource_id: string
+  /** Confirm Delete */
+  confirm: boolean
+}
+
+/** Deputy — Create Webhook */
+export interface DeputyCreateWebhookInput {
+  /** For example Employee.Update or Timesheet.Insert. */
+  topic: string
+  /** Webhook callback URL. */
+  address: string
+  /** Headers */
+  headers?: unknown
+  /** Filters */
+  filters?: unknown
+  /** Enabled */
+  enabled?: boolean
+  /** Confirm Webhook Create */
+  confirm: boolean
+}
+
+/** Deputy — Custom API Call */
+export interface DeputyCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative path under /api, for example /api/v1/me. */
+  path: string
+  /** Body */
+  body?: unknown
+  /** Confirm Non-GET Call */
+  confirm?: boolean
 }
 
 /** Descript — Import Media */
@@ -12254,6 +13392,150 @@ export interface DockerHubCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
   /** API path (e.g., /repositories/{namespace}/{repo}/tags/) */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** Documenso — List Documents */
+export interface DocumensoListDocumentsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Status */
+  status?: string
+}
+
+/** Documenso — Get Document */
+export interface DocumensoGetDocumentInput {
+  /** Document ID */
+  documentId: number
+}
+
+/** Documenso — Create Document */
+export interface DocumensoCreateDocumentInput {
+  /** Title */
+  title: string
+  /** Recipient array accepted by the Documenso Documents API. */
+  recipients?: unknown
+  /** Metadata */
+  meta?: unknown
+  /** Document source/upload object accepted by the API. */
+  source?: unknown
+}
+
+/** Documenso — Send Document */
+export interface DocumensoSendDocumentInput {
+  /** Document ID */
+  documentId: number
+  /** Email Subject */
+  subject?: string
+  /** Email Message */
+  message?: string
+}
+
+/** Documenso — Delete Document */
+export interface DocumensoDeleteDocumentInput {
+  /** Document ID */
+  documentId: number
+}
+
+/** Documenso — List Templates */
+export interface DocumensoListTemplatesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Documenso — Custom API Call */
+export interface DocumensoCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path starting with /, relative to /api/v2. */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** DocuSeal — List Submissions */
+export interface DocusealListSubmissionsInput {
+  /** Template ID */
+  templateId?: number
+  /** Status (values: `pending`, `completed`, `declined`, `expired`) */
+  status?: "pending" | "completed" | "declined" | "expired"
+  /** Submitter name, email, or phone partial match. */
+  query?: string
+  /** Archived Only */
+  archived?: boolean
+  /** Limit */
+  limit?: number
+  /** After ID */
+  after?: number
+}
+
+/** DocuSeal — Get Submission */
+export interface DocusealGetSubmissionInput {
+  /** Submission ID */
+  submissionId: number
+}
+
+/** DocuSeal — Create Submission */
+export interface DocusealCreateSubmissionInput {
+  /** Template ID */
+  templateId: number
+  /** Submitters array accepted by the DocuSeal API. */
+  submitters: unknown
+  /** Send Email */
+  sendEmail?: boolean
+  /** Send SMS */
+  sendSms?: boolean
+  /** Optional subject/body message object. */
+  message?: unknown
+  /** Optional ISO timestamp. */
+  expireAt?: string
+}
+
+/** DocuSeal — Get Submission Documents */
+export interface DocusealGetSubmissionDocumentsInput {
+  /** Submission ID */
+  submissionId: number
+}
+
+/** DocuSeal — Archive Submission */
+export interface DocusealArchiveSubmissionInput {
+  /** Submission ID */
+  submissionId: number
+}
+
+/** DocuSeal — List Templates */
+export interface DocusealListTemplatesInput {
+  /** Limit */
+  limit?: number
+  /** After ID */
+  after?: number
+  /** Archived Only */
+  archived?: boolean
+}
+
+/** DocuSeal — Get Template */
+export interface DocusealGetTemplateInput {
+  /** Template ID */
+  templateId: number
+}
+
+/** DocuSeal — Archive Template */
+export interface DocusealArchiveTemplateInput {
+  /** Template ID */
+  templateId: number
+}
+
+/** DocuSeal — Custom API Call */
+export interface DocusealCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path starting with /. */
   path: string
   /** Body */
   body?: unknown
@@ -14217,6 +15499,116 @@ export interface ExaCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Expensify — Export Reports */
+export interface ExpensifyExportReportsInput {
+  /** Exporter inputSettings from Expensify docs, for example report IDs or a date range. */
+  inputSettings: unknown
+  /** Exporter outputSettings from Expensify docs. */
+  outputSettings: unknown
+  /** Optional onReceive object from Expensify docs. */
+  onReceive?: unknown
+  /** Optional Freemarker template content passed as the Integration Server template parameter. */
+  template?: string
+}
+
+/** Expensify — Export Card Reconciliation */
+export interface ExpensifyExportCardReconciliationInput {
+  /** Reconciliation inputSettings from Expensify docs. */
+  inputSettings: unknown
+  /** Reconciliation outputSettings from Expensify docs. */
+  outputSettings: unknown
+  /** Optional onReceive object from Expensify docs. */
+  onReceive?: unknown
+  /** Optional Freemarker template content passed as the Integration Server template parameter. */
+  template?: string
+}
+
+/** Expensify — Download File */
+export interface ExpensifyDownloadFileInput {
+  /** Filename returned by an Expensify export or reconciliation job. */
+  fileName: string
+  /** File System (values: `integrationServer`, `reconciliation`) */
+  fileSystem?: "integrationServer" | "reconciliation"
+}
+
+/** Expensify — Create Report */
+export interface ExpensifyCreateReportInput {
+  /** Create report inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Create Expenses */
+export interface ExpensifyCreateExpensesInput {
+  /** Create expenses inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Create Policy */
+export interface ExpensifyCreatePolicyInput {
+  /** Create policy inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Create Expense Rules */
+export interface ExpensifyCreateExpenseRulesInput {
+  /** Create expenseRules inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Get Policy */
+export interface ExpensifyGetPolicyInput {
+  /** Get policy inputSettings excluding the type field, such as policyID. */
+  inputSettings: unknown
+}
+
+/** Expensify — Get Policy List */
+export interface ExpensifyGetPolicyListInput {
+  /** Optional get policyList inputSettings excluding the type field. */
+  inputSettings?: unknown
+}
+
+/** Expensify — Get Domain Card List */
+export interface ExpensifyGetDomainCardListInput {
+  /** Get domainCardList inputSettings excluding the type field. */
+  inputSettings: unknown
+}
+
+/** Expensify — Update Policy */
+export interface ExpensifyUpdatePolicyInput {
+  /** Update policy inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Update Report Status */
+export interface ExpensifyUpdateReportStatusInput {
+  /** Update reportStatus inputSettings excluding the type field. */
+  inputSettings: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
+/** Expensify — Submit Job */
+export interface ExpensifySubmitJobInput {
+  /** Full requestJobDescription object from Expensify docs. Do not include credentials; they are injected from auth. */
+  jobDescription: unknown
+  /** Optional Freemarker template content passed as the Integration Server template parameter. */
+  template?: string
+  /** Optional additional form fields as a JSON object. Values are URL-encoded. */
+  formParams?: unknown
+  /** Required for jobs that create, update, or otherwise mutate Expensify financial or policy data. */
+  confirmFinancialChange: boolean
+}
+
 /** Facebook Ads — List Campaigns */
 export interface FacebookAdsListCampaignsInput {
   /** The ad account ID (e.g., act_123456) */
@@ -15260,6 +16652,128 @@ export interface FishbowlCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Fivetran — List Groups */
+export interface FivetranListGroupsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fivetran — Get Group */
+export interface FivetranGetGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Fivetran — List Destinations */
+export interface FivetranListDestinationsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fivetran — Get Destination */
+export interface FivetranGetDestinationInput {
+  /** Destination ID */
+  destinationId: string
+}
+
+/** Fivetran — Run Destination Setup Tests */
+export interface FivetranRunDestinationSetupTestsInput {
+  /** Destination ID */
+  destinationId: string
+}
+
+/** Fivetran — List Connections */
+export interface FivetranListConnectionsInput {
+  /** Group ID */
+  groupId?: string
+  /** Schema */
+  schema?: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fivetran — List Group Connections */
+export interface FivetranListGroupConnectionsInput {
+  /** Group ID */
+  groupId: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Fivetran — Get Connection */
+export interface FivetranGetConnectionInput {
+  /** Connection ID */
+  connectionId: string
+}
+
+/** Fivetran — Sync Connection */
+export interface FivetranSyncConnectionInput {
+  /** Connection ID */
+  connectionId: string
+  /** If enabled, Fivetran stops an in-progress sync and reruns it. */
+  force?: boolean
+}
+
+/** Fivetran — Re-sync Connection */
+export interface FivetranResyncConnectionInput {
+  /** Connection ID */
+  connectionId: string
+  /** Optional schema/table scope object. Leave blank to resync the whole connection. */
+  scope?: unknown
+  /** Required because a historical sync can be expensive. */
+  confirmResync: boolean
+}
+
+/** Fivetran — Run Connection Setup Tests */
+export interface FivetranRunConnectionSetupTestsInput {
+  /** Connection ID */
+  connectionId: string
+  /** Trust Certificates */
+  trustCertificates?: boolean
+  /** Trust Fingerprints */
+  trustFingerprints?: boolean
+}
+
+/** Fivetran — Update Connection */
+export interface FivetranUpdateConnectionInput {
+  /** Connection ID */
+  connectionId: string
+  /** PATCH body from the Fivetran Update Connection API. */
+  connection: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Fivetran — Delete Connection */
+export interface FivetranDeleteConnectionInput {
+  /** Connection ID */
+  connectionId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Fivetran — Custom API Call */
+export interface FivetranCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Path relative to /v1, for example /connections or /groups/{groupId}. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required when Method is DELETE. */
+  confirmDelete?: boolean
 }
 
 /** Fleetio — Get Vehicle */
@@ -17499,6 +19013,110 @@ export interface GmailCustomApiCallInput {
   headers?: Record<string, unknown>
   /** Body */
   body?: unknown
+}
+
+/** GoCardless — List Customers */
+export interface GocardlessListCustomersInput {
+  /** 1-500 records. */
+  limit?: number
+  /** Cursor from response meta.cursors.after. */
+  after?: string
+  /** Email */
+  email?: string
+}
+
+/** GoCardless — Get Customer */
+export interface GocardlessGetCustomerInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** GoCardless — Create Customer */
+export interface GocardlessCreateCustomerInput {
+  /** Given Name */
+  givenName?: string
+  /** Family Name */
+  familyName?: string
+  /** Email */
+  email: string
+  /** Company Name */
+  companyName?: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** GoCardless — List Mandates */
+export interface GocardlessListMandatesInput {
+  /** 1-500 records. */
+  limit?: number
+  /** Cursor from response meta.cursors.after. */
+  after?: string
+  /** Customer ID */
+  customerId?: string
+  /** Status */
+  status?: string
+}
+
+/** GoCardless — List Payments */
+export interface GocardlessListPaymentsInput {
+  /** 1-500 records. */
+  limit?: number
+  /** Cursor from response meta.cursors.after. */
+  after?: string
+  /** Customer ID */
+  customerId?: string
+  /** Mandate ID */
+  mandateId?: string
+  /** Status */
+  status?: string
+  /** ISO 8601 timestamp. */
+  createdAtGte?: string
+}
+
+/** GoCardless — Get Payment */
+export interface GocardlessGetPaymentInput {
+  /** Payment ID */
+  paymentId: string
+}
+
+/** GoCardless — Create Payment */
+export interface GocardlessCreatePaymentInput {
+  /** Amount in minor units. */
+  amount: number
+  /** ISO 4217 currency code. */
+  currency: string
+  /** Mandate ID */
+  mandateId: string
+  /** Description */
+  description?: string
+  /** Reference */
+  reference?: string
+  /** Optional YYYY-MM-DD charge date. */
+  chargeDate?: string
+  /** Idempotency Key */
+  idempotencyKey?: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** GoCardless — Cancel Payment */
+export interface GocardlessCancelPaymentInput {
+  /** Payment ID */
+  paymentId: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** GoCardless — Create Refund */
+export interface GocardlessCreateRefundInput {
+  /** Payment ID */
+  paymentId: string
+  /** Amount in minor units. Leave empty for full eligible amount. */
+  amount?: number
+  /** Reference */
+  reference?: string
+  /** Metadata */
+  metadata?: unknown
 }
 
 /** Gong — List Calls */
@@ -19972,6 +21590,79 @@ export interface GumroadCustomApiCallInput {
   body?: unknown
 }
 
+/** Guru — List Collections */
+export type GuruListCollectionsInput = Record<string, never>
+
+/** Guru — Search Cards */
+export interface GuruSearchCardsInput {
+  /** Guru Query Language text. */
+  query: string
+  /** Show Archived */
+  showArchived?: boolean
+  /** Max Results */
+  maxResults?: number
+}
+
+/** Guru — Get Card */
+export interface GuruGetCardInput {
+  /** Card ID */
+  cardId: string
+}
+
+/** Guru — Create Card */
+export interface GuruCreateCardInput {
+  /** Title */
+  title: string
+  /** Content */
+  content: string
+  /** Collection ID */
+  collectionId: string
+  /** Share Status (values: `PRIVATE`, `TEAM`) */
+  shareStatus?: "PRIVATE" | "TEAM"
+  /** Folder IDs */
+  folderIds?: unknown[]
+  /** Tag IDs */
+  tagIds?: unknown[]
+}
+
+/** Guru — Update Card */
+export interface GuruUpdateCardInput {
+  /** Card ID */
+  cardId: string
+  /** Title */
+  title: string
+  /** Content */
+  content: string
+  /** Share Status (values: `PRIVATE`, `TEAM`) */
+  shareStatus?: "PRIVATE" | "TEAM"
+  /** If supplied as an empty list, Guru removes existing tags. */
+  tagIds?: unknown[]
+}
+
+/** Guru — Delete Card */
+export interface GuruDeleteCardInput {
+  /** Card ID */
+  cardId: string
+}
+
+/** Guru — Ask Question */
+export interface GuruAskQuestionInput {
+  /** Question */
+  question: string
+  /** Knowledge Assistant ID */
+  assistantId?: string
+}
+
+/** Guru — Custom API Call */
+export interface GuruCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** API path starting with /, relative to /api/v1. */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Gusto — List Employees */
 export interface GustoListEmployeesInput {
   /** Company ID */
@@ -20526,6 +22217,109 @@ export interface HelpScoutListCustomersInput {
   first_name?: string
   /** Last Name */
   last_name?: string
+}
+
+/** Hex — Validate Connection */
+export type HexValidateConnectionInput = Record<string, never>
+
+/** Hex — List Projects */
+export interface HexListProjectsInput {
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — Get Project */
+export interface HexGetProjectInput {
+  /** Hex project UUID. */
+  projectId: string
+}
+
+/** Hex — Run Project */
+export interface HexRunProjectInput {
+  /** Hex project UUID. */
+  projectId: string
+  /** Optional inputParams object for the published project. */
+  inputParams?: unknown
+  /** When true, update the published app cache state. */
+  updatePublishedResults?: boolean
+  /** When false, SQL cells run without cached SQL results. */
+  useCachedSqlResults?: boolean
+}
+
+/** Hex — List Project Runs */
+export interface HexListProjectRunsInput {
+  /** Hex project UUID. */
+  projectId: string
+  /** Status Filter (values: `PENDING`, `RUNNING`, `COMPLETED`, `ERRORED`, `KILLED`) */
+  statusFilter?: "PENDING" | "RUNNING" | "COMPLETED" | "ERRORED" | "KILLED"
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — Get Project Run */
+export interface HexGetProjectRunInput {
+  /** Project ID */
+  projectId: string
+  /** Run ID */
+  runId: string
+}
+
+/** Hex — Cancel Project Run */
+export interface HexCancelProjectRunInput {
+  /** Project ID */
+  projectId: string
+  /** Run ID */
+  runId: string
+  /** Required to cancel the run. */
+  confirm: boolean
+}
+
+/** Hex — List Users */
+export interface HexListUsersInput {
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — List Groups */
+export interface HexListGroupsInput {
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — List Collections */
+export interface HexListCollectionsInput {
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — List Data Connections */
+export interface HexListDataConnectionsInput {
+  /** Maximum number of items to return. */
+  limit?: number
+  /** Pagination cursor from the previous response. */
+  after?: string
+}
+
+/** Hex — Custom API Call */
+export interface HexCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Relative path under /api/v1, for example /projects. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
 }
 
 /** HeyGen — Create Video from Template */
@@ -23108,6 +24902,98 @@ export interface IpinfoCustomApiCallInput {
   body?: unknown
 }
 
+/** Iterable — Upsert User */
+export interface IterableUpsertUserInput {
+  /** Email */
+  email?: string
+  /** User ID */
+  userId?: string
+  /** Profile fields to set. */
+  dataFields?: unknown
+  /** Merge Nested Objects */
+  mergeNestedObjects?: boolean
+}
+
+/** Iterable — Get User by Email */
+export interface IterableGetUserByEmailInput {
+  /** Email */
+  email: string
+}
+
+/** Iterable — Delete User */
+export interface IterableDeleteUserInput {
+  /** Email */
+  email?: string
+  /** User ID */
+  userId?: string
+  /** Prefer User ID */
+  preferUserId?: boolean
+  /** Required because this deletes a user profile. */
+  confirmDelete: boolean
+}
+
+/** Iterable — Track Event */
+export interface IterableTrackEventInput {
+  /** Event Name */
+  eventName: string
+  /** Email */
+  email?: string
+  /** User ID */
+  userId?: string
+  /** Event ID */
+  id?: string
+  /** Optional timestamp in milliseconds since epoch. */
+  createdAt?: string
+  /** Data Fields */
+  dataFields?: unknown
+}
+
+/** Iterable — List Lists */
+export type IterableListListsInput = Record<string, never>
+
+/** Iterable — Subscribe to List */
+export interface IterableSubscribeToListInput {
+  /** List ID */
+  listId: number
+  /** Array of subscriber objects with email or userId. */
+  subscribers: unknown
+}
+
+/** Iterable — Unsubscribe from List */
+export interface IterableUnsubscribeFromListInput {
+  /** List ID */
+  listId: number
+  /** Array of subscriber objects with email or userId. */
+  subscribers: unknown
+}
+
+/** Iterable — List Campaigns */
+export type IterableListCampaignsInput = Record<string, never>
+
+/** Iterable — Send Targeted Email */
+export interface IterableSendTargetedEmailInput {
+  /** Campaign ID */
+  campaignId: number
+  /** Recipient Email */
+  recipientEmail?: string
+  /** Recipient User ID */
+  recipientUserId?: string
+  /** Data Fields */
+  dataFields?: unknown
+  /** Optional scheduled timestamp. */
+  sendAt?: string
+}
+
+/** Iterable — Custom API Call */
+export interface IterableCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path under /api, for example /users/getByEmail?email=a@example.com. */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** JavaScript Sandbox — Run Code */
 export interface CodeRunCodeInput {
   /** JavaScript code to execute. The return value of the last expression is captured as output. `inputs` variable contains your input data. */
@@ -24619,6 +26505,154 @@ export interface LaterCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
   /** Path */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
+/** LaunchDarkly — List Projects */
+export interface LaunchdarklyListProjectsInput {
+  /** 1 to 100 projects. */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** LaunchDarkly project filter expression. */
+  filter?: string
+  /** Sort */
+  sort?: string
+}
+
+/** LaunchDarkly — List Environments */
+export interface LaunchdarklyListEnvironmentsInput {
+  /** Project Key */
+  projectKey: string
+  /** 1 to 100 environments. */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Filter */
+  filter?: string
+  /** Sort */
+  sort?: string
+}
+
+/** LaunchDarkly — List Feature Flags */
+export interface LaunchdarklyListFeatureFlagsInput {
+  /** Project Key */
+  projectKey: string
+  /** Optional env query value. */
+  environmentKey?: string
+  /** Tag */
+  tag?: string
+  /** Archived Only */
+  archived?: boolean
+  /** Summary Only */
+  summary?: boolean
+  /** Filter */
+  filter?: string
+  /** Sort */
+  sort?: string
+  /** 1 to 100 flags. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** LaunchDarkly — Get Feature Flag */
+export interface LaunchdarklyGetFeatureFlagInput {
+  /** Project Key */
+  projectKey: string
+  /** Flag Key */
+  flagKey: string
+  /** Optional env query value. */
+  environmentKey?: string
+  /** Expand */
+  expand?: string
+}
+
+/** LaunchDarkly — Create Feature Flag */
+export interface LaunchdarklyCreateFeatureFlagInput {
+  /** Project Key */
+  projectKey: string
+  /** Flag Key */
+  key: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Kind (values: `boolean`, `string`, `number`, `json`) */
+  kind?: "boolean" | "string" | "number" | "json"
+  /** Tags */
+  tags?: unknown[]
+  /** Optional LaunchDarkly variations array for non-boolean flags. */
+  variations?: unknown
+  /** Optional clientSideAvailability object. */
+  clientSideAvailability?: unknown
+  /** Optional defaults object. */
+  defaults?: unknown
+}
+
+/** LaunchDarkly — Update Feature Flag Patch */
+export interface LaunchdarklyUpdateFeatureFlagPatchInput {
+  /** Project Key */
+  projectKey: string
+  /** Flag Key */
+  flagKey: string
+  /** JSON Patch array, for example [{"op":"replace","path":"/description","value":"New text"}]. */
+  patch: unknown
+  /** Comment */
+  comment?: string
+  /** Ignore Conflicts */
+  ignoreConflicts?: boolean
+  /** Dry Run */
+  dryRun?: boolean
+}
+
+/** LaunchDarkly — Set Flag Enabled */
+export interface LaunchdarklySetFlagEnabledInput {
+  /** Project Key */
+  projectKey: string
+  /** Flag Key */
+  flagKey: string
+  /** Environment Key */
+  environmentKey: string
+  /** Enabled */
+  enabled: boolean
+  /** Comment */
+  comment?: string
+  /** Required because this changes feature exposure. */
+  confirm: boolean
+}
+
+/** LaunchDarkly — Delete Feature Flag */
+export interface LaunchdarklyDeleteFeatureFlagInput {
+  /** Project Key */
+  projectKey: string
+  /** Flag Key */
+  flagKey: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** LaunchDarkly — List Audit Log Entries */
+export interface LaunchdarklyListAuditLogEntriesInput {
+  /** Unix epoch milliseconds lower bound. */
+  after?: number
+  /** Unix epoch milliseconds upper bound. */
+  before?: number
+  /** LaunchDarkly q parameter. */
+  query?: string
+  /** LaunchDarkly spec filter. */
+  spec?: string
+  /** 1 to 100 entries. */
+  limit?: number
+}
+
+/** LaunchDarkly — Custom API Call */
+export interface LaunchdarklyCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path must start with /api/v2/. */
   path: string
   /** Body */
   body?: unknown
@@ -27652,6 +29686,259 @@ export interface MeistertaskCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Mercado Pago — Create Checkout Preference */
+export interface MercadoPagoCreatePreferenceInput {
+  /** Array of preference items. */
+  items: unknown
+  /** Payer */
+  payer?: unknown
+  /** Back URLs */
+  backUrls?: unknown
+  /** Notification URL */
+  notificationUrl?: string
+  /** External Reference */
+  externalReference?: string
+  /** Expires */
+  expires?: boolean
+  /** Expiration Date From */
+  expirationDateFrom?: string
+  /** Expiration Date To */
+  expirationDateTo?: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** Mercado Pago — Get Checkout Preference */
+export interface MercadoPagoGetPreferenceInput {
+  /** Preference ID */
+  preferenceId: string
+}
+
+/** Mercado Pago — Search Payments */
+export interface MercadoPagoSearchPaymentsInput {
+  /** Status */
+  status?: string
+  /** External Reference */
+  externalReference?: string
+  /** Date Range Field (values: `date_created`, `date_last_updated`) */
+  range?: "date_created" | "date_last_updated"
+  /** Begin Date */
+  beginDate?: string
+  /** End Date */
+  endDate?: string
+  /** Sort */
+  sort?: string
+  /** Criteria */
+  criteria?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mercado Pago — Get Payment */
+export interface MercadoPagoGetPaymentInput {
+  /** Payment ID */
+  paymentId: string
+}
+
+/** Mercado Pago — Refund Payment */
+export interface MercadoPagoRefundPaymentInput {
+  /** Payment ID */
+  paymentId: string
+  /** Optional decimal amount for a partial refund. */
+  amount?: number
+}
+
+/** Mercado Pago — Cancel Payment */
+export interface MercadoPagoCancelPaymentInput {
+  /** Payment ID */
+  paymentId: string
+}
+
+/** Mercury — Validate Connection */
+export type MercuryValidateConnectionInput = Record<string, never>
+
+/** Mercury — List Accounts */
+export interface MercuryListAccountsInput {
+  /** Supports official parameters such as limit, order, start_after, and end_before. */
+  query?: unknown
+}
+
+/** Mercury — Get Account */
+export interface MercuryGetAccountInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** Mercury — List Account Transactions */
+export interface MercuryListAccountTransactionsInput {
+  /** Account ID */
+  accountId: string
+  /** Supports date range, status, search, and cursor parameters from Mercury docs. */
+  query?: unknown
+}
+
+/** Mercury — List Transactions */
+export interface MercuryListTransactionsInput {
+  /** Official Mercury transaction query parameters as JSON. */
+  query?: unknown
+}
+
+/** Mercury — Get Transaction */
+export interface MercuryGetTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** Mercury — List Recipients */
+export interface MercuryListRecipientsInput {
+  /** Supports cursor parameters from Mercury docs. */
+  query?: unknown
+}
+
+/** Mercury — Get Recipient */
+export interface MercuryGetRecipientInput {
+  /** Recipient ID */
+  recipientId: string
+}
+
+/** Mercury — Create Recipient */
+export interface MercuryCreateRecipientInput {
+  /** Recipient creation body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange?: boolean
+}
+
+/** Mercury — Update Recipient */
+export interface MercuryUpdateRecipientInput {
+  /** Recipient ID */
+  recipientId: string
+  /** Recipient update body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — List Categories */
+export interface MercuryListCategoriesInput {
+  /** Supports cursor parameters from Mercury docs. */
+  query?: unknown
+}
+
+/** Mercury — Create Category */
+export interface MercuryCreateCategoryInput {
+  /** Category creation body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Update Category */
+export interface MercuryUpdateCategoryInput {
+  /** Category ID */
+  categoryId: string
+  /** Category update body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Delete Category */
+export interface MercuryDeleteCategoryInput {
+  /** Category ID */
+  categoryId: string
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — List Invoices */
+export interface MercuryListInvoicesInput {
+  /** Supports official invoice pagination and filtering parameters as JSON. */
+  query?: unknown
+}
+
+/** Mercury — Get Invoice */
+export interface MercuryGetInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** Mercury — Create Invoice */
+export interface MercuryCreateInvoiceInput {
+  /** Invoice creation body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Update Invoice */
+export interface MercuryUpdateInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+  /** Invoice update body from Mercury docs. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Cancel Invoice */
+export interface MercuryCancelInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — List Events */
+export interface MercuryListEventsInput {
+  /** Official event query parameters as JSON. */
+  query?: unknown
+}
+
+/** Mercury — Get Event */
+export interface MercuryGetEventInput {
+  /** Event ID */
+  eventId: string
+}
+
+/** Mercury — Request Send Money */
+export interface MercuryRequestSendMoneyInput {
+  /** Account ID */
+  accountId: string
+  /** Unique key for this money movement request. */
+  idempotencyKey: string
+  /** Request-send-money body from Mercury docs. The idempotencyKey field is merged from the dedicated property. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Create Internal Transfer */
+export interface MercuryCreateInternalTransferInput {
+  /** Unique key for this internal transfer. */
+  idempotencyKey: string
+  /** Internal transfer body from Mercury docs. The idempotencyKey field is merged from the dedicated property. */
+  body: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
+/** Mercury — Custom API Call */
+export interface MercuryCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Relative path, for example /accounts or /ar/invoices/{invoiceId}. Query strings are not allowed; use Query Parameters. */
+  path: string
+  /** Official Mercury query parameters as a JSON object. */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required because this action changes financial data, cancels an object, or initiates a money movement workflow. */
+  confirmFinancialChange: boolean
+}
+
 /** Metabase — List Cards */
 export interface MetabaseListCardsInput {
   /** Optional Metabase card list filter */
@@ -28621,6 +30908,226 @@ export interface MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput {
   entityType: string
   /** Record ID */
   recordId: string
+}
+
+/** Microsoft Entra ID — List Users */
+export interface MicrosoftEntraIdListUsersInput {
+  /** Comma-separated properties to return. */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** Microsoft Graph search expression, for example "displayName:Alex". */
+  search?: string
+  /** $orderby */
+  orderBy?: string
+  /** Include Count */
+  count?: boolean
+  /** Top */
+  top?: number
+  /** Optional @odata.nextLink from a previous Microsoft Graph response. */
+  nextLink?: string
+}
+
+/** Microsoft Entra ID — Get User */
+export interface MicrosoftEntraIdGetUserInput {
+  /** User ID or UPN */
+  userId: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft Entra ID — Create User */
+export interface MicrosoftEntraIdCreateUserInput {
+  /** User Principal Name */
+  userPrincipalName: string
+  /** Display Name */
+  displayName: string
+  /** Mail Nickname */
+  mailNickname: string
+  /** Temporary Password */
+  password: string
+  /** Force Password Change Next Sign-In */
+  forceChangePasswordNextSignIn?: boolean
+  /** Account Enabled */
+  accountEnabled?: boolean
+  /** Given Name */
+  givenName?: string
+  /** Surname */
+  surname?: string
+  /** Two-letter country code, for example US. */
+  usageLocation?: string
+  /** Type CREATE_USER to create the user. */
+  confirmation: string
+}
+
+/** Microsoft Entra ID — Update User */
+export interface MicrosoftEntraIdUpdateUserInput {
+  /** User ID or UPN */
+  userId: string
+  /** Display Name */
+  displayName?: string
+  /** Given Name */
+  givenName?: string
+  /** Surname */
+  surname?: string
+  /** Job Title */
+  jobTitle?: string
+  /** Department */
+  department?: string
+  /** Office Location */
+  officeLocation?: string
+  /** Mobile Phone */
+  mobilePhone?: string
+  /** Comma- or newline-separated phone numbers. */
+  businessPhones?: string
+  /** Usage Location */
+  usageLocation?: string
+}
+
+/** Microsoft Entra ID — Delete User */
+export interface MicrosoftEntraIdDeleteUserInput {
+  /** User ID or UPN */
+  userId: string
+  /** Type DELETE to delete the user. */
+  confirmation: string
+}
+
+/** Microsoft Entra ID — List Groups */
+export interface MicrosoftEntraIdListGroupsInput {
+  /** $select */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** $search */
+  search?: string
+  /** $orderby */
+  orderBy?: string
+  /** Include Count */
+  count?: boolean
+  /** Top */
+  top?: number
+  /** Next Link */
+  nextLink?: string
+}
+
+/** Microsoft Entra ID — Get Group */
+export interface MicrosoftEntraIdGetGroupInput {
+  /** Group ID */
+  groupId: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft Entra ID — Create Security Group */
+export interface MicrosoftEntraIdCreateSecurityGroupInput {
+  /** Display Name */
+  displayName: string
+  /** Mail Nickname */
+  mailNickname: string
+  /** Description */
+  description?: string
+}
+
+/** Microsoft Entra ID — Update Group */
+export interface MicrosoftEntraIdUpdateGroupInput {
+  /** Group ID */
+  groupId: string
+  /** Display Name */
+  displayName?: string
+  /** Description */
+  description?: string
+  /** Mail Nickname */
+  mailNickname?: string
+}
+
+/** Microsoft Entra ID — Delete Group */
+export interface MicrosoftEntraIdDeleteGroupInput {
+  /** Group ID */
+  groupId: string
+  /** Type DELETE to delete the group. */
+  confirmation: string
+}
+
+/** Microsoft Entra ID — List Group Members */
+export interface MicrosoftEntraIdListGroupMembersInput {
+  /** Group ID */
+  groupId: string
+  /** $select */
+  select?: string
+  /** Top */
+  top?: number
+  /** Next Link */
+  nextLink?: string
+}
+
+/** Microsoft Entra ID — Add Group Member */
+export interface MicrosoftEntraIdAddGroupMemberInput {
+  /** Group ID */
+  groupId: string
+  /** Directory Object ID */
+  directoryObjectId: string
+}
+
+/** Microsoft Entra ID — Remove Group Member */
+export interface MicrosoftEntraIdRemoveGroupMemberInput {
+  /** Group ID */
+  groupId: string
+  /** Directory Object ID */
+  directoryObjectId: string
+  /** Type DELETE to remove the group member. */
+  confirmation: string
+}
+
+/** Microsoft Entra ID — List Applications */
+export interface MicrosoftEntraIdListApplicationsInput {
+  /** $select */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** $search */
+  search?: string
+  /** $orderby */
+  orderBy?: string
+  /** Include Count */
+  count?: boolean
+  /** Top */
+  top?: number
+  /** Next Link */
+  nextLink?: string
+}
+
+/** Microsoft Entra ID — Get Application */
+export interface MicrosoftEntraIdGetApplicationInput {
+  /** Application Object ID */
+  applicationObjectId: string
+  /** $select */
+  select?: string
+}
+
+/** Microsoft Entra ID — List Service Principals */
+export interface MicrosoftEntraIdListServicePrincipalsInput {
+  /** $select */
+  select?: string
+  /** $filter */
+  filter?: string
+  /** $search */
+  search?: string
+  /** $orderby */
+  orderBy?: string
+  /** Include Count */
+  count?: boolean
+  /** Top */
+  top?: number
+  /** Next Link */
+  nextLink?: string
+}
+
+/** Microsoft Entra ID — Get Service Principal */
+export interface MicrosoftEntraIdGetServicePrincipalInput {
+  /** Service Principal Object ID */
+  servicePrincipalObjectId: string
+  /** $select */
+  select?: string
 }
 
 /** Microsoft Excel 365 — List Worksheets */
@@ -31939,6 +34446,104 @@ export interface OktaListApplicationsInput {
   limit?: number
 }
 
+/** Omnisend — Create Contact */
+export interface OmnisendCreateContactInput {
+  /** Email */
+  email: string
+  /** Email Status (values: `subscribed`, `unsubscribed`, `nonSubscribed`) */
+  emailStatus?: "subscribed" | "unsubscribed" | "nonSubscribed"
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Custom Properties */
+  customProperties?: unknown
+  /** Array of tag strings. */
+  tags?: unknown
+  /** Send Welcome Message */
+  sendWelcomeMessage?: boolean
+}
+
+/** Omnisend — Update Contact */
+export interface OmnisendUpdateContactInput {
+  /** Contact ID */
+  contactId: string
+  /** Optional Omnisend identifiers array. */
+  identifiers?: unknown
+  /** Fields to patch on the contact. */
+  fields: unknown
+}
+
+/** Omnisend — Get Contact */
+export interface OmnisendGetContactInput {
+  /** Contact ID */
+  contactId: string
+}
+
+/** Omnisend — List Contacts */
+export interface OmnisendListContactsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Email */
+  email?: string
+}
+
+/** Omnisend — Delete Contact */
+export interface OmnisendDeleteContactInput {
+  /** Contact ID */
+  contactId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Omnisend — Send Event */
+export interface OmnisendSendEventInput {
+  /** Event Name */
+  eventName: string
+  /** Event ID */
+  eventId?: string
+  /** Event Version */
+  eventVersion?: string
+  /** Contact object with id, email, or phone. */
+  contact: unknown
+  /** Properties */
+  properties?: unknown
+}
+
+/** Omnisend — Create Batch */
+export interface OmnisendCreateBatchInput {
+  /** Method (values: `POST`, `PATCH`, `DELETE`) */
+  method: "POST" | "PATCH" | "DELETE"
+  /** Batch endpoint such as contacts or events. */
+  endpoint: string
+  /** Array of batch items. */
+  items: unknown
+  /** Required for event batches when applicable. */
+  eventId?: string
+}
+
+/** Omnisend — List Campaigns */
+export interface OmnisendListCampaignsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Omnisend — Custom API Call */
+export interface OmnisendCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path under /api, for example /contacts. */
+  path: string
+  /** Body */
+  body?: unknown
+}
+
 /** Oncehub — Find Contact */
 export interface OncehubFindContactInput {
   /** Filter contacts by email address */
@@ -32488,6 +35093,107 @@ export interface OpsgenieListServicesInput {
 export interface OpsgenieGetServiceInput {
   /** Service ID */
   serviceId: string
+}
+
+/** Ortto — Create or Update People */
+export interface OrttoMergePeopleInput {
+  /** Array of Ortto person objects. */
+  people: unknown
+  /** Optional Ortto merge_by object. */
+  mergeBy?: unknown
+  /** Optional Ortto merge strategy number. */
+  mergeStrategy?: number
+  /** Optional Ortto find strategy number. */
+  findStrategy?: number
+}
+
+/** Ortto — Get People */
+export interface OrttoGetPeopleInput {
+  /** Ortto filter object. */
+  filter?: unknown
+  /** Array of field IDs to return. */
+  fields?: unknown
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort Field ID */
+  sortByFieldId?: string
+  /** Sort Order (values: `asc`, `desc`) */
+  sortOrder?: "asc" | "desc"
+}
+
+/** Ortto — Get Person Subscriptions */
+export interface OrttoGetPersonSubscriptionsInput {
+  /** Array of person identifiers. */
+  people: unknown
+}
+
+/** Ortto — Archive People */
+export interface OrttoArchivePeopleInput {
+  /** Array of person identifiers. */
+  people: unknown
+  /** Confirm Archive */
+  confirmArchive: boolean
+}
+
+/** Ortto — Delete People */
+export interface OrttoDeletePeopleInput {
+  /** Array of person identifiers. */
+  people: unknown
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Ortto — Create Activities */
+export interface OrttoCreateActivitiesInput {
+  /** Array of activity event objects. */
+  activities: unknown
+  /** Merge By */
+  mergeBy?: unknown
+}
+
+/** Ortto — Get Audiences */
+export interface OrttoGetAudiencesInput {
+  /** Optional array of audience IDs. */
+  audienceIds?: unknown
+}
+
+/** Ortto — Subscribe to Audience */
+export interface OrttoSubscribeToAudienceInput {
+  /** Audience ID */
+  audienceId: string
+  /** Array of person identifiers. */
+  people: unknown
+}
+
+/** Ortto — Get Campaign Calendar */
+export interface OrttoGetCampaignCalendarInput {
+  /** ISO date/time. */
+  startDate: string
+  /** ISO date/time. */
+  endDate: string
+}
+
+/** Ortto — Get Tags */
+export type OrttoGetTagsInput = Record<string, never>
+
+/** Ortto — Send Transactional Email */
+export interface OrttoSendTransactionalEmailInput {
+  /** Asset ID */
+  assetId: string
+  /** Recipient Email */
+  email: string
+  /** Template data object. */
+  data?: unknown
+}
+
+/** Ortto — Custom API Call */
+export interface OrttoCustomApiCallInput {
+  /** Path starting with /v1/. */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Outline — List Documents */
@@ -33283,6 +35989,84 @@ export interface PaypalCustomApiCallInput {
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+}
+
+/** Paystack — Initialize Transaction */
+export interface PaystackInitializeTransactionInput {
+  /** Customer Email */
+  email: string
+  /** Amount in the currency subunit. */
+  amount: number
+  /** Currency */
+  currency?: string
+  /** Reference */
+  reference?: string
+  /** Callback URL */
+  callbackUrl?: string
+  /** Plan Code */
+  plan?: string
+  /** Metadata */
+  metadata?: unknown
+  /** Optional array of channels such as ["card","bank_transfer"]. */
+  channels?: unknown
+}
+
+/** Paystack — Verify Transaction */
+export interface PaystackVerifyTransactionInput {
+  /** Reference */
+  reference: string
+}
+
+/** Paystack — List Transactions */
+export interface PaystackListTransactionsInput {
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
+  /** Customer ID or Code */
+  customer?: string
+  /** Status */
+  status?: string
+  /** ISO 8601 date. */
+  from?: string
+  /** ISO 8601 date. */
+  to?: string
+}
+
+/** Paystack — Create Refund */
+export interface PaystackCreateRefundInput {
+  /** Transaction ID or Reference */
+  transaction: string
+  /** Optional amount in the currency subunit. */
+  amount?: number
+  /** Currency */
+  currency?: string
+  /** Customer Note */
+  customerNote?: string
+  /** Merchant Note */
+  merchantNote?: string
+}
+
+/** Paystack — Create Customer */
+export interface PaystackCreateCustomerInput {
+  /** Email */
+  email: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Metadata */
+  metadata?: unknown
+}
+
+/** Paystack — List Customers */
+export interface PaystackListCustomersInput {
+  /** Per Page */
+  perPage?: number
+  /** Page */
+  page?: number
 }
 
 /** Paywhirl — Cancel Subscription */
@@ -36986,6 +39770,296 @@ export interface RailwayCustomApiCallInput {
   variables?: unknown
 }
 
+/** Ramp — Validate Connection */
+export type RampValidateConnectionInput = Record<string, never>
+
+/** Ramp — Get Business */
+export type RampGetBusinessInput = Record<string, never>
+
+/** Ramp — Get Business Balance */
+export type RampGetBusinessBalanceInput = Record<string, never>
+
+/** Ramp — List Users */
+export interface RampListUsersInput {
+  /** Supports Ramp pagination and user filters as JSON. */
+  query?: unknown
+}
+
+/** Ramp — Get User */
+export interface RampGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Ramp — Update User */
+export interface RampUpdateUserInput {
+  /** User ID */
+  userId: string
+  /** User update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange?: boolean
+}
+
+/** Ramp — List Departments */
+export interface RampListDepartmentsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Create Department */
+export interface RampCreateDepartmentInput {
+  /** Department creation body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Locations */
+export interface RampListLocationsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Create Location */
+export interface RampCreateLocationInput {
+  /** Location creation body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Cards */
+export interface RampListCardsInput {
+  /** Supports Ramp card filters and pagination as JSON. */
+  query?: unknown
+}
+
+/** Ramp — Get Card */
+export interface RampGetCardInput {
+  /** Card ID */
+  cardId: string
+}
+
+/** Ramp — Update Card */
+export interface RampUpdateCardInput {
+  /** Card ID */
+  cardId: string
+  /** Card update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Transactions */
+export interface RampListTransactionsInput {
+  /** Supports synced_after, pagination, and transaction filters as JSON. */
+  query?: unknown
+}
+
+/** Ramp — Get Transaction */
+export interface RampGetTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** Ramp — Update Transaction */
+export interface RampUpdateTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Transaction update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Receipts */
+export interface RampListReceiptsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Receipt */
+export interface RampGetReceiptInput {
+  /** Receipt ID */
+  receiptId: string
+}
+
+/** Ramp — Upload Receipt */
+export interface RampUploadReceiptInput {
+  /** Receipt upload body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Reimbursements */
+export interface RampListReimbursementsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Reimbursement */
+export interface RampGetReimbursementInput {
+  /** Reimbursement ID */
+  reimbursementId: string
+}
+
+/** Ramp — List Vendors */
+export interface RampListVendorsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Vendor */
+export interface RampGetVendorInput {
+  /** Vendor ID */
+  vendorId: string
+}
+
+/** Ramp — Create Vendor */
+export interface RampCreateVendorInput {
+  /** Vendor creation body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Update Vendor */
+export interface RampUpdateVendorInput {
+  /** Vendor ID */
+  vendorId: string
+  /** Vendor update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Delete Vendor */
+export interface RampDeleteVendorInput {
+  /** Vendor ID */
+  vendorId: string
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Bills */
+export interface RampListBillsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Bill */
+export interface RampGetBillInput {
+  /** Bill ID */
+  billId: string
+}
+
+/** Ramp — Create Bill */
+export interface RampCreateBillInput {
+  /** Bill creation body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Update Bill */
+export interface RampUpdateBillInput {
+  /** Bill ID */
+  billId: string
+  /** Bill update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Delete Bill */
+export interface RampDeleteBillInput {
+  /** Bill ID */
+  billId: string
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — List Statements */
+export interface RampListStatementsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Statement */
+export interface RampGetStatementInput {
+  /** Statement ID */
+  statementId: string
+}
+
+/** Ramp — List Transfers */
+export interface RampListTransfersInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get Transfer */
+export interface RampGetTransferInput {
+  /** Transfer ID */
+  transferId: string
+}
+
+/** Ramp — List Accounting Connections */
+export type RampListAccountingConnectionsInput = Record<string, never>
+
+/** Ramp — List GL Accounts */
+export interface RampListGlAccountsInput {
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+}
+
+/** Ramp — Get GL Account */
+export interface RampGetGlAccountInput {
+  /** GL Account ID */
+  glAccountId: string
+}
+
+/** Ramp — Upload GL Accounts */
+export interface RampUploadGlAccountsInput {
+  /** GL account upload body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Update GL Account */
+export interface RampUpdateGlAccountInput {
+  /** GL Account ID */
+  glAccountId: string
+  /** GL account update body from Ramp OpenAPI. */
+  body: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Delete GL Account */
+export interface RampDeleteGlAccountInput {
+  /** GL Account ID */
+  glAccountId: string
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
+/** Ramp — Custom API Call */
+export interface RampCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Relative /developer/v1 path. Query strings are not allowed; use Query Parameters. */
+  path: string
+  /** Official Ramp query parameters as a JSON object. */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required because this action changes spend, accounting, vendor, card, bill, or transaction data. */
+  confirmFinancialChange: boolean
+}
+
 /** Razorpay — Custom API Call */
 export interface RazorpayCustomApiCallInput {
   /** url */
@@ -37290,6 +40364,260 @@ export interface RedditCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Redis Cloud — List Pro Subscriptions */
+export type RedisCloudListProSubscriptionsInput = Record<string, never>
+
+/** Redis Cloud — Get Pro Subscription */
+export interface RedisCloudGetProSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Redis Cloud — List Essentials Subscriptions */
+export type RedisCloudListEssentialsSubscriptionsInput = Record<string, never>
+
+/** Redis Cloud — Get Essentials Subscription */
+export interface RedisCloudGetEssentialsSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Redis Cloud — List Databases */
+export interface RedisCloudListDatabasesInput {
+  /** Subscription Kind (values: `pro`, `essentials`) */
+  subscriptionKind: "pro" | "essentials"
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Redis Cloud — Get Database */
+export interface RedisCloudGetDatabaseInput {
+  /** Subscription Kind (values: `pro`, `essentials`) */
+  subscriptionKind: "pro" | "essentials"
+  /** Subscription ID */
+  subscriptionId: string
+  /** Database ID */
+  databaseId: string
+}
+
+/** Redis Cloud — Create Database */
+export interface RedisCloudCreateDatabaseInput {
+  /** Subscription Kind (values: `pro`, `essentials`) */
+  subscriptionKind: "pro" | "essentials"
+  /** Subscription ID */
+  subscriptionId: string
+  /** Redis Cloud database creation JSON body from the official API docs. */
+  database: unknown
+  /** Required because this can create billable Redis Cloud resources. */
+  confirmCreate: boolean
+}
+
+/** Redis Cloud — Update Database */
+export interface RedisCloudUpdateDatabaseInput {
+  /** Subscription Kind (values: `pro`, `essentials`) */
+  subscriptionKind: "pro" | "essentials"
+  /** Subscription ID */
+  subscriptionId: string
+  /** Database ID */
+  databaseId: string
+  /** Redis Cloud database update JSON body from the official API docs. */
+  database: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Redis Cloud — Delete Database */
+export interface RedisCloudDeleteDatabaseInput {
+  /** Subscription Kind (values: `pro`, `essentials`) */
+  subscriptionKind: "pro" | "essentials"
+  /** Subscription ID */
+  subscriptionId: string
+  /** Database ID */
+  databaseId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Redis Cloud — Get Task */
+export interface RedisCloudGetTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Redis Cloud — Custom API Call */
+export interface RedisCloudCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Path relative to /v1, for example /subscriptions or /tasks/{taskId}. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required when Method is DELETE. */
+  confirmDelete?: boolean
+}
+
+/** Remote — Validate Connection */
+export type RemoteValidateConnectionInput = Record<string, never>
+
+/** Remote — List Countries */
+export type RemoteListCountriesInput = Record<string, never>
+
+/** Remote — List Employments */
+export interface RemoteListEmploymentsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  page_size?: number
+  /** Company ID */
+  company_id?: string
+  /** Employment Status */
+  employment_status?: string
+  /** Employment Lifecycle Stage */
+  employment_lifecycle_stage?: string
+  /** External ID */
+  external_id?: string
+}
+
+/** Remote — Get Employment */
+export interface RemoteGetEmploymentInput {
+  /** Employment ID */
+  employment_id: string
+}
+
+/** Remote — Update Employment */
+export interface RemoteUpdateEmploymentInput {
+  /** Employment ID */
+  employment_id: string
+  /** Work Email */
+  work_email?: string
+  /** Manager ID */
+  manager_id?: string
+  /** External ID */
+  external_id?: string
+  /** Emergency Contact Details */
+  emergency_contact_details?: unknown
+  /** Address Details */
+  address_details?: unknown
+  /** Personal Details */
+  personal_details?: unknown
+  /** Basic Information */
+  basic_information?: unknown
+  /** Confirm Employment Update */
+  confirm: boolean
+}
+
+/** Remote — Invite Employment */
+export interface RemoteInviteEmploymentInput {
+  /** Employment ID */
+  employment_id: string
+  /** Confirm Invite */
+  confirm: boolean
+}
+
+/** Remote — Cancel Onboarding */
+export interface RemoteCancelOnboardingInput {
+  /** Employment ID */
+  employment_id: string
+  /** Confirm Onboarding Cancellation */
+  confirm: boolean
+}
+
+/** Remote — List Time Off */
+export interface RemoteListTimeOffInput {
+  /** Employment ID */
+  employment_id?: string
+  /** Status */
+  status?: string
+  /** ISO date or datetime. */
+  from?: string
+  /** ISO date or datetime. */
+  to?: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  page_size?: number
+}
+
+/** Remote — Get Time Off */
+export interface RemoteGetTimeOffInput {
+  /** Time Off ID */
+  timeoff_id: string
+}
+
+/** Remote — Create Time Off */
+export interface RemoteCreateTimeOffInput {
+  /** Time Off Payload */
+  body: unknown
+}
+
+/** Remote — Approve Time Off */
+export interface RemoteApproveTimeOffInput {
+  /** Time Off ID */
+  timeoff_id: string
+  /** Approver ID */
+  approver_id?: string
+  /** Confirm Approval */
+  confirm: boolean
+}
+
+/** Remote — Decline Time Off */
+export interface RemoteDeclineTimeOffInput {
+  /** Time Off ID */
+  timeoff_id: string
+  /** Reason */
+  reason?: string
+  /** Confirm Decline */
+  confirm: boolean
+}
+
+/** Remote — Cancel Time Off */
+export interface RemoteCancelTimeOffInput {
+  /** Time Off ID */
+  timeoff_id: string
+  /** Reason */
+  reason?: string
+  /** Confirm Cancellation */
+  confirm: boolean
+}
+
+/** Remote — List Webhook Callbacks */
+export interface RemoteListWebhookCallbacksInput {
+  /** Company ID */
+  company_id: string
+}
+
+/** Remote — Create Webhook Callback */
+export interface RemoteCreateWebhookCallbackInput {
+  /** Webhook URL */
+  url: string
+  /** Comma-separated Remote webhook event names. */
+  subscribed_events: string
+  /** Company ID */
+  company_id?: string
+}
+
+/** Remote — Delete Webhook Callback */
+export interface RemoteDeleteWebhookCallbackInput {
+  /** Webhook Callback ID */
+  webhook_callback_id: string
+  /** Confirm Delete */
+  confirm: boolean
+}
+
+/** Remote — Custom API Call */
+export interface RemoteCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Relative path under /v1, for example /v1/employments. */
+  path: string
+  /** Body */
+  body?: unknown
+  /** Confirm Non-GET Call */
+  confirm?: boolean
+}
+
 /** Render — List Services */
 export interface RenderListServicesInput {
   /** Service Type (values: `web_service`, `static_site`, `private_service`, `background_worker`, `cron_job`) */
@@ -37336,6 +40664,109 @@ export interface ReplicateGetPredictionInput {
 
 /** Replicate — List Models */
 export type ReplicateListModelsInput = Record<string, never>
+
+/** Reply.io — Who Am I */
+export type ReplyIoWhoamiInput = Record<string, never>
+
+/** Reply.io — List Contacts */
+export interface ReplyIoListContactsInput {
+  /** Maximum contacts to return. Reply.io allows up to 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Email */
+  email?: string
+  /** LinkedIn URL */
+  linkedIn?: string
+}
+
+/** Reply.io — Get Contact */
+export interface ReplyIoGetContactInput {
+  /** Contact ID */
+  contactId: number
+}
+
+/** Reply.io — Create Contact */
+export interface ReplyIoCreateContactInput {
+  /** Email */
+  email?: string
+  /** LinkedIn URL */
+  linkedInUrl?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Title */
+  title?: string
+  /** Company */
+  company?: string
+  /** City */
+  city?: string
+  /** State */
+  state?: string
+  /** Country */
+  country?: string
+  /** Optional Reply.io custom fields object. */
+  customFields?: unknown
+}
+
+/** Reply.io — Update Contact */
+export interface ReplyIoUpdateContactInput {
+  /** Contact ID */
+  contactId: number
+  /** Email */
+  email?: string
+  /** LinkedIn URL */
+  linkedInUrl?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Phone */
+  phone?: string
+  /** Title */
+  title?: string
+  /** Company */
+  company?: string
+  /** Custom Fields */
+  customFields?: unknown
+}
+
+/** Reply.io — Delete Contact */
+export interface ReplyIoDeleteContactInput {
+  /** Contact ID */
+  contactId: number
+}
+
+/** Reply.io — List Sequences */
+export interface ReplyIoListSequencesInput {
+  /** Limit */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Status (values: `active`, `paused`, `new`) */
+  status?: "active" | "paused" | "new"
+  /** Owner User ID */
+  ownerUserId?: number
+  /** Folder ID */
+  folderId?: number
+}
+
+/** Reply.io — Create Webhook Subscription */
+export interface ReplyIoCreateWebhookSubscriptionInput {
+  /** Use a value returned by Reply.io GET /v3/webhooks/events, for example email_replied. */
+  eventType: string
+  /** Payload URL */
+  url: string
+  /** Scope (values: `personal`, `team`) */
+  scope?: "personal" | "team"
+  /** Enabled */
+  enabled?: boolean
+  /** Optional Reply.io payloadConfig object. */
+  payloadConfig?: unknown
+}
 
 /** Resend — Send Email */
 export interface ResendSendEmailInput {
@@ -39309,6 +42740,208 @@ export interface SierraInteractiveCustomApiCallInput {
   body?: unknown
 }
 
+/** Similarweb — Validate Connection */
+export type SimilarwebValidateConnectionInput = Record<string, never>
+
+/** Similarweb — Check Capabilities */
+export type SimilarwebCheckCapabilitiesInput = Record<string, never>
+
+/** Similarweb — Check User Usage */
+export type SimilarwebCheckUserUsageInput = Record<string, never>
+
+/** Similarweb — Get Total Visits */
+export interface SimilarwebGetTotalVisitsInput {
+  /** Website domain such as example.com. Do not include protocol or path. */
+  domainName: string
+  /** Start month in YYYY-MM format. */
+  startDate?: string
+  /** End month in YYYY-MM format. */
+  endDate?: string
+  /** Two-letter country code, or world for worldwide. */
+  country: string
+  /** Granularity (values: `daily`, `weekly`, `monthly`) */
+  granularity: "daily" | "weekly" | "monthly"
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Show shared Google Analytics data when available. */
+  showVerified?: boolean
+  /** Only for daily granularity; may cost additional credits. */
+  monthToDate?: boolean
+  /** Engaged Visits Only */
+  engagedOnly?: boolean
+}
+
+/** Similarweb — Get Page Views */
+export interface SimilarwebGetPageViewsInput {
+  /** Website domain such as example.com. Do not include protocol or path. */
+  domainName: string
+  /** Start month in YYYY-MM format. */
+  startDate?: string
+  /** End month in YYYY-MM format. */
+  endDate?: string
+  /** Two-letter country code, or world for worldwide. */
+  country: string
+  /** Granularity (values: `daily`, `weekly`, `monthly`) */
+  granularity: "daily" | "weekly" | "monthly"
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Show shared Google Analytics data when available. */
+  showVerified?: boolean
+  /** Only for daily granularity; may cost additional credits. */
+  monthToDate?: boolean
+  /** Engaged Visits Only */
+  engagedOnly?: boolean
+}
+
+/** Similarweb — Get Pages Per Visit */
+export interface SimilarwebGetPagesPerVisitInput {
+  /** Website domain such as example.com. Do not include protocol or path. */
+  domainName: string
+  /** Start month in YYYY-MM format. */
+  startDate?: string
+  /** End month in YYYY-MM format. */
+  endDate?: string
+  /** Two-letter country code, or world for worldwide. */
+  country: string
+  /** Granularity (values: `daily`, `weekly`, `monthly`) */
+  granularity: "daily" | "weekly" | "monthly"
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Show shared Google Analytics data when available. */
+  showVerified?: boolean
+  /** Only for daily granularity; may cost additional credits. */
+  monthToDate?: boolean
+  /** Engaged Visits Only */
+  engagedOnly?: boolean
+}
+
+/** Similarweb — Get Bounce Rate */
+export interface SimilarwebGetBounceRateInput {
+  /** Website domain such as example.com. Do not include protocol or path. */
+  domainName: string
+  /** Start month in YYYY-MM format. */
+  startDate?: string
+  /** End month in YYYY-MM format. */
+  endDate?: string
+  /** Two-letter country code, or world for worldwide. */
+  country: string
+  /** Granularity (values: `daily`, `weekly`, `monthly`) */
+  granularity: "daily" | "weekly" | "monthly"
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Show shared Google Analytics data when available. */
+  showVerified?: boolean
+  /** Only for daily granularity; may cost additional credits. */
+  monthToDate?: boolean
+  /** Engaged Visits Only */
+  engagedOnly?: boolean
+}
+
+/** Similarweb — Get Average Visit Duration */
+export interface SimilarwebGetAverageVisitDurationInput {
+  /** Website domain such as example.com. Do not include protocol or path. */
+  domainName: string
+  /** Start month in YYYY-MM format. */
+  startDate?: string
+  /** End month in YYYY-MM format. */
+  endDate?: string
+  /** Two-letter country code, or world for worldwide. */
+  country: string
+  /** Granularity (values: `daily`, `weekly`, `monthly`) */
+  granularity: "daily" | "weekly" | "monthly"
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Show shared Google Analytics data when available. */
+  showVerified?: boolean
+  /** Only for daily granularity; may cost additional credits. */
+  monthToDate?: boolean
+  /** Engaged Visits Only */
+  engagedOnly?: boolean
+}
+
+/** Similarweb — Get Desktop Traffic Sources */
+export interface SimilarwebGetDesktopTrafficSourcesInput {
+  /** Domain Name */
+  domainName: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Country */
+  country: string
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Ascending */
+  ascending?: boolean
+}
+
+/** Similarweb — Get Desktop Traffic By Country */
+export interface SimilarwebGetDesktopTrafficByCountryInput {
+  /** Domain Name */
+  domainName: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+}
+
+/** Similarweb — Get Desktop Referrals */
+export interface SimilarwebGetDesktopReferralsInput {
+  /** Domain Name */
+  domainName: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Country */
+  country: string
+  /** Main Domain Only */
+  mainDomainOnly?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Similarweb — Subscribe Webhook */
+export interface SimilarwebSubscribeWebhookInput {
+  /** Webhook Event Type (values: `Daily`, `Monthly`) */
+  webhookEventType: "Daily" | "Monthly"
+  /** HTTPS endpoint to receive POST notifications. Similarweb limits URLs to 255 characters. */
+  url: string
+}
+
+/** Similarweb — List Webhook Subscriptions */
+export type SimilarwebListWebhookSubscriptionsInput = Record<string, never>
+
+/** Similarweb — Unsubscribe Webhook */
+export interface SimilarwebUnsubscribeWebhookInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Confirm Unsubscribe */
+  confirm: boolean
+}
+
+/** Similarweb — Custom API Call */
+export interface SimilarwebCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** Relative path such as /v1/website/example.com/total-traffic-and-engagement/visits. */
+  path: string
+  /** Query Parameters */
+  queryParams?: unknown
+  /** Body */
+  body?: unknown
+}
+
 /** SimplePractice — List Clients */
 export interface SimplePracticeListClientsInput {
   /** Page */
@@ -39445,6 +43078,48 @@ export interface SkyslopeCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Slab — List Posts */
+export interface SlabListPostsInput {
+  /** First */
+  first?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** Slab — Get Post */
+export interface SlabGetPostInput {
+  /** Post ID */
+  postId: string
+}
+
+/** Slab — Search Posts */
+export interface SlabSearchPostsInput {
+  /** Query */
+  query: string
+  /** First */
+  first?: number
+}
+
+/** Slab — Create Post */
+export interface SlabCreatePostInput {
+  /** Title */
+  title: string
+  /** Content */
+  content: string
+  /** Topic ID */
+  topicId?: string
+  /** Optional extra PostCreateInput fields supported by your Slab API version. */
+  extraInput?: unknown
+}
+
+/** Slab — GraphQL Query */
+export interface SlabGraphqlInput {
+  /** Query */
+  query: string
+  /** Variables */
+  variables?: unknown
 }
 
 /** Slack — Send Channel Message */
@@ -40723,6 +44398,244 @@ export interface KvStoreRemoveFromListInput {
   key: string
   /** The value to remove from the list */
   value: unknown
+}
+
+/** Statsig — List Gates */
+export interface StatsigListGatesInput {
+  /** 1 to 100 results. */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Status */
+  status?: string
+  /** Statsig tag filter. */
+  tags?: string
+  /** Creator Name */
+  creatorName?: string
+  /** Include Archived */
+  includeArchived?: boolean
+  /** Include Archive Metadata */
+  includeArchiveMetadata?: boolean
+}
+
+/** Statsig — Get Gate */
+export interface StatsigGetGateInput {
+  /** Gate ID */
+  id: string
+  /** Include Archive Metadata */
+  includeArchiveMetadata?: boolean
+}
+
+/** Statsig — Create Gate */
+export interface StatsigCreateGateInput {
+  /** Optional Statsig ID/key. */
+  id?: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** ID Type */
+  idType?: string
+  /** Enabled */
+  isEnabled?: boolean
+  /** Tags */
+  tags?: unknown[]
+  /** Optional Statsig rule array. */
+  rules?: unknown
+  /** Optional additional Console API fields as an object. */
+  advancedFields?: unknown
+}
+
+/** Statsig — Update Gate */
+export interface StatsigUpdateGateInput {
+  /** Gate ID */
+  id: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Enabled */
+  isEnabled?: boolean
+  /** Tags */
+  tags?: unknown[]
+  /** Optional Console API patch body object; merged with typed fields. */
+  patchBody?: unknown
+}
+
+/** Statsig — Enable Gate */
+export interface StatsigEnableGateInput {
+  /** Gate ID */
+  id: string
+  /** Required for lifecycle mutations. */
+  confirm: boolean
+}
+
+/** Statsig — Disable Gate */
+export interface StatsigDisableGateInput {
+  /** Gate ID */
+  id: string
+  /** Required for lifecycle mutations. */
+  confirm: boolean
+}
+
+/** Statsig — Archive Gate */
+export interface StatsigArchiveGateInput {
+  /** Gate ID */
+  id: string
+  /** Archive Reason */
+  archiveReason?: string
+  /** Required for lifecycle mutations. */
+  confirm: boolean
+}
+
+/** Statsig — Unarchive Gate */
+export interface StatsigUnarchiveGateInput {
+  /** Gate ID */
+  id: string
+  /** Required for lifecycle mutations. */
+  confirm: boolean
+}
+
+/** Statsig — Delete Gate */
+export interface StatsigDeleteGateInput {
+  /** Gate ID */
+  id: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Statsig — List Dynamic Configs */
+export interface StatsigListDynamicConfigsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Tags */
+  tags?: string
+  /** Include Archived */
+  includeArchived?: boolean
+  /** Include Archive Metadata */
+  includeArchiveMetadata?: boolean
+}
+
+/** Statsig — Get Dynamic Config */
+export interface StatsigGetDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+}
+
+/** Statsig — Create Dynamic Config */
+export interface StatsigCreateDynamicConfigInput {
+  /** Dynamic Config ID */
+  id?: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Enabled */
+  isEnabled?: boolean
+  /** JSON object returned when no rules match. */
+  defaultValue?: unknown
+  /** Optional Statsig rule array. */
+  rules?: unknown
+  /** Tags */
+  tags?: unknown[]
+  /** Optional additional Console API fields as an object. */
+  advancedFields?: unknown
+}
+
+/** Statsig — Update Dynamic Config */
+export interface StatsigUpdateDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+  /** Console API patch body object. */
+  patchBody: unknown
+}
+
+/** Statsig — Enable Dynamic Config */
+export interface StatsigEnableDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+  /** Confirm Change */
+  confirm: boolean
+}
+
+/** Statsig — Disable Dynamic Config */
+export interface StatsigDisableDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+  /** Confirm Change */
+  confirm: boolean
+}
+
+/** Statsig — Archive Dynamic Config */
+export interface StatsigArchiveDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+  /** Archive Reason */
+  archiveReason?: string
+  /** Confirm Change */
+  confirm: boolean
+}
+
+/** Statsig — Unarchive Dynamic Config */
+export interface StatsigUnarchiveDynamicConfigInput {
+  /** Dynamic Config ID */
+  id: string
+  /** Confirm Change */
+  confirm: boolean
+}
+
+/** Statsig — List Experiments */
+export interface StatsigListExperimentsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Status */
+  status?: string
+  /** Experiment Type */
+  experimentType?: string
+  /** Tags */
+  tags?: string
+  /** Comma-separated sparse fieldset. */
+  fields?: string
+  /** Comma-separated IDs, max 100. */
+  ids?: string
+}
+
+/** Statsig — Get Experiment */
+export interface StatsigGetExperimentInput {
+  /** Experiment ID */
+  id: string
+}
+
+/** Statsig — Update Experiment */
+export interface StatsigUpdateExperimentInput {
+  /** Experiment ID */
+  id: string
+  /** Console API patch body object. */
+  patchBody: unknown
+}
+
+/** Statsig — Archive Experiment */
+export interface StatsigArchiveExperimentInput {
+  /** Experiment ID */
+  id: string
+  /** Archive Reason */
+  archiveReason?: string
+  /** Confirm Archive */
+  confirm: boolean
+}
+
+/** Statsig — Custom API Call */
+export interface StatsigCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
+  /** Path must start with /console/v1/. */
+  path: string
+  /** Body */
+  body?: unknown
 }
 
 /** Storyblok — List Spaces */
@@ -44924,6 +48837,83 @@ export interface TypesenseUpsertDocumentInput {
   document: unknown
   /** How Typesense should handle fields that do not match the schema. (values: ``, `reject`, `coerce_or_reject`, `coerce_or_drop`, `drop`) */
   dirtyValues?: "" | "reject" | "coerce_or_reject" | "coerce_or_drop" | "drop"
+}
+
+/** UKG — Validate Connection */
+export type UkgValidateConnectionInput = Record<string, never>
+
+/** UKG — List Person Details */
+export interface UkgListPersonDetailsInput {
+  /** Company ID */
+  company_id?: string
+  /** Employee ID */
+  employee_id?: string
+  /** Email Address */
+  email_address?: string
+  /** Last Name */
+  last_name?: string
+  /** Date-time filter accepted by UKG, for example 2026-06-20T00:00:00. */
+  date_time_changed?: string
+  /** Page */
+  page?: number
+  /** Mapped to UKG per_Page. Maximum 500. */
+  per_page?: number
+}
+
+/** UKG — List Employment Details */
+export interface UkgListEmploymentDetailsInput {
+  /** Company ID */
+  company_id?: string
+  /** Employee ID */
+  employee_id?: string
+  /** Email Address */
+  email_address?: string
+  /** Last Name */
+  last_name?: string
+  /** Changed Since */
+  date_time_changed?: string
+  /** Page */
+  page?: number
+  /** Mapped to UKG per_Page. Maximum 500. */
+  per_page?: number
+}
+
+/** UKG — List Employee Employment Details */
+export interface UkgListEmployeeEmploymentDetailsInput {
+  /** Company ID */
+  company_id?: string
+  /** Employee ID */
+  employee_id?: string
+  /** Email Address */
+  email_address?: string
+  /** Last Name */
+  last_name?: string
+  /** Changed Since */
+  date_time_changed?: string
+  /** Page */
+  page?: number
+  /** Mapped to UKG per_Page. Maximum 500. */
+  per_page?: number
+}
+
+/** UKG — List Employee Changes */
+export interface UkgListEmployeeChangesInput {
+  /** Start date or date-time accepted by UKG, for example 2026-06-20T00:00:00. */
+  start_date: string
+  /** End date or date-time accepted by UKG. */
+  end_date: string
+  /** Page */
+  page?: number
+  /** Maximum 500. */
+  per_page?: number
+}
+
+/** UKG — Custom API Call */
+export interface UkgCustomApiCallInput {
+  /** Relative path under /personnel/v1, for example /personnel/v1/person-details. */
+  path: string
+  /** JSON object of query parameters. */
+  query?: unknown
 }
 
 /** Unbounce — List Pages */
@@ -49894,6 +53884,11 @@ export interface IntegrationActionInputMap {
   'auth0.create_user': Auth0CreateUserInput
   'auth0.list_roles': Auth0ListRolesInput
   'auth0.list_connections': Auth0ListConnectionsInput
+  'authorize-net.create_transaction': AuthorizeNetCreateTransactionInput
+  'authorize-net.get_transaction': AuthorizeNetGetTransactionInput
+  'authorize-net.refund_transaction': AuthorizeNetRefundTransactionInput
+  'authorize-net.void_transaction': AuthorizeNetVoidTransactionInput
+  'authorize-net.create_customer_profile': AuthorizeNetCreateCustomerProfileInput
   'autotask.create_ticket': AutotaskCreateTicketInput
   'autotask.list_tickets': AutotaskListTicketsInput
   'autotask.update_ticket': AutotaskUpdateTicketInput
@@ -49905,10 +53900,22 @@ export interface IntegrationActionInputMap {
   'aws-s3.put_object': AwsS3PutObjectInput
   'aws-s3.delete_object': AwsS3DeleteObjectInput
   'aws-s3.head_object': AwsS3HeadObjectInput
+  'aws-secrets-manager.list_secrets': AwsSecretsManagerListSecretsInput
+  'aws-secrets-manager.describe_secret': AwsSecretsManagerDescribeSecretInput
+  'aws-secrets-manager.get_secret_value': AwsSecretsManagerGetSecretValueInput
+  'aws-secrets-manager.list_secret_version_ids': AwsSecretsManagerListSecretVersionIdsInput
+  'aws-secrets-manager.create_secret': AwsSecretsManagerCreateSecretInput
+  'aws-secrets-manager.put_secret_value': AwsSecretsManagerPutSecretValueInput
+  'aws-secrets-manager.update_secret': AwsSecretsManagerUpdateSecretInput
+  'aws-secrets-manager.delete_secret': AwsSecretsManagerDeleteSecretInput
+  'aws-secrets-manager.restore_secret': AwsSecretsManagerRestoreSecretInput
   'aws-ses.send_email': AwsSesSendEmailInput
   'aws-ses.list_identities': AwsSesListIdentitiesInput
   'aws-ses.get_email_identity': AwsSesGetEmailIdentityInput
   'aws-ses.get_account': AwsSesGetAccountInput
+  'aws-sts.get_caller_identity': AwsStsGetCallerIdentityInput
+  'aws-sts.get_access_key_info': AwsStsGetAccessKeyInfoInput
+  'aws-sts.assume_role': AwsStsAssumeRoleInput
   'azure-blob-storage.list_containers': AzureBlobStorageListContainersInput
   'azure-blob-storage.create_container': AzureBlobStorageCreateContainerInput
   'azure-blob-storage.list_blobs': AzureBlobStorageListBlobsInput
@@ -50020,6 +54027,11 @@ export interface IntegrationActionInputMap {
   'box.delete_file': BoxDeleteFileInput
   'box.delete_folder': BoxDeleteFolderInput
   'box.custom_api_call': BoxCustomApiCallInput
+  'braintree.get_payment': BraintreeGetPaymentInput
+  'braintree.capture_transaction': BraintreeCaptureTransactionInput
+  'braintree.reverse_transaction': BraintreeReverseTransactionInput
+  'braintree.refund_transaction': BraintreeRefundTransactionInput
+  'braintree.void_transaction': BraintreeVoidTransactionInput
   'brandfolder.get_asset': BrandfolderGetAssetInput
   'brandfolder.create_asset': BrandfolderCreateAssetInput
   'brandfolder.get_collections': BrandfolderGetCollectionsInput
@@ -50028,6 +54040,17 @@ export interface IntegrationActionInputMap {
   'brandfolder.custom_api_call': BrandfolderCustomApiCallInput
   'brave-search.web_search': BraveSearchWebSearchInput
   'brave-search.custom_api_call': BraveSearchCustomApiCallInput
+  'braze.track_users': BrazeTrackUsersInput
+  'braze.export_users_by_identifier': BrazeExportUsersByIdentifierInput
+  'braze.delete_users': BrazeDeleteUsersInput
+  'braze.list_campaigns': BrazeListCampaignsInput
+  'braze.get_campaign_details': BrazeGetCampaignDetailsInput
+  'braze.send_triggered_campaign': BrazeSendTriggeredCampaignInput
+  'braze.list_segments': BrazeListSegmentsInput
+  'braze.get_segment_details': BrazeGetSegmentDetailsInput
+  'braze.update_subscription_group_status': BrazeUpdateSubscriptionGroupStatusInput
+  'braze.change_email_subscription_status': BrazeChangeEmailSubscriptionStatusInput
+  'braze.custom_api_call': BrazeCustomApiCallInput
   'breezy-hr.list_candidates': BreezyHrListCandidatesInput
   'breezy-hr.get_candidate': BreezyHrGetCandidateInput
   'breezy-hr.create_position': BreezyHrCreatePositionInput
@@ -50220,6 +54243,23 @@ export interface IntegrationActionInputMap {
   'clearbit.find_email': ClearbitFindEmailInput
   'clearbit.reveal_visitor': ClearbitRevealVisitorInput
   'clearbit.custom_api_call': ClearbitCustomApiCallInput
+  'clerk.list_users': ClerkListUsersInput
+  'clerk.get_user': ClerkGetUserInput
+  'clerk.create_user': ClerkCreateUserInput
+  'clerk.update_user': ClerkUpdateUserInput
+  'clerk.delete_user': ClerkDeleteUserInput
+  'clerk.list_organizations': ClerkListOrganizationsInput
+  'clerk.get_organization': ClerkGetOrganizationInput
+  'clerk.create_organization': ClerkCreateOrganizationInput
+  'clerk.update_organization': ClerkUpdateOrganizationInput
+  'clerk.delete_organization': ClerkDeleteOrganizationInput
+  'clerk.list_organization_memberships': ClerkListOrganizationMembershipsInput
+  'clerk.create_organization_membership': ClerkCreateOrganizationMembershipInput
+  'clerk.update_organization_membership': ClerkUpdateOrganizationMembershipInput
+  'clerk.remove_organization_membership': ClerkRemoveOrganizationMembershipInput
+  'clerk.list_sessions': ClerkListSessionsInput
+  'clerk.get_session': ClerkGetSessionInput
+  'clerk.revoke_session': ClerkRevokeSessionInput
   'clickfunnels.createOpportunity': ClickfunnelsCreateOpportunityInput
   'clickfunnels.applyTagToContact': ClickfunnelsApplyTagToContactInput
   'clickfunnels.removeTagFromContact': ClickfunnelsRemoveTagFromContactInput
@@ -50227,6 +54267,14 @@ export interface IntegrationActionInputMap {
   'clickfunnels.updateOrCreateContact': ClickfunnelsUpdateOrCreateContactInput
   'clickfunnels.searchContacts': ClickfunnelsSearchContactsInput
   'clickfunnels.custom_api_call': ClickfunnelsCustomApiCallInput
+  'clickhouse.ping': ClickhousePingInput
+  'clickhouse.execute_query': ClickhouseExecuteQueryInput
+  'clickhouse.list_databases': ClickhouseListDatabasesInput
+  'clickhouse.list_tables': ClickhouseListTablesInput
+  'clickhouse.describe_table': ClickhouseDescribeTableInput
+  'clickhouse.show_create_table': ClickhouseShowCreateTableInput
+  'clickhouse.kill_query': ClickhouseKillQueryInput
+  'clickhouse.cloud_api_call': ClickhouseCloudApiCallInput
   'clicksend.send_sms': ClicksendSendSmsInput
   'clicksend.send_mms': ClicksendSendMmsInput
   'clicksend.create_contact': ClicksendCreateContactInput
@@ -50304,6 +54352,16 @@ export interface IntegrationActionInputMap {
   'codacy.get_quality': CodacyGetQualityInput
   'codacy.list_issues': CodacyListIssuesInput
   'codacy.custom_api_call': CodacyCustomApiCallInput
+  'cognism.search_contacts': CognismSearchContactsInput
+  'cognism.search_accounts': CognismSearchAccountsInput
+  'cognism.redeem_contacts': CognismRedeemContactsInput
+  'cognism.redeem_accounts': CognismRedeemAccountsInput
+  'cognism.enrich_contact': CognismEnrichContactInput
+  'cognism.enrich_account': CognismEnrichAccountInput
+  'cognism.get_contact_entitlements': CognismGetContactEntitlementsInput
+  'cognism.get_account_entitlements': CognismGetAccountEntitlementsInput
+  'cognism.list_filter_values': CognismListFilterValuesInput
+  'cognism.get_opt_out_by_email': CognismGetOptOutByEmailInput
   'cognito-forms.list_forms': CognitoFormsListFormsInput
   'cognito-forms.get_form_schema': CognitoFormsGetFormSchemaInput
   'cognito-forms.set_public_link_availability': CognitoFormsSetPublicLinkAvailabilityInput
@@ -50321,6 +54379,16 @@ export interface IntegrationActionInputMap {
   'cohere.chat': CohereChatInput
   'cohere.embed': CohereEmbedInput
   'cohere.rerank': CohereRerankInput
+  'common-room.get_token_status': CommonRoomGetTokenStatusInput
+  'common-room.add_or_update_contact': CommonRoomAddOrUpdateContactInput
+  'common-room.get_contact_by_email': CommonRoomGetContactByEmailInput
+  'common-room.anonymize_contact': CommonRoomAnonymizeContactInput
+  'common-room.add_or_update_activity': CommonRoomAddOrUpdateActivityInput
+  'common-room.get_activity_types': CommonRoomGetActivityTypesInput
+  'common-room.list_segments': CommonRoomListSegmentsInput
+  'common-room.list_tags': CommonRoomListTagsInput
+  'common-room.create_tag': CommonRoomCreateTagInput
+  'common-room.delete_tag': CommonRoomDeleteTagInput
   'companycam.list_projects': CompanycamListProjectsInput
   'companycam.create_project': CompanycamCreateProjectInput
   'companycam.upload_photo': CompanycamUploadPhotoInput
@@ -50414,6 +54482,19 @@ export interface IntegrationActionInputMap {
   'crisp.find_conversation': CrispFindConversationInput
   'crisp.find_user_profile': CrispFindUserProfileInput
   'crisp.custom_api_call': CrispCustomApiCallInput
+  'culture-amp.validate_connection': CultureAmpValidateConnectionInput
+  'culture-amp.list_employees': CultureAmpListEmployeesInput
+  'culture-amp.get_employee': CultureAmpGetEmployeeInput
+  'culture-amp.list_employee_demographics': CultureAmpListEmployeeDemographicsInput
+  'culture-amp.list_performance_cycles': CultureAmpListPerformanceCyclesInput
+  'culture-amp.get_performance_cycle': CultureAmpGetPerformanceCycleInput
+  'culture-amp.list_manager_reviews': CultureAmpListManagerReviewsInput
+  'culture-amp.get_manager_review': CultureAmpGetManagerReviewInput
+  'culture-amp.list_employee_manager_reviews': CultureAmpListEmployeeManagerReviewsInput
+  'culture-amp.list_cycle_manager_reviews': CultureAmpListCycleManagerReviewsInput
+  'culture-amp.list_surveys': CultureAmpListSurveysInput
+  'culture-amp.get_survey': CultureAmpGetSurveyInput
+  'culture-amp.custom_api_call': CultureAmpCustomApiCallInput
   'customer-io.identify_person': CustomerIoIdentifyPersonInput
   'customer-io.track_event': CustomerIoTrackEventInput
   'customer-io.list_segments': CustomerIoListSegmentsInput
@@ -50469,6 +54550,18 @@ export interface IntegrationActionInputMap {
   'datocms.create_item': DatocmsCreateItemInput
   'datocms.update_item': DatocmsUpdateItemInput
   'datocms.custom_api_call': DatocmsCustomApiCallInput
+  'dbt-cloud.list_projects': DbtCloudListProjectsInput
+  'dbt-cloud.get_project': DbtCloudGetProjectInput
+  'dbt-cloud.list_jobs': DbtCloudListJobsInput
+  'dbt-cloud.get_job': DbtCloudGetJobInput
+  'dbt-cloud.trigger_job_run': DbtCloudTriggerJobRunInput
+  'dbt-cloud.list_runs': DbtCloudListRunsInput
+  'dbt-cloud.get_run': DbtCloudGetRunInput
+  'dbt-cloud.cancel_run': DbtCloudCancelRunInput
+  'dbt-cloud.list_run_artifacts': DbtCloudListRunArtifactsInput
+  'dbt-cloud.get_run_artifact': DbtCloudGetRunArtifactInput
+  'dbt-cloud.get_step': DbtCloudGetStepInput
+  'dbt-cloud.custom_api_call': DbtCloudCustomApiCallInput
   'deel.list_contracts': DeelListContractsInput
   'deel.get_contract': DeelGetContractInput
   'deel.list_people': DeelListPeopleInput
@@ -50486,6 +54579,18 @@ export interface IntegrationActionInputMap {
   'deepl.custom_api_call': DeeplCustomApiCallInput
   'deepseek.ask_deepseek': DeepseekAskDeepseekInput
   'deepseek.ask_json': DeepseekAskJsonInput
+  'deputy.validate_connection': DeputyValidateConnectionInput
+  'deputy.list_employees': DeputyListEmployeesInput
+  'deputy.get_employee': DeputyGetEmployeeInput
+  'deputy.list_locations': DeputyListLocationsInput
+  'deputy.list_operational_units': DeputyListOperationalUnitsInput
+  'deputy.query_resource': DeputyQueryResourceInput
+  'deputy.list_rosters': DeputyListRostersInput
+  'deputy.list_timesheets': DeputyListTimesheetsInput
+  'deputy.create_resource': DeputyCreateResourceInput
+  'deputy.delete_resource': DeputyDeleteResourceInput
+  'deputy.create_webhook': DeputyCreateWebhookInput
+  'deputy.custom_api_call': DeputyCustomApiCallInput
   'descript.import_media': DescriptImportMediaInput
   'descript.upload_direct_media_file': DescriptUploadDirectMediaFileInput
   'descript.agent_edit': DescriptAgentEditInput
@@ -50548,6 +54653,22 @@ export interface IntegrationActionInputMap {
   'docker-hub.get_tag': DockerHubGetTagInput
   'docker-hub.search_images': DockerHubSearchImagesInput
   'docker-hub.custom_api_call': DockerHubCustomApiCallInput
+  'documenso.list_documents': DocumensoListDocumentsInput
+  'documenso.get_document': DocumensoGetDocumentInput
+  'documenso.create_document': DocumensoCreateDocumentInput
+  'documenso.send_document': DocumensoSendDocumentInput
+  'documenso.delete_document': DocumensoDeleteDocumentInput
+  'documenso.list_templates': DocumensoListTemplatesInput
+  'documenso.custom_api_call': DocumensoCustomApiCallInput
+  'docuseal.list_submissions': DocusealListSubmissionsInput
+  'docuseal.get_submission': DocusealGetSubmissionInput
+  'docuseal.create_submission': DocusealCreateSubmissionInput
+  'docuseal.get_submission_documents': DocusealGetSubmissionDocumentsInput
+  'docuseal.archive_submission': DocusealArchiveSubmissionInput
+  'docuseal.list_templates': DocusealListTemplatesInput
+  'docuseal.get_template': DocusealGetTemplateInput
+  'docuseal.archive_template': DocusealArchiveTemplateInput
+  'docuseal.custom_api_call': DocusealCustomApiCallInput
   'docusign.listEnvelopes': DocusignListEnvelopesInput
   'docusign.createEnvelope': DocusignCreateEnvelopeInput
   'docusign.getEnvelope': DocusignGetEnvelopeInput
@@ -50713,6 +54834,19 @@ export interface IntegrationActionInputMap {
   'exa.perform_search': ExaPerformSearchInput
   'exa.find_similar_links': ExaFindSimilarLinksInput
   'exa.custom_api_call': ExaCustomApiCallInput
+  'expensify.export_reports': ExpensifyExportReportsInput
+  'expensify.export_card_reconciliation': ExpensifyExportCardReconciliationInput
+  'expensify.download_file': ExpensifyDownloadFileInput
+  'expensify.create_report': ExpensifyCreateReportInput
+  'expensify.create_expenses': ExpensifyCreateExpensesInput
+  'expensify.create_policy': ExpensifyCreatePolicyInput
+  'expensify.create_expense_rules': ExpensifyCreateExpenseRulesInput
+  'expensify.get_policy': ExpensifyGetPolicyInput
+  'expensify.get_policy_list': ExpensifyGetPolicyListInput
+  'expensify.get_domain_card_list': ExpensifyGetDomainCardListInput
+  'expensify.update_policy': ExpensifyUpdatePolicyInput
+  'expensify.update_report_status': ExpensifyUpdateReportStatusInput
+  'expensify.submit_job': ExpensifySubmitJobInput
   'facebook-ads.list_campaigns': FacebookAdsListCampaignsInput
   'facebook-ads.get_campaign': FacebookAdsGetCampaignInput
   'facebook-ads.list_adsets': FacebookAdsListAdsetsInput
@@ -50817,6 +54951,20 @@ export interface IntegrationActionInputMap {
   'fishbowl.create_sales_order': FishbowlCreateSalesOrderInput
   'fishbowl.get_inventory': FishbowlGetInventoryInput
   'fishbowl.custom_api_call': FishbowlCustomApiCallInput
+  'fivetran.list_groups': FivetranListGroupsInput
+  'fivetran.get_group': FivetranGetGroupInput
+  'fivetran.list_destinations': FivetranListDestinationsInput
+  'fivetran.get_destination': FivetranGetDestinationInput
+  'fivetran.run_destination_setup_tests': FivetranRunDestinationSetupTestsInput
+  'fivetran.list_connections': FivetranListConnectionsInput
+  'fivetran.list_group_connections': FivetranListGroupConnectionsInput
+  'fivetran.get_connection': FivetranGetConnectionInput
+  'fivetran.sync_connection': FivetranSyncConnectionInput
+  'fivetran.resync_connection': FivetranResyncConnectionInput
+  'fivetran.run_connection_setup_tests': FivetranRunConnectionSetupTestsInput
+  'fivetran.update_connection': FivetranUpdateConnectionInput
+  'fivetran.delete_connection': FivetranDeleteConnectionInput
+  'fivetran.custom_api_call': FivetranCustomApiCallInput
   'fleetio.get_vehicle': FleetioGetVehicleInput
   'fleetio.create_vehicle': FleetioCreateVehicleInput
   'fleetio.create_fuel_entry': FleetioCreateFuelEntryInput
@@ -51011,6 +55159,15 @@ export interface IntegrationActionInputMap {
   'gmail.get_people': GmailGetPeopleInput
   'gmail.search_people': GmailSearchPeopleInput
   'gmail.custom_api_call': GmailCustomApiCallInput
+  'gocardless.list_customers': GocardlessListCustomersInput
+  'gocardless.get_customer': GocardlessGetCustomerInput
+  'gocardless.create_customer': GocardlessCreateCustomerInput
+  'gocardless.list_mandates': GocardlessListMandatesInput
+  'gocardless.list_payments': GocardlessListPaymentsInput
+  'gocardless.get_payment': GocardlessGetPaymentInput
+  'gocardless.create_payment': GocardlessCreatePaymentInput
+  'gocardless.cancel_payment': GocardlessCancelPaymentInput
+  'gocardless.create_refund': GocardlessCreateRefundInput
   'gong.list_calls': GongListCallsInput
   'gong.get_call_transcript': GongGetCallTranscriptInput
   'gong.list_users': GongListUsersInput
@@ -51207,6 +55364,14 @@ export interface IntegrationActionInputMap {
   'gumroad.list_sales': GumroadListSalesInput
   'gumroad.get_subscriber': GumroadGetSubscriberInput
   'gumroad.custom_api_call': GumroadCustomApiCallInput
+  'guru.list_collections': GuruListCollectionsInput
+  'guru.search_cards': GuruSearchCardsInput
+  'guru.get_card': GuruGetCardInput
+  'guru.create_card': GuruCreateCardInput
+  'guru.update_card': GuruUpdateCardInput
+  'guru.delete_card': GuruDeleteCardInput
+  'guru.ask_question': GuruAskQuestionInput
+  'guru.custom_api_call': GuruCustomApiCallInput
   'gusto.list_employees': GustoListEmployeesInput
   'gusto.get_employee': GustoGetEmployeeInput
   'gusto.list_payrolls': GustoListPayrollsInput
@@ -51256,6 +55421,18 @@ export interface IntegrationActionInputMap {
   'help-scout.add_note': HelpScoutAddNoteInput
   'help-scout.update_conversation_status': HelpScoutUpdateConversationStatusInput
   'help-scout.list_customers': HelpScoutListCustomersInput
+  'hex.validate_connection': HexValidateConnectionInput
+  'hex.list_projects': HexListProjectsInput
+  'hex.get_project': HexGetProjectInput
+  'hex.run_project': HexRunProjectInput
+  'hex.list_project_runs': HexListProjectRunsInput
+  'hex.get_project_run': HexGetProjectRunInput
+  'hex.cancel_project_run': HexCancelProjectRunInput
+  'hex.list_users': HexListUsersInput
+  'hex.list_groups': HexListGroupsInput
+  'hex.list_collections': HexListCollectionsInput
+  'hex.list_data_connections': HexListDataConnectionsInput
+  'hex.custom_api_call': HexCustomApiCallInput
   'heygen.create-video-from-template': HeygenCreateVideoFromTemplateInput
   'heygen.retrieve-translated-video-status': HeygenRetrieveTranslatedVideoStatusInput
   'heygen.retrieve_video_status': HeygenRetrieveVideoStatusInput
@@ -51466,6 +55643,16 @@ export interface IntegrationActionInputMap {
   'ipinfo.lookup_ip': IpinfoLookupIpInput
   'ipinfo.get_asn': IpinfoGetAsnInput
   'ipinfo.custom_api_call': IpinfoCustomApiCallInput
+  'iterable.upsert_user': IterableUpsertUserInput
+  'iterable.get_user_by_email': IterableGetUserByEmailInput
+  'iterable.delete_user': IterableDeleteUserInput
+  'iterable.track_event': IterableTrackEventInput
+  'iterable.list_lists': IterableListListsInput
+  'iterable.subscribe_to_list': IterableSubscribeToListInput
+  'iterable.unsubscribe_from_list': IterableUnsubscribeFromListInput
+  'iterable.list_campaigns': IterableListCampaignsInput
+  'iterable.send_targeted_email': IterableSendTargetedEmailInput
+  'iterable.custom_api_call': IterableCustomApiCallInput
   'code.run_code': CodeRunCodeInput
   'jazzhr.list_applicants': JazzhrListApplicantsInput
   'jazzhr.get_applicant': JazzhrGetApplicantInput
@@ -51599,6 +55786,16 @@ export interface IntegrationActionInputMap {
   'later.list_posts': LaterListPostsInput
   'later.list_profiles': LaterListProfilesInput
   'later.custom_api_call': LaterCustomApiCallInput
+  'launchdarkly.list_projects': LaunchdarklyListProjectsInput
+  'launchdarkly.list_environments': LaunchdarklyListEnvironmentsInput
+  'launchdarkly.list_feature_flags': LaunchdarklyListFeatureFlagsInput
+  'launchdarkly.get_feature_flag': LaunchdarklyGetFeatureFlagInput
+  'launchdarkly.create_feature_flag': LaunchdarklyCreateFeatureFlagInput
+  'launchdarkly.update_feature_flag_patch': LaunchdarklyUpdateFeatureFlagPatchInput
+  'launchdarkly.set_flag_enabled': LaunchdarklySetFlagEnabledInput
+  'launchdarkly.delete_feature_flag': LaunchdarklyDeleteFeatureFlagInput
+  'launchdarkly.list_audit_log_entries': LaunchdarklyListAuditLogEntriesInput
+  'launchdarkly.custom_api_call': LaunchdarklyCustomApiCallInput
   'lawmatics.get_contact': LawmaticsGetContactInput
   'lawmatics.create_contact': LawmaticsCreateContactInput
   'lawmatics.get_matters': LawmaticsGetMattersInput
@@ -51854,6 +56051,36 @@ export interface IntegrationActionInputMap {
   'meistertask.find_or_create_task': MeistertaskFindOrCreateTaskInput
   'meistertask.find_or_create_label': MeistertaskFindOrCreateLabelInput
   'meistertask.custom_api_call': MeistertaskCustomApiCallInput
+  'mercado-pago.create_preference': MercadoPagoCreatePreferenceInput
+  'mercado-pago.get_preference': MercadoPagoGetPreferenceInput
+  'mercado-pago.search_payments': MercadoPagoSearchPaymentsInput
+  'mercado-pago.get_payment': MercadoPagoGetPaymentInput
+  'mercado-pago.refund_payment': MercadoPagoRefundPaymentInput
+  'mercado-pago.cancel_payment': MercadoPagoCancelPaymentInput
+  'mercury.validate_connection': MercuryValidateConnectionInput
+  'mercury.list_accounts': MercuryListAccountsInput
+  'mercury.get_account': MercuryGetAccountInput
+  'mercury.list_account_transactions': MercuryListAccountTransactionsInput
+  'mercury.list_transactions': MercuryListTransactionsInput
+  'mercury.get_transaction': MercuryGetTransactionInput
+  'mercury.list_recipients': MercuryListRecipientsInput
+  'mercury.get_recipient': MercuryGetRecipientInput
+  'mercury.create_recipient': MercuryCreateRecipientInput
+  'mercury.update_recipient': MercuryUpdateRecipientInput
+  'mercury.list_categories': MercuryListCategoriesInput
+  'mercury.create_category': MercuryCreateCategoryInput
+  'mercury.update_category': MercuryUpdateCategoryInput
+  'mercury.delete_category': MercuryDeleteCategoryInput
+  'mercury.list_invoices': MercuryListInvoicesInput
+  'mercury.get_invoice': MercuryGetInvoiceInput
+  'mercury.create_invoice': MercuryCreateInvoiceInput
+  'mercury.update_invoice': MercuryUpdateInvoiceInput
+  'mercury.cancel_invoice': MercuryCancelInvoiceInput
+  'mercury.list_events': MercuryListEventsInput
+  'mercury.get_event': MercuryGetEventInput
+  'mercury.request_send_money': MercuryRequestSendMoneyInput
+  'mercury.create_internal_transfer': MercuryCreateInternalTransferInput
+  'mercury.custom_api_call': MercuryCustomApiCallInput
   'metabase.list_cards': MetabaseListCardsInput
   'metabase.get_card': MetabaseGetCardInput
   'metabase.create_card': MetabaseCreateCardInput
@@ -51968,6 +56195,23 @@ export interface IntegrationActionInputMap {
   'microsoft-dynamics-crm.dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
   'microsoft-dynamics-crm.dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
   'microsoft-dynamics-crm.dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
+  'microsoft-entra-id.list_users': MicrosoftEntraIdListUsersInput
+  'microsoft-entra-id.get_user': MicrosoftEntraIdGetUserInput
+  'microsoft-entra-id.create_user': MicrosoftEntraIdCreateUserInput
+  'microsoft-entra-id.update_user': MicrosoftEntraIdUpdateUserInput
+  'microsoft-entra-id.delete_user': MicrosoftEntraIdDeleteUserInput
+  'microsoft-entra-id.list_groups': MicrosoftEntraIdListGroupsInput
+  'microsoft-entra-id.get_group': MicrosoftEntraIdGetGroupInput
+  'microsoft-entra-id.create_security_group': MicrosoftEntraIdCreateSecurityGroupInput
+  'microsoft-entra-id.update_group': MicrosoftEntraIdUpdateGroupInput
+  'microsoft-entra-id.delete_group': MicrosoftEntraIdDeleteGroupInput
+  'microsoft-entra-id.list_group_members': MicrosoftEntraIdListGroupMembersInput
+  'microsoft-entra-id.add_group_member': MicrosoftEntraIdAddGroupMemberInput
+  'microsoft-entra-id.remove_group_member': MicrosoftEntraIdRemoveGroupMemberInput
+  'microsoft-entra-id.list_applications': MicrosoftEntraIdListApplicationsInput
+  'microsoft-entra-id.get_application': MicrosoftEntraIdGetApplicationInput
+  'microsoft-entra-id.list_service_principals': MicrosoftEntraIdListServicePrincipalsInput
+  'microsoft-entra-id.get_service_principal': MicrosoftEntraIdGetServicePrincipalInput
   'microsoft-excel-365.list_worksheets': MicrosoftExcel365ListWorksheetsInput
   'microsoft-excel-365.read_range': MicrosoftExcel365ReadRangeInput
   'microsoft-excel-365.write_range': MicrosoftExcel365WriteRangeInput
@@ -52277,6 +56521,15 @@ export interface IntegrationActionInputMap {
   'okta.get_user': OktaGetUserInput
   'okta.list_groups': OktaListGroupsInput
   'okta.list_applications': OktaListApplicationsInput
+  'omnisend.create_contact': OmnisendCreateContactInput
+  'omnisend.update_contact': OmnisendUpdateContactInput
+  'omnisend.get_contact': OmnisendGetContactInput
+  'omnisend.list_contacts': OmnisendListContactsInput
+  'omnisend.delete_contact': OmnisendDeleteContactInput
+  'omnisend.send_event': OmnisendSendEventInput
+  'omnisend.create_batch': OmnisendCreateBatchInput
+  'omnisend.list_campaigns': OmnisendListCampaignsInput
+  'omnisend.custom_api_call': OmnisendCustomApiCallInput
   'oncehub.findContact': OncehubFindContactInput
   'oncehub.createContact': OncehubCreateContactInput
   'oncehub.custom_api_call': OncehubCustomApiCallInput
@@ -52323,6 +56576,18 @@ export interface IntegrationActionInputMap {
   'opsgenie.get_on_calls': OpsgenieGetOnCallsInput
   'opsgenie.list_services': OpsgenieListServicesInput
   'opsgenie.get_service': OpsgenieGetServiceInput
+  'ortto.merge_people': OrttoMergePeopleInput
+  'ortto.get_people': OrttoGetPeopleInput
+  'ortto.get_person_subscriptions': OrttoGetPersonSubscriptionsInput
+  'ortto.archive_people': OrttoArchivePeopleInput
+  'ortto.delete_people': OrttoDeletePeopleInput
+  'ortto.create_activities': OrttoCreateActivitiesInput
+  'ortto.get_audiences': OrttoGetAudiencesInput
+  'ortto.subscribe_to_audience': OrttoSubscribeToAudienceInput
+  'ortto.get_campaign_calendar': OrttoGetCampaignCalendarInput
+  'ortto.get_tags': OrttoGetTagsInput
+  'ortto.send_transactional_email': OrttoSendTransactionalEmailInput
+  'ortto.custom_api_call': OrttoCustomApiCallInput
   'outline.list_documents': OutlineListDocumentsInput
   'outline.get_document': OutlineGetDocumentInput
   'outline.create_document': OutlineCreateDocumentInput
@@ -52388,6 +56653,12 @@ export interface IntegrationActionInputMap {
   'paypal.list_transactions': PaypalListTransactionsInput
   'paypal.create_payout': PaypalCreatePayoutInput
   'paypal.custom_api_call': PaypalCustomApiCallInput
+  'paystack.initialize_transaction': PaystackInitializeTransactionInput
+  'paystack.verify_transaction': PaystackVerifyTransactionInput
+  'paystack.list_transactions': PaystackListTransactionsInput
+  'paystack.create_refund': PaystackCreateRefundInput
+  'paystack.create_customer': PaystackCreateCustomerInput
+  'paystack.list_customers': PaystackListCustomersInput
   'paywhirl.cancelSubscription': PaywhirlCancelSubscriptionInput
   'paywhirl.createCustomer': PaywhirlCreateCustomerInput
   'paywhirl.getCustomer': PaywhirlGetCustomerInput
@@ -52770,6 +57041,48 @@ export interface IntegrationActionInputMap {
   'railway.get_deployments': RailwayGetDeploymentsInput
   'railway.redeploy': RailwayRedeployInput
   'railway.custom_api_call': RailwayCustomApiCallInput
+  'ramp.validate_connection': RampValidateConnectionInput
+  'ramp.get_business': RampGetBusinessInput
+  'ramp.get_business_balance': RampGetBusinessBalanceInput
+  'ramp.list_users': RampListUsersInput
+  'ramp.get_user': RampGetUserInput
+  'ramp.update_user': RampUpdateUserInput
+  'ramp.list_departments': RampListDepartmentsInput
+  'ramp.create_department': RampCreateDepartmentInput
+  'ramp.list_locations': RampListLocationsInput
+  'ramp.create_location': RampCreateLocationInput
+  'ramp.list_cards': RampListCardsInput
+  'ramp.get_card': RampGetCardInput
+  'ramp.update_card': RampUpdateCardInput
+  'ramp.list_transactions': RampListTransactionsInput
+  'ramp.get_transaction': RampGetTransactionInput
+  'ramp.update_transaction': RampUpdateTransactionInput
+  'ramp.list_receipts': RampListReceiptsInput
+  'ramp.get_receipt': RampGetReceiptInput
+  'ramp.upload_receipt': RampUploadReceiptInput
+  'ramp.list_reimbursements': RampListReimbursementsInput
+  'ramp.get_reimbursement': RampGetReimbursementInput
+  'ramp.list_vendors': RampListVendorsInput
+  'ramp.get_vendor': RampGetVendorInput
+  'ramp.create_vendor': RampCreateVendorInput
+  'ramp.update_vendor': RampUpdateVendorInput
+  'ramp.delete_vendor': RampDeleteVendorInput
+  'ramp.list_bills': RampListBillsInput
+  'ramp.get_bill': RampGetBillInput
+  'ramp.create_bill': RampCreateBillInput
+  'ramp.update_bill': RampUpdateBillInput
+  'ramp.delete_bill': RampDeleteBillInput
+  'ramp.list_statements': RampListStatementsInput
+  'ramp.get_statement': RampGetStatementInput
+  'ramp.list_transfers': RampListTransfersInput
+  'ramp.get_transfer': RampGetTransferInput
+  'ramp.list_accounting_connections': RampListAccountingConnectionsInput
+  'ramp.list_gl_accounts': RampListGlAccountsInput
+  'ramp.get_gl_account': RampGetGlAccountInput
+  'ramp.upload_gl_accounts': RampUploadGlAccountsInput
+  'ramp.update_gl_account': RampUpdateGlAccountInput
+  'ramp.delete_gl_account': RampDeleteGlAccountInput
+  'ramp.custom_api_call': RampCustomApiCallInput
   'razorpay.custom_api_call': RazorpayCustomApiCallInput
   'razorpay.create-payment-link': RazorpayCreatePaymentLinkInput
   'readme-io.create_doc': ReadmeIoCreateDocInput
@@ -52800,6 +57113,34 @@ export interface IntegrationActionInputMap {
   'reddit.deleteRedditPost': RedditDeleteRedditPostInput
   'reddit.deleteRedditComment': RedditDeleteRedditCommentInput
   'reddit.custom_api_call': RedditCustomApiCallInput
+  'redis-cloud.list_pro_subscriptions': RedisCloudListProSubscriptionsInput
+  'redis-cloud.get_pro_subscription': RedisCloudGetProSubscriptionInput
+  'redis-cloud.list_essentials_subscriptions': RedisCloudListEssentialsSubscriptionsInput
+  'redis-cloud.get_essentials_subscription': RedisCloudGetEssentialsSubscriptionInput
+  'redis-cloud.list_databases': RedisCloudListDatabasesInput
+  'redis-cloud.get_database': RedisCloudGetDatabaseInput
+  'redis-cloud.create_database': RedisCloudCreateDatabaseInput
+  'redis-cloud.update_database': RedisCloudUpdateDatabaseInput
+  'redis-cloud.delete_database': RedisCloudDeleteDatabaseInput
+  'redis-cloud.get_task': RedisCloudGetTaskInput
+  'redis-cloud.custom_api_call': RedisCloudCustomApiCallInput
+  'remote.validate_connection': RemoteValidateConnectionInput
+  'remote.list_countries': RemoteListCountriesInput
+  'remote.list_employments': RemoteListEmploymentsInput
+  'remote.get_employment': RemoteGetEmploymentInput
+  'remote.update_employment': RemoteUpdateEmploymentInput
+  'remote.invite_employment': RemoteInviteEmploymentInput
+  'remote.cancel_onboarding': RemoteCancelOnboardingInput
+  'remote.list_time_off': RemoteListTimeOffInput
+  'remote.get_time_off': RemoteGetTimeOffInput
+  'remote.create_time_off': RemoteCreateTimeOffInput
+  'remote.approve_time_off': RemoteApproveTimeOffInput
+  'remote.decline_time_off': RemoteDeclineTimeOffInput
+  'remote.cancel_time_off': RemoteCancelTimeOffInput
+  'remote.list_webhook_callbacks': RemoteListWebhookCallbacksInput
+  'remote.create_webhook_callback': RemoteCreateWebhookCallbackInput
+  'remote.delete_webhook_callback': RemoteDeleteWebhookCallbackInput
+  'remote.custom_api_call': RemoteCustomApiCallInput
   'render.list_services': RenderListServicesInput
   'render.get_service': RenderGetServiceInput
   'render.list_deploys': RenderListDeploysInput
@@ -52807,6 +57148,14 @@ export interface IntegrationActionInputMap {
   'replicate.create_prediction': ReplicateCreatePredictionInput
   'replicate.get_prediction': ReplicateGetPredictionInput
   'replicate.list_models': ReplicateListModelsInput
+  'reply-io.whoami': ReplyIoWhoamiInput
+  'reply-io.list_contacts': ReplyIoListContactsInput
+  'reply-io.get_contact': ReplyIoGetContactInput
+  'reply-io.create_contact': ReplyIoCreateContactInput
+  'reply-io.update_contact': ReplyIoUpdateContactInput
+  'reply-io.delete_contact': ReplyIoDeleteContactInput
+  'reply-io.list_sequences': ReplyIoListSequencesInput
+  'reply-io.create_webhook_subscription': ReplyIoCreateWebhookSubscriptionInput
   'resend.send_email': ResendSendEmailInput
   'resend.custom_api_call': ResendCustomApiCallInput
   'retell-ai.create_agent': RetellAiCreateAgentInput
@@ -52992,6 +57341,21 @@ export interface IntegrationActionInputMap {
   'sierra-interactive.create_lead': SierraInteractiveCreateLeadInput
   'sierra-interactive.list_properties': SierraInteractiveListPropertiesInput
   'sierra-interactive.custom_api_call': SierraInteractiveCustomApiCallInput
+  'similarweb.validate_connection': SimilarwebValidateConnectionInput
+  'similarweb.check_capabilities': SimilarwebCheckCapabilitiesInput
+  'similarweb.check_user_usage': SimilarwebCheckUserUsageInput
+  'similarweb.get_total_visits': SimilarwebGetTotalVisitsInput
+  'similarweb.get_page_views': SimilarwebGetPageViewsInput
+  'similarweb.get_pages_per_visit': SimilarwebGetPagesPerVisitInput
+  'similarweb.get_bounce_rate': SimilarwebGetBounceRateInput
+  'similarweb.get_average_visit_duration': SimilarwebGetAverageVisitDurationInput
+  'similarweb.get_desktop_traffic_sources': SimilarwebGetDesktopTrafficSourcesInput
+  'similarweb.get_desktop_traffic_by_country': SimilarwebGetDesktopTrafficByCountryInput
+  'similarweb.get_desktop_referrals': SimilarwebGetDesktopReferralsInput
+  'similarweb.subscribe_webhook': SimilarwebSubscribeWebhookInput
+  'similarweb.list_webhook_subscriptions': SimilarwebListWebhookSubscriptionsInput
+  'similarweb.unsubscribe_webhook': SimilarwebUnsubscribeWebhookInput
+  'similarweb.custom_api_call': SimilarwebCustomApiCallInput
   'simple-practice.list_clients': SimplePracticeListClientsInput
   'simple-practice.get_client': SimplePracticeGetClientInput
   'simple-practice.list_appointments': SimplePracticeListAppointmentsInput
@@ -53007,6 +57371,11 @@ export interface IntegrationActionInputMap {
   'skyslope.upload_document': SkyslopeUploadDocumentInput
   'skyslope.get_agents': SkyslopeGetAgentsInput
   'skyslope.custom_api_call': SkyslopeCustomApiCallInput
+  'slab.list_posts': SlabListPostsInput
+  'slab.get_post': SlabGetPostInput
+  'slab.search_posts': SlabSearchPostsInput
+  'slab.create_post': SlabCreatePostInput
+  'slab.graphql': SlabGraphqlInput
   'slack.send_channel_message': SlackSendChannelMessageInput
   'slack.send_direct_message': SlackSendDirectMessageInput
   'slack.update_message': SlackUpdateMessageInput
@@ -53135,6 +57504,28 @@ export interface IntegrationActionInputMap {
   'kv-store.delete': KvStoreDeleteInput
   'kv-store.add_to_list': KvStoreAddToListInput
   'kv-store.remove_from_list': KvStoreRemoveFromListInput
+  'statsig.list_gates': StatsigListGatesInput
+  'statsig.get_gate': StatsigGetGateInput
+  'statsig.create_gate': StatsigCreateGateInput
+  'statsig.update_gate': StatsigUpdateGateInput
+  'statsig.enable_gate': StatsigEnableGateInput
+  'statsig.disable_gate': StatsigDisableGateInput
+  'statsig.archive_gate': StatsigArchiveGateInput
+  'statsig.unarchive_gate': StatsigUnarchiveGateInput
+  'statsig.delete_gate': StatsigDeleteGateInput
+  'statsig.list_dynamic_configs': StatsigListDynamicConfigsInput
+  'statsig.get_dynamic_config': StatsigGetDynamicConfigInput
+  'statsig.create_dynamic_config': StatsigCreateDynamicConfigInput
+  'statsig.update_dynamic_config': StatsigUpdateDynamicConfigInput
+  'statsig.enable_dynamic_config': StatsigEnableDynamicConfigInput
+  'statsig.disable_dynamic_config': StatsigDisableDynamicConfigInput
+  'statsig.archive_dynamic_config': StatsigArchiveDynamicConfigInput
+  'statsig.unarchive_dynamic_config': StatsigUnarchiveDynamicConfigInput
+  'statsig.list_experiments': StatsigListExperimentsInput
+  'statsig.get_experiment': StatsigGetExperimentInput
+  'statsig.update_experiment': StatsigUpdateExperimentInput
+  'statsig.archive_experiment': StatsigArchiveExperimentInput
+  'statsig.custom_api_call': StatsigCustomApiCallInput
   'storyblok.list_spaces': StoryblokListSpacesInput
   'storyblok.get_space': StoryblokGetSpaceInput
   'storyblok.list_stories': StoryblokListStoriesInput
@@ -53508,6 +57899,12 @@ export interface IntegrationActionInputMap {
   'typesense.search_documents': TypesenseSearchDocumentsInput
   'typesense.get_document': TypesenseGetDocumentInput
   'typesense.upsert_document': TypesenseUpsertDocumentInput
+  'ukg.validate_connection': UkgValidateConnectionInput
+  'ukg.list_person_details': UkgListPersonDetailsInput
+  'ukg.list_employment_details': UkgListEmploymentDetailsInput
+  'ukg.list_employee_employment_details': UkgListEmployeeEmploymentDetailsInput
+  'ukg.list_employee_changes': UkgListEmployeeChangesInput
+  'ukg.custom_api_call': UkgCustomApiCallInput
   'unbounce.list_pages': UnbounceListPagesInput
   'unbounce.get_leads': UnbounceGetLeadsInput
   'unbounce.list_domains': UnbounceListDomainsInput
@@ -54424,6 +58821,13 @@ export interface IntegrationActionInputsByIntegration {
     'list_roles': Auth0ListRolesInput
     'list_connections': Auth0ListConnectionsInput
   }
+  'authorize-net': {
+    'create_transaction': AuthorizeNetCreateTransactionInput
+    'get_transaction': AuthorizeNetGetTransactionInput
+    'refund_transaction': AuthorizeNetRefundTransactionInput
+    'void_transaction': AuthorizeNetVoidTransactionInput
+    'create_customer_profile': AuthorizeNetCreateCustomerProfileInput
+  }
   'autotask': {
     'create_ticket': AutotaskCreateTicketInput
     'list_tickets': AutotaskListTicketsInput
@@ -54439,11 +58843,27 @@ export interface IntegrationActionInputsByIntegration {
     'delete_object': AwsS3DeleteObjectInput
     'head_object': AwsS3HeadObjectInput
   }
+  'aws-secrets-manager': {
+    'list_secrets': AwsSecretsManagerListSecretsInput
+    'describe_secret': AwsSecretsManagerDescribeSecretInput
+    'get_secret_value': AwsSecretsManagerGetSecretValueInput
+    'list_secret_version_ids': AwsSecretsManagerListSecretVersionIdsInput
+    'create_secret': AwsSecretsManagerCreateSecretInput
+    'put_secret_value': AwsSecretsManagerPutSecretValueInput
+    'update_secret': AwsSecretsManagerUpdateSecretInput
+    'delete_secret': AwsSecretsManagerDeleteSecretInput
+    'restore_secret': AwsSecretsManagerRestoreSecretInput
+  }
   'aws-ses': {
     'send_email': AwsSesSendEmailInput
     'list_identities': AwsSesListIdentitiesInput
     'get_email_identity': AwsSesGetEmailIdentityInput
     'get_account': AwsSesGetAccountInput
+  }
+  'aws-sts': {
+    'get_caller_identity': AwsStsGetCallerIdentityInput
+    'get_access_key_info': AwsStsGetAccessKeyInfoInput
+    'assume_role': AwsStsAssumeRoleInput
   }
   'azure-blob-storage': {
     'list_containers': AzureBlobStorageListContainersInput
@@ -54586,6 +59006,13 @@ export interface IntegrationActionInputsByIntegration {
     'delete_folder': BoxDeleteFolderInput
     'custom_api_call': BoxCustomApiCallInput
   }
+  'braintree': {
+    'get_payment': BraintreeGetPaymentInput
+    'capture_transaction': BraintreeCaptureTransactionInput
+    'reverse_transaction': BraintreeReverseTransactionInput
+    'refund_transaction': BraintreeRefundTransactionInput
+    'void_transaction': BraintreeVoidTransactionInput
+  }
   'brandfolder': {
     'get_asset': BrandfolderGetAssetInput
     'create_asset': BrandfolderCreateAssetInput
@@ -54597,6 +59024,19 @@ export interface IntegrationActionInputsByIntegration {
   'brave-search': {
     'web_search': BraveSearchWebSearchInput
     'custom_api_call': BraveSearchCustomApiCallInput
+  }
+  'braze': {
+    'track_users': BrazeTrackUsersInput
+    'export_users_by_identifier': BrazeExportUsersByIdentifierInput
+    'delete_users': BrazeDeleteUsersInput
+    'list_campaigns': BrazeListCampaignsInput
+    'get_campaign_details': BrazeGetCampaignDetailsInput
+    'send_triggered_campaign': BrazeSendTriggeredCampaignInput
+    'list_segments': BrazeListSegmentsInput
+    'get_segment_details': BrazeGetSegmentDetailsInput
+    'update_subscription_group_status': BrazeUpdateSubscriptionGroupStatusInput
+    'change_email_subscription_status': BrazeChangeEmailSubscriptionStatusInput
+    'custom_api_call': BrazeCustomApiCallInput
   }
   'breezy-hr': {
     'list_candidates': BreezyHrListCandidatesInput
@@ -54842,6 +59282,25 @@ export interface IntegrationActionInputsByIntegration {
     'reveal_visitor': ClearbitRevealVisitorInput
     'custom_api_call': ClearbitCustomApiCallInput
   }
+  'clerk': {
+    'list_users': ClerkListUsersInput
+    'get_user': ClerkGetUserInput
+    'create_user': ClerkCreateUserInput
+    'update_user': ClerkUpdateUserInput
+    'delete_user': ClerkDeleteUserInput
+    'list_organizations': ClerkListOrganizationsInput
+    'get_organization': ClerkGetOrganizationInput
+    'create_organization': ClerkCreateOrganizationInput
+    'update_organization': ClerkUpdateOrganizationInput
+    'delete_organization': ClerkDeleteOrganizationInput
+    'list_organization_memberships': ClerkListOrganizationMembershipsInput
+    'create_organization_membership': ClerkCreateOrganizationMembershipInput
+    'update_organization_membership': ClerkUpdateOrganizationMembershipInput
+    'remove_organization_membership': ClerkRemoveOrganizationMembershipInput
+    'list_sessions': ClerkListSessionsInput
+    'get_session': ClerkGetSessionInput
+    'revoke_session': ClerkRevokeSessionInput
+  }
   'clickfunnels': {
     'createOpportunity': ClickfunnelsCreateOpportunityInput
     'applyTagToContact': ClickfunnelsApplyTagToContactInput
@@ -54850,6 +59309,16 @@ export interface IntegrationActionInputsByIntegration {
     'updateOrCreateContact': ClickfunnelsUpdateOrCreateContactInput
     'searchContacts': ClickfunnelsSearchContactsInput
     'custom_api_call': ClickfunnelsCustomApiCallInput
+  }
+  'clickhouse': {
+    'ping': ClickhousePingInput
+    'execute_query': ClickhouseExecuteQueryInput
+    'list_databases': ClickhouseListDatabasesInput
+    'list_tables': ClickhouseListTablesInput
+    'describe_table': ClickhouseDescribeTableInput
+    'show_create_table': ClickhouseShowCreateTableInput
+    'kill_query': ClickhouseKillQueryInput
+    'cloud_api_call': ClickhouseCloudApiCallInput
   }
   'clicksend': {
     'send_sms': ClicksendSendSmsInput
@@ -54950,6 +59419,18 @@ export interface IntegrationActionInputsByIntegration {
     'list_issues': CodacyListIssuesInput
     'custom_api_call': CodacyCustomApiCallInput
   }
+  'cognism': {
+    'search_contacts': CognismSearchContactsInput
+    'search_accounts': CognismSearchAccountsInput
+    'redeem_contacts': CognismRedeemContactsInput
+    'redeem_accounts': CognismRedeemAccountsInput
+    'enrich_contact': CognismEnrichContactInput
+    'enrich_account': CognismEnrichAccountInput
+    'get_contact_entitlements': CognismGetContactEntitlementsInput
+    'get_account_entitlements': CognismGetAccountEntitlementsInput
+    'list_filter_values': CognismListFilterValuesInput
+    'get_opt_out_by_email': CognismGetOptOutByEmailInput
+  }
   'cognito-forms': {
     'list_forms': CognitoFormsListFormsInput
     'get_form_schema': CognitoFormsGetFormSchemaInput
@@ -54970,6 +59451,18 @@ export interface IntegrationActionInputsByIntegration {
     'chat': CohereChatInput
     'embed': CohereEmbedInput
     'rerank': CohereRerankInput
+  }
+  'common-room': {
+    'get_token_status': CommonRoomGetTokenStatusInput
+    'add_or_update_contact': CommonRoomAddOrUpdateContactInput
+    'get_contact_by_email': CommonRoomGetContactByEmailInput
+    'anonymize_contact': CommonRoomAnonymizeContactInput
+    'add_or_update_activity': CommonRoomAddOrUpdateActivityInput
+    'get_activity_types': CommonRoomGetActivityTypesInput
+    'list_segments': CommonRoomListSegmentsInput
+    'list_tags': CommonRoomListTagsInput
+    'create_tag': CommonRoomCreateTagInput
+    'delete_tag': CommonRoomDeleteTagInput
   }
   'companycam': {
     'list_projects': CompanycamListProjectsInput
@@ -55084,6 +59577,21 @@ export interface IntegrationActionInputsByIntegration {
     'find_user_profile': CrispFindUserProfileInput
     'custom_api_call': CrispCustomApiCallInput
   }
+  'culture-amp': {
+    'validate_connection': CultureAmpValidateConnectionInput
+    'list_employees': CultureAmpListEmployeesInput
+    'get_employee': CultureAmpGetEmployeeInput
+    'list_employee_demographics': CultureAmpListEmployeeDemographicsInput
+    'list_performance_cycles': CultureAmpListPerformanceCyclesInput
+    'get_performance_cycle': CultureAmpGetPerformanceCycleInput
+    'list_manager_reviews': CultureAmpListManagerReviewsInput
+    'get_manager_review': CultureAmpGetManagerReviewInput
+    'list_employee_manager_reviews': CultureAmpListEmployeeManagerReviewsInput
+    'list_cycle_manager_reviews': CultureAmpListCycleManagerReviewsInput
+    'list_surveys': CultureAmpListSurveysInput
+    'get_survey': CultureAmpGetSurveyInput
+    'custom_api_call': CultureAmpCustomApiCallInput
+  }
   'customer-io': {
     'identify_person': CustomerIoIdentifyPersonInput
     'track_event': CustomerIoTrackEventInput
@@ -55153,6 +59661,20 @@ export interface IntegrationActionInputsByIntegration {
     'update_item': DatocmsUpdateItemInput
     'custom_api_call': DatocmsCustomApiCallInput
   }
+  'dbt-cloud': {
+    'list_projects': DbtCloudListProjectsInput
+    'get_project': DbtCloudGetProjectInput
+    'list_jobs': DbtCloudListJobsInput
+    'get_job': DbtCloudGetJobInput
+    'trigger_job_run': DbtCloudTriggerJobRunInput
+    'list_runs': DbtCloudListRunsInput
+    'get_run': DbtCloudGetRunInput
+    'cancel_run': DbtCloudCancelRunInput
+    'list_run_artifacts': DbtCloudListRunArtifactsInput
+    'get_run_artifact': DbtCloudGetRunArtifactInput
+    'get_step': DbtCloudGetStepInput
+    'custom_api_call': DbtCloudCustomApiCallInput
+  }
   'deel': {
     'list_contracts': DeelListContractsInput
     'get_contract': DeelGetContractInput
@@ -55179,6 +59701,20 @@ export interface IntegrationActionInputsByIntegration {
   'deepseek': {
     'ask_deepseek': DeepseekAskDeepseekInput
     'ask_json': DeepseekAskJsonInput
+  }
+  'deputy': {
+    'validate_connection': DeputyValidateConnectionInput
+    'list_employees': DeputyListEmployeesInput
+    'get_employee': DeputyGetEmployeeInput
+    'list_locations': DeputyListLocationsInput
+    'list_operational_units': DeputyListOperationalUnitsInput
+    'query_resource': DeputyQueryResourceInput
+    'list_rosters': DeputyListRostersInput
+    'list_timesheets': DeputyListTimesheetsInput
+    'create_resource': DeputyCreateResourceInput
+    'delete_resource': DeputyDeleteResourceInput
+    'create_webhook': DeputyCreateWebhookInput
+    'custom_api_call': DeputyCustomApiCallInput
   }
   'descript': {
     'import_media': DescriptImportMediaInput
@@ -55255,6 +59791,26 @@ export interface IntegrationActionInputsByIntegration {
     'get_tag': DockerHubGetTagInput
     'search_images': DockerHubSearchImagesInput
     'custom_api_call': DockerHubCustomApiCallInput
+  }
+  'documenso': {
+    'list_documents': DocumensoListDocumentsInput
+    'get_document': DocumensoGetDocumentInput
+    'create_document': DocumensoCreateDocumentInput
+    'send_document': DocumensoSendDocumentInput
+    'delete_document': DocumensoDeleteDocumentInput
+    'list_templates': DocumensoListTemplatesInput
+    'custom_api_call': DocumensoCustomApiCallInput
+  }
+  'docuseal': {
+    'list_submissions': DocusealListSubmissionsInput
+    'get_submission': DocusealGetSubmissionInput
+    'create_submission': DocusealCreateSubmissionInput
+    'get_submission_documents': DocusealGetSubmissionDocumentsInput
+    'archive_submission': DocusealArchiveSubmissionInput
+    'list_templates': DocusealListTemplatesInput
+    'get_template': DocusealGetTemplateInput
+    'archive_template': DocusealArchiveTemplateInput
+    'custom_api_call': DocusealCustomApiCallInput
   }
   'docusign': {
     'listEnvelopes': DocusignListEnvelopesInput
@@ -55465,6 +60021,21 @@ export interface IntegrationActionInputsByIntegration {
     'find_similar_links': ExaFindSimilarLinksInput
     'custom_api_call': ExaCustomApiCallInput
   }
+  'expensify': {
+    'export_reports': ExpensifyExportReportsInput
+    'export_card_reconciliation': ExpensifyExportCardReconciliationInput
+    'download_file': ExpensifyDownloadFileInput
+    'create_report': ExpensifyCreateReportInput
+    'create_expenses': ExpensifyCreateExpensesInput
+    'create_policy': ExpensifyCreatePolicyInput
+    'create_expense_rules': ExpensifyCreateExpenseRulesInput
+    'get_policy': ExpensifyGetPolicyInput
+    'get_policy_list': ExpensifyGetPolicyListInput
+    'get_domain_card_list': ExpensifyGetDomainCardListInput
+    'update_policy': ExpensifyUpdatePolicyInput
+    'update_report_status': ExpensifyUpdateReportStatusInput
+    'submit_job': ExpensifySubmitJobInput
+  }
   'facebook-ads': {
     'list_campaigns': FacebookAdsListCampaignsInput
     'get_campaign': FacebookAdsGetCampaignInput
@@ -55596,6 +60167,22 @@ export interface IntegrationActionInputsByIntegration {
     'create_sales_order': FishbowlCreateSalesOrderInput
     'get_inventory': FishbowlGetInventoryInput
     'custom_api_call': FishbowlCustomApiCallInput
+  }
+  'fivetran': {
+    'list_groups': FivetranListGroupsInput
+    'get_group': FivetranGetGroupInput
+    'list_destinations': FivetranListDestinationsInput
+    'get_destination': FivetranGetDestinationInput
+    'run_destination_setup_tests': FivetranRunDestinationSetupTestsInput
+    'list_connections': FivetranListConnectionsInput
+    'list_group_connections': FivetranListGroupConnectionsInput
+    'get_connection': FivetranGetConnectionInput
+    'sync_connection': FivetranSyncConnectionInput
+    'resync_connection': FivetranResyncConnectionInput
+    'run_connection_setup_tests': FivetranRunConnectionSetupTestsInput
+    'update_connection': FivetranUpdateConnectionInput
+    'delete_connection': FivetranDeleteConnectionInput
+    'custom_api_call': FivetranCustomApiCallInput
   }
   'fleetio': {
     'get_vehicle': FleetioGetVehicleInput
@@ -55834,6 +60421,17 @@ export interface IntegrationActionInputsByIntegration {
     'get_people': GmailGetPeopleInput
     'search_people': GmailSearchPeopleInput
     'custom_api_call': GmailCustomApiCallInput
+  }
+  'gocardless': {
+    'list_customers': GocardlessListCustomersInput
+    'get_customer': GocardlessGetCustomerInput
+    'create_customer': GocardlessCreateCustomerInput
+    'list_mandates': GocardlessListMandatesInput
+    'list_payments': GocardlessListPaymentsInput
+    'get_payment': GocardlessGetPaymentInput
+    'create_payment': GocardlessCreatePaymentInput
+    'cancel_payment': GocardlessCancelPaymentInput
+    'create_refund': GocardlessCreateRefundInput
   }
   'gong': {
     'list_calls': GongListCallsInput
@@ -56091,6 +60689,16 @@ export interface IntegrationActionInputsByIntegration {
     'get_subscriber': GumroadGetSubscriberInput
     'custom_api_call': GumroadCustomApiCallInput
   }
+  'guru': {
+    'list_collections': GuruListCollectionsInput
+    'search_cards': GuruSearchCardsInput
+    'get_card': GuruGetCardInput
+    'create_card': GuruCreateCardInput
+    'update_card': GuruUpdateCardInput
+    'delete_card': GuruDeleteCardInput
+    'ask_question': GuruAskQuestionInput
+    'custom_api_call': GuruCustomApiCallInput
+  }
   'gusto': {
     'list_employees': GustoListEmployeesInput
     'get_employee': GustoGetEmployeeInput
@@ -56157,6 +60765,20 @@ export interface IntegrationActionInputsByIntegration {
     'add_note': HelpScoutAddNoteInput
     'update_conversation_status': HelpScoutUpdateConversationStatusInput
     'list_customers': HelpScoutListCustomersInput
+  }
+  'hex': {
+    'validate_connection': HexValidateConnectionInput
+    'list_projects': HexListProjectsInput
+    'get_project': HexGetProjectInput
+    'run_project': HexRunProjectInput
+    'list_project_runs': HexListProjectRunsInput
+    'get_project_run': HexGetProjectRunInput
+    'cancel_project_run': HexCancelProjectRunInput
+    'list_users': HexListUsersInput
+    'list_groups': HexListGroupsInput
+    'list_collections': HexListCollectionsInput
+    'list_data_connections': HexListDataConnectionsInput
+    'custom_api_call': HexCustomApiCallInput
   }
   'heygen': {
     'create-video-from-template': HeygenCreateVideoFromTemplateInput
@@ -56412,6 +61034,18 @@ export interface IntegrationActionInputsByIntegration {
     'get_asn': IpinfoGetAsnInput
     'custom_api_call': IpinfoCustomApiCallInput
   }
+  'iterable': {
+    'upsert_user': IterableUpsertUserInput
+    'get_user_by_email': IterableGetUserByEmailInput
+    'delete_user': IterableDeleteUserInput
+    'track_event': IterableTrackEventInput
+    'list_lists': IterableListListsInput
+    'subscribe_to_list': IterableSubscribeToListInput
+    'unsubscribe_from_list': IterableUnsubscribeFromListInput
+    'list_campaigns': IterableListCampaignsInput
+    'send_targeted_email': IterableSendTargetedEmailInput
+    'custom_api_call': IterableCustomApiCallInput
+  }
   'code': {
     'run_code': CodeRunCodeInput
   }
@@ -56588,6 +61222,18 @@ export interface IntegrationActionInputsByIntegration {
     'list_posts': LaterListPostsInput
     'list_profiles': LaterListProfilesInput
     'custom_api_call': LaterCustomApiCallInput
+  }
+  'launchdarkly': {
+    'list_projects': LaunchdarklyListProjectsInput
+    'list_environments': LaunchdarklyListEnvironmentsInput
+    'list_feature_flags': LaunchdarklyListFeatureFlagsInput
+    'get_feature_flag': LaunchdarklyGetFeatureFlagInput
+    'create_feature_flag': LaunchdarklyCreateFeatureFlagInput
+    'update_feature_flag_patch': LaunchdarklyUpdateFeatureFlagPatchInput
+    'set_flag_enabled': LaunchdarklySetFlagEnabledInput
+    'delete_feature_flag': LaunchdarklyDeleteFeatureFlagInput
+    'list_audit_log_entries': LaunchdarklyListAuditLogEntriesInput
+    'custom_api_call': LaunchdarklyCustomApiCallInput
   }
   'lawmatics': {
     'get_contact': LawmaticsGetContactInput
@@ -56904,6 +61550,40 @@ export interface IntegrationActionInputsByIntegration {
     'find_or_create_label': MeistertaskFindOrCreateLabelInput
     'custom_api_call': MeistertaskCustomApiCallInput
   }
+  'mercado-pago': {
+    'create_preference': MercadoPagoCreatePreferenceInput
+    'get_preference': MercadoPagoGetPreferenceInput
+    'search_payments': MercadoPagoSearchPaymentsInput
+    'get_payment': MercadoPagoGetPaymentInput
+    'refund_payment': MercadoPagoRefundPaymentInput
+    'cancel_payment': MercadoPagoCancelPaymentInput
+  }
+  'mercury': {
+    'validate_connection': MercuryValidateConnectionInput
+    'list_accounts': MercuryListAccountsInput
+    'get_account': MercuryGetAccountInput
+    'list_account_transactions': MercuryListAccountTransactionsInput
+    'list_transactions': MercuryListTransactionsInput
+    'get_transaction': MercuryGetTransactionInput
+    'list_recipients': MercuryListRecipientsInput
+    'get_recipient': MercuryGetRecipientInput
+    'create_recipient': MercuryCreateRecipientInput
+    'update_recipient': MercuryUpdateRecipientInput
+    'list_categories': MercuryListCategoriesInput
+    'create_category': MercuryCreateCategoryInput
+    'update_category': MercuryUpdateCategoryInput
+    'delete_category': MercuryDeleteCategoryInput
+    'list_invoices': MercuryListInvoicesInput
+    'get_invoice': MercuryGetInvoiceInput
+    'create_invoice': MercuryCreateInvoiceInput
+    'update_invoice': MercuryUpdateInvoiceInput
+    'cancel_invoice': MercuryCancelInvoiceInput
+    'list_events': MercuryListEventsInput
+    'get_event': MercuryGetEventInput
+    'request_send_money': MercuryRequestSendMoneyInput
+    'create_internal_transfer': MercuryCreateInternalTransferInput
+    'custom_api_call': MercuryCustomApiCallInput
+  }
   'metabase': {
     'list_cards': MetabaseListCardsInput
     'get_card': MetabaseGetCardInput
@@ -57025,6 +61705,25 @@ export interface IntegrationActionInputsByIntegration {
     'dynamics_crm_get_record': MicrosoftDynamicsCrmDynamicsCrmGetRecordInput
     'dynamics_crm_update_record': MicrosoftDynamicsCrmDynamicsCrmUpdateRecordInput
     'dynamics_crm_delete_record': MicrosoftDynamicsCrmDynamicsCrmDeleteRecordInput
+  }
+  'microsoft-entra-id': {
+    'list_users': MicrosoftEntraIdListUsersInput
+    'get_user': MicrosoftEntraIdGetUserInput
+    'create_user': MicrosoftEntraIdCreateUserInput
+    'update_user': MicrosoftEntraIdUpdateUserInput
+    'delete_user': MicrosoftEntraIdDeleteUserInput
+    'list_groups': MicrosoftEntraIdListGroupsInput
+    'get_group': MicrosoftEntraIdGetGroupInput
+    'create_security_group': MicrosoftEntraIdCreateSecurityGroupInput
+    'update_group': MicrosoftEntraIdUpdateGroupInput
+    'delete_group': MicrosoftEntraIdDeleteGroupInput
+    'list_group_members': MicrosoftEntraIdListGroupMembersInput
+    'add_group_member': MicrosoftEntraIdAddGroupMemberInput
+    'remove_group_member': MicrosoftEntraIdRemoveGroupMemberInput
+    'list_applications': MicrosoftEntraIdListApplicationsInput
+    'get_application': MicrosoftEntraIdGetApplicationInput
+    'list_service_principals': MicrosoftEntraIdListServicePrincipalsInput
+    'get_service_principal': MicrosoftEntraIdGetServicePrincipalInput
   }
   'microsoft-excel-365': {
     'list_worksheets': MicrosoftExcel365ListWorksheetsInput
@@ -57413,6 +62112,17 @@ export interface IntegrationActionInputsByIntegration {
     'list_groups': OktaListGroupsInput
     'list_applications': OktaListApplicationsInput
   }
+  'omnisend': {
+    'create_contact': OmnisendCreateContactInput
+    'update_contact': OmnisendUpdateContactInput
+    'get_contact': OmnisendGetContactInput
+    'list_contacts': OmnisendListContactsInput
+    'delete_contact': OmnisendDeleteContactInput
+    'send_event': OmnisendSendEventInput
+    'create_batch': OmnisendCreateBatchInput
+    'list_campaigns': OmnisendListCampaignsInput
+    'custom_api_call': OmnisendCustomApiCallInput
+  }
   'oncehub': {
     'findContact': OncehubFindContactInput
     'createContact': OncehubCreateContactInput
@@ -57476,6 +62186,20 @@ export interface IntegrationActionInputsByIntegration {
     'get_on_calls': OpsgenieGetOnCallsInput
     'list_services': OpsgenieListServicesInput
     'get_service': OpsgenieGetServiceInput
+  }
+  'ortto': {
+    'merge_people': OrttoMergePeopleInput
+    'get_people': OrttoGetPeopleInput
+    'get_person_subscriptions': OrttoGetPersonSubscriptionsInput
+    'archive_people': OrttoArchivePeopleInput
+    'delete_people': OrttoDeletePeopleInput
+    'create_activities': OrttoCreateActivitiesInput
+    'get_audiences': OrttoGetAudiencesInput
+    'subscribe_to_audience': OrttoSubscribeToAudienceInput
+    'get_campaign_calendar': OrttoGetCampaignCalendarInput
+    'get_tags': OrttoGetTagsInput
+    'send_transactional_email': OrttoSendTransactionalEmailInput
+    'custom_api_call': OrttoCustomApiCallInput
   }
   'outline': {
     'list_documents': OutlineListDocumentsInput
@@ -57557,6 +62281,14 @@ export interface IntegrationActionInputsByIntegration {
     'list_transactions': PaypalListTransactionsInput
     'create_payout': PaypalCreatePayoutInput
     'custom_api_call': PaypalCustomApiCallInput
+  }
+  'paystack': {
+    'initialize_transaction': PaystackInitializeTransactionInput
+    'verify_transaction': PaystackVerifyTransactionInput
+    'list_transactions': PaystackListTransactionsInput
+    'create_refund': PaystackCreateRefundInput
+    'create_customer': PaystackCreateCustomerInput
+    'list_customers': PaystackListCustomersInput
   }
   'paywhirl': {
     'cancelSubscription': PaywhirlCancelSubscriptionInput
@@ -58022,6 +62754,50 @@ export interface IntegrationActionInputsByIntegration {
     'redeploy': RailwayRedeployInput
     'custom_api_call': RailwayCustomApiCallInput
   }
+  'ramp': {
+    'validate_connection': RampValidateConnectionInput
+    'get_business': RampGetBusinessInput
+    'get_business_balance': RampGetBusinessBalanceInput
+    'list_users': RampListUsersInput
+    'get_user': RampGetUserInput
+    'update_user': RampUpdateUserInput
+    'list_departments': RampListDepartmentsInput
+    'create_department': RampCreateDepartmentInput
+    'list_locations': RampListLocationsInput
+    'create_location': RampCreateLocationInput
+    'list_cards': RampListCardsInput
+    'get_card': RampGetCardInput
+    'update_card': RampUpdateCardInput
+    'list_transactions': RampListTransactionsInput
+    'get_transaction': RampGetTransactionInput
+    'update_transaction': RampUpdateTransactionInput
+    'list_receipts': RampListReceiptsInput
+    'get_receipt': RampGetReceiptInput
+    'upload_receipt': RampUploadReceiptInput
+    'list_reimbursements': RampListReimbursementsInput
+    'get_reimbursement': RampGetReimbursementInput
+    'list_vendors': RampListVendorsInput
+    'get_vendor': RampGetVendorInput
+    'create_vendor': RampCreateVendorInput
+    'update_vendor': RampUpdateVendorInput
+    'delete_vendor': RampDeleteVendorInput
+    'list_bills': RampListBillsInput
+    'get_bill': RampGetBillInput
+    'create_bill': RampCreateBillInput
+    'update_bill': RampUpdateBillInput
+    'delete_bill': RampDeleteBillInput
+    'list_statements': RampListStatementsInput
+    'get_statement': RampGetStatementInput
+    'list_transfers': RampListTransfersInput
+    'get_transfer': RampGetTransferInput
+    'list_accounting_connections': RampListAccountingConnectionsInput
+    'list_gl_accounts': RampListGlAccountsInput
+    'get_gl_account': RampGetGlAccountInput
+    'upload_gl_accounts': RampUploadGlAccountsInput
+    'update_gl_account': RampUpdateGlAccountInput
+    'delete_gl_account': RampDeleteGlAccountInput
+    'custom_api_call': RampCustomApiCallInput
+  }
   'razorpay': {
     'custom_api_call': RazorpayCustomApiCallInput
     'create-payment-link': RazorpayCreatePaymentLinkInput
@@ -58062,6 +62838,38 @@ export interface IntegrationActionInputsByIntegration {
     'deleteRedditComment': RedditDeleteRedditCommentInput
     'custom_api_call': RedditCustomApiCallInput
   }
+  'redis-cloud': {
+    'list_pro_subscriptions': RedisCloudListProSubscriptionsInput
+    'get_pro_subscription': RedisCloudGetProSubscriptionInput
+    'list_essentials_subscriptions': RedisCloudListEssentialsSubscriptionsInput
+    'get_essentials_subscription': RedisCloudGetEssentialsSubscriptionInput
+    'list_databases': RedisCloudListDatabasesInput
+    'get_database': RedisCloudGetDatabaseInput
+    'create_database': RedisCloudCreateDatabaseInput
+    'update_database': RedisCloudUpdateDatabaseInput
+    'delete_database': RedisCloudDeleteDatabaseInput
+    'get_task': RedisCloudGetTaskInput
+    'custom_api_call': RedisCloudCustomApiCallInput
+  }
+  'remote': {
+    'validate_connection': RemoteValidateConnectionInput
+    'list_countries': RemoteListCountriesInput
+    'list_employments': RemoteListEmploymentsInput
+    'get_employment': RemoteGetEmploymentInput
+    'update_employment': RemoteUpdateEmploymentInput
+    'invite_employment': RemoteInviteEmploymentInput
+    'cancel_onboarding': RemoteCancelOnboardingInput
+    'list_time_off': RemoteListTimeOffInput
+    'get_time_off': RemoteGetTimeOffInput
+    'create_time_off': RemoteCreateTimeOffInput
+    'approve_time_off': RemoteApproveTimeOffInput
+    'decline_time_off': RemoteDeclineTimeOffInput
+    'cancel_time_off': RemoteCancelTimeOffInput
+    'list_webhook_callbacks': RemoteListWebhookCallbacksInput
+    'create_webhook_callback': RemoteCreateWebhookCallbackInput
+    'delete_webhook_callback': RemoteDeleteWebhookCallbackInput
+    'custom_api_call': RemoteCustomApiCallInput
+  }
   'render': {
     'list_services': RenderListServicesInput
     'get_service': RenderGetServiceInput
@@ -58072,6 +62880,16 @@ export interface IntegrationActionInputsByIntegration {
     'create_prediction': ReplicateCreatePredictionInput
     'get_prediction': ReplicateGetPredictionInput
     'list_models': ReplicateListModelsInput
+  }
+  'reply-io': {
+    'whoami': ReplyIoWhoamiInput
+    'list_contacts': ReplyIoListContactsInput
+    'get_contact': ReplyIoGetContactInput
+    'create_contact': ReplyIoCreateContactInput
+    'update_contact': ReplyIoUpdateContactInput
+    'delete_contact': ReplyIoDeleteContactInput
+    'list_sequences': ReplyIoListSequencesInput
+    'create_webhook_subscription': ReplyIoCreateWebhookSubscriptionInput
   }
   'resend': {
     'send_email': ResendSendEmailInput
@@ -58320,6 +63138,23 @@ export interface IntegrationActionInputsByIntegration {
     'list_properties': SierraInteractiveListPropertiesInput
     'custom_api_call': SierraInteractiveCustomApiCallInput
   }
+  'similarweb': {
+    'validate_connection': SimilarwebValidateConnectionInput
+    'check_capabilities': SimilarwebCheckCapabilitiesInput
+    'check_user_usage': SimilarwebCheckUserUsageInput
+    'get_total_visits': SimilarwebGetTotalVisitsInput
+    'get_page_views': SimilarwebGetPageViewsInput
+    'get_pages_per_visit': SimilarwebGetPagesPerVisitInput
+    'get_bounce_rate': SimilarwebGetBounceRateInput
+    'get_average_visit_duration': SimilarwebGetAverageVisitDurationInput
+    'get_desktop_traffic_sources': SimilarwebGetDesktopTrafficSourcesInput
+    'get_desktop_traffic_by_country': SimilarwebGetDesktopTrafficByCountryInput
+    'get_desktop_referrals': SimilarwebGetDesktopReferralsInput
+    'subscribe_webhook': SimilarwebSubscribeWebhookInput
+    'list_webhook_subscriptions': SimilarwebListWebhookSubscriptionsInput
+    'unsubscribe_webhook': SimilarwebUnsubscribeWebhookInput
+    'custom_api_call': SimilarwebCustomApiCallInput
+  }
   'simple-practice': {
     'list_clients': SimplePracticeListClientsInput
     'get_client': SimplePracticeGetClientInput
@@ -58340,6 +63175,13 @@ export interface IntegrationActionInputsByIntegration {
     'upload_document': SkyslopeUploadDocumentInput
     'get_agents': SkyslopeGetAgentsInput
     'custom_api_call': SkyslopeCustomApiCallInput
+  }
+  'slab': {
+    'list_posts': SlabListPostsInput
+    'get_post': SlabGetPostInput
+    'search_posts': SlabSearchPostsInput
+    'create_post': SlabCreatePostInput
+    'graphql': SlabGraphqlInput
   }
   'slack': {
     'send_channel_message': SlackSendChannelMessageInput
@@ -58502,6 +63344,30 @@ export interface IntegrationActionInputsByIntegration {
     'delete': KvStoreDeleteInput
     'add_to_list': KvStoreAddToListInput
     'remove_from_list': KvStoreRemoveFromListInput
+  }
+  'statsig': {
+    'list_gates': StatsigListGatesInput
+    'get_gate': StatsigGetGateInput
+    'create_gate': StatsigCreateGateInput
+    'update_gate': StatsigUpdateGateInput
+    'enable_gate': StatsigEnableGateInput
+    'disable_gate': StatsigDisableGateInput
+    'archive_gate': StatsigArchiveGateInput
+    'unarchive_gate': StatsigUnarchiveGateInput
+    'delete_gate': StatsigDeleteGateInput
+    'list_dynamic_configs': StatsigListDynamicConfigsInput
+    'get_dynamic_config': StatsigGetDynamicConfigInput
+    'create_dynamic_config': StatsigCreateDynamicConfigInput
+    'update_dynamic_config': StatsigUpdateDynamicConfigInput
+    'enable_dynamic_config': StatsigEnableDynamicConfigInput
+    'disable_dynamic_config': StatsigDisableDynamicConfigInput
+    'archive_dynamic_config': StatsigArchiveDynamicConfigInput
+    'unarchive_dynamic_config': StatsigUnarchiveDynamicConfigInput
+    'list_experiments': StatsigListExperimentsInput
+    'get_experiment': StatsigGetExperimentInput
+    'update_experiment': StatsigUpdateExperimentInput
+    'archive_experiment': StatsigArchiveExperimentInput
+    'custom_api_call': StatsigCustomApiCallInput
   }
   'storyblok': {
     'list_spaces': StoryblokListSpacesInput
@@ -58963,6 +63829,14 @@ export interface IntegrationActionInputsByIntegration {
     'search_documents': TypesenseSearchDocumentsInput
     'get_document': TypesenseGetDocumentInput
     'upsert_document': TypesenseUpsertDocumentInput
+  }
+  'ukg': {
+    'validate_connection': UkgValidateConnectionInput
+    'list_person_details': UkgListPersonDetailsInput
+    'list_employment_details': UkgListEmploymentDetailsInput
+    'list_employee_employment_details': UkgListEmployeeEmploymentDetailsInput
+    'list_employee_changes': UkgListEmployeeChangesInput
+    'custom_api_call': UkgCustomApiCallInput
   }
   'unbounce': {
     'list_pages': UnbounceListPagesInput
@@ -59489,9 +64363,12 @@ export const integrationNames = [
   'atlassian',
   'attio',
   'auth0',
+  'authorize-net',
   'autotask',
   'aws-s3',
+  'aws-secrets-manager',
   'aws-ses',
+  'aws-sts',
   'azure-blob-storage',
   'azure-devops',
   'azure-openai',
@@ -59507,8 +64384,10 @@ export const integrationNames = [
   'bloomerang',
   'bluesky',
   'box',
+  'braintree',
   'brandfolder',
   'brave-search',
+  'braze',
   'breezy-hr',
   'brevo',
   'brex',
@@ -59535,7 +64414,9 @@ export const integrationNames = [
   'classy',
   'clay',
   'clearbit',
+  'clerk',
   'clickfunnels',
+  'clickhouse',
   'clicksend',
   'clickup',
   'clio',
@@ -59547,8 +64428,10 @@ export const integrationNames = [
   'cloudinary',
   'coda',
   'codacy',
+  'cognism',
   'cognito-forms',
   'cohere',
+  'common-room',
   'companycam',
   'confluence',
   'connectwise',
@@ -59559,6 +64442,7 @@ export const integrationNames = [
   'courier',
   'crates-io',
   'crisp',
+  'culture-amp',
   'customer-io',
   'cvent',
   'data-transformer',
@@ -59566,11 +64450,13 @@ export const integrationNames = [
   'datadog',
   'datetime',
   'datocms',
+  'dbt-cloud',
   'deel',
   'deepgram',
   'deepgram-custom',
   'deepl',
   'deepseek',
+  'deputy',
   'descript',
   'dialpad',
   'digital-ocean',
@@ -59578,6 +64464,8 @@ export const integrationNames = [
   'discourse',
   'docebo',
   'docker-hub',
+  'documenso',
+  'docuseal',
   'docusign',
   'donorbox',
   'doodle',
@@ -59600,6 +64488,7 @@ export const integrationNames = [
   'euler',
   'eventbrite',
   'exa',
+  'expensify',
   'facebook-ads',
   'facebook-leads',
   'facebook-pages',
@@ -59614,6 +64503,7 @@ export const integrationNames = [
   'firecrawl',
   'fireflies',
   'fishbowl',
+  'fivetran',
   'fleetio',
   'fly-io',
   'folk-crm',
@@ -59636,6 +64526,7 @@ export const integrationNames = [
   'github',
   'gitlab',
   'gmail',
+  'gocardless',
   'gong',
   'google-ads',
   'google-analytics',
@@ -59666,6 +64557,7 @@ export const integrationNames = [
   'groq',
   'guesty',
   'gumroad',
+  'guru',
   'gusto',
   'harvest',
   'hash-encode',
@@ -59675,6 +64567,7 @@ export const integrationNames = [
   'height',
   'hellosign',
   'help-scout',
+  'hex',
   'heygen',
   'hibob',
   'hive',
@@ -59697,6 +64590,7 @@ export const integrationNames = [
   'intakeq',
   'intercom',
   'ipinfo',
+  'iterable',
   'code',
   'jazzhr',
   'jina-ai',
@@ -59719,6 +64613,7 @@ export const integrationNames = [
   'langsmith',
   'lastfm',
   'later',
+  'launchdarkly',
   'lawmatics',
   'lead-connector',
   'learnworlds',
@@ -59749,10 +64644,13 @@ export const integrationNames = [
   'medium',
   'meilisearch',
   'meistertask',
+  'mercado-pago',
+  'mercury',
   'metabase',
   'microsoft-365',
   'microsoft-365-planner',
   'microsoft-dynamics-crm',
+  'microsoft-entra-id',
   'microsoft-excel-365',
   'microsoft-learn',
   'microsoft-onedrive',
@@ -59792,6 +64690,7 @@ export const integrationNames = [
   'nutshell',
   'odoo',
   'okta',
+  'omnisend',
   'oncehub',
   'onesignal',
   'onfleet',
@@ -59801,6 +64700,7 @@ export const integrationNames = [
   'opentable',
   'openweather',
   'opsgenie',
+  'ortto',
   'outline',
   'outreach',
   'paddle',
@@ -59809,6 +64709,7 @@ export const integrationNames = [
   'paperform',
   'paylocity',
   'paypal',
+  'paystack',
   'paywhirl',
   'pdf-co',
   'pendo',
@@ -59850,13 +64751,17 @@ export const integrationNames = [
   'quicknode',
   'rabbitmq',
   'railway',
+  'ramp',
   'razorpay',
   'readme-io',
   'reclaim-ai',
   'recurly',
   'reddit',
+  'redis-cloud',
+  'remote',
   'render',
   'replicate',
+  'reply-io',
   'resend',
   'retell-ai',
   'retool',
@@ -59888,9 +64793,11 @@ export const integrationNames = [
   'shopify',
   'short-io',
   'sierra-interactive',
+  'similarweb',
   'simple-practice',
   'skilljar',
   'skyslope',
+  'slab',
   'slack',
   'slite',
   'smartlead',
@@ -59908,6 +64815,7 @@ export const integrationNames = [
   'squarespace',
   'stability-ai',
   'kv-store',
+  'statsig',
   'storyblok',
   'strapi',
   'strava',
@@ -59952,6 +64860,7 @@ export const integrationNames = [
   'twitter',
   'typeform',
   'typesense',
+  'ukg',
   'unbounce',
   'upstash',
   'uptime-robot',
@@ -60544,6 +65453,13 @@ export const integrationActions = {
     'list_roles',
     'list_connections',
   ],
+  'authorize-net': [
+    'create_transaction',
+    'get_transaction',
+    'refund_transaction',
+    'void_transaction',
+    'create_customer_profile',
+  ],
   'autotask': [
     'create_ticket',
     'list_tickets',
@@ -60559,11 +65475,27 @@ export const integrationActions = {
     'delete_object',
     'head_object',
   ],
+  'aws-secrets-manager': [
+    'list_secrets',
+    'describe_secret',
+    'get_secret_value',
+    'list_secret_version_ids',
+    'create_secret',
+    'put_secret_value',
+    'update_secret',
+    'delete_secret',
+    'restore_secret',
+  ],
   'aws-ses': [
     'send_email',
     'list_identities',
     'get_email_identity',
     'get_account',
+  ],
+  'aws-sts': [
+    'get_caller_identity',
+    'get_access_key_info',
+    'assume_role',
   ],
   'azure-blob-storage': [
     'list_containers',
@@ -60706,6 +65638,13 @@ export const integrationActions = {
     'delete_folder',
     'custom_api_call',
   ],
+  'braintree': [
+    'get_payment',
+    'capture_transaction',
+    'reverse_transaction',
+    'refund_transaction',
+    'void_transaction',
+  ],
   'brandfolder': [
     'get_asset',
     'create_asset',
@@ -60716,6 +65655,19 @@ export const integrationActions = {
   ],
   'brave-search': [
     'web_search',
+    'custom_api_call',
+  ],
+  'braze': [
+    'track_users',
+    'export_users_by_identifier',
+    'delete_users',
+    'list_campaigns',
+    'get_campaign_details',
+    'send_triggered_campaign',
+    'list_segments',
+    'get_segment_details',
+    'update_subscription_group_status',
+    'change_email_subscription_status',
     'custom_api_call',
   ],
   'breezy-hr': [
@@ -60962,6 +65914,25 @@ export const integrationActions = {
     'reveal_visitor',
     'custom_api_call',
   ],
+  'clerk': [
+    'list_users',
+    'get_user',
+    'create_user',
+    'update_user',
+    'delete_user',
+    'list_organizations',
+    'get_organization',
+    'create_organization',
+    'update_organization',
+    'delete_organization',
+    'list_organization_memberships',
+    'create_organization_membership',
+    'update_organization_membership',
+    'remove_organization_membership',
+    'list_sessions',
+    'get_session',
+    'revoke_session',
+  ],
   'clickfunnels': [
     'createOpportunity',
     'applyTagToContact',
@@ -60970,6 +65941,16 @@ export const integrationActions = {
     'updateOrCreateContact',
     'searchContacts',
     'custom_api_call',
+  ],
+  'clickhouse': [
+    'ping',
+    'execute_query',
+    'list_databases',
+    'list_tables',
+    'describe_table',
+    'show_create_table',
+    'kill_query',
+    'cloud_api_call',
   ],
   'clicksend': [
     'send_sms',
@@ -61070,6 +66051,18 @@ export const integrationActions = {
     'list_issues',
     'custom_api_call',
   ],
+  'cognism': [
+    'search_contacts',
+    'search_accounts',
+    'redeem_contacts',
+    'redeem_accounts',
+    'enrich_contact',
+    'enrich_account',
+    'get_contact_entitlements',
+    'get_account_entitlements',
+    'list_filter_values',
+    'get_opt_out_by_email',
+  ],
   'cognito-forms': [
     'list_forms',
     'get_form_schema',
@@ -61090,6 +66083,18 @@ export const integrationActions = {
     'chat',
     'embed',
     'rerank',
+  ],
+  'common-room': [
+    'get_token_status',
+    'add_or_update_contact',
+    'get_contact_by_email',
+    'anonymize_contact',
+    'add_or_update_activity',
+    'get_activity_types',
+    'list_segments',
+    'list_tags',
+    'create_tag',
+    'delete_tag',
   ],
   'companycam': [
     'list_projects',
@@ -61204,6 +66209,21 @@ export const integrationActions = {
     'find_user_profile',
     'custom_api_call',
   ],
+  'culture-amp': [
+    'validate_connection',
+    'list_employees',
+    'get_employee',
+    'list_employee_demographics',
+    'list_performance_cycles',
+    'get_performance_cycle',
+    'list_manager_reviews',
+    'get_manager_review',
+    'list_employee_manager_reviews',
+    'list_cycle_manager_reviews',
+    'list_surveys',
+    'get_survey',
+    'custom_api_call',
+  ],
   'customer-io': [
     'identify_person',
     'track_event',
@@ -61273,6 +66293,20 @@ export const integrationActions = {
     'update_item',
     'custom_api_call',
   ],
+  'dbt-cloud': [
+    'list_projects',
+    'get_project',
+    'list_jobs',
+    'get_job',
+    'trigger_job_run',
+    'list_runs',
+    'get_run',
+    'cancel_run',
+    'list_run_artifacts',
+    'get_run_artifact',
+    'get_step',
+    'custom_api_call',
+  ],
   'deel': [
     'list_contracts',
     'get_contract',
@@ -61299,6 +66333,20 @@ export const integrationActions = {
   'deepseek': [
     'ask_deepseek',
     'ask_json',
+  ],
+  'deputy': [
+    'validate_connection',
+    'list_employees',
+    'get_employee',
+    'list_locations',
+    'list_operational_units',
+    'query_resource',
+    'list_rosters',
+    'list_timesheets',
+    'create_resource',
+    'delete_resource',
+    'create_webhook',
+    'custom_api_call',
   ],
   'descript': [
     'import_media',
@@ -61374,6 +66422,26 @@ export const integrationActions = {
     'list_tags',
     'get_tag',
     'search_images',
+    'custom_api_call',
+  ],
+  'documenso': [
+    'list_documents',
+    'get_document',
+    'create_document',
+    'send_document',
+    'delete_document',
+    'list_templates',
+    'custom_api_call',
+  ],
+  'docuseal': [
+    'list_submissions',
+    'get_submission',
+    'create_submission',
+    'get_submission_documents',
+    'archive_submission',
+    'list_templates',
+    'get_template',
+    'archive_template',
     'custom_api_call',
   ],
   'docusign': [
@@ -61585,6 +66653,21 @@ export const integrationActions = {
     'find_similar_links',
     'custom_api_call',
   ],
+  'expensify': [
+    'export_reports',
+    'export_card_reconciliation',
+    'download_file',
+    'create_report',
+    'create_expenses',
+    'create_policy',
+    'create_expense_rules',
+    'get_policy',
+    'get_policy_list',
+    'get_domain_card_list',
+    'update_policy',
+    'update_report_status',
+    'submit_job',
+  ],
   'facebook-ads': [
     'list_campaigns',
     'get_campaign',
@@ -61715,6 +66798,22 @@ export const integrationActions = {
     'create_product',
     'create_sales_order',
     'get_inventory',
+    'custom_api_call',
+  ],
+  'fivetran': [
+    'list_groups',
+    'get_group',
+    'list_destinations',
+    'get_destination',
+    'run_destination_setup_tests',
+    'list_connections',
+    'list_group_connections',
+    'get_connection',
+    'sync_connection',
+    'resync_connection',
+    'run_connection_setup_tests',
+    'update_connection',
+    'delete_connection',
     'custom_api_call',
   ],
   'fleetio': [
@@ -61954,6 +67053,17 @@ export const integrationActions = {
     'get_people',
     'search_people',
     'custom_api_call',
+  ],
+  'gocardless': [
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'list_mandates',
+    'list_payments',
+    'get_payment',
+    'create_payment',
+    'cancel_payment',
+    'create_refund',
   ],
   'gong': [
     'list_calls',
@@ -62211,6 +67321,16 @@ export const integrationActions = {
     'get_subscriber',
     'custom_api_call',
   ],
+  'guru': [
+    'list_collections',
+    'search_cards',
+    'get_card',
+    'create_card',
+    'update_card',
+    'delete_card',
+    'ask_question',
+    'custom_api_call',
+  ],
   'gusto': [
     'list_employees',
     'get_employee',
@@ -62277,6 +67397,20 @@ export const integrationActions = {
     'add_note',
     'update_conversation_status',
     'list_customers',
+  ],
+  'hex': [
+    'validate_connection',
+    'list_projects',
+    'get_project',
+    'run_project',
+    'list_project_runs',
+    'get_project_run',
+    'cancel_project_run',
+    'list_users',
+    'list_groups',
+    'list_collections',
+    'list_data_connections',
+    'custom_api_call',
   ],
   'heygen': [
     'create-video-from-template',
@@ -62532,6 +67666,18 @@ export const integrationActions = {
     'get_asn',
     'custom_api_call',
   ],
+  'iterable': [
+    'upsert_user',
+    'get_user_by_email',
+    'delete_user',
+    'track_event',
+    'list_lists',
+    'subscribe_to_list',
+    'unsubscribe_from_list',
+    'list_campaigns',
+    'send_targeted_email',
+    'custom_api_call',
+  ],
   'code': [
     'run_code',
   ],
@@ -62707,6 +67853,18 @@ export const integrationActions = {
     'create_post',
     'list_posts',
     'list_profiles',
+    'custom_api_call',
+  ],
+  'launchdarkly': [
+    'list_projects',
+    'list_environments',
+    'list_feature_flags',
+    'get_feature_flag',
+    'create_feature_flag',
+    'update_feature_flag_patch',
+    'set_flag_enabled',
+    'delete_feature_flag',
+    'list_audit_log_entries',
     'custom_api_call',
   ],
   'lawmatics': [
@@ -63024,6 +68182,40 @@ export const integrationActions = {
     'find_or_create_label',
     'custom_api_call',
   ],
+  'mercado-pago': [
+    'create_preference',
+    'get_preference',
+    'search_payments',
+    'get_payment',
+    'refund_payment',
+    'cancel_payment',
+  ],
+  'mercury': [
+    'validate_connection',
+    'list_accounts',
+    'get_account',
+    'list_account_transactions',
+    'list_transactions',
+    'get_transaction',
+    'list_recipients',
+    'get_recipient',
+    'create_recipient',
+    'update_recipient',
+    'list_categories',
+    'create_category',
+    'update_category',
+    'delete_category',
+    'list_invoices',
+    'get_invoice',
+    'create_invoice',
+    'update_invoice',
+    'cancel_invoice',
+    'list_events',
+    'get_event',
+    'request_send_money',
+    'create_internal_transfer',
+    'custom_api_call',
+  ],
   'metabase': [
     'list_cards',
     'get_card',
@@ -63145,6 +68337,25 @@ export const integrationActions = {
     'dynamics_crm_get_record',
     'dynamics_crm_update_record',
     'dynamics_crm_delete_record',
+  ],
+  'microsoft-entra-id': [
+    'list_users',
+    'get_user',
+    'create_user',
+    'update_user',
+    'delete_user',
+    'list_groups',
+    'get_group',
+    'create_security_group',
+    'update_group',
+    'delete_group',
+    'list_group_members',
+    'add_group_member',
+    'remove_group_member',
+    'list_applications',
+    'get_application',
+    'list_service_principals',
+    'get_service_principal',
   ],
   'microsoft-excel-365': [
     'list_worksheets',
@@ -63533,6 +68744,17 @@ export const integrationActions = {
     'list_groups',
     'list_applications',
   ],
+  'omnisend': [
+    'create_contact',
+    'update_contact',
+    'get_contact',
+    'list_contacts',
+    'delete_contact',
+    'send_event',
+    'create_batch',
+    'list_campaigns',
+    'custom_api_call',
+  ],
   'oncehub': [
     'findContact',
     'createContact',
@@ -63596,6 +68818,20 @@ export const integrationActions = {
     'get_on_calls',
     'list_services',
     'get_service',
+  ],
+  'ortto': [
+    'merge_people',
+    'get_people',
+    'get_person_subscriptions',
+    'archive_people',
+    'delete_people',
+    'create_activities',
+    'get_audiences',
+    'subscribe_to_audience',
+    'get_campaign_calendar',
+    'get_tags',
+    'send_transactional_email',
+    'custom_api_call',
   ],
   'outline': [
     'list_documents',
@@ -63677,6 +68913,14 @@ export const integrationActions = {
     'list_transactions',
     'create_payout',
     'custom_api_call',
+  ],
+  'paystack': [
+    'initialize_transaction',
+    'verify_transaction',
+    'list_transactions',
+    'create_refund',
+    'create_customer',
+    'list_customers',
   ],
   'paywhirl': [
     'cancelSubscription',
@@ -64142,6 +69386,50 @@ export const integrationActions = {
     'redeploy',
     'custom_api_call',
   ],
+  'ramp': [
+    'validate_connection',
+    'get_business',
+    'get_business_balance',
+    'list_users',
+    'get_user',
+    'update_user',
+    'list_departments',
+    'create_department',
+    'list_locations',
+    'create_location',
+    'list_cards',
+    'get_card',
+    'update_card',
+    'list_transactions',
+    'get_transaction',
+    'update_transaction',
+    'list_receipts',
+    'get_receipt',
+    'upload_receipt',
+    'list_reimbursements',
+    'get_reimbursement',
+    'list_vendors',
+    'get_vendor',
+    'create_vendor',
+    'update_vendor',
+    'delete_vendor',
+    'list_bills',
+    'get_bill',
+    'create_bill',
+    'update_bill',
+    'delete_bill',
+    'list_statements',
+    'get_statement',
+    'list_transfers',
+    'get_transfer',
+    'list_accounting_connections',
+    'list_gl_accounts',
+    'get_gl_account',
+    'upload_gl_accounts',
+    'update_gl_account',
+    'delete_gl_account',
+    'custom_api_call',
+  ],
   'razorpay': [
     'custom_api_call',
     'create-payment-link',
@@ -64182,6 +69470,38 @@ export const integrationActions = {
     'deleteRedditComment',
     'custom_api_call',
   ],
+  'redis-cloud': [
+    'list_pro_subscriptions',
+    'get_pro_subscription',
+    'list_essentials_subscriptions',
+    'get_essentials_subscription',
+    'list_databases',
+    'get_database',
+    'create_database',
+    'update_database',
+    'delete_database',
+    'get_task',
+    'custom_api_call',
+  ],
+  'remote': [
+    'validate_connection',
+    'list_countries',
+    'list_employments',
+    'get_employment',
+    'update_employment',
+    'invite_employment',
+    'cancel_onboarding',
+    'list_time_off',
+    'get_time_off',
+    'create_time_off',
+    'approve_time_off',
+    'decline_time_off',
+    'cancel_time_off',
+    'list_webhook_callbacks',
+    'create_webhook_callback',
+    'delete_webhook_callback',
+    'custom_api_call',
+  ],
   'render': [
     'list_services',
     'get_service',
@@ -64192,6 +69512,16 @@ export const integrationActions = {
     'create_prediction',
     'get_prediction',
     'list_models',
+  ],
+  'reply-io': [
+    'whoami',
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'delete_contact',
+    'list_sequences',
+    'create_webhook_subscription',
   ],
   'resend': [
     'send_email',
@@ -64440,6 +69770,23 @@ export const integrationActions = {
     'list_properties',
     'custom_api_call',
   ],
+  'similarweb': [
+    'validate_connection',
+    'check_capabilities',
+    'check_user_usage',
+    'get_total_visits',
+    'get_page_views',
+    'get_pages_per_visit',
+    'get_bounce_rate',
+    'get_average_visit_duration',
+    'get_desktop_traffic_sources',
+    'get_desktop_traffic_by_country',
+    'get_desktop_referrals',
+    'subscribe_webhook',
+    'list_webhook_subscriptions',
+    'unsubscribe_webhook',
+    'custom_api_call',
+  ],
   'simple-practice': [
     'list_clients',
     'get_client',
@@ -64460,6 +69807,13 @@ export const integrationActions = {
     'upload_document',
     'get_agents',
     'custom_api_call',
+  ],
+  'slab': [
+    'list_posts',
+    'get_post',
+    'search_posts',
+    'create_post',
+    'graphql',
   ],
   'slack': [
     'send_channel_message',
@@ -64622,6 +69976,30 @@ export const integrationActions = {
     'delete',
     'add_to_list',
     'remove_from_list',
+  ],
+  'statsig': [
+    'list_gates',
+    'get_gate',
+    'create_gate',
+    'update_gate',
+    'enable_gate',
+    'disable_gate',
+    'archive_gate',
+    'unarchive_gate',
+    'delete_gate',
+    'list_dynamic_configs',
+    'get_dynamic_config',
+    'create_dynamic_config',
+    'update_dynamic_config',
+    'enable_dynamic_config',
+    'disable_dynamic_config',
+    'archive_dynamic_config',
+    'unarchive_dynamic_config',
+    'list_experiments',
+    'get_experiment',
+    'update_experiment',
+    'archive_experiment',
+    'custom_api_call',
   ],
   'storyblok': [
     'list_spaces',
@@ -65083,6 +70461,14 @@ export const integrationActions = {
     'search_documents',
     'get_document',
     'upsert_document',
+  ],
+  'ukg': [
+    'validate_connection',
+    'list_person_details',
+    'list_employment_details',
+    'list_employee_employment_details',
+    'list_employee_changes',
+    'custom_api_call',
   ],
   'unbounce': [
     'list_pages',
