@@ -6803,6 +6803,163 @@ export interface AuthorizeNetCreateCustomerProfileInput {
   refId?: string
 }
 
+/** Autodesk Construction Cloud — List Hubs */
+export type AutodeskConstructionCloudListHubsInput = Record<string, never>
+
+/** Autodesk Construction Cloud — List Projects */
+export interface AutodeskConstructionCloudListProjectsInput {
+  /** Hub ID */
+  hubId: string
+}
+
+/** Autodesk Construction Cloud — List Top Folders */
+export interface AutodeskConstructionCloudListTopFoldersInput {
+  /** Hub ID */
+  hubId: string
+  /** Project ID */
+  projectId: string
+}
+
+/** Autodesk Construction Cloud — List Folder Contents */
+export interface AutodeskConstructionCloudListFolderContentsInput {
+  /** Project ID */
+  projectId: string
+  /** Folder ID */
+  folderId: string
+}
+
+/** Autodesk Construction Cloud — List Issues */
+export interface AutodeskConstructionCloudListIssuesInput {
+  /** Project ID */
+  projectId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Status Filter */
+  status?: string
+}
+
+/** Autodesk Construction Cloud — Get Issue */
+export interface AutodeskConstructionCloudGetIssueInput {
+  /** Project ID */
+  projectId: string
+  /** Issue ID */
+  issueId: string
+}
+
+/** Autodesk Construction Cloud — Create Issue */
+export interface AutodeskConstructionCloudCreateIssueInput {
+  /** Project ID */
+  projectId: string
+  /** Title */
+  title: string
+  /** Issue Subtype ID */
+  issueSubtypeId: string
+  /** Status */
+  status?: string
+  /** Description */
+  description?: string
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Autodesk Construction Cloud — Update Issue */
+export interface AutodeskConstructionCloudUpdateIssueInput {
+  /** Project ID */
+  projectId: string
+  /** Issue ID */
+  issueId: string
+  /** Issue fields to patch, for example status, title, dueDate, or assignedTo. */
+  fields: unknown
+}
+
+/** Autodesk Construction Cloud — Get RFI */
+export interface AutodeskConstructionCloudGetRfiInput {
+  /** Project ID */
+  projectId: string
+  /** RFI ID */
+  rfiId: string
+}
+
+/** Autodesk Construction Cloud — Search RFIs */
+export interface AutodeskConstructionCloudSearchRfisInput {
+  /** Project ID */
+  projectId: string
+  /** RFI search request body from Autodesk RFI API. */
+  body?: unknown
+}
+
+/** Autodesk Construction Cloud — Create RFI */
+export interface AutodeskConstructionCloudCreateRfiInput {
+  /** Project ID */
+  projectId: string
+  /** RFI request body from Autodesk RFI v3 API. */
+  body: unknown
+}
+
+/** Autodesk Construction Cloud — Update RFI */
+export interface AutodeskConstructionCloudUpdateRfiInput {
+  /** Project ID */
+  projectId: string
+  /** RFI ID */
+  rfiId: string
+  /** RFI Fields */
+  fields: unknown
+}
+
+/** Autodesk Construction Cloud — Get RFI Workflow */
+export interface AutodeskConstructionCloudGetRfiWorkflowInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Autodesk Construction Cloud — List Submittals */
+export interface AutodeskConstructionCloudListSubmittalsInput {
+  /** Project ID */
+  projectId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Autodesk Construction Cloud — Get Submittal */
+export interface AutodeskConstructionCloudGetSubmittalInput {
+  /** Project ID */
+  projectId: string
+  /** Submittal Item ID */
+  itemId: string
+}
+
+/** Autodesk Construction Cloud — Create Submittal */
+export interface AutodeskConstructionCloudCreateSubmittalInput {
+  /** Project ID */
+  projectId: string
+  /** Submittal item request body from Autodesk Submittals API. */
+  body: unknown
+}
+
+/** Autodesk Construction Cloud — Update Submittal */
+export interface AutodeskConstructionCloudUpdateSubmittalInput {
+  /** Project ID */
+  projectId: string
+  /** Submittal Item ID */
+  itemId: string
+  /** Submittal Fields */
+  fields: unknown
+}
+
+/** Autodesk Construction Cloud — Transition Submittal */
+export interface AutodeskConstructionCloudTransitionSubmittalInput {
+  /** Project ID */
+  projectId: string
+  /** Submittal Item ID */
+  itemId: string
+  /** Transition Body */
+  body: unknown
+}
+
 /** Autotask — Create Ticket */
 export interface AutotaskCreateTicketInput {
   /** Title */
@@ -9780,6 +9937,52 @@ export interface BitlyListGroupsInput {
   organizationGuid?: string
 }
 
+/** BitPay — Create Invoice */
+export interface BitpayCreateInvoiceInput {
+  /** Price */
+  price: number
+  /** Currency */
+  currency: string
+  /** Order ID */
+  orderId?: string
+  /** Item Description */
+  itemDesc?: string
+  /** Notification URL */
+  notificationURL?: string
+  /** Redirect URL */
+  redirectURL?: string
+  /** Close URL */
+  closeURL?: string
+  /** POS Data */
+  posData?: string
+  /** Optional BitPay buyer object. */
+  buyer?: unknown
+  /** Acceptance Window Milliseconds */
+  acceptanceWindow?: number
+  /** Additional Invoice Fields */
+  additionalBody?: unknown
+}
+
+/** BitPay — Retrieve Invoice */
+export interface BitpayRetrieveInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** BitPay — Get Supported Currencies */
+export type BitpayGetSupportedCurrenciesInput = Record<string, never>
+
+/** BitPay — Get Rates */
+export interface BitpayGetRatesInput {
+  /** Cryptocurrency */
+  cryptocurrency: string
+  /** Fiat Currency */
+  fiatCurrency?: string
+}
+
+/** BitPay — Get Supported Wallets */
+export type BitpayGetSupportedWalletsInput = Record<string, never>
+
 /** Bitwarden — List Members */
 export interface BitwardenListMembersInput {
   /** Continuation Token */
@@ -12681,6 +12884,360 @@ export interface CartesiaCreateAccessTokenInput {
   expiresIn: number
 }
 
+/** Cashfree Payments — Create Order */
+export interface CashfreeCreateOrderInput {
+  /** Order ID */
+  orderId?: string
+  /** Order Amount */
+  orderAmount: number
+  /** Order Currency */
+  orderCurrency: string
+  /** Cashfree customer_details object. */
+  customerDetails: unknown
+  /** Order Meta */
+  orderMeta?: unknown
+  /** Order Tags */
+  orderTags?: unknown
+  /** ISO 8601 timestamp. */
+  orderExpiryTime?: string
+  /** Order Note */
+  orderNote?: string
+  /** Order Splits */
+  orderSplits?: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get Order */
+export interface CashfreeGetOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Order Extended */
+export interface CashfreeGetOrderExtendedInput {
+  /** Order ID */
+  orderId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Order Pay */
+export interface CashfreeOrderPayInput {
+  /** Payment Session ID */
+  paymentSessionId: string
+  /** Cashfree payment_method object for the selected rail. */
+  paymentMethod: unknown
+  /** Save Instrument */
+  saveInstrument?: boolean
+  /** Optional payment channel value accepted by Cashfree. */
+  channel?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Capture or Void Preauth */
+export interface CashfreeAuthorizePaymentInput {
+  /** Order ID */
+  orderId: string
+  /** Action (values: `CAPTURE`, `VOID`) */
+  action: "CAPTURE" | "VOID"
+  /** Amount to capture. Leave blank for a full void. */
+  amount?: number
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — List Order Payments */
+export interface CashfreeListOrderPaymentsInput {
+  /** Order ID */
+  orderId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Payment */
+export interface CashfreeGetPaymentInput {
+  /** Order ID */
+  orderId: string
+  /** Cashfree Payment ID */
+  paymentId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Create Refund */
+export interface CashfreeCreateRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Refund Amount */
+  refundAmount: number
+  /** Merchant refund identifier. */
+  refundId?: string
+  /** Refund Note */
+  refundNote?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — List Refunds */
+export interface CashfreeListRefundsInput {
+  /** Order ID */
+  orderId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Refund */
+export interface CashfreeGetRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Refund ID */
+  refundId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Create Payment Link */
+export interface CashfreeCreatePaymentLinkInput {
+  /** Link ID */
+  linkId?: string
+  /** Link Amount */
+  linkAmount: number
+  /** Link Currency */
+  linkCurrency: string
+  /** Link Purpose */
+  linkPurpose: string
+  /** Customer Details */
+  customerDetails: unknown
+  /** Link Meta */
+  linkMeta?: unknown
+  /** Link Notify */
+  linkNotify?: unknown
+  /** Allow Partial Payments */
+  linkPartialPayments?: boolean
+  /** Minimum Partial Amount */
+  linkMinimumPartialAmount?: number
+  /** ISO 8601 timestamp. */
+  linkExpiryTime?: string
+  /** Order Splits */
+  orderSplits?: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get Payment Link */
+export interface CashfreeGetPaymentLinkInput {
+  /** Link ID */
+  linkId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — List Payment Link Orders */
+export interface CashfreeListPaymentLinkOrdersInput {
+  /** Link ID */
+  linkId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Cancel Payment Link */
+export interface CashfreeCancelPaymentLinkInput {
+  /** Link ID */
+  linkId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get Settlements */
+export interface CashfreeGetSettlementsInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Cashfree settlement filters object. */
+  filters: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get Order Settlements */
+export interface CashfreeGetOrderSettlementsInput {
+  /** Order ID */
+  orderId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Settlement Reconciliation */
+export interface CashfreeGetSettlementReconciliationInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Cashfree reconciliation filters object. */
+  filters: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get PG Reconciliation */
+export interface CashfreeGetPgReconciliationInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Cashfree PG reconciliation filters object. */
+  filters: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — List Saved Instruments */
+export interface CashfreeListSavedInstrumentsInput {
+  /** Customer ID */
+  customerId: string
+  /** Instrument Type */
+  instrumentType?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Saved Instrument */
+export interface CashfreeGetSavedInstrumentInput {
+  /** Customer ID */
+  customerId: string
+  /** Instrument ID */
+  instrumentId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Delete Saved Instrument */
+export interface CashfreeDeleteSavedInstrumentInput {
+  /** Customer ID */
+  customerId: string
+  /** Instrument ID */
+  instrumentId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+  /** Optional UUID for safely retrying supported Cashfree requests. */
+  idempotencyKey?: string
+}
+
+/** Cashfree Payments — Get Saved Instrument Cryptogram */
+export interface CashfreeGetSavedInstrumentCryptogramInput {
+  /** Customer ID */
+  customerId: string
+  /** Instrument ID */
+  instrumentId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Create Beneficiary */
+export interface CashfreeCreateBeneficiaryInput {
+  /** Beneficiary ID */
+  beneficiaryId: string
+  /** Beneficiary Name */
+  beneficiaryName: string
+  /** beneficiary_instrument_details object. */
+  instrumentDetails: unknown
+  /** beneficiary_contact_details object. */
+  contactDetails?: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Beneficiary */
+export interface CashfreeGetBeneficiaryInput {
+  /** Beneficiary ID */
+  beneficiaryId?: string
+  /** Bank Account Number */
+  bankAccountNumber?: string
+  /** Bank IFSC */
+  bankIfsc?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Remove Beneficiary */
+export interface CashfreeRemoveBeneficiaryInput {
+  /** Beneficiary ID */
+  beneficiaryId: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Create Transfer */
+export interface CashfreeCreateTransferInput {
+  /** Transfer ID */
+  transferId: string
+  /** Transfer Amount */
+  transferAmount: number
+  /** Use beneficiary_id or inline instrument details. */
+  beneficiaryDetails: unknown
+  /** For example BANK, IMPS, NEFT, RTGS, UPI. */
+  transferMode?: string
+  /** Remarks */
+  remarks?: string
+  /** Fund Source ID */
+  fundsourceId?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Transfer Status */
+export interface CashfreeGetTransferStatusInput {
+  /** Transfer ID */
+  transferId?: string
+  /** Cashfree Transfer ID */
+  cashfreeTransferId?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Create Batch Transfer */
+export interface CashfreeCreateBatchTransferInput {
+  /** Batch Transfer ID */
+  batchTransferId: string
+  /** Array of transfer objects. */
+  transfers: unknown
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
+/** Cashfree Payments — Get Batch Transfer Status */
+export interface CashfreeGetBatchTransferStatusInput {
+  /** Batch Transfer ID */
+  batchTransferId?: string
+  /** Cashfree Batch Transfer ID */
+  cashfreeBatchTransferId?: string
+  /** Optional Cashfree request ID for support and tracing. */
+  requestId?: string
+}
+
 /** Census — List Sources */
 export interface CensusListSourcesInput {
   /** Page */
@@ -13173,6 +13730,211 @@ export interface CircleListPostsInput {
   perPage?: number
   /** Page */
   page?: number
+}
+
+/** Circle Mint — Get Configuration */
+export type CircleMintGetConfigurationInput = Record<string, never>
+
+/** Circle Mint — List Balances */
+export type CircleMintListBalancesInput = Record<string, never>
+
+/** Circle Mint — List Deposits */
+export interface CircleMintListDepositsInput {
+  /** Page Before */
+  pageBefore?: string
+  /** Page After */
+  pageAfter?: string
+  /** Page Size */
+  pageSize?: number
+  /** Optional deposit type such as wire. */
+  type?: string
+  /** Wallet ID */
+  walletId?: string
+  /** Inclusive ISO 8601 date-time. */
+  from?: string
+  /** Inclusive ISO 8601 date-time. */
+  to?: string
+}
+
+/** Circle Mint — Create Deposit Address */
+export interface CircleMintCreateDepositAddressInput {
+  /** UUID v4 idempotency key. */
+  idempotencyKey: string
+  /** Additional Body */
+  additionalBody?: unknown
+}
+
+/** Circle Mint — List Deposit Addresses */
+export type CircleMintListDepositAddressesInput = Record<string, never>
+
+/** Circle Mint — Create Recipient Address */
+export interface CircleMintCreateRecipientAddressInput {
+  /** Idempotency Key */
+  idempotencyKey: string
+  /** Address */
+  address: string
+  /** Description */
+  description: string
+  /** Address Tag / Memo */
+  addressTag?: string
+  /** Additional Body */
+  additionalBody?: unknown
+}
+
+/** Circle Mint — List Recipient Addresses */
+export type CircleMintListRecipientAddressesInput = Record<string, never>
+
+/** Circle Mint — Create Transfer */
+export interface CircleMintCreateTransferInput {
+  /** Idempotency Key */
+  idempotencyKey: string
+  /** Optional. If omitted, Circle uses the main wallet for the account. */
+  sourceWalletId?: string
+  /** Verified Blockchain Address ID */
+  destinationAddressId: string
+  /** Amount */
+  amount: string
+  /** Currency */
+  currency?: string
+  /** Optional reconciliation reference supported for cross-entity transfers. */
+  customerExternalRef?: string
+  /** Additional Transfer Fields */
+  additionalBody?: unknown
+}
+
+/** Circle Mint — List Transfers */
+export interface CircleMintListTransfersInput {
+  /** Page Before */
+  pageBefore?: string
+  /** Page After */
+  pageAfter?: string
+  /** Page Size */
+  pageSize?: number
+  /** Wallet ID */
+  walletId?: string
+  /** Source Wallet ID */
+  sourceWalletId?: string
+  /** Destination Wallet ID */
+  destinationWalletId?: string
+  /** From */
+  from?: string
+  /** To */
+  to?: string
+}
+
+/** Circle Mint — Create Address Book Recipient */
+export interface CircleMintCreateAddressBookRecipientInput {
+  /** Idempotency Key */
+  idempotencyKey: string
+  /** Circle chain code such as ETH, SOL, BASE, ARB, or XRP. */
+  chain: string
+  /** Address */
+  address: string
+  /** Address Tag / Memo */
+  addressTag?: string
+  /** Recipient metadata object. */
+  metadata: unknown
+  /** Optional individual or business identity object. */
+  identity?: unknown
+  /** Optional SG wallet ownership object. */
+  ownership?: unknown
+  /** Additional Body */
+  additionalBody?: unknown
+}
+
+/** Circle Mint — List Address Book Recipients */
+export interface CircleMintListAddressBookRecipientsInput {
+  /** Page Before */
+  pageBefore?: string
+  /** Page After */
+  pageAfter?: string
+  /** Page Size */
+  pageSize?: number
+  /** Chain */
+  chain?: string
+  /** Address */
+  address?: string
+}
+
+/** Circle Mint — Get Address Book Recipient */
+export interface CircleMintGetAddressBookRecipientInput {
+  /** Recipient ID */
+  recipientId: string
+}
+
+/** Circle Mint — Modify Address Book Recipient */
+export interface CircleMintModifyAddressBookRecipientInput {
+  /** Recipient ID */
+  recipientId: string
+  /** Patch Body */
+  body: unknown
+}
+
+/** Circle Mint — Delete Address Book Recipient */
+export interface CircleMintDeleteAddressBookRecipientInput {
+  /** Recipient ID */
+  recipientId: string
+}
+
+/** Circle Mint — Create Stablecoin Payout */
+export interface CircleMintCreatePayoutInput {
+  /** Idempotency Key */
+  idempotencyKey: string
+  /** Optional source wallet. If omitted, Circle uses the account default source. */
+  sourceWalletId?: string
+  /** Destination Recipient ID */
+  destinationRecipientId: string
+  /** Amount */
+  amount: string
+  /** Amount Currency */
+  currency?: string
+  /** To Amount Currency */
+  toCurrency?: string
+  /** Required for some Circle entities such as CIRCLE_SG. */
+  purposeOfTransfer?: string
+  /** Additional Payout Fields */
+  additionalBody?: unknown
+}
+
+/** Circle Mint — List Payouts */
+export interface CircleMintListPayoutsInput {
+  /** Page Before */
+  pageBefore?: string
+  /** Page After */
+  pageAfter?: string
+  /** Page Size */
+  pageSize?: number
+  /** Source Wallet ID */
+  source?: string
+  /** Destination Recipient ID */
+  destination?: string
+  /** Status */
+  status?: string
+  /** From */
+  from?: string
+  /** To */
+  to?: string
+}
+
+/** Circle Mint — Get Payout */
+export interface CircleMintGetPayoutInput {
+  /** Payout ID */
+  payoutId: string
+}
+
+/** Circle Mint — List Notification Subscriptions */
+export type CircleMintListNotificationSubscriptionsInput = Record<string, never>
+
+/** Circle Mint — Create Notification Subscription */
+export interface CircleMintCreateNotificationSubscriptionInput {
+  /** Endpoint URL */
+  endpoint: string
+}
+
+/** Circle Mint — Delete Notification Subscription */
+export interface CircleMintDeleteNotificationSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
 }
 
 /** CircleCI — List Pipelines */
@@ -15835,6 +16597,212 @@ export interface CoinbaseBusinessRefundCheckoutInput {
   idempotencyKey?: string
 }
 
+/** CoinGate — Create Order */
+export interface CoingateCreateOrderInput {
+  /** Merchant Order ID */
+  orderId?: string
+  /** Price Amount */
+  priceAmount: string
+  /** Price Currency */
+  priceCurrency: string
+  /** Use DO_NOT_CONVERT to keep original payment currency. */
+  receiveCurrency?: string
+  /** Title */
+  title: string
+  /** Description */
+  description: string
+  /** Callback URL */
+  callbackUrl?: string
+  /** Cancel URL */
+  cancelUrl?: string
+  /** Success URL */
+  successUrl?: string
+  /** Custom token CoinGate returns in callbacks for validation. */
+  token?: string
+  /** Optional shopper object for checkout and Travel Rule prefill. */
+  shopper?: unknown
+  /** Additional Order Fields */
+  additionalBody?: unknown
+}
+
+/** CoinGate — List Orders */
+export interface CoingateListOrdersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Sort (values: `created_at_desc`, `created_at_asc`) */
+  sort?: "created_at_desc" | "created_at_asc"
+  /** Status */
+  status?: string
+  /** Created At From */
+  createdAtFrom?: string
+  /** Created At To */
+  createdAtTo?: string
+  /** Paid At From */
+  paidAtFrom?: string
+  /** Paid At To */
+  paidAtTo?: string
+}
+
+/** CoinGate — Get Order */
+export interface CoingateGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** CoinGate — Create Order Refund */
+export interface CoingateCreateOrderRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Amount */
+  amount: string
+  /** Refund Address */
+  address: string
+  /** Address Memo */
+  addressMemo?: string
+  /** Refund Currency ID */
+  currencyId: number
+  /** Platform ID */
+  platformId: number
+  /** Reason */
+  reason: string
+  /** Customer Email */
+  email: string
+  /** Ledger Account ID */
+  ledgerAccountId: string
+  /** Callback URL */
+  callbackUrl?: string
+  /** Skip User Address Confirmation */
+  skipUserAddressConfirmation?: boolean
+}
+
+/** CoinGate — List Order Refunds */
+export interface CoingateListOrderRefundsInput {
+  /** Order ID */
+  orderId: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** CoinGate — Get Order Refund */
+export interface CoingateGetOrderRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Refund ID */
+  refundId: string
+}
+
+/** CoinGate — List Ledger Accounts */
+export interface CoingateListLedgerAccountsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** CoinGate — Get Ledger Account */
+export interface CoingateGetLedgerAccountInput {
+  /** Ledger Account ID */
+  ledgerAccountId: string
+}
+
+/** CoinGate — Create Conversion */
+export interface CoingateCreateConversionInput {
+  /** Ledger Account ID */
+  ledgerAccountId: string
+  /** Quote Currency ID */
+  quoteCurrencyId: number
+  /** Base Amount */
+  baseAmount: string
+}
+
+/** CoinGate — Confirm Conversion */
+export interface CoingateConfirmConversionInput {
+  /** Conversion ID */
+  conversionId: string
+}
+
+/** CoinGate — Cancel Conversion */
+export interface CoingateCancelConversionInput {
+  /** Conversion ID */
+  conversionId: string
+}
+
+/** CoinGate — Create Send Request */
+export interface CoingateCreateSendRequestInput {
+  /** Ledger Account ID */
+  ledgerAccountId: string
+  /** Beneficiary Payout Setting ID */
+  beneficiaryPayoutSettingId: number
+  /** Amount */
+  amount: string
+  /** Amount Currency ID */
+  amountCurrencyId: number
+  /** Purpose */
+  purpose: string
+  /** Callback URL */
+  callbackUrl?: string
+  /** External ID */
+  externalId?: string
+}
+
+/** CoinGate — List Send Requests */
+export interface CoingateListSendRequestsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** CoinGate — Get Send Request */
+export interface CoingateGetSendRequestInput {
+  /** Send Request ID */
+  sendRequestId: string
+}
+
+/** CoinGate — Confirm Send Request */
+export interface CoingateConfirmSendRequestInput {
+  /** Send Request ID */
+  sendRequestId: string
+}
+
+/** CoinGate — Cancel Send Request */
+export interface CoingateCancelSendRequestInput {
+  /** Send Request ID */
+  sendRequestId: string
+}
+
+/** CoinGate — List Beneficiaries */
+export interface CoingateListBeneficiariesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Beneficiary ID */
+  beneficiaryId?: number
+  /** Beneficiary Type */
+  beneficiaryType?: string
+  /** Email */
+  email?: string
+  /** Search Name */
+  searchName?: string
+}
+
+/** CoinGate — Get Beneficiary */
+export interface CoingateGetBeneficiaryInput {
+  /** Beneficiary ID */
+  beneficiaryId: string
+}
+
+/** CoinGate — Create Beneficiary */
+export interface CoingateCreateBeneficiaryInput {
+  /** Beneficiary Body */
+  body: unknown
+}
+
 /** Common Room — Get Token Status */
 export type CommonRoomGetTokenStatusInput = Record<string, never>
 
@@ -15927,6 +16895,32 @@ export interface CompanycamCreateProjectInput {
   address?: string
 }
 
+/** CompanyCam — Get Project */
+export interface CompanycamGetProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** CompanyCam — Update Project */
+export interface CompanycamUpdateProjectInput {
+  /** Project ID */
+  projectId: string
+  /** Project Fields */
+  fields: unknown
+}
+
+/** CompanyCam — Archive Project */
+export interface CompanycamArchiveProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** CompanyCam — Delete Project */
+export interface CompanycamDeleteProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
 /** CompanyCam — Upload Photo */
 export interface CompanycamUploadPhotoInput {
   /** Project ID */
@@ -15935,8 +16929,32 @@ export interface CompanycamUploadPhotoInput {
   uri: string
 }
 
+/** CompanyCam — List Project Photos */
+export interface CompanycamListProjectPhotosInput {
+  /** Project ID */
+  projectId: string
+  /** Per Page */
+  per_page?: number
+  /** Page */
+  page?: number
+}
+
 /** CompanyCam — Get Photo */
 export interface CompanycamGetPhotoInput {
+  /** Photo ID */
+  photoId: string
+}
+
+/** CompanyCam — Update Photo */
+export interface CompanycamUpdatePhotoInput {
+  /** Photo ID */
+  photoId: string
+  /** Photo Fields */
+  fields: unknown
+}
+
+/** CompanyCam — Delete Photo */
+export interface CompanycamDeletePhotoInput {
   /** Photo ID */
   photoId: string
 }
@@ -15947,14 +16965,15 @@ export interface CompanycamCreateTagInput {
   display_value: string
 }
 
-/** CompanyCam — Custom API Call */
-export interface CompanycamCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /projects) */
-  path: string
-  /** Body */
-  body?: unknown
+/** CompanyCam — List Webhooks */
+export type CompanycamListWebhooksInput = Record<string, never>
+
+/** CompanyCam — Update Webhook */
+export interface CompanycamUpdateWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Webhook Fields */
+  fields: unknown
 }
 
 /** Confluence — Get Page */
@@ -23732,6 +24751,195 @@ export interface FirebaseDeleteDocumentInput {
   documentPath: string
 }
 
+/** Fireblocks — List Vault Accounts */
+export interface FireblocksListVaultAccountsInput {
+  /** Limit */
+  limit?: number
+  /** Before Cursor */
+  before?: string
+  /** After Cursor */
+  after?: string
+  /** Name Prefix */
+  namePrefix?: string
+  /** Asset ID */
+  assetId?: string
+}
+
+/** Fireblocks — Create Vault Account */
+export interface FireblocksCreateVaultAccountInput {
+  /** Name */
+  name: string
+  /** Hidden On UI */
+  hiddenOnUI?: boolean
+  /** Auto Fuel */
+  autoFuel?: boolean
+  /** Customer Reference ID */
+  customerRefId?: string
+}
+
+/** Fireblocks — Get Vault Account */
+export interface FireblocksGetVaultAccountInput {
+  /** Vault Account ID */
+  vaultAccountId: string
+}
+
+/** Fireblocks — Rename Vault Account */
+export interface FireblocksRenameVaultAccountInput {
+  /** Vault Account ID */
+  vaultAccountId: string
+  /** New Name */
+  name: string
+}
+
+/** Fireblocks — Create Vault Wallet */
+export interface FireblocksCreateVaultWalletInput {
+  /** Vault Account ID */
+  vaultAccountId: string
+  /** Asset ID */
+  assetId: string
+  /** EOS Account Name */
+  eosAccountName?: string
+}
+
+/** Fireblocks — Create Deposit Address */
+export interface FireblocksCreateDepositAddressInput {
+  /** Vault Account ID */
+  vaultAccountId: string
+  /** Asset ID */
+  assetId: string
+  /** Description */
+  description?: string
+  /** Customer Reference ID */
+  customerRefId?: string
+}
+
+/** Fireblocks — List External Wallets */
+export type FireblocksListExternalWalletsInput = Record<string, never>
+
+/** Fireblocks — Create External Wallet */
+export interface FireblocksCreateExternalWalletInput {
+  /** Name */
+  name: string
+  /** Customer Reference ID */
+  customerRefId?: string
+}
+
+/** Fireblocks — Get External Wallet */
+export interface FireblocksGetExternalWalletInput {
+  /** Wallet ID */
+  walletId: string
+}
+
+/** Fireblocks — Delete External Wallet */
+export interface FireblocksDeleteExternalWalletInput {
+  /** Wallet ID */
+  walletId: string
+}
+
+/** Fireblocks — Add External Wallet Asset */
+export interface FireblocksAddExternalWalletAssetInput {
+  /** Wallet ID */
+  walletId: string
+  /** Asset ID */
+  assetId: string
+  /** Address */
+  address: string
+  /** Tag / Memo */
+  tag?: string
+  /** Additional Body */
+  additionalBody?: unknown
+}
+
+/** Fireblocks — Delete External Wallet Asset */
+export interface FireblocksDeleteExternalWalletAssetInput {
+  /** Wallet ID */
+  walletId: string
+  /** Asset ID */
+  assetId: string
+}
+
+/** Fireblocks — List Transactions */
+export interface FireblocksListTransactionsInput {
+  /** Limit */
+  limit?: number
+  /** Before Cursor */
+  before?: string
+  /** After Cursor */
+  after?: string
+  /** Status */
+  status?: string
+  /** Transaction Hash */
+  txHash?: string
+  /** Optional comma-separated Fireblocks asset IDs. */
+  assets?: string
+  /** Source Type */
+  sourceType?: string
+  /** Source ID */
+  sourceId?: string
+  /** Destination Type */
+  destType?: string
+  /** Destination ID */
+  destId?: string
+}
+
+/** Fireblocks — Create Transaction */
+export interface FireblocksCreateTransactionInput {
+  /** Asset ID */
+  assetId: string
+  /** Amount */
+  amount: string
+  /** For example VAULT_ACCOUNT. */
+  sourceType: string
+  /** Source ID */
+  sourceId: string
+  /** For example VAULT_ACCOUNT or EXTERNAL_WALLET. */
+  destinationType: string
+  /** Destination ID */
+  destinationId: string
+  /** Operation */
+  operation?: string
+  /** Note */
+  note?: string
+  /** External Transaction ID */
+  externalTxId?: string
+  /** Customer Reference ID */
+  customerRefId?: string
+  /** Extra Parameters */
+  extraParameters?: unknown
+  /** Additional Transaction Fields */
+  additionalBody?: unknown
+}
+
+/** Fireblocks — Get Transaction */
+export interface FireblocksGetTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** Fireblocks — Get Transaction By External ID */
+export interface FireblocksGetTransactionByExternalIdInput {
+  /** External Transaction ID */
+  externalTxId: string
+}
+
+/** Fireblocks — Cancel Transaction */
+export interface FireblocksCancelTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** Fireblocks — Freeze Transaction */
+export interface FireblocksFreezeTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** Fireblocks — Unfreeze Transaction */
+export interface FireblocksUnfreezeTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
 /** Firecrawl — Scrape Website */
 export interface FirecrawlScrapeInput {
   /** The webpage URL to scrape. */
@@ -26680,6 +27888,510 @@ export interface GitlabCustomApiCallInput {
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+}
+
+/** Givebutter — List Contacts */
+export interface GivebutterListContactsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search */
+  search?: string
+}
+
+/** Givebutter — Get Contact */
+export interface GivebutterGetContactInput {
+  /** Contact ID */
+  contactId: number
+}
+
+/** Givebutter — Create Contact */
+export interface GivebutterCreateContactInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** External ID */
+  externalId?: string
+  /** Optional Givebutter contact fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Givebutter — Update Contact */
+export interface GivebutterUpdateContactInput {
+  /** Contact ID */
+  contactId: number
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** External ID */
+  externalId?: string
+  /** Optional Givebutter contact fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Givebutter — Delete Contact */
+export interface GivebutterDeleteContactInput {
+  /** Contact ID */
+  contactId: number
+}
+
+/** Givebutter — Restore Contact */
+export interface GivebutterRestoreContactInput {
+  /** Contact ID */
+  contactId: number
+}
+
+/** Givebutter — Add Contact Tags */
+export interface GivebutterAddContactTagsInput {
+  /** Contact ID */
+  contactId: number
+  /** Tags */
+  tags: unknown[]
+}
+
+/** Givebutter — Remove Contact Tags */
+export interface GivebutterRemoveContactTagsInput {
+  /** Contact ID */
+  contactId: number
+  /** Tags */
+  tags: unknown[]
+}
+
+/** Givebutter — Sync Contact Tags */
+export interface GivebutterSyncContactTagsInput {
+  /** Contact ID */
+  contactId: number
+  /** Tags */
+  tags: unknown[]
+}
+
+/** Givebutter — List Contact Activities */
+export interface GivebutterListContactActivitiesInput {
+  /** Contact ID */
+  contactId: number
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Contact Activity */
+export interface GivebutterGetContactActivityInput {
+  /** Contact ID */
+  contactId: number
+  /** Activity ID */
+  activityId: number
+}
+
+/** Givebutter — Create Contact Activity */
+export interface GivebutterCreateContactActivityInput {
+  /** Contact ID */
+  contactId: number
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Update Contact Activity */
+export interface GivebutterUpdateContactActivityInput {
+  /** Contact ID */
+  contactId: number
+  /** Activity ID */
+  activityId: number
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Delete Contact Activity */
+export interface GivebutterDeleteContactActivityInput {
+  /** Contact ID */
+  contactId: number
+  /** Activity ID */
+  activityId: number
+}
+
+/** Givebutter — List Campaigns */
+export interface GivebutterListCampaignsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Campaign */
+export interface GivebutterGetCampaignInput {
+  /** Campaign ID or Code */
+  campaign: string
+}
+
+/** Givebutter — Create Campaign */
+export interface GivebutterCreateCampaignInput {
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+  /** Goal Amount */
+  goal?: number
+  /** ISO 8601 date/time. */
+  startsAt?: string
+  /** ISO 8601 date/time. */
+  endsAt?: string
+  /** Optional Givebutter campaign fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Givebutter — Update Campaign */
+export interface GivebutterUpdateCampaignInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+  /** Goal Amount */
+  goal?: number
+  /** ISO 8601 date/time. */
+  startsAt?: string
+  /** ISO 8601 date/time. */
+  endsAt?: string
+  /** Optional Givebutter campaign fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Givebutter — Delete Campaign */
+export interface GivebutterDeleteCampaignInput {
+  /** Campaign ID or Code */
+  campaign: string
+}
+
+/** Givebutter — List Campaign Members */
+export interface GivebutterListCampaignMembersInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Campaign Member */
+export interface GivebutterGetCampaignMemberInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Member ID */
+  memberId: number
+}
+
+/** Givebutter — Delete Campaign Member */
+export interface GivebutterDeleteCampaignMemberInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Member ID */
+  memberId: number
+}
+
+/** Givebutter — List Campaign Teams */
+export interface GivebutterListCampaignTeamsInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Campaign Team */
+export interface GivebutterGetCampaignTeamInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Team ID */
+  teamId: number
+}
+
+/** Givebutter — Delete Campaign Team */
+export interface GivebutterDeleteCampaignTeamInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Team ID */
+  teamId: number
+}
+
+/** Givebutter — List Discount Codes */
+export interface GivebutterListDiscountCodesInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Discount Code */
+export interface GivebutterGetDiscountCodeInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Discount Code ID */
+  discountCodeId: number
+}
+
+/** Givebutter — Create Discount Code */
+export interface GivebutterCreateDiscountCodeInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Update Discount Code */
+export interface GivebutterUpdateDiscountCodeInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Discount Code ID */
+  discountCodeId: number
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Delete Discount Code */
+export interface GivebutterDeleteDiscountCodeInput {
+  /** Campaign ID or Code */
+  campaign: string
+  /** Discount Code ID */
+  discountCodeId: number
+}
+
+/** Givebutter — List Transactions */
+export interface GivebutterListTransactionsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Transaction */
+export interface GivebutterGetTransactionInput {
+  /** Transaction ID */
+  id: number
+}
+
+/** Givebutter — Create Transaction */
+export interface GivebutterCreateTransactionInput {
+  /** Givebutter StoreTransactionRequest JSON body. */
+  data: unknown
+}
+
+/** Givebutter — Update Transaction */
+export interface GivebutterUpdateTransactionInput {
+  /** Transaction ID */
+  transactionId: number
+  /** Givebutter transaction update JSON body. */
+  data: unknown
+}
+
+/** Givebutter — List Recurring Plans */
+export interface GivebutterListRecurringPlansInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Recurring Plan */
+export interface GivebutterGetRecurringPlanInput {
+  /** Plan ID */
+  id: number
+}
+
+/** Givebutter — List Tickets */
+export interface GivebutterListTicketsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Ticket */
+export interface GivebutterGetTicketInput {
+  /** Ticket ID */
+  id: number
+}
+
+/** Givebutter — Create Campaign Ticket */
+export interface GivebutterCreateCampaignTicketInput {
+  /** Givebutter campaign ticket JSON body. */
+  data: unknown
+}
+
+/** Givebutter — List Funds */
+export interface GivebutterListFundsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Fund */
+export interface GivebutterGetFundInput {
+  /** Fund ID */
+  id: number
+}
+
+/** Givebutter — Create Fund */
+export interface GivebutterCreateFundInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Update Fund */
+export interface GivebutterUpdateFundInput {
+  /** Fund ID */
+  fundId: number
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Delete Fund */
+export interface GivebutterDeleteFundInput {
+  /** Fund ID */
+  fundId: number
+}
+
+/** Givebutter — List Payouts */
+export interface GivebutterListPayoutsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Payout */
+export interface GivebutterGetPayoutInput {
+  /** Payout ID */
+  id: number
+}
+
+/** Givebutter — List Messages */
+export interface GivebutterListMessagesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Message */
+export interface GivebutterGetMessageInput {
+  /** Message ID */
+  id: number
+}
+
+/** Givebutter — List Households */
+export interface GivebutterListHouseholdsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Get Household */
+export interface GivebutterGetHouseholdInput {
+  /** Household ID */
+  id: number
+}
+
+/** Givebutter — Create Household */
+export interface GivebutterCreateHouseholdInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Update Household */
+export interface GivebutterUpdateHouseholdInput {
+  /** Household ID */
+  householdId: number
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Givebutter — Delete Household */
+export interface GivebutterDeleteHouseholdInput {
+  /** Household ID */
+  householdId: number
+}
+
+/** Givebutter — List Household Contacts */
+export interface GivebutterListHouseholdContactsInput {
+  /** Household ID */
+  householdId: number
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Associate Household Contact */
+export interface GivebutterAssociateHouseholdContactInput {
+  /** Household ID */
+  householdId: number
+  /** Contact ID */
+  contactId: number
+}
+
+/** Givebutter — Disassociate Household Contact */
+export interface GivebutterDisassociateHouseholdContactInput {
+  /** Household ID */
+  householdId: number
+  /** Contact ID */
+  contactId: number
+}
+
+/** Givebutter — List Webhooks */
+export interface GivebutterListWebhooksInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Givebutter — Create Webhook */
+export interface GivebutterCreateWebhookInput {
+  /** Webhook URL */
+  url: string
+  /** Allowed events include: campaign.created, campaign.updated, ticket.created, transaction.succeeded, contact.created, plan.canceled, plan.created, plan.failed, plan.paused, plan.resumed, plan.updated, refund.created. */
+  events: unknown[]
+  /** Name */
+  name?: string
+  /** Enabled */
+  enabled?: boolean
+}
+
+/** Givebutter — Update Webhook */
+export interface GivebutterUpdateWebhookInput {
+  /** Webhook ID */
+  webhookId: number
+  /** Webhook URL */
+  url?: string
+  /** Events */
+  events?: unknown[]
+  /** Name */
+  name?: string
+  /** Enabled */
+  enabled?: boolean
+}
+
+/** Givebutter — Delete Webhook */
+export interface GivebutterDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: number
 }
 
 /** Gmail — List Messages */
@@ -31024,6 +32736,254 @@ export interface HawksoftCustomApiCallInput {
   body?: unknown
 }
 
+/** Healthie — List Clients */
+export interface HealthieListClientsInput {
+  /** Search by name, email, DOB, record identifier, or other indexed fields. */
+  keywords?: string
+  /** Active Status (values: `active`, `archived`) */
+  activeStatus?: "active" | "archived"
+  /** Provider ID */
+  providerId?: string
+  /** Group ID */
+  groupId?: string
+  /** Comma- or newline-separated Healthie tag IDs. */
+  tagIds?: string
+  /** Include Sensitive Fields */
+  includeSensitiveFields?: boolean
+  /** Offset */
+  offset?: number
+  /** Page Size */
+  pageSize?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** Healthie — Get Client */
+export interface HealthieGetClientInput {
+  /** Client ID */
+  clientId: string
+  /** Include Sensitive Fields */
+  includeSensitiveFields?: boolean
+}
+
+/** Healthie — Create Client */
+export interface HealthieCreateClientInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** YYYY-MM-DD. */
+  dateOfBirth?: string
+  /** Additional CreateClientInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Update Client */
+export interface HealthieUpdateClientInput {
+  /** Client ID */
+  clientId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** Additional UpdateClientInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Archive Client */
+export interface HealthieArchiveClientInput {
+  /** Client ID */
+  clientId: string
+  /** Additional UpdateClientInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — List Appointments */
+export interface HealthieListAppointmentsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Specific Day */
+  specificDay?: string
+  /** Client ID */
+  clientId?: string
+  /** Provider ID */
+  providerId?: string
+  /** Appointment Type ID */
+  appointmentTypeId?: string
+  /** Appointment Status */
+  status?: string
+  /** Include Deleted */
+  includeDeleted?: boolean
+  /** Offset */
+  offset?: number
+  /** Page Size */
+  pageSize?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** Healthie — Get Appointment */
+export interface HealthieGetAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Include Deleted */
+  includeDeleted?: boolean
+}
+
+/** Healthie — Create Appointment */
+export interface HealthieCreateAppointmentInput {
+  /** Client ID */
+  clientId: string
+  /** Provider ID */
+  providerId: string
+  /** Appointment Type ID */
+  appointmentTypeId: string
+  /** Appointment Location ID */
+  appointmentLocationId?: string
+  /** Contact Type */
+  contactType?: string
+  /** Provider-supported date/time value. */
+  start: string
+  /** Provider-supported date/time value. */
+  end?: string
+  /** Provider-supported date value. */
+  date?: string
+  /** Notes */
+  notes?: string
+  /** Additional CreateAppointmentInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Update Appointment */
+export interface HealthieUpdateAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Client ID */
+  clientId?: string
+  /** Provider ID */
+  providerId?: string
+  /** Appointment Type ID */
+  appointmentTypeId?: string
+  /** Appointment Location ID */
+  appointmentLocationId?: string
+  /** Contact Type */
+  contactType?: string
+  /** Start */
+  start?: string
+  /** End */
+  end?: string
+  /** Date */
+  date?: string
+  /** Provider-supported PM status, including cancellation/no-show values when enabled in Healthie. */
+  status?: string
+  /** Notes */
+  notes?: string
+  /** Additional UpdateAppointmentInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Delete Appointment */
+export interface HealthieDeleteAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Additional DeleteAppointmentInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — List Tasks */
+export interface HealthieListTasksInput {
+  /** Client ID */
+  clientId?: string
+  /** Assignee IDs */
+  assigneeIds?: string
+  /** Completed Status */
+  completedStatus?: string
+  /** Keywords */
+  keywords?: string
+  /** Offset */
+  offset?: number
+  /** Per Page */
+  perPage?: number
+  /** After Cursor */
+  after?: string
+}
+
+/** Healthie — Create Task */
+export interface HealthieCreateTaskInput {
+  /** Content */
+  content: string
+  /** Client ID */
+  clientId?: string
+  /** Assignee User ID */
+  userId?: string
+  /** Due Date */
+  dueDate?: string
+  /** Priority */
+  priority?: string
+  /** Additional CreateTaskInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Update Task */
+export interface HealthieUpdateTaskInput {
+  /** Task ID */
+  taskId: string
+  /** Content */
+  content?: string
+  /** Complete */
+  complete?: boolean
+  /** Hidden */
+  hidden?: boolean
+  /** Due Date */
+  dueDate?: string
+  /** Additional UpdateTaskInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — List Form Answer Groups */
+export interface HealthieListFormAnswerGroupsInput {
+  /** Client ID */
+  clientId?: string
+  /** Form ID */
+  formId?: string
+  /** Created After */
+  createdAfter?: string
+  /** Created Before */
+  createdBefore?: string
+  /** Offset */
+  offset?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Healthie — Create Webhook */
+export interface HealthieCreateWebhookInput {
+  /** URL */
+  url: string
+  /** Comma- or newline-separated event types such as appointment.created. */
+  eventTypes: string
+  /** Additional CreateWebhookInput Fields */
+  additionalInput?: unknown
+}
+
+/** Healthie — Delete Webhook */
+export interface HealthieDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Additional DeleteWebhookInput Fields */
+  additionalInput?: unknown
+}
+
 /** Heap — Track Event */
 export interface HeapTrackEventInput {
   /** Known user identity such as email or CRM ID. Use either Identity or User ID. */
@@ -34685,6 +36645,438 @@ export interface IterableCustomApiCallInput {
   body?: unknown
 }
 
+/** iyzico — Check BIN */
+export interface IyzicoCheckBinInput {
+  /** BIN Number */
+  binNumber: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Initialize Checkout Form */
+export interface IyzicoInitializeCheckoutFormInput {
+  /** Mode (values: `auth`, `preauth`) */
+  mode: "auth" | "preauth"
+  /** Price */
+  price: number
+  /** Paid Price */
+  paidPrice: number
+  /** Currency */
+  currency: string
+  /** Callback URL */
+  callbackUrl: string
+  /** Buyer */
+  buyer: unknown
+  /** Billing Address */
+  billingAddress: unknown
+  /** Array of iyzico basket item objects. */
+  basketItems: unknown
+  /** Shipping Address */
+  shippingAddress?: unknown
+  /** Conversation ID */
+  conversationId?: string
+  /** Basket ID */
+  basketId?: string
+  /** Payment Group */
+  paymentGroup?: string
+  /** Optional array such as [1,2,3,6,9,12]. */
+  enabledInstallments?: unknown
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Retrieve Checkout Form Result */
+export interface IyzicoRetrieveCheckoutFormInput {
+  /** Token */
+  token: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Capture PreAuth Payment */
+export interface IyzicoCapturePreauthPaymentInput {
+  /** Payment ID */
+  paymentId: string
+  /** Paid Price */
+  paidPrice: number
+  /** Currency */
+  currency: string
+  /** Conversation ID */
+  conversationId?: string
+  /** IP Address */
+  ip?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Cancel Payment */
+export interface IyzicoCancelPaymentInput {
+  /** Payment ID */
+  paymentId: string
+  /** Conversation ID */
+  conversationId?: string
+  /** IP Address */
+  ip?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Refund Payment */
+export interface IyzicoRefundPaymentInput {
+  /** Payment ID */
+  paymentId: string
+  /** Refund Amount */
+  price: number
+  /** Currency */
+  currency?: string
+  /** Conversation ID */
+  conversationId?: string
+  /** IP Address */
+  ip?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Get Payment Detail */
+export interface IyzicoGetPaymentDetailInput {
+  /** Payment ID */
+  paymentId?: string
+  /** Payment Conversation ID */
+  paymentConversationId?: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Create iyzico Link */
+export interface IyzicoCreateLinkInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Price */
+  price: number
+  /** Currency */
+  currency: string
+  /** Encoded Image File */
+  encodedImageFile?: string
+  /** Address Ignorable */
+  addressIgnorable?: boolean
+  /** Installment Requested */
+  installmentRequested?: boolean
+  /** Sold Limit */
+  soldLimit?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Create Fast Link */
+export interface IyzicoCreateFastLinkInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Price */
+  price: number
+  /** Currency */
+  currency: string
+  /** Encoded Image File */
+  encodedImageFile?: string
+  /** Address Ignorable */
+  addressIgnorable?: boolean
+  /** Installment Requested */
+  installmentRequested?: boolean
+  /** Sold Limit */
+  soldLimit?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Update iyzico Link */
+export interface IyzicoUpdateLinkInput {
+  /** Token */
+  token: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Price */
+  price: number
+  /** Currency */
+  currency: string
+  /** Encoded Image File */
+  encodedImageFile?: string
+  /** Address Ignorable */
+  addressIgnorable?: boolean
+  /** Installment Requested */
+  installmentRequested?: boolean
+  /** Sold Limit */
+  soldLimit?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Get iyzico Link */
+export interface IyzicoGetLinkInput {
+  /** Token */
+  token: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — List iyzico Links */
+export interface IyzicoListLinksInput {
+  /** Page */
+  page?: number
+  /** Count */
+  count?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Update iyzico Link Status */
+export interface IyzicoUpdateLinkStatusInput {
+  /** Token */
+  token: string
+  /** Status (values: `ACTIVE`, `PASSIVE`) */
+  status: "ACTIVE" | "PASSIVE"
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Delete iyzico Link */
+export interface IyzicoDeleteLinkInput {
+  /** Token */
+  token: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — List Stored Cards */
+export interface IyzicoListStoredCardsInput {
+  /** Card User Key */
+  cardUserKey: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Delete Stored Card */
+export interface IyzicoDeleteStoredCardInput {
+  /** Card User Key */
+  cardUserKey: string
+  /** Card Token */
+  cardToken: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Create Payment with Stored Card */
+export interface IyzicoCreatePaymentWithStoredCardInput {
+  /** Price */
+  price: number
+  /** Paid Price */
+  paidPrice: number
+  /** Currency */
+  currency: string
+  /** Card User Key */
+  cardUserKey: string
+  /** Card Token */
+  cardToken: string
+  /** Buyer */
+  buyer: unknown
+  /** Billing Address */
+  billingAddress: unknown
+  /** Array of iyzico basket item objects. */
+  basketItems: unknown
+  /** Shipping Address */
+  shippingAddress?: unknown
+  /** Installment */
+  installment?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Basket ID */
+  basketId?: string
+  /** Payment Group */
+  paymentGroup?: string
+  /** Payment Channel */
+  paymentChannel?: string
+  /** IP Address */
+  ip?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Create Submerchant */
+export interface IyzicoCreateSubmerchantInput {
+  /** Full iyzico submerchant creation body for PERSONAL, PRIVATE_COMPANY, or LIMITED_OR_JOINT_STOCK_COMPANY. */
+  submerchant: unknown
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Update Submerchant */
+export interface IyzicoUpdateSubmerchantInput {
+  /** Full iyzico submerchant update body. */
+  submerchant: unknown
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Get Submerchant */
+export interface IyzicoGetSubmerchantInput {
+  /** Submerchant External ID */
+  subMerchantExternalId: string
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Update Submerchant Item Price */
+export interface IyzicoUpdateSubmerchantItemPriceInput {
+  /** Payment Transaction ID */
+  paymentTransactionId: string
+  /** Submerchant Key */
+  subMerchantKey?: string
+  /** Submerchant Price */
+  subMerchantPrice?: number
+  /** Conversation ID */
+  conversationId?: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Initialize Mass Payout */
+export interface IyzicoInitializeMassPayoutInput {
+  /** Merchant idempotency identifier for the mass payout. */
+  externalId: string
+  /** Conversation ID */
+  conversationId: string
+  /** Purpose (values: `SALARY`, `BONUS`, `SETTLEMENT`, `GOODS`, `SERVICES`, `CASHBACK`, `REBATES`, `DONATIONS`) */
+  purpose?: "SALARY" | "BONUS" | "SETTLEMENT" | "GOODS" | "SERVICES" | "CASHBACK" | "REBATES" | "DONATIONS"
+  /** Array of iyzico mass payout item objects. */
+  items: unknown
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Authorize Mass Payout */
+export interface IyzicoAuthorizeMassPayoutInput {
+  /** Request ID */
+  requestId: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Cancel Mass Payout */
+export interface IyzicoCancelMassPayoutInput {
+  /** Request ID */
+  requestId: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Retrieve Mass Payout */
+export interface IyzicoRetrieveMassPayoutInput {
+  /** Request ID */
+  requestId?: string
+  /** External Mass Payout ID */
+  externalMassPayoutId?: string
+  /** Page */
+  page?: number
+  /** Size */
+  size?: number
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Get Mass Payout Item */
+export interface IyzicoGetMassPayoutItemInput {
+  /** Reference Code */
+  referenceCode: string
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
+/** iyzico — Get Mass Payout Balance */
+export interface IyzicoGetMassPayoutBalanceInput {
+  /** Locale (values: `en`, `tr`) */
+  locale?: "en" | "tr"
+  /** Optional x-iyzi-rnd value. Leave blank to generate one automatically. */
+  randomKey?: string
+}
+
 /** Jamf Pro — List Computers */
 export interface JamfListComputersInput {
   /** Page */
@@ -35302,6 +37694,641 @@ export interface JobberCustomApiCallInput {
   variables?: unknown
 }
 
+/** JobNimbus — List Contacts */
+export interface JobnimbusListContactsInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Contact */
+export interface JobnimbusGetContactInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Contact */
+export interface JobnimbusCreateContactInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Contact */
+export interface JobnimbusUpdateContactInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Contact */
+export interface JobnimbusDeleteContactInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Jobs */
+export interface JobnimbusListJobsInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Job */
+export interface JobnimbusGetJobInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Job */
+export interface JobnimbusCreateJobInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Job */
+export interface JobnimbusUpdateJobInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Job */
+export interface JobnimbusDeleteJobInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Tasks */
+export interface JobnimbusListTasksInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Task */
+export interface JobnimbusGetTaskInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Task */
+export interface JobnimbusCreateTaskInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Task */
+export interface JobnimbusUpdateTaskInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Task */
+export interface JobnimbusDeleteTaskInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Activities */
+export interface JobnimbusListActivitiesInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Activity */
+export interface JobnimbusGetActivityInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Activity */
+export interface JobnimbusCreateActivityInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Products */
+export interface JobnimbusListProductsInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Product */
+export interface JobnimbusGetProductInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Product */
+export interface JobnimbusCreateProductInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Product */
+export interface JobnimbusUpdateProductInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Product */
+export interface JobnimbusDeleteProductInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Material Orders */
+export interface JobnimbusListMaterialOrdersInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Material Order */
+export interface JobnimbusGetMaterialOrderInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Material Order */
+export interface JobnimbusCreateMaterialOrderInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Material Order */
+export interface JobnimbusUpdateMaterialOrderInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Material Order */
+export interface JobnimbusDeleteMaterialOrderInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Work Orders */
+export interface JobnimbusListWorkOrdersInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Work Order */
+export interface JobnimbusGetWorkOrderInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Work Order */
+export interface JobnimbusCreateWorkOrderInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Work Order */
+export interface JobnimbusUpdateWorkOrderInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Work Order */
+export interface JobnimbusDeleteWorkOrderInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Estimates */
+export interface JobnimbusListEstimatesInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Estimate */
+export interface JobnimbusGetEstimateInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Estimate */
+export interface JobnimbusCreateEstimateInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Estimate */
+export interface JobnimbusUpdateEstimateInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Estimate */
+export interface JobnimbusDeleteEstimateInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Invoices */
+export interface JobnimbusListInvoicesInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Get Invoice */
+export interface JobnimbusGetInvoiceInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — Create Invoice */
+export interface JobnimbusCreateInvoiceInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Bulk Mode */
+  bulk?: boolean
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Update Invoice */
+export interface JobnimbusUpdateInvoiceInput {
+  /** JNID */
+  jnid: string
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — Delete Invoice */
+export interface JobnimbusDeleteInvoiceInput {
+  /** JNID */
+  jnid: string
+  /** Actor Email */
+  actor?: string
+  /** Comma-separated skip values, such as automation,notification. */
+  skip?: string
+}
+
+/** JobNimbus — List Payments */
+export interface JobnimbusListPaymentsInput {
+  /** Range 1-1000. */
+  size?: number
+  /** Zero-based pagination offset. */
+  from?: number
+  /** Sort Field */
+  sort_field?: string
+  /** Sort Direction (values: `desc`, `asc`) */
+  sort_direction?: "desc" | "asc"
+  /** Comma-separated field names. */
+  fields?: string
+  /** ElasticSearch-style JobNimbus filter object. */
+  filter?: unknown
+  /** Optional JobNimbus user email for delegated actor context. */
+  actor?: string
+}
+
+/** JobNimbus — Create Payment */
+export interface JobnimbusCreatePaymentInput {
+  /** Body */
+  body: unknown
+  /** Actor Email */
+  actor?: string
+}
+
+/** JobNimbus — List Account Settings */
+export interface JobnimbusListAccountSettingsInput {
+  /** Field (values: ``, `groups`, `users`, `uoms`) */
+  field?: "" | "groups" | "users" | "uoms"
+}
+
+/** JobNimbus — Create Workflow */
+export interface JobnimbusCreateWorkflowInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Workflow Status */
+export interface JobnimbusCreateWorkflowStatusInput {
+  /** Workflow ID */
+  workflow_id: string
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Lead Source */
+export interface JobnimbusCreateLeadSourceInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Custom Field */
+export interface JobnimbusCreateCustomFieldInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create File Type */
+export interface JobnimbusCreateFileTypeInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Task Type */
+export interface JobnimbusCreateTaskTypeInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Activity Type */
+export interface JobnimbusCreateActivityTypeInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobNimbus — Create Location */
+export interface JobnimbusCreateLocationInput {
+  /** Body */
+  body: unknown
+}
+
+/** JobTread — Get Current Grant */
+export type JobtreadGetCurrentGrantInput = Record<string, never>
+
+/** JobTread — Execute Pave Query */
+export interface JobtreadExecutePaveQueryInput {
+  /** JSON object containing JobTread Pave fields. The grantKey wrapper is added automatically. */
+  query: unknown
+  /** Optional IANA time zone passed to JobTread, for example America/Chicago. */
+  timeZone?: string
+}
+
+/** JobTread — List Webhooks */
+export interface JobtreadListWebhooksInput {
+  /** Organization ID */
+  organizationId: string
+  /** Limit */
+  size?: number
+}
+
+/** JobTread — Create Webhook */
+export interface JobtreadCreateWebhookInput {
+  /** Organization ID */
+  organizationId: string
+  /** Webhook URL */
+  url: string
+  /** Optional JSON array of JobTread event type names. Omit or pass [] for all events. */
+  eventTypes?: unknown
+}
+
+/** JobTread — Delete Webhook */
+export interface JobtreadDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
 /** JotForm — List Forms */
 export interface JotformListFormsInput {
   /** Limit */
@@ -35458,58 +38485,6 @@ export interface KajabiCustomApiCallInput {
   body?: unknown
 }
 
-/** Kareo — List Patients */
-export interface KareoListPatientsInput {
-  /** First Name */
-  firstName?: string
-  /** Last Name */
-  lastName?: string
-  /** Practice Name */
-  practiceName?: string
-}
-
-/** Kareo — Get Patient */
-export interface KareoGetPatientInput {
-  /** Patient ID */
-  patientId: string
-}
-
-/** Kareo — List Appointments */
-export interface KareoListAppointmentsInput {
-  /** Filter from date (YYYY-MM-DD) */
-  startDate?: string
-  /** Filter until date (YYYY-MM-DD) */
-  endDate?: string
-  /** Practice Name */
-  practiceName?: string
-}
-
-/** Kareo — Create Appointment */
-export interface KareoCreateAppointmentInput {
-  /** Patient ID */
-  patientId: string
-  /** Provider ID */
-  providerId: string
-  /** Appointment start (YYYY-MM-DDTHH:mm:ss) */
-  startDate: string
-  /** Appointment end (YYYY-MM-DDTHH:mm:ss) */
-  endDate: string
-  /** Notes */
-  notes?: string
-  /** Practice Name */
-  practiceName: string
-}
-
-/** Kareo — Custom API Call */
-export interface KareoCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
-}
-
 /** Katana MRP — Get Product */
 export interface KatanaMrpGetProductInput {
   /** Product ID */
@@ -35630,6 +38605,322 @@ export interface KeapCustomApiCallInput {
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+}
+
+/** Kickserv — List Customers */
+export interface KickservListCustomersInput {
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Customer */
+export interface KickservGetCustomerInput {
+  /** Customer ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Customer */
+export interface KickservCreateCustomerInput {
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Customer */
+export interface KickservUpdateCustomerInput {
+  /** Customer ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Customer */
+export interface KickservDeleteCustomerInput {
+  /** Customer ID or Number */
+  id: string
+}
+
+/** Kickserv — List Jobs */
+export interface KickservListJobsInput {
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Job */
+export interface KickservGetJobInput {
+  /** Job ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Job */
+export interface KickservCreateJobInput {
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Job */
+export interface KickservUpdateJobInput {
+  /** Job ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Job */
+export interface KickservDeleteJobInput {
+  /** Job ID or Number */
+  id: string
+}
+
+/** Kickserv — List Customer Notes */
+export interface KickservListCustomerNotesInput {
+  /** Customer Number */
+  customer_number: string
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Customer Note */
+export interface KickservGetCustomerNoteInput {
+  /** Customer Number */
+  customer_number: string
+  /** Customer Note ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Customer Note */
+export interface KickservCreateCustomerNoteInput {
+  /** Customer Number */
+  customer_number: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Customer Note */
+export interface KickservUpdateCustomerNoteInput {
+  /** Customer Number */
+  customer_number: string
+  /** Customer Note ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Customer Note */
+export interface KickservDeleteCustomerNoteInput {
+  /** Customer Number */
+  customer_number: string
+  /** Customer Note ID or Number */
+  id: string
+}
+
+/** Kickserv — List Job Notes */
+export interface KickservListJobNotesInput {
+  /** Job Number */
+  job_number: string
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Job Note */
+export interface KickservGetJobNoteInput {
+  /** Job Number */
+  job_number: string
+  /** Job Note ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Job Note */
+export interface KickservCreateJobNoteInput {
+  /** Job Number */
+  job_number: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Job Note */
+export interface KickservUpdateJobNoteInput {
+  /** Job Number */
+  job_number: string
+  /** Job Note ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Job Note */
+export interface KickservDeleteJobNoteInput {
+  /** Job Number */
+  job_number: string
+  /** Job Note ID or Number */
+  id: string
+}
+
+/** Kickserv — List Employees */
+export interface KickservListEmployeesInput {
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Employee */
+export interface KickservGetEmployeeInput {
+  /** Employee ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Employee */
+export interface KickservCreateEmployeeInput {
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Employee */
+export interface KickservUpdateEmployeeInput {
+  /** Employee ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — List Items */
+export interface KickservListItemsInput {
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Item */
+export interface KickservGetItemInput {
+  /** Item ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Job Charge */
+export interface KickservCreateJobChargeInput {
+  /** Job Number */
+  job_number: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — List Tasks */
+export interface KickservListTasksInput {
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Task */
+export interface KickservGetTaskInput {
+  /** Task ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Task */
+export interface KickservCreateTaskInput {
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Task */
+export interface KickservUpdateTaskInput {
+  /** Task ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Task */
+export interface KickservDeleteTaskInput {
+  /** Task ID or Number */
+  id: string
+}
+
+/** Kickserv — List Time Entries */
+export interface KickservListTimeEntriesInput {
+  /** Job Number */
+  job_number: string
+  /** Kickserv list endpoints return 30 records at a time. */
+  page?: number
+  /** Scheduled Jobs Only */
+  scheduled?: boolean
+  /** Status */
+  status?: string
+  /** Employee Number */
+  employee_number?: string
+}
+
+/** Kickserv — Get Time Entry */
+export interface KickservGetTimeEntryInput {
+  /** Job Number */
+  job_number: string
+  /** Time Entry ID or Number */
+  id: string
+}
+
+/** Kickserv — Create Time Entry */
+export interface KickservCreateTimeEntryInput {
+  /** Job Number */
+  job_number: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Update Time Entry */
+export interface KickservUpdateTimeEntryInput {
+  /** Job Number */
+  job_number: string
+  /** Time Entry ID or Number */
+  id: string
+  /** XML Body */
+  xmlBody: string
+}
+
+/** Kickserv — Delete Time Entry */
+export interface KickservDeleteTimeEntryInput {
+  /** Job Number */
+  job_number: string
+  /** Time Entry ID or Number */
+  id: string
 }
 
 /** Kissflow — Download Attachment from Form Field */
@@ -36782,6 +40073,211 @@ export interface LawmaticsCustomApiCallInput {
   /** API path (e.g. /contacts) */
   path: string
   /** Body */
+  body?: unknown
+}
+
+/** LawPay — Get Gateway Credentials */
+export type LawpayGetGatewayCredentialsInput = Record<string, never>
+
+/** LawPay — Get Current Merchant */
+export type LawpayGetCurrentMerchantInput = Record<string, never>
+
+/** LawPay — Update Merchant */
+export interface LawpayUpdateMerchantInput {
+  /** Merchant Patch Body */
+  body: unknown
+}
+
+/** LawPay — Search Contacts */
+export interface LawpaySearchContactsInput {
+  /** Query */
+  query?: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** LawPay — Get Contact */
+export interface LawpayGetContactInput {
+  /** Contact ID */
+  contactId: string
+}
+
+/** LawPay — Create Contact */
+export interface LawpayCreateContactInput {
+  /** Contact Body */
+  body: unknown
+}
+
+/** LawPay — Update Contact */
+export interface LawpayUpdateContactInput {
+  /** Contact ID */
+  contactId: string
+  /** Contact Patch Body */
+  body: unknown
+}
+
+/** LawPay — Delete Contact */
+export interface LawpayDeleteContactInput {
+  /** Contact ID */
+  contactId: string
+}
+
+/** LawPay — Create Payment Method */
+export interface LawpayCreatePaymentMethodInput {
+  /** Contact ID */
+  contactId: string
+  /** Payment Method Body */
+  body: unknown
+}
+
+/** LawPay — Delete Payment Method */
+export interface LawpayDeletePaymentMethodInput {
+  /** Contact ID */
+  contactId: string
+  /** Payment Method ID */
+  paymentMethodId: string
+}
+
+/** LawPay — Make Contact Payment */
+export interface LawpayMakeContactPaymentInput {
+  /** Contact ID */
+  contactId: string
+  /** Payment Body */
+  body: unknown
+}
+
+/** LawPay — Get Bank Accounts */
+export type LawpayGetBankAccountsInput = Record<string, never>
+
+/** LawPay — Search Invoices */
+export interface LawpaySearchInvoicesInput {
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** LawPay — Create Invoice */
+export interface LawpayCreateInvoiceInput {
+  /** Invoice Body */
+  body: unknown
+}
+
+/** LawPay — Update Invoice */
+export interface LawpayUpdateInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+  /** Invoice Patch Body */
+  body: unknown
+}
+
+/** LawPay — Delete Invoice */
+export interface LawpayDeleteInvoiceInput {
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** LawPay — Send Invoice Message */
+export interface LawpaySendInvoiceMessageInput {
+  /** Invoice ID */
+  invoiceId: string
+  /** Message Body */
+  body: unknown
+}
+
+/** LawPay — Create Charge */
+export interface LawpayCreateChargeInput {
+  /** Bank Account ID */
+  accountId: string
+  /** Amount In Smallest Currency Unit */
+  amount: number
+  /** Currency */
+  currency: string
+  /** Payment Method ID */
+  paymentMethodId?: string
+  /** Token ID */
+  tokenId?: string
+  /** Reference */
+  reference?: string
+  /** Additional Charge Fields */
+  extraFields?: unknown
+}
+
+/** LawPay — Capture Charge */
+export interface LawpayCaptureChargeInput {
+  /** Charge ID */
+  chargeId: string
+  /** Amount */
+  amount?: number
+}
+
+/** LawPay — Refund Charge */
+export interface LawpayRefundChargeInput {
+  /** Charge ID */
+  chargeId: string
+  /** Amount */
+  amount?: number
+  /** Reference */
+  reference?: string
+}
+
+/** LawPay — Void Transaction */
+export interface LawpayVoidTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** LawPay — Create Credit */
+export interface LawpayCreateCreditInput {
+  /** Credit Body */
+  body: unknown
+}
+
+/** LawPay — Search Transactions */
+export interface LawpaySearchTransactionsInput {
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** LawPay — Get Transaction */
+export interface LawpayGetTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** LawPay — Create Recurring Charge */
+export interface LawpayCreateRecurringChargeInput {
+  /** Recurring Charge Body */
+  body: unknown
+}
+
+/** LawPay — Update Recurring Charge */
+export interface LawpayUpdateRecurringChargeInput {
+  /** Recurring Charge ID */
+  recurringChargeId: string
+  /** Recurring Charge Patch Body */
+  body: unknown
+}
+
+/** LawPay — Cancel Recurring Charge */
+export interface LawpayCancelRecurringChargeInput {
+  /** Recurring Charge ID */
+  recurringChargeId: string
+}
+
+/** LawPay — Delete Recurring Charge */
+export interface LawpayDeleteRecurringChargeInput {
+  /** Recurring Charge ID */
+  recurringChargeId: string
+}
+
+/** LawPay — Pay Recurring Occurrence */
+export interface LawpayPayRecurringOccurrenceInput {
+  /** Recurring Charge ID */
+  recurringChargeId: string
+  /** Occurrence ID */
+  occurrenceId: string
+  /** Payment Body */
   body?: unknown
 }
 
@@ -39297,6 +42793,222 @@ export interface LodgifySendBookingMessageInput {
 export interface LodgifyGetPaymentLinkInput {
   /** Booking ID */
   bookingId: string
+}
+
+/** Lofty — List Leads */
+export interface LoftyListLeadsInput {
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** Lofty — Get Lead */
+export interface LoftyGetLeadInput {
+  /** Lead ID */
+  leadId: string
+}
+
+/** Lofty — Create Lead */
+export interface LoftyCreateLeadInput {
+  /** Lead Body */
+  body: unknown
+}
+
+/** Lofty — Update Lead */
+export interface LoftyUpdateLeadInput {
+  /** Lead ID */
+  leadId: string
+  /** Lead Update Body */
+  body: unknown
+}
+
+/** Lofty — Delete Lead */
+export interface LoftyDeleteLeadInput {
+  /** Lead ID */
+  leadId: string
+}
+
+/** Lofty — Resolve Lead Assignee */
+export interface LoftyResolveLeadAssigneeInput {
+  /** Assignee Resolution Body */
+  body: unknown
+}
+
+/** Lofty — Update Lead Assignment */
+export interface LoftyUpdateLeadAssignmentInput {
+  /** Lead ID */
+  leadId: string
+  /** Assignment Body */
+  body: unknown
+}
+
+/** Lofty — Add Lead Inquiry */
+export interface LoftyAddLeadInquiryInput {
+  /** Lead ID */
+  leadId: string
+  /** Inquiry Body */
+  body: unknown
+}
+
+/** Lofty — Add Lead Property */
+export interface LoftyAddLeadPropertyInput {
+  /** Lead ID */
+  leadId: string
+  /** Property Body */
+  body: unknown
+}
+
+/** Lofty — List Lead Activities */
+export interface LoftyListLeadActivitiesInput {
+  /** Lead ID */
+  leadId: string
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** Lofty — List Notes */
+export interface LoftyListNotesInput {
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** Lofty — Create Note */
+export interface LoftyCreateNoteInput {
+  /** Note Body */
+  body: unknown
+}
+
+/** Lofty — Update Note */
+export interface LoftyUpdateNoteInput {
+  /** Note ID */
+  noteId: string
+  /** Note Update Body */
+  body: unknown
+}
+
+/** Lofty — Delete Note */
+export interface LoftyDeleteNoteInput {
+  /** Note ID */
+  noteId: string
+}
+
+/** Lofty — List Tasks */
+export interface LoftyListTasksInput {
+  /** Lead ID */
+  leadId: string
+}
+
+/** Lofty — Create Task */
+export interface LoftyCreateTaskInput {
+  /** Task Body */
+  body: unknown
+}
+
+/** Lofty — Update Task */
+export interface LoftyUpdateTaskInput {
+  /** Task ID */
+  taskId: string
+  /** Task Update Body */
+  body: unknown
+}
+
+/** Lofty — Finish Task */
+export interface LoftyFinishTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Lofty — Unfinish Task */
+export interface LoftyUnfinishTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Lofty — Delete Task */
+export interface LoftyDeleteTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Lofty — Send Text */
+export interface LoftySendTextInput {
+  /** Text Body */
+  body: unknown
+}
+
+/** Lofty — Send Email */
+export interface LoftySendEmailInput {
+  /** Email Body */
+  body: unknown
+}
+
+/** Lofty — Get Communication */
+export interface LoftyGetCommunicationInput {
+  /** Communication Type (values: `text`, `email`, `call`) */
+  type: "text" | "email" | "call"
+  /** Communication ID */
+  communicationId: string
+}
+
+/** Lofty — List Transactions */
+export interface LoftyListTransactionsInput {
+  /** Query Parameters */
+  query?: unknown
+}
+
+/** Lofty — Update Transaction */
+export interface LoftyUpdateTransactionInput {
+  /** Lead ID */
+  leadId: string
+  /** Transaction ID */
+  transactionId: string
+  /** Transaction Update Body */
+  body: unknown
+}
+
+/** Lofty — Create Calendar Event */
+export interface LoftyCreateCalendarEventInput {
+  /** Calendar Event Body */
+  body: unknown
+}
+
+/** Lofty — Update Calendar Event */
+export interface LoftyUpdateCalendarEventInput {
+  /** Calendar ID */
+  calendarId: string
+  /** Calendar Update Body */
+  body: unknown
+}
+
+/** Lofty — Delete Calendar Event */
+export interface LoftyDeleteCalendarEventInput {
+  /** Calendar ID */
+  calendarId: string
+}
+
+/** Lofty — Search Listings */
+export interface LoftySearchListingsInput {
+  /** Query Parameters */
+  query?: unknown
+  /** Search Body */
+  body?: unknown
+}
+
+/** Lofty — Create Webhook */
+export interface LoftyCreateWebhookInput {
+  /** Callback URL */
+  callbackUrl: string
+  /** Documented Lofty event list ID, for example 2 for Lead Info or 10 for Task. */
+  listId: number
+  /** Permission Mode */
+  permissionMode?: number
+  /** Additional Fields */
+  extraFields?: unknown
+}
+
+/** Lofty — Delete Webhook */
+export interface LoftyDeleteWebhookInput {
+  /** Subscribe ID */
+  subscribeId: string
 }
 
 /** Lokalise — List Projects */
@@ -43876,25 +47588,483 @@ export interface MicrosoftTodoCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Midtrans — Create Snap Transaction */
+export interface MidtransCreateSnapTransactionInput {
+  /** transaction_details object with order_id and gross_amount. */
+  transactionDetails: unknown
+  /** Optional item_details array. */
+  itemDetails?: unknown
+  /** Customer Details */
+  customerDetails?: unknown
+  /** Optional enabled payment method array. */
+  enabledPayments?: unknown
+  /** Credit Card Options */
+  creditCard?: unknown
+  /** Callbacks */
+  callbacks?: unknown
+  /** Expiry */
+  expiry?: unknown
+  /** Metadata */
+  metadata?: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Create Payment Link */
+export interface MidtransCreatePaymentLinkInput {
+  /** Midtrans payment link request body, including transaction_details, customer_details, item_details, and expiry where applicable. */
+  requestBody: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Charge Transaction */
+export interface MidtransChargeTransactionInput {
+  /** For example bank_transfer, gopay, qris, cstore, credit_card, shopeepay. */
+  paymentType: string
+  /** transaction_details object with order_id and gross_amount. */
+  transactionDetails: unknown
+  /** Object for the selected payment type, such as credit_card, bank_transfer, gopay, qris, cstore, or shopeepay. */
+  paymentMethodDetails?: unknown
+  /** Item Details */
+  itemDetails?: unknown
+  /** Customer Details */
+  customerDetails?: unknown
+  /** Custom Expiry */
+  customExpiry?: unknown
+  /** Metadata */
+  metadata?: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Capture Transaction */
+export interface MidtransCaptureTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+  /** Amount to capture in IDR. */
+  grossAmount?: number
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Get Transaction Status */
+export interface MidtransGetTransactionStatusInput {
+  /** Order ID or Transaction ID */
+  orderId: string
+}
+
+/** Midtrans — Cancel Transaction */
+export interface MidtransCancelTransactionInput {
+  /** Order ID or Transaction ID */
+  orderId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Expire Transaction */
+export interface MidtransExpireTransactionInput {
+  /** Order ID or Transaction ID */
+  orderId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Refund Transaction */
+export interface MidtransRefundTransactionInput {
+  /** Order ID or Transaction ID */
+  orderId: string
+  /** Merchant idempotency key for the refund. */
+  refundKey: string
+  /** Amount */
+  amount?: number
+  /** Reason */
+  reason?: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Direct Refund Transaction */
+export interface MidtransDirectRefundTransactionInput {
+  /** Order ID or Transaction ID */
+  orderId: string
+  /** Refund Key */
+  refundKey: string
+  /** Amount */
+  amount?: number
+  /** Reason */
+  reason?: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Get BIN */
+export interface MidtransGetBinInput {
+  /** BIN */
+  bin: string
+}
+
+/** Midtrans — Create Pay Account */
+export interface MidtransCreatePayAccountInput {
+  /** Midtrans pay account request body. */
+  requestBody: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Get Pay Account */
+export interface MidtransGetPayAccountInput {
+  /** Account ID */
+  accountId: string
+}
+
+/** Midtrans — Unbind Pay Account */
+export interface MidtransUnbindPayAccountInput {
+  /** Account ID */
+  accountId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Create Subscription */
+export interface MidtransCreateSubscriptionInput {
+  /** Name */
+  name: string
+  /** Amount */
+  amount: number
+  /** Currency */
+  currency: string
+  /** Payment Type */
+  paymentType: string
+  /** Payment Token */
+  token: string
+  /** Schedule */
+  schedule: unknown
+  /** Customer Details */
+  customerDetails?: unknown
+  /** Metadata */
+  metadata?: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Get Subscription */
+export interface MidtransGetSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Midtrans — Update Subscription */
+export interface MidtransUpdateSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Midtrans subscription update body. */
+  requestBody: unknown
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Enable Subscription */
+export interface MidtransEnableSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Disable Subscription */
+export interface MidtransDisableSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — Cancel Subscription */
+export interface MidtransCancelSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Optional unique key for safely retrying supported Midtrans mutation requests. */
+  idempotencyKey?: string
+}
+
+/** Midtrans — List Iris Banks */
+export type MidtransListIrisBanksInput = Record<string, never>
+
+/** Midtrans — Validate Iris Bank Account */
+export interface MidtransValidateIrisBankAccountInput {
+  /** Bank */
+  bank: string
+  /** Account Number */
+  account: string
+}
+
+/** Midtrans — Create Iris Beneficiary */
+export interface MidtransCreateIrisBeneficiaryInput {
+  /** Name */
+  name: string
+  /** Account Number */
+  account: string
+  /** Bank */
+  bank: string
+  /** Alias Name */
+  aliasName: string
+  /** Email */
+  email?: string
+}
+
+/** Midtrans — Update Iris Beneficiary */
+export interface MidtransUpdateIrisBeneficiaryInput {
+  /** Alias Name */
+  aliasName: string
+  /** Name */
+  name?: string
+  /** Account Number */
+  account?: string
+  /** Bank */
+  bank?: string
+  /** Email */
+  email?: string
+}
+
+/** Midtrans — List Iris Beneficiaries */
+export type MidtransListIrisBeneficiariesInput = Record<string, never>
+
+/** Midtrans — Create Iris Payouts */
+export interface MidtransCreateIrisPayoutsInput {
+  /** Array of Iris payout objects. */
+  payouts: unknown
+}
+
+/** Midtrans — Approve Iris Payouts */
+export interface MidtransApproveIrisPayoutsInput {
+  /** Array of payout reference numbers to approve. */
+  referenceNumbers: unknown
+  /** Iris approval OTP when required for the account. */
+  otp?: string
+}
+
+/** Midtrans — Reject Iris Payouts */
+export interface MidtransRejectIrisPayoutsInput {
+  /** Array of payout reference numbers to reject. */
+  referenceNumbers: unknown
+  /** Reject Reason */
+  rejectReason?: string
+}
+
+/** Midtrans — Get Iris Payout */
+export interface MidtransGetIrisPayoutInput {
+  /** Reference Number */
+  referenceNumber: string
+}
+
+/** Midtrans — Get Iris Balance */
+export type MidtransGetIrisBalanceInput = Record<string, never>
+
+/** Midtrans — List Iris Transactions */
+export interface MidtransListIrisTransactionsInput {
+  /** YYYY-MM-DD. */
+  fromDate?: string
+  /** YYYY-MM-DD. */
+  toDate?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Mindbody — List Locations */
+export type MindbodyListLocationsInput = Record<string, never>
+
+/** Mindbody — List Session Types */
+export interface MindbodyListSessionTypesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Resources */
+export type MindbodyListResourcesInput = Record<string, never>
+
+/** Mindbody — List Staff */
+export interface MindbodyListStaffInput {
+  /** Comma-separated staff IDs. */
+  staffIds?: string
+  /** Location ID */
+  locationId?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Services */
+export interface MindbodyListServicesInput {
+  /** Class ID */
+  classId?: number
+  /** Comma-separated program IDs. */
+  programIds?: string
+  /** Location ID */
+  locationId?: number
+  /** Sell Online */
+  sellOnline?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Products */
+export interface MindbodyListProductsInput {
+  /** Search Text */
+  searchText?: string
+  /** Comma-separated category IDs. */
+  categoryIds?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Get Gift Card Balance */
+export interface MindbodyGetGiftCardBalanceInput {
+  /** Gift Card Number */
+  cardNumber: string
+}
+
 /** Mindbody — List Classes */
 export interface MindbodyListClassesInput {
-  /** Start date (YYYY-MM-DD) */
+  /** YYYY-MM-DD. */
   startDate?: string
-  /** End date (YYYY-MM-DD) */
+  /** YYYY-MM-DD. */
   endDate?: string
-  /** Maximum number of results */
+  /** Location ID */
+  locationId?: number
+  /** Comma-separated class IDs. */
+  classIds?: string
+  /** Limit */
   limit?: number
+  /** Offset */
+  offset?: number
 }
 
 /** Mindbody — Get Class Schedules */
-export type MindbodyGetScheduleInput = Record<string, never>
+export interface MindbodyGetClassSchedulesInput {
+  /** YYYY-MM-DD. */
+  startDate?: string
+  /** YYYY-MM-DD. */
+  endDate?: string
+  /** Comma-separated location IDs. */
+  locationIds?: string
+  /** Comma-separated staff IDs. */
+  staffIds?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Class Visits */
+export interface MindbodyListClassVisitsInput {
+  /** Class ID */
+  classId?: number
+  /** Client ID */
+  clientId?: string
+  /** Last Modified Date */
+  lastModifiedDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Class Waitlist Entries */
+export interface MindbodyListWaitlistEntriesInput {
+  /** Class Schedule ID */
+  classScheduleId?: number
+  /** Class ID */
+  classId?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Add Client To Class */
+export interface MindbodyAddClientToClassInput {
+  /** Client ID */
+  clientId: string
+  /** Class ID */
+  classId: number
+  /** Test Mode */
+  test?: boolean
+  /** Send Email */
+  sendEmail?: boolean
+  /** Add To Waitlist */
+  waitlist?: boolean
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Remove Client From Class */
+export interface MindbodyRemoveClientFromClassInput {
+  /** Visit ID */
+  visitId: number
+  /** Late Cancel */
+  lateCancel?: boolean
+  /** Send Email */
+  sendEmail?: boolean
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Remove Clients From Classes */
+export interface MindbodyRemoveClientsFromClassesInput {
+  /** Class Removals Body */
+  removals: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Remove From Class Waitlist */
+export interface MindbodyRemoveFromWaitlistInput {
+  /** Class Waitlist Removal Body */
+  waitlistEntry: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Substitute Class Teacher */
+export interface MindbodySubstituteClassTeacherInput {
+  /** Class Teacher Substitution Body */
+  substitution: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Cancel Single Class */
+export interface MindbodyCancelSingleClassInput {
+  /** Class Cancellation Body */
+  classCancellation: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
 
 /** Mindbody — List Clients */
 export interface MindbodyListClientsInput {
-  /** Search by name, email, or phone */
+  /** Search by name, email, or phone. */
   searchText?: string
-  /** Maximum number of results */
+  /** Comma-separated client IDs. */
+  clientIds?: string
+  /** Created Since */
+  createdSince?: string
+  /** Last Modified Date */
+  lastModifiedDate?: string
+  /** Limit */
   limit?: number
+  /** Offset */
+  offset?: number
 }
 
 /** Mindbody — Get Client */
@@ -43903,22 +48073,377 @@ export interface MindbodyGetClientInput {
   clientId: string
 }
 
-/** Mindbody — Book Class */
-export interface MindbodyBookClassInput {
-  /** The client ID */
-  clientId: string
-  /** The class ID */
-  classId: string
+/** Mindbody — Add Client */
+export interface MindbodyAddClientInput {
+  /** Mindbody AddClient request body. */
+  client: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
 }
 
-/** Mindbody — Custom API Call */
-export interface MindbodyCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
+/** Mindbody — Update Client */
+export interface MindbodyUpdateClientInput {
+  /** Mindbody UpdateClient request body, including the client ID and changed fields. */
+  client: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Add Contact Log */
+export interface MindbodyAddContactLogInput {
+  /** Contact Log Body */
+  contactLog: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Client Visit */
+export interface MindbodyUpdateClientVisitInput {
+  /** Client Visit Update Body */
+  clientVisit: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Upload Client Photo */
+export interface MindbodyUploadClientPhotoInput {
+  /** Client Photo Body */
+  clientPhoto: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — List Client Services */
+export interface MindbodyListClientServicesInput {
+  /** Client ID */
+  clientId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Client Purchases */
+export interface MindbodyListClientPurchasesInput {
+  /** Client ID */
+  clientId: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Active Client Memberships */
+export interface MindbodyListActiveClientMembershipsInput {
+  /** Client ID */
+  clientId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Client Contracts */
+export interface MindbodyListClientContractsInput {
+  /** Client ID */
+  clientId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Terminate Contract */
+export interface MindbodyTerminateContractInput {
+  /** Contract Termination Body */
+  termination: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — List Enrollments */
+export interface MindbodyListEnrollmentsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Comma-separated location IDs. */
+  locationIds?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Add Client To Enrollment */
+export interface MindbodyAddClientToEnrollmentInput {
+  /** Enrollment Registration Body */
+  enrollment: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Retrieve Appointments */
+export interface MindbodyRetrieveAppointmentsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Client ID */
+  clientId?: string
+  /** Comma-separated staff IDs. */
+  staffIds?: string
+  /** Location ID */
+  locationId?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Book Appointment */
+export interface MindbodyBookAppointmentInput {
+  /** Mindbody BookAppointment request body. */
+  appointment: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Appointment */
+export interface MindbodyUpdateAppointmentInput {
+  /** Mindbody UpdateAppointment request body, including appointment ID and requested status/timing changes. */
+  appointment: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Add Appointment Add-On */
+export interface MindbodyAddAppointmentAddOnInput {
+  /** Appointment Add-On Body */
+  appointmentAddOn: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Delete Appointment Add-On */
+export interface MindbodyDeleteAppointmentAddOnInput {
+  /** Delete Appointment Add-On Body */
+  appointmentAddOn: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Add Availabilities */
+export interface MindbodyAddAvailabilitiesInput {
+  /** Availabilities Body */
+  availabilities: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Availabilities */
+export interface MindbodyUpdateAvailabilitiesInput {
+  /** Availabilities Update Body */
+  availabilities: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Delete Availability */
+export interface MindbodyDeleteAvailabilityInput {
+  /** Delete Availability Body */
+  availability: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Remove From Appointment Waitlist */
+export interface MindbodyRemoveFromAppointmentWaitlistInput {
+  /** Appointment Waitlist Removal Body */
+  waitlistEntry: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Checkout Shopping Cart */
+export interface MindbodyCheckoutShoppingCartInput {
+  /** Mindbody CheckoutShoppingCart request body. */
+  checkout: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — List Contracts */
+export interface MindbodyListContractsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Packages */
+export interface MindbodyListPackagesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Sales */
+export interface MindbodyListSalesInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — Purchase Contract */
+export interface MindbodyPurchaseContractInput {
+  /** Contract Purchase Body */
+  contractPurchase: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Return Sale */
+export interface MindbodyReturnSaleInput {
+  /** Sale Return Body */
+  saleReturn: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Initialize Credit Card Entry */
+export interface MindbodyInitializeCreditCardEntryInput {
+  /** Credit Card Entry Body */
+  creditCardEntry: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Products */
+export interface MindbodyUpdateProductsInput {
+  /** Products Update Body */
+  products: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Product Price */
+export interface MindbodyUpdateProductPriceInput {
+  /** Product Price Body */
+  productPrice: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Services */
+export interface MindbodyUpdateServicesInput {
+  /** Services Update Body */
+  services: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Get Activation Code */
+export type MindbodyGetActivationCodeInput = Record<string, never>
+
+/** Mindbody — List Relationships */
+export interface MindbodyListRelationshipsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mindbody — List Memberships */
+export type MindbodyListMembershipsInput = Record<string, never>
+
+/** Mindbody — Get Staff Permissions */
+export interface MindbodyGetStaffPermissionsInput {
+  /** Staff ID */
+  staffId: number
+}
+
+/** Mindbody — Get Staff Image URL */
+export interface MindbodyGetStaffImageUrlInput {
+  /** Staff ID */
+  staffId: number
+}
+
+/** Mindbody — Add Staff */
+export interface MindbodyAddStaffInput {
+  /** Staff Body */
+  staff: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Add Staff Availability */
+export interface MindbodyAddStaffAvailabilityInput {
+  /** Staff Availability Body */
+  availability: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Assign Staff Session Type */
+export interface MindbodyAssignStaffSessionTypeInput {
+  /** Staff Session Type Assignment Body */
+  assignment: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Staff */
+export interface MindbodyUpdateStaffInput {
+  /** Staff Update Body */
+  staff: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — Update Staff Permissions */
+export interface MindbodyUpdateStaffPermissionsInput {
+  /** Staff Permissions Body */
+  permissions: unknown
+  /** Optional Mindbody transaction key, max 50 chars, for matching API writes to webhook events. */
+  transactionKey?: string
+}
+
+/** Mindbody — List Webhook Subscriptions */
+export type MindbodyListWebhookSubscriptionsInput = Record<string, never>
+
+/** Mindbody — Create Webhook Subscription */
+export interface MindbodyCreateWebhookSubscriptionInput {
+  /** Webhook URL */
+  webhookUrl: string
+  /** Mindbody event IDs such as client.created or appointmentBooking.updated. */
+  eventIds: unknown[]
+  /** Reference ID */
+  referenceId?: string
+}
+
+/** Mindbody — Update Webhook Subscription */
+export interface MindbodyUpdateWebhookSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+  /** Mindbody PATCH subscription body, such as status Active or DeactivatedByUser. */
+  subscription: unknown
+}
+
+/** Mindbody — Delete Webhook Subscription */
+export interface MindbodyDeleteWebhookSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
 }
 
 /** Mintlify — Deploy Docs */
@@ -45823,60 +50348,373 @@ export interface NeonDbCreateProjectInput {
   region_id?: string
 }
 
-/** NeonCRM — Get Account */
+/** Neon CRM — Search Accounts */
+export interface NeoncrmSearchAccountsInput {
+  /** Neon CRM SearchRequest JSON body with searchFields, outputFields, and pagination. */
+  searchRequest: unknown
+}
+
+/** Neon CRM — Get Account */
 export interface NeoncrmGetAccountInput {
   /** Account ID */
-  accountId: number
+  id: string
 }
 
-/** NeonCRM — Create Account */
+/** Neon CRM — Create Account */
 export interface NeoncrmCreateAccountInput {
-  /** First Name */
-  firstName: string
-  /** Last Name */
-  lastName: string
-  /** Email */
-  email?: string
-  /** Phone */
-  phone?: string
-  /** Account Type (values: `Individual`, `Organization`) */
-  accountType?: "Individual" | "Organization"
+  /** Neon CRM Account JSON body. Include individualAccount or companyAccount. */
+  data: unknown
 }
 
-/** NeonCRM — Get Donation */
+/** Neon CRM — Update Account */
+export interface NeoncrmUpdateAccountInput {
+  /** Account ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Account */
+export interface NeoncrmDeleteAccountInput {
+  /** Account ID */
+  id: string
+}
+
+/** Neon CRM — List Account Contacts */
+export interface NeoncrmListAccountContactsInput {
+  /** Account ID */
+  accountId: string
+  /** Current Page */
+  currentPage?: number
+}
+
+/** Neon CRM — Create Account Contact */
+export interface NeoncrmCreateAccountContactInput {
+  /** Account ID */
+  accountId: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — Get Account Contact */
+export interface NeoncrmGetAccountContactInput {
+  /** Account ID */
+  accountId: string
+  /** Contact ID */
+  contactId: string
+}
+
+/** Neon CRM — Update Account Contact */
+export interface NeoncrmUpdateAccountContactInput {
+  /** Account ID */
+  accountId: string
+  /** Contact ID */
+  contactId: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Account Contact */
+export interface NeoncrmDeleteAccountContactInput {
+  /** Account ID */
+  accountId: string
+  /** Contact ID */
+  contactId: string
+}
+
+/** Neon CRM — Link Accounts */
+export interface NeoncrmLinkAccountsInput {
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — Unlink Accounts */
+export interface NeoncrmUnlinkAccountsInput {
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — List Account Donations */
+export interface NeoncrmListAccountDonationsInput {
+  /** Account ID */
+  accountId: string
+  /** Current Page */
+  currentPage?: number
+  /** Sort Column (values: `date`, `amount`) */
+  sortColumn?: "date" | "amount"
+  /** Sort Direction (values: `DESC`, `ASC`) */
+  sortDirection?: "DESC" | "ASC"
+}
+
+/** Neon CRM — Search Donations */
+export interface NeoncrmSearchDonationsInput {
+  /** Neon CRM SearchRequest JSON body with searchFields, outputFields, and pagination. */
+  searchRequest: unknown
+}
+
+/** Neon CRM — Get Donation */
 export interface NeoncrmGetDonationInput {
   /** Donation ID */
-  donationId: number
+  id: string
 }
 
-/** NeonCRM — Create Donation */
+/** Neon CRM — Create Donation */
 export interface NeoncrmCreateDonationInput {
+  /** Neon CRM Donation JSON body. */
+  data: unknown
+}
+
+/** Neon CRM — Update Donation */
+export interface NeoncrmUpdateDonationInput {
+  /** Donation ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Donation */
+export interface NeoncrmDeleteDonationInput {
+  /** Donation ID */
+  id: string
+}
+
+/** Neon CRM — Add Donation Payment */
+export interface NeoncrmAddDonationPaymentInput {
+  /** Donation ID */
+  donationId: string
+  /** Neon CRM donation payment JSON body. */
+  data: unknown
+}
+
+/** Neon CRM — List Campaigns */
+export interface NeoncrmListCampaignsInput {
+  /** Current Page */
+  currentPage?: number
+}
+
+/** Neon CRM — Get Campaign */
+export interface NeoncrmGetCampaignInput {
+  /** Campaign ID */
+  id: string
+}
+
+/** Neon CRM — Create Campaign */
+export interface NeoncrmCreateCampaignInput {
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — Update Campaign */
+export interface NeoncrmUpdateCampaignInput {
+  /** Campaign ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Campaign */
+export interface NeoncrmDeleteCampaignInput {
+  /** Campaign ID */
+  id: string
+}
+
+/** Neon CRM — Get Campaign P2P */
+export interface NeoncrmGetCampaignP2pInput {
+  /** Campaign ID */
+  campaignId: string
+}
+
+/** Neon CRM — List Events */
+export interface NeoncrmListEventsInput {
+  /** Current Page */
+  currentPage?: number
+}
+
+/** Neon CRM — Get Event */
+export interface NeoncrmGetEventInput {
+  /** Event ID */
+  id: string
+}
+
+/** Neon CRM — Create Event */
+export interface NeoncrmCreateEventInput {
+  /** Neon CRM Event JSON body. */
+  data: unknown
+}
+
+/** Neon CRM — Update Event */
+export interface NeoncrmUpdateEventInput {
+  /** Event ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Event */
+export interface NeoncrmDeleteEventInput {
+  /** Event ID */
+  id: string
+}
+
+/** Neon CRM — Search Events */
+export interface NeoncrmSearchEventsInput {
+  /** Neon CRM SearchRequest JSON body with searchFields, outputFields, and pagination. */
+  searchRequest: unknown
+}
+
+/** Neon CRM — List Event Attendees */
+export interface NeoncrmListEventAttendeesInput {
+  /** Event ID */
+  eventId: string
+  /** Current Page */
+  currentPage?: number
+}
+
+/** Neon CRM — List Event Registrations */
+export interface NeoncrmListEventRegistrationsInput {
+  /** Event ID */
+  eventId: string
+  /** Current Page */
+  currentPage?: number
+}
+
+/** Neon CRM — List Event Tickets */
+export interface NeoncrmListEventTicketsInput {
+  /** Event ID */
+  eventId: string
+}
+
+/** Neon CRM — Create Event Ticket */
+export interface NeoncrmCreateEventTicketInput {
+  /** Event ID */
+  eventId: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — Get Event Ticket */
+export interface NeoncrmGetEventTicketInput {
+  /** Event ID */
+  eventId: string
+  /** Ticket ID */
+  ticketId: string
+}
+
+/** Neon CRM — Update Event Ticket */
+export interface NeoncrmUpdateEventTicketInput {
+  /** Event ID */
+  eventId: string
+  /** Ticket ID */
+  ticketId: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Event Ticket */
+export interface NeoncrmDeleteEventTicketInput {
+  /** Event ID */
+  eventId: string
+  /** Ticket ID */
+  ticketId: string
+}
+
+/** Neon CRM — List Account Event Registrations */
+export interface NeoncrmListAccountEventRegistrationsInput {
   /** Account ID */
-  accountId: number
-  /** Amount */
-  amount: number
-  /** YYYY-MM-DD */
-  date: string
-  /** Fund ID */
-  fundId?: number
+  accountId: string
+  /** Event ID */
+  eventId?: string
+  /** Current Page */
+  currentPage?: number
 }
 
-/** NeonCRM — Get Events */
-export interface NeoncrmGetEventsInput {
-  /** Filter events starting from (YYYY-MM-DD) */
-  startDate?: string
-  /** Filter events ending at (YYYY-MM-DD) */
-  endDate?: string
+/** Neon CRM — Create Event Registration */
+export interface NeoncrmCreateEventRegistrationInput {
+  /** Neon CRM JSON request body. */
+  data: unknown
 }
 
-/** NeonCRM — Custom API Call */
-export interface NeoncrmCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /accounts) */
-  path: string
-  /** Body */
-  body?: unknown
+/** Neon CRM — Calculate Event Registration */
+export interface NeoncrmCalculateEventRegistrationInput {
+  /** Neon CRM JSON request body. */
+  data: unknown
+}
+
+/** Neon CRM — Get Event Registration */
+export interface NeoncrmGetEventRegistrationInput {
+  /** Registration ID */
+  id: string
+}
+
+/** Neon CRM — Update Event Registration */
+export interface NeoncrmUpdateEventRegistrationInput {
+  /** Registration ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Event Registration */
+export interface NeoncrmDeleteEventRegistrationInput {
+  /** Registration ID */
+  id: string
+}
+
+/** Neon CRM — Add Event Registration Payment */
+export interface NeoncrmAddEventRegistrationPaymentInput {
+  /** Registration ID */
+  registrationId: string
+  /** Neon CRM event registration payment JSON body. */
+  data: unknown
+}
+
+/** Neon CRM — List Webhooks */
+export type NeoncrmListWebhooksInput = Record<string, never>
+
+/** Neon CRM — Get Webhook */
+export interface NeoncrmGetWebhookInput {
+  /** Webhook ID */
+  id: string
+}
+
+/** Neon CRM — Create Webhook */
+export interface NeoncrmCreateWebhookInput {
+  /** Webhook URL */
+  url: string
+  /** Examples: CREATE_ACCOUNT, UPDATE_ACCOUNT, DELETE_ACCOUNT, CREATE_DONATION, UPDATE_DONATION, DELETE_DONATION, CREATE_CAMPAIGN, UPDATE_CAMPAIGN, DELETE_CAMPAIGN, CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT, CREATE_EVENT_REGISTRATION, UPDATE_EVENT_REGISTRATION, DELETE_EVENT_REGISTRATION. */
+  objectEvents: unknown[]
+  /** Optional Neon CRM webhook fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Neon CRM — Update Webhook */
+export interface NeoncrmUpdateWebhookInput {
+  /** Webhook ID */
+  id: string
+  /** Neon CRM JSON request body. */
+  data: unknown
+  /** Use PUT instead of PATCH. PUT requires a complete object. */
+  replaceAllFields?: boolean
+}
+
+/** Neon CRM — Delete Webhook */
+export interface NeoncrmDeleteWebhookInput {
+  /** Webhook ID */
+  id: string
 }
 
 /** Netlify — List Sites */
@@ -47043,6 +51881,132 @@ export interface NowcertsCustomApiCallInput {
   query?: unknown
   /** Body */
   body?: unknown
+}
+
+/** NOWPayments — Get API Status */
+export type NowpaymentsGetApiStatusInput = Record<string, never>
+
+/** NOWPayments — List Currencies */
+export interface NowpaymentsListCurrenciesInput {
+  /** Fixed Rate */
+  fixedRate?: boolean
+}
+
+/** NOWPayments — Estimate Price */
+export interface NowpaymentsEstimatePriceInput {
+  /** Amount */
+  amount: string
+  /** Currency From */
+  currencyFrom: string
+  /** Currency To */
+  currencyTo: string
+}
+
+/** NOWPayments — Get Minimum Payment Amount */
+export interface NowpaymentsGetMinimumPaymentAmountInput {
+  /** Currency From */
+  currencyFrom: string
+  /** Currency To */
+  currencyTo: string
+  /** Fiat Equivalent */
+  fiatEquivalent?: string
+}
+
+/** NOWPayments — Create Payment */
+export interface NowpaymentsCreatePaymentInput {
+  /** Price Amount */
+  priceAmount: string
+  /** Price Currency */
+  priceCurrency: string
+  /** Pay Currency */
+  payCurrency: string
+  /** Order ID */
+  orderId?: string
+  /** Order Description */
+  orderDescription?: string
+  /** IPN Callback URL */
+  ipnCallbackUrl?: string
+  /** Success URL */
+  successUrl?: string
+  /** Cancel URL */
+  cancelUrl?: string
+  /** Purchase ID */
+  purchaseId?: string
+  /** Payout Address */
+  payoutAddress?: string
+  /** Payout Currency */
+  payoutCurrency?: string
+  /** Additional Payment Fields */
+  additionalBody?: unknown
+}
+
+/** NOWPayments — Create Invoice */
+export interface NowpaymentsCreateInvoiceInput {
+  /** Price Amount */
+  priceAmount: string
+  /** Price Currency */
+  priceCurrency: string
+  /** Order ID */
+  orderId?: string
+  /** Order Description */
+  orderDescription?: string
+  /** IPN Callback URL */
+  ipnCallbackUrl?: string
+  /** Success URL */
+  successUrl?: string
+  /** Cancel URL */
+  cancelUrl?: string
+  /** Partially Paid URL */
+  partiallyPaidUrl?: string
+  /** Additional Invoice Fields */
+  additionalBody?: unknown
+}
+
+/** NOWPayments — Get Payment Status */
+export interface NowpaymentsGetPaymentStatusInput {
+  /** Payment ID */
+  paymentId: string
+}
+
+/** NOWPayments — List Payments */
+export interface NowpaymentsListPaymentsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Sort By */
+  sortBy?: string
+  /** Order By */
+  orderBy?: string
+  /** Date From */
+  dateFrom?: string
+  /** Date To */
+  dateTo?: string
+}
+
+/** NOWPayments — Get Custody Balance */
+export type NowpaymentsGetCustodyBalanceInput = Record<string, never>
+
+/** NOWPayments — Create Payout */
+export interface NowpaymentsCreatePayoutInput {
+  /** Array of NOWPayments withdrawal objects. */
+  withdrawals: unknown
+  /** Additional Payout Fields */
+  additionalBody?: unknown
+}
+
+/** NOWPayments — Verify Payout */
+export interface NowpaymentsVerifyPayoutInput {
+  /** Batch Withdrawal ID */
+  batchWithdrawalId: string
+  /** Verification Code */
+  verificationCode: string
+}
+
+/** NOWPayments — Get Payout Status */
+export interface NowpaymentsGetPayoutStatusInput {
+  /** Batch Withdrawal ID */
+  batchWithdrawalId: string
 }
 
 /** npm Registry — Search Packages */
@@ -50275,6 +55239,202 @@ export interface PaystackUpdatePaymentPageInput {
   redirectUrl?: string
 }
 
+/** PayU Europe — Create Order */
+export interface PayuEuropeCreateOrderInput {
+  /** Customer IP */
+  customerIp: string
+  /** Merchant POS ID */
+  merchantPosId: string
+  /** Description */
+  description: string
+  /** ISO 4217 code, for example EUR or PLN. */
+  currencyCode: string
+  /** Amount in the currency minor unit, as required by PayU. */
+  totalAmount: string
+  /** Array of PayU product objects. */
+  products: unknown
+  /** Merchant order reference. Must be unique within one POS. */
+  extOrderId?: string
+  /** Notify URL */
+  notifyUrl?: string
+  /** Continue URL */
+  continueUrl?: string
+  /** Optional PayU buyer object. */
+  buyer?: unknown
+  /** Optional PayU payMethods object. */
+  payMethods?: unknown
+  /** Shopping Carts */
+  shoppingCarts?: unknown
+  /** Settings */
+  settings?: unknown
+  /** Additional Order Fields */
+  additionalBody?: unknown
+}
+
+/** PayU Europe — Get Order */
+export interface PayuEuropeGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** PayU Europe — Cancel Order */
+export interface PayuEuropeCancelOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** PayU Europe — Capture Authorized Order */
+export interface PayuEuropeCaptureOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Optional PayU capture body for partial or custom capture data. */
+  captureBody?: unknown
+}
+
+/** PayU Europe — Get Order Transactions */
+export interface PayuEuropeGetOrderTransactionsInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** PayU Europe — Create Refund */
+export interface PayuEuropeCreateRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Description */
+  description: string
+  /** Optional amount in minor units for partial refunds. */
+  amount?: string
+  /** External Refund ID */
+  extRefundId?: string
+  /** Currency Code */
+  currencyCode?: string
+  /** Bank Description */
+  bankDescription?: string
+  /** Additional Refund Fields */
+  additionalRefundFields?: unknown
+}
+
+/** PayU Europe — List Refunds */
+export interface PayuEuropeListRefundsInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** PayU Europe — Get Refund */
+export interface PayuEuropeGetRefundInput {
+  /** Order ID */
+  orderId: string
+  /** Refund ID */
+  refundId: string
+}
+
+/** PayU Europe — Create Payout */
+export interface PayuEuropeCreatePayoutInput {
+  /** PayU payout object. */
+  payout: unknown
+  /** External Payout ID */
+  extPayoutId?: string
+}
+
+/** PayU Europe — Get Payout */
+export interface PayuEuropeGetPayoutInput {
+  /** Payout ID */
+  payoutId: string
+}
+
+/** PayU Europe — List Payment Methods */
+export interface PayuEuropeListPaymentMethodsInput {
+  /** ISO 639-1 language code. */
+  lang?: string
+  /** Optional PayU features filter. */
+  features?: string
+}
+
+/** PayU Europe — Delete Token */
+export interface PayuEuropeDeleteTokenInput {
+  /** Token */
+  token: string
+}
+
+/** PayU Europe — Retrieve Statement */
+export interface PayuEuropeRetrieveStatementInput {
+  /** Start date accepted by PayU. */
+  dateFrom?: string
+  /** End date accepted by PayU. */
+  dateTo?: string
+  /** Currency Code */
+  currencyCode?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** PayU Europe — Get Shop Data */
+export interface PayuEuropeGetShopDataInput {
+  /** Shop ID */
+  shopId: string
+}
+
+/** PayU Europe — Get Seller Status */
+export interface PayuEuropeGetSellerStatusInput {
+  /** External Customer ID */
+  extCustomerId: string
+}
+
+/** PayU Europe — Get Seller Balance */
+export interface PayuEuropeGetSellerBalanceInput {
+  /** External Customer ID */
+  extCustomerId: string
+}
+
+/** PayU Europe — List Seller Operations */
+export interface PayuEuropeListSellerOperationsInput {
+  /** External Customer ID */
+  extCustomerId: string
+  /** Date From */
+  dateFrom?: string
+  /** Date To */
+  dateTo?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** PayU Europe — Transfer Seller to Marketplace */
+export interface PayuEuropeTransferSellerToMarketplaceInput {
+  /** External Customer ID */
+  extCustomerId: string
+  /** Amount in minor units. */
+  amount: string
+  /** Currency Code */
+  currencyCode: string
+  /** Description */
+  description: string
+  /** External Transfer ID */
+  extTransferId?: string
+  /** Additional Transfer Fields */
+  additionalBody?: unknown
+}
+
+/** PayU Europe — Transfer Marketplace to Seller */
+export interface PayuEuropeTransferMarketplaceToSellerInput {
+  /** External Customer ID */
+  extCustomerId: string
+  /** Amount in minor units. */
+  amount: string
+  /** Currency Code */
+  currencyCode: string
+  /** Description */
+  description: string
+  /** External Transfer ID */
+  extTransferId?: string
+  /** Additional Transfer Fields */
+  additionalBody?: unknown
+}
+
 /** Paywhirl — Cancel Subscription */
 export interface PaywhirlCancelSubscriptionInput {
   /** Subscription ID */
@@ -51092,6 +56252,606 @@ export interface PikaCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Pike13 — Get Account */
+export type Pike13GetAccountInput = Record<string, never>
+
+/** Pike13 — List Account Businesses */
+export type Pike13ListAccountBusinessesInput = Record<string, never>
+
+/** Pike13 — Get Business */
+export type Pike13GetBusinessInput = Record<string, never>
+
+/** Pike13 — List Locations */
+export interface Pike13ListLocationsInput {
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — List Services */
+export interface Pike13ListServicesInput {
+  /** Comma-delimited service IDs. */
+  ids?: string
+  /** Comma-delimited values such as Appointment,Course,GroupClass. */
+  serviceTypes?: string
+  /** Comma-delimited location IDs. */
+  locationIds?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — List Events */
+export interface Pike13ListEventsInput {
+  /** Start timestamp or date. */
+  from?: string
+  /** End timestamp or date. Pike13 caps event date windows. */
+  to?: string
+  /** Comma-delimited Pike13 IDs. */
+  ids?: string
+  /** Comma-delimited service IDs. */
+  serviceIds?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Get Event */
+export interface Pike13GetEventInput {
+  /** Event ID */
+  eventId: number
+}
+
+/** Pike13 — List Event Occurrences */
+export interface Pike13ListEventOccurrencesInput {
+  /** Start timestamp or date. */
+  from?: string
+  /** End timestamp or date. Pike13 caps event date windows. */
+  to?: string
+  /** Comma-delimited Pike13 IDs. */
+  ids?: string
+  /** Comma-delimited service IDs. */
+  serviceIds?: string
+  /** Comma-delimited recurring event IDs. */
+  eventIds?: string
+  /** Comma-delimited location IDs. */
+  locationIds?: string
+  /** Comma-delimited staff member IDs. */
+  staffMemberIds?: string
+  /** Comma-delimited values such as active,canceled,reserved,deleted. */
+  state?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Get Event Occurrence */
+export interface Pike13GetEventOccurrenceInput {
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+}
+
+/** Pike13 — Cancel Event Occurrence */
+export interface Pike13CancelEventOccurrenceInput {
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+  /** Remove From Calendar */
+  removeFromCalendar?: boolean
+  /** Notify Clients */
+  notifyClients?: boolean
+  /** Optional client-facing cancellation note. */
+  note?: string
+  /** Issue Make-Up Passes */
+  issueMakeUpPasses?: boolean
+  /** Make-Up Reason ID */
+  makeUpReasonId?: number
+  /** Free-Form Reason */
+  freeFormReason?: string
+}
+
+/** Pike13 — List People */
+export interface Pike13ListPeopleInput {
+  /** Timestamp filter. */
+  createdSince?: string
+  /** Timestamp filter. */
+  updatedSince?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Search People */
+export interface Pike13SearchPeopleInput {
+  /** Search Query */
+  query: string
+}
+
+/** Pike13 — Get Person */
+export interface Pike13GetPersonInput {
+  /** Person ID */
+  personId: number
+}
+
+/** Pike13 — Create Person */
+export interface Pike13CreatePersonInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email: string
+  /** Phone */
+  phone?: string
+  /** Send Invite */
+  sendInvite?: boolean
+  /** Additional documented Pike13 person fields. */
+  additionalFields?: unknown
+}
+
+/** Pike13 — Update Person */
+export interface Pike13UpdatePersonInput {
+  /** Person ID */
+  personId: number
+  /** Pike13 person update payload. */
+  person: unknown
+}
+
+/** Pike13 — Delete Person */
+export interface Pike13DeletePersonInput {
+  /** Person ID */
+  personId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — List Person Notes */
+export interface Pike13ListPersonNotesInput {
+  /** Person ID */
+  personId: number
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Create Person Note */
+export interface Pike13CreatePersonNoteInput {
+  /** Person ID */
+  personId: number
+  /** Pike13 note payload. */
+  note: unknown
+}
+
+/** Pike13 — Update Person Note */
+export interface Pike13UpdatePersonNoteInput {
+  /** Person ID */
+  personId: number
+  /** Note ID */
+  noteId: number
+  /** Pike13 note update payload. */
+  note: unknown
+}
+
+/** Pike13 — Delete Person Note */
+export interface Pike13DeletePersonNoteInput {
+  /** Person ID */
+  personId: number
+  /** Note ID */
+  noteId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Create Booking */
+export interface Pike13CreateBookingInput {
+  /** Idempotency Token */
+  idempotencyToken?: string
+  /** Complete Booking */
+  completeBooking?: boolean
+  /** Optional expiration timestamp for held capacity. */
+  expiresAt?: string
+  /** Array of Pike13 lease objects. Include event_occurrence_id, event_id, service_id, person, and allow_overbook as applicable. */
+  leases: unknown
+}
+
+/** Pike13 — Get Booking */
+export interface Pike13GetBookingInput {
+  /** Booking ID */
+  bookingId: string
+}
+
+/** Pike13 — Complete Booking */
+export interface Pike13CompleteBookingInput {
+  /** Booking ID */
+  bookingId: string
+}
+
+/** Pike13 — Delete Booking */
+export interface Pike13DeleteBookingInput {
+  /** Booking ID */
+  bookingId: string
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Add Booking Lease */
+export interface Pike13AddBookingLeaseInput {
+  /** Booking ID */
+  bookingId: string
+  /** Lease ID */
+  leaseId?: number
+  /** Pike13 lease payload. */
+  lease: unknown
+  /** Type DELETE. */
+  confirmation?: string
+}
+
+/** Pike13 — Update Booking Lease */
+export interface Pike13UpdateBookingLeaseInput {
+  /** Booking ID */
+  bookingId: string
+  /** Lease ID */
+  leaseId: number
+  /** Pike13 lease payload. */
+  lease: unknown
+  /** Type DELETE. */
+  confirmation?: string
+}
+
+/** Pike13 — Delete Booking Lease */
+export interface Pike13DeleteBookingLeaseInput {
+  /** Booking ID */
+  bookingId: string
+  /** Lease ID */
+  leaseId: number
+  /** Pike13 lease payload. */
+  lease?: unknown
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — List Person Visits */
+export interface Pike13ListPersonVisitsInput {
+  /** Person ID */
+  personId: number
+  /** From */
+  from?: string
+  /** To */
+  to?: string
+  /** Optional Pike13 visit state/status filter. */
+  state?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Create Visit */
+export interface Pike13CreateVisitInput {
+  /** Pike13 visit payload. */
+  visit: unknown
+}
+
+/** Pike13 — Update Visit */
+export interface Pike13UpdateVisitInput {
+  /** Visit ID */
+  visitId: number
+  /** Pike13 visit update payload. */
+  visit: unknown
+}
+
+/** Pike13 — Delete Visit */
+export interface Pike13DeleteVisitInput {
+  /** Visit ID */
+  visitId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — List Invoices */
+export interface Pike13ListInvoicesInput {
+  /** Person ID */
+  personId?: number
+  /** Optional invoice state. */
+  state?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Get Invoice */
+export interface Pike13GetInvoiceInput {
+  /** Invoice ID */
+  invoiceId: number
+}
+
+/** Pike13 — Create Invoice */
+export interface Pike13CreateInvoiceInput {
+  /** Payer ID */
+  payerId: number
+  /** Booking ID */
+  bookingId?: string
+  /** Array of Pike13 plan product objects. */
+  planProducts: unknown
+  /** Additional Invoice Fields */
+  additionalFields?: unknown
+}
+
+/** Pike13 — Update Invoice */
+export interface Pike13UpdateInvoiceInput {
+  /** Invoice ID */
+  invoiceId: number
+  /** Pike13 invoice update payload, for example { "state_event": "close" } or { "state_event": "canceled" }. */
+  invoice: unknown
+}
+
+/** Pike13 — List Invoice Payment Methods */
+export interface Pike13ListInvoicePaymentMethodsInput {
+  /** Invoice ID */
+  invoiceId: number
+}
+
+/** Pike13 — Create Invoice Payment */
+export interface Pike13CreateInvoicePaymentInput {
+  /** Invoice ID */
+  invoiceId: number
+  /** Pike13 payment payload. */
+  payment: unknown
+}
+
+/** Pike13 — Refund Invoice Payment */
+export interface Pike13RefundInvoicePaymentInput {
+  /** Invoice ID */
+  invoiceId: number
+  /** Payment ID */
+  paymentId: number
+  /** Pike13 refund payload. */
+  refund: unknown
+}
+
+/** Pike13 — Add Invoice Item */
+export interface Pike13AddInvoiceItemInput {
+  /** Invoice ID */
+  invoiceId: number
+  /** Pike13 invoice_item payload. */
+  invoiceItem: unknown
+}
+
+/** Pike13 — Delete Invoice Item */
+export interface Pike13DeleteInvoiceItemInput {
+  /** Invoice ID */
+  invoiceId: number
+  /** Invoice Item ID */
+  invoiceItemId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Create Event Occurrence Note */
+export interface Pike13CreateEventOccurrenceNoteInput {
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+  /** Pike13 note payload. */
+  note: unknown
+}
+
+/** Pike13 — Update Event Occurrence Note */
+export interface Pike13UpdateEventOccurrenceNoteInput {
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+  /** Note ID */
+  noteId: number
+  /** Pike13 note update payload. */
+  note: unknown
+}
+
+/** Pike13 — Delete Event Occurrence Note */
+export interface Pike13DeleteEventOccurrenceNoteInput {
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+  /** Note ID */
+  noteId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — List Plans */
+export interface Pike13ListPlansInput {
+  /** Include Holds */
+  includeHolds?: boolean
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Update Plan End Date */
+export interface Pike13UpdatePlanEndDateInput {
+  /** Plan ID */
+  planId: number
+  /** Date in YYYY-MM-DD format. */
+  endDate: string
+}
+
+/** Pike13 — List Person Plans */
+export interface Pike13ListPersonPlansInput {
+  /** Person ID */
+  personId: number
+  /** Include Holds */
+  includeHolds?: boolean
+  /** active, active_with_upcoming, current, inactive, upcoming, or usable. */
+  filter?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — List Plan Products */
+export interface Pike13ListPlanProductsInput {
+  /** Location IDs */
+  locationIds?: string
+  /** Service IDs */
+  serviceIds?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — List Pack Products */
+export interface Pike13ListPackProductsInput {
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Create Pack Product */
+export interface Pike13CreatePackProductInput {
+  /** Pack Product ID */
+  packProductId?: number
+  /** Pike13 pack_product payload. */
+  packProduct: unknown
+  /** Type DELETE. */
+  confirmation?: string
+}
+
+/** Pike13 — Update Pack Product */
+export interface Pike13UpdatePackProductInput {
+  /** Pack Product ID */
+  packProductId: number
+  /** Pike13 pack_product payload. */
+  packProduct: unknown
+  /** Type DELETE. */
+  confirmation?: string
+}
+
+/** Pike13 — Delete Pack Product */
+export interface Pike13DeletePackProductInput {
+  /** Pack Product ID */
+  packProductId: number
+  /** Pike13 pack_product payload. */
+  packProduct?: unknown
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Get Pack */
+export interface Pike13GetPackInput {
+  /** Pack ID */
+  packId: number
+}
+
+/** Pike13 — Create Pack */
+export interface Pike13CreatePackInput {
+  /** Pack Product ID */
+  packProductId: number
+  /** Pike13 pack payload, including person_ids. */
+  pack: unknown
+}
+
+/** Pike13 — Delete Pack */
+export interface Pike13DeletePackInput {
+  /** Pack ID */
+  packId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Get Punch */
+export interface Pike13GetPunchInput {
+  /** Punch ID */
+  punchId: number
+}
+
+/** Pike13 — Create Punch */
+export interface Pike13CreatePunchInput {
+  /** Visit ID */
+  visitId: number
+  /** Optional; Pike13 can auto-select a suitable plan when omitted. */
+  planId?: number
+}
+
+/** Pike13 — Delete Punch */
+export interface Pike13DeletePunchInput {
+  /** Punch ID */
+  punchId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Get Waitlist Entry */
+export interface Pike13GetWaitlistEntryInput {
+  /** Waitlist Entry ID */
+  waitlistEntryId: number
+}
+
+/** Pike13 — List Waitlist Entries */
+export interface Pike13ListWaitlistEntriesInput {
+  /** Person ID */
+  personId?: number
+  /** Event Occurrence ID */
+  eventOccurrenceId?: number
+  /** From */
+  from?: string
+  /** To */
+  to?: string
+  /** Core API page number. */
+  page?: number
+}
+
+/** Pike13 — Create Waitlist Entry */
+export interface Pike13CreateWaitlistEntryInput {
+  /** Person ID */
+  personId: number
+  /** Event Occurrence ID */
+  eventOccurrenceId: number
+}
+
+/** Pike13 — Update Waitlist Entry */
+export interface Pike13UpdateWaitlistEntryInput {
+  /** Waitlist Entry ID */
+  waitlistEntryId: number
+  /** Documented values include wait and enroll. */
+  stateEvent: string
+}
+
+/** Pike13 — Delete Waitlist Entry */
+export interface Pike13DeleteWaitlistEntryInput {
+  /** Waitlist Entry ID */
+  waitlistEntryId: number
+  /** Type DELETE. */
+  confirmation: string
+}
+
+/** Pike13 — Query Report */
+export interface Pike13QueryReportInput {
+  /** Report Resource */
+  resource: "clients" | "enrollments" | "event_occurrences" | "event_occurrence_staff_members" | "invoice_items" | "invoice_item_transactions" | "invoices" | "monthly_business_metrics" | "pays" | "person_plans" | "staff_members" | "transactions"
+  /** Array of Pike13 report fields. */
+  fields: unknown
+  /** Optional Pike13 report filter expression. */
+  filter?: unknown
+  /** Optional array of sort fields. */
+  sort?: unknown
+  /** Optional JSON API page object, such as { "limit": 100 }. */
+  page?: unknown
+}
+
+/** Pike13 — List Webhook Subscriptions */
+export type Pike13ListWebhookSubscriptionsInput = Record<string, never>
+
+/** Pike13 — Create Webhook Subscription */
+export interface Pike13CreateWebhookSubscriptionInput {
+  /** For example person.created, visit.new, invoice.new, or transaction.created. */
+  topic: string
+  /** HTTPS endpoint Pike13 will POST to. */
+  target: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+}
+
+/** Pike13 — Update Webhook Subscription */
+export interface Pike13UpdateWebhookSubscriptionInput {
+  /** Webhook ID */
+  webhookId: string
+  /** JSON API webhook attributes to update. */
+  attributes: unknown
+}
+
+/** Pike13 — Delete Webhook Subscription */
+export interface Pike13DeleteWebhookSubscriptionInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Type DELETE. */
+  confirmation: string
 }
 
 /** Pinecone — List Indexes */
@@ -53235,6 +58995,64 @@ export interface ProcoreListSubmittalsInput {
   companyId: string
   /** Project ID */
   projectId: string
+}
+
+/** Procore — Create RFI */
+export interface ProcoreCreateRfiInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+  /** Subject */
+  subject: string
+  /** Question */
+  question?: string
+  /** Additional RFI Fields */
+  body?: unknown
+}
+
+/** Procore — Update RFI */
+export interface ProcoreUpdateRfiInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+  /** RFI ID */
+  rfiId: string
+  /** Fields nested under the Procore rfi object. */
+  fields: unknown
+}
+
+/** Procore — Create Submittal */
+export interface ProcoreCreateSubmittalInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+  /** Title */
+  title: string
+  /** Additional Submittal Fields */
+  body?: unknown
+}
+
+/** Procore — Update Submittal */
+export interface ProcoreUpdateSubmittalInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId: string
+  /** Submittal ID */
+  submittalId: string
+  /** Fields nested under the Procore submittal object. */
+  fields: unknown
+}
+
+/** Procore — List Webhook Resources */
+export interface ProcoreListWebhookResourcesInput {
+  /** Company ID */
+  companyId: string
+  /** Project ID */
+  projectId?: string
 }
 
 /** Productboard — List Entities */
@@ -55768,6 +61586,604 @@ export interface RailwayCustomApiCallInput {
   variables?: unknown
 }
 
+/** Raisely — List Campaigns */
+export interface RaiselyListCampaignsInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Campaign */
+export interface RaiselyGetCampaignInput {
+  /** Campaign UUID, Path, or Domain */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Create Campaign */
+export interface RaiselyCreateCampaignInput {
+  /** Raisely campaign JSON body. */
+  data: unknown
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Update Campaign */
+export interface RaiselyUpdateCampaignInput {
+  /** Campaign UUID, Path, or Domain */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Delete Campaign */
+export interface RaiselyDeleteCampaignInput {
+  /** Campaign UUID, Path, or Domain */
+  id: string
+}
+
+/** Raisely — Restore Campaign */
+export interface RaiselyRestoreCampaignInput {
+  /** Campaign UUID, Path, or Domain */
+  campaign: string
+  /** Data */
+  data?: unknown
+}
+
+/** Raisely — Register Campaign Participant */
+export interface RaiselyRegisterCampaignParticipantInput {
+  /** Campaign UUID, Path, or Domain */
+  campaign: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List Campaign Donations */
+export interface RaiselyListCampaignDonationsInput {
+  /** Campaign UUID, Path, or Domain */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List Campaign Subscriptions */
+export interface RaiselyListCampaignSubscriptionsInput {
+  /** Campaign UUID, Path, or Domain */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — Get Campaign Profile */
+export interface RaiselyGetCampaignProfileInput {
+  /** Campaign UUID, Path, or Domain */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — List Profiles */
+export interface RaiselyListProfilesInput {
+  /** Campaign UUID, path, or domain. */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Profile */
+export interface RaiselyGetProfileInput {
+  /** Profile UUID or Path */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Update Profile */
+export interface RaiselyUpdateProfileInput {
+  /** Profile UUID or Path */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Archive Profile */
+export interface RaiselyArchiveProfileInput {
+  /** Profile UUID or Path */
+  id: string
+}
+
+/** Raisely — Join Profile To Team */
+export interface RaiselyJoinProfileInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Raisely profile join JSON body. */
+  data: unknown
+}
+
+/** Raisely — Leave Profile Team */
+export interface RaiselyLeaveProfileTeamInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Data */
+  data?: unknown
+}
+
+/** Raisely — List Profile Members */
+export interface RaiselyListProfileMembersInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Campaign */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — Add Profile Member */
+export interface RaiselyAddProfileMemberInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List Profile Donations */
+export interface RaiselyListProfileDonationsInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List Profile Posts */
+export interface RaiselyListProfilePostsInput {
+  /** Profile UUID or Path */
+  profile: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List Donations */
+export interface RaiselyListDonationsInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Donation */
+export interface RaiselyGetDonationInput {
+  /** Donation UUID */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Create Offline Donation */
+export interface RaiselyCreateOfflineDonationInput {
+  /** Raisely donation JSON body. Offline donations are recorded with provider-native fields. */
+  data: unknown
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Update Donation */
+export interface RaiselyUpdateDonationInput {
+  /** Donation UUID */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Delete Offline Donation */
+export interface RaiselyDeleteOfflineDonationInput {
+  /** Donation UUID */
+  id: string
+}
+
+/** Raisely — Move Donation */
+export interface RaiselyMoveDonationInput {
+  /** Donation UUID */
+  donationUuid: string
+  /** Raisely donation move JSON body. */
+  data: unknown
+}
+
+/** Raisely — Match Donation */
+export interface RaiselyMatchDonationInput {
+  /** Donation UUID */
+  donationUuid: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List Donation Receipts */
+export interface RaiselyListDonationReceiptsInput {
+  /** Donation UUID */
+  donationUuid: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — Resend Donation Receipt */
+export interface RaiselyResendDonationReceiptInput {
+  /** Donation UUID */
+  donationUuid: string
+  /** Alternate Email */
+  email?: string
+}
+
+/** Raisely — List Subscriptions */
+export interface RaiselyListSubscriptionsInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Subscription */
+export interface RaiselyGetSubscriptionInput {
+  /** Subscription UUID */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Create Subscription */
+export interface RaiselyCreateSubscriptionInput {
+  /** Raisely subscription JSON body. */
+  data: unknown
+}
+
+/** Raisely — Update Subscription */
+export interface RaiselyUpdateSubscriptionInput {
+  /** Subscription UUID */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List Subscription Donations */
+export interface RaiselyListSubscriptionDonationsInput {
+  /** Subscription UUID */
+  subscriptionUuid: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List Users */
+export interface RaiselyListUsersInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Create User */
+export interface RaiselyCreateUserInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Upsert User */
+export interface RaiselyUpsertUserInput {
+  /** Campaign UUID */
+  campaign: string
+  /** Raisely user upsert JSON body. */
+  data: unknown
+}
+
+/** Raisely — Request User Magic Link */
+export interface RaiselyRequestUserMagicLinkInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Sign Up User */
+export interface RaiselySignupUserInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Check User */
+export interface RaiselyCheckUserInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List User Donations */
+export interface RaiselyListUserDonationsInput {
+  /** User UUID */
+  userUuid: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List User Profiles */
+export interface RaiselyListUserProfilesInput {
+  /** User UUID */
+  userUuid: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List User Subscriptions */
+export interface RaiselyListUserSubscriptionsInput {
+  /** User UUID */
+  userUuid: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Raisely — List Orders */
+export interface RaiselyListOrdersInput {
+  /** Campaign UUID, path, or domain. */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Order */
+export interface RaiselyGetOrderInput {
+  /** Order UUID */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Resend Order Receipt */
+export interface RaiselyResendOrderReceiptInput {
+  /** Order UUID */
+  orderUuid: string
+  /** Data */
+  data?: unknown
+}
+
+/** Raisely — List Posts */
+export interface RaiselyListPostsInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Post */
+export interface RaiselyGetPostInput {
+  /** Post UUID or Path */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Create Post */
+export interface RaiselyCreatePostInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Update Post */
+export interface RaiselyUpdatePostInput {
+  /** Post UUID or Path */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Delete Post */
+export interface RaiselyDeletePostInput {
+  /** Post UUID or Path */
+  id: string
+}
+
+/** Raisely — Create Interaction */
+export interface RaiselyCreateInteractionInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Update Interaction */
+export interface RaiselyUpdateInteractionInput {
+  /** Interaction UUID */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Delete Interaction */
+export interface RaiselyDeleteInteractionInput {
+  /** Interaction UUID */
+  id: string
+}
+
+/** Raisely — List Promo Codes */
+export interface RaiselyListPromoCodesInput {
+  /** Campaign UUID, path, or domain. */
+  campaign: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Create Promo Code */
+export interface RaiselyCreatePromoCodeInput {
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — List Webhooks */
+export interface RaiselyListWebhooksInput {
+  /** Campaign UUID, path, or domain. */
+  campaign?: string
+  /** Return Private Fields */
+  private?: boolean
+  /** Search Query */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Sort */
+  sort?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+}
+
+/** Raisely — Get Webhook */
+export interface RaiselyGetWebhookInput {
+  /** Webhook UUID */
+  id: string
+  /** Return Private Fields */
+  private?: boolean
+}
+
+/** Raisely — Create Webhook */
+export interface RaiselyCreateWebhookInput {
+  /** Webhook URL */
+  url: string
+  /** Examples: donation.created, donation.succeeded, donation.updated, donation.refunded, donation.deleted, profile.created, profile.updated, profile.deleted, profile.totalUpdated, subscription.created, subscription.succeeded, subscription.failed, subscription.updated, subscription.deleted, user.created, user.updated. */
+  events: unknown[]
+  /** Campaign UUID */
+  campaignUuid?: string
+  /** Optional shared secret Raisely sends for validation/authorization. */
+  secret?: string
+  /** Optional Raisely webhook fields using API field names. */
+  additionalFields?: unknown
+}
+
+/** Raisely — Update Webhook */
+export interface RaiselyUpdateWebhookInput {
+  /** Webhook UUID */
+  id: string
+  /** Provider-native JSON request body. */
+  data: unknown
+}
+
+/** Raisely — Delete Webhook */
+export interface RaiselyDeleteWebhookInput {
+  /** Webhook UUID */
+  id: string
+}
+
 /** Ramp — Validate Connection */
 export type RampValidateConnectionInput = Record<string, never>
 
@@ -56145,6 +62561,80 @@ export interface ReadmeIoCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Real Geeks — Create Lead */
+export interface RealGeeksCreateLeadInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Source */
+  source: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Optional Real Geeks activity array. */
+  activities?: unknown
+  /** Additional Lead Fields */
+  extraFields?: unknown
+}
+
+/** Real Geeks — Get Lead */
+export interface RealGeeksGetLeadInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Lead ID */
+  leadId: string
+}
+
+/** Real Geeks — Update Lead */
+export interface RealGeeksUpdateLeadInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Lead ID */
+  leadId: string
+  /** Lead Patch Body */
+  body: unknown
+}
+
+/** Real Geeks — Add Activities */
+export interface RealGeeksAddActivitiesInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Lead ID */
+  leadId: string
+  /** Array of Real Geeks activity objects. */
+  activities: unknown
+}
+
+/** Real Geeks — Assign Lead */
+export interface RealGeeksAssignLeadInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Lead ID */
+  leadId: string
+  /** User ID */
+  userId: string
+  /** Description */
+  description?: string
+}
+
+/** Real Geeks — Create Potential Seller Lead */
+export interface RealGeeksCreatePotentialSellerLeadInput {
+  /** Site UUID */
+  siteUuid: string
+  /** Potential Seller Lead Body */
+  body: unknown
+}
+
+/** Real Geeks — List Users */
+export interface RealGeeksListUsersInput {
+  /** Site UUID */
+  siteUuid: string
 }
 
 /** Reclaim AI — List Tasks */
@@ -59890,6 +66380,314 @@ export interface SerpapiSearchLocationsInput {
 /** SerpApi — Account Status */
 export type SerpapiAccountStatusInput = Record<string, never>
 
+/** Service Fusion — List Calendar Tasks */
+export interface ServiceFusionListCalendarTasksInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Calendar Task */
+export interface ServiceFusionGetCalendarTaskInput {
+  /** Calendar Task ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Customers */
+export interface ServiceFusionListCustomersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Customer */
+export interface ServiceFusionGetCustomerInput {
+  /** Customer ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — Create Customer */
+export interface ServiceFusionCreateCustomerInput {
+  /** Body */
+  body: unknown
+}
+
+/** Service Fusion — List Jobs */
+export interface ServiceFusionListJobsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Job */
+export interface ServiceFusionGetJobInput {
+  /** Job ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — Create Job */
+export interface ServiceFusionCreateJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Service Fusion — List Job Categorys */
+export interface ServiceFusionListJobCategoriesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Job Category */
+export interface ServiceFusionGetJobCategoryInput {
+  /** Job Category ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Job Statuss */
+export interface ServiceFusionListJobStatusesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Job Status */
+export interface ServiceFusionGetJobStatusInput {
+  /** Job Status ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Estimates */
+export interface ServiceFusionListEstimatesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Estimate */
+export interface ServiceFusionGetEstimateInput {
+  /** Estimate ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — Create Estimate */
+export interface ServiceFusionCreateEstimateInput {
+  /** Body */
+  body: unknown
+}
+
+/** Service Fusion — List Invoices */
+export interface ServiceFusionListInvoicesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Invoice */
+export interface ServiceFusionGetInvoiceInput {
+  /** Invoice ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Payment Types */
+export interface ServiceFusionListPaymentTypesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Payment Type */
+export interface ServiceFusionGetPaymentTypeInput {
+  /** Payment Type ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Sources */
+export interface ServiceFusionListSourcesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Source */
+export interface ServiceFusionGetSourceInput {
+  /** Source ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Techs */
+export interface ServiceFusionListTechsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Tech */
+export interface ServiceFusionGetTechInput {
+  /** Tech ID */
+  id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Service Fusion — List Customer Equipment */
+export interface ServiceFusionListCustomerEquipmentInput {
+  /** Customer ID */
+  customer_id: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  'per-page'?: number
+  /** Comma-separated response fields. */
+  fields?: string
+  /** Comma-separated expansion fields. */
+  expand?: string
+  /** Sort */
+  sort?: string
+  /** Object of Service Fusion filter query names and values, for example {"filters[status]":"Completed"}. */
+  filter?: unknown
+}
+
+/** Service Fusion — Get Customer Equipment */
+export interface ServiceFusionGetCustomerEquipmentInput {
+  /** Customer ID */
+  customer_id: string
+  /** Equipment ID */
+  equipment_id: string
+  /** Fields */
+  fields?: string
+  /** Expand */
+  expand?: string
+}
+
 /** ServiceM8 — List Jobs */
 export interface Servicem8ListJobsInput {
   /** Use -1 for the first page. Response includes nextCursor when another page exists. */
@@ -61245,16 +68043,6 @@ export interface SimplePracticeCreateAppointmentInput {
   appointmentType?: string
   /** Notes */
   notes?: string
-}
-
-/** SimplePractice — Custom API Call */
-export interface SimplePracticeCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
 }
 
 /** Skilljar — Get User */
@@ -66112,6 +72900,160 @@ export interface TeamworkFindNotebookOrCommentInput {
   projectId?: string
 }
 
+/** Tebra / Kareo — List Patients */
+export interface KareoListPatientsInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Patient ID */
+  patientId?: string
+  /** Patient External ID */
+  patientExternalId?: string
+  /** Practice Name */
+  practiceName?: string
+  /** Optional changed-since date/time supported by the Tebra SOAP API. */
+  updatedSince?: string
+}
+
+/** Tebra / Kareo — Get Patient */
+export interface KareoGetPatientInput {
+  /** Patient ID */
+  patientId?: string
+  /** Patient External ID */
+  patientExternalId?: string
+}
+
+/** Tebra / Kareo — Create Patient */
+export interface KareoCreatePatientInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Practice Name */
+  practiceName: string
+  /** YYYY-MM-DD or provider-supported date format. */
+  dateOfBirth?: string
+  /** Email */
+  email?: string
+  /** Mobile Phone */
+  mobilePhone?: string
+  /** Patient External ID */
+  patientExternalId?: string
+  /** Optional official Patient fields from Tebra SOAP docs. */
+  additionalPatientFields?: unknown
+}
+
+/** Tebra / Kareo — Update Patient */
+export interface KareoUpdatePatientInput {
+  /** Patient ID */
+  patientId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email */
+  email?: string
+  /** Mobile Phone */
+  mobilePhone?: string
+  /** Patient External ID */
+  patientExternalId?: string
+  /** Optional official Patient fields from Tebra SOAP docs. */
+  additionalPatientFields?: unknown
+}
+
+/** Tebra / Kareo — List Appointments */
+export interface KareoListAppointmentsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Patient ID */
+  patientId?: string
+  /** Provider ID */
+  providerId?: string
+  /** Practice Name */
+  practiceName?: string
+  /** Updated Since */
+  updatedSince?: string
+}
+
+/** Tebra / Kareo — Get Appointment */
+export interface KareoGetAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Tebra / Kareo — Create Appointment */
+export interface KareoCreateAppointmentInput {
+  /** Patient ID */
+  patientId: string
+  /** Provider ID */
+  providerId: string
+  /** Practice Name */
+  practiceName: string
+  /** Start Date/Time */
+  startDate: string
+  /** End Date/Time */
+  endDate: string
+  /** Reason */
+  reason?: string
+  /** Notes */
+  notes?: string
+  /** Optional official Appointment fields from Tebra SOAP docs. */
+  additionalAppointmentFields?: unknown
+}
+
+/** Tebra / Kareo — Update Appointment */
+export interface KareoUpdateAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Patient ID */
+  patientId?: string
+  /** Provider ID */
+  providerId?: string
+  /** Start Date/Time */
+  startDate?: string
+  /** End Date/Time */
+  endDate?: string
+  /** Reason */
+  reason?: string
+  /** Notes */
+  notes?: string
+  /** Optional official Appointment fields from Tebra SOAP docs. */
+  additionalAppointmentFields?: unknown
+}
+
+/** Tebra / Kareo — Delete Appointment */
+export interface KareoDeleteAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Tebra / Kareo — Create Encounter */
+export interface KareoCreateEncounterInput {
+  /** Patient ID */
+  patientId: string
+  /** Practice Name */
+  practiceName: string
+  /** Official Encounter fields from Tebra SOAP docs, such as provider, service date, diagnosis, and procedure data. */
+  encounterFields: unknown
+}
+
+/** Tebra / Kareo — Create Payment */
+export interface KareoCreatePaymentInput {
+  /** Patient ID */
+  patientId?: string
+  /** Practice Name */
+  practiceName: string
+  /** Amount */
+  amount: string
+  /** Payment Date */
+  paymentDate: string
+  /** Optional official Payment fields from Tebra SOAP docs. */
+  paymentFields?: unknown
+}
+
 /** Telegram Bot — Send Text Message */
 export interface TelegramBotSendTextMessageInput {
   /** Chat ID */
@@ -68640,36 +75582,141 @@ export interface UptimeRobotCustomApiCallInput {
   body?: unknown
 }
 
-/** Vagaro — List Appointments */
-export interface VagaroListAppointmentsInput {
-  /** Start date (YYYY-MM-DD) */
-  startDate?: string
-  /** End date (YYYY-MM-DD) */
-  endDate?: string
-  /** Maximum number of results */
-  limit?: number
+/** Vagaro — Get Access Levels */
+export type VagaroGetAccessLevelsInput = Record<string, never>
+
+/** Vagaro — Retrieve Business Locations */
+export interface VagaroRetrieveLocationsInput {
+  /** Optional Vagaro encrypted business/location ID when the endpoint accepts location scoping. */
+  businessId?: string
 }
 
-/** Vagaro — Get Customer */
-export interface VagaroGetCustomerInput {
+/** Vagaro — Update Business Location */
+export interface VagaroUpdateLocationInput {
+  /** Business ID */
+  businessId: string
+  /** Location Update Body */
+  location: unknown
+}
+
+/** Vagaro — Retrieve Customer */
+export interface VagaroRetrieveCustomerInput {
+  /** Business ID */
+  businessId: string
   /** Customer ID */
-  id: string
+  customerId: string
 }
 
-/** Vagaro — Get Services */
-export type VagaroGetServicesInput = Record<string, never>
+/** Vagaro — Delete Customer */
+export interface VagaroDeleteCustomerInput {
+  /** Business ID */
+  businessId: string
+  /** Customer ID */
+  customerId: string
+}
 
-/** Vagaro — Get Employees */
-export type VagaroGetEmployeesInput = Record<string, never>
+/** Vagaro — Search Appointment Availability */
+export interface VagaroSearchAppointmentAvailabilityInput {
+  /** Vagaro appointment availability request body, including business, service, provider, and date criteria from the V2 docs. */
+  availabilityRequest: unknown
+}
 
-/** Vagaro — Custom API Call */
-export interface VagaroCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
+/** Vagaro — Retrieve Appointments */
+export interface VagaroRetrieveAppointmentsInput {
+  /** Vagaro appointments request body, such as business ID, date range, provider, customer, or appointment filters from the V2 docs. */
+  appointmentRequest: unknown
+}
+
+/** Vagaro — Retrieve Employee */
+export interface VagaroRetrieveEmployeeInput {
+  /** Business ID */
+  businessId: string
+  /** Service Provider ID */
+  serviceProviderId: string
+}
+
+/** Vagaro — Update Employee */
+export interface VagaroUpdateEmployeeInput {
+  /** Service Provider ID */
+  serviceProviderId: string
+  /** Employee Update Body */
+  employee: unknown
+}
+
+/** Vagaro — Delete Employee */
+export interface VagaroDeleteEmployeeInput {
+  /** Business ID */
+  businessId: string
+  /** Service Provider ID */
+  serviceProviderId: string
+}
+
+/** Vagaro — Retrieve Services */
+export interface VagaroRetrieveServicesInput {
+  /** Business ID */
+  businessId: string
+}
+
+/** Vagaro — Create Personal Task */
+export interface VagaroCreatePersonalTaskInput {
+  /** Business ID */
+  businessId: string
+  /** Service Provider ID */
+  serviceProviderId: string
+  /** Task Name */
+  personalTaskName: string
+  /** Task Comment */
+  personalTaskComment?: string
+  /** Task Color Hex Code */
+  personalTaskHexCode?: string
+  /** Block Online Booking */
+  blockOnlineBooking?: boolean
+  /** Date/time accepted by Vagaro, usually ISO 8601. */
+  startTime: string
+  /** Date/time accepted by Vagaro, usually ISO 8601. */
+  endTime: string
+  /** Recurrence */
+  recurrence?: unknown
+}
+
+/** Vagaro — Retrieve Personal Tasks */
+export interface VagaroRetrievePersonalTasksInput {
+  /** Business ID */
+  businessId: string
+  /** Service Provider ID */
+  serviceProviderId: string
+  /** Start Time */
+  startTime?: string
+  /** End Time */
+  endTime?: string
+  /** Personal Task ID */
+  personalTaskId?: string
+  /** Page Number */
+  pageNumber?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Vagaro — Update Personal Task */
+export interface VagaroUpdatePersonalTaskInput {
+  /** Personal Task ID */
+  personalTaskId: string
+  /** Personal Task Update Body */
+  task: unknown
+}
+
+/** Vagaro — Delete Personal Task */
+export interface VagaroDeletePersonalTaskInput {
+  /** Business ID */
+  businessId: string
+  /** Personal Task ID */
+  personalTaskId: string
+  /** Recurring */
+  recurring?: boolean
+  /** Appointment Date */
+  appointmentDate?: string
+  /** Edit Series */
+  editSeries?: boolean
 }
 
 /** Vanta — List Vulnerabilities */
@@ -71452,6 +78499,141 @@ export interface WorkdayListWorkersInput {
 export interface WorkdayGetWorkerInput {
   /** Worker ID */
   workerId: string
+}
+
+/** Workiz — List Jobs */
+export interface WorkizListJobsInput {
+  /** YYYY-MM-DD. Defaults to the provider API default window when omitted. */
+  start_date?: string
+  /** Offset */
+  offset?: number
+  /** Maximum 100. */
+  records?: number
+  /** Only Open */
+  only_open?: boolean
+  /** One or more Workiz status names. */
+  status?: unknown[]
+}
+
+/** Workiz — Get Job */
+export interface WorkizGetJobInput {
+  /** Job UUID */
+  uuid: string
+}
+
+/** Workiz — Create Job */
+export interface WorkizCreateJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Update Job */
+export interface WorkizUpdateJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Assign Job */
+export interface WorkizAssignJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Unassign Job */
+export interface WorkizUnassignJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Add Job Payment */
+export interface WorkizAddJobPaymentInput {
+  /** Job UUID */
+  uuid: string
+  /** Payment Type (values: `cash`, `credit`, `check`) */
+  type: "cash" | "credit" | "check"
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — List Leads */
+export interface WorkizListLeadsInput {
+  /** YYYY-MM-DD. Defaults to the provider API default window when omitted. */
+  start_date?: string
+  /** Offset */
+  offset?: number
+  /** Maximum 100. */
+  records?: number
+  /** Only Open */
+  only_open?: boolean
+  /** One or more Workiz status names. */
+  status?: unknown[]
+}
+
+/** Workiz — Get Lead */
+export interface WorkizGetLeadInput {
+  /** Lead UUID */
+  uuid: string
+}
+
+/** Workiz — Create Lead */
+export interface WorkizCreateLeadInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Update Lead */
+export interface WorkizUpdateLeadInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Assign Lead */
+export interface WorkizAssignLeadInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Unassign Lead */
+export interface WorkizUnassignLeadInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Convert Lead */
+export interface WorkizConvertLeadInput {
+  /** Body */
+  body: unknown
+}
+
+/** Workiz — Mark Lead Lost */
+export interface WorkizMarkLeadLostInput {
+  /** Lead UUID */
+  uuid: string
+  /** Body */
+  body?: unknown
+}
+
+/** Workiz — Activate Lead */
+export interface WorkizActivateLeadInput {
+  /** Lead UUID */
+  uuid: string
+  /** Body */
+  body?: unknown
+}
+
+/** Workiz — List Team Members */
+export type WorkizListTeamMembersInput = Record<string, never>
+
+/** Workiz — Get Team Member */
+export interface WorkizGetTeamMemberInput {
+  /** User ID */
+  userId: string
+}
+
+/** Workiz — List Time Off */
+export interface WorkizListTimeOffInput {
+  /** User Name */
+  userName?: string
 }
 
 /** Wrike — Create Task */
@@ -74897,6 +82079,24 @@ export interface IntegrationActionInputMap {
   'authorize-net.refund_transaction': AuthorizeNetRefundTransactionInput
   'authorize-net.void_transaction': AuthorizeNetVoidTransactionInput
   'authorize-net.create_customer_profile': AuthorizeNetCreateCustomerProfileInput
+  'autodesk-construction-cloud.list_hubs': AutodeskConstructionCloudListHubsInput
+  'autodesk-construction-cloud.list_projects': AutodeskConstructionCloudListProjectsInput
+  'autodesk-construction-cloud.list_top_folders': AutodeskConstructionCloudListTopFoldersInput
+  'autodesk-construction-cloud.list_folder_contents': AutodeskConstructionCloudListFolderContentsInput
+  'autodesk-construction-cloud.list_issues': AutodeskConstructionCloudListIssuesInput
+  'autodesk-construction-cloud.get_issue': AutodeskConstructionCloudGetIssueInput
+  'autodesk-construction-cloud.create_issue': AutodeskConstructionCloudCreateIssueInput
+  'autodesk-construction-cloud.update_issue': AutodeskConstructionCloudUpdateIssueInput
+  'autodesk-construction-cloud.get_rfi': AutodeskConstructionCloudGetRfiInput
+  'autodesk-construction-cloud.search_rfis': AutodeskConstructionCloudSearchRfisInput
+  'autodesk-construction-cloud.create_rfi': AutodeskConstructionCloudCreateRfiInput
+  'autodesk-construction-cloud.update_rfi': AutodeskConstructionCloudUpdateRfiInput
+  'autodesk-construction-cloud.get_rfi_workflow': AutodeskConstructionCloudGetRfiWorkflowInput
+  'autodesk-construction-cloud.list_submittals': AutodeskConstructionCloudListSubmittalsInput
+  'autodesk-construction-cloud.get_submittal': AutodeskConstructionCloudGetSubmittalInput
+  'autodesk-construction-cloud.create_submittal': AutodeskConstructionCloudCreateSubmittalInput
+  'autodesk-construction-cloud.update_submittal': AutodeskConstructionCloudUpdateSubmittalInput
+  'autodesk-construction-cloud.transition_submittal': AutodeskConstructionCloudTransitionSubmittalInput
   'autotask.create_ticket': AutotaskCreateTicketInput
   'autotask.list_tickets': AutotaskListTicketsInput
   'autotask.update_ticket': AutotaskUpdateTicketInput
@@ -75151,6 +82351,11 @@ export interface IntegrationActionInputMap {
   'bitly.update_bitlink': BitlyUpdateBitlinkInput
   'bitly.get_clicks_summary': BitlyGetClicksSummaryInput
   'bitly.list_groups': BitlyListGroupsInput
+  'bitpay.create_invoice': BitpayCreateInvoiceInput
+  'bitpay.retrieve_invoice': BitpayRetrieveInvoiceInput
+  'bitpay.get_supported_currencies': BitpayGetSupportedCurrenciesInput
+  'bitpay.get_rates': BitpayGetRatesInput
+  'bitpay.get_supported_wallets': BitpayGetSupportedWalletsInput
   'bitwarden.list_members': BitwardenListMembersInput
   'bitwarden.get_member': BitwardenGetMemberInput
   'bitwarden.list_groups': BitwardenListGroupsInput
@@ -75447,6 +82652,35 @@ export interface IntegrationActionInputMap {
   'cartesia.get_voice': CartesiaGetVoiceInput
   'cartesia.delete_voice': CartesiaDeleteVoiceInput
   'cartesia.create_access_token': CartesiaCreateAccessTokenInput
+  'cashfree.create_order': CashfreeCreateOrderInput
+  'cashfree.get_order': CashfreeGetOrderInput
+  'cashfree.get_order_extended': CashfreeGetOrderExtendedInput
+  'cashfree.order_pay': CashfreeOrderPayInput
+  'cashfree.authorize_payment': CashfreeAuthorizePaymentInput
+  'cashfree.list_order_payments': CashfreeListOrderPaymentsInput
+  'cashfree.get_payment': CashfreeGetPaymentInput
+  'cashfree.create_refund': CashfreeCreateRefundInput
+  'cashfree.list_refunds': CashfreeListRefundsInput
+  'cashfree.get_refund': CashfreeGetRefundInput
+  'cashfree.create_payment_link': CashfreeCreatePaymentLinkInput
+  'cashfree.get_payment_link': CashfreeGetPaymentLinkInput
+  'cashfree.list_payment_link_orders': CashfreeListPaymentLinkOrdersInput
+  'cashfree.cancel_payment_link': CashfreeCancelPaymentLinkInput
+  'cashfree.get_settlements': CashfreeGetSettlementsInput
+  'cashfree.get_order_settlements': CashfreeGetOrderSettlementsInput
+  'cashfree.get_settlement_reconciliation': CashfreeGetSettlementReconciliationInput
+  'cashfree.get_pg_reconciliation': CashfreeGetPgReconciliationInput
+  'cashfree.list_saved_instruments': CashfreeListSavedInstrumentsInput
+  'cashfree.get_saved_instrument': CashfreeGetSavedInstrumentInput
+  'cashfree.delete_saved_instrument': CashfreeDeleteSavedInstrumentInput
+  'cashfree.get_saved_instrument_cryptogram': CashfreeGetSavedInstrumentCryptogramInput
+  'cashfree.create_beneficiary': CashfreeCreateBeneficiaryInput
+  'cashfree.get_beneficiary': CashfreeGetBeneficiaryInput
+  'cashfree.remove_beneficiary': CashfreeRemoveBeneficiaryInput
+  'cashfree.create_transfer': CashfreeCreateTransferInput
+  'cashfree.get_transfer_status': CashfreeGetTransferStatusInput
+  'cashfree.create_batch_transfer': CashfreeCreateBatchTransferInput
+  'cashfree.get_batch_transfer_status': CashfreeGetBatchTransferStatusInput
   'census.list_sources': CensusListSourcesInput
   'census.get_source': CensusGetSourceInput
   'census.list_destinations': CensusListDestinationsInput
@@ -75494,6 +82728,26 @@ export interface IntegrationActionInputMap {
   'circle.list_members': CircleListMembersInput
   'circle.create_post': CircleCreatePostInput
   'circle.list_posts': CircleListPostsInput
+  'circle-mint.get_configuration': CircleMintGetConfigurationInput
+  'circle-mint.list_balances': CircleMintListBalancesInput
+  'circle-mint.list_deposits': CircleMintListDepositsInput
+  'circle-mint.create_deposit_address': CircleMintCreateDepositAddressInput
+  'circle-mint.list_deposit_addresses': CircleMintListDepositAddressesInput
+  'circle-mint.create_recipient_address': CircleMintCreateRecipientAddressInput
+  'circle-mint.list_recipient_addresses': CircleMintListRecipientAddressesInput
+  'circle-mint.create_transfer': CircleMintCreateTransferInput
+  'circle-mint.list_transfers': CircleMintListTransfersInput
+  'circle-mint.create_address_book_recipient': CircleMintCreateAddressBookRecipientInput
+  'circle-mint.list_address_book_recipients': CircleMintListAddressBookRecipientsInput
+  'circle-mint.get_address_book_recipient': CircleMintGetAddressBookRecipientInput
+  'circle-mint.modify_address_book_recipient': CircleMintModifyAddressBookRecipientInput
+  'circle-mint.delete_address_book_recipient': CircleMintDeleteAddressBookRecipientInput
+  'circle-mint.create_payout': CircleMintCreatePayoutInput
+  'circle-mint.list_payouts': CircleMintListPayoutsInput
+  'circle-mint.get_payout': CircleMintGetPayoutInput
+  'circle-mint.list_notification_subscriptions': CircleMintListNotificationSubscriptionsInput
+  'circle-mint.create_notification_subscription': CircleMintCreateNotificationSubscriptionInput
+  'circle-mint.delete_notification_subscription': CircleMintDeleteNotificationSubscriptionInput
   'circleci.list_pipelines': CircleciListPipelinesInput
   'circleci.get_pipeline': CircleciGetPipelineInput
   'circleci.trigger_pipeline': CircleciTriggerPipelineInput
@@ -75737,6 +82991,25 @@ export interface IntegrationActionInputMap {
   'coinbase-business.get_checkout': CoinbaseBusinessGetCheckoutInput
   'coinbase-business.deactivate_checkout': CoinbaseBusinessDeactivateCheckoutInput
   'coinbase-business.refund_checkout': CoinbaseBusinessRefundCheckoutInput
+  'coingate.create_order': CoingateCreateOrderInput
+  'coingate.list_orders': CoingateListOrdersInput
+  'coingate.get_order': CoingateGetOrderInput
+  'coingate.create_order_refund': CoingateCreateOrderRefundInput
+  'coingate.list_order_refunds': CoingateListOrderRefundsInput
+  'coingate.get_order_refund': CoingateGetOrderRefundInput
+  'coingate.list_ledger_accounts': CoingateListLedgerAccountsInput
+  'coingate.get_ledger_account': CoingateGetLedgerAccountInput
+  'coingate.create_conversion': CoingateCreateConversionInput
+  'coingate.confirm_conversion': CoingateConfirmConversionInput
+  'coingate.cancel_conversion': CoingateCancelConversionInput
+  'coingate.create_send_request': CoingateCreateSendRequestInput
+  'coingate.list_send_requests': CoingateListSendRequestsInput
+  'coingate.get_send_request': CoingateGetSendRequestInput
+  'coingate.confirm_send_request': CoingateConfirmSendRequestInput
+  'coingate.cancel_send_request': CoingateCancelSendRequestInput
+  'coingate.list_beneficiaries': CoingateListBeneficiariesInput
+  'coingate.get_beneficiary': CoingateGetBeneficiaryInput
+  'coingate.create_beneficiary': CoingateCreateBeneficiaryInput
   'common-room.get_token_status': CommonRoomGetTokenStatusInput
   'common-room.add_or_update_contact': CommonRoomAddOrUpdateContactInput
   'common-room.get_contact_by_email': CommonRoomGetContactByEmailInput
@@ -75749,10 +83022,18 @@ export interface IntegrationActionInputMap {
   'common-room.delete_tag': CommonRoomDeleteTagInput
   'companycam.list_projects': CompanycamListProjectsInput
   'companycam.create_project': CompanycamCreateProjectInput
+  'companycam.get_project': CompanycamGetProjectInput
+  'companycam.update_project': CompanycamUpdateProjectInput
+  'companycam.archive_project': CompanycamArchiveProjectInput
+  'companycam.delete_project': CompanycamDeleteProjectInput
   'companycam.upload_photo': CompanycamUploadPhotoInput
+  'companycam.list_project_photos': CompanycamListProjectPhotosInput
   'companycam.get_photo': CompanycamGetPhotoInput
+  'companycam.update_photo': CompanycamUpdatePhotoInput
+  'companycam.delete_photo': CompanycamDeletePhotoInput
   'companycam.create_tag': CompanycamCreateTagInput
-  'companycam.custom_api_call': CompanycamCustomApiCallInput
+  'companycam.list_webhooks': CompanycamListWebhooksInput
+  'companycam.update_webhook': CompanycamUpdateWebhookInput
   'confluence.get_page': ConfluenceGetPageInput
   'confluence.create_page': ConfluenceCreatePageInput
   'confluence.update_page': ConfluenceUpdatePageInput
@@ -76451,6 +83732,25 @@ export interface IntegrationActionInputMap {
   'firebase.create_document': FirebaseCreateDocumentInput
   'firebase.run_query': FirebaseRunQueryInput
   'firebase.delete_document': FirebaseDeleteDocumentInput
+  'fireblocks.list_vault_accounts': FireblocksListVaultAccountsInput
+  'fireblocks.create_vault_account': FireblocksCreateVaultAccountInput
+  'fireblocks.get_vault_account': FireblocksGetVaultAccountInput
+  'fireblocks.rename_vault_account': FireblocksRenameVaultAccountInput
+  'fireblocks.create_vault_wallet': FireblocksCreateVaultWalletInput
+  'fireblocks.create_deposit_address': FireblocksCreateDepositAddressInput
+  'fireblocks.list_external_wallets': FireblocksListExternalWalletsInput
+  'fireblocks.create_external_wallet': FireblocksCreateExternalWalletInput
+  'fireblocks.get_external_wallet': FireblocksGetExternalWalletInput
+  'fireblocks.delete_external_wallet': FireblocksDeleteExternalWalletInput
+  'fireblocks.add_external_wallet_asset': FireblocksAddExternalWalletAssetInput
+  'fireblocks.delete_external_wallet_asset': FireblocksDeleteExternalWalletAssetInput
+  'fireblocks.list_transactions': FireblocksListTransactionsInput
+  'fireblocks.create_transaction': FireblocksCreateTransactionInput
+  'fireblocks.get_transaction': FireblocksGetTransactionInput
+  'fireblocks.get_transaction_by_external_id': FireblocksGetTransactionByExternalIdInput
+  'fireblocks.cancel_transaction': FireblocksCancelTransactionInput
+  'fireblocks.freeze_transaction': FireblocksFreezeTransactionInput
+  'fireblocks.unfreeze_transaction': FireblocksUnfreezeTransactionInput
   'firecrawl.scrape': FirecrawlScrapeInput
   'firecrawl.extract': FirecrawlExtractInput
   'firecrawl.crawl': FirecrawlCrawlInput
@@ -76696,6 +83996,66 @@ export interface IntegrationActionInputMap {
   'gitlab.list_projects': GitlabListProjectsInput
   'gitlab.create_branch': GitlabCreateBranchInput
   'gitlab.custom_api_call': GitlabCustomApiCallInput
+  'givebutter.list_contacts': GivebutterListContactsInput
+  'givebutter.get_contact': GivebutterGetContactInput
+  'givebutter.create_contact': GivebutterCreateContactInput
+  'givebutter.update_contact': GivebutterUpdateContactInput
+  'givebutter.delete_contact': GivebutterDeleteContactInput
+  'givebutter.restore_contact': GivebutterRestoreContactInput
+  'givebutter.add_contact_tags': GivebutterAddContactTagsInput
+  'givebutter.remove_contact_tags': GivebutterRemoveContactTagsInput
+  'givebutter.sync_contact_tags': GivebutterSyncContactTagsInput
+  'givebutter.list_contact_activities': GivebutterListContactActivitiesInput
+  'givebutter.get_contact_activity': GivebutterGetContactActivityInput
+  'givebutter.create_contact_activity': GivebutterCreateContactActivityInput
+  'givebutter.update_contact_activity': GivebutterUpdateContactActivityInput
+  'givebutter.delete_contact_activity': GivebutterDeleteContactActivityInput
+  'givebutter.list_campaigns': GivebutterListCampaignsInput
+  'givebutter.get_campaign': GivebutterGetCampaignInput
+  'givebutter.create_campaign': GivebutterCreateCampaignInput
+  'givebutter.update_campaign': GivebutterUpdateCampaignInput
+  'givebutter.delete_campaign': GivebutterDeleteCampaignInput
+  'givebutter.list_campaign_members': GivebutterListCampaignMembersInput
+  'givebutter.get_campaign_member': GivebutterGetCampaignMemberInput
+  'givebutter.delete_campaign_member': GivebutterDeleteCampaignMemberInput
+  'givebutter.list_campaign_teams': GivebutterListCampaignTeamsInput
+  'givebutter.get_campaign_team': GivebutterGetCampaignTeamInput
+  'givebutter.delete_campaign_team': GivebutterDeleteCampaignTeamInput
+  'givebutter.list_discount_codes': GivebutterListDiscountCodesInput
+  'givebutter.get_discount_code': GivebutterGetDiscountCodeInput
+  'givebutter.create_discount_code': GivebutterCreateDiscountCodeInput
+  'givebutter.update_discount_code': GivebutterUpdateDiscountCodeInput
+  'givebutter.delete_discount_code': GivebutterDeleteDiscountCodeInput
+  'givebutter.list_transactions': GivebutterListTransactionsInput
+  'givebutter.get_transaction': GivebutterGetTransactionInput
+  'givebutter.create_transaction': GivebutterCreateTransactionInput
+  'givebutter.update_transaction': GivebutterUpdateTransactionInput
+  'givebutter.list_recurring_plans': GivebutterListRecurringPlansInput
+  'givebutter.get_recurring_plan': GivebutterGetRecurringPlanInput
+  'givebutter.list_tickets': GivebutterListTicketsInput
+  'givebutter.get_ticket': GivebutterGetTicketInput
+  'givebutter.create_campaign_ticket': GivebutterCreateCampaignTicketInput
+  'givebutter.list_funds': GivebutterListFundsInput
+  'givebutter.get_fund': GivebutterGetFundInput
+  'givebutter.create_fund': GivebutterCreateFundInput
+  'givebutter.update_fund': GivebutterUpdateFundInput
+  'givebutter.delete_fund': GivebutterDeleteFundInput
+  'givebutter.list_payouts': GivebutterListPayoutsInput
+  'givebutter.get_payout': GivebutterGetPayoutInput
+  'givebutter.list_messages': GivebutterListMessagesInput
+  'givebutter.get_message': GivebutterGetMessageInput
+  'givebutter.list_households': GivebutterListHouseholdsInput
+  'givebutter.get_household': GivebutterGetHouseholdInput
+  'givebutter.create_household': GivebutterCreateHouseholdInput
+  'givebutter.update_household': GivebutterUpdateHouseholdInput
+  'givebutter.delete_household': GivebutterDeleteHouseholdInput
+  'givebutter.list_household_contacts': GivebutterListHouseholdContactsInput
+  'givebutter.associate_household_contact': GivebutterAssociateHouseholdContactInput
+  'givebutter.disassociate_household_contact': GivebutterDisassociateHouseholdContactInput
+  'givebutter.list_webhooks': GivebutterListWebhooksInput
+  'givebutter.create_webhook': GivebutterCreateWebhookInput
+  'givebutter.update_webhook': GivebutterUpdateWebhookInput
+  'givebutter.delete_webhook': GivebutterDeleteWebhookInput
   'gmail.list_messages': GmailListMessagesInput
   'gmail.get_message': GmailGetMessageInput
   'gmail.send_email': GmailSendEmailInput
@@ -77073,6 +84433,22 @@ export interface IntegrationActionInputMap {
   'hawksoft.get_policies': HawksoftGetPoliciesInput
   'hawksoft.get_claims': HawksoftGetClaimsInput
   'hawksoft.custom_api_call': HawksoftCustomApiCallInput
+  'healthie.list_clients': HealthieListClientsInput
+  'healthie.get_client': HealthieGetClientInput
+  'healthie.create_client': HealthieCreateClientInput
+  'healthie.update_client': HealthieUpdateClientInput
+  'healthie.archive_client': HealthieArchiveClientInput
+  'healthie.list_appointments': HealthieListAppointmentsInput
+  'healthie.get_appointment': HealthieGetAppointmentInput
+  'healthie.create_appointment': HealthieCreateAppointmentInput
+  'healthie.update_appointment': HealthieUpdateAppointmentInput
+  'healthie.delete_appointment': HealthieDeleteAppointmentInput
+  'healthie.list_tasks': HealthieListTasksInput
+  'healthie.create_task': HealthieCreateTaskInput
+  'healthie.update_task': HealthieUpdateTaskInput
+  'healthie.list_form_answer_groups': HealthieListFormAnswerGroupsInput
+  'healthie.create_webhook': HealthieCreateWebhookInput
+  'healthie.delete_webhook': HealthieDeleteWebhookInput
   'heap.track_event': HeapTrackEventInput
   'heap.identify_user': HeapIdentifyUserInput
   'heap.add_user_properties': HeapAddUserPropertiesInput
@@ -77414,6 +84790,33 @@ export interface IntegrationActionInputMap {
   'iterable.list_campaigns': IterableListCampaignsInput
   'iterable.send_targeted_email': IterableSendTargetedEmailInput
   'iterable.custom_api_call': IterableCustomApiCallInput
+  'iyzico.check_bin': IyzicoCheckBinInput
+  'iyzico.initialize_checkout_form': IyzicoInitializeCheckoutFormInput
+  'iyzico.retrieve_checkout_form': IyzicoRetrieveCheckoutFormInput
+  'iyzico.capture_preauth_payment': IyzicoCapturePreauthPaymentInput
+  'iyzico.cancel_payment': IyzicoCancelPaymentInput
+  'iyzico.refund_payment': IyzicoRefundPaymentInput
+  'iyzico.get_payment_detail': IyzicoGetPaymentDetailInput
+  'iyzico.create_link': IyzicoCreateLinkInput
+  'iyzico.create_fast_link': IyzicoCreateFastLinkInput
+  'iyzico.update_link': IyzicoUpdateLinkInput
+  'iyzico.get_link': IyzicoGetLinkInput
+  'iyzico.list_links': IyzicoListLinksInput
+  'iyzico.update_link_status': IyzicoUpdateLinkStatusInput
+  'iyzico.delete_link': IyzicoDeleteLinkInput
+  'iyzico.list_stored_cards': IyzicoListStoredCardsInput
+  'iyzico.delete_stored_card': IyzicoDeleteStoredCardInput
+  'iyzico.create_payment_with_stored_card': IyzicoCreatePaymentWithStoredCardInput
+  'iyzico.create_submerchant': IyzicoCreateSubmerchantInput
+  'iyzico.update_submerchant': IyzicoUpdateSubmerchantInput
+  'iyzico.get_submerchant': IyzicoGetSubmerchantInput
+  'iyzico.update_submerchant_item_price': IyzicoUpdateSubmerchantItemPriceInput
+  'iyzico.initialize_mass_payout': IyzicoInitializeMassPayoutInput
+  'iyzico.authorize_mass_payout': IyzicoAuthorizeMassPayoutInput
+  'iyzico.cancel_mass_payout': IyzicoCancelMassPayoutInput
+  'iyzico.retrieve_mass_payout': IyzicoRetrieveMassPayoutInput
+  'iyzico.get_mass_payout_item': IyzicoGetMassPayoutItemInput
+  'iyzico.get_mass_payout_balance': IyzicoGetMassPayoutBalanceInput
   'jamf.list_computers': JamfListComputersInput
   'jamf.get_computer_inventory': JamfGetComputerInventoryInput
   'jamf.list_mobile_devices': JamfListMobileDevicesInput
@@ -77473,6 +84876,65 @@ export interface IntegrationActionInputMap {
   'jobber.create_job': JobberCreateJobInput
   'jobber.create_quote': JobberCreateQuoteInput
   'jobber.custom_api_call': JobberCustomApiCallInput
+  'jobnimbus.list_contacts': JobnimbusListContactsInput
+  'jobnimbus.get_contact': JobnimbusGetContactInput
+  'jobnimbus.create_contact': JobnimbusCreateContactInput
+  'jobnimbus.update_contact': JobnimbusUpdateContactInput
+  'jobnimbus.delete_contact': JobnimbusDeleteContactInput
+  'jobnimbus.list_jobs': JobnimbusListJobsInput
+  'jobnimbus.get_job': JobnimbusGetJobInput
+  'jobnimbus.create_job': JobnimbusCreateJobInput
+  'jobnimbus.update_job': JobnimbusUpdateJobInput
+  'jobnimbus.delete_job': JobnimbusDeleteJobInput
+  'jobnimbus.list_tasks': JobnimbusListTasksInput
+  'jobnimbus.get_task': JobnimbusGetTaskInput
+  'jobnimbus.create_task': JobnimbusCreateTaskInput
+  'jobnimbus.update_task': JobnimbusUpdateTaskInput
+  'jobnimbus.delete_task': JobnimbusDeleteTaskInput
+  'jobnimbus.list_activities': JobnimbusListActivitiesInput
+  'jobnimbus.get_activity': JobnimbusGetActivityInput
+  'jobnimbus.create_activity': JobnimbusCreateActivityInput
+  'jobnimbus.list_products': JobnimbusListProductsInput
+  'jobnimbus.get_product': JobnimbusGetProductInput
+  'jobnimbus.create_product': JobnimbusCreateProductInput
+  'jobnimbus.update_product': JobnimbusUpdateProductInput
+  'jobnimbus.delete_product': JobnimbusDeleteProductInput
+  'jobnimbus.list_material_orders': JobnimbusListMaterialOrdersInput
+  'jobnimbus.get_material_order': JobnimbusGetMaterialOrderInput
+  'jobnimbus.create_material_order': JobnimbusCreateMaterialOrderInput
+  'jobnimbus.update_material_order': JobnimbusUpdateMaterialOrderInput
+  'jobnimbus.delete_material_order': JobnimbusDeleteMaterialOrderInput
+  'jobnimbus.list_work_orders': JobnimbusListWorkOrdersInput
+  'jobnimbus.get_work_order': JobnimbusGetWorkOrderInput
+  'jobnimbus.create_work_order': JobnimbusCreateWorkOrderInput
+  'jobnimbus.update_work_order': JobnimbusUpdateWorkOrderInput
+  'jobnimbus.delete_work_order': JobnimbusDeleteWorkOrderInput
+  'jobnimbus.list_estimates': JobnimbusListEstimatesInput
+  'jobnimbus.get_estimate': JobnimbusGetEstimateInput
+  'jobnimbus.create_estimate': JobnimbusCreateEstimateInput
+  'jobnimbus.update_estimate': JobnimbusUpdateEstimateInput
+  'jobnimbus.delete_estimate': JobnimbusDeleteEstimateInput
+  'jobnimbus.list_invoices': JobnimbusListInvoicesInput
+  'jobnimbus.get_invoice': JobnimbusGetInvoiceInput
+  'jobnimbus.create_invoice': JobnimbusCreateInvoiceInput
+  'jobnimbus.update_invoice': JobnimbusUpdateInvoiceInput
+  'jobnimbus.delete_invoice': JobnimbusDeleteInvoiceInput
+  'jobnimbus.list_payments': JobnimbusListPaymentsInput
+  'jobnimbus.create_payment': JobnimbusCreatePaymentInput
+  'jobnimbus.list_account_settings': JobnimbusListAccountSettingsInput
+  'jobnimbus.create_workflow': JobnimbusCreateWorkflowInput
+  'jobnimbus.create_workflow_status': JobnimbusCreateWorkflowStatusInput
+  'jobnimbus.create_lead_source': JobnimbusCreateLeadSourceInput
+  'jobnimbus.create_custom_field': JobnimbusCreateCustomFieldInput
+  'jobnimbus.create_file_type': JobnimbusCreateFileTypeInput
+  'jobnimbus.create_task_type': JobnimbusCreateTaskTypeInput
+  'jobnimbus.create_activity_type': JobnimbusCreateActivityTypeInput
+  'jobnimbus.create_location': JobnimbusCreateLocationInput
+  'jobtread.get_current_grant': JobtreadGetCurrentGrantInput
+  'jobtread.execute_pave_query': JobtreadExecutePaveQueryInput
+  'jobtread.list_webhooks': JobtreadListWebhooksInput
+  'jobtread.create_webhook': JobtreadCreateWebhookInput
+  'jobtread.delete_webhook': JobtreadDeleteWebhookInput
   'jotform.list_forms': JotformListFormsInput
   'jotform.get_form': JotformGetFormInput
   'jotform.get_form_questions': JotformGetFormQuestionsInput
@@ -77492,11 +84954,6 @@ export interface IntegrationActionInputMap {
   'kajabi.get_member': KajabiGetMemberInput
   'kajabi.list_offers': KajabiListOffersInput
   'kajabi.custom_api_call': KajabiCustomApiCallInput
-  'kareo.list_patients': KareoListPatientsInput
-  'kareo.get_patient': KareoGetPatientInput
-  'kareo.list_appointments': KareoListAppointmentsInput
-  'kareo.create_appointment': KareoCreateAppointmentInput
-  'kareo.custom_api_call': KareoCustomApiCallInput
   'katana-mrp.get_product': KatanaMrpGetProductInput
   'katana-mrp.create_product': KatanaMrpCreateProductInput
   'katana-mrp.get_manufacturing_order': KatanaMrpGetManufacturingOrderInput
@@ -77510,6 +84967,43 @@ export interface IntegrationActionInputMap {
   'keap.list_products': KeapListProductsInput
   'keap.send_email': KeapSendEmailInput
   'keap.custom_api_call': KeapCustomApiCallInput
+  'kickserv.list_customers': KickservListCustomersInput
+  'kickserv.get_customer': KickservGetCustomerInput
+  'kickserv.create_customer': KickservCreateCustomerInput
+  'kickserv.update_customer': KickservUpdateCustomerInput
+  'kickserv.delete_customer': KickservDeleteCustomerInput
+  'kickserv.list_jobs': KickservListJobsInput
+  'kickserv.get_job': KickservGetJobInput
+  'kickserv.create_job': KickservCreateJobInput
+  'kickserv.update_job': KickservUpdateJobInput
+  'kickserv.delete_job': KickservDeleteJobInput
+  'kickserv.list_customer_notes': KickservListCustomerNotesInput
+  'kickserv.get_customer_note': KickservGetCustomerNoteInput
+  'kickserv.create_customer_note': KickservCreateCustomerNoteInput
+  'kickserv.update_customer_note': KickservUpdateCustomerNoteInput
+  'kickserv.delete_customer_note': KickservDeleteCustomerNoteInput
+  'kickserv.list_job_notes': KickservListJobNotesInput
+  'kickserv.get_job_note': KickservGetJobNoteInput
+  'kickserv.create_job_note': KickservCreateJobNoteInput
+  'kickserv.update_job_note': KickservUpdateJobNoteInput
+  'kickserv.delete_job_note': KickservDeleteJobNoteInput
+  'kickserv.list_employees': KickservListEmployeesInput
+  'kickserv.get_employee': KickservGetEmployeeInput
+  'kickserv.create_employee': KickservCreateEmployeeInput
+  'kickserv.update_employee': KickservUpdateEmployeeInput
+  'kickserv.list_items': KickservListItemsInput
+  'kickserv.get_item': KickservGetItemInput
+  'kickserv.create_job_charge': KickservCreateJobChargeInput
+  'kickserv.list_tasks': KickservListTasksInput
+  'kickserv.get_task': KickservGetTaskInput
+  'kickserv.create_task': KickservCreateTaskInput
+  'kickserv.update_task': KickservUpdateTaskInput
+  'kickserv.delete_task': KickservDeleteTaskInput
+  'kickserv.list_time_entries': KickservListTimeEntriesInput
+  'kickserv.get_time_entry': KickservGetTimeEntryInput
+  'kickserv.create_time_entry': KickservCreateTimeEntryInput
+  'kickserv.update_time_entry': KickservUpdateTimeEntryInput
+  'kickserv.delete_time_entry': KickservDeleteTimeEntryInput
   'kissflow.downloadAttachmentFromFormField': KissflowDownloadAttachmentFromFormFieldInput
   'kissflow.custom_api_call': KissflowCustomApiCallInput
   'convertkit.list_subscribers': ConvertkitListSubscribersInput
@@ -77604,6 +85098,35 @@ export interface IntegrationActionInputMap {
   'lawmatics.get_matters': LawmaticsGetMattersInput
   'lawmatics.get_pipeline': LawmaticsGetPipelineInput
   'lawmatics.custom_api_call': LawmaticsCustomApiCallInput
+  'lawpay.get_gateway_credentials': LawpayGetGatewayCredentialsInput
+  'lawpay.get_current_merchant': LawpayGetCurrentMerchantInput
+  'lawpay.update_merchant': LawpayUpdateMerchantInput
+  'lawpay.search_contacts': LawpaySearchContactsInput
+  'lawpay.get_contact': LawpayGetContactInput
+  'lawpay.create_contact': LawpayCreateContactInput
+  'lawpay.update_contact': LawpayUpdateContactInput
+  'lawpay.delete_contact': LawpayDeleteContactInput
+  'lawpay.create_payment_method': LawpayCreatePaymentMethodInput
+  'lawpay.delete_payment_method': LawpayDeletePaymentMethodInput
+  'lawpay.make_contact_payment': LawpayMakeContactPaymentInput
+  'lawpay.get_bank_accounts': LawpayGetBankAccountsInput
+  'lawpay.search_invoices': LawpaySearchInvoicesInput
+  'lawpay.create_invoice': LawpayCreateInvoiceInput
+  'lawpay.update_invoice': LawpayUpdateInvoiceInput
+  'lawpay.delete_invoice': LawpayDeleteInvoiceInput
+  'lawpay.send_invoice_message': LawpaySendInvoiceMessageInput
+  'lawpay.create_charge': LawpayCreateChargeInput
+  'lawpay.capture_charge': LawpayCaptureChargeInput
+  'lawpay.refund_charge': LawpayRefundChargeInput
+  'lawpay.void_transaction': LawpayVoidTransactionInput
+  'lawpay.create_credit': LawpayCreateCreditInput
+  'lawpay.search_transactions': LawpaySearchTransactionsInput
+  'lawpay.get_transaction': LawpayGetTransactionInput
+  'lawpay.create_recurring_charge': LawpayCreateRecurringChargeInput
+  'lawpay.update_recurring_charge': LawpayUpdateRecurringChargeInput
+  'lawpay.cancel_recurring_charge': LawpayCancelRecurringChargeInput
+  'lawpay.delete_recurring_charge': LawpayDeleteRecurringChargeInput
+  'lawpay.pay_recurring_occurrence': LawpayPayRecurringOccurrenceInput
   'lead-connector.create_contact': LeadConnectorCreateContactInput
   'lead-connector.update_contact': LeadConnectorUpdateContactInput
   'lead-connector.add_contact_to_campaign': LeadConnectorAddContactToCampaignInput
@@ -77822,6 +85345,37 @@ export interface IntegrationActionInputMap {
   'lodgify.create_quote': LodgifyCreateQuoteInput
   'lodgify.send_booking_message': LodgifySendBookingMessageInput
   'lodgify.get_payment_link': LodgifyGetPaymentLinkInput
+  'lofty.list_leads': LoftyListLeadsInput
+  'lofty.get_lead': LoftyGetLeadInput
+  'lofty.create_lead': LoftyCreateLeadInput
+  'lofty.update_lead': LoftyUpdateLeadInput
+  'lofty.delete_lead': LoftyDeleteLeadInput
+  'lofty.resolve_lead_assignee': LoftyResolveLeadAssigneeInput
+  'lofty.update_lead_assignment': LoftyUpdateLeadAssignmentInput
+  'lofty.add_lead_inquiry': LoftyAddLeadInquiryInput
+  'lofty.add_lead_property': LoftyAddLeadPropertyInput
+  'lofty.list_lead_activities': LoftyListLeadActivitiesInput
+  'lofty.list_notes': LoftyListNotesInput
+  'lofty.create_note': LoftyCreateNoteInput
+  'lofty.update_note': LoftyUpdateNoteInput
+  'lofty.delete_note': LoftyDeleteNoteInput
+  'lofty.list_tasks': LoftyListTasksInput
+  'lofty.create_task': LoftyCreateTaskInput
+  'lofty.update_task': LoftyUpdateTaskInput
+  'lofty.finish_task': LoftyFinishTaskInput
+  'lofty.unfinish_task': LoftyUnfinishTaskInput
+  'lofty.delete_task': LoftyDeleteTaskInput
+  'lofty.send_text': LoftySendTextInput
+  'lofty.send_email': LoftySendEmailInput
+  'lofty.get_communication': LoftyGetCommunicationInput
+  'lofty.list_transactions': LoftyListTransactionsInput
+  'lofty.update_transaction': LoftyUpdateTransactionInput
+  'lofty.create_calendar_event': LoftyCreateCalendarEventInput
+  'lofty.update_calendar_event': LoftyUpdateCalendarEventInput
+  'lofty.delete_calendar_event': LoftyDeleteCalendarEventInput
+  'lofty.search_listings': LoftySearchListingsInput
+  'lofty.create_webhook': LoftyCreateWebhookInput
+  'lofty.delete_webhook': LoftyDeleteWebhookInput
   'lokalise.list_projects': LokaliseListProjectsInput
   'lokalise.get_project': LokaliseGetProjectInput
   'lokalise.list_languages': LokaliseListLanguagesInput
@@ -78253,12 +85807,100 @@ export interface IntegrationActionInputMap {
   'microsoft-todo.find_task_list_by_name': MicrosoftTodoFindTaskListByNameInput
   'microsoft-todo.find_task_by_title': MicrosoftTodoFindTaskByTitleInput
   'microsoft-todo.custom_api_call': MicrosoftTodoCustomApiCallInput
+  'midtrans.create_snap_transaction': MidtransCreateSnapTransactionInput
+  'midtrans.create_payment_link': MidtransCreatePaymentLinkInput
+  'midtrans.charge_transaction': MidtransChargeTransactionInput
+  'midtrans.capture_transaction': MidtransCaptureTransactionInput
+  'midtrans.get_transaction_status': MidtransGetTransactionStatusInput
+  'midtrans.cancel_transaction': MidtransCancelTransactionInput
+  'midtrans.expire_transaction': MidtransExpireTransactionInput
+  'midtrans.refund_transaction': MidtransRefundTransactionInput
+  'midtrans.direct_refund_transaction': MidtransDirectRefundTransactionInput
+  'midtrans.get_bin': MidtransGetBinInput
+  'midtrans.create_pay_account': MidtransCreatePayAccountInput
+  'midtrans.get_pay_account': MidtransGetPayAccountInput
+  'midtrans.unbind_pay_account': MidtransUnbindPayAccountInput
+  'midtrans.create_subscription': MidtransCreateSubscriptionInput
+  'midtrans.get_subscription': MidtransGetSubscriptionInput
+  'midtrans.update_subscription': MidtransUpdateSubscriptionInput
+  'midtrans.enable_subscription': MidtransEnableSubscriptionInput
+  'midtrans.disable_subscription': MidtransDisableSubscriptionInput
+  'midtrans.cancel_subscription': MidtransCancelSubscriptionInput
+  'midtrans.list_iris_banks': MidtransListIrisBanksInput
+  'midtrans.validate_iris_bank_account': MidtransValidateIrisBankAccountInput
+  'midtrans.create_iris_beneficiary': MidtransCreateIrisBeneficiaryInput
+  'midtrans.update_iris_beneficiary': MidtransUpdateIrisBeneficiaryInput
+  'midtrans.list_iris_beneficiaries': MidtransListIrisBeneficiariesInput
+  'midtrans.create_iris_payouts': MidtransCreateIrisPayoutsInput
+  'midtrans.approve_iris_payouts': MidtransApproveIrisPayoutsInput
+  'midtrans.reject_iris_payouts': MidtransRejectIrisPayoutsInput
+  'midtrans.get_iris_payout': MidtransGetIrisPayoutInput
+  'midtrans.get_iris_balance': MidtransGetIrisBalanceInput
+  'midtrans.list_iris_transactions': MidtransListIrisTransactionsInput
+  'mindbody.list_locations': MindbodyListLocationsInput
+  'mindbody.list_session_types': MindbodyListSessionTypesInput
+  'mindbody.list_resources': MindbodyListResourcesInput
+  'mindbody.list_staff': MindbodyListStaffInput
+  'mindbody.list_services': MindbodyListServicesInput
+  'mindbody.list_products': MindbodyListProductsInput
+  'mindbody.get_gift_card_balance': MindbodyGetGiftCardBalanceInput
   'mindbody.list_classes': MindbodyListClassesInput
-  'mindbody.get_schedule': MindbodyGetScheduleInput
+  'mindbody.get_class_schedules': MindbodyGetClassSchedulesInput
+  'mindbody.list_class_visits': MindbodyListClassVisitsInput
+  'mindbody.list_waitlist_entries': MindbodyListWaitlistEntriesInput
+  'mindbody.add_client_to_class': MindbodyAddClientToClassInput
+  'mindbody.remove_client_from_class': MindbodyRemoveClientFromClassInput
+  'mindbody.remove_clients_from_classes': MindbodyRemoveClientsFromClassesInput
+  'mindbody.remove_from_waitlist': MindbodyRemoveFromWaitlistInput
+  'mindbody.substitute_class_teacher': MindbodySubstituteClassTeacherInput
+  'mindbody.cancel_single_class': MindbodyCancelSingleClassInput
   'mindbody.list_clients': MindbodyListClientsInput
   'mindbody.get_client': MindbodyGetClientInput
-  'mindbody.book_class': MindbodyBookClassInput
-  'mindbody.custom_api_call': MindbodyCustomApiCallInput
+  'mindbody.add_client': MindbodyAddClientInput
+  'mindbody.update_client': MindbodyUpdateClientInput
+  'mindbody.add_contact_log': MindbodyAddContactLogInput
+  'mindbody.update_client_visit': MindbodyUpdateClientVisitInput
+  'mindbody.upload_client_photo': MindbodyUploadClientPhotoInput
+  'mindbody.list_client_services': MindbodyListClientServicesInput
+  'mindbody.list_client_purchases': MindbodyListClientPurchasesInput
+  'mindbody.list_active_client_memberships': MindbodyListActiveClientMembershipsInput
+  'mindbody.list_client_contracts': MindbodyListClientContractsInput
+  'mindbody.terminate_contract': MindbodyTerminateContractInput
+  'mindbody.list_enrollments': MindbodyListEnrollmentsInput
+  'mindbody.add_client_to_enrollment': MindbodyAddClientToEnrollmentInput
+  'mindbody.retrieve_appointments': MindbodyRetrieveAppointmentsInput
+  'mindbody.book_appointment': MindbodyBookAppointmentInput
+  'mindbody.update_appointment': MindbodyUpdateAppointmentInput
+  'mindbody.add_appointment_add_on': MindbodyAddAppointmentAddOnInput
+  'mindbody.delete_appointment_add_on': MindbodyDeleteAppointmentAddOnInput
+  'mindbody.add_availabilities': MindbodyAddAvailabilitiesInput
+  'mindbody.update_availabilities': MindbodyUpdateAvailabilitiesInput
+  'mindbody.delete_availability': MindbodyDeleteAvailabilityInput
+  'mindbody.remove_from_appointment_waitlist': MindbodyRemoveFromAppointmentWaitlistInput
+  'mindbody.checkout_shopping_cart': MindbodyCheckoutShoppingCartInput
+  'mindbody.list_contracts': MindbodyListContractsInput
+  'mindbody.list_packages': MindbodyListPackagesInput
+  'mindbody.list_sales': MindbodyListSalesInput
+  'mindbody.purchase_contract': MindbodyPurchaseContractInput
+  'mindbody.return_sale': MindbodyReturnSaleInput
+  'mindbody.initialize_credit_card_entry': MindbodyInitializeCreditCardEntryInput
+  'mindbody.update_products': MindbodyUpdateProductsInput
+  'mindbody.update_product_price': MindbodyUpdateProductPriceInput
+  'mindbody.update_services': MindbodyUpdateServicesInput
+  'mindbody.get_activation_code': MindbodyGetActivationCodeInput
+  'mindbody.list_relationships': MindbodyListRelationshipsInput
+  'mindbody.list_memberships': MindbodyListMembershipsInput
+  'mindbody.get_staff_permissions': MindbodyGetStaffPermissionsInput
+  'mindbody.get_staff_image_url': MindbodyGetStaffImageUrlInput
+  'mindbody.add_staff': MindbodyAddStaffInput
+  'mindbody.add_staff_availability': MindbodyAddStaffAvailabilityInput
+  'mindbody.assign_staff_session_type': MindbodyAssignStaffSessionTypeInput
+  'mindbody.update_staff': MindbodyUpdateStaffInput
+  'mindbody.update_staff_permissions': MindbodyUpdateStaffPermissionsInput
+  'mindbody.list_webhook_subscriptions': MindbodyListWebhookSubscriptionsInput
+  'mindbody.create_webhook_subscription': MindbodyCreateWebhookSubscriptionInput
+  'mindbody.update_webhook_subscription': MindbodyUpdateWebhookSubscriptionInput
+  'mindbody.delete_webhook_subscription': MindbodyDeleteWebhookSubscriptionInput
   'mintlify.update_docs': MintlifyUpdateDocsInput
   'mintlify.list_pages': MintlifyListPagesInput
   'mintlify.get_analytics': MintlifyGetAnalyticsInput
@@ -78424,12 +86066,56 @@ export interface IntegrationActionInputMap {
   'neon-db.list_branch_endpoints': NeonDbListBranchEndpointsInput
   'neon-db.get_connection_uri': NeonDbGetConnectionUriInput
   'neon-db.create_project': NeonDbCreateProjectInput
+  'neoncrm.search_accounts': NeoncrmSearchAccountsInput
   'neoncrm.get_account': NeoncrmGetAccountInput
   'neoncrm.create_account': NeoncrmCreateAccountInput
+  'neoncrm.update_account': NeoncrmUpdateAccountInput
+  'neoncrm.delete_account': NeoncrmDeleteAccountInput
+  'neoncrm.list_account_contacts': NeoncrmListAccountContactsInput
+  'neoncrm.create_account_contact': NeoncrmCreateAccountContactInput
+  'neoncrm.get_account_contact': NeoncrmGetAccountContactInput
+  'neoncrm.update_account_contact': NeoncrmUpdateAccountContactInput
+  'neoncrm.delete_account_contact': NeoncrmDeleteAccountContactInput
+  'neoncrm.link_accounts': NeoncrmLinkAccountsInput
+  'neoncrm.unlink_accounts': NeoncrmUnlinkAccountsInput
+  'neoncrm.list_account_donations': NeoncrmListAccountDonationsInput
+  'neoncrm.search_donations': NeoncrmSearchDonationsInput
   'neoncrm.get_donation': NeoncrmGetDonationInput
   'neoncrm.create_donation': NeoncrmCreateDonationInput
-  'neoncrm.get_events': NeoncrmGetEventsInput
-  'neoncrm.custom_api_call': NeoncrmCustomApiCallInput
+  'neoncrm.update_donation': NeoncrmUpdateDonationInput
+  'neoncrm.delete_donation': NeoncrmDeleteDonationInput
+  'neoncrm.add_donation_payment': NeoncrmAddDonationPaymentInput
+  'neoncrm.list_campaigns': NeoncrmListCampaignsInput
+  'neoncrm.get_campaign': NeoncrmGetCampaignInput
+  'neoncrm.create_campaign': NeoncrmCreateCampaignInput
+  'neoncrm.update_campaign': NeoncrmUpdateCampaignInput
+  'neoncrm.delete_campaign': NeoncrmDeleteCampaignInput
+  'neoncrm.get_campaign_p2p': NeoncrmGetCampaignP2pInput
+  'neoncrm.list_events': NeoncrmListEventsInput
+  'neoncrm.get_event': NeoncrmGetEventInput
+  'neoncrm.create_event': NeoncrmCreateEventInput
+  'neoncrm.update_event': NeoncrmUpdateEventInput
+  'neoncrm.delete_event': NeoncrmDeleteEventInput
+  'neoncrm.search_events': NeoncrmSearchEventsInput
+  'neoncrm.list_event_attendees': NeoncrmListEventAttendeesInput
+  'neoncrm.list_event_registrations': NeoncrmListEventRegistrationsInput
+  'neoncrm.list_event_tickets': NeoncrmListEventTicketsInput
+  'neoncrm.create_event_ticket': NeoncrmCreateEventTicketInput
+  'neoncrm.get_event_ticket': NeoncrmGetEventTicketInput
+  'neoncrm.update_event_ticket': NeoncrmUpdateEventTicketInput
+  'neoncrm.delete_event_ticket': NeoncrmDeleteEventTicketInput
+  'neoncrm.list_account_event_registrations': NeoncrmListAccountEventRegistrationsInput
+  'neoncrm.create_event_registration': NeoncrmCreateEventRegistrationInput
+  'neoncrm.calculate_event_registration': NeoncrmCalculateEventRegistrationInput
+  'neoncrm.get_event_registration': NeoncrmGetEventRegistrationInput
+  'neoncrm.update_event_registration': NeoncrmUpdateEventRegistrationInput
+  'neoncrm.delete_event_registration': NeoncrmDeleteEventRegistrationInput
+  'neoncrm.add_event_registration_payment': NeoncrmAddEventRegistrationPaymentInput
+  'neoncrm.list_webhooks': NeoncrmListWebhooksInput
+  'neoncrm.get_webhook': NeoncrmGetWebhookInput
+  'neoncrm.create_webhook': NeoncrmCreateWebhookInput
+  'neoncrm.update_webhook': NeoncrmUpdateWebhookInput
+  'neoncrm.delete_webhook': NeoncrmDeleteWebhookInput
   'netlify.list_sites': NetlifyListSitesInput
   'netlify.get_site': NetlifyGetSiteInput
   'netlify.list_site_deploys': NetlifyListSiteDeploysInput
@@ -78557,6 +86243,18 @@ export interface IntegrationActionInputMap {
   'nowcerts.remove_policy_tags': NowcertsRemovePolicyTagsInput
   'nowcerts.get_file_direct_url': NowcertsGetFileDirectUrlInput
   'nowcerts.custom_api_call': NowcertsCustomApiCallInput
+  'nowpayments.get_api_status': NowpaymentsGetApiStatusInput
+  'nowpayments.list_currencies': NowpaymentsListCurrenciesInput
+  'nowpayments.estimate_price': NowpaymentsEstimatePriceInput
+  'nowpayments.get_minimum_payment_amount': NowpaymentsGetMinimumPaymentAmountInput
+  'nowpayments.create_payment': NowpaymentsCreatePaymentInput
+  'nowpayments.create_invoice': NowpaymentsCreateInvoiceInput
+  'nowpayments.get_payment_status': NowpaymentsGetPaymentStatusInput
+  'nowpayments.list_payments': NowpaymentsListPaymentsInput
+  'nowpayments.get_custody_balance': NowpaymentsGetCustodyBalanceInput
+  'nowpayments.create_payout': NowpaymentsCreatePayoutInput
+  'nowpayments.verify_payout': NowpaymentsVerifyPayoutInput
+  'nowpayments.get_payout_status': NowpaymentsGetPayoutStatusInput
   'npm-registry.search_packages': NpmRegistrySearchPackagesInput
   'npm-registry.get_package': NpmRegistryGetPackageInput
   'npm-registry.get_downloads': NpmRegistryGetDownloadsInput
@@ -78843,6 +86541,25 @@ export interface IntegrationActionInputMap {
   'paystack.list_transfers': PaystackListTransfersInput
   'paystack.create_payment_page': PaystackCreatePaymentPageInput
   'paystack.update_payment_page': PaystackUpdatePaymentPageInput
+  'payu-europe.create_order': PayuEuropeCreateOrderInput
+  'payu-europe.get_order': PayuEuropeGetOrderInput
+  'payu-europe.cancel_order': PayuEuropeCancelOrderInput
+  'payu-europe.capture_order': PayuEuropeCaptureOrderInput
+  'payu-europe.get_order_transactions': PayuEuropeGetOrderTransactionsInput
+  'payu-europe.create_refund': PayuEuropeCreateRefundInput
+  'payu-europe.list_refunds': PayuEuropeListRefundsInput
+  'payu-europe.get_refund': PayuEuropeGetRefundInput
+  'payu-europe.create_payout': PayuEuropeCreatePayoutInput
+  'payu-europe.get_payout': PayuEuropeGetPayoutInput
+  'payu-europe.list_payment_methods': PayuEuropeListPaymentMethodsInput
+  'payu-europe.delete_token': PayuEuropeDeleteTokenInput
+  'payu-europe.retrieve_statement': PayuEuropeRetrieveStatementInput
+  'payu-europe.get_shop_data': PayuEuropeGetShopDataInput
+  'payu-europe.get_seller_status': PayuEuropeGetSellerStatusInput
+  'payu-europe.get_seller_balance': PayuEuropeGetSellerBalanceInput
+  'payu-europe.list_seller_operations': PayuEuropeListSellerOperationsInput
+  'payu-europe.transfer_seller_to_marketplace': PayuEuropeTransferSellerToMarketplaceInput
+  'payu-europe.transfer_marketplace_to_seller': PayuEuropeTransferMarketplaceToSellerInput
   'paywhirl.cancelSubscription': PaywhirlCancelSubscriptionInput
   'paywhirl.createCustomer': PaywhirlCreateCustomerInput
   'paywhirl.getCustomer': PaywhirlGetCustomerInput
@@ -78911,6 +86628,73 @@ export interface IntegrationActionInputMap {
   'pika.get_video': PikaGetVideoInput
   'pika.list_videos': PikaListVideosInput
   'pika.custom_api_call': PikaCustomApiCallInput
+  'pike13.get_account': Pike13GetAccountInput
+  'pike13.list_account_businesses': Pike13ListAccountBusinessesInput
+  'pike13.get_business': Pike13GetBusinessInput
+  'pike13.list_locations': Pike13ListLocationsInput
+  'pike13.list_services': Pike13ListServicesInput
+  'pike13.list_events': Pike13ListEventsInput
+  'pike13.get_event': Pike13GetEventInput
+  'pike13.list_event_occurrences': Pike13ListEventOccurrencesInput
+  'pike13.get_event_occurrence': Pike13GetEventOccurrenceInput
+  'pike13.cancel_event_occurrence': Pike13CancelEventOccurrenceInput
+  'pike13.list_people': Pike13ListPeopleInput
+  'pike13.search_people': Pike13SearchPeopleInput
+  'pike13.get_person': Pike13GetPersonInput
+  'pike13.create_person': Pike13CreatePersonInput
+  'pike13.update_person': Pike13UpdatePersonInput
+  'pike13.delete_person': Pike13DeletePersonInput
+  'pike13.list_person_notes': Pike13ListPersonNotesInput
+  'pike13.create_person_note': Pike13CreatePersonNoteInput
+  'pike13.update_person_note': Pike13UpdatePersonNoteInput
+  'pike13.delete_person_note': Pike13DeletePersonNoteInput
+  'pike13.create_booking': Pike13CreateBookingInput
+  'pike13.get_booking': Pike13GetBookingInput
+  'pike13.complete_booking': Pike13CompleteBookingInput
+  'pike13.delete_booking': Pike13DeleteBookingInput
+  'pike13.add_booking_lease': Pike13AddBookingLeaseInput
+  'pike13.update_booking_lease': Pike13UpdateBookingLeaseInput
+  'pike13.delete_booking_lease': Pike13DeleteBookingLeaseInput
+  'pike13.list_person_visits': Pike13ListPersonVisitsInput
+  'pike13.create_visit': Pike13CreateVisitInput
+  'pike13.update_visit': Pike13UpdateVisitInput
+  'pike13.delete_visit': Pike13DeleteVisitInput
+  'pike13.list_invoices': Pike13ListInvoicesInput
+  'pike13.get_invoice': Pike13GetInvoiceInput
+  'pike13.create_invoice': Pike13CreateInvoiceInput
+  'pike13.update_invoice': Pike13UpdateInvoiceInput
+  'pike13.list_invoice_payment_methods': Pike13ListInvoicePaymentMethodsInput
+  'pike13.create_invoice_payment': Pike13CreateInvoicePaymentInput
+  'pike13.refund_invoice_payment': Pike13RefundInvoicePaymentInput
+  'pike13.add_invoice_item': Pike13AddInvoiceItemInput
+  'pike13.delete_invoice_item': Pike13DeleteInvoiceItemInput
+  'pike13.create_event_occurrence_note': Pike13CreateEventOccurrenceNoteInput
+  'pike13.update_event_occurrence_note': Pike13UpdateEventOccurrenceNoteInput
+  'pike13.delete_event_occurrence_note': Pike13DeleteEventOccurrenceNoteInput
+  'pike13.list_plans': Pike13ListPlansInput
+  'pike13.update_plan_end_date': Pike13UpdatePlanEndDateInput
+  'pike13.list_person_plans': Pike13ListPersonPlansInput
+  'pike13.list_plan_products': Pike13ListPlanProductsInput
+  'pike13.list_pack_products': Pike13ListPackProductsInput
+  'pike13.create_pack_product': Pike13CreatePackProductInput
+  'pike13.update_pack_product': Pike13UpdatePackProductInput
+  'pike13.delete_pack_product': Pike13DeletePackProductInput
+  'pike13.get_pack': Pike13GetPackInput
+  'pike13.create_pack': Pike13CreatePackInput
+  'pike13.delete_pack': Pike13DeletePackInput
+  'pike13.get_punch': Pike13GetPunchInput
+  'pike13.create_punch': Pike13CreatePunchInput
+  'pike13.delete_punch': Pike13DeletePunchInput
+  'pike13.get_waitlist_entry': Pike13GetWaitlistEntryInput
+  'pike13.list_waitlist_entries': Pike13ListWaitlistEntriesInput
+  'pike13.create_waitlist_entry': Pike13CreateWaitlistEntryInput
+  'pike13.update_waitlist_entry': Pike13UpdateWaitlistEntryInput
+  'pike13.delete_waitlist_entry': Pike13DeleteWaitlistEntryInput
+  'pike13.query_report': Pike13QueryReportInput
+  'pike13.list_webhook_subscriptions': Pike13ListWebhookSubscriptionsInput
+  'pike13.create_webhook_subscription': Pike13CreateWebhookSubscriptionInput
+  'pike13.update_webhook_subscription': Pike13UpdateWebhookSubscriptionInput
+  'pike13.delete_webhook_subscription': Pike13DeleteWebhookSubscriptionInput
   'pinecone.list_indexes': PineconeListIndexesInput
   'pinecone.upsert_vectors': PineconeUpsertVectorsInput
   'pinecone.query_vectors': PineconeQueryVectorsInput
@@ -79111,6 +86895,11 @@ export interface IntegrationActionInputMap {
   'procore.get_project': ProcoreGetProjectInput
   'procore.list_rfis': ProcoreListRfisInput
   'procore.list_submittals': ProcoreListSubmittalsInput
+  'procore.create_rfi': ProcoreCreateRfiInput
+  'procore.update_rfi': ProcoreUpdateRfiInput
+  'procore.create_submittal': ProcoreCreateSubmittalInput
+  'procore.update_submittal': ProcoreUpdateSubmittalInput
+  'procore.list_webhook_resources': ProcoreListWebhookResourcesInput
   'productboard.list_entities': ProductboardListEntitiesInput
   'productboard.search_entities': ProductboardSearchEntitiesInput
   'productboard.get_entity': ProductboardGetEntityInput
@@ -79373,6 +87162,67 @@ export interface IntegrationActionInputMap {
   'railway.get_deployments': RailwayGetDeploymentsInput
   'railway.redeploy': RailwayRedeployInput
   'railway.custom_api_call': RailwayCustomApiCallInput
+  'raisely.list_campaigns': RaiselyListCampaignsInput
+  'raisely.get_campaign': RaiselyGetCampaignInput
+  'raisely.create_campaign': RaiselyCreateCampaignInput
+  'raisely.update_campaign': RaiselyUpdateCampaignInput
+  'raisely.delete_campaign': RaiselyDeleteCampaignInput
+  'raisely.restore_campaign': RaiselyRestoreCampaignInput
+  'raisely.register_campaign_participant': RaiselyRegisterCampaignParticipantInput
+  'raisely.list_campaign_donations': RaiselyListCampaignDonationsInput
+  'raisely.list_campaign_subscriptions': RaiselyListCampaignSubscriptionsInput
+  'raisely.get_campaign_profile': RaiselyGetCampaignProfileInput
+  'raisely.list_profiles': RaiselyListProfilesInput
+  'raisely.get_profile': RaiselyGetProfileInput
+  'raisely.update_profile': RaiselyUpdateProfileInput
+  'raisely.archive_profile': RaiselyArchiveProfileInput
+  'raisely.join_profile': RaiselyJoinProfileInput
+  'raisely.leave_profile_team': RaiselyLeaveProfileTeamInput
+  'raisely.list_profile_members': RaiselyListProfileMembersInput
+  'raisely.add_profile_member': RaiselyAddProfileMemberInput
+  'raisely.list_profile_donations': RaiselyListProfileDonationsInput
+  'raisely.list_profile_posts': RaiselyListProfilePostsInput
+  'raisely.list_donations': RaiselyListDonationsInput
+  'raisely.get_donation': RaiselyGetDonationInput
+  'raisely.create_offline_donation': RaiselyCreateOfflineDonationInput
+  'raisely.update_donation': RaiselyUpdateDonationInput
+  'raisely.delete_offline_donation': RaiselyDeleteOfflineDonationInput
+  'raisely.move_donation': RaiselyMoveDonationInput
+  'raisely.match_donation': RaiselyMatchDonationInput
+  'raisely.list_donation_receipts': RaiselyListDonationReceiptsInput
+  'raisely.resend_donation_receipt': RaiselyResendDonationReceiptInput
+  'raisely.list_subscriptions': RaiselyListSubscriptionsInput
+  'raisely.get_subscription': RaiselyGetSubscriptionInput
+  'raisely.create_subscription': RaiselyCreateSubscriptionInput
+  'raisely.update_subscription': RaiselyUpdateSubscriptionInput
+  'raisely.list_subscription_donations': RaiselyListSubscriptionDonationsInput
+  'raisely.list_users': RaiselyListUsersInput
+  'raisely.create_user': RaiselyCreateUserInput
+  'raisely.upsert_user': RaiselyUpsertUserInput
+  'raisely.request_user_magic_link': RaiselyRequestUserMagicLinkInput
+  'raisely.signup_user': RaiselySignupUserInput
+  'raisely.check_user': RaiselyCheckUserInput
+  'raisely.list_user_donations': RaiselyListUserDonationsInput
+  'raisely.list_user_profiles': RaiselyListUserProfilesInput
+  'raisely.list_user_subscriptions': RaiselyListUserSubscriptionsInput
+  'raisely.list_orders': RaiselyListOrdersInput
+  'raisely.get_order': RaiselyGetOrderInput
+  'raisely.resend_order_receipt': RaiselyResendOrderReceiptInput
+  'raisely.list_posts': RaiselyListPostsInput
+  'raisely.get_post': RaiselyGetPostInput
+  'raisely.create_post': RaiselyCreatePostInput
+  'raisely.update_post': RaiselyUpdatePostInput
+  'raisely.delete_post': RaiselyDeletePostInput
+  'raisely.create_interaction': RaiselyCreateInteractionInput
+  'raisely.update_interaction': RaiselyUpdateInteractionInput
+  'raisely.delete_interaction': RaiselyDeleteInteractionInput
+  'raisely.list_promo_codes': RaiselyListPromoCodesInput
+  'raisely.create_promo_code': RaiselyCreatePromoCodeInput
+  'raisely.list_webhooks': RaiselyListWebhooksInput
+  'raisely.get_webhook': RaiselyGetWebhookInput
+  'raisely.create_webhook': RaiselyCreateWebhookInput
+  'raisely.update_webhook': RaiselyUpdateWebhookInput
+  'raisely.delete_webhook': RaiselyDeleteWebhookInput
   'ramp.validate_connection': RampValidateConnectionInput
   'ramp.get_business': RampGetBusinessInput
   'ramp.get_business_balance': RampGetBusinessBalanceInput
@@ -79422,6 +87272,13 @@ export interface IntegrationActionInputMap {
   'readme-io.list_categories': ReadmeIoListCategoriesInput
   'readme-io.get_api_spec': ReadmeIoGetApiSpecInput
   'readme-io.custom_api_call': ReadmeIoCustomApiCallInput
+  'real-geeks.create_lead': RealGeeksCreateLeadInput
+  'real-geeks.get_lead': RealGeeksGetLeadInput
+  'real-geeks.update_lead': RealGeeksUpdateLeadInput
+  'real-geeks.add_activities': RealGeeksAddActivitiesInput
+  'real-geeks.assign_lead': RealGeeksAssignLeadInput
+  'real-geeks.create_potential_seller_lead': RealGeeksCreatePotentialSellerLeadInput
+  'real-geeks.list_users': RealGeeksListUsersInput
   'reclaim-ai.list_tasks': ReclaimAiListTasksInput
   'reclaim-ai.create_task': ReclaimAiCreateTaskInput
   'reclaim-ai.get_habits': ReclaimAiGetHabitsInput
@@ -79755,6 +87612,31 @@ export interface IntegrationActionInputMap {
   'serpapi.google_maps_search': SerpapiGoogleMapsSearchInput
   'serpapi.search_locations': SerpapiSearchLocationsInput
   'serpapi.account_status': SerpapiAccountStatusInput
+  'service-fusion.list_calendar_tasks': ServiceFusionListCalendarTasksInput
+  'service-fusion.get_calendar_task': ServiceFusionGetCalendarTaskInput
+  'service-fusion.list_customers': ServiceFusionListCustomersInput
+  'service-fusion.get_customer': ServiceFusionGetCustomerInput
+  'service-fusion.create_customer': ServiceFusionCreateCustomerInput
+  'service-fusion.list_jobs': ServiceFusionListJobsInput
+  'service-fusion.get_job': ServiceFusionGetJobInput
+  'service-fusion.create_job': ServiceFusionCreateJobInput
+  'service-fusion.list_job_categories': ServiceFusionListJobCategoriesInput
+  'service-fusion.get_job_category': ServiceFusionGetJobCategoryInput
+  'service-fusion.list_job_statuses': ServiceFusionListJobStatusesInput
+  'service-fusion.get_job_status': ServiceFusionGetJobStatusInput
+  'service-fusion.list_estimates': ServiceFusionListEstimatesInput
+  'service-fusion.get_estimate': ServiceFusionGetEstimateInput
+  'service-fusion.create_estimate': ServiceFusionCreateEstimateInput
+  'service-fusion.list_invoices': ServiceFusionListInvoicesInput
+  'service-fusion.get_invoice': ServiceFusionGetInvoiceInput
+  'service-fusion.list_payment_types': ServiceFusionListPaymentTypesInput
+  'service-fusion.get_payment_type': ServiceFusionGetPaymentTypeInput
+  'service-fusion.list_sources': ServiceFusionListSourcesInput
+  'service-fusion.get_source': ServiceFusionGetSourceInput
+  'service-fusion.list_techs': ServiceFusionListTechsInput
+  'service-fusion.get_tech': ServiceFusionGetTechInput
+  'service-fusion.list_customer_equipment': ServiceFusionListCustomerEquipmentInput
+  'service-fusion.get_customer_equipment': ServiceFusionGetCustomerEquipmentInput
   'servicem8.list_jobs': Servicem8ListJobsInput
   'servicem8.get_job': Servicem8GetJobInput
   'servicem8.create_job': Servicem8CreateJobInput
@@ -79899,7 +87781,6 @@ export interface IntegrationActionInputMap {
   'simple-practice.get_client': SimplePracticeGetClientInput
   'simple-practice.list_appointments': SimplePracticeListAppointmentsInput
   'simple-practice.create_appointment': SimplePracticeCreateAppointmentInput
-  'simple-practice.custom_api_call': SimplePracticeCustomApiCallInput
   'skilljar.get_user': SkilljarGetUserInput
   'skilljar.create_user': SkilljarCreateUserInput
   'skilljar.enroll_course': SkilljarEnrollCourseInput
@@ -80356,6 +88237,17 @@ export interface IntegrationActionInputMap {
   'teamwork.find_company': TeamworkFindCompanyInput
   'teamwork.find_milestone': TeamworkFindMilestoneInput
   'teamwork.find_notebook_or_comment': TeamworkFindNotebookOrCommentInput
+  'kareo.list_patients': KareoListPatientsInput
+  'kareo.get_patient': KareoGetPatientInput
+  'kareo.create_patient': KareoCreatePatientInput
+  'kareo.update_patient': KareoUpdatePatientInput
+  'kareo.list_appointments': KareoListAppointmentsInput
+  'kareo.get_appointment': KareoGetAppointmentInput
+  'kareo.create_appointment': KareoCreateAppointmentInput
+  'kareo.update_appointment': KareoUpdateAppointmentInput
+  'kareo.delete_appointment': KareoDeleteAppointmentInput
+  'kareo.create_encounter': KareoCreateEncounterInput
+  'kareo.create_payment': KareoCreatePaymentInput
   'telegram-bot.send_text_message': TelegramBotSendTextMessageInput
   'telegram-bot.send_media': TelegramBotSendMediaInput
   'telegram-bot.get_chat_member': TelegramBotGetChatMemberInput
@@ -80595,11 +88487,21 @@ export interface IntegrationActionInputMap {
   'uptime-robot.get_monitor': UptimeRobotGetMonitorInput
   'uptime-robot.create_monitor': UptimeRobotCreateMonitorInput
   'uptime-robot.custom_api_call': UptimeRobotCustomApiCallInput
-  'vagaro.list_appointments': VagaroListAppointmentsInput
-  'vagaro.get_customer': VagaroGetCustomerInput
-  'vagaro.get_services': VagaroGetServicesInput
-  'vagaro.get_employees': VagaroGetEmployeesInput
-  'vagaro.custom_api_call': VagaroCustomApiCallInput
+  'vagaro.get_access_levels': VagaroGetAccessLevelsInput
+  'vagaro.retrieve_locations': VagaroRetrieveLocationsInput
+  'vagaro.update_location': VagaroUpdateLocationInput
+  'vagaro.retrieve_customer': VagaroRetrieveCustomerInput
+  'vagaro.delete_customer': VagaroDeleteCustomerInput
+  'vagaro.search_appointment_availability': VagaroSearchAppointmentAvailabilityInput
+  'vagaro.retrieve_appointments': VagaroRetrieveAppointmentsInput
+  'vagaro.retrieve_employee': VagaroRetrieveEmployeeInput
+  'vagaro.update_employee': VagaroUpdateEmployeeInput
+  'vagaro.delete_employee': VagaroDeleteEmployeeInput
+  'vagaro.retrieve_services': VagaroRetrieveServicesInput
+  'vagaro.create_personal_task': VagaroCreatePersonalTaskInput
+  'vagaro.retrieve_personal_tasks': VagaroRetrievePersonalTasksInput
+  'vagaro.update_personal_task': VagaroUpdatePersonalTaskInput
+  'vagaro.delete_personal_task': VagaroDeletePersonalTaskInput
   'vanta.list_vulnerabilities': VantaListVulnerabilitiesInput
   'vanta.list_tests': VantaListTestsInput
   'vanta.list_integrations': VantaListIntegrationsInput
@@ -80845,6 +88747,25 @@ export interface IntegrationActionInputMap {
   'workable.move_candidate': WorkableMoveCandidateInput
   'workday.list_workers': WorkdayListWorkersInput
   'workday.get_worker': WorkdayGetWorkerInput
+  'workiz.list_jobs': WorkizListJobsInput
+  'workiz.get_job': WorkizGetJobInput
+  'workiz.create_job': WorkizCreateJobInput
+  'workiz.update_job': WorkizUpdateJobInput
+  'workiz.assign_job': WorkizAssignJobInput
+  'workiz.unassign_job': WorkizUnassignJobInput
+  'workiz.add_job_payment': WorkizAddJobPaymentInput
+  'workiz.list_leads': WorkizListLeadsInput
+  'workiz.get_lead': WorkizGetLeadInput
+  'workiz.create_lead': WorkizCreateLeadInput
+  'workiz.update_lead': WorkizUpdateLeadInput
+  'workiz.assign_lead': WorkizAssignLeadInput
+  'workiz.unassign_lead': WorkizUnassignLeadInput
+  'workiz.convert_lead': WorkizConvertLeadInput
+  'workiz.mark_lead_lost': WorkizMarkLeadLostInput
+  'workiz.activate_lead': WorkizActivateLeadInput
+  'workiz.list_team_members': WorkizListTeamMembersInput
+  'workiz.get_team_member': WorkizGetTeamMemberInput
+  'workiz.list_time_off': WorkizListTimeOffInput
   'wrike.create_task': WrikeCreateTaskInput
   'wrike.update_task': WrikeUpdateTaskInput
   'wrike.create_folder': WrikeCreateFolderInput
@@ -81816,6 +89737,26 @@ export interface IntegrationActionInputsByIntegration {
     'void_transaction': AuthorizeNetVoidTransactionInput
     'create_customer_profile': AuthorizeNetCreateCustomerProfileInput
   }
+  'autodesk-construction-cloud': {
+    'list_hubs': AutodeskConstructionCloudListHubsInput
+    'list_projects': AutodeskConstructionCloudListProjectsInput
+    'list_top_folders': AutodeskConstructionCloudListTopFoldersInput
+    'list_folder_contents': AutodeskConstructionCloudListFolderContentsInput
+    'list_issues': AutodeskConstructionCloudListIssuesInput
+    'get_issue': AutodeskConstructionCloudGetIssueInput
+    'create_issue': AutodeskConstructionCloudCreateIssueInput
+    'update_issue': AutodeskConstructionCloudUpdateIssueInput
+    'get_rfi': AutodeskConstructionCloudGetRfiInput
+    'search_rfis': AutodeskConstructionCloudSearchRfisInput
+    'create_rfi': AutodeskConstructionCloudCreateRfiInput
+    'update_rfi': AutodeskConstructionCloudUpdateRfiInput
+    'get_rfi_workflow': AutodeskConstructionCloudGetRfiWorkflowInput
+    'list_submittals': AutodeskConstructionCloudListSubmittalsInput
+    'get_submittal': AutodeskConstructionCloudGetSubmittalInput
+    'create_submittal': AutodeskConstructionCloudCreateSubmittalInput
+    'update_submittal': AutodeskConstructionCloudUpdateSubmittalInput
+    'transition_submittal': AutodeskConstructionCloudTransitionSubmittalInput
+  }
   'autotask': {
     'create_ticket': AutotaskCreateTicketInput
     'list_tickets': AutotaskListTicketsInput
@@ -82137,6 +90078,13 @@ export interface IntegrationActionInputsByIntegration {
     'update_bitlink': BitlyUpdateBitlinkInput
     'get_clicks_summary': BitlyGetClicksSummaryInput
     'list_groups': BitlyListGroupsInput
+  }
+  'bitpay': {
+    'create_invoice': BitpayCreateInvoiceInput
+    'retrieve_invoice': BitpayRetrieveInvoiceInput
+    'get_supported_currencies': BitpayGetSupportedCurrenciesInput
+    'get_rates': BitpayGetRatesInput
+    'get_supported_wallets': BitpayGetSupportedWalletsInput
   }
   'bitwarden': {
     'list_members': BitwardenListMembersInput
@@ -82498,6 +90446,37 @@ export interface IntegrationActionInputsByIntegration {
     'delete_voice': CartesiaDeleteVoiceInput
     'create_access_token': CartesiaCreateAccessTokenInput
   }
+  'cashfree': {
+    'create_order': CashfreeCreateOrderInput
+    'get_order': CashfreeGetOrderInput
+    'get_order_extended': CashfreeGetOrderExtendedInput
+    'order_pay': CashfreeOrderPayInput
+    'authorize_payment': CashfreeAuthorizePaymentInput
+    'list_order_payments': CashfreeListOrderPaymentsInput
+    'get_payment': CashfreeGetPaymentInput
+    'create_refund': CashfreeCreateRefundInput
+    'list_refunds': CashfreeListRefundsInput
+    'get_refund': CashfreeGetRefundInput
+    'create_payment_link': CashfreeCreatePaymentLinkInput
+    'get_payment_link': CashfreeGetPaymentLinkInput
+    'list_payment_link_orders': CashfreeListPaymentLinkOrdersInput
+    'cancel_payment_link': CashfreeCancelPaymentLinkInput
+    'get_settlements': CashfreeGetSettlementsInput
+    'get_order_settlements': CashfreeGetOrderSettlementsInput
+    'get_settlement_reconciliation': CashfreeGetSettlementReconciliationInput
+    'get_pg_reconciliation': CashfreeGetPgReconciliationInput
+    'list_saved_instruments': CashfreeListSavedInstrumentsInput
+    'get_saved_instrument': CashfreeGetSavedInstrumentInput
+    'delete_saved_instrument': CashfreeDeleteSavedInstrumentInput
+    'get_saved_instrument_cryptogram': CashfreeGetSavedInstrumentCryptogramInput
+    'create_beneficiary': CashfreeCreateBeneficiaryInput
+    'get_beneficiary': CashfreeGetBeneficiaryInput
+    'remove_beneficiary': CashfreeRemoveBeneficiaryInput
+    'create_transfer': CashfreeCreateTransferInput
+    'get_transfer_status': CashfreeGetTransferStatusInput
+    'create_batch_transfer': CashfreeCreateBatchTransferInput
+    'get_batch_transfer_status': CashfreeGetBatchTransferStatusInput
+  }
   'census': {
     'list_sources': CensusListSourcesInput
     'get_source': CensusGetSourceInput
@@ -82558,6 +90537,28 @@ export interface IntegrationActionInputsByIntegration {
     'list_members': CircleListMembersInput
     'create_post': CircleCreatePostInput
     'list_posts': CircleListPostsInput
+  }
+  'circle-mint': {
+    'get_configuration': CircleMintGetConfigurationInput
+    'list_balances': CircleMintListBalancesInput
+    'list_deposits': CircleMintListDepositsInput
+    'create_deposit_address': CircleMintCreateDepositAddressInput
+    'list_deposit_addresses': CircleMintListDepositAddressesInput
+    'create_recipient_address': CircleMintCreateRecipientAddressInput
+    'list_recipient_addresses': CircleMintListRecipientAddressesInput
+    'create_transfer': CircleMintCreateTransferInput
+    'list_transfers': CircleMintListTransfersInput
+    'create_address_book_recipient': CircleMintCreateAddressBookRecipientInput
+    'list_address_book_recipients': CircleMintListAddressBookRecipientsInput
+    'get_address_book_recipient': CircleMintGetAddressBookRecipientInput
+    'modify_address_book_recipient': CircleMintModifyAddressBookRecipientInput
+    'delete_address_book_recipient': CircleMintDeleteAddressBookRecipientInput
+    'create_payout': CircleMintCreatePayoutInput
+    'list_payouts': CircleMintListPayoutsInput
+    'get_payout': CircleMintGetPayoutInput
+    'list_notification_subscriptions': CircleMintListNotificationSubscriptionsInput
+    'create_notification_subscription': CircleMintCreateNotificationSubscriptionInput
+    'delete_notification_subscription': CircleMintDeleteNotificationSubscriptionInput
   }
   'circleci': {
     'list_pipelines': CircleciListPipelinesInput
@@ -82856,6 +90857,27 @@ export interface IntegrationActionInputsByIntegration {
     'deactivate_checkout': CoinbaseBusinessDeactivateCheckoutInput
     'refund_checkout': CoinbaseBusinessRefundCheckoutInput
   }
+  'coingate': {
+    'create_order': CoingateCreateOrderInput
+    'list_orders': CoingateListOrdersInput
+    'get_order': CoingateGetOrderInput
+    'create_order_refund': CoingateCreateOrderRefundInput
+    'list_order_refunds': CoingateListOrderRefundsInput
+    'get_order_refund': CoingateGetOrderRefundInput
+    'list_ledger_accounts': CoingateListLedgerAccountsInput
+    'get_ledger_account': CoingateGetLedgerAccountInput
+    'create_conversion': CoingateCreateConversionInput
+    'confirm_conversion': CoingateConfirmConversionInput
+    'cancel_conversion': CoingateCancelConversionInput
+    'create_send_request': CoingateCreateSendRequestInput
+    'list_send_requests': CoingateListSendRequestsInput
+    'get_send_request': CoingateGetSendRequestInput
+    'confirm_send_request': CoingateConfirmSendRequestInput
+    'cancel_send_request': CoingateCancelSendRequestInput
+    'list_beneficiaries': CoingateListBeneficiariesInput
+    'get_beneficiary': CoingateGetBeneficiaryInput
+    'create_beneficiary': CoingateCreateBeneficiaryInput
+  }
   'common-room': {
     'get_token_status': CommonRoomGetTokenStatusInput
     'add_or_update_contact': CommonRoomAddOrUpdateContactInput
@@ -82871,10 +90893,18 @@ export interface IntegrationActionInputsByIntegration {
   'companycam': {
     'list_projects': CompanycamListProjectsInput
     'create_project': CompanycamCreateProjectInput
+    'get_project': CompanycamGetProjectInput
+    'update_project': CompanycamUpdateProjectInput
+    'archive_project': CompanycamArchiveProjectInput
+    'delete_project': CompanycamDeleteProjectInput
     'upload_photo': CompanycamUploadPhotoInput
+    'list_project_photos': CompanycamListProjectPhotosInput
     'get_photo': CompanycamGetPhotoInput
+    'update_photo': CompanycamUpdatePhotoInput
+    'delete_photo': CompanycamDeletePhotoInput
     'create_tag': CompanycamCreateTagInput
-    'custom_api_call': CompanycamCustomApiCallInput
+    'list_webhooks': CompanycamListWebhooksInput
+    'update_webhook': CompanycamUpdateWebhookInput
   }
   'confluence': {
     'get_page': ConfluenceGetPageInput
@@ -83732,6 +91762,27 @@ export interface IntegrationActionInputsByIntegration {
     'run_query': FirebaseRunQueryInput
     'delete_document': FirebaseDeleteDocumentInput
   }
+  'fireblocks': {
+    'list_vault_accounts': FireblocksListVaultAccountsInput
+    'create_vault_account': FireblocksCreateVaultAccountInput
+    'get_vault_account': FireblocksGetVaultAccountInput
+    'rename_vault_account': FireblocksRenameVaultAccountInput
+    'create_vault_wallet': FireblocksCreateVaultWalletInput
+    'create_deposit_address': FireblocksCreateDepositAddressInput
+    'list_external_wallets': FireblocksListExternalWalletsInput
+    'create_external_wallet': FireblocksCreateExternalWalletInput
+    'get_external_wallet': FireblocksGetExternalWalletInput
+    'delete_external_wallet': FireblocksDeleteExternalWalletInput
+    'add_external_wallet_asset': FireblocksAddExternalWalletAssetInput
+    'delete_external_wallet_asset': FireblocksDeleteExternalWalletAssetInput
+    'list_transactions': FireblocksListTransactionsInput
+    'create_transaction': FireblocksCreateTransactionInput
+    'get_transaction': FireblocksGetTransactionInput
+    'get_transaction_by_external_id': FireblocksGetTransactionByExternalIdInput
+    'cancel_transaction': FireblocksCancelTransactionInput
+    'freeze_transaction': FireblocksFreezeTransactionInput
+    'unfreeze_transaction': FireblocksUnfreezeTransactionInput
+  }
   'firecrawl': {
     'scrape': FirecrawlScrapeInput
     'extract': FirecrawlExtractInput
@@ -84034,6 +92085,68 @@ export interface IntegrationActionInputsByIntegration {
     'list_projects': GitlabListProjectsInput
     'create_branch': GitlabCreateBranchInput
     'custom_api_call': GitlabCustomApiCallInput
+  }
+  'givebutter': {
+    'list_contacts': GivebutterListContactsInput
+    'get_contact': GivebutterGetContactInput
+    'create_contact': GivebutterCreateContactInput
+    'update_contact': GivebutterUpdateContactInput
+    'delete_contact': GivebutterDeleteContactInput
+    'restore_contact': GivebutterRestoreContactInput
+    'add_contact_tags': GivebutterAddContactTagsInput
+    'remove_contact_tags': GivebutterRemoveContactTagsInput
+    'sync_contact_tags': GivebutterSyncContactTagsInput
+    'list_contact_activities': GivebutterListContactActivitiesInput
+    'get_contact_activity': GivebutterGetContactActivityInput
+    'create_contact_activity': GivebutterCreateContactActivityInput
+    'update_contact_activity': GivebutterUpdateContactActivityInput
+    'delete_contact_activity': GivebutterDeleteContactActivityInput
+    'list_campaigns': GivebutterListCampaignsInput
+    'get_campaign': GivebutterGetCampaignInput
+    'create_campaign': GivebutterCreateCampaignInput
+    'update_campaign': GivebutterUpdateCampaignInput
+    'delete_campaign': GivebutterDeleteCampaignInput
+    'list_campaign_members': GivebutterListCampaignMembersInput
+    'get_campaign_member': GivebutterGetCampaignMemberInput
+    'delete_campaign_member': GivebutterDeleteCampaignMemberInput
+    'list_campaign_teams': GivebutterListCampaignTeamsInput
+    'get_campaign_team': GivebutterGetCampaignTeamInput
+    'delete_campaign_team': GivebutterDeleteCampaignTeamInput
+    'list_discount_codes': GivebutterListDiscountCodesInput
+    'get_discount_code': GivebutterGetDiscountCodeInput
+    'create_discount_code': GivebutterCreateDiscountCodeInput
+    'update_discount_code': GivebutterUpdateDiscountCodeInput
+    'delete_discount_code': GivebutterDeleteDiscountCodeInput
+    'list_transactions': GivebutterListTransactionsInput
+    'get_transaction': GivebutterGetTransactionInput
+    'create_transaction': GivebutterCreateTransactionInput
+    'update_transaction': GivebutterUpdateTransactionInput
+    'list_recurring_plans': GivebutterListRecurringPlansInput
+    'get_recurring_plan': GivebutterGetRecurringPlanInput
+    'list_tickets': GivebutterListTicketsInput
+    'get_ticket': GivebutterGetTicketInput
+    'create_campaign_ticket': GivebutterCreateCampaignTicketInput
+    'list_funds': GivebutterListFundsInput
+    'get_fund': GivebutterGetFundInput
+    'create_fund': GivebutterCreateFundInput
+    'update_fund': GivebutterUpdateFundInput
+    'delete_fund': GivebutterDeleteFundInput
+    'list_payouts': GivebutterListPayoutsInput
+    'get_payout': GivebutterGetPayoutInput
+    'list_messages': GivebutterListMessagesInput
+    'get_message': GivebutterGetMessageInput
+    'list_households': GivebutterListHouseholdsInput
+    'get_household': GivebutterGetHouseholdInput
+    'create_household': GivebutterCreateHouseholdInput
+    'update_household': GivebutterUpdateHouseholdInput
+    'delete_household': GivebutterDeleteHouseholdInput
+    'list_household_contacts': GivebutterListHouseholdContactsInput
+    'associate_household_contact': GivebutterAssociateHouseholdContactInput
+    'disassociate_household_contact': GivebutterDisassociateHouseholdContactInput
+    'list_webhooks': GivebutterListWebhooksInput
+    'create_webhook': GivebutterCreateWebhookInput
+    'update_webhook': GivebutterUpdateWebhookInput
+    'delete_webhook': GivebutterDeleteWebhookInput
   }
   'gmail': {
     'list_messages': GmailListMessagesInput
@@ -84494,6 +92607,24 @@ export interface IntegrationActionInputsByIntegration {
     'get_claims': HawksoftGetClaimsInput
     'custom_api_call': HawksoftCustomApiCallInput
   }
+  'healthie': {
+    'list_clients': HealthieListClientsInput
+    'get_client': HealthieGetClientInput
+    'create_client': HealthieCreateClientInput
+    'update_client': HealthieUpdateClientInput
+    'archive_client': HealthieArchiveClientInput
+    'list_appointments': HealthieListAppointmentsInput
+    'get_appointment': HealthieGetAppointmentInput
+    'create_appointment': HealthieCreateAppointmentInput
+    'update_appointment': HealthieUpdateAppointmentInput
+    'delete_appointment': HealthieDeleteAppointmentInput
+    'list_tasks': HealthieListTasksInput
+    'create_task': HealthieCreateTaskInput
+    'update_task': HealthieUpdateTaskInput
+    'list_form_answer_groups': HealthieListFormAnswerGroupsInput
+    'create_webhook': HealthieCreateWebhookInput
+    'delete_webhook': HealthieDeleteWebhookInput
+  }
   'heap': {
     'track_event': HeapTrackEventInput
     'identify_user': HeapIdentifyUserInput
@@ -84905,6 +93036,35 @@ export interface IntegrationActionInputsByIntegration {
     'send_targeted_email': IterableSendTargetedEmailInput
     'custom_api_call': IterableCustomApiCallInput
   }
+  'iyzico': {
+    'check_bin': IyzicoCheckBinInput
+    'initialize_checkout_form': IyzicoInitializeCheckoutFormInput
+    'retrieve_checkout_form': IyzicoRetrieveCheckoutFormInput
+    'capture_preauth_payment': IyzicoCapturePreauthPaymentInput
+    'cancel_payment': IyzicoCancelPaymentInput
+    'refund_payment': IyzicoRefundPaymentInput
+    'get_payment_detail': IyzicoGetPaymentDetailInput
+    'create_link': IyzicoCreateLinkInput
+    'create_fast_link': IyzicoCreateFastLinkInput
+    'update_link': IyzicoUpdateLinkInput
+    'get_link': IyzicoGetLinkInput
+    'list_links': IyzicoListLinksInput
+    'update_link_status': IyzicoUpdateLinkStatusInput
+    'delete_link': IyzicoDeleteLinkInput
+    'list_stored_cards': IyzicoListStoredCardsInput
+    'delete_stored_card': IyzicoDeleteStoredCardInput
+    'create_payment_with_stored_card': IyzicoCreatePaymentWithStoredCardInput
+    'create_submerchant': IyzicoCreateSubmerchantInput
+    'update_submerchant': IyzicoUpdateSubmerchantInput
+    'get_submerchant': IyzicoGetSubmerchantInput
+    'update_submerchant_item_price': IyzicoUpdateSubmerchantItemPriceInput
+    'initialize_mass_payout': IyzicoInitializeMassPayoutInput
+    'authorize_mass_payout': IyzicoAuthorizeMassPayoutInput
+    'cancel_mass_payout': IyzicoCancelMassPayoutInput
+    'retrieve_mass_payout': IyzicoRetrieveMassPayoutInput
+    'get_mass_payout_item': IyzicoGetMassPayoutItemInput
+    'get_mass_payout_balance': IyzicoGetMassPayoutBalanceInput
+  }
   'jamf': {
     'list_computers': JamfListComputersInput
     'get_computer_inventory': JamfGetComputerInventoryInput
@@ -84978,6 +93138,69 @@ export interface IntegrationActionInputsByIntegration {
     'create_quote': JobberCreateQuoteInput
     'custom_api_call': JobberCustomApiCallInput
   }
+  'jobnimbus': {
+    'list_contacts': JobnimbusListContactsInput
+    'get_contact': JobnimbusGetContactInput
+    'create_contact': JobnimbusCreateContactInput
+    'update_contact': JobnimbusUpdateContactInput
+    'delete_contact': JobnimbusDeleteContactInput
+    'list_jobs': JobnimbusListJobsInput
+    'get_job': JobnimbusGetJobInput
+    'create_job': JobnimbusCreateJobInput
+    'update_job': JobnimbusUpdateJobInput
+    'delete_job': JobnimbusDeleteJobInput
+    'list_tasks': JobnimbusListTasksInput
+    'get_task': JobnimbusGetTaskInput
+    'create_task': JobnimbusCreateTaskInput
+    'update_task': JobnimbusUpdateTaskInput
+    'delete_task': JobnimbusDeleteTaskInput
+    'list_activities': JobnimbusListActivitiesInput
+    'get_activity': JobnimbusGetActivityInput
+    'create_activity': JobnimbusCreateActivityInput
+    'list_products': JobnimbusListProductsInput
+    'get_product': JobnimbusGetProductInput
+    'create_product': JobnimbusCreateProductInput
+    'update_product': JobnimbusUpdateProductInput
+    'delete_product': JobnimbusDeleteProductInput
+    'list_material_orders': JobnimbusListMaterialOrdersInput
+    'get_material_order': JobnimbusGetMaterialOrderInput
+    'create_material_order': JobnimbusCreateMaterialOrderInput
+    'update_material_order': JobnimbusUpdateMaterialOrderInput
+    'delete_material_order': JobnimbusDeleteMaterialOrderInput
+    'list_work_orders': JobnimbusListWorkOrdersInput
+    'get_work_order': JobnimbusGetWorkOrderInput
+    'create_work_order': JobnimbusCreateWorkOrderInput
+    'update_work_order': JobnimbusUpdateWorkOrderInput
+    'delete_work_order': JobnimbusDeleteWorkOrderInput
+    'list_estimates': JobnimbusListEstimatesInput
+    'get_estimate': JobnimbusGetEstimateInput
+    'create_estimate': JobnimbusCreateEstimateInput
+    'update_estimate': JobnimbusUpdateEstimateInput
+    'delete_estimate': JobnimbusDeleteEstimateInput
+    'list_invoices': JobnimbusListInvoicesInput
+    'get_invoice': JobnimbusGetInvoiceInput
+    'create_invoice': JobnimbusCreateInvoiceInput
+    'update_invoice': JobnimbusUpdateInvoiceInput
+    'delete_invoice': JobnimbusDeleteInvoiceInput
+    'list_payments': JobnimbusListPaymentsInput
+    'create_payment': JobnimbusCreatePaymentInput
+    'list_account_settings': JobnimbusListAccountSettingsInput
+    'create_workflow': JobnimbusCreateWorkflowInput
+    'create_workflow_status': JobnimbusCreateWorkflowStatusInput
+    'create_lead_source': JobnimbusCreateLeadSourceInput
+    'create_custom_field': JobnimbusCreateCustomFieldInput
+    'create_file_type': JobnimbusCreateFileTypeInput
+    'create_task_type': JobnimbusCreateTaskTypeInput
+    'create_activity_type': JobnimbusCreateActivityTypeInput
+    'create_location': JobnimbusCreateLocationInput
+  }
+  'jobtread': {
+    'get_current_grant': JobtreadGetCurrentGrantInput
+    'execute_pave_query': JobtreadExecutePaveQueryInput
+    'list_webhooks': JobtreadListWebhooksInput
+    'create_webhook': JobtreadCreateWebhookInput
+    'delete_webhook': JobtreadDeleteWebhookInput
+  }
   'jotform': {
     'list_forms': JotformListFormsInput
     'get_form': JotformGetFormInput
@@ -85003,13 +93226,6 @@ export interface IntegrationActionInputsByIntegration {
     'list_offers': KajabiListOffersInput
     'custom_api_call': KajabiCustomApiCallInput
   }
-  'kareo': {
-    'list_patients': KareoListPatientsInput
-    'get_patient': KareoGetPatientInput
-    'list_appointments': KareoListAppointmentsInput
-    'create_appointment': KareoCreateAppointmentInput
-    'custom_api_call': KareoCustomApiCallInput
-  }
   'katana-mrp': {
     'get_product': KatanaMrpGetProductInput
     'create_product': KatanaMrpCreateProductInput
@@ -85026,6 +93242,45 @@ export interface IntegrationActionInputsByIntegration {
     'list_products': KeapListProductsInput
     'send_email': KeapSendEmailInput
     'custom_api_call': KeapCustomApiCallInput
+  }
+  'kickserv': {
+    'list_customers': KickservListCustomersInput
+    'get_customer': KickservGetCustomerInput
+    'create_customer': KickservCreateCustomerInput
+    'update_customer': KickservUpdateCustomerInput
+    'delete_customer': KickservDeleteCustomerInput
+    'list_jobs': KickservListJobsInput
+    'get_job': KickservGetJobInput
+    'create_job': KickservCreateJobInput
+    'update_job': KickservUpdateJobInput
+    'delete_job': KickservDeleteJobInput
+    'list_customer_notes': KickservListCustomerNotesInput
+    'get_customer_note': KickservGetCustomerNoteInput
+    'create_customer_note': KickservCreateCustomerNoteInput
+    'update_customer_note': KickservUpdateCustomerNoteInput
+    'delete_customer_note': KickservDeleteCustomerNoteInput
+    'list_job_notes': KickservListJobNotesInput
+    'get_job_note': KickservGetJobNoteInput
+    'create_job_note': KickservCreateJobNoteInput
+    'update_job_note': KickservUpdateJobNoteInput
+    'delete_job_note': KickservDeleteJobNoteInput
+    'list_employees': KickservListEmployeesInput
+    'get_employee': KickservGetEmployeeInput
+    'create_employee': KickservCreateEmployeeInput
+    'update_employee': KickservUpdateEmployeeInput
+    'list_items': KickservListItemsInput
+    'get_item': KickservGetItemInput
+    'create_job_charge': KickservCreateJobChargeInput
+    'list_tasks': KickservListTasksInput
+    'get_task': KickservGetTaskInput
+    'create_task': KickservCreateTaskInput
+    'update_task': KickservUpdateTaskInput
+    'delete_task': KickservDeleteTaskInput
+    'list_time_entries': KickservListTimeEntriesInput
+    'get_time_entry': KickservGetTimeEntryInput
+    'create_time_entry': KickservCreateTimeEntryInput
+    'update_time_entry': KickservUpdateTimeEntryInput
+    'delete_time_entry': KickservDeleteTimeEntryInput
   }
   'kissflow': {
     'downloadAttachmentFromFormField': KissflowDownloadAttachmentFromFormFieldInput
@@ -85148,6 +93403,37 @@ export interface IntegrationActionInputsByIntegration {
     'get_matters': LawmaticsGetMattersInput
     'get_pipeline': LawmaticsGetPipelineInput
     'custom_api_call': LawmaticsCustomApiCallInput
+  }
+  'lawpay': {
+    'get_gateway_credentials': LawpayGetGatewayCredentialsInput
+    'get_current_merchant': LawpayGetCurrentMerchantInput
+    'update_merchant': LawpayUpdateMerchantInput
+    'search_contacts': LawpaySearchContactsInput
+    'get_contact': LawpayGetContactInput
+    'create_contact': LawpayCreateContactInput
+    'update_contact': LawpayUpdateContactInput
+    'delete_contact': LawpayDeleteContactInput
+    'create_payment_method': LawpayCreatePaymentMethodInput
+    'delete_payment_method': LawpayDeletePaymentMethodInput
+    'make_contact_payment': LawpayMakeContactPaymentInput
+    'get_bank_accounts': LawpayGetBankAccountsInput
+    'search_invoices': LawpaySearchInvoicesInput
+    'create_invoice': LawpayCreateInvoiceInput
+    'update_invoice': LawpayUpdateInvoiceInput
+    'delete_invoice': LawpayDeleteInvoiceInput
+    'send_invoice_message': LawpaySendInvoiceMessageInput
+    'create_charge': LawpayCreateChargeInput
+    'capture_charge': LawpayCaptureChargeInput
+    'refund_charge': LawpayRefundChargeInput
+    'void_transaction': LawpayVoidTransactionInput
+    'create_credit': LawpayCreateCreditInput
+    'search_transactions': LawpaySearchTransactionsInput
+    'get_transaction': LawpayGetTransactionInput
+    'create_recurring_charge': LawpayCreateRecurringChargeInput
+    'update_recurring_charge': LawpayUpdateRecurringChargeInput
+    'cancel_recurring_charge': LawpayCancelRecurringChargeInput
+    'delete_recurring_charge': LawpayDeleteRecurringChargeInput
+    'pay_recurring_occurrence': LawpayPayRecurringOccurrenceInput
   }
   'lead-connector': {
     'create_contact': LeadConnectorCreateContactInput
@@ -85400,6 +93686,39 @@ export interface IntegrationActionInputsByIntegration {
     'create_quote': LodgifyCreateQuoteInput
     'send_booking_message': LodgifySendBookingMessageInput
     'get_payment_link': LodgifyGetPaymentLinkInput
+  }
+  'lofty': {
+    'list_leads': LoftyListLeadsInput
+    'get_lead': LoftyGetLeadInput
+    'create_lead': LoftyCreateLeadInput
+    'update_lead': LoftyUpdateLeadInput
+    'delete_lead': LoftyDeleteLeadInput
+    'resolve_lead_assignee': LoftyResolveLeadAssigneeInput
+    'update_lead_assignment': LoftyUpdateLeadAssignmentInput
+    'add_lead_inquiry': LoftyAddLeadInquiryInput
+    'add_lead_property': LoftyAddLeadPropertyInput
+    'list_lead_activities': LoftyListLeadActivitiesInput
+    'list_notes': LoftyListNotesInput
+    'create_note': LoftyCreateNoteInput
+    'update_note': LoftyUpdateNoteInput
+    'delete_note': LoftyDeleteNoteInput
+    'list_tasks': LoftyListTasksInput
+    'create_task': LoftyCreateTaskInput
+    'update_task': LoftyUpdateTaskInput
+    'finish_task': LoftyFinishTaskInput
+    'unfinish_task': LoftyUnfinishTaskInput
+    'delete_task': LoftyDeleteTaskInput
+    'send_text': LoftySendTextInput
+    'send_email': LoftySendEmailInput
+    'get_communication': LoftyGetCommunicationInput
+    'list_transactions': LoftyListTransactionsInput
+    'update_transaction': LoftyUpdateTransactionInput
+    'create_calendar_event': LoftyCreateCalendarEventInput
+    'update_calendar_event': LoftyUpdateCalendarEventInput
+    'delete_calendar_event': LoftyDeleteCalendarEventInput
+    'search_listings': LoftySearchListingsInput
+    'create_webhook': LoftyCreateWebhookInput
+    'delete_webhook': LoftyDeleteWebhookInput
   }
   'lokalise': {
     'list_projects': LokaliseListProjectsInput
@@ -85906,13 +94225,103 @@ export interface IntegrationActionInputsByIntegration {
     'find_task_by_title': MicrosoftTodoFindTaskByTitleInput
     'custom_api_call': MicrosoftTodoCustomApiCallInput
   }
+  'midtrans': {
+    'create_snap_transaction': MidtransCreateSnapTransactionInput
+    'create_payment_link': MidtransCreatePaymentLinkInput
+    'charge_transaction': MidtransChargeTransactionInput
+    'capture_transaction': MidtransCaptureTransactionInput
+    'get_transaction_status': MidtransGetTransactionStatusInput
+    'cancel_transaction': MidtransCancelTransactionInput
+    'expire_transaction': MidtransExpireTransactionInput
+    'refund_transaction': MidtransRefundTransactionInput
+    'direct_refund_transaction': MidtransDirectRefundTransactionInput
+    'get_bin': MidtransGetBinInput
+    'create_pay_account': MidtransCreatePayAccountInput
+    'get_pay_account': MidtransGetPayAccountInput
+    'unbind_pay_account': MidtransUnbindPayAccountInput
+    'create_subscription': MidtransCreateSubscriptionInput
+    'get_subscription': MidtransGetSubscriptionInput
+    'update_subscription': MidtransUpdateSubscriptionInput
+    'enable_subscription': MidtransEnableSubscriptionInput
+    'disable_subscription': MidtransDisableSubscriptionInput
+    'cancel_subscription': MidtransCancelSubscriptionInput
+    'list_iris_banks': MidtransListIrisBanksInput
+    'validate_iris_bank_account': MidtransValidateIrisBankAccountInput
+    'create_iris_beneficiary': MidtransCreateIrisBeneficiaryInput
+    'update_iris_beneficiary': MidtransUpdateIrisBeneficiaryInput
+    'list_iris_beneficiaries': MidtransListIrisBeneficiariesInput
+    'create_iris_payouts': MidtransCreateIrisPayoutsInput
+    'approve_iris_payouts': MidtransApproveIrisPayoutsInput
+    'reject_iris_payouts': MidtransRejectIrisPayoutsInput
+    'get_iris_payout': MidtransGetIrisPayoutInput
+    'get_iris_balance': MidtransGetIrisBalanceInput
+    'list_iris_transactions': MidtransListIrisTransactionsInput
+  }
   'mindbody': {
+    'list_locations': MindbodyListLocationsInput
+    'list_session_types': MindbodyListSessionTypesInput
+    'list_resources': MindbodyListResourcesInput
+    'list_staff': MindbodyListStaffInput
+    'list_services': MindbodyListServicesInput
+    'list_products': MindbodyListProductsInput
+    'get_gift_card_balance': MindbodyGetGiftCardBalanceInput
     'list_classes': MindbodyListClassesInput
-    'get_schedule': MindbodyGetScheduleInput
+    'get_class_schedules': MindbodyGetClassSchedulesInput
+    'list_class_visits': MindbodyListClassVisitsInput
+    'list_waitlist_entries': MindbodyListWaitlistEntriesInput
+    'add_client_to_class': MindbodyAddClientToClassInput
+    'remove_client_from_class': MindbodyRemoveClientFromClassInput
+    'remove_clients_from_classes': MindbodyRemoveClientsFromClassesInput
+    'remove_from_waitlist': MindbodyRemoveFromWaitlistInput
+    'substitute_class_teacher': MindbodySubstituteClassTeacherInput
+    'cancel_single_class': MindbodyCancelSingleClassInput
     'list_clients': MindbodyListClientsInput
     'get_client': MindbodyGetClientInput
-    'book_class': MindbodyBookClassInput
-    'custom_api_call': MindbodyCustomApiCallInput
+    'add_client': MindbodyAddClientInput
+    'update_client': MindbodyUpdateClientInput
+    'add_contact_log': MindbodyAddContactLogInput
+    'update_client_visit': MindbodyUpdateClientVisitInput
+    'upload_client_photo': MindbodyUploadClientPhotoInput
+    'list_client_services': MindbodyListClientServicesInput
+    'list_client_purchases': MindbodyListClientPurchasesInput
+    'list_active_client_memberships': MindbodyListActiveClientMembershipsInput
+    'list_client_contracts': MindbodyListClientContractsInput
+    'terminate_contract': MindbodyTerminateContractInput
+    'list_enrollments': MindbodyListEnrollmentsInput
+    'add_client_to_enrollment': MindbodyAddClientToEnrollmentInput
+    'retrieve_appointments': MindbodyRetrieveAppointmentsInput
+    'book_appointment': MindbodyBookAppointmentInput
+    'update_appointment': MindbodyUpdateAppointmentInput
+    'add_appointment_add_on': MindbodyAddAppointmentAddOnInput
+    'delete_appointment_add_on': MindbodyDeleteAppointmentAddOnInput
+    'add_availabilities': MindbodyAddAvailabilitiesInput
+    'update_availabilities': MindbodyUpdateAvailabilitiesInput
+    'delete_availability': MindbodyDeleteAvailabilityInput
+    'remove_from_appointment_waitlist': MindbodyRemoveFromAppointmentWaitlistInput
+    'checkout_shopping_cart': MindbodyCheckoutShoppingCartInput
+    'list_contracts': MindbodyListContractsInput
+    'list_packages': MindbodyListPackagesInput
+    'list_sales': MindbodyListSalesInput
+    'purchase_contract': MindbodyPurchaseContractInput
+    'return_sale': MindbodyReturnSaleInput
+    'initialize_credit_card_entry': MindbodyInitializeCreditCardEntryInput
+    'update_products': MindbodyUpdateProductsInput
+    'update_product_price': MindbodyUpdateProductPriceInput
+    'update_services': MindbodyUpdateServicesInput
+    'get_activation_code': MindbodyGetActivationCodeInput
+    'list_relationships': MindbodyListRelationshipsInput
+    'list_memberships': MindbodyListMembershipsInput
+    'get_staff_permissions': MindbodyGetStaffPermissionsInput
+    'get_staff_image_url': MindbodyGetStaffImageUrlInput
+    'add_staff': MindbodyAddStaffInput
+    'add_staff_availability': MindbodyAddStaffAvailabilityInput
+    'assign_staff_session_type': MindbodyAssignStaffSessionTypeInput
+    'update_staff': MindbodyUpdateStaffInput
+    'update_staff_permissions': MindbodyUpdateStaffPermissionsInput
+    'list_webhook_subscriptions': MindbodyListWebhookSubscriptionsInput
+    'create_webhook_subscription': MindbodyCreateWebhookSubscriptionInput
+    'update_webhook_subscription': MindbodyUpdateWebhookSubscriptionInput
+    'delete_webhook_subscription': MindbodyDeleteWebhookSubscriptionInput
   }
   'mintlify': {
     'update_docs': MintlifyUpdateDocsInput
@@ -86118,12 +94527,56 @@ export interface IntegrationActionInputsByIntegration {
     'create_project': NeonDbCreateProjectInput
   }
   'neoncrm': {
+    'search_accounts': NeoncrmSearchAccountsInput
     'get_account': NeoncrmGetAccountInput
     'create_account': NeoncrmCreateAccountInput
+    'update_account': NeoncrmUpdateAccountInput
+    'delete_account': NeoncrmDeleteAccountInput
+    'list_account_contacts': NeoncrmListAccountContactsInput
+    'create_account_contact': NeoncrmCreateAccountContactInput
+    'get_account_contact': NeoncrmGetAccountContactInput
+    'update_account_contact': NeoncrmUpdateAccountContactInput
+    'delete_account_contact': NeoncrmDeleteAccountContactInput
+    'link_accounts': NeoncrmLinkAccountsInput
+    'unlink_accounts': NeoncrmUnlinkAccountsInput
+    'list_account_donations': NeoncrmListAccountDonationsInput
+    'search_donations': NeoncrmSearchDonationsInput
     'get_donation': NeoncrmGetDonationInput
     'create_donation': NeoncrmCreateDonationInput
-    'get_events': NeoncrmGetEventsInput
-    'custom_api_call': NeoncrmCustomApiCallInput
+    'update_donation': NeoncrmUpdateDonationInput
+    'delete_donation': NeoncrmDeleteDonationInput
+    'add_donation_payment': NeoncrmAddDonationPaymentInput
+    'list_campaigns': NeoncrmListCampaignsInput
+    'get_campaign': NeoncrmGetCampaignInput
+    'create_campaign': NeoncrmCreateCampaignInput
+    'update_campaign': NeoncrmUpdateCampaignInput
+    'delete_campaign': NeoncrmDeleteCampaignInput
+    'get_campaign_p2p': NeoncrmGetCampaignP2pInput
+    'list_events': NeoncrmListEventsInput
+    'get_event': NeoncrmGetEventInput
+    'create_event': NeoncrmCreateEventInput
+    'update_event': NeoncrmUpdateEventInput
+    'delete_event': NeoncrmDeleteEventInput
+    'search_events': NeoncrmSearchEventsInput
+    'list_event_attendees': NeoncrmListEventAttendeesInput
+    'list_event_registrations': NeoncrmListEventRegistrationsInput
+    'list_event_tickets': NeoncrmListEventTicketsInput
+    'create_event_ticket': NeoncrmCreateEventTicketInput
+    'get_event_ticket': NeoncrmGetEventTicketInput
+    'update_event_ticket': NeoncrmUpdateEventTicketInput
+    'delete_event_ticket': NeoncrmDeleteEventTicketInput
+    'list_account_event_registrations': NeoncrmListAccountEventRegistrationsInput
+    'create_event_registration': NeoncrmCreateEventRegistrationInput
+    'calculate_event_registration': NeoncrmCalculateEventRegistrationInput
+    'get_event_registration': NeoncrmGetEventRegistrationInput
+    'update_event_registration': NeoncrmUpdateEventRegistrationInput
+    'delete_event_registration': NeoncrmDeleteEventRegistrationInput
+    'add_event_registration_payment': NeoncrmAddEventRegistrationPaymentInput
+    'list_webhooks': NeoncrmListWebhooksInput
+    'get_webhook': NeoncrmGetWebhookInput
+    'create_webhook': NeoncrmCreateWebhookInput
+    'update_webhook': NeoncrmUpdateWebhookInput
+    'delete_webhook': NeoncrmDeleteWebhookInput
   }
   'netlify': {
     'list_sites': NetlifyListSitesInput
@@ -86267,6 +94720,20 @@ export interface IntegrationActionInputsByIntegration {
     'remove_policy_tags': NowcertsRemovePolicyTagsInput
     'get_file_direct_url': NowcertsGetFileDirectUrlInput
     'custom_api_call': NowcertsCustomApiCallInput
+  }
+  'nowpayments': {
+    'get_api_status': NowpaymentsGetApiStatusInput
+    'list_currencies': NowpaymentsListCurrenciesInput
+    'estimate_price': NowpaymentsEstimatePriceInput
+    'get_minimum_payment_amount': NowpaymentsGetMinimumPaymentAmountInput
+    'create_payment': NowpaymentsCreatePaymentInput
+    'create_invoice': NowpaymentsCreateInvoiceInput
+    'get_payment_status': NowpaymentsGetPaymentStatusInput
+    'list_payments': NowpaymentsListPaymentsInput
+    'get_custody_balance': NowpaymentsGetCustodyBalanceInput
+    'create_payout': NowpaymentsCreatePayoutInput
+    'verify_payout': NowpaymentsVerifyPayoutInput
+    'get_payout_status': NowpaymentsGetPayoutStatusInput
   }
   'npm-registry': {
     'search_packages': NpmRegistrySearchPackagesInput
@@ -86614,6 +95081,27 @@ export interface IntegrationActionInputsByIntegration {
     'create_payment_page': PaystackCreatePaymentPageInput
     'update_payment_page': PaystackUpdatePaymentPageInput
   }
+  'payu-europe': {
+    'create_order': PayuEuropeCreateOrderInput
+    'get_order': PayuEuropeGetOrderInput
+    'cancel_order': PayuEuropeCancelOrderInput
+    'capture_order': PayuEuropeCaptureOrderInput
+    'get_order_transactions': PayuEuropeGetOrderTransactionsInput
+    'create_refund': PayuEuropeCreateRefundInput
+    'list_refunds': PayuEuropeListRefundsInput
+    'get_refund': PayuEuropeGetRefundInput
+    'create_payout': PayuEuropeCreatePayoutInput
+    'get_payout': PayuEuropeGetPayoutInput
+    'list_payment_methods': PayuEuropeListPaymentMethodsInput
+    'delete_token': PayuEuropeDeleteTokenInput
+    'retrieve_statement': PayuEuropeRetrieveStatementInput
+    'get_shop_data': PayuEuropeGetShopDataInput
+    'get_seller_status': PayuEuropeGetSellerStatusInput
+    'get_seller_balance': PayuEuropeGetSellerBalanceInput
+    'list_seller_operations': PayuEuropeListSellerOperationsInput
+    'transfer_seller_to_marketplace': PayuEuropeTransferSellerToMarketplaceInput
+    'transfer_marketplace_to_seller': PayuEuropeTransferMarketplaceToSellerInput
+  }
   'paywhirl': {
     'cancelSubscription': PaywhirlCancelSubscriptionInput
     'createCustomer': PaywhirlCreateCustomerInput
@@ -86703,6 +95191,75 @@ export interface IntegrationActionInputsByIntegration {
     'get_video': PikaGetVideoInput
     'list_videos': PikaListVideosInput
     'custom_api_call': PikaCustomApiCallInput
+  }
+  'pike13': {
+    'get_account': Pike13GetAccountInput
+    'list_account_businesses': Pike13ListAccountBusinessesInput
+    'get_business': Pike13GetBusinessInput
+    'list_locations': Pike13ListLocationsInput
+    'list_services': Pike13ListServicesInput
+    'list_events': Pike13ListEventsInput
+    'get_event': Pike13GetEventInput
+    'list_event_occurrences': Pike13ListEventOccurrencesInput
+    'get_event_occurrence': Pike13GetEventOccurrenceInput
+    'cancel_event_occurrence': Pike13CancelEventOccurrenceInput
+    'list_people': Pike13ListPeopleInput
+    'search_people': Pike13SearchPeopleInput
+    'get_person': Pike13GetPersonInput
+    'create_person': Pike13CreatePersonInput
+    'update_person': Pike13UpdatePersonInput
+    'delete_person': Pike13DeletePersonInput
+    'list_person_notes': Pike13ListPersonNotesInput
+    'create_person_note': Pike13CreatePersonNoteInput
+    'update_person_note': Pike13UpdatePersonNoteInput
+    'delete_person_note': Pike13DeletePersonNoteInput
+    'create_booking': Pike13CreateBookingInput
+    'get_booking': Pike13GetBookingInput
+    'complete_booking': Pike13CompleteBookingInput
+    'delete_booking': Pike13DeleteBookingInput
+    'add_booking_lease': Pike13AddBookingLeaseInput
+    'update_booking_lease': Pike13UpdateBookingLeaseInput
+    'delete_booking_lease': Pike13DeleteBookingLeaseInput
+    'list_person_visits': Pike13ListPersonVisitsInput
+    'create_visit': Pike13CreateVisitInput
+    'update_visit': Pike13UpdateVisitInput
+    'delete_visit': Pike13DeleteVisitInput
+    'list_invoices': Pike13ListInvoicesInput
+    'get_invoice': Pike13GetInvoiceInput
+    'create_invoice': Pike13CreateInvoiceInput
+    'update_invoice': Pike13UpdateInvoiceInput
+    'list_invoice_payment_methods': Pike13ListInvoicePaymentMethodsInput
+    'create_invoice_payment': Pike13CreateInvoicePaymentInput
+    'refund_invoice_payment': Pike13RefundInvoicePaymentInput
+    'add_invoice_item': Pike13AddInvoiceItemInput
+    'delete_invoice_item': Pike13DeleteInvoiceItemInput
+    'create_event_occurrence_note': Pike13CreateEventOccurrenceNoteInput
+    'update_event_occurrence_note': Pike13UpdateEventOccurrenceNoteInput
+    'delete_event_occurrence_note': Pike13DeleteEventOccurrenceNoteInput
+    'list_plans': Pike13ListPlansInput
+    'update_plan_end_date': Pike13UpdatePlanEndDateInput
+    'list_person_plans': Pike13ListPersonPlansInput
+    'list_plan_products': Pike13ListPlanProductsInput
+    'list_pack_products': Pike13ListPackProductsInput
+    'create_pack_product': Pike13CreatePackProductInput
+    'update_pack_product': Pike13UpdatePackProductInput
+    'delete_pack_product': Pike13DeletePackProductInput
+    'get_pack': Pike13GetPackInput
+    'create_pack': Pike13CreatePackInput
+    'delete_pack': Pike13DeletePackInput
+    'get_punch': Pike13GetPunchInput
+    'create_punch': Pike13CreatePunchInput
+    'delete_punch': Pike13DeletePunchInput
+    'get_waitlist_entry': Pike13GetWaitlistEntryInput
+    'list_waitlist_entries': Pike13ListWaitlistEntriesInput
+    'create_waitlist_entry': Pike13CreateWaitlistEntryInput
+    'update_waitlist_entry': Pike13UpdateWaitlistEntryInput
+    'delete_waitlist_entry': Pike13DeleteWaitlistEntryInput
+    'query_report': Pike13QueryReportInput
+    'list_webhook_subscriptions': Pike13ListWebhookSubscriptionsInput
+    'create_webhook_subscription': Pike13CreateWebhookSubscriptionInput
+    'update_webhook_subscription': Pike13UpdateWebhookSubscriptionInput
+    'delete_webhook_subscription': Pike13DeleteWebhookSubscriptionInput
   }
   'pinecone': {
     'list_indexes': PineconeListIndexesInput
@@ -86951,6 +95508,11 @@ export interface IntegrationActionInputsByIntegration {
     'get_project': ProcoreGetProjectInput
     'list_rfis': ProcoreListRfisInput
     'list_submittals': ProcoreListSubmittalsInput
+    'create_rfi': ProcoreCreateRfiInput
+    'update_rfi': ProcoreUpdateRfiInput
+    'create_submittal': ProcoreCreateSubmittalInput
+    'update_submittal': ProcoreUpdateSubmittalInput
+    'list_webhook_resources': ProcoreListWebhookResourcesInput
   }
   'productboard': {
     'list_entities': ProductboardListEntitiesInput
@@ -87248,6 +95810,69 @@ export interface IntegrationActionInputsByIntegration {
     'redeploy': RailwayRedeployInput
     'custom_api_call': RailwayCustomApiCallInput
   }
+  'raisely': {
+    'list_campaigns': RaiselyListCampaignsInput
+    'get_campaign': RaiselyGetCampaignInput
+    'create_campaign': RaiselyCreateCampaignInput
+    'update_campaign': RaiselyUpdateCampaignInput
+    'delete_campaign': RaiselyDeleteCampaignInput
+    'restore_campaign': RaiselyRestoreCampaignInput
+    'register_campaign_participant': RaiselyRegisterCampaignParticipantInput
+    'list_campaign_donations': RaiselyListCampaignDonationsInput
+    'list_campaign_subscriptions': RaiselyListCampaignSubscriptionsInput
+    'get_campaign_profile': RaiselyGetCampaignProfileInput
+    'list_profiles': RaiselyListProfilesInput
+    'get_profile': RaiselyGetProfileInput
+    'update_profile': RaiselyUpdateProfileInput
+    'archive_profile': RaiselyArchiveProfileInput
+    'join_profile': RaiselyJoinProfileInput
+    'leave_profile_team': RaiselyLeaveProfileTeamInput
+    'list_profile_members': RaiselyListProfileMembersInput
+    'add_profile_member': RaiselyAddProfileMemberInput
+    'list_profile_donations': RaiselyListProfileDonationsInput
+    'list_profile_posts': RaiselyListProfilePostsInput
+    'list_donations': RaiselyListDonationsInput
+    'get_donation': RaiselyGetDonationInput
+    'create_offline_donation': RaiselyCreateOfflineDonationInput
+    'update_donation': RaiselyUpdateDonationInput
+    'delete_offline_donation': RaiselyDeleteOfflineDonationInput
+    'move_donation': RaiselyMoveDonationInput
+    'match_donation': RaiselyMatchDonationInput
+    'list_donation_receipts': RaiselyListDonationReceiptsInput
+    'resend_donation_receipt': RaiselyResendDonationReceiptInput
+    'list_subscriptions': RaiselyListSubscriptionsInput
+    'get_subscription': RaiselyGetSubscriptionInput
+    'create_subscription': RaiselyCreateSubscriptionInput
+    'update_subscription': RaiselyUpdateSubscriptionInput
+    'list_subscription_donations': RaiselyListSubscriptionDonationsInput
+    'list_users': RaiselyListUsersInput
+    'create_user': RaiselyCreateUserInput
+    'upsert_user': RaiselyUpsertUserInput
+    'request_user_magic_link': RaiselyRequestUserMagicLinkInput
+    'signup_user': RaiselySignupUserInput
+    'check_user': RaiselyCheckUserInput
+    'list_user_donations': RaiselyListUserDonationsInput
+    'list_user_profiles': RaiselyListUserProfilesInput
+    'list_user_subscriptions': RaiselyListUserSubscriptionsInput
+    'list_orders': RaiselyListOrdersInput
+    'get_order': RaiselyGetOrderInput
+    'resend_order_receipt': RaiselyResendOrderReceiptInput
+    'list_posts': RaiselyListPostsInput
+    'get_post': RaiselyGetPostInput
+    'create_post': RaiselyCreatePostInput
+    'update_post': RaiselyUpdatePostInput
+    'delete_post': RaiselyDeletePostInput
+    'create_interaction': RaiselyCreateInteractionInput
+    'update_interaction': RaiselyUpdateInteractionInput
+    'delete_interaction': RaiselyDeleteInteractionInput
+    'list_promo_codes': RaiselyListPromoCodesInput
+    'create_promo_code': RaiselyCreatePromoCodeInput
+    'list_webhooks': RaiselyListWebhooksInput
+    'get_webhook': RaiselyGetWebhookInput
+    'create_webhook': RaiselyCreateWebhookInput
+    'update_webhook': RaiselyUpdateWebhookInput
+    'delete_webhook': RaiselyDeleteWebhookInput
+  }
   'ramp': {
     'validate_connection': RampValidateConnectionInput
     'get_business': RampGetBusinessInput
@@ -87302,6 +95927,15 @@ export interface IntegrationActionInputsByIntegration {
     'list_categories': ReadmeIoListCategoriesInput
     'get_api_spec': ReadmeIoGetApiSpecInput
     'custom_api_call': ReadmeIoCustomApiCallInput
+  }
+  'real-geeks': {
+    'create_lead': RealGeeksCreateLeadInput
+    'get_lead': RealGeeksGetLeadInput
+    'update_lead': RealGeeksUpdateLeadInput
+    'add_activities': RealGeeksAddActivitiesInput
+    'assign_lead': RealGeeksAssignLeadInput
+    'create_potential_seller_lead': RealGeeksCreatePotentialSellerLeadInput
+    'list_users': RealGeeksListUsersInput
   }
   'reclaim-ai': {
     'list_tasks': ReclaimAiListTasksInput
@@ -87722,6 +96356,33 @@ export interface IntegrationActionInputsByIntegration {
     'search_locations': SerpapiSearchLocationsInput
     'account_status': SerpapiAccountStatusInput
   }
+  'service-fusion': {
+    'list_calendar_tasks': ServiceFusionListCalendarTasksInput
+    'get_calendar_task': ServiceFusionGetCalendarTaskInput
+    'list_customers': ServiceFusionListCustomersInput
+    'get_customer': ServiceFusionGetCustomerInput
+    'create_customer': ServiceFusionCreateCustomerInput
+    'list_jobs': ServiceFusionListJobsInput
+    'get_job': ServiceFusionGetJobInput
+    'create_job': ServiceFusionCreateJobInput
+    'list_job_categories': ServiceFusionListJobCategoriesInput
+    'get_job_category': ServiceFusionGetJobCategoryInput
+    'list_job_statuses': ServiceFusionListJobStatusesInput
+    'get_job_status': ServiceFusionGetJobStatusInput
+    'list_estimates': ServiceFusionListEstimatesInput
+    'get_estimate': ServiceFusionGetEstimateInput
+    'create_estimate': ServiceFusionCreateEstimateInput
+    'list_invoices': ServiceFusionListInvoicesInput
+    'get_invoice': ServiceFusionGetInvoiceInput
+    'list_payment_types': ServiceFusionListPaymentTypesInput
+    'get_payment_type': ServiceFusionGetPaymentTypeInput
+    'list_sources': ServiceFusionListSourcesInput
+    'get_source': ServiceFusionGetSourceInput
+    'list_techs': ServiceFusionListTechsInput
+    'get_tech': ServiceFusionGetTechInput
+    'list_customer_equipment': ServiceFusionListCustomerEquipmentInput
+    'get_customer_equipment': ServiceFusionGetCustomerEquipmentInput
+  }
   'servicem8': {
     'list_jobs': Servicem8ListJobsInput
     'get_job': Servicem8GetJobInput
@@ -87887,7 +96548,6 @@ export interface IntegrationActionInputsByIntegration {
     'get_client': SimplePracticeGetClientInput
     'list_appointments': SimplePracticeListAppointmentsInput
     'create_appointment': SimplePracticeCreateAppointmentInput
-    'custom_api_call': SimplePracticeCustomApiCallInput
   }
   'skilljar': {
     'get_user': SkilljarGetUserInput
@@ -88429,6 +97089,19 @@ export interface IntegrationActionInputsByIntegration {
     'find_milestone': TeamworkFindMilestoneInput
     'find_notebook_or_comment': TeamworkFindNotebookOrCommentInput
   }
+  'kareo': {
+    'list_patients': KareoListPatientsInput
+    'get_patient': KareoGetPatientInput
+    'create_patient': KareoCreatePatientInput
+    'update_patient': KareoUpdatePatientInput
+    'list_appointments': KareoListAppointmentsInput
+    'get_appointment': KareoGetAppointmentInput
+    'create_appointment': KareoCreateAppointmentInput
+    'update_appointment': KareoUpdateAppointmentInput
+    'delete_appointment': KareoDeleteAppointmentInput
+    'create_encounter': KareoCreateEncounterInput
+    'create_payment': KareoCreatePaymentInput
+  }
   'telegram-bot': {
     'send_text_message': TelegramBotSendTextMessageInput
     'send_media': TelegramBotSendMediaInput
@@ -88735,11 +97408,21 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': UptimeRobotCustomApiCallInput
   }
   'vagaro': {
-    'list_appointments': VagaroListAppointmentsInput
-    'get_customer': VagaroGetCustomerInput
-    'get_services': VagaroGetServicesInput
-    'get_employees': VagaroGetEmployeesInput
-    'custom_api_call': VagaroCustomApiCallInput
+    'get_access_levels': VagaroGetAccessLevelsInput
+    'retrieve_locations': VagaroRetrieveLocationsInput
+    'update_location': VagaroUpdateLocationInput
+    'retrieve_customer': VagaroRetrieveCustomerInput
+    'delete_customer': VagaroDeleteCustomerInput
+    'search_appointment_availability': VagaroSearchAppointmentAvailabilityInput
+    'retrieve_appointments': VagaroRetrieveAppointmentsInput
+    'retrieve_employee': VagaroRetrieveEmployeeInput
+    'update_employee': VagaroUpdateEmployeeInput
+    'delete_employee': VagaroDeleteEmployeeInput
+    'retrieve_services': VagaroRetrieveServicesInput
+    'create_personal_task': VagaroCreatePersonalTaskInput
+    'retrieve_personal_tasks': VagaroRetrievePersonalTasksInput
+    'update_personal_task': VagaroUpdatePersonalTaskInput
+    'delete_personal_task': VagaroDeletePersonalTaskInput
   }
   'vanta': {
     'list_vulnerabilities': VantaListVulnerabilitiesInput
@@ -89043,6 +97726,27 @@ export interface IntegrationActionInputsByIntegration {
   'workday': {
     'list_workers': WorkdayListWorkersInput
     'get_worker': WorkdayGetWorkerInput
+  }
+  'workiz': {
+    'list_jobs': WorkizListJobsInput
+    'get_job': WorkizGetJobInput
+    'create_job': WorkizCreateJobInput
+    'update_job': WorkizUpdateJobInput
+    'assign_job': WorkizAssignJobInput
+    'unassign_job': WorkizUnassignJobInput
+    'add_job_payment': WorkizAddJobPaymentInput
+    'list_leads': WorkizListLeadsInput
+    'get_lead': WorkizGetLeadInput
+    'create_lead': WorkizCreateLeadInput
+    'update_lead': WorkizUpdateLeadInput
+    'assign_lead': WorkizAssignLeadInput
+    'unassign_lead': WorkizUnassignLeadInput
+    'convert_lead': WorkizConvertLeadInput
+    'mark_lead_lost': WorkizMarkLeadLostInput
+    'activate_lead': WorkizActivateLeadInput
+    'list_team_members': WorkizListTeamMembersInput
+    'get_team_member': WorkizGetTeamMemberInput
+    'list_time_off': WorkizListTimeOffInput
   }
   'wrike': {
     'create_task': WrikeCreateTaskInput
@@ -89370,6 +98074,7 @@ export const integrationNames = [
   'attio',
   'auth0',
   'authorize-net',
+  'autodesk-construction-cloud',
   'autotask',
   'avalara',
   'aws-appconfig',
@@ -89404,6 +98109,7 @@ export const integrationNames = [
   'messagebird',
   'bitbucket',
   'bitly',
+  'bitpay',
   'bitwarden',
   'bizzabo',
   'blockscout',
@@ -89436,6 +98142,7 @@ export const integrationNames = [
   'canvas-lms',
   'capsule-crm',
   'cartesia',
+  'cashfree',
   'census',
   'chargebee',
   'chembl',
@@ -89443,6 +98150,7 @@ export const integrationNames = [
   'churnzero',
   'cin7',
   'circle',
+  'circle-mint',
   'circleci',
   'clarify',
   'classdojo',
@@ -89470,6 +98178,7 @@ export const integrationNames = [
   'cognito-forms',
   'cohere',
   'coinbase-business',
+  'coingate',
   'common-room',
   'companycam',
   'confluence',
@@ -89551,6 +98260,7 @@ export const integrationNames = [
   'filevine',
   'fillout-forms',
   'firebase',
+  'fireblocks',
   'firecrawl',
   'fireflies',
   'firehydrant',
@@ -89580,6 +98290,7 @@ export const integrationNames = [
   'gitbook',
   'github',
   'gitlab',
+  'givebutter',
   'gmail',
   'gocardless',
   'gong',
@@ -89621,6 +98332,7 @@ export const integrationNames = [
   'hash-encode',
   'vault',
   'hawksoft',
+  'healthie',
   'heap',
   'height',
   'helius',
@@ -89656,6 +98368,7 @@ export const integrationNames = [
   'intercom',
   'ipinfo',
   'iterable',
+  'iyzico',
   'jamf',
   'code',
   'jazzhr',
@@ -89663,12 +98376,14 @@ export const integrationNames = [
   'jira-cloud',
   'jira-service-management',
   'jobber',
+  'jobnimbus',
+  'jobtread',
   'jotform',
   'jumpcloud',
   'kajabi',
-  'kareo',
   'katana-mrp',
   'keap',
+  'kickserv',
   'kissflow',
   'convertkit',
   'klaviyo',
@@ -89683,6 +98398,7 @@ export const integrationNames = [
   'later',
   'launchdarkly',
   'lawmatics',
+  'lawpay',
   'lead-connector',
   'learnworlds',
   'lemlist',
@@ -89700,6 +98416,7 @@ export const integrationNames = [
   'local-computer-control',
   'local-computer-control-agent',
   'lodgify',
+  'lofty',
   'lokalise',
   'looker',
   'loom',
@@ -89737,6 +98454,7 @@ export const integrationNames = [
   'microsoft-sharepoint',
   'microsoft-teams',
   'microsoft-todo',
+  'midtrans',
   'mindbody',
   'mintlify',
   'miro',
@@ -89766,6 +98484,7 @@ export const integrationNames = [
   'notion',
   'novu',
   'nowcerts',
+  'nowpayments',
   'npm-registry',
   'nutshell',
   'odoo',
@@ -89796,6 +98515,7 @@ export const integrationNames = [
   'paymongo',
   'paypal',
   'paystack',
+  'payu-europe',
   'paywhirl',
   'pdf-co',
   'pendo',
@@ -89807,6 +98527,7 @@ export const integrationNames = [
   'phrase',
   'picpay',
   'pika',
+  'pike13',
   'pinecone',
   'pinterest',
   'pipedrive',
@@ -89848,9 +98569,11 @@ export const integrationNames = [
   'quicknode',
   'rabbitmq',
   'railway',
+  'raisely',
   'ramp',
   'razorpay',
   'readme-io',
+  'real-geeks',
   'reclaim-ai',
   'recurly',
   'reddit',
@@ -89894,6 +98617,7 @@ export const integrationNames = [
   'sentry',
   'sequential-thinking',
   'serpapi',
+  'service-fusion',
   'servicem8',
   'service-now',
   'service-titan',
@@ -89947,6 +98671,7 @@ export const integrationNames = [
   'teachable',
   'teamtailor',
   'teamwork',
+  'kareo',
   'telegram-bot',
   'telnyx',
   'tenable',
@@ -90010,6 +98735,7 @@ export const integrationNames = [
   'wordpress',
   'workable',
   'workday',
+  'workiz',
   'wrike',
   'writer-ai',
   'xendit',
@@ -90790,6 +99516,26 @@ export const integrationActions = {
     'void_transaction',
     'create_customer_profile',
   ],
+  'autodesk-construction-cloud': [
+    'list_hubs',
+    'list_projects',
+    'list_top_folders',
+    'list_folder_contents',
+    'list_issues',
+    'get_issue',
+    'create_issue',
+    'update_issue',
+    'get_rfi',
+    'search_rfis',
+    'create_rfi',
+    'update_rfi',
+    'get_rfi_workflow',
+    'list_submittals',
+    'get_submittal',
+    'create_submittal',
+    'update_submittal',
+    'transition_submittal',
+  ],
   'autotask': [
     'create_ticket',
     'list_tickets',
@@ -91111,6 +99857,13 @@ export const integrationActions = {
     'update_bitlink',
     'get_clicks_summary',
     'list_groups',
+  ],
+  'bitpay': [
+    'create_invoice',
+    'retrieve_invoice',
+    'get_supported_currencies',
+    'get_rates',
+    'get_supported_wallets',
   ],
   'bitwarden': [
     'list_members',
@@ -91472,6 +100225,37 @@ export const integrationActions = {
     'delete_voice',
     'create_access_token',
   ],
+  'cashfree': [
+    'create_order',
+    'get_order',
+    'get_order_extended',
+    'order_pay',
+    'authorize_payment',
+    'list_order_payments',
+    'get_payment',
+    'create_refund',
+    'list_refunds',
+    'get_refund',
+    'create_payment_link',
+    'get_payment_link',
+    'list_payment_link_orders',
+    'cancel_payment_link',
+    'get_settlements',
+    'get_order_settlements',
+    'get_settlement_reconciliation',
+    'get_pg_reconciliation',
+    'list_saved_instruments',
+    'get_saved_instrument',
+    'delete_saved_instrument',
+    'get_saved_instrument_cryptogram',
+    'create_beneficiary',
+    'get_beneficiary',
+    'remove_beneficiary',
+    'create_transfer',
+    'get_transfer_status',
+    'create_batch_transfer',
+    'get_batch_transfer_status',
+  ],
   'census': [
     'list_sources',
     'get_source',
@@ -91532,6 +100316,28 @@ export const integrationActions = {
     'list_members',
     'create_post',
     'list_posts',
+  ],
+  'circle-mint': [
+    'get_configuration',
+    'list_balances',
+    'list_deposits',
+    'create_deposit_address',
+    'list_deposit_addresses',
+    'create_recipient_address',
+    'list_recipient_addresses',
+    'create_transfer',
+    'list_transfers',
+    'create_address_book_recipient',
+    'list_address_book_recipients',
+    'get_address_book_recipient',
+    'modify_address_book_recipient',
+    'delete_address_book_recipient',
+    'create_payout',
+    'list_payouts',
+    'get_payout',
+    'list_notification_subscriptions',
+    'create_notification_subscription',
+    'delete_notification_subscription',
   ],
   'circleci': [
     'list_pipelines',
@@ -91830,6 +100636,27 @@ export const integrationActions = {
     'deactivate_checkout',
     'refund_checkout',
   ],
+  'coingate': [
+    'create_order',
+    'list_orders',
+    'get_order',
+    'create_order_refund',
+    'list_order_refunds',
+    'get_order_refund',
+    'list_ledger_accounts',
+    'get_ledger_account',
+    'create_conversion',
+    'confirm_conversion',
+    'cancel_conversion',
+    'create_send_request',
+    'list_send_requests',
+    'get_send_request',
+    'confirm_send_request',
+    'cancel_send_request',
+    'list_beneficiaries',
+    'get_beneficiary',
+    'create_beneficiary',
+  ],
   'common-room': [
     'get_token_status',
     'add_or_update_contact',
@@ -91845,10 +100672,18 @@ export const integrationActions = {
   'companycam': [
     'list_projects',
     'create_project',
+    'get_project',
+    'update_project',
+    'archive_project',
+    'delete_project',
     'upload_photo',
+    'list_project_photos',
     'get_photo',
+    'update_photo',
+    'delete_photo',
     'create_tag',
-    'custom_api_call',
+    'list_webhooks',
+    'update_webhook',
   ],
   'confluence': [
     'get_page',
@@ -92706,6 +101541,27 @@ export const integrationActions = {
     'run_query',
     'delete_document',
   ],
+  'fireblocks': [
+    'list_vault_accounts',
+    'create_vault_account',
+    'get_vault_account',
+    'rename_vault_account',
+    'create_vault_wallet',
+    'create_deposit_address',
+    'list_external_wallets',
+    'create_external_wallet',
+    'get_external_wallet',
+    'delete_external_wallet',
+    'add_external_wallet_asset',
+    'delete_external_wallet_asset',
+    'list_transactions',
+    'create_transaction',
+    'get_transaction',
+    'get_transaction_by_external_id',
+    'cancel_transaction',
+    'freeze_transaction',
+    'unfreeze_transaction',
+  ],
   'firecrawl': [
     'scrape',
     'extract',
@@ -93008,6 +101864,68 @@ export const integrationActions = {
     'list_projects',
     'create_branch',
     'custom_api_call',
+  ],
+  'givebutter': [
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'delete_contact',
+    'restore_contact',
+    'add_contact_tags',
+    'remove_contact_tags',
+    'sync_contact_tags',
+    'list_contact_activities',
+    'get_contact_activity',
+    'create_contact_activity',
+    'update_contact_activity',
+    'delete_contact_activity',
+    'list_campaigns',
+    'get_campaign',
+    'create_campaign',
+    'update_campaign',
+    'delete_campaign',
+    'list_campaign_members',
+    'get_campaign_member',
+    'delete_campaign_member',
+    'list_campaign_teams',
+    'get_campaign_team',
+    'delete_campaign_team',
+    'list_discount_codes',
+    'get_discount_code',
+    'create_discount_code',
+    'update_discount_code',
+    'delete_discount_code',
+    'list_transactions',
+    'get_transaction',
+    'create_transaction',
+    'update_transaction',
+    'list_recurring_plans',
+    'get_recurring_plan',
+    'list_tickets',
+    'get_ticket',
+    'create_campaign_ticket',
+    'list_funds',
+    'get_fund',
+    'create_fund',
+    'update_fund',
+    'delete_fund',
+    'list_payouts',
+    'get_payout',
+    'list_messages',
+    'get_message',
+    'list_households',
+    'get_household',
+    'create_household',
+    'update_household',
+    'delete_household',
+    'list_household_contacts',
+    'associate_household_contact',
+    'disassociate_household_contact',
+    'list_webhooks',
+    'create_webhook',
+    'update_webhook',
+    'delete_webhook',
   ],
   'gmail': [
     'list_messages',
@@ -93468,6 +102386,24 @@ export const integrationActions = {
     'get_claims',
     'custom_api_call',
   ],
+  'healthie': [
+    'list_clients',
+    'get_client',
+    'create_client',
+    'update_client',
+    'archive_client',
+    'list_appointments',
+    'get_appointment',
+    'create_appointment',
+    'update_appointment',
+    'delete_appointment',
+    'list_tasks',
+    'create_task',
+    'update_task',
+    'list_form_answer_groups',
+    'create_webhook',
+    'delete_webhook',
+  ],
   'heap': [
     'track_event',
     'identify_user',
@@ -93879,6 +102815,35 @@ export const integrationActions = {
     'send_targeted_email',
     'custom_api_call',
   ],
+  'iyzico': [
+    'check_bin',
+    'initialize_checkout_form',
+    'retrieve_checkout_form',
+    'capture_preauth_payment',
+    'cancel_payment',
+    'refund_payment',
+    'get_payment_detail',
+    'create_link',
+    'create_fast_link',
+    'update_link',
+    'get_link',
+    'list_links',
+    'update_link_status',
+    'delete_link',
+    'list_stored_cards',
+    'delete_stored_card',
+    'create_payment_with_stored_card',
+    'create_submerchant',
+    'update_submerchant',
+    'get_submerchant',
+    'update_submerchant_item_price',
+    'initialize_mass_payout',
+    'authorize_mass_payout',
+    'cancel_mass_payout',
+    'retrieve_mass_payout',
+    'get_mass_payout_item',
+    'get_mass_payout_balance',
+  ],
   'jamf': [
     'list_computers',
     'get_computer_inventory',
@@ -93952,6 +102917,69 @@ export const integrationActions = {
     'create_quote',
     'custom_api_call',
   ],
+  'jobnimbus': [
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'delete_contact',
+    'list_jobs',
+    'get_job',
+    'create_job',
+    'update_job',
+    'delete_job',
+    'list_tasks',
+    'get_task',
+    'create_task',
+    'update_task',
+    'delete_task',
+    'list_activities',
+    'get_activity',
+    'create_activity',
+    'list_products',
+    'get_product',
+    'create_product',
+    'update_product',
+    'delete_product',
+    'list_material_orders',
+    'get_material_order',
+    'create_material_order',
+    'update_material_order',
+    'delete_material_order',
+    'list_work_orders',
+    'get_work_order',
+    'create_work_order',
+    'update_work_order',
+    'delete_work_order',
+    'list_estimates',
+    'get_estimate',
+    'create_estimate',
+    'update_estimate',
+    'delete_estimate',
+    'list_invoices',
+    'get_invoice',
+    'create_invoice',
+    'update_invoice',
+    'delete_invoice',
+    'list_payments',
+    'create_payment',
+    'list_account_settings',
+    'create_workflow',
+    'create_workflow_status',
+    'create_lead_source',
+    'create_custom_field',
+    'create_file_type',
+    'create_task_type',
+    'create_activity_type',
+    'create_location',
+  ],
+  'jobtread': [
+    'get_current_grant',
+    'execute_pave_query',
+    'list_webhooks',
+    'create_webhook',
+    'delete_webhook',
+  ],
   'jotform': [
     'list_forms',
     'get_form',
@@ -93977,13 +103005,6 @@ export const integrationActions = {
     'list_offers',
     'custom_api_call',
   ],
-  'kareo': [
-    'list_patients',
-    'get_patient',
-    'list_appointments',
-    'create_appointment',
-    'custom_api_call',
-  ],
   'katana-mrp': [
     'get_product',
     'create_product',
@@ -94000,6 +103021,45 @@ export const integrationActions = {
     'list_products',
     'send_email',
     'custom_api_call',
+  ],
+  'kickserv': [
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'update_customer',
+    'delete_customer',
+    'list_jobs',
+    'get_job',
+    'create_job',
+    'update_job',
+    'delete_job',
+    'list_customer_notes',
+    'get_customer_note',
+    'create_customer_note',
+    'update_customer_note',
+    'delete_customer_note',
+    'list_job_notes',
+    'get_job_note',
+    'create_job_note',
+    'update_job_note',
+    'delete_job_note',
+    'list_employees',
+    'get_employee',
+    'create_employee',
+    'update_employee',
+    'list_items',
+    'get_item',
+    'create_job_charge',
+    'list_tasks',
+    'get_task',
+    'create_task',
+    'update_task',
+    'delete_task',
+    'list_time_entries',
+    'get_time_entry',
+    'create_time_entry',
+    'update_time_entry',
+    'delete_time_entry',
   ],
   'kissflow': [
     'downloadAttachmentFromFormField',
@@ -94122,6 +103182,37 @@ export const integrationActions = {
     'get_matters',
     'get_pipeline',
     'custom_api_call',
+  ],
+  'lawpay': [
+    'get_gateway_credentials',
+    'get_current_merchant',
+    'update_merchant',
+    'search_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'delete_contact',
+    'create_payment_method',
+    'delete_payment_method',
+    'make_contact_payment',
+    'get_bank_accounts',
+    'search_invoices',
+    'create_invoice',
+    'update_invoice',
+    'delete_invoice',
+    'send_invoice_message',
+    'create_charge',
+    'capture_charge',
+    'refund_charge',
+    'void_transaction',
+    'create_credit',
+    'search_transactions',
+    'get_transaction',
+    'create_recurring_charge',
+    'update_recurring_charge',
+    'cancel_recurring_charge',
+    'delete_recurring_charge',
+    'pay_recurring_occurrence',
   ],
   'lead-connector': [
     'create_contact',
@@ -94374,6 +103465,39 @@ export const integrationActions = {
     'create_quote',
     'send_booking_message',
     'get_payment_link',
+  ],
+  'lofty': [
+    'list_leads',
+    'get_lead',
+    'create_lead',
+    'update_lead',
+    'delete_lead',
+    'resolve_lead_assignee',
+    'update_lead_assignment',
+    'add_lead_inquiry',
+    'add_lead_property',
+    'list_lead_activities',
+    'list_notes',
+    'create_note',
+    'update_note',
+    'delete_note',
+    'list_tasks',
+    'create_task',
+    'update_task',
+    'finish_task',
+    'unfinish_task',
+    'delete_task',
+    'send_text',
+    'send_email',
+    'get_communication',
+    'list_transactions',
+    'update_transaction',
+    'create_calendar_event',
+    'update_calendar_event',
+    'delete_calendar_event',
+    'search_listings',
+    'create_webhook',
+    'delete_webhook',
   ],
   'lokalise': [
     'list_projects',
@@ -94880,13 +104004,103 @@ export const integrationActions = {
     'find_task_by_title',
     'custom_api_call',
   ],
+  'midtrans': [
+    'create_snap_transaction',
+    'create_payment_link',
+    'charge_transaction',
+    'capture_transaction',
+    'get_transaction_status',
+    'cancel_transaction',
+    'expire_transaction',
+    'refund_transaction',
+    'direct_refund_transaction',
+    'get_bin',
+    'create_pay_account',
+    'get_pay_account',
+    'unbind_pay_account',
+    'create_subscription',
+    'get_subscription',
+    'update_subscription',
+    'enable_subscription',
+    'disable_subscription',
+    'cancel_subscription',
+    'list_iris_banks',
+    'validate_iris_bank_account',
+    'create_iris_beneficiary',
+    'update_iris_beneficiary',
+    'list_iris_beneficiaries',
+    'create_iris_payouts',
+    'approve_iris_payouts',
+    'reject_iris_payouts',
+    'get_iris_payout',
+    'get_iris_balance',
+    'list_iris_transactions',
+  ],
   'mindbody': [
+    'list_locations',
+    'list_session_types',
+    'list_resources',
+    'list_staff',
+    'list_services',
+    'list_products',
+    'get_gift_card_balance',
     'list_classes',
-    'get_schedule',
+    'get_class_schedules',
+    'list_class_visits',
+    'list_waitlist_entries',
+    'add_client_to_class',
+    'remove_client_from_class',
+    'remove_clients_from_classes',
+    'remove_from_waitlist',
+    'substitute_class_teacher',
+    'cancel_single_class',
     'list_clients',
     'get_client',
-    'book_class',
-    'custom_api_call',
+    'add_client',
+    'update_client',
+    'add_contact_log',
+    'update_client_visit',
+    'upload_client_photo',
+    'list_client_services',
+    'list_client_purchases',
+    'list_active_client_memberships',
+    'list_client_contracts',
+    'terminate_contract',
+    'list_enrollments',
+    'add_client_to_enrollment',
+    'retrieve_appointments',
+    'book_appointment',
+    'update_appointment',
+    'add_appointment_add_on',
+    'delete_appointment_add_on',
+    'add_availabilities',
+    'update_availabilities',
+    'delete_availability',
+    'remove_from_appointment_waitlist',
+    'checkout_shopping_cart',
+    'list_contracts',
+    'list_packages',
+    'list_sales',
+    'purchase_contract',
+    'return_sale',
+    'initialize_credit_card_entry',
+    'update_products',
+    'update_product_price',
+    'update_services',
+    'get_activation_code',
+    'list_relationships',
+    'list_memberships',
+    'get_staff_permissions',
+    'get_staff_image_url',
+    'add_staff',
+    'add_staff_availability',
+    'assign_staff_session_type',
+    'update_staff',
+    'update_staff_permissions',
+    'list_webhook_subscriptions',
+    'create_webhook_subscription',
+    'update_webhook_subscription',
+    'delete_webhook_subscription',
   ],
   'mintlify': [
     'update_docs',
@@ -95092,12 +104306,56 @@ export const integrationActions = {
     'create_project',
   ],
   'neoncrm': [
+    'search_accounts',
     'get_account',
     'create_account',
+    'update_account',
+    'delete_account',
+    'list_account_contacts',
+    'create_account_contact',
+    'get_account_contact',
+    'update_account_contact',
+    'delete_account_contact',
+    'link_accounts',
+    'unlink_accounts',
+    'list_account_donations',
+    'search_donations',
     'get_donation',
     'create_donation',
-    'get_events',
-    'custom_api_call',
+    'update_donation',
+    'delete_donation',
+    'add_donation_payment',
+    'list_campaigns',
+    'get_campaign',
+    'create_campaign',
+    'update_campaign',
+    'delete_campaign',
+    'get_campaign_p2p',
+    'list_events',
+    'get_event',
+    'create_event',
+    'update_event',
+    'delete_event',
+    'search_events',
+    'list_event_attendees',
+    'list_event_registrations',
+    'list_event_tickets',
+    'create_event_ticket',
+    'get_event_ticket',
+    'update_event_ticket',
+    'delete_event_ticket',
+    'list_account_event_registrations',
+    'create_event_registration',
+    'calculate_event_registration',
+    'get_event_registration',
+    'update_event_registration',
+    'delete_event_registration',
+    'add_event_registration_payment',
+    'list_webhooks',
+    'get_webhook',
+    'create_webhook',
+    'update_webhook',
+    'delete_webhook',
   ],
   'netlify': [
     'list_sites',
@@ -95241,6 +104499,20 @@ export const integrationActions = {
     'remove_policy_tags',
     'get_file_direct_url',
     'custom_api_call',
+  ],
+  'nowpayments': [
+    'get_api_status',
+    'list_currencies',
+    'estimate_price',
+    'get_minimum_payment_amount',
+    'create_payment',
+    'create_invoice',
+    'get_payment_status',
+    'list_payments',
+    'get_custody_balance',
+    'create_payout',
+    'verify_payout',
+    'get_payout_status',
   ],
   'npm-registry': [
     'search_packages',
@@ -95588,6 +104860,27 @@ export const integrationActions = {
     'create_payment_page',
     'update_payment_page',
   ],
+  'payu-europe': [
+    'create_order',
+    'get_order',
+    'cancel_order',
+    'capture_order',
+    'get_order_transactions',
+    'create_refund',
+    'list_refunds',
+    'get_refund',
+    'create_payout',
+    'get_payout',
+    'list_payment_methods',
+    'delete_token',
+    'retrieve_statement',
+    'get_shop_data',
+    'get_seller_status',
+    'get_seller_balance',
+    'list_seller_operations',
+    'transfer_seller_to_marketplace',
+    'transfer_marketplace_to_seller',
+  ],
   'paywhirl': [
     'cancelSubscription',
     'createCustomer',
@@ -95677,6 +104970,75 @@ export const integrationActions = {
     'get_video',
     'list_videos',
     'custom_api_call',
+  ],
+  'pike13': [
+    'get_account',
+    'list_account_businesses',
+    'get_business',
+    'list_locations',
+    'list_services',
+    'list_events',
+    'get_event',
+    'list_event_occurrences',
+    'get_event_occurrence',
+    'cancel_event_occurrence',
+    'list_people',
+    'search_people',
+    'get_person',
+    'create_person',
+    'update_person',
+    'delete_person',
+    'list_person_notes',
+    'create_person_note',
+    'update_person_note',
+    'delete_person_note',
+    'create_booking',
+    'get_booking',
+    'complete_booking',
+    'delete_booking',
+    'add_booking_lease',
+    'update_booking_lease',
+    'delete_booking_lease',
+    'list_person_visits',
+    'create_visit',
+    'update_visit',
+    'delete_visit',
+    'list_invoices',
+    'get_invoice',
+    'create_invoice',
+    'update_invoice',
+    'list_invoice_payment_methods',
+    'create_invoice_payment',
+    'refund_invoice_payment',
+    'add_invoice_item',
+    'delete_invoice_item',
+    'create_event_occurrence_note',
+    'update_event_occurrence_note',
+    'delete_event_occurrence_note',
+    'list_plans',
+    'update_plan_end_date',
+    'list_person_plans',
+    'list_plan_products',
+    'list_pack_products',
+    'create_pack_product',
+    'update_pack_product',
+    'delete_pack_product',
+    'get_pack',
+    'create_pack',
+    'delete_pack',
+    'get_punch',
+    'create_punch',
+    'delete_punch',
+    'get_waitlist_entry',
+    'list_waitlist_entries',
+    'create_waitlist_entry',
+    'update_waitlist_entry',
+    'delete_waitlist_entry',
+    'query_report',
+    'list_webhook_subscriptions',
+    'create_webhook_subscription',
+    'update_webhook_subscription',
+    'delete_webhook_subscription',
   ],
   'pinecone': [
     'list_indexes',
@@ -95925,6 +105287,11 @@ export const integrationActions = {
     'get_project',
     'list_rfis',
     'list_submittals',
+    'create_rfi',
+    'update_rfi',
+    'create_submittal',
+    'update_submittal',
+    'list_webhook_resources',
   ],
   'productboard': [
     'list_entities',
@@ -96222,6 +105589,69 @@ export const integrationActions = {
     'redeploy',
     'custom_api_call',
   ],
+  'raisely': [
+    'list_campaigns',
+    'get_campaign',
+    'create_campaign',
+    'update_campaign',
+    'delete_campaign',
+    'restore_campaign',
+    'register_campaign_participant',
+    'list_campaign_donations',
+    'list_campaign_subscriptions',
+    'get_campaign_profile',
+    'list_profiles',
+    'get_profile',
+    'update_profile',
+    'archive_profile',
+    'join_profile',
+    'leave_profile_team',
+    'list_profile_members',
+    'add_profile_member',
+    'list_profile_donations',
+    'list_profile_posts',
+    'list_donations',
+    'get_donation',
+    'create_offline_donation',
+    'update_donation',
+    'delete_offline_donation',
+    'move_donation',
+    'match_donation',
+    'list_donation_receipts',
+    'resend_donation_receipt',
+    'list_subscriptions',
+    'get_subscription',
+    'create_subscription',
+    'update_subscription',
+    'list_subscription_donations',
+    'list_users',
+    'create_user',
+    'upsert_user',
+    'request_user_magic_link',
+    'signup_user',
+    'check_user',
+    'list_user_donations',
+    'list_user_profiles',
+    'list_user_subscriptions',
+    'list_orders',
+    'get_order',
+    'resend_order_receipt',
+    'list_posts',
+    'get_post',
+    'create_post',
+    'update_post',
+    'delete_post',
+    'create_interaction',
+    'update_interaction',
+    'delete_interaction',
+    'list_promo_codes',
+    'create_promo_code',
+    'list_webhooks',
+    'get_webhook',
+    'create_webhook',
+    'update_webhook',
+    'delete_webhook',
+  ],
   'ramp': [
     'validate_connection',
     'get_business',
@@ -96276,6 +105706,15 @@ export const integrationActions = {
     'list_categories',
     'get_api_spec',
     'custom_api_call',
+  ],
+  'real-geeks': [
+    'create_lead',
+    'get_lead',
+    'update_lead',
+    'add_activities',
+    'assign_lead',
+    'create_potential_seller_lead',
+    'list_users',
   ],
   'reclaim-ai': [
     'list_tasks',
@@ -96696,6 +106135,33 @@ export const integrationActions = {
     'search_locations',
     'account_status',
   ],
+  'service-fusion': [
+    'list_calendar_tasks',
+    'get_calendar_task',
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'list_jobs',
+    'get_job',
+    'create_job',
+    'list_job_categories',
+    'get_job_category',
+    'list_job_statuses',
+    'get_job_status',
+    'list_estimates',
+    'get_estimate',
+    'create_estimate',
+    'list_invoices',
+    'get_invoice',
+    'list_payment_types',
+    'get_payment_type',
+    'list_sources',
+    'get_source',
+    'list_techs',
+    'get_tech',
+    'list_customer_equipment',
+    'get_customer_equipment',
+  ],
   'servicem8': [
     'list_jobs',
     'get_job',
@@ -96861,7 +106327,6 @@ export const integrationActions = {
     'get_client',
     'list_appointments',
     'create_appointment',
-    'custom_api_call',
   ],
   'skilljar': [
     'get_user',
@@ -97403,6 +106868,19 @@ export const integrationActions = {
     'find_milestone',
     'find_notebook_or_comment',
   ],
+  'kareo': [
+    'list_patients',
+    'get_patient',
+    'create_patient',
+    'update_patient',
+    'list_appointments',
+    'get_appointment',
+    'create_appointment',
+    'update_appointment',
+    'delete_appointment',
+    'create_encounter',
+    'create_payment',
+  ],
   'telegram-bot': [
     'send_text_message',
     'send_media',
@@ -97709,11 +107187,21 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'vagaro': [
-    'list_appointments',
-    'get_customer',
-    'get_services',
-    'get_employees',
-    'custom_api_call',
+    'get_access_levels',
+    'retrieve_locations',
+    'update_location',
+    'retrieve_customer',
+    'delete_customer',
+    'search_appointment_availability',
+    'retrieve_appointments',
+    'retrieve_employee',
+    'update_employee',
+    'delete_employee',
+    'retrieve_services',
+    'create_personal_task',
+    'retrieve_personal_tasks',
+    'update_personal_task',
+    'delete_personal_task',
   ],
   'vanta': [
     'list_vulnerabilities',
@@ -98017,6 +107505,27 @@ export const integrationActions = {
   'workday': [
     'list_workers',
     'get_worker',
+  ],
+  'workiz': [
+    'list_jobs',
+    'get_job',
+    'create_job',
+    'update_job',
+    'assign_job',
+    'unassign_job',
+    'add_job_payment',
+    'list_leads',
+    'get_lead',
+    'create_lead',
+    'update_lead',
+    'assign_lead',
+    'unassign_lead',
+    'convert_lead',
+    'mark_lead_lost',
+    'activate_lead',
+    'list_team_members',
+    'get_team_member',
+    'list_time_off',
   ],
   'wrike': [
     'create_task',
