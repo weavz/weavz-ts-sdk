@@ -7,6 +7,82 @@
 
 export type WeavzFileInput = string | { base64: string; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { url: string; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { data: string | Record<string, unknown>; filename?: string; mimeType?: string; contentType?: string; extension?: string } | { content: string | Record<string, unknown>; filename?: string; mimeType?: string; contentType?: string; extension?: string }
 
+/** 1Password — List Vaults */
+export interface Integration1passwordListVaultsInput {
+  /** SCIM-style filter supported by 1Password Connect, for example name eq "Demo Vault". */
+  filter?: string
+}
+
+/** 1Password — Get Vault */
+export interface Integration1passwordGetVaultInput {
+  /** Vault UUID */
+  vaultUuid: string
+}
+
+/** 1Password — List Items */
+export interface Integration1passwordListItemsInput {
+  /** Vault UUID */
+  vaultUuid: string
+  /** SCIM-style filter supported by 1Password Connect. */
+  filter?: string
+}
+
+/** 1Password — Get Item Metadata */
+export interface Integration1passwordGetItemMetadataInput {
+  /** Vault UUID */
+  vaultUuid: string
+  /** Item UUID */
+  itemUuid: string
+}
+
+/** 1Password — Reveal Item Values */
+export interface Integration1passwordRevealItemValuesInput {
+  /** Vault UUID */
+  vaultUuid: string
+  /** Item UUID */
+  itemUuid: string
+  /** Type REVEAL_ITEM_VALUES to return secret values. */
+  confirmation: string
+}
+
+/** 1Password — List Connect Activity */
+export interface Integration1passwordListConnectActivityInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** 1Password — List Audit Events */
+export interface Integration1passwordListAuditEventsInput {
+  /** Cursor */
+  cursor?: string
+  /** RFC 3339 timestamp for a reset cursor request. */
+  startTime?: string
+  /** Limit */
+  limit?: number
+}
+
+/** 1Password — List Item Usage Events */
+export interface Integration1passwordListItemUsageEventsInput {
+  /** Cursor */
+  cursor?: string
+  /** RFC 3339 timestamp for a reset cursor request. */
+  startTime?: string
+  /** Limit */
+  limit?: number
+}
+
+/** 1Password — List Sign-In Attempts */
+export interface Integration1passwordListSignInAttemptsInput {
+  /** Cursor */
+  cursor?: string
+  /** RFC 3339 timestamp for a reset cursor request. */
+  startTime?: string
+  /** Limit */
+  limit?: number
+}
+
 /** Abstract API — Validate Email */
 export interface AbstractApiValidateEmailInput {
   /** The email address to validate */
@@ -131,6 +207,24 @@ export interface ActivecampaignFindContactInput {
   email: string
 }
 
+/** ActiveCampaign — List Contacts */
+export interface ActivecampaignListContactsInput {
+  /** Exact email filter. */
+  email?: string
+  /** Search term for contacts. */
+  search?: string
+  /** Filter by list ID. */
+  listId?: string
+  /** Filter by tag ID. */
+  tagId?: string
+  /** Optional ActiveCampaign status filter. */
+  status?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
 /** ActiveCampaign — Subscribe Contact to List */
 export interface ActivecampaignSubscribeContactInput {
   /** Contact ID */
@@ -141,12 +235,36 @@ export interface ActivecampaignSubscribeContactInput {
   status: "1" | "2"
 }
 
+/** ActiveCampaign — Unsubscribe Contact From List */
+export interface ActivecampaignUnsubscribeContactFromListInput {
+  /** Contact ID */
+  contact_id: string
+  /** List (resolve via property options API) */
+  list: string
+  /** Confirm this contact should be unsubscribed from the selected list. */
+  confirmUnsubscribe: boolean
+}
+
 /** ActiveCampaign — Add Tag to Contact */
 export interface ActivecampaignAddTagInput {
   /** Contact ID */
   contact_id: string
   /** Tag (resolve via property options API) */
   tag: string
+}
+
+/** ActiveCampaign — List Campaigns */
+export interface ActivecampaignListCampaignsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** ActiveCampaign — Get Campaign */
+export interface ActivecampaignGetCampaignInput {
+  /** Campaign ID */
+  campaignId: string
 }
 
 /** ActiveCampaign — Create Account */
@@ -317,6 +435,202 @@ export interface AcuitySchedulingCreateAppointmentInput {
   fields?: unknown
   /** Admin Notes */
   notes?: string
+}
+
+/** Acumatica — List Customers */
+export interface AcumaticaListCustomersInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Vendors */
+export interface AcumaticaListVendorsInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Invoices */
+export interface AcumaticaListInvoicesInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Bills */
+export interface AcumaticaListBillsInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Payments */
+export interface AcumaticaListPaymentsInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Accounts */
+export interface AcumaticaListAccountsInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Employees */
+export interface AcumaticaListEmployeesInput {
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Acumatica — List Records */
+export interface AcumaticaListRecordsInput {
+  /** Entity (values: `Customer`, `Vendor`, `SalesInvoice`, `Bill`, `Payment`, `Account`, `Employee`, `TimeActivity`) */
+  entity: "Customer" | "Vendor" | "SalesInvoice" | "Bill" | "Payment" | "Account" | "Employee" | "TimeActivity"
+  /** Maximum 500. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Select */
+  select?: string
+  /** Expand */
+  expand?: string
+}
+
+/** Acumatica — Get Record */
+export interface AcumaticaGetRecordInput {
+  /** Entity (values: `Customer`, `Vendor`, `SalesInvoice`, `Bill`, `Payment`, `Account`, `Employee`, `TimeActivity`) */
+  entity: "Customer" | "Vendor" | "SalesInvoice" | "Bill" | "Payment" | "Account" | "Employee" | "TimeActivity"
+  /** Record Key */
+  key: string
+  /** Expand */
+  expand?: string
+}
+
+/** Acumatica — Create Record */
+export interface AcumaticaCreateRecordInput {
+  /** Entity (values: `Customer`, `Vendor`, `SalesInvoice`, `Bill`, `Payment`, `Account`, `Employee`, `TimeActivity`) */
+  entity: "Customer" | "Vendor" | "SalesInvoice" | "Bill" | "Payment" | "Account" | "Employee" | "TimeActivity"
+  /** Record */
+  record: unknown
+  /** Confirm Create Record */
+  confirmCreate: boolean
+}
+
+/** Acumatica — Update Record */
+export interface AcumaticaUpdateRecordInput {
+  /** Entity (values: `Customer`, `Vendor`, `SalesInvoice`, `Bill`, `Payment`, `Account`, `Employee`, `TimeActivity`) */
+  entity: "Customer" | "Vendor" | "SalesInvoice" | "Bill" | "Payment" | "Account" | "Employee" | "TimeActivity"
+  /** Record Key */
+  key: string
+  /** Record Fields */
+  record: unknown
+  /** Confirm Update Record */
+  confirmUpdate: boolean
+}
+
+/** Adobe Express — List Tagged Documents */
+export interface AdobeExpressListTaggedDocumentsInput {
+  /** Start */
+  start?: number
+  /** Limit */
+  limit?: number
+  /** Sort By */
+  sortBy?: string
+}
+
+/** Adobe Express — Get Tagged Document */
+export interface AdobeExpressGetTaggedDocumentInput {
+  /** Document URN */
+  documentId: string
+}
+
+/** Adobe Express — Generate Variation */
+export interface AdobeExpressGenerateVariationInput {
+  /** Document URN */
+  documentId: string
+  /** Page range such as 1 or 1-3. */
+  pages?: string
+  /** Preferred Document Name */
+  preferredDocumentName?: string
+  /** Object mapping tagged element names to text values or approved pre-signed image/video URLs. */
+  tagMappings: unknown
+  /** Optional fields merged into variationDetails. */
+  variationDetails?: unknown
+}
+
+/** Adobe Express — Export Rendition */
+export interface AdobeExpressExportRenditionInput {
+  /** Document URN */
+  documentId: string
+  /** Page range such as 1 or 1-3. */
+  pages?: string
+  /** Format (values: `image/png`, `image/jpeg`, `video/mp4`, `application/pdf`) */
+  format: "image/png" | "image/jpeg" | "video/mp4" | "application/pdf"
+  /** Longest side size for image/video renditions. */
+  size?: number
+  /** Optional Express export options merged with format and size. */
+  options?: unknown
+}
+
+/** Adobe Express — Get Job Status */
+export interface AdobeExpressGetJobStatusInput {
+  /** Job ID */
+  jobId: string
 }
 
 /** Adobe Firefly Services — Generate Image */
@@ -4157,6 +4471,103 @@ export interface ClaudeCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Apache Superset — Validate Connection */
+export type ApacheSupersetValidateConnectionInput = Record<string, never>
+
+/** Apache Superset — List Dashboards */
+export interface ApacheSupersetListDashboardsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Optional Superset API q filter/sort payload. */
+  q?: string
+}
+
+/** Apache Superset — Get Dashboard */
+export interface ApacheSupersetGetDashboardInput {
+  /** Dashboard ID or Slug */
+  idOrSlug: string
+}
+
+/** Apache Superset — List Dashboard Datasets */
+export interface ApacheSupersetListDashboardDatasetsInput {
+  /** Dashboard ID or Slug */
+  idOrSlug: string
+}
+
+/** Apache Superset — List Datasets */
+export interface ApacheSupersetListDatasetsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Optional Superset API q filter/sort payload. */
+  q?: string
+}
+
+/** Apache Superset — Get Dataset */
+export interface ApacheSupersetGetDatasetInput {
+  /** Dataset ID or UUID */
+  idOrUuid: string
+}
+
+/** Apache Superset — Create Dataset */
+export interface ApacheSupersetCreateDatasetInput {
+  /** Superset dataset create body. */
+  dataset: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Apache Superset — Update Dataset */
+export interface ApacheSupersetUpdateDatasetInput {
+  /** Dataset ID */
+  datasetId: string
+  /** Dataset Body */
+  dataset: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Apache Superset — Refresh Dataset Metadata */
+export interface ApacheSupersetRefreshDatasetInput {
+  /** Dataset ID */
+  datasetId: string
+  /** Confirm Refresh */
+  confirmRefresh: boolean
+}
+
+/** Apache Superset — List Charts */
+export interface ApacheSupersetListChartsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Optional Superset API q filter/sort payload. */
+  q?: string
+}
+
+/** Apache Superset — Get Chart */
+export interface ApacheSupersetGetChartInput {
+  /** Chart ID */
+  chartId: string
+}
+
+/** Apache Superset — Run SQL Lab Query */
+export interface ApacheSupersetRunSqllabQueryInput {
+  /** Database ID */
+  databaseId: number
+  /** SQL */
+  sql: string
+  /** Schema */
+  schema?: string
+  /** Limit */
+  limit?: number
+  /** Run Async */
+  runAsync?: boolean
+}
+
 /** Apify — Run Actor */
 export interface ApifyRunActorInput {
   /** The ID or name of the actor to run (e.g. apify/web-scraper) */
@@ -5643,6 +6054,108 @@ export interface AttentionListCalendarEventsInput {
   page: number
   /** Page Size */
   size: number
+}
+
+/** Attentive — Subscribe User */
+export interface AttentiveSubscribeUserInput {
+  /** Email */
+  email?: string
+  /** E.164 format for SMS, for example +15555550100. */
+  phone?: string
+  /** Optional Attentive externalIdentifiers object. */
+  externalIdentifiers?: unknown
+  /** Required unless locale and subscription type resolve exactly one API opt-in unit. */
+  signUpSourceId?: string
+  /** Optional locale object used with Subscription Type when no sign-up source ID is supplied. */
+  locale?: unknown
+  /** Subscription Type (values: `MARKETING`, `TRANSACTIONAL`) */
+  subscriptionType: "MARKETING" | "TRANSACTIONAL"
+  /** Only enable when Attentive has approved this consent flow. */
+  singleOptIn?: boolean
+  /** Confirm the user provided required legal consent for this opt-in. */
+  confirmConsent: boolean
+}
+
+/** Attentive — Unsubscribe User */
+export interface AttentiveUnsubscribeUserInput {
+  /** Email */
+  email?: string
+  /** E.164 format for SMS, for example +15555550100. */
+  phone?: string
+  /** External Identifiers */
+  externalIdentifiers?: unknown
+  /** Optional array of subscription type/channel objects. Omit to unsubscribe all matching subscriptions. */
+  subscriptions?: unknown
+  /** Notification Override */
+  notification?: unknown
+  /** Confirm Unsubscribe */
+  confirmUnsubscribe: boolean
+}
+
+/** Attentive — Create or Update User Attributes */
+export interface AttentiveUpsertUserAttributesInput {
+  /** Attentive identifiers object. Avoid duplicate values that could bridge users. */
+  identifiers: unknown
+  /** Attributes */
+  attributes?: unknown
+  /** Flat object of custom properties. Arrays and maps are not supported by Attentive. */
+  customProperties?: unknown
+  /** Optional subscriptions array with compliant sign-up source details. */
+  subscriptions?: unknown
+}
+
+/** Attentive — Set Custom Attributes */
+export interface AttentiveSetCustomAttributesInput {
+  /** Email */
+  email?: string
+  /** E.164 format for SMS, for example +15555550100. */
+  phone?: string
+  /** External Identifiers */
+  externalIdentifiers?: unknown
+  /** Flat object of custom attribute values. */
+  properties: unknown
+}
+
+/** Attentive — Get Custom Attributes */
+export interface AttentiveGetCustomAttributesInput {
+  /** Email */
+  email?: string
+  /** E.164 format. The plus sign is encoded automatically. */
+  phone?: string
+}
+
+/** Attentive — Send Custom Event */
+export interface AttentiveSendCustomEventInput {
+  /** Email */
+  email?: string
+  /** E.164 format for SMS, for example +15555550100. */
+  phone?: string
+  /** External Identifiers */
+  externalIdentifiers?: unknown
+  /** Event Type */
+  type: string
+  /** ISO-8601 timestamp. */
+  occurredAt?: string
+  /** Event properties object. */
+  properties?: unknown
+}
+
+/** Attentive — Send Purchase Event */
+export interface AttentiveSendPurchaseEventInput {
+  /** Email */
+  email?: string
+  /** E.164 format for SMS, for example +15555550100. */
+  phone?: string
+  /** External Identifiers */
+  externalIdentifiers?: unknown
+  /** Order ID */
+  orderId: string
+  /** Array of purchased item objects. */
+  items: unknown
+  /** ISO-8601 timestamp. Events older than 12 hours may not trigger journeys. */
+  occurredAt?: string
+  /** Sales Channel */
+  salesChannel?: unknown
 }
 
 /** Attio — List Records */
@@ -8669,6 +9182,58 @@ export interface BitlyListGroupsInput {
   organizationGuid?: string
 }
 
+/** Bitwarden — List Members */
+export interface BitwardenListMembersInput {
+  /** Continuation Token */
+  continuationToken?: string
+}
+
+/** Bitwarden — Get Member */
+export interface BitwardenGetMemberInput {
+  /** Member ID */
+  memberId: string
+}
+
+/** Bitwarden — List Groups */
+export interface BitwardenListGroupsInput {
+  /** Continuation Token */
+  continuationToken?: string
+}
+
+/** Bitwarden — Get Group */
+export interface BitwardenGetGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Bitwarden — List Collections */
+export interface BitwardenListCollectionsInput {
+  /** Continuation Token */
+  continuationToken?: string
+}
+
+/** Bitwarden — Get Collection */
+export interface BitwardenGetCollectionInput {
+  /** Collection ID */
+  collectionId: string
+}
+
+/** Bitwarden — List Events */
+export interface BitwardenListEventsInput {
+  /** RFC 3339 timestamp. */
+  start?: string
+  /** RFC 3339 timestamp. */
+  end?: string
+  /** Continuation Token */
+  continuationToken?: string
+}
+
+/** Bitwarden — List Policies */
+export interface BitwardenListPoliciesInput {
+  /** Continuation Token */
+  continuationToken?: string
+}
+
 /** Bizzabo — List Events */
 export interface BizzaboListEventsInput {
   /** Page */
@@ -10332,68 +10897,115 @@ export interface CalendlyCustomApiCallInput {
   body?: unknown
 }
 
-/** Campaign Monitor — Add Subscriber */
-export interface CampaignMonitorAddSubscriberToListInput {
-  /** Client Account (resolve via property options API) */
+/** Campaign Monitor — List Clients */
+export type CampaignMonitorListClientsInput = Record<string, never>
+
+/** Campaign Monitor — List Contact Lists */
+export interface CampaignMonitorListContactListsInput {
+  /** Client ID */
   clientId: string
-  /** List ID (resolve via property options API) */
+}
+
+/** Campaign Monitor — List Segments */
+export interface CampaignMonitorListSegmentsInput {
+  /** List ID */
   listId: string
-  /** Email Address */
+}
+
+/** Campaign Monitor — Add Subscriber */
+export interface CampaignMonitorAddSubscriberInput {
+  /** List ID */
+  listId: string
+  /** Email */
   email: string
   /** Name */
   name?: string
-  /** Phone */
-  phone?: string
-  /** Whether the subscriber has consented to tracking. (values: `Yes`, `No`, `Unchanged`) */
-  consentToTrack: "Yes" | "No" | "Unchanged"
-  /** Whether the subscriber has consented to send SMS. (values: `Yes`, `No`, `Unchanged`) */
-  consentToSendSms?: "Yes" | "No" | "Unchanged"
-  /** If true, the subscriber will be resubscribed if they previously unsubscribed. */
+  /** Optional array of { Key, Value } custom fields. */
+  customFields?: unknown
+  /** Allow resubscribing an unsubscribed email when consent has been reconfirmed. */
   resubscribe?: boolean
-  /** Custom Fields */
-  fields: Record<string, unknown>
+  /** Consent To Track (values: `Yes`, `No`, `Unchanged`) */
+  consentToTrack?: "Yes" | "No" | "Unchanged"
 }
 
 /** Campaign Monitor — Update Subscriber */
-export interface CampaignMonitorUpdateSubscriberDetailsInput {
-  /** Client Account (resolve via property options API) */
-  clientId: string
-  /** List ID (resolve via property options API) */
+export interface CampaignMonitorUpdateSubscriberInput {
+  /** List ID */
   listId: string
-  /** Email Address */
-  email: string
+  /** Current Email */
+  currentEmail: string
+  /** New Email */
+  email?: string
   /** Name */
   name?: string
-  /** Phone */
-  phone?: string
-  /** Whether the subscriber has consented to tracking. (values: `Yes`, `No`, `Unchanged`) */
-  consentToTrack?: "Yes" | "No" | "Unchanged"
-  /** Whether the subscriber has consented to send SMS. (values: `Yes`, `No`, `Unchanged`) */
-  consentToSendSms?: "Yes" | "No" | "Unchanged"
-  /** If true, the subscriber will be resubscribed if they previously unsubscribed. */
+  /** Optional replacement array of { Key, Value } custom fields. */
+  customFields?: unknown
+  /** Allow resubscribing an unsubscribed email when consent has been reconfirmed. */
   resubscribe?: boolean
-  /** Custom Fields */
-  fields: Record<string, unknown>
+}
+
+/** Campaign Monitor — Get Subscriber */
+export interface CampaignMonitorGetSubscriberInput {
+  /** List ID */
+  listId: string
+  /** Email */
+  email: string
+}
+
+/** Campaign Monitor — List Subscribers */
+export interface CampaignMonitorListSubscribersInput {
+  /** List ID */
+  listId: string
+  /** Status (values: `active`, `unconfirmed`, `unsubscribed`, `bounced`, `deleted`) */
+  status: "active" | "unconfirmed" | "unsubscribed" | "bounced" | "deleted"
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** YYYY-MM-DD lower bound used by Campaign Monitor subscriber list endpoints. */
+  date?: string
 }
 
 /** Campaign Monitor — Unsubscribe Subscriber */
 export interface CampaignMonitorUnsubscribeSubscriberInput {
-  /** Client Account (resolve via property options API) */
-  clientId: string
-  /** List ID (resolve via property options API) */
+  /** List ID */
   listId: string
-  /** The email address of the subscriber to unsubscribe. */
+  /** Email */
   email: string
+  /** Confirm Unsubscribe */
+  confirmUnsubscribe: boolean
 }
 
-/** Campaign Monitor — Find Subscriber */
-export interface CampaignMonitorFindSubscriberInput {
-  /** Client Account (resolve via property options API) */
-  clientId: string
-  /** List ID (resolve via property options API) */
+/** Campaign Monitor — Delete Subscriber */
+export interface CampaignMonitorDeleteSubscriberInput {
+  /** List ID */
   listId: string
-  /** The email address of the subscriber to find */
+  /** Email */
   email: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Campaign Monitor — List Campaigns */
+export interface CampaignMonitorListCampaignsInput {
+  /** Client ID */
+  clientId: string
+}
+
+/** Campaign Monitor — Get Campaign Summary */
+export interface CampaignMonitorGetCampaignSummaryInput {
+  /** Campaign ID */
+  campaignId: string
+}
+
+/** Campaign Monitor — Suppress Email */
+export interface CampaignMonitorSuppressEmailInput {
+  /** Client ID */
+  clientId: string
+  /** Email */
+  email: string
+  /** Confirm Suppress */
+  confirmSuppress: boolean
 }
 
 /** Candid — Search Nonprofits */
@@ -13116,8 +13728,34 @@ export interface CloudflareListWorkersInput {
 export interface CloudinaryListResourcesInput {
   /** Resource Type (values: `image`, `video`, `raw`) */
   resourceType?: "image" | "video" | "raw"
+  /** Delivery Type (values: `upload`, `private`, `authenticated`, `fetch`) */
+  type?: "upload" | "private" | "authenticated" | "fetch"
   /** Max Results */
   maxResults?: number
+  /** Next Cursor */
+  nextCursor?: string
+  /** Public ID Prefix */
+  prefix?: string
+  /** Include Tags */
+  tags?: boolean
+  /** Include Context Metadata */
+  context?: boolean
+  /** Include Structured Metadata */
+  metadata?: boolean
+}
+
+/** Cloudinary — Search Resources */
+export interface CloudinarySearchResourcesInput {
+  /** Cloudinary search expression, for example resource_type:image AND tags=hero. */
+  expression: string
+  /** Optional sort_by array accepted by the Cloudinary Admin search API. */
+  sortBy?: unknown
+  /** Max Results */
+  maxResults?: number
+  /** Next Cursor */
+  nextCursor?: string
+  /** Optional fields such as context, tags, metadata, image_metadata, or derived. */
+  withField?: unknown[]
 }
 
 /** Cloudinary — Get Resource */
@@ -13126,14 +13764,222 @@ export interface CloudinaryGetResourceInput {
   publicId: string
   /** Resource Type (values: `image`, `video`, `raw`) */
   resourceType?: "image" | "video" | "raw"
+  /** Delivery Type (values: `upload`, `private`, `authenticated`, `fetch`) */
+  type?: "upload" | "private" | "authenticated" | "fetch"
+  /** Include Derived Assets */
+  derived?: boolean
+  /** Include Context Metadata */
+  context?: boolean
+  /** Include Structured Metadata */
+  metadata?: boolean
+}
+
+/** Cloudinary — Upload Resource */
+export interface CloudinaryUploadResourceInput {
+  /** Remote URL, allowlisted storage URL, or data URI. Avoid sending sensitive media unless the workspace is approved for it. */
+  file: string
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
+  /** Public ID */
+  publicId?: string
+  /** Folder */
+  folder?: string
+  /** Tags CSV */
+  tags?: string
+  /** Pipe-separated key=value pairs such as alt=Hero|caption=Launch. */
+  context?: string
+  /** Overwrite Existing Public ID */
+  overwrite?: boolean
+  /** Pipe-separated Cloudinary transformation strings. */
+  eager?: string
+  /** Eager Async */
+  eagerAsync?: boolean
+  /** Optional Cloudinary notification URL for asynchronous processing. */
+  notificationUrl?: string
+}
+
+/** Cloudinary — Update Resource Metadata */
+export interface CloudinaryUpdateResourceMetadataInput {
+  /** Public ID */
+  publicId: string
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
+  /** Delivery Type (values: `upload`, `private`, `authenticated`, `fetch`) */
+  type?: "upload" | "private" | "authenticated" | "fetch"
+  /** Tags */
+  tags?: unknown[]
+  /** Object of context metadata fields. */
+  context?: unknown
+  /** Object of structured metadata fields. */
+  metadata?: unknown
+  /** Moderation Status (values: `approved`, `rejected`) */
+  moderationStatus?: "approved" | "rejected"
+}
+
+/** Cloudinary — Create Named Transformation */
+export interface CloudinaryCreateTransformationInput {
+  /** Transformation Name */
+  name: string
+  /** Cloudinary transformation object or array. */
+  transformation: unknown
+  /** Allowed For Strict Transformations */
+  allowedForStrict?: boolean
+}
+
+/** Cloudinary — Generate Derived Resource */
+export interface CloudinaryGenerateDerivedResourceInput {
+  /** Public ID */
+  publicId: string
+  /** Resource Type (values: `image`, `video`, `raw`) */
+  resourceType?: "image" | "video" | "raw"
+  /** Delivery Type (values: `upload`, `private`, `authenticated`, `fetch`) */
+  type?: "upload" | "private" | "authenticated" | "fetch"
+  /** Pipe-separated Cloudinary transformation strings. */
+  eager: string
+  /** Eager Async */
+  eagerAsync?: boolean
+  /** Notification URL */
+  notificationUrl?: string
 }
 
 /** Cloudinary — Delete Resource */
 export interface CloudinaryDeleteResourceInput {
   /** Public ID */
   publicId: string
+  /** Must exactly match Public ID. */
+  confirmPublicId: string
   /** Resource Type (values: `image`, `video`, `raw`) */
   resourceType?: "image" | "video" | "raw"
+  /** Delivery Type (values: `upload`, `private`, `authenticated`, `fetch`) */
+  type?: "upload" | "private" | "authenticated" | "fetch"
+  /** Invalidate CDN Cache */
+  invalidate?: boolean
+}
+
+/** Clover — Get Merchant */
+export interface CloverGetMerchantInput {
+  /** Merchant ID */
+  merchantId: string
+}
+
+/** Clover — List Items */
+export interface CloverListItemsInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Maximum records to return. Clover defaults to 100 and supports up to 1000. */
+  limit?: number
+  /** Clover offset for pagination. */
+  offset?: number
+  /** Optional Clover filter expression, such as modifiedTime>1700000000000. */
+  filter?: string
+}
+
+/** Clover — Get Item */
+export interface CloverGetItemInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Item ID */
+  itemId: string
+}
+
+/** Clover — Create Item */
+export interface CloverCreateItemInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Name */
+  name: string
+  /** Minor currency units, for example cents. */
+  price?: number
+  /** SKU */
+  sku?: string
+  /** Code */
+  code?: string
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Clover — Update Item */
+export interface CloverUpdateItemInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Item ID */
+  itemId: string
+  /** Clover item fields to update. */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Clover — List Orders */
+export interface CloverListOrdersInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Maximum records to return. Clover defaults to 100 and supports up to 1000. */
+  limit?: number
+  /** Clover offset for pagination. */
+  offset?: number
+  /** Optional Clover filter expression. */
+  filter?: string
+  /** Optional comma-separated expansions. */
+  expand?: string
+}
+
+/** Clover — Get Order */
+export interface CloverGetOrderInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Order ID */
+  orderId: string
+  /** Expand */
+  expand?: string
+}
+
+/** Clover — List Customers */
+export interface CloverListCustomersInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Maximum records to return. Clover defaults to 100 and supports up to 1000. */
+  limit?: number
+  /** Clover offset for pagination. */
+  offset?: number
+}
+
+/** Clover — Get Customer */
+export interface CloverGetCustomerInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Customer ID */
+  customerId: string
+}
+
+/** Clover — Create Customer */
+export interface CloverCreateCustomerInput {
+  /** Merchant ID */
+  merchantId: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Email Address */
+  emailAddress?: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Clover — Refund Payment */
+export interface CloverRefundPaymentInput {
+  /** Merchant ID */
+  merchantId: string
+  /** Payment ID */
+  paymentId: string
+  /** Minor currency units. Leave empty only when Clover should refund the full eligible amount. */
+  amount?: number
+  /** Confirm that omitting Amount is intentional. */
+  fullRefund?: boolean
+  /** Confirm Refund */
+  confirmRefund: boolean
 }
 
 /** Coda — Create Row */
@@ -13709,6 +14555,50 @@ export interface ConfluentCloudGetKafkaClusterInput {
   clusterId: string
 }
 
+/** Confluent Cloud — List Topics */
+export interface ConfluentCloudListTopicsInput {
+  /** Cluster ID */
+  clusterId: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Confluent Cloud — Get Topic */
+export interface ConfluentCloudGetTopicInput {
+  /** Cluster ID */
+  clusterId: string
+  /** Topic Name */
+  topicName: string
+}
+
+/** Confluent Cloud — Create Topic */
+export interface ConfluentCloudCreateTopicInput {
+  /** Cluster ID */
+  clusterId: string
+  /** Topic Name */
+  topicName: string
+  /** Partitions Count */
+  partitionsCount?: number
+  /** Replication Factor */
+  replicationFactor?: number
+  /** Optional JSON array of { name, value } topic configuration objects. */
+  configs?: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Confluent Cloud — Delete Topic */
+export interface ConfluentCloudDeleteTopicInput {
+  /** Cluster ID */
+  clusterId: string
+  /** Topic Name */
+  topicName: string
+  /** Must exactly match Topic Name. */
+  confirmTopicName: string
+}
+
 /** Confluent Cloud — List Service Accounts */
 export interface ConfluentCloudListServiceAccountsInput {
   /** Display Name Filter */
@@ -13761,10 +14651,68 @@ export interface ConfluentCloudQueryMetricsInput {
   query: unknown
 }
 
+/** Confluent Cloud — List Connectors */
+export interface ConfluentCloudListConnectorsInput {
+  /** Environment ID */
+  environmentId: string
+  /** Connect Cluster ID */
+  connectClusterId: string
+  /** Expand Info */
+  expandInfo?: boolean
+  /** Expand Status */
+  expandStatus?: boolean
+}
+
+/** Confluent Cloud — Get Connector */
+export interface ConfluentCloudGetConnectorInput {
+  /** Environment ID */
+  environmentId: string
+  /** Connect Cluster ID */
+  connectClusterId: string
+  /** Connector Name */
+  connectorName: string
+}
+
+/** Confluent Cloud — Get Connector Status */
+export interface ConfluentCloudGetConnectorStatusInput {
+  /** Environment ID */
+  environmentId: string
+  /** Connect Cluster ID */
+  connectClusterId: string
+  /** Connector Name */
+  connectorName: string
+}
+
+/** Confluent Cloud — Create Connector */
+export interface ConfluentCloudCreateConnectorInput {
+  /** Environment ID */
+  environmentId: string
+  /** Connect Cluster ID */
+  connectClusterId: string
+  /** Connector Name */
+  connectorName: string
+  /** Connector configuration JSON object. */
+  config: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Confluent Cloud — Delete Connector */
+export interface ConfluentCloudDeleteConnectorInput {
+  /** Environment ID */
+  environmentId: string
+  /** Connect Cluster ID */
+  connectClusterId: string
+  /** Connector Name */
+  connectorName: string
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
 /** Confluent Cloud — Custom API Call */
 export interface ConfluentCloudCustomApiCallInput {
-  /** API Surface (values: `management`, `metrics`) */
-  surface: "management" | "metrics"
+  /** API Surface (values: `management`, `metrics`, `kafkaRest`) */
+  surface: "management" | "metrics" | "kafkaRest"
   /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PATCH" | "DELETE"
   /** Path under the selected API origin, for example /org/v2/environments. */
@@ -15765,6 +16713,24 @@ export interface DbtCloudListProjectsInput {
 export interface DbtCloudGetProjectInput {
   /** Project ID */
   projectId: string
+}
+
+/** dbt Cloud — List Environments */
+export interface DbtCloudListEnvironmentsInput {
+  /** Project ID */
+  projectId?: string
+  /** Order By */
+  orderBy?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** dbt Cloud — Get Environment */
+export interface DbtCloudGetEnvironmentInput {
+  /** Environment ID */
+  environmentId: string
 }
 
 /** dbt Cloud — List Jobs */
@@ -17769,80 +18735,84 @@ export interface DrchronoListOfficesInput {
 /** DrChrono — List Doctors */
 export type DrchronoListDoctorsInput = Record<string, never>
 
-/** Drip — Apply a tag to subscriber */
-export interface DripApplyTagToSubscriberInput {
-  /** Account (resolve via property options API) */
-  account_id: string
-  /** Email of the subscriber */
-  subscriber: string
-  /** Tag to apply */
-  tag: string
+/** Drip — List Subscribers */
+export interface DripListSubscribersInput {
+  /** Status (values: `active`, `unsubscribed`, `removed`) */
+  status?: "active" | "unsubscribed" | "removed"
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
 }
 
-/** Drip — Add a subscriber to a campaign */
-export interface DripAddSubscriberToCampaignInput {
-  /** Account (resolve via property options API) */
-  account_id: string
-  /** Email Series Campaign (resolve via property options API) */
-  campaign_id: string
-  /** Email of the subscriber */
-  subscriber: string
-  /** Tags to apply to subscriber */
-  tags?: unknown[]
-  /** Custom field data about the subscriber */
-  custom_fields?: Record<string, unknown>
+/** Drip — Get Subscriber */
+export interface DripGetSubscriberInput {
+  /** Subscriber ID or Email */
+  idOrEmail: string
 }
 
 /** Drip — Create or Update Subscriber */
-export interface DripUpsertSubscriberInput {
-  /** Account (resolve via property options API) */
-  account_id: string
-  /** Email of the subscriber */
-  subscriber: string
-  /** Tags to apply to subscriber */
-  tags?: unknown[]
-  /** Custom field data about the subscriber */
-  custom_fields?: Record<string, unknown>
-  /** First Name */
-  first_name?: string
-  /** Last Name */
-  last_name?: string
-  /** Postal code in which the subscriber resides */
-  zip?: string
-  /** The country in which the subscriber resides */
-  country?: string
-  /** The region in which the subscriber resides */
-  state?: string
-  /** The city in which the subscriber resides */
-  city?: string
-  /** The subscriber's primary phone number */
+export interface DripCreateOrUpdateSubscriberInput {
+  /** Email */
+  email: string
+  /** User ID */
+  userId?: string
+  /** Phone */
   phone?: string
-  /** The subscriber's mailing address */
-  address?: string
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** Comma-separated tags. */
+  tags?: string
+  /** Custom Fields */
+  customFields?: unknown
+  /** Time Zone */
+  timeZone?: string
+  /** Prospect */
+  prospect?: boolean
 }
 
-/** Drip — Custom API Call */
-export interface DripCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+/** Drip — Track Event */
+export interface DripTrackEventInput {
+  /** Email */
+  email: string
+  /** Event action name, for example Viewed product. */
+  action: string
+  /** ISO-8601 timestamp. */
+  occurredAt?: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** Drip — Apply Tag */
+export interface DripApplyTagInput {
+  /** Email */
+  email: string
+  /** Tag */
+  tag: string
+}
+
+/** Drip — List Tags */
+export type DripListTagsInput = Record<string, never>
+
+/** Drip — List Campaigns */
+export type DripListCampaignsInput = Record<string, never>
+
+/** Drip — Unsubscribe From All Mailings */
+export interface DripUnsubscribeAllInput {
+  /** Subscriber ID or Email */
+  idOrEmail: string
+  /** Confirm Unsubscribe */
+  confirmUnsubscribe: boolean
+}
+
+/** Drip — Delete Subscriber */
+export interface DripDeleteSubscriberInput {
+  /** Subscriber ID or Email */
+  idOrEmail: string
+  /** Confirm Delete */
+  confirmDelete: boolean
 }
 
 /** Dropbox — Search */
@@ -18201,6 +19171,90 @@ export interface DubCustomApiCallInput {
   body?: unknown
 }
 
+/** Duo — List Users */
+export interface DuoListUsersInput {
+  /** Username */
+  username?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Duo — Get User */
+export interface DuoGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Duo — List Groups */
+export interface DuoListGroupsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Duo — Get Group */
+export interface DuoGetGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Duo — List Phones */
+export interface DuoListPhonesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Duo — Get Phone */
+export interface DuoGetPhoneInput {
+  /** Phone ID */
+  phoneId: string
+}
+
+/** Duo — List Integrations */
+export interface DuoListIntegrationsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Duo — List Authentication Logs */
+export interface DuoListAuthenticationLogsInput {
+  /** Unix timestamp in milliseconds. */
+  mintime?: number
+  /** Unix timestamp in milliseconds. */
+  maxtime?: number
+  /** Limit */
+  limit?: number
+  /** Next Offset */
+  nextOffset?: string
+  /** User Filter */
+  user?: string
+  /** Result Filter */
+  result?: string
+}
+
+/** Duo — List Administrator Logs */
+export interface DuoListAdministratorLogsInput {
+  /** Unix timestamp in seconds. */
+  mintime?: number
+}
+
+/** Duo — Set User Status */
+export interface DuoSetUserStatusInput {
+  /** User ID */
+  userId: string
+  /** Status (values: `active`, `bypass`, `disabled`) */
+  status: "active" | "bypass" | "disabled"
+  /** Type UPDATE_STATUS to update the Duo user status. */
+  confirmation: string
+}
+
 /** Dwolla — List Customers */
 export interface DwollaListCustomersInput {
   /** Limit */
@@ -18415,28 +19469,83 @@ export interface EcwidCustomApiCallInput {
   body?: unknown
 }
 
-/** Elasticsearch — Search */
-export interface ElasticsearchSearchInput {
-  /** Index name or pattern (e.g., my-index or my-index-*) */
+/** Elasticsearch — Validate Connection */
+export type ElasticsearchValidateConnectionInput = Record<string, never>
+
+/** Elasticsearch — List Indices */
+export interface ElasticsearchListIndicesInput {
+  /** Optional exact index or pattern supported by Elasticsearch. */
+  index?: string
+  /** Health (values: ``, `green`, `yellow`, `red`) */
+  health?: "" | "green" | "yellow" | "red"
+}
+
+/** Elasticsearch — Get Index */
+export interface ElasticsearchGetIndexInput {
+  /** Index */
   index: string
-  /** Elasticsearch query DSL as JSON (e.g., {"match": {"field": "value"}}) */
-  query: string
-  /** Maximum number of results to return */
+}
+
+/** Elasticsearch — Create Index */
+export interface ElasticsearchCreateIndexInput {
+  /** Index */
+  index: string
+  /** Settings */
+  settings?: unknown
+  /** Mappings */
+  mappings?: unknown
+  /** Aliases */
+  aliases?: unknown
+}
+
+/** Elasticsearch — Delete Index */
+export interface ElasticsearchDeleteIndexInput {
+  /** Index */
+  index: string
+  /** Must exactly match Index. */
+  confirmIndexName: string
+}
+
+/** Elasticsearch — Search Documents */
+export interface ElasticsearchSearchDocumentsInput {
+  /** Optional index name. Leave blank to search all indices allowed by the credentials. */
+  index?: string
+  /** Elasticsearch Query DSL query object. */
+  query: unknown
+  /** Size */
   size?: number
-  /** Starting offset for pagination */
+  /** From */
   from?: number
-  /** Sort criteria as JSON array */
-  sort?: string
+  /** Sort */
+  sort?: unknown
+  /** Optional _source value such as false, an array, or an include/exclude object. */
+  source?: unknown
 }
 
 /** Elasticsearch — Index Document */
 export interface ElasticsearchIndexDocumentInput {
   /** Index */
   index: string
-  /** Optional document ID; auto-generated if not provided */
+  /** Optional document ID. Leave blank for an auto-generated ID. */
   documentId?: string
-  /** JSON object with document fields */
-  document: string
+  /** Document JSON object. */
+  document: unknown
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
+}
+
+/** Elasticsearch — Update Document */
+export interface ElasticsearchUpdateDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+  /** Fields to merge into the document. */
+  doc: unknown
+  /** Doc As Upsert */
+  docAsUpsert?: boolean
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
 }
 
 /** Elasticsearch — Get Document */
@@ -18453,10 +19562,25 @@ export interface ElasticsearchDeleteDocumentInput {
   index: string
   /** Document ID */
   documentId: string
+  /** Must exactly match Document ID. */
+  confirmDocumentId: string
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
 }
 
-/** Elasticsearch — List Indices */
-export type ElasticsearchListIndicesInput = Record<string, never>
+/** Elasticsearch — Custom API Call */
+export interface ElasticsearchCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative Elasticsearch path, for example /_cluster/health. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for POST, PUT, PATCH, and DELETE custom calls. */
+  confirmMutation?: boolean
+}
 
 /** ElevenLabs — Text to Speech */
 export interface ElevenlabsElevenlabsTextToSpeechInput {
@@ -19162,6 +20286,9 @@ export interface EulerCustomMcpRequestInput {
 /** EULER — Get Connector Manifest */
 export type EulerGetConnectorManifestInput = Record<string, never>
 
+/** Eventbrite — List Organizations */
+export type EventbriteListOrganizationsInput = Record<string, never>
+
 /** Eventbrite — Create Event */
 export interface EventbriteCreateEventInput {
   /** Organization ID */
@@ -19180,6 +20307,8 @@ export interface EventbriteCreateEventInput {
   online_event?: boolean
   /** Description */
   description?: string
+  /** Confirm Create */
+  confirmCreate: boolean
 }
 
 /** Eventbrite — List Events */
@@ -19188,6 +20317,10 @@ export interface EventbriteListEventsInput {
   organizationId: string
   /** Status (values: `all`, `draft`, `live`, `started`, `ended`) */
   status?: "all" | "draft" | "live" | "started" | "ended"
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
 }
 
 /** Eventbrite — Get Event */
@@ -19196,10 +20329,42 @@ export interface EventbriteGetEventInput {
   eventId: string
 }
 
+/** Eventbrite — Update Event */
+export interface EventbriteUpdateEventInput {
+  /** Event ID */
+  eventId: string
+  /** Fields for the Eventbrite event object. */
+  eventFields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Eventbrite — Cancel Event */
+export interface EventbriteCancelEventInput {
+  /** Event ID */
+  eventId: string
+  /** Confirm Cancel */
+  confirmCancel: boolean
+}
+
 /** Eventbrite — List Attendees */
 export interface EventbriteListAttendeesInput {
   /** Event ID */
   eventId: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Eventbrite — List Orders */
+export interface EventbriteListOrdersInput {
+  /** Event ID */
+  eventId: string
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
 }
 
 /** Eventbrite — Create Ticket Class */
@@ -19214,6 +20379,8 @@ export interface EventbriteCreateTicketClassInput {
   cost?: string
   /** Free Ticket */
   free?: boolean
+  /** Confirm Create */
+  confirmCreate: boolean
 }
 
 /** Eventbrite — Get Order */
@@ -19232,6 +20399,8 @@ export interface EventbriteCustomApiCallInput {
   body?: unknown
   /** Query Parameters */
   queryParams?: Record<string, unknown>
+  /** Required for POST, PUT, PATCH, and DELETE custom calls. */
+  confirmMutation?: boolean
 }
 
 /** Exa — Get Contents */
@@ -21981,6 +23150,18 @@ export interface FreshserviceCreateTicketInput {
   priority: "1" | "2" | "3" | "4"
   /** Status (values: `2`, `3`, `4`, `5`) */
   status: "2" | "3" | "4" | "5"
+  /** Requester ID */
+  requester_id?: number
+  /** Responder ID */
+  responder_id?: number
+  /** Group ID */
+  group_id?: number
+  /** Workspace ID */
+  workspace_id?: number
+  /** For example Incident or Service Request. */
+  type?: string
+  /** Custom Fields */
+  custom_fields?: unknown
 }
 
 /** Freshservice — List Tickets */
@@ -21991,6 +23172,20 @@ export interface FreshserviceListTicketsInput {
   per_page?: number
   /** Page */
   page?: number
+  /** Optional ISO timestamp. */
+  updated_since?: string
+  /** Optional Freshservice include parameter. */
+  include?: string
+}
+
+/** Freshservice — Get Ticket */
+export interface FreshserviceGetTicketInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Ticket ID */
+  ticketId: number
+  /** Include */
+  include?: string
 }
 
 /** Freshservice — Update Ticket */
@@ -22003,8 +23198,22 @@ export interface FreshserviceUpdateTicketInput {
   status?: "2" | "3" | "4" | "5"
   /** Priority (values: `1`, `2`, `3`, `4`) */
   priority?: "1" | "2" | "3" | "4"
-  /** Assignee Email */
-  assignee_email?: string
+  /** Freshservice agent ID to assign as responder. */
+  responder_id?: number
+  /** Group ID */
+  group_id?: number
+  /** Custom Fields */
+  custom_fields?: unknown
+}
+
+/** Freshservice — Delete Ticket */
+export interface FreshserviceDeleteTicketInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Ticket ID */
+  ticketId: number
+  /** Type DELETE followed by the ticket ID, for example: DELETE 123. */
+  confirm: string
 }
 
 /** Freshservice — List Agents */
@@ -22017,6 +23226,86 @@ export interface FreshserviceListAgentsInput {
 export interface FreshserviceListRequestersInput {
   /** Your Freshservice subdomain */
   domain: string
+}
+
+/** Freshservice — List Problems */
+export interface FreshserviceListProblemsInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Per Page */
+  per_page?: number
+  /** Page */
+  page?: number
+  /** Updated Since */
+  updated_since?: string
+}
+
+/** Freshservice — Create Problem */
+export interface FreshserviceCreateProblemInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Freshservice problem request body fields. */
+  fields: unknown
+}
+
+/** Freshservice — Update Problem */
+export interface FreshserviceUpdateProblemInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Problem ID */
+  id: number
+  /** Problem Fields */
+  fields: unknown
+}
+
+/** Freshservice — Delete Problem */
+export interface FreshserviceDeleteProblemInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Problem ID */
+  id: number
+  /** Type DELETE followed by the problem ID, for example: DELETE 123. */
+  confirm: string
+}
+
+/** Freshservice — List Changes */
+export interface FreshserviceListChangesInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Per Page */
+  per_page?: number
+  /** Page */
+  page?: number
+  /** Updated Since */
+  updated_since?: string
+}
+
+/** Freshservice — Create Change */
+export interface FreshserviceCreateChangeInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Freshservice change request body fields. */
+  fields: unknown
+}
+
+/** Freshservice — Update Change */
+export interface FreshserviceUpdateChangeInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Change ID */
+  id: number
+  /** Change Fields */
+  fields: unknown
+}
+
+/** Freshservice — Delete Change */
+export interface FreshserviceDeleteChangeInput {
+  /** Your Freshservice subdomain */
+  domain: string
+  /** Change ID */
+  id: number
+  /** Type DELETE followed by the change ID, for example: DELETE 123. */
+  confirm: string
 }
 
 /** Freshservice — Custom API Call */
@@ -22033,298 +23322,126 @@ export interface FreshserviceCustomApiCallInput {
   queryParams?: Record<string, unknown>
 }
 
-/** Front — Add Comment */
-export interface FrontAddCommentInput {
-  /** Select the conversation (resolve via property options API) */
-  conversation_id: string
-  /** Select the teammate (resolve via property options API) */
-  author_id: string
-  /** The content of the comment. */
-  body: string
-}
-
-/** Front — Add Contact Handle */
-export interface FrontAddContactHandleInput {
-  /** Select the contact (resolve via property options API) */
-  contact_id: string
-  /** Type of handle to add. (values: `email`, `phone`, `twitter`, `facebook`, `intercom`, `front_chat`, `custom`) */
-  handle_type: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom"
-  /** The value of the handle (e.g., email address, phone number). */
-  handle_value: string
-}
-
-/** Front — Add Conversation Links */
-export interface FrontAddConversationLinksInput {
-  /** Select the conversation (resolve via property options API) */
-  conversation_id: string
-  /** Select one or more links */
-  link_ids?: string[]
-}
-
-/** Front — Add Conversation Tags */
-export interface FrontAddConversationTagsInput {
-  /** Select the conversation (resolve via property options API) */
-  conversation_id: string
-  /** Select one or more tags */
-  tag_ids?: string[]
-}
-
-/** Front — Assign/Unassign Conversation */
-export interface FrontAssignUnassignConversationInput {
-  /** Select the conversation (resolve via property options API) */
-  conversation_id: string
-  /** Select the teammate (resolve via property options API) */
-  assignee_id: string
-}
-
-/** Front — Create Account */
-export interface FrontCreateAccountInput {
-  /** The name of the account to create. */
-  name: string
-  /** A description for the account. */
-  description?: string
-  /** List of domains associated with the account. */
-  domains?: Array<{   domain: string }>
-  /** An external identifier for the account. */
-  external_id?: string
-  /** Custom fields for this account, as a JSON object. */
-  custom_fields?: unknown
-}
-
-/** Front — Create Contact */
-export interface FrontCreateContactInput {
-  /** The name of the contact. */
-  name?: string
-  /** A description for the contact. */
-  description?: string
-  /** List of contact handles (e.g., email, phone). */
-  handles: Array<{   handle: string;   source: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom" }>
-  /** URL of the contact’s avatar image. */
-  avatar_url?: WeavzFileInput
-  /** List of URLs associated with the contact. */
-  links?: Array<{   link: string }>
-  /** List of group names to associate with the contact. */
-  group_names?: Array<{   group_names: string }>
-  /** List of contact list names this contact belongs to. Front will create any that do not exist. */
-  list_names?: unknown[]
-  /** Custom fields for this contact, as a JSON object (e.g., {"CRM ID": "12345"}). */
-  custom_fields?: unknown
-}
-
-/** Front — Create Draft */
-export interface FrontCreateDraftInput {
-  /** Select the channel (resolve via property options API) */
-  channel_id: string
-  /** List of recipient handles (email addresses, etc.). */
-  to: unknown[]
-  /** List of CC recipient handles. */
-  cc?: unknown[]
-  /** List of BCC recipient handles. */
-  bcc?: unknown[]
-  /** The subject of the draft. */
-  subject?: string
-  /** The body of the draft message. */
-  body: string
-  /** List of attachment URLs. */
-  attachments?: unknown[]
-  /** Mode of the draft reply (values: `private`, `shared`) */
-  mode: "private" | "shared"
-  /** The ID of the signature to use for the draft reply (if applicable). */
-  signature_id?: string
-  /** Whether to append the default signature to the draft reply (if applicable). */
-  should_add_default_signature?: boolean
-}
-
-/** Front — Create Draft Reply */
-export interface FrontCreateDraftReplyInput {
-  /** Select the conversation (resolve via property options API) */
-  conversation_id: string
-  /** The content of the draft reply. */
-  body: string
-  /** The subject of the draft reply (for email channels). */
-  subject?: string
-  /** Select the teammate (resolve via property options API) */
-  author_id: string
-  /** Select the channel (resolve via property options API) */
-  channel_id: string
-  /** List of recipient handles (email addresses, etc.). */
-  to?: unknown[]
-  /** List of CC recipient handles. */
-  cc?: unknown[]
-  /** List of BCC recipient handles. */
-  bcc?: unknown[]
-  /** List of attachment URLs. */
-  attachments?: unknown[]
-  /** Mode of the draft reply (values: `private`, `shared`) */
-  mode: "private" | "shared"
-  /** The ID of the signature to use for the draft reply (if applicable). */
-  signature_id?: string
-  /** Whether to append the default signature to the draft reply (if applicable). */
-  should_add_default_signature?: boolean
-}
-
-/** Front — Create Link */
-export interface FrontCreateLinkInput {
-  /** The name of the link. */
-  name: string
-  /** The external URL for the link. */
-  external_url: string
-  /** Optional pattern to match URLs (regex). */
-  pattern?: string
-}
-
-/** Front — Find Account */
-export interface FrontFindAccountInput {
-  /** Filter accounts by email domain  */
-  email_domain?: string
-  /** Filter accounts by external ID */
-  external_id?: string
-  /** Maximum number of accounts to return (max 100). */
+/** Front — List Conversations */
+export interface FrontListConversationsInput {
+  /** Optional Front conversation filter query. */
+  q?: string
+  /** Limit */
   limit?: number
-  /** Token for pagination. */
-  page_token?: string
-  /** Field used to sort the accounts. (values: `created_at`, `updated_at`) */
-  sort_by?: "created_at" | "updated_at"
-  /** Order by which results should be sorted. (values: `asc`, `desc`) */
-  sort_order?: "asc" | "desc"
-}
-
-/** Front — Find Contact */
-export interface FrontFindContactInput {
-  /** Email address to search for. */
-  email?: string
-  /** Phone number to search for. */
-  phone?: string
-  /** Custom Front query string (advanced). */
-  custom_query?: string
-  /** Maximum number of contacts to return. */
-  limit?: number
-  /** Token for pagination. */
+  /** Page Token */
   page_token?: string
 }
 
-/** Front — Find Conversation */
-export interface FrontFindConversationInput {
-  /** Front query string (e.g. subject:"Order", tag_ids:tag_123, inbox_id:inb_456, etc.). See https://dev.frontapp.com/docs/search-1 */
-  q: string
-  /** Maximum number of conversations to return. */
+/** Front — Search Conversations */
+export interface FrontSearchConversationsInput {
+  /** Search Query */
+  query: string
+  /** Limit */
   limit?: number
-  /** Token for pagination. */
+  /** Page Token */
   page_token?: string
 }
 
-/** Front — Remove Contact Handle */
-export interface FrontRemoveContactHandleInput {
-  /** Select the contact (resolve via property options API) */
-  contact_id: string
-  /** The handle to remove. */
-  handle: string
-  /** The type of the handle to remove. (values: `email`, `phone`, `twitter`, `facebook`, `intercom`, `front_chat`, `custom`) */
-  source: "email" | "phone" | "twitter" | "facebook" | "intercom" | "front_chat" | "custom"
-  /** If true, the entire contact will be deleted if this is their last handle. */
-  force?: boolean
-}
-
-/** Front — Remove Conversation Links */
-export interface FrontRemoveConversationLinksInput {
-  /** Select the conversation (resolve via property options API) */
+/** Front — Get Conversation */
+export interface FrontGetConversationInput {
+  /** Conversation ID */
   conversation_id: string
-  /** List of external URLs to remove from the conversation. */
-  links: Array<{   item: string }>
 }
 
-/** Front — Send Message */
-export interface FrontSendMessageInput {
-  /** Select the channel (resolve via property options API) */
-  channel_id: string
-  /** List of recipient handles (email addresses, etc.). */
-  to: unknown[]
-  /** List of CC recipient handles. */
-  cc?: unknown[]
-  /** List of BCC recipient handles. */
-  bcc?: unknown[]
-  /** The subject of the message. */
-  subject?: string
-  /** The body of the message. */
-  body: string
-  /** List of attachment URLs. */
-  attachments?: unknown[]
-  /** Select one or more tags */
-  tag_ids?: string[]
+/** Front — List Conversation Messages */
+export interface FrontListConversationMessagesInput {
+  /** Conversation ID */
+  conversation_id: string
+  /** Limit */
+  limit?: number
+  /** Page Token */
+  page_token?: string
+}
+
+/** Front — List Conversation Comments */
+export interface FrontListConversationCommentsInput {
+  /** Conversation ID */
+  conversation_id: string
+  /** Limit */
+  limit?: number
+  /** Page Token */
+  page_token?: string
 }
 
 /** Front — Send Reply */
 export interface FrontSendReplyInput {
-  /** Select the conversation (resolve via property options API) */
+  /** Conversation ID */
   conversation_id: string
-  /** The content of the reply message. */
+  /** Body */
   body: string
-  /** Select the teammate (resolve via property options API) */
-  author_id: string
-  /** The subject of the reply (for email channels). */
-  subject?: string
-  /** List of recipient handles (email addresses, etc.). */
+  /** Recipient handles. Leave empty to use Front defaults when allowed. */
   to?: unknown[]
-  /** List of CC recipient handles. */
+  /** CC */
   cc?: unknown[]
-  /** List of BCC recipient handles. */
+  /** BCC */
   bcc?: unknown[]
-  /** Select the channel (resolve via property options API) */
-  channel_id: string
-  /** List of attachment URLs. */
-  attachments?: unknown[]
+  /** Author ID */
+  author_id?: string
 }
 
-/** Front — Update Account */
-export interface FrontUpdateAccountInput {
-  /** Select the account (resolve via property options API) */
-  account_id: string
-  /** The new name for the account. */
-  name?: string
-  /** The new description for the account. */
-  description?: string
-  /** List of domains associated with the account. */
-  domains?: unknown[]
-  /** Custom fields to add or update. Existing fields will be preserved. */
-  custom_fields?: unknown
-}
-
-/** Front — Update Contact */
-export interface FrontUpdateContactInput {
-  /** Select the contact (resolve via property options API) */
-  contact_id: string
-  /** The new name for the contact. */
-  name?: string
-  /** A new description for the contact. */
-  description?: string
-  /** URL of the contact’s avatar image. */
-  avatar_url?: string
-  /** List of URLs associated with the contact. */
-  links?: Array<{   item: string }>
+/** Front — Add Comment */
+export interface FrontAddCommentInput {
+  /** Conversation ID */
+  conversation_id: string
+  /** Comment Body */
+  body: string
+  /** Author ID */
+  author_id?: string
 }
 
 /** Front — Update Conversation */
 export interface FrontUpdateConversationInput {
-  /** Select the conversation (resolve via property options API) */
+  /** Conversation ID */
   conversation_id: string
-  /** The new status for the conversation. (values: `open`, `archived`, `deleted`) */
-  status?: "open" | "archived" | "deleted"
-  /** Select the teammate (resolve via property options API) */
-  assignee_id: string
-  /** Select the inbox (resolve via property options API) */
+  /** Status (values: `open`, `archived`, `deleted`, `spam`) */
+  status?: "open" | "archived" | "deleted" | "spam"
+  /** Inbox ID */
   inbox_id?: string
-  /** Select one or more tags */
-  tag_ids?: string[]
+  /** Ticket Status ID */
+  status_id?: string
+  /** Replaces the full tag set when supplied. */
+  tag_ids?: unknown[]
+  /** Object of Front custom field names to values. Front replaces the custom field set when supplied. */
+  custom_fields?: unknown
 }
 
-/** Front — Update Link */
-export interface FrontUpdateLinkInput {
-  /** Select the link (resolve via property options API) */
-  link_id?: string
-  /** The new name for the link. */
+/** Front — Delete Conversation */
+export interface FrontDeleteConversationInput {
+  /** Conversation ID */
+  conversation_id: string
+  /** Type DELETE followed by the conversation ID, for example: DELETE cnv_123. */
+  confirm: string
+}
+
+/** Front — List Contacts */
+export interface FrontListContactsInput {
+  /** Query */
+  q?: string
+  /** Limit */
+  limit?: number
+  /** Page Token */
+  page_token?: string
+}
+
+/** Front — Create Contact */
+export interface FrontCreateContactInput {
+  /** Name */
   name?: string
-  /** The new external URL for the link. */
-  external_url?: string
+  /** Description */
+  description?: string
+  /** Email, phone, or other contact handle. */
+  handle: string
+  /** Handle Source (values: `email`, `phone`, `front_chat`, `custom`) */
+  source: "email" | "phone" | "front_chat" | "custom"
+  /** Contact List Names */
+  list_names?: unknown[]
+  /** Custom Fields */
+  custom_fields?: unknown
 }
 
 /** FTP/SFTP — Create File from Text */
@@ -25493,10 +26610,51 @@ export interface GrafanaCreateAlertRuleInput {
   labels?: Record<string, unknown>
   /** Key-value annotations (e.g., summary, description) */
   annotations?: Record<string, unknown>
+  /** Confirm Create Alert Rule */
+  confirmCreate: boolean
+}
+
+/** Grafana — Get Alert Rule */
+export interface GrafanaGetAlertRuleInput {
+  /** Alert Rule UID */
+  uid: string
+}
+
+/** Grafana — Update Alert Rule */
+export interface GrafanaUpdateAlertRuleInput {
+  /** Alert Rule UID */
+  uid: string
+  /** Full provisioning API alert rule body. */
+  body: unknown
+  /** Confirm Update Alert Rule */
+  confirmUpdate: boolean
+}
+
+/** Grafana — Delete Alert Rule */
+export interface GrafanaDeleteAlertRuleInput {
+  /** Alert Rule UID */
+  uid: string
+  /** Confirm Delete Alert Rule */
+  confirmDelete: boolean
 }
 
 /** Grafana — List Alert Rules */
 export type GrafanaListAlertsInput = Record<string, never>
+
+/** Grafana — List Contact Points */
+export type GrafanaListContactPointsInput = Record<string, never>
+
+/** Grafana — List Alertmanager Alerts */
+export interface GrafanaListAlertmanagerAlertsInput {
+  /** Active */
+  active?: boolean
+  /** Silenced */
+  silenced?: boolean
+  /** Inhibited */
+  inhibited?: boolean
+  /** Optional filters such as alertname=HighCPU. */
+  filter?: unknown[]
+}
 
 /** Grafana — Custom API Call */
 export interface GrafanaCustomApiCallInput {
@@ -27206,6 +28364,14 @@ export interface HelpScoutUpdateConversationStatusInput {
   status: "active" | "pending" | "closed" | "spam"
   /** Assign To User ID */
   assign_to?: number
+}
+
+/** Help Scout — Delete Conversation */
+export interface HelpScoutDeleteConversationInput {
+  /** Conversation ID */
+  conversation_id: number
+  /** Type DELETE followed by the conversation ID, for example: DELETE 12345. */
+  confirm: string
 }
 
 /** Help Scout — List Customers */
@@ -29586,6 +30752,116 @@ export interface ImapDeleteEmailInput {
   permanentDeletionNotice?: string
 }
 
+/** Imgix — List Sources */
+export interface ImgixListSourcesInput {
+  /** Page Limit */
+  pageLimit?: number
+  /** Page Cursor */
+  pageCursor?: string
+}
+
+/** Imgix — Get Source */
+export interface ImgixGetSourceInput {
+  /** Source ID */
+  sourceId: string
+}
+
+/** Imgix — List Assets */
+export interface ImgixListAssetsInput {
+  /** Source ID */
+  sourceId: string
+  /** Page Limit */
+  pageLimit?: number
+  /** Page Cursor */
+  pageCursor?: string
+  /** Example: -date_created */
+  sort?: string
+  /** Filename Filter */
+  filename?: string
+}
+
+/** Imgix — Get Asset */
+export interface ImgixGetAssetInput {
+  /** Source ID */
+  sourceId: string
+  /** Path within the source, for example images/hero.jpg. */
+  assetPath: string
+}
+
+/** Imgix — Update Asset Metadata */
+export interface ImgixUpdateAssetMetadataInput {
+  /** Source ID */
+  sourceId: string
+  /** Asset Path */
+  assetPath: string
+  /** Categories */
+  categories?: unknown[]
+  /** Object of custom field names to values. */
+  customFields?: unknown
+}
+
+/** Imgix — Create Upload Session */
+export interface ImgixCreateUploadSessionInput {
+  /** Source ID */
+  sourceId: string
+  /** Filename */
+  filename: string
+  /** File Size Bytes */
+  fileSize?: number
+  /** Content Type */
+  contentType?: string
+}
+
+/** Imgix — Close Upload Session */
+export interface ImgixCloseUploadSessionInput {
+  /** Source ID */
+  sourceId: string
+  /** Upload Session ID */
+  uploadSessionId: string
+}
+
+/** Imgix — Cancel Upload Session */
+export interface ImgixCancelUploadSessionInput {
+  /** Source ID */
+  sourceId: string
+  /** Upload Session ID */
+  uploadSessionId: string
+  /** Must exactly match Upload Session ID. */
+  confirmUploadSessionId: string
+}
+
+/** Imgix — Publish Asset */
+export interface ImgixPublishAssetInput {
+  /** Source ID */
+  sourceId: string
+  /** Asset URL */
+  assetUrl: string
+}
+
+/** Imgix — Unpublish Asset */
+export interface ImgixUnpublishAssetInput {
+  /** Source ID */
+  sourceId: string
+  /** Asset URL */
+  assetUrl: string
+  /** Must exactly match Asset URL. */
+  confirmAssetUrl: string
+}
+
+/** Imgix — Generate Rendering URL */
+export interface ImgixGenerateRenderingUrlInput {
+  /** Defaults to the connection Source Domain. */
+  sourceDomain?: string
+  /** Asset Path */
+  assetPath: string
+  /** Rendering API query parameters as a JSON object, e.g. {"w": 800, "fm": "webp"}. */
+  transformations?: unknown
+  /** Optional expiring URL timestamp. Adds expires parameter before signing. */
+  expiresAtUnix?: number
+  /** Fail if no Secure URL token is configured. */
+  requireSignature?: boolean
+}
+
 /** incident.io — Validate Connection */
 export type IncidentIoValidateConnectionInput = Record<string, never>
 
@@ -30475,6 +31751,110 @@ export interface IterableCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Jamf Pro — List Computers */
+export interface JamfListComputersInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
+  /** Optional inventory section requested from Jamf Pro. */
+  section?: string
+}
+
+/** Jamf Pro — Get Computer Inventory */
+export interface JamfGetComputerInventoryInput {
+  /** Computer ID */
+  computerId: string
+}
+
+/** Jamf Pro — List Mobile Devices */
+export interface JamfListMobileDevicesInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
+}
+
+/** Jamf Pro — Get Mobile Device */
+export interface JamfGetMobileDeviceInput {
+  /** Device ID */
+  deviceId: string
+}
+
+/** Jamf Pro — List Users */
+export interface JamfListUsersInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
+}
+
+/** Jamf Pro — Get User */
+export interface JamfGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** Jamf Pro — List Computer Groups */
+export interface JamfListComputerGroupsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
+}
+
+/** Jamf Pro — Get Computer Group */
+export interface JamfGetComputerGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Jamf Pro — List Mobile Device Groups */
+export interface JamfListMobileDeviceGroupsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
+}
+
+/** Jamf Pro — Get Mobile Device Group */
+export interface JamfGetMobileDeviceGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Jamf Pro — List API Integrations */
+export interface JamfListApiIntegrationsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** Jamf Pro sort expression, for example id:asc. */
+  sort?: string
+  /** Jamf Pro RSQL filter expression. */
+  filter?: string
 }
 
 /** JavaScript Sandbox — Run Code */
@@ -33390,10 +34770,17 @@ export interface LibretranslateCustomApiCallInput {
   body?: unknown
 }
 
+/** Lightspeed Restaurant — List Accounts */
+export type LightspeedRestaurantListAccountsInput = Record<string, never>
+
 /** Lightspeed Restaurant — List Orders */
 export interface LightspeedRestaurantListOrdersInput {
   /** The Lightspeed account ID */
   accountID: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
 }
 
 /** Lightspeed Restaurant — Get Order */
@@ -33404,10 +34791,74 @@ export interface LightspeedRestaurantGetOrderInput {
   orderID: string
 }
 
+/** Lightspeed Restaurant — Update Order */
+export interface LightspeedRestaurantUpdateOrderInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Order ID */
+  orderID: string
+  /** Fields */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
 /** Lightspeed Restaurant — List Menu Items */
 export interface LightspeedRestaurantListMenuItemsInput {
   /** The Lightspeed account ID */
   accountID: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Lightspeed Restaurant — Get Menu Item */
+export interface LightspeedRestaurantGetMenuItemInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Item ID */
+  itemID: string
+}
+
+/** Lightspeed Restaurant — Update Menu Item */
+export interface LightspeedRestaurantUpdateMenuItemInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Item ID */
+  itemID: string
+  /** Fields */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Lightspeed Restaurant — List Customers */
+export interface LightspeedRestaurantListCustomersInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Lightspeed Restaurant — Get Customer */
+export interface LightspeedRestaurantGetCustomerInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Customer ID */
+  customerID: string
+}
+
+/** Lightspeed Restaurant — Create Customer */
+export interface LightspeedRestaurantCreateCustomerInput {
+  /** The Lightspeed account ID */
+  accountID: string
+  /** Customer */
+  customer: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
 }
 
 /** Lightspeed Restaurant — Get Employee */
@@ -33434,6 +34885,128 @@ export interface LightspeedRestaurantCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+  /** Confirm Non-GET Call */
+  confirmMutation?: boolean
+}
+
+/** Lightspeed Retail — Get Current User */
+export interface LightspeedRetailGetCurrentUserInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+}
+
+/** Lightspeed Retail — List Products */
+export interface LightspeedRetailListProductsInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Optional X-Series version cursor for pagination/sync. */
+  after?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Lightspeed Retail — Get Product */
+export interface LightspeedRetailGetProductInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Product ID */
+  productId: string
+}
+
+/** Lightspeed Retail — Create Product */
+export interface LightspeedRetailCreateProductInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Lightspeed Retail product payload. */
+  product: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Lightspeed Retail — Update Product */
+export interface LightspeedRetailUpdateProductInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Product ID */
+  productId: string
+  /** Fields */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Lightspeed Retail — List Customers */
+export interface LightspeedRetailListCustomersInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Optional X-Series version cursor for pagination/sync. */
+  after?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Lightspeed Retail — Get Customer */
+export interface LightspeedRetailGetCustomerInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Customer ID */
+  customerId: string
+}
+
+/** Lightspeed Retail — Create Customer */
+export interface LightspeedRetailCreateCustomerInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Customer */
+  customer: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Lightspeed Retail — Update Customer */
+export interface LightspeedRetailUpdateCustomerInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Customer ID */
+  customerId: string
+  /** Fields */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Lightspeed Retail — List Sales */
+export interface LightspeedRetailListSalesInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Optional X-Series version cursor for pagination/sync. */
+  after?: number
+  /** Page Size */
+  pageSize?: number
+}
+
+/** Lightspeed Retail — Get Sale */
+export interface LightspeedRetailGetSaleInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Sale ID */
+  saleId: string
+}
+
+/** Lightspeed Retail — Create Sale */
+export interface LightspeedRetailCreateSaleInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
+  /** Sale */
+  sale: unknown
+  /** Confirm Create Sale */
+  confirmCreate: boolean
+}
+
+/** Lightspeed Retail — List Outlets */
+export interface LightspeedRetailListOutletsInput {
+  /** Store domain prefix from the OAuth callback, e.g. "example" for example.retail.lightspeed.app. */
+  domainPrefix: string
 }
 
 /** Line Bot — Push Message */
@@ -34430,6 +36003,137 @@ export interface LokaliseDownloadFileInput {
   languageIso?: string
 }
 
+/** Looker — Validate Connection */
+export type LookerValidateConnectionInput = Record<string, never>
+
+/** Looker — Search Content */
+export interface LookerSearchContentInput {
+  /** Terms */
+  terms: string
+  /** Optional content types such as look, dashboard, lookml_dashboard. */
+  types?: unknown[]
+  /** Limit */
+  limit?: number
+}
+
+/** Looker — Search Dashboards */
+export interface LookerSearchDashboardsInput {
+  /** Title Contains */
+  title?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Comma-separated Looker fields to include. */
+  fields?: string
+  /** Looker sort expression, for example updated_at desc. */
+  sorts?: string
+}
+
+/** Looker — Get Dashboard */
+export interface LookerGetDashboardInput {
+  /** Dashboard ID */
+  dashboardId: string
+  /** Fields */
+  fields?: string
+}
+
+/** Looker — Create Dashboard */
+export interface LookerCreateDashboardInput {
+  /** Title */
+  title: string
+  /** Folder ID */
+  folderId: string
+  /** Description */
+  description?: string
+}
+
+/** Looker — Update Dashboard */
+export interface LookerUpdateDashboardInput {
+  /** Dashboard ID */
+  dashboardId: string
+  /** Title */
+  title?: string
+  /** Description */
+  description?: string
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Looker — Search Looks */
+export interface LookerSearchLooksInput {
+  /** Title Contains */
+  title?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Comma-separated Looker fields to include. */
+  fields?: string
+  /** Looker sort expression, for example updated_at desc. */
+  sorts?: string
+}
+
+/** Looker — Get Look */
+export interface LookerGetLookInput {
+  /** Look ID */
+  lookId: string
+  /** Fields */
+  fields?: string
+}
+
+/** Looker — Run Saved Query */
+export interface LookerRunSavedQueryInput {
+  /** Query ID */
+  queryId: string
+  /** Result Format (values: `json`, `csv`, `txt`, `xlsx`, `sql`) */
+  resultFormat: "json" | "csv" | "txt" | "xlsx" | "sql"
+  /** Limit */
+  limit?: number
+  /** Apply Formatting */
+  applyFormatting?: boolean
+  /** Use Cache */
+  cache?: boolean
+}
+
+/** Looker — Run Inline Query */
+export interface LookerRunInlineQueryInput {
+  /** Result Format (values: `json`, `csv`, `txt`, `xlsx`, `sql`) */
+  resultFormat: "json" | "csv" | "txt" | "xlsx" | "sql"
+  /** Looker query object with model, view, fields, filters, and limit. */
+  query: unknown
+}
+
+/** Looker — Create Dashboard Render Task */
+export interface LookerCreateDashboardRenderTaskInput {
+  /** Dashboard ID */
+  dashboardId: string
+  /** Result Format (values: `pdf`, `png`, `jpg`) */
+  resultFormat: "pdf" | "png" | "jpg"
+  /** Width */
+  width?: number
+  /** Height */
+  height?: number
+}
+
+/** Looker — Get Render Task */
+export interface LookerGetRenderTaskInput {
+  /** Render Task ID */
+  renderTaskId: string
+}
+
+/** Looker — Get Render Task Results */
+export interface LookerGetRenderTaskResultsInput {
+  /** Render Task ID */
+  renderTaskId: string
+}
+
+/** Looker — Run Scheduled Plan Once */
+export interface LookerRunScheduledPlanOnceInput {
+  /** Scheduled Plan */
+  scheduledPlan: unknown
+}
+
 /** Loom — List Videos */
 export interface LoomListVideosInput {
   /** Page number for pagination */
@@ -34712,6 +36416,155 @@ export interface LucidCustomApiCallInput {
   accept?: string
   /** Request As Admin */
   requestAsAdmin?: boolean
+}
+
+/** Luma — Get Calendar */
+export type LumaGetCalendarInput = Record<string, never>
+
+/** Luma — List Calendar Events */
+export interface LumaListCalendarEventsInput {
+  /** Access (values: `manage`, `manage,view`) */
+  access?: "manage" | "manage,view"
+  /** Pagination cursor returned by Luma. */
+  cursor?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Luma — Lookup Event */
+export interface LumaLookupEventInput {
+  /** Event URL */
+  eventUrl?: string
+  /** Event API ID */
+  eventApiId?: string
+}
+
+/** Luma — Get Event */
+export interface LumaGetEventInput {
+  /** Event API ID */
+  eventApiId: string
+}
+
+/** Luma — Create Event */
+export interface LumaCreateEventInput {
+  /** Name */
+  name: string
+  /** ISO date-time. */
+  startAt: string
+  /** ISO date-time. */
+  endAt: string
+  /** Timezone */
+  timezone: string
+  /** Description */
+  description?: string
+  /** Visibility (values: `public`, `private`) */
+  visibility?: "public" | "private"
+  /** Location Type (values: `online`, `physical`, `tbd`) */
+  locationType?: "online" | "physical" | "tbd"
+  /** Optional additional Luma create-event fields. */
+  eventData?: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Luma — Update Event */
+export interface LumaUpdateEventInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Luma event fields to update. */
+  fields: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Luma — List Guests */
+export interface LumaListGuestsInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Status (values: `approved`, `pending_approval`, `waitlist`, `declined`) */
+  status?: "approved" | "pending_approval" | "waitlist" | "declined"
+  /** Pagination cursor returned by Luma. */
+  cursor?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Luma — Get Guest */
+export interface LumaGetGuestInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Guest API ID */
+  guestApiId?: string
+  /** Email */
+  email?: string
+}
+
+/** Luma — Add Guests */
+export interface LumaAddGuestsInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Array of Luma guest objects. */
+  guests: unknown
+  /** Approval Status (values: `approved`, `pending_approval`, `waitlist`) */
+  approvalStatus?: "approved" | "pending_approval" | "waitlist"
+  /** Confirm Add Guests */
+  confirmAdd: boolean
+}
+
+/** Luma — Update Guest Status */
+export interface LumaUpdateGuestStatusInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Guest API ID */
+  guestApiId: string
+  /** Status (values: `approved`, `declined`, `pending_approval`, `waitlist`) */
+  status: "approved" | "declined" | "pending_approval" | "waitlist"
+  /** Refund Paid Guest */
+  shouldRefund?: boolean
+  /** Message */
+  message?: string
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Luma — List Ticket Types */
+export interface LumaListTicketTypesInput {
+  /** Event API ID */
+  eventApiId: string
+}
+
+/** Luma — Create Ticket Type */
+export interface LumaCreateTicketTypeInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Name */
+  name: string
+  /** Capacity */
+  capacity?: number
+  /** Leave empty for free ticket types. */
+  priceCents?: number
+  /** Additional Ticket Data */
+  ticketData?: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Luma — Request Event Cancellation */
+export interface LumaRequestEventCancellationInput {
+  /** Event API ID */
+  eventApiId: string
+}
+
+/** Luma — Cancel Event */
+export interface LumaCancelEventInput {
+  /** Event API ID */
+  eventApiId: string
+  /** Cancellation Token */
+  cancellationToken: string
+  /** Refund Paid Guests */
+  shouldRefund?: boolean
+  /** Confirm Cancel Event */
+  confirmCancel: boolean
 }
 
 /** Magento — List Products */
@@ -36650,144 +38503,222 @@ export interface Microsoft365CustomApiCallInput {
   failsafe?: boolean
 }
 
+/** Microsoft 365 Planner — List Groups */
+export interface Microsoft365PlannerListGroupsInput {
+  /** OData Filter */
+  filter?: string
+  /** Search */
+  search?: string
+  /** Top */
+  top?: number
+}
+
+/** Microsoft 365 Planner — List Plans */
+export interface Microsoft365PlannerListPlansInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** Microsoft 365 Planner — Get Plan */
+export interface Microsoft365PlannerGetPlanInput {
+  /** Plan ID */
+  planId: string
+}
+
+/** Microsoft 365 Planner — Get Plan Details */
+export interface Microsoft365PlannerGetPlanDetailsInput {
+  /** Plan ID */
+  planId: string
+}
+
 /** Microsoft 365 Planner — Create Plan */
 export interface Microsoft365PlannerCreatePlanInput {
-  /** Select the Grroup (resolve via property options API) */
+  /** Group ID */
   groupId: string
-  /** The title of the plan */
+  /** Title */
   title: string
-}
-
-/** Microsoft 365 Planner — Create Bucket */
-export interface Microsoft365PlannerCreateBucketInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** The name of the bucket to be created */
-  name: string
-  /** Hint used to order items of this type in a list. The format is defined as outlined here: https://learn.microsoft.com/en-us/graph/api/resources/planner-order-hint-format?view=graph-rest-1.0 */
-  orderHint?: string
-}
-
-/** Microsoft 365 Planner — Create Task */
-export interface Microsoft365PlannerCreateTaskInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the bucket (resolve via property options API) */
-  bucketId?: string
-  /** The title of the task to be created */
-  title: string
-  /** Select users to assign the task to. If left empty, the task will be unassigned. */
-  assignments?: string[]
-  /** The due date and time for the task */
-  dueDateTime?: string
-  /** The completion percentage of the task (0-100) */
-  percentComplete?: number
-  /** The priority of the task between 0 and 10, with the increasing value being lower priority (0 has the highest priority and 10 has the lowest priority). */
-  priority?: number
-  /** The start date and time for the task */
-  startDateTime?: string
-}
-
-/** Microsoft 365 Planner — Delete Bucket */
-export interface Microsoft365PlannerDeleteBucketInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the bucket (resolve via property options API) */
-  id: string
-}
-
-/** Microsoft 365 Planner — Delete Task */
-export interface Microsoft365PlannerDeleteTaskInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the task (resolve via property options API) */
-  id: string
 }
 
 /** Microsoft 365 Planner — Update Plan */
 export interface Microsoft365PlannerUpdatePlanInput {
-  /** Select the plan (resolve via property options API) */
-  id: string
-  /** The new title of the plan */
+  /** Plan ID */
+  planId: string
+  /** Use the @odata.etag value from Get Plan. */
+  etag: string
+  /** Title */
   title: string
+}
+
+/** Microsoft 365 Planner — List Buckets */
+export interface Microsoft365PlannerListBucketsInput {
+  /** Plan ID */
+  planId: string
+}
+
+/** Microsoft 365 Planner — Get Bucket */
+export interface Microsoft365PlannerGetBucketInput {
+  /** Bucket ID */
+  bucketId: string
+}
+
+/** Microsoft 365 Planner — Create Bucket */
+export interface Microsoft365PlannerCreateBucketInput {
+  /** Plan ID */
+  planId: string
+  /** Name */
+  name: string
+  /** Order Hint */
+  orderHint?: string
 }
 
 /** Microsoft 365 Planner — Update Bucket */
 export interface Microsoft365PlannerUpdateBucketInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the bucket (resolve via property options API) */
-  id: string
-  /** The new name of the bucket */
+  /** Bucket ID */
+  bucketId: string
+  /** ETag */
+  etag: string
+  /** Name */
   name?: string
-  /** Hint used to order items of this type in a list. The format is defined as outlined here: https://learn.microsoft.com/en-us/graph/api/resources/planner-order-hint-format?view=graph-rest-1.0 */
+  /** Order Hint */
   orderHint?: string
+}
+
+/** Microsoft 365 Planner — Delete Bucket */
+export interface Microsoft365PlannerDeleteBucketInput {
+  /** Bucket ID */
+  bucketId: string
+  /** ETag */
+  etag: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Microsoft 365 Planner — List Tasks */
+export interface Microsoft365PlannerListTasksInput {
+  /** Plan ID */
+  planId?: string
+  /** Bucket ID */
+  bucketId?: string
+  /** Assigned User ID */
+  userId?: string
+  /** My Tasks */
+  mine?: boolean
+}
+
+/** Microsoft 365 Planner — Get Task */
+export interface Microsoft365PlannerGetTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Microsoft 365 Planner — Get Task Details */
+export interface Microsoft365PlannerGetTaskDetailsInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Microsoft 365 Planner — Create Task */
+export interface Microsoft365PlannerCreateTaskInput {
+  /** Plan ID */
+  planId: string
+  /** Title */
+  title: string
+  /** Bucket ID */
+  bucketId?: string
+  /** ISO 8601 date/time. */
+  dueDateTime?: string
+  /** Start Date Time */
+  startDateTime?: string
+  /** Percent Complete */
+  percentComplete?: number
+  /** Planner assignments object keyed by user ID. */
+  assignments?: unknown
+  /** Additional Fields */
+  additionalFields?: unknown
 }
 
 /** Microsoft 365 Planner — Update Task */
 export interface Microsoft365PlannerUpdateTaskInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the task (resolve via property options API) */
-  id: string
-  /** The new title of the task */
+  /** Task ID */
+  taskId: string
+  /** ETag */
+  etag: string
+  /** Title */
   title?: string
-  /** Select users to assign the task to. If left empty, the task will be unassigned. */
-  assignments?: string[]
-  /** The due date and time for the task */
+  /** Bucket ID */
+  bucketId?: string
+  /** Due Date Time */
   dueDateTime?: string
-  /** The completion percentage of the task (0-100) */
-  percentComplete?: number
-  /** The priority of the task between 0 and 10, with the increasing value being lower priority (0 has the highest priority and 10 has the lowest priority). */
-  priority?: number
-  /** The start date and time for the task */
+  /** Start Date Time */
   startDateTime?: string
+  /** Percent Complete */
+  percentComplete?: number
+  /** Assignments */
+  assignments?: unknown
+  /** Additional Fields */
+  additionalFields?: unknown
 }
 
-/** Microsoft 365 Planner — Find a Plan */
-export interface Microsoft365PlannerFindAPlanInput {
-  /** The title of the plan to search for */
-  title: string
-}
-
-/** Microsoft 365 Planner — Get a Bucket */
-export interface Microsoft365PlannerGetABucketInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** Select the bucket (resolve via property options API) */
+/** Microsoft 365 Planner — Move Task */
+export interface Microsoft365PlannerMoveTaskInput {
+  /** Task ID */
+  taskId: string
+  /** ETag */
+  etag: string
+  /** Destination Bucket ID */
   bucketId: string
+  /** Order Hint */
+  orderHint?: string
 }
 
-/** Microsoft 365 Planner — Find Task */
-export interface Microsoft365PlannerFindTaskInput {
-  /** Select the plan (resolve via property options API) */
-  planId: string
-  /** The title of the task to search for */
-  title: string
+/** Microsoft 365 Planner — Update Task Details */
+export interface Microsoft365PlannerUpdateTaskDetailsInput {
+  /** Task ID */
+  taskId: string
+  /** Details ETag */
+  etag: string
+  /** Description */
+  description?: string
+  /** Checklist */
+  checklist?: unknown
+  /** References */
+  references?: unknown
+  /** Preview Type */
+  previewType?: string
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Microsoft 365 Planner — Delete Task */
+export interface Microsoft365PlannerDeleteTaskInput {
+  /** Task ID */
+  taskId: string
+  /** ETag */
+  etag: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Microsoft 365 Planner — List Group Members */
+export interface Microsoft365PlannerListMembersInput {
+  /** Group ID */
+  groupId: string
 }
 
 /** Microsoft 365 Planner — Custom API Call */
 export interface Microsoft365PlannerCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PATCH" | "DELETE"
+  /** Graph path such as /planner/tasks/{id}. */
+  path: string
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  query?: unknown
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
+  /** ETag */
+  etag?: string
+  /** Confirm DELETE */
+  confirmDelete?: boolean
 }
 
 /** Microsoft Dataverse / Dynamics 365 CRM — Who Am I */
@@ -37803,50 +39734,111 @@ export interface MicrosoftOutlookCalendarCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Microsoft Power BI — Create Dataset */
-export interface MicrosoftPowerBiCreateDatasetInput {
-  /** Name of the dataset to create */
-  dataset_name: string
-  /** The mode of the dataset (values: `Push`, `Streaming`, `PushStreaming`) */
-  mode: "Push" | "Streaming" | "PushStreaming"
-  /** Define the tables and their columns for the dataset (JSON format) */
-  tables: unknown
+/** Microsoft Power BI — Validate Connection */
+export type MicrosoftPowerBiValidateConnectionInput = Record<string, never>
+
+/** Microsoft Power BI — List Workspaces */
+export interface MicrosoftPowerBiListWorkspacesInput {
+  /** Maximum items to return. */
+  top?: number
+  /** Skip */
+  skip?: number
 }
 
-/** Microsoft Power BI — Push Rows to Dataset Table */
-export interface MicrosoftPowerBiPushRowsToDatasetTableInput {
-  /** Select a dataset. (resolve via property options API) */
-  dataset_id: string
-  /** Select a table (resolve via property options API) */
-  table_name: string
-  /** JSON object containing the rows to add to the table. Each row must match your table schema. */
-  rows: unknown
-  /** Skip refreshing the dataset after pushing data (only applies to Push and PushStreaming modes) */
-  skip_refresh?: boolean
+/** Microsoft Power BI — List Dashboards */
+export interface MicrosoftPowerBiListDashboardsInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
 }
 
-/** Microsoft Power BI — Custom API Call */
-export interface MicrosoftPowerBiCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
-  /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
-  /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+/** Microsoft Power BI — Get Dashboard */
+export interface MicrosoftPowerBiGetDashboardInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Dashboard ID */
+  dashboardId: string
+}
+
+/** Microsoft Power BI — List Reports */
+export interface MicrosoftPowerBiListReportsInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+}
+
+/** Microsoft Power BI — Get Report */
+export interface MicrosoftPowerBiGetReportInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Report ID */
+  reportId: string
+}
+
+/** Microsoft Power BI — List Datasets */
+export interface MicrosoftPowerBiListDatasetsInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+}
+
+/** Microsoft Power BI — Get Dataset */
+export interface MicrosoftPowerBiGetDatasetInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Dataset ID */
+  datasetId: string
+}
+
+/** Microsoft Power BI — Refresh Dataset */
+export interface MicrosoftPowerBiRefreshDatasetInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Dataset ID */
+  datasetId: string
+  /** Notify Option (values: `MailOnCompletion`, `MailOnFailure`, `NoNotification`) */
+  notifyOption?: "MailOnCompletion" | "MailOnFailure" | "NoNotification"
+  /** Optional enhanced refresh type for Premium capacities. (values: `Full`, `Automatic`, `Calculate`, `ClearValues`, `DataOnly`, `Defragment`) */
+  refreshType?: "Full" | "Automatic" | "Calculate" | "ClearValues" | "DataOnly" | "Defragment"
+  /** Commit Mode (values: `transactional`, `partialBatch`) */
+  commitMode?: "transactional" | "partialBatch"
+  /** Max Parallelism */
+  maxParallelism?: number
+  /** Retry Count */
+  retryCount?: number
+  /** Optional enhanced refresh objects such as tables or partitions. */
+  objects?: unknown[]
+  /** Confirm Dataset Refresh */
+  confirmRefresh: boolean
+}
+
+/** Microsoft Power BI — Get Refresh History */
+export interface MicrosoftPowerBiGetRefreshHistoryInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Dataset ID */
+  datasetId: string
+  /** Top */
+  top?: number
+}
+
+/** Microsoft Power BI — Create Report Export */
+export interface MicrosoftPowerBiCreateReportExportInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Report ID */
+  reportId: string
+  /** Format (values: `PDF`, `PPTX`, `PNG`) */
+  format: "PDF" | "PPTX" | "PNG"
+  /** Optional export report configuration JSON. */
+  configuration?: unknown
+}
+
+/** Microsoft Power BI — Get Report Export */
+export interface MicrosoftPowerBiGetReportExportInput {
+  /** Optional Power BI group/workspace ID. Leave blank for My workspace. */
+  workspaceId?: string
+  /** Report ID */
+  reportId: string
+  /** Export ID */
+  exportId: string
 }
 
 /** Microsoft SharePoint — Create Folder */
@@ -38680,6 +40672,141 @@ export interface MixpanelQuerySavedReportInput {
   workspaceId?: number
 }
 
+/** Mode — Validate Connection */
+export type ModeValidateConnectionInput = Record<string, never>
+
+/** Mode — List Reports for Collection */
+export interface ModeListReportsForSpaceInput {
+  /** Collection/Space Token */
+  spaceToken: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter */
+  filter?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+  /** Order By */
+  orderBy?: string
+}
+
+/** Mode — Get Report */
+export interface ModeGetReportInput {
+  /** Report Token */
+  reportToken: string
+}
+
+/** Mode — Update Report */
+export interface ModeUpdateReportInput {
+  /** Report Token */
+  reportToken: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Mode — List Report Runs */
+export interface ModeListReportRunsInput {
+  /** Report Token */
+  reportToken: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Filter */
+  filter?: string
+  /** Order (values: `asc`, `desc`) */
+  order?: "asc" | "desc"
+  /** Order By */
+  orderBy?: string
+}
+
+/** Mode — Run Report */
+export interface ModeRunReportInput {
+  /** Report Token */
+  reportToken: string
+  /** Parameters */
+  parameters?: unknown
+}
+
+/** Mode — List Queries */
+export interface ModeListQueriesInput {
+  /** Report Token */
+  reportToken: string
+}
+
+/** Mode — Get Query */
+export interface ModeGetQueryInput {
+  /** Report Token */
+  reportToken: string
+  /** Query Token */
+  queryToken: string
+}
+
+/** Mode — Create Query */
+export interface ModeCreateQueryInput {
+  /** Report Token */
+  reportToken: string
+  /** Name */
+  name: string
+  /** Data Source ID */
+  dataSourceId: number
+  /** SQL */
+  rawQuery: string
+}
+
+/** Mode — Update Query */
+export interface ModeUpdateQueryInput {
+  /** Report Token */
+  reportToken: string
+  /** Query Token */
+  queryToken: string
+  /** Name */
+  name?: string
+  /** Data Source ID */
+  dataSourceId?: number
+  /** SQL */
+  rawQuery?: string
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Mode — List Query Runs */
+export interface ModeListQueryRunsInput {
+  /** Report Token */
+  reportToken: string
+  /** Report Run Token */
+  runToken: string
+}
+
+/** Mode — Export Query Run Results */
+export interface ModeExportQueryRunResultsInput {
+  /** Report Token */
+  reportToken: string
+  /** Report Run Token */
+  runToken: string
+  /** Query Run Token */
+  queryRunToken: string
+  /** Format (values: `json`, `csv`) */
+  format: "json" | "csv"
+}
+
+/** Mode — Get Dataset */
+export interface ModeGetDatasetInput {
+  /** Dataset Token */
+  datasetToken: string
+}
+
+/** Mode — List Reports for Dataset */
+export interface ModeListReportsForDatasetInput {
+  /** Dataset Token */
+  datasetToken: string
+}
+
 /** Mollie — Create Order */
 export interface MollieCreateOrderInput {
   /** The order number for this order. We recommend each order number to be unique. */
@@ -39397,14 +41524,91 @@ export interface MuxGetAssetInput {
 
 /** Mux — Create Asset */
 export interface MuxCreateAssetInput {
-  /** URL of the video file */
+  /** URL of the video file to import. */
   inputUrl: string
   /** Playback Policy (values: `public`, `signed`) */
   playbackPolicy?: "public" | "signed"
+  /** MP4 Support (values: `none`, `standard`) */
+  mp4Support?: "none" | "standard"
+  /** Normalize Audio */
+  normalizeAudio?: boolean
+  /** Generate English Subtitles */
+  generateSubtitles?: boolean
+  /** Optional Mux meta object for asset tracking. */
+  metadata?: unknown
+}
+
+/** Mux — Create Direct Upload */
+export interface MuxCreateDirectUploadInput {
+  /** Origin allowed to upload, or * for controlled server-side use. */
+  corsOrigin: string
+  /** Optional Mux new_asset_settings object. */
+  newAssetSettings?: unknown
+  /** Timeout Seconds */
+  timeoutSeconds?: number
+}
+
+/** Mux — Create Playback ID */
+export interface MuxCreatePlaybackIdInput {
+  /** Asset ID */
+  assetId: string
+  /** Policy (values: `public`, `signed`) */
+  policy: "public" | "signed"
+}
+
+/** Mux — Add Caption Track */
+export interface MuxAddCaptionTrackInput {
+  /** Asset ID */
+  assetId: string
+  /** URL of an SRT or WebVTT caption file. */
+  url: string
+  /** BCP 47 language code such as en or es-419. */
+  languageCode: string
+  /** Track Name */
+  name?: string
+  /** Closed Captions */
+  closedCaptions?: boolean
+  /** Passthrough */
+  passthrough?: string
+}
+
+/** Mux — Get Playback URLs */
+export interface MuxGetPlaybackUrlsInput {
+  /** Playback ID */
+  playbackId: string
+  /** Optional JWT for signed playback IDs. Use Generate Signed Playback URL to create one. */
+  token?: string
+  /** Thumbnail Time Seconds */
+  thumbnailTime?: number
+}
+
+/** Mux — Generate Signed Playback URL */
+export interface MuxGenerateSignedPlaybackUrlInput {
+  /** Playback ID */
+  playbackId: string
+  /** Token Type (values: `v`, `t`, `g`, `s`) */
+  tokenType: "v" | "t" | "g" | "s"
+  /** Expires In Seconds */
+  expiresInSeconds?: number
+  /** Optional additional claims such as kid-scoped playback restrictions. */
+  extraClaims?: unknown
 }
 
 /** Mux — List Live Streams */
-export type MuxListLiveStreamsInput = Record<string, never>
+export interface MuxListLiveStreamsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** Mux — Delete Asset */
+export interface MuxDeleteAssetInput {
+  /** Asset ID */
+  assetId: string
+  /** Must exactly match Asset ID. */
+  confirmAssetId: string
+}
 
 /** MyCase — List Cases */
 export interface MycaseListCasesInput {
@@ -39454,6 +41658,140 @@ export interface MycaseCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** MYOB — List Customers */
+export interface MyobListCustomersInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Suppliers */
+export interface MyobListSuppliersInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Employees */
+export interface MyobListEmployeesInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Accounts */
+export interface MyobListAccountsInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Invoices */
+export interface MyobListInvoicesInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Bills */
+export interface MyobListBillsInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — List Customer Payments */
+export interface MyobListCustomerPaymentsInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Maximum 1000. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** MYOB — Get Record */
+export interface MyobGetRecordInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Endpoint (values: `customer`, `supplier`, `employee`, `account`, `invoice`, `bill`, `customer_payment`) */
+  endpoint: "customer" | "supplier" | "employee" | "account" | "invoice" | "bill" | "customer_payment"
+  /** UID */
+  uid: string
+}
+
+/** MYOB — Create Record */
+export interface MyobCreateRecordInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Endpoint (values: `customer`, `supplier`, `employee`, `account`, `invoice`, `bill`, `customer_payment`) */
+  endpoint: "customer" | "supplier" | "employee" | "account" | "invoice" | "bill" | "customer_payment"
+  /** Record */
+  record: unknown
+  /** Confirm Create Record */
+  confirmCreate: boolean
+}
+
+/** MYOB — Update Record */
+export interface MyobUpdateRecordInput {
+  /** MYOB businessId returned during the OAuth redirect. */
+  businessId: string
+  /** Endpoint (values: `customer`, `supplier`, `employee`, `account`, `invoice`, `bill`, `customer_payment`) */
+  endpoint: "customer" | "supplier" | "employee" | "account" | "invoice" | "bill" | "customer_payment"
+  /** UID */
+  uid: string
+  /** Record Fields */
+  record: unknown
+  /** Confirm Update Record */
+  confirmUpdate: boolean
 }
 
 /** MySQL — Find Rows */
@@ -40747,6 +43085,62 @@ export interface OmnisendListCampaignsInput {
   offset?: number
 }
 
+/** Omnisend — Get Campaign */
+export interface OmnisendGetCampaignInput {
+  /** Campaign ID */
+  campaignId: string
+}
+
+/** Omnisend — List Segments */
+export interface OmnisendListSegmentsInput {
+  /** Limit */
+  limit?: number
+  /** After Cursor */
+  after?: string
+  /** Before Cursor */
+  before?: string
+}
+
+/** Omnisend — Get Segment */
+export interface OmnisendGetSegmentInput {
+  /** Segment ID */
+  segmentId: string
+}
+
+/** Omnisend — Create Order */
+export interface OmnisendCreateOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Contact ID */
+  contactId?: string
+  /** Order Number */
+  orderNumber?: number
+  /** Order Status */
+  orderStatus?: string
+  /** Currency */
+  currency?: string
+  /** Order Sum */
+  orderSum?: number
+  /** Optional array of order item objects. */
+  items?: unknown
+  /** Optional additional Omnisend order fields. */
+  fields?: unknown
+}
+
+/** Omnisend — List Orders */
+export interface OmnisendListOrdersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Email */
+  email?: string
+}
+
 /** Omnisend — Custom API Call */
 export interface OmnisendCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`) */
@@ -40822,6 +43216,101 @@ export interface OncehubCustomApiCallInput {
   /** Follow redirects */
   followRedirects?: boolean
 }
+
+/** OneLogin — List Users */
+export interface OneloginListUsersInput {
+  /** Maximum 1000 for OneLogin API v2 pagination. */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Username */
+  username?: string
+  /** Email */
+  email?: string
+  /** First Name */
+  firstname?: string
+  /** Last Name */
+  lastname?: string
+}
+
+/** OneLogin — Get User */
+export interface OneloginGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** OneLogin — List User Apps */
+export interface OneloginListUserAppsInput {
+  /** User ID */
+  userId: string
+  /** Ignore Visibility */
+  ignoreVisibility?: boolean
+}
+
+/** OneLogin — List Groups */
+export interface OneloginListGroupsInput {
+  /** Page */
+  page?: number
+}
+
+/** OneLogin — Get Group */
+export interface OneloginGetGroupInput {
+  /** Group ID */
+  groupId: string
+}
+
+/** OneLogin — List Roles */
+export interface OneloginListRolesInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+}
+
+/** OneLogin — List Apps */
+export interface OneloginListAppsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Append * for partial searches supported by OneLogin. */
+  name?: string
+  /** Optional OneLogin auth method ID. */
+  authMethod?: number
+}
+
+/** OneLogin — Get App */
+export interface OneloginGetAppInput {
+  /** App ID */
+  appId: string
+}
+
+/** OneLogin — List Events */
+export interface OneloginListEventsInput {
+  /** Lower bound timestamp accepted by OneLogin Events API. */
+  since?: string
+  /** Upper bound timestamp accepted by OneLogin Events API. */
+  until?: string
+  /** Event Type ID */
+  eventTypeId?: string
+  /** User ID */
+  userId?: string
+  /** Page */
+  page?: number
+}
+
+/** OneLogin — Set User Status */
+export interface OneloginSetUserStatusInput {
+  /** User ID */
+  userId: string
+  /** Status (values: `0`, `1`, `2`, `3`) */
+  status: 0 | 1 | 2 | 3
+  /** Type UPDATE_STATUS to update the user status. */
+  confirmation: string
+}
+
+/** OneLogin — Get Rate Limit */
+export type OneloginGetRateLimitInput = Record<string, never>
 
 /** OneSignal — Send Notification */
 export interface OnesignalSendNotificationInput {
@@ -41081,6 +43570,119 @@ export interface OpenRouterListModelEndpointsInput {
 
 /** OpenRouter — Get Credits */
 export type OpenRouterGetCreditsInput = Record<string, never>
+
+/** OpenSearch — Validate Connection */
+export type OpensearchValidateConnectionInput = Record<string, never>
+
+/** OpenSearch — List Indices */
+export interface OpensearchListIndicesInput {
+  /** Optional exact index or pattern supported by OpenSearch. */
+  index?: string
+  /** Health (values: ``, `green`, `yellow`, `red`) */
+  health?: "" | "green" | "yellow" | "red"
+}
+
+/** OpenSearch — Get Index */
+export interface OpensearchGetIndexInput {
+  /** Index */
+  index: string
+}
+
+/** OpenSearch — Create Index */
+export interface OpensearchCreateIndexInput {
+  /** Index */
+  index: string
+  /** Settings */
+  settings?: unknown
+  /** Mappings */
+  mappings?: unknown
+  /** Aliases */
+  aliases?: unknown
+}
+
+/** OpenSearch — Delete Index */
+export interface OpensearchDeleteIndexInput {
+  /** Index */
+  index: string
+  /** Must exactly match Index. */
+  confirmIndexName: string
+}
+
+/** OpenSearch — Search Documents */
+export interface OpensearchSearchDocumentsInput {
+  /** Optional index name. Leave blank to search all indices allowed by the credentials. */
+  index?: string
+  /** OpenSearch Query DSL query object. */
+  query: unknown
+  /** Size */
+  size?: number
+  /** From */
+  from?: number
+  /** Sort */
+  sort?: unknown
+  /** Optional _source value such as false, an array, or an include/exclude object. */
+  source?: unknown
+}
+
+/** OpenSearch — Index Document */
+export interface OpensearchIndexDocumentInput {
+  /** Index */
+  index: string
+  /** Optional document ID. Leave blank for an auto-generated ID. */
+  documentId?: string
+  /** Document JSON object. */
+  document: unknown
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
+}
+
+/** OpenSearch — Update Document */
+export interface OpensearchUpdateDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+  /** Fields to merge into the document. */
+  doc: unknown
+  /** Doc As Upsert */
+  docAsUpsert?: boolean
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
+}
+
+/** OpenSearch — Get Document */
+export interface OpensearchGetDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+}
+
+/** OpenSearch — Delete Document */
+export interface OpensearchDeleteDocumentInput {
+  /** Index */
+  index: string
+  /** Document ID */
+  documentId: string
+  /** Must exactly match Document ID. */
+  confirmDocumentId: string
+  /** Refresh (values: ``, `true`, `false`, `wait_for`) */
+  refresh?: "" | "true" | "false" | "wait_for"
+}
+
+/** OpenSearch — Custom API Call */
+export interface OpensearchCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  /** Relative OpenSearch path, for example /_cluster/health. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Required for POST, PUT, PATCH, and DELETE custom calls. */
+  confirmMutation?: boolean
+}
 
 /** OpenTable — List Reservations */
 export interface OpentableListReservationsInput {
@@ -45249,6 +47851,69 @@ export interface ProductlaneCreateChangelogInput {
   tagIds?: unknown
 }
 
+/** Prometheus — Instant Query */
+export interface PrometheusInstantQueryInput {
+  /** PromQL Query */
+  query: string
+  /** Optional RFC3339 or Unix timestamp. */
+  time?: string
+  /** Optional duration such as 30s. */
+  timeout?: string
+}
+
+/** Prometheus — Range Query */
+export interface PrometheusRangeQueryInput {
+  /** PromQL Query */
+  query: string
+  /** RFC3339 or Unix timestamp. */
+  start: string
+  /** RFC3339 or Unix timestamp. */
+  end: string
+  /** Query resolution step such as 30s or 1m. */
+  step: string
+  /** Timeout */
+  timeout?: string
+}
+
+/** Prometheus — List Alerts */
+export type PrometheusListAlertsInput = Record<string, never>
+
+/** Prometheus — List Rules */
+export interface PrometheusListRulesInput {
+  /** Rule Type (values: `alert`, `record`) */
+  type?: "alert" | "record"
+  /** Rule Name */
+  ruleName?: string
+  /** File */
+  file?: string
+}
+
+/** Prometheus — List Targets */
+export interface PrometheusListTargetsInput {
+  /** State (values: `active`, `dropped`, `any`) */
+  state?: "active" | "dropped" | "any"
+  /** Scrape Pool */
+  scrapePool?: string
+}
+
+/** Prometheus — Get Status */
+export interface PrometheusGetStatusInput {
+  /** Status Endpoint (values: `runtimeinfo`, `buildinfo`, `config`, `flags`, `tsdb`) */
+  status: "runtimeinfo" | "buildinfo" | "config" | "flags" | "tsdb"
+}
+
+/** Prometheus — List Series */
+export interface PrometheusListSeriesInput {
+  /** Prometheus match[] selectors. */
+  match: unknown[]
+  /** Start */
+  start?: string
+  /** End */
+  end?: string
+  /** Client-side cap for large responses. */
+  limit?: number
+}
+
 /** Propertyware — List Units */
 export interface PropertywareListUnitsInput {
   /** Offset */
@@ -48112,6 +50777,168 @@ export interface RedisCloudCustomApiCallInput {
   confirmDelete?: boolean
 }
 
+/** Redpanda Cloud — Validate Connection */
+export type RedpandaValidateConnectionInput = Record<string, never>
+
+/** Redpanda Cloud — List Topics */
+export interface RedpandaListTopicsInput {
+  /** Name Contains */
+  nameContains?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Token */
+  pageToken?: string
+}
+
+/** Redpanda Cloud — Create Topic */
+export interface RedpandaCreateTopicInput {
+  /** Topic Name */
+  name: string
+  /** Partition Count */
+  partitionCount: number
+  /** Replication Factor */
+  replicationFactor?: number
+  /** Optional JSON array of { "name": "...", "value": "..." } topic configs. */
+  configs?: unknown
+  /** Validate Only */
+  validateOnly?: boolean
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Redpanda Cloud — Delete Topic */
+export interface RedpandaDeleteTopicInput {
+  /** Topic Name */
+  topicName: string
+  /** Must exactly match Topic Name. */
+  confirmTopicName: string
+}
+
+/** Redpanda Cloud — Get Topic Configurations */
+export interface RedpandaGetTopicConfigurationsInput {
+  /** Topic Name */
+  topicName: string
+}
+
+/** Redpanda Cloud — Set Topic Configurations */
+export interface RedpandaSetTopicConfigurationsInput {
+  /** Topic Name */
+  topicName: string
+  /** JSON array of { "name": "...", "value": "..." } config entries. */
+  configs: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Redpanda Cloud — List Connect Clusters */
+export type RedpandaListConnectClustersInput = Record<string, never>
+
+/** Redpanda Cloud — Get Connect Cluster */
+export interface RedpandaGetConnectClusterInput {
+  /** Connect Cluster Name */
+  clusterName: string
+}
+
+/** Redpanda Cloud — List Connectors */
+export interface RedpandaListConnectorsInput {
+  /** Connect Cluster Name */
+  clusterName: string
+}
+
+/** Redpanda Cloud — Create Connector */
+export interface RedpandaCreateConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  name: string
+  /** Kafka Connect connector config object. */
+  config: unknown
+  /** Confirm Create */
+  confirmCreate: boolean
+}
+
+/** Redpanda Cloud — Get Connector */
+export interface RedpandaGetConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  name: string
+}
+
+/** Redpanda Cloud — Get Connector Status */
+export interface RedpandaGetConnectorStatusInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  name: string
+}
+
+/** Redpanda Cloud — Upsert Connector Config */
+export interface RedpandaUpsertConnectorConfigInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  name: string
+  /** Connector Config */
+  config: unknown
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Redpanda Cloud — Pause Connector */
+export interface RedpandaPauseConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  connectorName: string
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
+/** Redpanda Cloud — Resume Connector */
+export interface RedpandaResumeConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  connectorName: string
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
+/** Redpanda Cloud — Restart Connector */
+export interface RedpandaRestartConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  connectorName: string
+  /** Include Tasks */
+  includeTasks?: boolean
+  /** Only Failed */
+  onlyFailed?: boolean
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
+/** Redpanda Cloud — Stop Connector */
+export interface RedpandaStopConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  connectorName: string
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
+/** Redpanda Cloud — Delete Connector */
+export interface RedpandaDeleteConnectorInput {
+  /** Connect Cluster Name */
+  clusterName: string
+  /** Connector Name */
+  connectorName: string
+  /** Must exactly match Connector Name. */
+  confirmConnectorName: string
+}
+
 /** Reducto — Parse Document */
 export interface ReductoParseDocumentInput {
   /** Public URL, presigned URL, reducto:// upload file ID, or jobid:// previous parse job reference. */
@@ -49406,6 +52233,329 @@ export interface RunwayCustomApiCallInput {
   body?: unknown
 }
 
+/** Sage Accounting — List Businesses */
+export type SageAccountingListBusinessesInput = Record<string, never>
+
+/** Sage Accounting — List Contacts */
+export interface SageAccountingListContactsInput {
+  /** Optional Sage X-Business ID. If omitted, Sage uses the lead business for the OAuth user. */
+  businessId?: string
+  /** Page */
+  page?: number
+  /** Maximum 200. */
+  itemsPerPage?: number
+  /** Search */
+  search?: string
+  /** Optional Sage contact type ID such as CUSTOMER or VENDOR when enabled for the business. */
+  contactTypeId?: string
+  /** ISO timestamp filter when supported by Sage. */
+  updatedOrCreatedSince?: string
+}
+
+/** Sage Accounting — Get Contact */
+export interface SageAccountingGetContactInput {
+  /** Business ID */
+  businessId?: string
+  /** Contact ID */
+  contactId: string
+}
+
+/** Sage Accounting — Create Contact */
+export interface SageAccountingCreateContactInput {
+  /** Business ID */
+  businessId?: string
+  /** Name */
+  name: string
+  /** Sage contact type IDs to apply, for example CUSTOMER or VENDOR. */
+  contactTypeIds?: unknown[]
+  /** Email */
+  email?: string
+  /** Telephone */
+  telephone?: string
+  /** Additional Contact Fields */
+  additionalFields?: unknown
+  /** Confirm Create Contact */
+  confirmCreate: boolean
+}
+
+/** Sage Accounting — Update Contact */
+export interface SageAccountingUpdateContactInput {
+  /** Business ID */
+  businessId?: string
+  /** Contact ID */
+  contactId: string
+  /** Contact Fields */
+  contactFields: unknown
+  /** Confirm Update Contact */
+  confirmUpdate: boolean
+}
+
+/** Sage Accounting — List Sales Invoices */
+export interface SageAccountingListSalesInvoicesInput {
+  /** Optional Sage X-Business ID. If omitted, Sage uses the lead business for the OAuth user. */
+  businessId?: string
+  /** Page */
+  page?: number
+  /** Maximum 200. */
+  itemsPerPage?: number
+  /** Contact ID */
+  contactId?: string
+  /** Status ID */
+  statusId?: string
+  /** Updated Or Created Since */
+  updatedOrCreatedSince?: string
+}
+
+/** Sage Accounting — Get Sales Invoice */
+export interface SageAccountingGetSalesInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** Invoice ID */
+  invoiceId: string
+}
+
+/** Sage Accounting — Create Sales Invoice */
+export interface SageAccountingCreateSalesInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** JSON body for the Sage sales_invoices endpoint. */
+  invoiceFields: unknown
+  /** Confirm Create Sales Invoice */
+  confirmCreate: boolean
+}
+
+/** Sage Accounting — Update Sales Invoice */
+export interface SageAccountingUpdateSalesInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** Invoice ID */
+  invoiceId: string
+  /** Sales Invoice Fields */
+  invoiceFields: unknown
+  /** Confirm Update Sales Invoice */
+  confirmUpdate: boolean
+}
+
+/** Sage Accounting — List Purchase Invoices */
+export interface SageAccountingListPurchaseInvoicesInput {
+  /** Optional Sage X-Business ID. If omitted, Sage uses the lead business for the OAuth user. */
+  businessId?: string
+  /** Page */
+  page?: number
+  /** Maximum 200. */
+  itemsPerPage?: number
+  /** Supplier Contact ID */
+  contactId?: string
+  /** Status ID */
+  statusId?: string
+  /** Updated Or Created Since */
+  updatedOrCreatedSince?: string
+}
+
+/** Sage Accounting — Get Purchase Invoice */
+export interface SageAccountingGetPurchaseInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** Purchase Invoice ID */
+  purchaseInvoiceId: string
+}
+
+/** Sage Accounting — Create Purchase Invoice */
+export interface SageAccountingCreatePurchaseInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** Purchase Invoice Fields */
+  purchaseInvoiceFields: unknown
+  /** Confirm Create Purchase Invoice */
+  confirmCreate: boolean
+}
+
+/** Sage Accounting — Update Purchase Invoice */
+export interface SageAccountingUpdatePurchaseInvoiceInput {
+  /** Business ID */
+  businessId?: string
+  /** Purchase Invoice ID */
+  purchaseInvoiceId: string
+  /** Purchase Invoice Fields */
+  purchaseInvoiceFields: unknown
+  /** Confirm Update Purchase Invoice */
+  confirmUpdate: boolean
+}
+
+/** Sage Accounting — List Contact Payments */
+export interface SageAccountingListContactPaymentsInput {
+  /** Optional Sage X-Business ID. If omitted, Sage uses the lead business for the OAuth user. */
+  businessId?: string
+  /** Page */
+  page?: number
+  /** Maximum 200. */
+  itemsPerPage?: number
+  /** Contact ID */
+  contactId?: string
+  /** Transaction Type ID */
+  transactionTypeId?: string
+  /** Updated Or Created Since */
+  updatedOrCreatedSince?: string
+}
+
+/** Sage Accounting — List Ledger Accounts */
+export interface SageAccountingListLedgerAccountsInput {
+  /** Optional Sage X-Business ID. If omitted, Sage uses the lead business for the OAuth user. */
+  businessId?: string
+  /** Page */
+  page?: number
+  /** Maximum 200. */
+  itemsPerPage?: number
+  /** Optional Sage visible_in filter. */
+  visibleIn?: string
+}
+
+/** Sage Intacct — List Customers */
+export interface SageIntacctListCustomersInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Vendors */
+export interface SageIntacctListVendorsInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Invoices */
+export interface SageIntacctListInvoicesInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Bills */
+export interface SageIntacctListBillsInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Accounts */
+export interface SageIntacctListAccountsInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Payments */
+export interface SageIntacctListPaymentsInput {
+  /** Payment Type (values: `ar_payment`, `ap_payment`) */
+  paymentType: "ar_payment" | "ap_payment"
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — List Employees */
+export interface SageIntacctListEmployeesInput {
+  /** Offset */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+  /** Optional Sage Intacct REST filter expression. */
+  filter?: string
+  /** Optional field names to return. */
+  fields?: unknown[]
+  /** Order By */
+  orderBy?: string
+}
+
+/** Sage Intacct — Get Record */
+export interface SageIntacctGetRecordInput {
+  /** Resource (values: `customer`, `vendor`, `invoice`, `bill`, `account`, `ar_payment`, `ap_payment`, `employee`) */
+  resource: "customer" | "vendor" | "invoice" | "bill" | "account" | "ar_payment" | "ap_payment" | "employee"
+  /** Record ID */
+  recordId: string
+}
+
+/** Sage Intacct — Query Records */
+export interface SageIntacctQueryRecordsInput {
+  /** Sage Intacct object name for the query service. */
+  object: string
+  /** Fields */
+  fields?: unknown[]
+  /** Optional query-service filter object. */
+  filter?: unknown
+  /** Optional query-service orderBy array. */
+  orderBy?: unknown
+  /** Start */
+  offset?: number
+  /** Maximum 1000. */
+  limit?: number
+}
+
+/** Sage Intacct — Create Record */
+export interface SageIntacctCreateRecordInput {
+  /** Resource (values: `customer`, `vendor`, `invoice`, `bill`, `account`, `ar_payment`, `ap_payment`, `employee`) */
+  resource: "customer" | "vendor" | "invoice" | "bill" | "account" | "ar_payment" | "ap_payment" | "employee"
+  /** Record */
+  record: unknown
+  /** Confirm Create Record */
+  confirmCreate: boolean
+}
+
+/** Sage Intacct — Update Record */
+export interface SageIntacctUpdateRecordInput {
+  /** Resource (values: `customer`, `vendor`, `invoice`, `bill`, `account`, `ar_payment`, `ap_payment`, `employee`) */
+  resource: "customer" | "vendor" | "invoice" | "bill" | "account" | "ar_payment" | "ap_payment" | "employee"
+  /** Record ID */
+  recordId: string
+  /** Record Fields */
+  record: unknown
+  /** Confirm Update Record */
+  confirmUpdate: boolean
+}
+
 /** Saleor — Raw GraphQL query */
 export interface SaleorRawGraphqlQueryInput {
   /** Query */
@@ -49982,6 +53132,110 @@ export interface SanityDeleteDocumentInput {
   documentId: string
   /** Must be checked to delete the document. */
   confirmDelete: boolean
+}
+
+/** SAP SuccessFactors — List Users */
+export interface SapSuccessfactorsListUsersInput {
+  /** Maximum 200. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** SAP SuccessFactors — Get User */
+export interface SapSuccessfactorsGetUserInput {
+  /** User ID */
+  userId: string
+  /** Select */
+  select?: string
+}
+
+/** SAP SuccessFactors — List Persons */
+export interface SapSuccessfactorsListPersonsInput {
+  /** Maximum 200. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** SAP SuccessFactors — Get Person */
+export interface SapSuccessfactorsGetPersonInput {
+  /** Person ID External */
+  personIdExternal: string
+  /** Select */
+  select?: string
+}
+
+/** SAP SuccessFactors — List Employments */
+export interface SapSuccessfactorsListEmploymentsInput {
+  /** Maximum 200. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** SAP SuccessFactors — List Jobs */
+export interface SapSuccessfactorsListJobsInput {
+  /** Maximum 200. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** SAP SuccessFactors — List Time Off */
+export interface SapSuccessfactorsListTimeOffInput {
+  /** Maximum 200. */
+  top?: number
+  /** Skip */
+  skip?: number
+  /** Optional OData $filter expression. */
+  filter?: string
+  /** Optional comma-separated fields. */
+  select?: string
+  /** Order By */
+  orderBy?: string
+}
+
+/** SAP SuccessFactors — Upsert Time Off */
+export interface SapSuccessfactorsUpsertTimeOffInput {
+  /** EmployeeTime Record */
+  timeOffRecord: unknown
+  /** Confirm Upsert Time Off */
+  confirmUpsert: boolean
+}
+
+/** SAP SuccessFactors — Upsert Record */
+export interface SapSuccessfactorsUpsertRecordInput {
+  /** OData entity name, for example EmployeeTime or EmpJob. */
+  entity: string
+  /** Record */
+  record: unknown
+  /** Confirm Upsert Record */
+  confirmUpsert: boolean
 }
 
 /** Schoology — List Courses */
@@ -50951,6 +54205,36 @@ export interface SerpapiSearchLocationsInput {
 /** SerpApi — Account Status */
 export type SerpapiAccountStatusInput = Record<string, never>
 
+/** ServiceNow — List Incidents */
+export interface ServiceNowListIncidentsInput {
+  /** Optional sysparm_query for incidents. */
+  query?: string
+  /** Limit */
+  limit?: number
+  /** Comma-separated fields to return. */
+  fields?: string
+}
+
+/** ServiceNow — Create Incident */
+export interface ServiceNowCreateIncidentInput {
+  /** Short Description */
+  short_description: string
+  /** Description */
+  description?: string
+  /** User sys_id or lookup value accepted by the instance. */
+  caller_id?: string
+  /** Urgency (values: `1`, `2`, `3`) */
+  urgency?: "1" | "2" | "3"
+  /** Impact (values: `1`, `2`, `3`) */
+  impact?: "1" | "2" | "3"
+  /** Assignment Group */
+  assignment_group?: string
+  /** Assigned To */
+  assigned_to?: string
+  /** Additional Fields */
+  additional_fields?: unknown
+}
+
 /** ServiceNow — List Records */
 export interface ServiceNowListRecordsInput {
   /** The ServiceNow table name (e.g., incident, sys_user, change_request) */
@@ -51001,6 +54285,8 @@ export interface ServiceNowDeleteRecordInput {
   tableName: string
   /** The sys_id of the record to delete */
   sysId: string
+  /** Type DELETE followed by the table and sys_id, for example: DELETE incident abc123. */
+  confirm: string
 }
 
 /** ServiceNow — Search Records */
@@ -52772,6 +56058,234 @@ export interface SonarqubeSearchIssuesInput {
 
 /** SonarQube — List Quality Gates */
 export type SonarqubeListQualityGatesInput = Record<string, never>
+
+/** Splunk — Validate Connection */
+export type SplunkValidateConnectionInput = Record<string, never>
+
+/** Splunk — Create Search Job */
+export interface SplunkCreateSearchJobInput {
+  /** SPL search string. Prefix with search if needed. */
+  search: string
+  /** For example -15m or an ISO timestamp. */
+  earliestTime: string
+  /** For example now or an ISO timestamp. */
+  latestTime?: string
+  /** Maximum events/results Splunk should retain for the job. */
+  maxCount?: number
+}
+
+/** Splunk — Get Search Job */
+export interface SplunkGetSearchJobInput {
+  /** Search ID (SID) */
+  sid: string
+}
+
+/** Splunk — Get Search Results */
+export interface SplunkGetSearchResultsInput {
+  /** Search ID (SID) */
+  sid: string
+  /** Count */
+  count?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Splunk — List Saved Searches */
+export interface SplunkListSavedSearchesInput {
+  /** Optional namespace owner. Use - for all owners. */
+  owner?: string
+  /** Optional namespace app, for example search. */
+  app?: string
+  /** Optional Splunk search query over saved search metadata. */
+  search?: string
+  /** Count */
+  count?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Splunk — Get Saved Search */
+export interface SplunkGetSavedSearchInput {
+  /** Owner */
+  owner?: string
+  /** App */
+  app?: string
+  /** Saved Search Name */
+  name: string
+}
+
+/** Splunk — Dispatch Saved Search */
+export interface SplunkDispatchSavedSearchInput {
+  /** Owner */
+  owner?: string
+  /** App */
+  app?: string
+  /** Saved Search Name */
+  name: string
+  /** Trigger Alert Actions */
+  triggerActions?: boolean
+  /** Confirm Dispatch */
+  confirmDispatch: boolean
+}
+
+/** Splunk — Update Saved Search */
+export interface SplunkUpdateSavedSearchInput {
+  /** Owner */
+  owner?: string
+  /** App */
+  app?: string
+  /** Saved Search Name */
+  name: string
+  /** Search */
+  search?: string
+  /** Description */
+  description?: string
+  /** Cron Schedule */
+  cronSchedule?: string
+  /** Scheduled */
+  isScheduled?: boolean
+  /** Disabled */
+  disabled?: boolean
+  /** Confirm Update */
+  confirmUpdate: boolean
+}
+
+/** Splunk — List Fired Alerts */
+export interface SplunkListFiredAlertsInput {
+  /** Count */
+  count?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Splunk On-Call — List Current Incidents */
+export type SplunkOnCallListCurrentIncidentsInput = Record<string, never>
+
+/** Splunk On-Call — Search Incident History */
+export interface SplunkOnCallSearchIncidentHistoryInput {
+  /** Single number, comma list, or range such as 20:50. */
+  incidentNumber?: string
+  /** resolved, triggered, acknowledged, or comma-separated values. */
+  currentPhase?: string
+  /** Routing Key */
+  routingKey?: string
+  /** ISO 8601 timestamp. */
+  startedAfter?: string
+  /** ISO 8601 timestamp. */
+  startedBefore?: string
+  /** Maximum 100. */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Splunk On-Call — Get Incident */
+export interface SplunkOnCallGetIncidentInput {
+  /** Incident Number */
+  incidentNumber: number
+}
+
+/** Splunk On-Call — Create Incident */
+export interface SplunkOnCallCreateIncidentInput {
+  /** Summary */
+  summary: string
+  /** Details */
+  details: string
+  /** Acting Username */
+  userName: string
+  /** JSON array of { "type": "User"|"EscalationPolicy", "slug": "target-slug" }. */
+  targets: unknown
+  /** Require All Responders */
+  isMultiResponder?: boolean
+  /** Confirm Create Incident */
+  confirmCreate: boolean
+}
+
+/** Splunk On-Call — Acknowledge Incident */
+export interface SplunkOnCallAcknowledgeIncidentInput {
+  /** Exact incident numbers to update. */
+  incidentNumbers: unknown[]
+  /** Acting Username */
+  userName: string
+  /** Message */
+  message?: string
+  /** Confirm Incident Update */
+  confirmUpdate: boolean
+}
+
+/** Splunk On-Call — Resolve Incident */
+export interface SplunkOnCallResolveIncidentInput {
+  /** Exact incident numbers to update. */
+  incidentNumbers: unknown[]
+  /** Acting Username */
+  userName: string
+  /** Message */
+  message?: string
+  /** Confirm Incident Update */
+  confirmUpdate: boolean
+}
+
+/** Splunk On-Call — Get Alert */
+export interface SplunkOnCallGetAlertInput {
+  /** Alert UUID */
+  alertUuid: string
+}
+
+/** Splunk On-Call — List On-Call Users */
+export type SplunkOnCallListOnCallUsersInput = Record<string, never>
+
+/** Splunk On-Call — Get Team Schedule */
+export interface SplunkOnCallGetTeamScheduleInput {
+  /** Team Slug */
+  teamSlug: string
+  /** Maximum 123. */
+  daysForward?: number
+  /** Maximum 90. */
+  daysSkip?: number
+  /** Maximum 3. */
+  step?: number
+}
+
+/** Splunk On-Call — List Teams */
+export type SplunkOnCallListTeamsInput = Record<string, never>
+
+/** Splunk On-Call — List Escalation Policies */
+export interface SplunkOnCallListEscalationPoliciesInput {
+  /** Optional policy name filter, at least 3 characters. */
+  filter?: string
+}
+
+/** Splunk On-Call — List Routing Keys */
+export type SplunkOnCallListRoutingKeysInput = Record<string, never>
+
+/** Splunk On-Call — List Alert Rules */
+export type SplunkOnCallListAlertRulesInput = Record<string, never>
+
+/** Splunk On-Call — Create Alert Rule */
+export interface SplunkOnCallCreateAlertRuleInput {
+  /** Official alert rule request body. */
+  body: unknown
+  /** Confirm Create Alert Rule */
+  confirmCreate: boolean
+}
+
+/** Splunk On-Call — Update Alert Rule */
+export interface SplunkOnCallUpdateAlertRuleInput {
+  /** Rule ID */
+  ruleId: string
+  /** Official alert rule request body. */
+  body: unknown
+  /** Confirm Update Alert Rule */
+  confirmUpdate: boolean
+}
+
+/** Splunk On-Call — Delete Alert Rule */
+export interface SplunkOnCallDeleteAlertRuleInput {
+  /** Rule ID */
+  ruleId: string
+  /** Confirm Delete Alert Rule */
+  confirmDelete: boolean
+}
 
 /** Spotify — Search */
 export interface SpotifySearchInput {
@@ -55530,6 +59044,98 @@ export interface SynthesiaCustomApiCallInput {
   body?: unknown
 }
 
+/** Tableau — Validate Connection */
+export type TableauValidateConnectionInput = Record<string, never>
+
+/** Tableau — List Workbooks */
+export interface TableauListWorkbooksInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Number */
+  pageNumber?: number
+}
+
+/** Tableau — Get Workbook */
+export interface TableauGetWorkbookInput {
+  /** Workbook ID */
+  workbookId: string
+}
+
+/** Tableau — List Views */
+export interface TableauListViewsInput {
+  /** Workbook ID */
+  workbookId?: string
+  /** Page Size */
+  pageSize?: number
+  /** Page Number */
+  pageNumber?: number
+}
+
+/** Tableau — Get View */
+export interface TableauGetViewInput {
+  /** View ID */
+  viewId: string
+}
+
+/** Tableau — List Data Sources */
+export interface TableauListDatasourcesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page Number */
+  pageNumber?: number
+}
+
+/** Tableau — Get Data Source */
+export interface TableauGetDatasourceInput {
+  /** Data Source ID */
+  datasourceId: string
+}
+
+/** Tableau — Refresh Data Source */
+export interface TableauRefreshDatasourceInput {
+  /** Data Source ID */
+  datasourceId: string
+  /** Confirm Refresh */
+  confirmRefresh: boolean
+}
+
+/** Tableau — Refresh Workbook */
+export interface TableauRefreshWorkbookInput {
+  /** Workbook ID */
+  workbookId: string
+  /** Confirm Refresh */
+  confirmRefresh: boolean
+}
+
+/** Tableau — Export View Data */
+export interface TableauExportViewDataInput {
+  /** View ID */
+  viewId: string
+  /** Optional Tableau view filter/query parameters. */
+  queryParameters?: unknown
+}
+
+/** Tableau — Export View PDF */
+export interface TableauExportViewPdfInput {
+  /** View ID */
+  viewId: string
+  /** Query Parameters */
+  queryParameters?: unknown
+}
+
+/** Tableau — List Webhooks */
+export type TableauListWebhooksInput = Record<string, never>
+
+/** Tableau — Create Webhook */
+export interface TableauCreateWebhookInput {
+  /** Webhook Name */
+  name: string
+  /** Event Name (values: `DatasourceRefreshStarted`, `DatasourceRefreshSucceeded`, `DatasourceRefreshFailed`, `WorkbookCreated`, `WorkbookUpdated`, `WorkbookDeleted`) */
+  eventName: "DatasourceRefreshStarted" | "DatasourceRefreshSucceeded" | "DatasourceRefreshFailed" | "WorkbookCreated" | "WorkbookUpdated" | "WorkbookDeleted"
+  /** HTTPS endpoint that Tableau will call. */
+  destinationUrl: string
+}
+
 /** TalentLMS — Get User */
 export interface TalentlmsGetUserInput {
   /** User ID */
@@ -56648,40 +60254,145 @@ export interface TicktickCustomApiCallInput {
   followRedirects?: boolean
 }
 
-/** Tidio — Send Message */
-export interface TidioSendMessageInput {
-  /** Conversation ID */
-  conversationId: string
+/** Tidio — Get Project */
+export type TidioGetProjectInput = Record<string, never>
+
+/** Tidio — List Contacts */
+export interface TidioListContactsInput {
+  /** Cursor */
+  cursor?: string
+}
+
+/** Tidio — Get Contact */
+export interface TidioGetContactInput {
+  /** Contact ID */
+  contact_id: string
+}
+
+/** Tidio — Create Contact */
+export interface TidioCreateContactInput {
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Distinct ID */
+  distinct_id?: string
+  /** Object of custom contact properties. */
+  properties?: unknown
+}
+
+/** Tidio — Update Contact */
+export interface TidioUpdateContactInput {
+  /** Contact ID */
+  contact_id: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Properties */
+  properties?: unknown
+}
+
+/** Tidio — Delete Contact */
+export interface TidioDeleteContactInput {
+  /** Contact ID */
+  contact_id: string
+  /** Type DELETE followed by the contact ID, for example: DELETE 2b4d... */
+  confirm: string
+}
+
+/** Tidio — List Tickets */
+export interface TidioListTicketsInput {
+  /** Cursor */
+  cursor?: string
+}
+
+/** Tidio — Get Ticket */
+export interface TidioGetTicketInput {
+  /** Ticket ID */
+  ticket_id: number
+}
+
+/** Tidio — Create Ticket As Contact */
+export interface TidioCreateTicketAsContactInput {
+  /** Contact Email */
+  contact_email: string
+  /** Subject */
+  subject: string
+  /** Message Content */
+  message_content: string
+  /** Assigned Department ID */
+  assigned_department_id?: string
+  /** Custom Channel ID */
+  custom_channel_id?: string
+  /** Tag IDs */
+  tag_ids?: unknown[]
+  /** Array of { id, value } custom field entries. */
+  custom_fields?: unknown
+}
+
+/** Tidio — Update Ticket */
+export interface TidioUpdateTicketInput {
+  /** Ticket ID */
+  ticket_id: number
+  /** Status (values: `open`, `pending`, `solved`) */
+  status?: "open" | "pending" | "solved"
+  /** Priority (values: `low`, `normal`, `urgent`) */
+  priority?: "low" | "normal" | "urgent"
+  /** Assigned Operator ID */
+  assigned_operator_id?: string
+  /** Assigned Department ID */
+  assigned_department_id?: string
+  /** Replaces the full ticket tag set when supplied. */
+  tag_ids?: unknown[]
+  /** Array of { id, value } custom field entries. */
+  custom_fields?: unknown
+}
+
+/** Tidio — Reply To Ticket */
+export interface TidioReplyToTicketInput {
+  /** Ticket ID */
+  ticket_id: number
+  /** Author Type (values: `operator`, `contact`) */
+  author_type: "operator" | "contact"
   /** Content */
   content: string
-}
-
-/** Tidio — List Visitors */
-export interface TidioListVisitorsInput {
-  /** Limit */
-  limit?: number
-}
-
-/** Tidio — List Conversations */
-export interface TidioListConversationsInput {
-  /** Limit */
-  limit?: number
-  /** Status (values: `open`, `closed`) */
-  status?: "open" | "closed"
-}
-
-/** Tidio — Get Operator */
-export interface TidioGetOperatorInput {
   /** Operator ID */
-  operatorId: string
+  operator_id?: string
+  /** Message Type (values: `public`, `internal`) */
+  message_type?: "public" | "internal"
 }
+
+/** Tidio — Delete Ticket */
+export interface TidioDeleteTicketInput {
+  /** Ticket ID */
+  ticket_id: number
+  /** Type DELETE followed by the ticket ID, for example: DELETE 10000. */
+  confirm: string
+}
+
+/** Tidio — List Operators */
+export type TidioListOperatorsInput = Record<string, never>
+
+/** Tidio — List Departments */
+export type TidioListDepartmentsInput = Record<string, never>
 
 /** Tidio — Custom API Call */
 export interface TidioCustomApiCallInput {
   /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** API path (e.g. /conversations) */
+  /** Path beginning with /, for example /tickets. */
   path: string
+  /** Query Parameters */
+  query_params?: unknown
   /** Body */
   body?: unknown
 }
@@ -57116,76 +60827,270 @@ export interface ToastPosCustomApiCallInput {
   body?: unknown
 }
 
+/** Todoist — List Projects */
+export interface TodoistListProjectsInput {
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Todoist — Get Project */
+export interface TodoistGetProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
+/** Todoist — Search Projects */
+export interface TodoistSearchProjectsInput {
+  /** Query */
+  query: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Todoist — Create Project */
+export interface TodoistCreateProjectInput {
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Parent Project ID */
+  parentId?: string
+  /** Color */
+  color?: string
+  /** View Style (values: `list`, `board`, `calendar`) */
+  viewStyle?: "list" | "board" | "calendar"
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Todoist — Update Project */
+export interface TodoistUpdateProjectInput {
+  /** Project ID */
+  projectId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Color */
+  color?: string
+  /** View Style (values: `list`, `board`, `calendar`) */
+  viewStyle?: "list" | "board" | "calendar"
+  /** Additional Fields */
+  additionalFields?: unknown
+}
+
+/** Todoist — Archive Project */
+export interface TodoistArchiveProjectInput {
+  /** Project ID */
+  projectId: string
+  /** Confirm Archive */
+  confirmArchive: boolean
+}
+
+/** Todoist — Delete Project */
+export interface TodoistDeleteProjectInput {
+  /** Project ID */
+  projectId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Todoist — List Sections */
+export interface TodoistListSectionsInput {
+  /** Project ID */
+  projectId?: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Todoist — Create Section */
+export interface TodoistCreateSectionInput {
+  /** Project ID */
+  projectId: string
+  /** Name */
+  name: string
+  /** Order */
+  order?: number
+}
+
+/** Todoist — Update Section */
+export interface TodoistUpdateSectionInput {
+  /** Section ID */
+  sectionId: string
+  /** Name */
+  name: string
+}
+
+/** Todoist — Delete Section */
+export interface TodoistDeleteSectionInput {
+  /** Section ID */
+  sectionId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Todoist — List Tasks */
+export interface TodoistListTasksInput {
+  /** Project ID */
+  projectId?: string
+  /** Section ID */
+  sectionId?: string
+  /** Label */
+  label?: string
+  /** Todoist filter query such as today or p1. */
+  filter?: string
+  /** Comma-separated IDs. */
+  ids?: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Todoist — Get Task */
+export interface TodoistGetTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
 /** Todoist — Create Task */
 export interface TodoistCreateTaskInput {
-  /** Task project ID. If not set, task is put to user's Inbox. (resolve via property options API) */
-  project_id?: string
-  /** The task's content. It may contain some markdown-formatted text and hyperlinks */
+  /** Content */
   content: string
-  /** A description for the task. This value may contain some markdown-formatted text and hyperlinks. */
+  /** Description */
   description?: string
-  /** The task's labels (a list of names that may represent either personal or shared labels) */
-  labels?: unknown[]
-  /** Task priority from 1 (normal) to 4 (urgent) */
+  /** Project ID */
+  projectId?: string
+  /** Section ID */
+  sectionId?: string
+  /** Parent Task ID */
+  parentId?: string
+  /** Natural-language due date, e.g. tomorrow at 9. */
+  dueString?: string
+  /** YYYY-MM-DD or ISO date/time. */
+  dueDate?: string
+  /** 1-4, where 4 is very urgent in the API. */
   priority?: number
-  /** Can be either a specific date in YYYY-MM-DD format relative to user's timezone, a specific date and time in RFC3339 format, or a human defined date (e.g. 'next Monday') using local time */
-  due_date?: string
-  /** Section (resolve via property options API) */
-  section_id?: string
+  /** Labels */
+  labels?: unknown[]
+  /** Assignee User ID */
+  assigneeId?: string
+  /** Additional Fields */
+  additionalFields?: unknown
 }
 
 /** Todoist — Update Task */
 export interface TodoistUpdateTaskInput {
   /** Task ID */
-  task_id: string
-  /** The task's content. It may contain some markdown-formatted text and hyperlinks */
+  taskId: string
+  /** Content */
   content?: string
-  /** A description for the task. This value may contain some markdown-formatted text and hyperlinks. */
+  /** Description */
   description?: string
-  /** The task's labels (a list of names that may represent either personal or shared labels) */
-  labels?: unknown[]
-  /** Task priority from 1 (normal) to 4 (urgent) */
+  /** Due String */
+  dueString?: string
+  /** Due Date */
+  dueDate?: string
+  /** Priority */
   priority?: number
-  /** Can be either a specific date in YYYY-MM-DD format relative to user's timezone, a specific date and time in RFC3339 format, or a human defined date (e.g. 'next Monday') using local time */
-  due_date?: string
+  /** Labels */
+  labels?: unknown[]
+  /** Assignee User ID */
+  assigneeId?: string
+  /** Additional Fields */
+  additionalFields?: unknown
 }
 
-/** Todoist — Find Task */
-export interface TodoistFindTaskInput {
-  /** The name of the task to search for. */
-  name: string
-  /** Search for tasks within the selected project. If left blank, then all projects are searched. (resolve via property options API) */
-  project_id?: string
-}
-
-/** Todoist — Mark Task as Completed */
-export interface TodoistMarkTaskCompletedInput {
+/** Todoist — Move Task */
+export interface TodoistMoveTaskInput {
   /** Task ID */
-  task_id: string
+  taskId: string
+  /** Project ID */
+  projectId?: string
+  /** Section ID */
+  sectionId?: string
+  /** Parent Task ID */
+  parentId?: string
+  /** Order */
+  order?: number
+}
+
+/** Todoist — Close Task */
+export interface TodoistCloseTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Todoist — Reopen Task */
+export interface TodoistReopenTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Todoist — Delete Task */
+export interface TodoistDeleteTaskInput {
+  /** Task ID */
+  taskId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Todoist — List Comments */
+export interface TodoistListCommentsInput {
+  /** Task ID */
+  taskId?: string
+  /** Project ID */
+  projectId?: string
+  /** Limit */
+  limit?: number
+  /** Cursor */
+  cursor?: string
+}
+
+/** Todoist — Add Comment */
+export interface TodoistAddCommentInput {
+  /** Content */
+  content: string
+  /** Task ID */
+  taskId?: string
+  /** Project ID */
+  projectId?: string
+}
+
+/** Todoist — Update Comment */
+export interface TodoistUpdateCommentInput {
+  /** Comment ID */
+  commentId: string
+  /** Content */
+  content: string
+}
+
+/** Todoist — Delete Comment */
+export interface TodoistDeleteCommentInput {
+  /** Comment ID */
+  commentId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
 }
 
 /** Todoist — Custom API Call */
 export interface TodoistCustomApiCallInput {
-  /** url */
-  url: Record<string, unknown>
-  /** Method (values: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`) */
-  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "HEAD"
-  /** Authorization headers are injected automatically from your connection. */
-  headers: Record<string, unknown>
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** Path */
+  path: string
   /** Query Parameters */
-  queryParams: Record<string, unknown>
-  /** Body Type (values: `none`, `json`, `form_data`, `raw`) */
-  body_type?: "none" | "json" | "form_data" | "raw"
+  query?: unknown
   /** Body */
-  body?: Record<string, unknown>
-  /** Enable for files like PDFs, images, etc. */
-  response_is_binary?: boolean
-  /** No Error on Failure */
-  failsafe?: boolean
-  /** Timeout (in seconds) */
-  timeout?: number
-  /** Follow redirects */
-  followRedirects?: boolean
+  body?: unknown
+  /** Confirm DELETE */
+  confirmDelete?: boolean
 }
 
 /** Together AI — Chat */
@@ -57546,90 +61451,254 @@ export interface TransistorGetShowAnalyticsInput {
   includeShow?: boolean
 }
 
-/** Trello — Create Card */
-export interface TrelloCreateCardInput {
-  /** List of boards (resolve via property options API) */
-  board_id: string
-  /** Get lists from a board (resolve via property options API) */
-  list_id: string
-  /** The name of the card to create */
+/** Trello — List Boards */
+export interface TrelloListBoardsInput {
+  /** Examples: open, closed, all, organization. */
+  filter?: string
+  /** Fields */
+  fields?: string
+}
+
+/** Trello — Get Board */
+export interface TrelloGetBoardInput {
+  /** Board ID */
+  boardId: string
+  /** Fields */
+  fields?: string
+}
+
+/** Trello — Search */
+export interface TrelloSearchInput {
+  /** Query */
+  query: string
+  /** Comma-separated list such as cards,boards,members. */
+  modelTypes?: string
+  /** Comma-separated board IDs to limit card search. */
+  boardIds?: string
+  /** Limit */
+  limit?: number
+}
+
+/** Trello — List Lists */
+export interface TrelloListListsInput {
+  /** Board ID */
+  boardId: string
+  /** Filter */
+  filter?: string
+}
+
+/** Trello — Create List */
+export interface TrelloCreateListInput {
+  /** Board ID */
+  boardId: string
+  /** Name */
   name: string
-  /** The description of the card to create */
-  description?: string
-  /** Place the card on top or bottom of the list (values: `top`, `bottom`) */
-  position?: "top" | "bottom"
-  /** Assign labels to the card */
-  labels?: string[]
+  /** top, bottom, or a positive number. */
+  position?: string
+}
+
+/** Trello — Update List */
+export interface TrelloUpdateListInput {
+  /** List ID */
+  listId: string
+  /** Name */
+  name?: string
+  /** Archived */
+  closed?: boolean
+  /** Position */
+  position?: string
+  /** Move to Board ID */
+  boardId?: string
+}
+
+/** Trello — List Cards */
+export interface TrelloListCardsInput {
+  /** Board ID */
+  boardId?: string
+  /** List ID */
+  listId?: string
+  /** Filter */
+  filter?: string
+  /** Fields */
+  fields?: string
 }
 
 /** Trello — Get Card */
 export interface TrelloGetCardInput {
-  /** The card ID */
+  /** Card ID */
   cardId: string
+  /** Fields */
+  fields?: string
+  /** Include Members */
+  includeMembers?: boolean
+  /** Include Checklists */
+  includeChecklists?: boolean
+}
+
+/** Trello — Create Card */
+export interface TrelloCreateCardInput {
+  /** List ID */
+  listId: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** ISO date/time or Trello-supported due string. */
+  due?: string
+  /** Comma-separated member IDs. */
+  memberIds?: string
+  /** Comma-separated label IDs. */
+  labelIds?: string
+  /** Position */
+  position?: string
 }
 
 /** Trello — Update Card */
 export interface TrelloUpdateCardInput {
-  /** The ID of the card to update */
-  card_id: string
-  /** The new name of the card */
+  /** Card ID */
+  cardId: string
+  /** Name */
   name?: string
-  /** The new description of the card */
+  /** Description */
   description?: string
-  /** List of boards (resolve via property options API) */
-  board_id?: string
-  /** Get lists from a board (resolve via property options API) */
-  list_id?: string
-  /** Move the card to a new position (values: `top`, `bottom`) */
-  position?: "top" | "bottom"
-  /** Assign labels to the card */
-  labels?: string[]
-  /** Archive or unarchive the card */
-  closed?: boolean
-  /** Set a due date for the card */
+  /** List ID */
+  listId?: string
+  /** Board ID */
+  boardId?: string
+  /** Due Date */
   due?: string
+  /** Archived */
+  closed?: boolean
+  /** Member IDs */
+  memberIds?: string
+  /** Label IDs */
+  labelIds?: string
+  /** Position */
+  position?: string
+}
+
+/** Trello — Move Card */
+export interface TrelloMoveCardInput {
+  /** Card ID */
+  cardId: string
+  /** Destination List ID */
+  listId: string
+  /** Destination Board ID */
+  boardId?: string
+  /** Position */
+  position?: string
+}
+
+/** Trello — Archive Card */
+export interface TrelloArchiveCardInput {
+  /** Card ID */
+  cardId: string
+  /** Confirm Archive */
+  confirmArchive: boolean
 }
 
 /** Trello — Delete Card */
 export interface TrelloDeleteCardInput {
-  /** The ID of the card to delete. */
-  card_id: string
+  /** Card ID */
+  cardId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
 }
 
-/** Trello — Get All Card Attachments */
-export interface TrelloGetCardAttachmentsInput {
-  /** The ID of the card to get attachments from */
-  card_id: string
+/** Trello — List Comments */
+export interface TrelloListCommentsInput {
+  /** Card ID */
+  cardId: string
+  /** Limit */
+  limit?: number
+  /** Before Action ID or Date */
+  before?: string
 }
 
-/** Trello — Add Card Attachment */
-export interface TrelloAddCardAttachmentInput {
-  /** The ID of the card to add attachment to */
-  card_id: string
-  /** Attachment File */
-  attachment: WeavzFileInput
-  /** Attachment Name */
-  name?: string
-  /** MIME Type */
-  mime_type?: string
-  /** Set this attachment as the card cover */
-  set_cover?: boolean
+/** Trello — Add Comment */
+export interface TrelloAddCommentInput {
+  /** Card ID */
+  cardId: string
+  /** Comment Text */
+  text: string
 }
 
-/** Trello — Get Card Attachment */
-export interface TrelloGetCardAttachmentInput {
-  /** The ID of the card */
-  card_id: string
-  /** The ID of the attachment to retrieve */
-  attachment_id: string
+/** Trello — Update Comment */
+export interface TrelloUpdateCommentInput {
+  /** Card ID */
+  cardId: string
+  /** Comment Action ID */
+  actionId: string
+  /** Comment Text */
+  text: string
 }
 
-/** Trello — Delete Card Attachment */
-export interface TrelloDeleteCardAttachmentInput {
-  /** The ID of the card */
-  card_id: string
-  /** The ID of the attachment to delete */
-  attachment_id: string
+/** Trello — Delete Comment */
+export interface TrelloDeleteCommentInput {
+  /** Card ID */
+  cardId: string
+  /** Comment Action ID */
+  actionId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Trello — List Members */
+export interface TrelloListMembersInput {
+  /** Board ID */
+  boardId?: string
+  /** Card ID */
+  cardId?: string
+}
+
+/** Trello — Add Member to Card */
+export interface TrelloAddMemberToCardInput {
+  /** Card ID */
+  cardId: string
+  /** Member ID */
+  memberId: string
+}
+
+/** Trello — Remove Member from Card */
+export interface TrelloRemoveMemberFromCardInput {
+  /** Card ID */
+  cardId: string
+  /** Member ID */
+  memberId: string
+  /** Confirm Remove */
+  confirmRemove: boolean
+}
+
+/** Trello — Create Webhook */
+export interface TrelloCreateWebhookInput {
+  /** Model ID */
+  modelId: string
+  /** Callback URL */
+  callbackUrl: string
+  /** Description */
+  description?: string
+}
+
+/** Trello — Delete Webhook */
+export interface TrelloDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Trello — Custom API Call */
+export interface TrelloCustomApiCallInput {
+  /** Method (values: `GET`, `POST`, `PUT`, `DELETE`) */
+  method: "GET" | "POST" | "PUT" | "DELETE"
+  /** Path under /1, such as /cards/{id}. */
+  path: string
+  /** Query Parameters */
+  query?: unknown
+  /** Body */
+  body?: unknown
+  /** Confirm DELETE */
+  confirmDelete?: boolean
 }
 
 /** Trustpilot — List Reviews */
@@ -58641,10 +62710,16 @@ export interface VercelCustomApiCallInput {
 
 /** Vidyard — List Videos */
 export interface VidyardListVideosInput {
+  /** Search by video/player name and associated tags. */
+  query?: string
   /** Page */
   page?: number
   /** Per Page */
   perPage?: number
+  /** Order By */
+  orderBy?: string
+  /** Direction (values: `asc`, `desc`) */
+  direction?: "asc" | "desc"
 }
 
 /** Vidyard — Get Video */
@@ -58653,24 +62728,116 @@ export interface VidyardGetVideoInput {
   videoId: string
 }
 
+/** Vidyard — Create Video */
+export interface VidyardCreateVideoInput {
+  /** Remote video file URL for Vidyard to import. */
+  uploadUrl: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Not shown to viewers. */
+  notes?: string
+  /** Optional Vidyard callback URL when upload processing finishes. */
+  webhookUrl?: string
+  /** Sync To YouTube If Pushed */
+  sync?: boolean
+  /** Optional Vidyard tags_attributes array. */
+  tags?: unknown
+}
+
+/** Vidyard — Update Video Metadata */
+export interface VidyardUpdateVideoMetadataInput {
+  /** Video ID */
+  videoId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Internal Notes */
+  notes?: string
+  /** Sync To YouTube If Pushed */
+  sync?: boolean
+}
+
+/** Vidyard — Get Video Status */
+export interface VidyardGetVideoStatusInput {
+  /** Video ID */
+  videoId: string
+  /** Use Encoding Status Endpoint */
+  encodingStatus?: boolean
+}
+
 /** Vidyard — Get Analytics */
 export interface VidyardGetAnalyticsInput {
   /** Video ID */
   videoId: string
-  /** Start date in YYYY-MM-DD format */
+  /** Start date in YYYY-MM-DD format. */
   startDate?: string
-  /** End date in YYYY-MM-DD format */
+  /** End date in YYYY-MM-DD format. */
   endDate?: string
 }
 
-/** Vidyard — Custom API Call */
-export interface VidyardCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
+/** Vidyard — List Captions */
+export interface VidyardListCaptionsInput {
+  /** Video ID */
+  videoId: string
+}
+
+/** Vidyard — Create Caption */
+export interface VidyardCreateCaptionInput {
+  /** Video ID */
+  videoId: string
+  /** SRT URL */
+  srtUrl?: string
+  /** VTT URL */
+  vttUrl?: string
+  /** Locale code such as en or es-419. */
+  language?: string
+  /** Source Language */
+  sourceLanguage?: string
+  /** Default Caption */
+  isDefault?: boolean
+}
+
+/** Vidyard — Update Caption */
+export interface VidyardUpdateCaptionInput {
+  /** Caption ID */
+  captionId: string
+  /** SRT URL */
+  srtUrl?: string
+  /** VTT URL */
+  vttUrl?: string
+  /** Language */
+  language?: string
+  /** Default Caption */
+  isDefault?: boolean
+}
+
+/** Vidyard — List Thumbnails */
+export interface VidyardListThumbnailsInput {
+  /** Video ID */
+  videoId: string
+  /** Selected Thumbnail Only */
+  selectedOnly?: boolean
+}
+
+/** Vidyard — Update Selected Thumbnail */
+export interface VidyardUpdateSelectedThumbnailInput {
+  /** Video ID */
+  videoId: string
+  /** Thumbnail ID */
+  thumbnailId?: string
+  /** Image URL */
+  imageUrl?: string
+}
+
+/** Vidyard — Delete Video */
+export interface VidyardDeleteVideoInput {
+  /** Video ID */
+  videoId: string
+  /** Must exactly match Video ID. */
+  confirmVideoId: string
 }
 
 /** Vimeo — Upload Video */
@@ -60014,6 +64181,122 @@ export interface WiseGetExchangeRateInput {
   source: string
   /** ISO 4217 code (e.g., EUR) */
   target: string
+}
+
+/** Wistia — List Projects */
+export interface WistiaListProjectsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** name, mediaCount, created, or updated. */
+  sortBy?: string
+  /** Sort Direction (values: `1`, `0`) */
+  sortDirection?: "1" | "0"
+}
+
+/** Wistia — Get Project */
+export interface WistiaGetProjectInput {
+  /** Project Hashed ID */
+  projectHashedId: string
+}
+
+/** Wistia — List Media */
+export interface WistiaListMediasInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Project Hashed ID */
+  projectId?: string
+  /** Example: Video. */
+  type?: string
+  /** Name Filter */
+  name?: string
+  /** Sort By */
+  sortBy?: string
+  /** Sort Direction (values: `1`, `0`) */
+  sortDirection?: "1" | "0"
+}
+
+/** Wistia — Get Media */
+export interface WistiaGetMediaInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+}
+
+/** Wistia — Upload Media From URL */
+export interface WistiaUploadMediaFromUrlInput {
+  /** Media URL */
+  url: string
+  /** Project Hashed ID */
+  projectId?: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Contact ID */
+  contactId?: number
+}
+
+/** Wistia — Update Media Metadata */
+export interface WistiaUpdateMediaMetadataInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+  /** Name */
+  name?: string
+  /** Description */
+  description?: string
+  /** Project Hashed ID */
+  projectId?: string
+}
+
+/** Wistia — Get Media Stats */
+export interface WistiaGetMediaStatsInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+}
+
+/** Wistia — List Captions */
+export interface WistiaListCaptionsInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+}
+
+/** Wistia — Get Caption */
+export interface WistiaGetCaptionInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+  /** Three-letter ISO-639-2 language code such as eng. */
+  language: string
+}
+
+/** Wistia — Create Or Update Caption */
+export interface WistiaCreateOrUpdateCaptionInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+  /** Three-letter ISO-639-2 language code such as eng. */
+  language?: string
+  /** SRT Caption Text */
+  captionFile: string
+  /** Replace Existing Caption */
+  replaceExisting?: boolean
+}
+
+/** Wistia — Update Thumbnail From URL */
+export interface WistiaUpdateThumbnailFromUrlInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+  /** Image URL */
+  imageUrl: string
+}
+
+/** Wistia — Delete Media */
+export interface WistiaDeleteMediaInput {
+  /** Media Hashed ID */
+  mediaHashedId: string
+  /** Must exactly match Media Hashed ID. */
+  confirmMediaHashedId: string
 }
 
 /** Wix — List Sites */
@@ -62839,6 +67122,15 @@ export interface ZyteExtractStructuredDataInput {
 // ============================================================================
 
 export interface IntegrationActionInputMap {
+  '1password.list_vaults': Integration1passwordListVaultsInput
+  '1password.get_vault': Integration1passwordGetVaultInput
+  '1password.list_items': Integration1passwordListItemsInput
+  '1password.get_item_metadata': Integration1passwordGetItemMetadataInput
+  '1password.reveal_item_values': Integration1passwordRevealItemValuesInput
+  '1password.list_connect_activity': Integration1passwordListConnectActivityInput
+  '1password.list_audit_events': Integration1passwordListAuditEventsInput
+  '1password.list_item_usage_events': Integration1passwordListItemUsageEventsInput
+  '1password.list_sign_in_attempts': Integration1passwordListSignInAttemptsInput
   'abstract-api.validate_email': AbstractApiValidateEmailInput
   'abstract-api.geolocate_ip': AbstractApiGeolocateIpInput
   'abstract-api.check_phone': AbstractApiCheckPhoneInput
@@ -62853,8 +67145,12 @@ export interface IntegrationActionInputMap {
   'activecampaign.create_contact': ActivecampaignCreateContactInput
   'activecampaign.update_contact': ActivecampaignUpdateContactInput
   'activecampaign.find_contact': ActivecampaignFindContactInput
+  'activecampaign.list_contacts': ActivecampaignListContactsInput
   'activecampaign.subscribe_contact': ActivecampaignSubscribeContactInput
+  'activecampaign.unsubscribe_contact_from_list': ActivecampaignUnsubscribeContactFromListInput
   'activecampaign.add_tag': ActivecampaignAddTagInput
+  'activecampaign.list_campaigns': ActivecampaignListCampaignsInput
+  'activecampaign.get_campaign': ActivecampaignGetCampaignInput
   'activecampaign.create_account': ActivecampaignCreateAccountInput
   'activecampaign.update_account': ActivecampaignUpdateAccountInput
   'activecampaign.custom_api_call': ActivecampaignCustomApiCallInput
@@ -62869,6 +67165,22 @@ export interface IntegrationActionInputMap {
   'acuity-scheduling.list_appointments': AcuitySchedulingListAppointmentsInput
   'acuity-scheduling.get_appointment': AcuitySchedulingGetAppointmentInput
   'acuity-scheduling.create_appointment': AcuitySchedulingCreateAppointmentInput
+  'acumatica.list_customers': AcumaticaListCustomersInput
+  'acumatica.list_vendors': AcumaticaListVendorsInput
+  'acumatica.list_invoices': AcumaticaListInvoicesInput
+  'acumatica.list_bills': AcumaticaListBillsInput
+  'acumatica.list_payments': AcumaticaListPaymentsInput
+  'acumatica.list_accounts': AcumaticaListAccountsInput
+  'acumatica.list_employees': AcumaticaListEmployeesInput
+  'acumatica.list_records': AcumaticaListRecordsInput
+  'acumatica.get_record': AcumaticaGetRecordInput
+  'acumatica.create_record': AcumaticaCreateRecordInput
+  'acumatica.update_record': AcumaticaUpdateRecordInput
+  'adobe-express.list_tagged_documents': AdobeExpressListTaggedDocumentsInput
+  'adobe-express.get_tagged_document': AdobeExpressGetTaggedDocumentInput
+  'adobe-express.generate_variation': AdobeExpressGenerateVariationInput
+  'adobe-express.export_rendition': AdobeExpressExportRenditionInput
+  'adobe-express.get_job_status': AdobeExpressGetJobStatusInput
   'adobe-firefly-services.generate_image': AdobeFireflyServicesGenerateImageInput
   'adobe-firefly-services.generate_image_async': AdobeFireflyServicesGenerateImageAsyncInput
   'adobe-firefly-services.upload_image': AdobeFireflyServicesUploadImageInput
@@ -63238,6 +67550,18 @@ export interface IntegrationActionInputMap {
   'claude.ask_claude': ClaudeAskClaudeInput
   'claude.extract-structured-data': ClaudeExtractStructuredDataInput
   'claude.custom_api_call': ClaudeCustomApiCallInput
+  'apache-superset.validate_connection': ApacheSupersetValidateConnectionInput
+  'apache-superset.list_dashboards': ApacheSupersetListDashboardsInput
+  'apache-superset.get_dashboard': ApacheSupersetGetDashboardInput
+  'apache-superset.list_dashboard_datasets': ApacheSupersetListDashboardDatasetsInput
+  'apache-superset.list_datasets': ApacheSupersetListDatasetsInput
+  'apache-superset.get_dataset': ApacheSupersetGetDatasetInput
+  'apache-superset.create_dataset': ApacheSupersetCreateDatasetInput
+  'apache-superset.update_dataset': ApacheSupersetUpdateDatasetInput
+  'apache-superset.refresh_dataset': ApacheSupersetRefreshDatasetInput
+  'apache-superset.list_charts': ApacheSupersetListChartsInput
+  'apache-superset.get_chart': ApacheSupersetGetChartInput
+  'apache-superset.run_sqllab_query': ApacheSupersetRunSqllabQueryInput
   'apify.run_actor': ApifyRunActorInput
   'apify.get_dataset': ApifyGetDatasetInput
   'apify.list_actors': ApifyListActorsInput
@@ -63363,6 +67687,13 @@ export interface IntegrationActionInputMap {
   'attention.list_teams': AttentionListTeamsInput
   'attention.list_users': AttentionListUsersInput
   'attention.list_calendar_events': AttentionListCalendarEventsInput
+  'attentive.subscribe_user': AttentiveSubscribeUserInput
+  'attentive.unsubscribe_user': AttentiveUnsubscribeUserInput
+  'attentive.upsert_user_attributes': AttentiveUpsertUserAttributesInput
+  'attentive.set_custom_attributes': AttentiveSetCustomAttributesInput
+  'attentive.get_custom_attributes': AttentiveGetCustomAttributesInput
+  'attentive.send_custom_event': AttentiveSendCustomEventInput
+  'attentive.send_purchase_event': AttentiveSendPurchaseEventInput
   'attio.list_records': AttioListRecordsInput
   'attio.get_record': AttioGetRecordInput
   'attio.create_record': AttioCreateRecordInput
@@ -63623,6 +67954,14 @@ export interface IntegrationActionInputMap {
   'bitly.update_bitlink': BitlyUpdateBitlinkInput
   'bitly.get_clicks_summary': BitlyGetClicksSummaryInput
   'bitly.list_groups': BitlyListGroupsInput
+  'bitwarden.list_members': BitwardenListMembersInput
+  'bitwarden.get_member': BitwardenGetMemberInput
+  'bitwarden.list_groups': BitwardenListGroupsInput
+  'bitwarden.get_group': BitwardenGetGroupInput
+  'bitwarden.list_collections': BitwardenListCollectionsInput
+  'bitwarden.get_collection': BitwardenGetCollectionInput
+  'bitwarden.list_events': BitwardenListEventsInput
+  'bitwarden.list_policies': BitwardenListPoliciesInput
   'bizzabo.list_events': BizzaboListEventsInput
   'bizzabo.get_event': BizzaboGetEventInput
   'bizzabo.list_attendees': BizzaboListAttendeesInput
@@ -63792,10 +68131,18 @@ export interface IntegrationActionInputMap {
   'calendly.get_event': CalendlyGetEventInput
   'calendly.get_event_invitees': CalendlyGetEventInviteesInput
   'calendly.custom_api_call': CalendlyCustomApiCallInput
-  'campaign-monitor.add_subscriber_to_list': CampaignMonitorAddSubscriberToListInput
-  'campaign-monitor.update_subscriber_details': CampaignMonitorUpdateSubscriberDetailsInput
+  'campaign-monitor.list_clients': CampaignMonitorListClientsInput
+  'campaign-monitor.list_contact_lists': CampaignMonitorListContactListsInput
+  'campaign-monitor.list_segments': CampaignMonitorListSegmentsInput
+  'campaign-monitor.add_subscriber': CampaignMonitorAddSubscriberInput
+  'campaign-monitor.update_subscriber': CampaignMonitorUpdateSubscriberInput
+  'campaign-monitor.get_subscriber': CampaignMonitorGetSubscriberInput
+  'campaign-monitor.list_subscribers': CampaignMonitorListSubscribersInput
   'campaign-monitor.unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
-  'campaign-monitor.find_subscriber': CampaignMonitorFindSubscriberInput
+  'campaign-monitor.delete_subscriber': CampaignMonitorDeleteSubscriberInput
+  'campaign-monitor.list_campaigns': CampaignMonitorListCampaignsInput
+  'campaign-monitor.get_campaign_summary': CampaignMonitorGetCampaignSummaryInput
+  'campaign-monitor.suppress_email': CampaignMonitorSuppressEmailInput
   'candid.search_nonprofits': CandidSearchNonprofitsInput
   'candid.get_premier_profile': CandidGetPremierProfileInput
   'candid.run_charity_check': CandidRunCharityCheckInput
@@ -64048,8 +68395,24 @@ export interface IntegrationActionInputMap {
   'cloudflare.purge_cache': CloudflarePurgeCacheInput
   'cloudflare.list_workers': CloudflareListWorkersInput
   'cloudinary.list_resources': CloudinaryListResourcesInput
+  'cloudinary.search_resources': CloudinarySearchResourcesInput
   'cloudinary.get_resource': CloudinaryGetResourceInput
+  'cloudinary.upload_resource': CloudinaryUploadResourceInput
+  'cloudinary.update_resource_metadata': CloudinaryUpdateResourceMetadataInput
+  'cloudinary.create_transformation': CloudinaryCreateTransformationInput
+  'cloudinary.generate_derived_resource': CloudinaryGenerateDerivedResourceInput
   'cloudinary.delete_resource': CloudinaryDeleteResourceInput
+  'clover.get_merchant': CloverGetMerchantInput
+  'clover.list_items': CloverListItemsInput
+  'clover.get_item': CloverGetItemInput
+  'clover.create_item': CloverCreateItemInput
+  'clover.update_item': CloverUpdateItemInput
+  'clover.list_orders': CloverListOrdersInput
+  'clover.get_order': CloverGetOrderInput
+  'clover.list_customers': CloverListCustomersInput
+  'clover.get_customer': CloverGetCustomerInput
+  'clover.create_customer': CloverCreateCustomerInput
+  'clover.refund_payment': CloverRefundPaymentInput
   'coda.create_row': CodaCreateRowInput
   'coda.update_row': CodaUpdateRowInput
   'coda.upsert_row': CodaUpsertRowInput
@@ -64115,12 +68478,21 @@ export interface IntegrationActionInputMap {
   'confluent-cloud.get_environment': ConfluentCloudGetEnvironmentInput
   'confluent-cloud.list_kafka_clusters': ConfluentCloudListKafkaClustersInput
   'confluent-cloud.get_kafka_cluster': ConfluentCloudGetKafkaClusterInput
+  'confluent-cloud.list_topics': ConfluentCloudListTopicsInput
+  'confluent-cloud.get_topic': ConfluentCloudGetTopicInput
+  'confluent-cloud.create_topic': ConfluentCloudCreateTopicInput
+  'confluent-cloud.delete_topic': ConfluentCloudDeleteTopicInput
   'confluent-cloud.list_service_accounts': ConfluentCloudListServiceAccountsInput
   'confluent-cloud.get_service_account': ConfluentCloudGetServiceAccountInput
   'confluent-cloud.list_api_keys': ConfluentCloudListApiKeysInput
   'confluent-cloud.get_api_key': ConfluentCloudGetApiKeyInput
   'confluent-cloud.list_metric_descriptors': ConfluentCloudListMetricDescriptorsInput
   'confluent-cloud.query_metrics': ConfluentCloudQueryMetricsInput
+  'confluent-cloud.list_connectors': ConfluentCloudListConnectorsInput
+  'confluent-cloud.get_connector': ConfluentCloudGetConnectorInput
+  'confluent-cloud.get_connector_status': ConfluentCloudGetConnectorStatusInput
+  'confluent-cloud.create_connector': ConfluentCloudCreateConnectorInput
+  'confluent-cloud.delete_connector': ConfluentCloudDeleteConnectorInput
   'confluent-cloud.custom_api_call': ConfluentCloudCustomApiCallInput
   'connectwise.create_ticket': ConnectwiseCreateTicketInput
   'connectwise.list_tickets': ConnectwiseListTicketsInput
@@ -64281,6 +68653,8 @@ export interface IntegrationActionInputMap {
   'datocms.custom_api_call': DatocmsCustomApiCallInput
   'dbt-cloud.list_projects': DbtCloudListProjectsInput
   'dbt-cloud.get_project': DbtCloudGetProjectInput
+  'dbt-cloud.list_environments': DbtCloudListEnvironmentsInput
+  'dbt-cloud.get_environment': DbtCloudGetEnvironmentInput
   'dbt-cloud.list_jobs': DbtCloudListJobsInput
   'dbt-cloud.get_job': DbtCloudGetJobInput
   'dbt-cloud.trigger_job_run': DbtCloudTriggerJobRunInput
@@ -64472,10 +68846,15 @@ export interface IntegrationActionInputMap {
   'drchrono.list_appointments': DrchronoListAppointmentsInput
   'drchrono.list_offices': DrchronoListOfficesInput
   'drchrono.list_doctors': DrchronoListDoctorsInput
-  'drip.apply_tag_to_subscriber': DripApplyTagToSubscriberInput
-  'drip.add_subscriber_to_campaign': DripAddSubscriberToCampaignInput
-  'drip.upsert_subscriber': DripUpsertSubscriberInput
-  'drip.custom_api_call': DripCustomApiCallInput
+  'drip.list_subscribers': DripListSubscribersInput
+  'drip.get_subscriber': DripGetSubscriberInput
+  'drip.create_or_update_subscriber': DripCreateOrUpdateSubscriberInput
+  'drip.track_event': DripTrackEventInput
+  'drip.apply_tag': DripApplyTagInput
+  'drip.list_tags': DripListTagsInput
+  'drip.list_campaigns': DripListCampaignsInput
+  'drip.unsubscribe_all': DripUnsubscribeAllInput
+  'drip.delete_subscriber': DripDeleteSubscriberInput
   'dropbox.search_dropbox': DropboxSearchDropboxInput
   'dropbox.create_new_dropbox_text_file': DropboxCreateNewDropboxTextFileInput
   'dropbox.upload_dropbox_file': DropboxUploadDropboxFileInput
@@ -64506,6 +68885,16 @@ export interface IntegrationActionInputMap {
   'dub.list_links': DubListLinksInput
   'dub.update_link': DubUpdateLinkInput
   'dub.custom_api_call': DubCustomApiCallInput
+  'duo.list_users': DuoListUsersInput
+  'duo.get_user': DuoGetUserInput
+  'duo.list_groups': DuoListGroupsInput
+  'duo.get_group': DuoGetGroupInput
+  'duo.list_phones': DuoListPhonesInput
+  'duo.get_phone': DuoGetPhoneInput
+  'duo.list_integrations': DuoListIntegrationsInput
+  'duo.list_authentication_logs': DuoListAuthenticationLogsInput
+  'duo.list_administrator_logs': DuoListAdministratorLogsInput
+  'duo.set_user_status': DuoSetUserStatusInput
   'dwolla.list_customers': DwollaListCustomersInput
   'dwolla.create_customer': DwollaCreateCustomerInput
   'dwolla.create_transfer': DwollaCreateTransferInput
@@ -64524,11 +68913,17 @@ export interface IntegrationActionInputMap {
   'ecwid.get_order': EcwidGetOrderInput
   'ecwid.update_order': EcwidUpdateOrderInput
   'ecwid.custom_api_call': EcwidCustomApiCallInput
-  'elasticsearch.search': ElasticsearchSearchInput
+  'elasticsearch.validate_connection': ElasticsearchValidateConnectionInput
+  'elasticsearch.list_indices': ElasticsearchListIndicesInput
+  'elasticsearch.get_index': ElasticsearchGetIndexInput
+  'elasticsearch.create_index': ElasticsearchCreateIndexInput
+  'elasticsearch.delete_index': ElasticsearchDeleteIndexInput
+  'elasticsearch.search_documents': ElasticsearchSearchDocumentsInput
   'elasticsearch.index_document': ElasticsearchIndexDocumentInput
+  'elasticsearch.update_document': ElasticsearchUpdateDocumentInput
   'elasticsearch.get_document': ElasticsearchGetDocumentInput
   'elasticsearch.delete_document': ElasticsearchDeleteDocumentInput
-  'elasticsearch.list_indices': ElasticsearchListIndicesInput
+  'elasticsearch.custom_api_call': ElasticsearchCustomApiCallInput
   'elevenlabs.elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
   'elevenlabs.custom_api_call': ElevenlabsCustomApiCallInput
   'emailoctopus.add_or_update_contact': EmailoctopusAddOrUpdateContactInput
@@ -64582,10 +68977,14 @@ export interface IntegrationActionInputMap {
   'euler.call_mcp_tool': EulerCallMcpToolInput
   'euler.custom_mcp_request': EulerCustomMcpRequestInput
   'euler.get_connector_manifest': EulerGetConnectorManifestInput
+  'eventbrite.list_organizations': EventbriteListOrganizationsInput
   'eventbrite.create_event': EventbriteCreateEventInput
   'eventbrite.list_events': EventbriteListEventsInput
   'eventbrite.get_event': EventbriteGetEventInput
+  'eventbrite.update_event': EventbriteUpdateEventInput
+  'eventbrite.cancel_event': EventbriteCancelEventInput
   'eventbrite.list_attendees': EventbriteListAttendeesInput
+  'eventbrite.list_orders': EventbriteListOrdersInput
   'eventbrite.create_ticket_class': EventbriteCreateTicketClassInput
   'eventbrite.get_order': EventbriteGetOrderInput
   'eventbrite.custom_api_call': EventbriteCustomApiCallInput
@@ -64832,31 +69231,31 @@ export interface IntegrationActionInputMap {
   'freshsales.custom_api_call': FreshsalesCustomApiCallInput
   'freshservice.create_ticket': FreshserviceCreateTicketInput
   'freshservice.list_tickets': FreshserviceListTicketsInput
+  'freshservice.get_ticket': FreshserviceGetTicketInput
   'freshservice.update_ticket': FreshserviceUpdateTicketInput
+  'freshservice.delete_ticket': FreshserviceDeleteTicketInput
   'freshservice.list_agents': FreshserviceListAgentsInput
   'freshservice.list_requesters': FreshserviceListRequestersInput
+  'freshservice.list_problems': FreshserviceListProblemsInput
+  'freshservice.create_problem': FreshserviceCreateProblemInput
+  'freshservice.update_problem': FreshserviceUpdateProblemInput
+  'freshservice.delete_problem': FreshserviceDeleteProblemInput
+  'freshservice.list_changes': FreshserviceListChangesInput
+  'freshservice.create_change': FreshserviceCreateChangeInput
+  'freshservice.update_change': FreshserviceUpdateChangeInput
+  'freshservice.delete_change': FreshserviceDeleteChangeInput
   'freshservice.custom_api_call': FreshserviceCustomApiCallInput
-  'front.addComment': FrontAddCommentInput
-  'front.addContactHandle': FrontAddContactHandleInput
-  'front.addConversationLinks': FrontAddConversationLinksInput
-  'front.addConversationTags': FrontAddConversationTagsInput
-  'front.assignUnassignConversation': FrontAssignUnassignConversationInput
-  'front.createAccount': FrontCreateAccountInput
-  'front.createContact': FrontCreateContactInput
-  'front.createDraft': FrontCreateDraftInput
-  'front.createDraftReply': FrontCreateDraftReplyInput
-  'front.createLink': FrontCreateLinkInput
-  'front.findAccount': FrontFindAccountInput
-  'front.findContact': FrontFindContactInput
-  'front.findConversation': FrontFindConversationInput
-  'front.removeContactHandle': FrontRemoveContactHandleInput
-  'front.removeConversationLinks': FrontRemoveConversationLinksInput
-  'front.sendMessage': FrontSendMessageInput
-  'front.sendReply': FrontSendReplyInput
-  'front.updateAccount': FrontUpdateAccountInput
-  'front.updateContact': FrontUpdateContactInput
-  'front.updateConversation': FrontUpdateConversationInput
-  'front.updateLink': FrontUpdateLinkInput
+  'front.list_conversations': FrontListConversationsInput
+  'front.search_conversations': FrontSearchConversationsInput
+  'front.get_conversation': FrontGetConversationInput
+  'front.list_conversation_messages': FrontListConversationMessagesInput
+  'front.list_conversation_comments': FrontListConversationCommentsInput
+  'front.send_reply': FrontSendReplyInput
+  'front.add_comment': FrontAddCommentInput
+  'front.update_conversation': FrontUpdateConversationInput
+  'front.delete_conversation': FrontDeleteConversationInput
+  'front.list_contacts': FrontListContactsInput
+  'front.create_contact': FrontCreateContactInput
   'sftp.create_file': SftpCreateFileInput
   'sftp.upload_file': SftpUploadFileInput
   'sftp.read_file_content': SftpReadFileContentInput
@@ -65142,7 +69541,12 @@ export interface IntegrationActionInputMap {
   'grafana.list_dashboards': GrafanaListDashboardsInput
   'grafana.get_dashboard': GrafanaGetDashboardInput
   'grafana.create_alert_rule': GrafanaCreateAlertRuleInput
+  'grafana.get_alert_rule': GrafanaGetAlertRuleInput
+  'grafana.update_alert_rule': GrafanaUpdateAlertRuleInput
+  'grafana.delete_alert_rule': GrafanaDeleteAlertRuleInput
   'grafana.list_alerts': GrafanaListAlertsInput
+  'grafana.list_contact_points': GrafanaListContactPointsInput
+  'grafana.list_alertmanager_alerts': GrafanaListAlertmanagerAlertsInput
   'grafana.custom_api_call': GrafanaCustomApiCallInput
   'grain.validate_connection': GrainValidateConnectionInput
   'grain.list_recordings': GrainListRecordingsInput
@@ -65274,6 +69678,7 @@ export interface IntegrationActionInputMap {
   'help-scout.send_reply': HelpScoutSendReplyInput
   'help-scout.add_note': HelpScoutAddNoteInput
   'help-scout.update_conversation_status': HelpScoutUpdateConversationStatusInput
+  'help-scout.delete_conversation': HelpScoutDeleteConversationInput
   'help-scout.list_customers': HelpScoutListCustomersInput
   'hex.validate_connection': HexValidateConnectionInput
   'hex.list_projects': HexListProjectsInput
@@ -65474,6 +69879,17 @@ export interface IntegrationActionInputMap {
   'imap.copy_email': ImapCopyEmailInput
   'imap.move_email': ImapMoveEmailInput
   'imap.delete_email': ImapDeleteEmailInput
+  'imgix.list_sources': ImgixListSourcesInput
+  'imgix.get_source': ImgixGetSourceInput
+  'imgix.list_assets': ImgixListAssetsInput
+  'imgix.get_asset': ImgixGetAssetInput
+  'imgix.update_asset_metadata': ImgixUpdateAssetMetadataInput
+  'imgix.create_upload_session': ImgixCreateUploadSessionInput
+  'imgix.close_upload_session': ImgixCloseUploadSessionInput
+  'imgix.cancel_upload_session': ImgixCancelUploadSessionInput
+  'imgix.publish_asset': ImgixPublishAssetInput
+  'imgix.unpublish_asset': ImgixUnpublishAssetInput
+  'imgix.generate_rendering_url': ImgixGenerateRenderingUrlInput
   'incident-io.validate_connection': IncidentIoValidateConnectionInput
   'incident-io.list_incidents': IncidentIoListIncidentsInput
   'incident-io.search_incidents': IncidentIoSearchIncidentsInput
@@ -65554,6 +69970,17 @@ export interface IntegrationActionInputMap {
   'iterable.list_campaigns': IterableListCampaignsInput
   'iterable.send_targeted_email': IterableSendTargetedEmailInput
   'iterable.custom_api_call': IterableCustomApiCallInput
+  'jamf.list_computers': JamfListComputersInput
+  'jamf.get_computer_inventory': JamfGetComputerInventoryInput
+  'jamf.list_mobile_devices': JamfListMobileDevicesInput
+  'jamf.get_mobile_device': JamfGetMobileDeviceInput
+  'jamf.list_users': JamfListUsersInput
+  'jamf.get_user': JamfGetUserInput
+  'jamf.list_computer_groups': JamfListComputerGroupsInput
+  'jamf.get_computer_group': JamfGetComputerGroupInput
+  'jamf.list_mobile_device_groups': JamfListMobileDeviceGroupsInput
+  'jamf.get_mobile_device_group': JamfGetMobileDeviceGroupInput
+  'jamf.list_api_integrations': JamfListApiIntegrationsInput
   'code.run_code': CodeRunCodeInput
   'jazzhr.list_applicants': JazzhrListApplicantsInput
   'jazzhr.get_applicant': JazzhrGetApplicantInput
@@ -65809,12 +70236,32 @@ export interface IntegrationActionInputMap {
   'libretranslate.detect_language': LibretranslateDetectLanguageInput
   'libretranslate.list_languages': LibretranslateListLanguagesInput
   'libretranslate.custom_api_call': LibretranslateCustomApiCallInput
+  'lightspeed-restaurant.list_accounts': LightspeedRestaurantListAccountsInput
   'lightspeed-restaurant.list_orders': LightspeedRestaurantListOrdersInput
   'lightspeed-restaurant.get_order': LightspeedRestaurantGetOrderInput
+  'lightspeed-restaurant.update_order': LightspeedRestaurantUpdateOrderInput
   'lightspeed-restaurant.list_menu_items': LightspeedRestaurantListMenuItemsInput
+  'lightspeed-restaurant.get_menu_item': LightspeedRestaurantGetMenuItemInput
+  'lightspeed-restaurant.update_menu_item': LightspeedRestaurantUpdateMenuItemInput
+  'lightspeed-restaurant.list_customers': LightspeedRestaurantListCustomersInput
+  'lightspeed-restaurant.get_customer': LightspeedRestaurantGetCustomerInput
+  'lightspeed-restaurant.create_customer': LightspeedRestaurantCreateCustomerInput
   'lightspeed-restaurant.get_employee': LightspeedRestaurantGetEmployeeInput
   'lightspeed-restaurant.get_table': LightspeedRestaurantGetTableInput
   'lightspeed-restaurant.custom_api_call': LightspeedRestaurantCustomApiCallInput
+  'lightspeed-retail.get_current_user': LightspeedRetailGetCurrentUserInput
+  'lightspeed-retail.list_products': LightspeedRetailListProductsInput
+  'lightspeed-retail.get_product': LightspeedRetailGetProductInput
+  'lightspeed-retail.create_product': LightspeedRetailCreateProductInput
+  'lightspeed-retail.update_product': LightspeedRetailUpdateProductInput
+  'lightspeed-retail.list_customers': LightspeedRetailListCustomersInput
+  'lightspeed-retail.get_customer': LightspeedRetailGetCustomerInput
+  'lightspeed-retail.create_customer': LightspeedRetailCreateCustomerInput
+  'lightspeed-retail.update_customer': LightspeedRetailUpdateCustomerInput
+  'lightspeed-retail.list_sales': LightspeedRetailListSalesInput
+  'lightspeed-retail.get_sale': LightspeedRetailGetSaleInput
+  'lightspeed-retail.create_sale': LightspeedRetailCreateSaleInput
+  'lightspeed-retail.list_outlets': LightspeedRetailListOutletsInput
   'line.push_message': LinePushMessageInput
   'line.custom_api_call': LineCustomApiCallInput
   'linear.create_issue': LinearCreateIssueInput
@@ -65900,6 +70347,20 @@ export interface IntegrationActionInputMap {
   'lokalise.update_key': LokaliseUpdateKeyInput
   'lokalise.upload_file': LokaliseUploadFileInput
   'lokalise.download_file': LokaliseDownloadFileInput
+  'looker.validate_connection': LookerValidateConnectionInput
+  'looker.search_content': LookerSearchContentInput
+  'looker.search_dashboards': LookerSearchDashboardsInput
+  'looker.get_dashboard': LookerGetDashboardInput
+  'looker.create_dashboard': LookerCreateDashboardInput
+  'looker.update_dashboard': LookerUpdateDashboardInput
+  'looker.search_looks': LookerSearchLooksInput
+  'looker.get_look': LookerGetLookInput
+  'looker.run_saved_query': LookerRunSavedQueryInput
+  'looker.run_inline_query': LookerRunInlineQueryInput
+  'looker.create_dashboard_render_task': LookerCreateDashboardRenderTaskInput
+  'looker.get_render_task': LookerGetRenderTaskInput
+  'looker.get_render_task_results': LookerGetRenderTaskResultsInput
+  'looker.run_scheduled_plan_once': LookerRunScheduledPlanOnceInput
   'loom.list_videos': LoomListVideosInput
   'loom.get_video': LoomGetVideoInput
   'loom.update_video': LoomUpdateVideoInput
@@ -65926,6 +70387,20 @@ export interface IntegrationActionInputMap {
   'lucid.create_document_embed': LucidCreateDocumentEmbedInput
   'lucid.list_users': LucidListUsersInput
   'lucid.custom_api_call': LucidCustomApiCallInput
+  'luma.get_calendar': LumaGetCalendarInput
+  'luma.list_calendar_events': LumaListCalendarEventsInput
+  'luma.lookup_event': LumaLookupEventInput
+  'luma.get_event': LumaGetEventInput
+  'luma.create_event': LumaCreateEventInput
+  'luma.update_event': LumaUpdateEventInput
+  'luma.list_guests': LumaListGuestsInput
+  'luma.get_guest': LumaGetGuestInput
+  'luma.add_guests': LumaAddGuestsInput
+  'luma.update_guest_status': LumaUpdateGuestStatusInput
+  'luma.list_ticket_types': LumaListTicketTypesInput
+  'luma.create_ticket_type': LumaCreateTicketTypeInput
+  'luma.request_event_cancellation': LumaRequestEventCancellationInput
+  'luma.cancel_event': LumaCancelEventInput
   'magento.list_products': MagentoListProductsInput
   'magento.get_product': MagentoGetProductInput
   'magento.create_product': MagentoCreateProductInput
@@ -66127,17 +70602,26 @@ export interface IntegrationActionInputMap {
   'microsoft-365.delete_subscription': Microsoft365DeleteSubscriptionInput
   'microsoft-365.get_next_page': Microsoft365GetNextPageInput
   'microsoft-365.custom_api_call': Microsoft365CustomApiCallInput
-  'microsoft-365-planner.createPlan': Microsoft365PlannerCreatePlanInput
-  'microsoft-365-planner.createBucket': Microsoft365PlannerCreateBucketInput
-  'microsoft-365-planner.createTask': Microsoft365PlannerCreateTaskInput
-  'microsoft-365-planner.deleteBucket': Microsoft365PlannerDeleteBucketInput
-  'microsoft-365-planner.deleteTask': Microsoft365PlannerDeleteTaskInput
-  'microsoft-365-planner.updatePlan': Microsoft365PlannerUpdatePlanInput
-  'microsoft-365-planner.updateBucket': Microsoft365PlannerUpdateBucketInput
-  'microsoft-365-planner.updateTask': Microsoft365PlannerUpdateTaskInput
-  'microsoft-365-planner.findAPlan': Microsoft365PlannerFindAPlanInput
-  'microsoft-365-planner.getABucket': Microsoft365PlannerGetABucketInput
-  'microsoft-365-planner.findTask': Microsoft365PlannerFindTaskInput
+  'microsoft-365-planner.list_groups': Microsoft365PlannerListGroupsInput
+  'microsoft-365-planner.list_plans': Microsoft365PlannerListPlansInput
+  'microsoft-365-planner.get_plan': Microsoft365PlannerGetPlanInput
+  'microsoft-365-planner.get_plan_details': Microsoft365PlannerGetPlanDetailsInput
+  'microsoft-365-planner.create_plan': Microsoft365PlannerCreatePlanInput
+  'microsoft-365-planner.update_plan': Microsoft365PlannerUpdatePlanInput
+  'microsoft-365-planner.list_buckets': Microsoft365PlannerListBucketsInput
+  'microsoft-365-planner.get_bucket': Microsoft365PlannerGetBucketInput
+  'microsoft-365-planner.create_bucket': Microsoft365PlannerCreateBucketInput
+  'microsoft-365-planner.update_bucket': Microsoft365PlannerUpdateBucketInput
+  'microsoft-365-planner.delete_bucket': Microsoft365PlannerDeleteBucketInput
+  'microsoft-365-planner.list_tasks': Microsoft365PlannerListTasksInput
+  'microsoft-365-planner.get_task': Microsoft365PlannerGetTaskInput
+  'microsoft-365-planner.get_task_details': Microsoft365PlannerGetTaskDetailsInput
+  'microsoft-365-planner.create_task': Microsoft365PlannerCreateTaskInput
+  'microsoft-365-planner.update_task': Microsoft365PlannerUpdateTaskInput
+  'microsoft-365-planner.move_task': Microsoft365PlannerMoveTaskInput
+  'microsoft-365-planner.update_task_details': Microsoft365PlannerUpdateTaskDetailsInput
+  'microsoft-365-planner.delete_task': Microsoft365PlannerDeleteTaskInput
+  'microsoft-365-planner.list_members': Microsoft365PlannerListMembersInput
   'microsoft-365-planner.custom_api_call': Microsoft365PlannerCustomApiCallInput
   'microsoft-dynamics-crm.who_am_i': MicrosoftDynamicsCrmWhoAmIInput
   'microsoft-dynamics-crm.list_tables': MicrosoftDynamicsCrmListTablesInput
@@ -66225,9 +70709,18 @@ export interface IntegrationActionInputMap {
   'microsoft-outlook-calendar.delete_event': MicrosoftOutlookCalendarDeleteEventInput
   'microsoft-outlook-calendar.list_events': MicrosoftOutlookCalendarListEventsInput
   'microsoft-outlook-calendar.custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
-  'microsoft-power-bi.create_dataset': MicrosoftPowerBiCreateDatasetInput
-  'microsoft-power-bi.push_rows_to_dataset_table': MicrosoftPowerBiPushRowsToDatasetTableInput
-  'microsoft-power-bi.custom_api_call': MicrosoftPowerBiCustomApiCallInput
+  'microsoft-power-bi.validate_connection': MicrosoftPowerBiValidateConnectionInput
+  'microsoft-power-bi.list_workspaces': MicrosoftPowerBiListWorkspacesInput
+  'microsoft-power-bi.list_dashboards': MicrosoftPowerBiListDashboardsInput
+  'microsoft-power-bi.get_dashboard': MicrosoftPowerBiGetDashboardInput
+  'microsoft-power-bi.list_reports': MicrosoftPowerBiListReportsInput
+  'microsoft-power-bi.get_report': MicrosoftPowerBiGetReportInput
+  'microsoft-power-bi.list_datasets': MicrosoftPowerBiListDatasetsInput
+  'microsoft-power-bi.get_dataset': MicrosoftPowerBiGetDatasetInput
+  'microsoft-power-bi.refresh_dataset': MicrosoftPowerBiRefreshDatasetInput
+  'microsoft-power-bi.get_refresh_history': MicrosoftPowerBiGetRefreshHistoryInput
+  'microsoft-power-bi.create_report_export': MicrosoftPowerBiCreateReportExportInput
+  'microsoft-power-bi.get_report_export': MicrosoftPowerBiGetReportExportInput
   'microsoft-sharepoint.microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
   'microsoft-sharepoint.microsoft_sharepoint_create_list': MicrosoftSharepointMicrosoftSharepointCreateListInput
   'microsoft-sharepoint.microsoft_sharepoint_create_list_item': MicrosoftSharepointMicrosoftSharepointCreateListItemInput
@@ -66306,6 +70799,20 @@ export interface IntegrationActionInputMap {
   'mixpanel.set_profile_properties': MixpanelSetProfilePropertiesInput
   'mixpanel.query_profiles': MixpanelQueryProfilesInput
   'mixpanel.query_saved_report': MixpanelQuerySavedReportInput
+  'mode.validate_connection': ModeValidateConnectionInput
+  'mode.list_reports_for_space': ModeListReportsForSpaceInput
+  'mode.get_report': ModeGetReportInput
+  'mode.update_report': ModeUpdateReportInput
+  'mode.list_report_runs': ModeListReportRunsInput
+  'mode.run_report': ModeRunReportInput
+  'mode.list_queries': ModeListQueriesInput
+  'mode.get_query': ModeGetQueryInput
+  'mode.create_query': ModeCreateQueryInput
+  'mode.update_query': ModeUpdateQueryInput
+  'mode.list_query_runs': ModeListQueryRunsInput
+  'mode.export_query_run_results': ModeExportQueryRunResultsInput
+  'mode.get_dataset': ModeGetDatasetInput
+  'mode.list_reports_for_dataset': ModeListReportsForDatasetInput
   'mollie.create_order': MollieCreateOrderInput
   'mollie.create_payment_link': MollieCreatePaymentLinkInput
   'mollie.create_payment': MollieCreatePaymentInput
@@ -66354,12 +70861,28 @@ export interface IntegrationActionInputMap {
   'mux.list_assets': MuxListAssetsInput
   'mux.get_asset': MuxGetAssetInput
   'mux.create_asset': MuxCreateAssetInput
+  'mux.create_direct_upload': MuxCreateDirectUploadInput
+  'mux.create_playback_id': MuxCreatePlaybackIdInput
+  'mux.add_caption_track': MuxAddCaptionTrackInput
+  'mux.get_playback_urls': MuxGetPlaybackUrlsInput
+  'mux.generate_signed_playback_url': MuxGenerateSignedPlaybackUrlInput
   'mux.list_live_streams': MuxListLiveStreamsInput
+  'mux.delete_asset': MuxDeleteAssetInput
   'mycase.list_cases': MycaseListCasesInput
   'mycase.get_case': MycaseGetCaseInput
   'mycase.list_contacts': MycaseListContactsInput
   'mycase.create_contact': MycaseCreateContactInput
   'mycase.custom_api_call': MycaseCustomApiCallInput
+  'myob.list_customers': MyobListCustomersInput
+  'myob.list_suppliers': MyobListSuppliersInput
+  'myob.list_employees': MyobListEmployeesInput
+  'myob.list_accounts': MyobListAccountsInput
+  'myob.list_invoices': MyobListInvoicesInput
+  'myob.list_bills': MyobListBillsInput
+  'myob.list_customer_payments': MyobListCustomerPaymentsInput
+  'myob.get_record': MyobGetRecordInput
+  'myob.create_record': MyobCreateRecordInput
+  'myob.update_record': MyobUpdateRecordInput
   'mysql.find_rows': MysqlFindRowsInput
   'mysql.insert_row': MysqlInsertRowInput
   'mysql.update_row': MysqlUpdateRowInput
@@ -66499,10 +71022,26 @@ export interface IntegrationActionInputMap {
   'omnisend.send_event': OmnisendSendEventInput
   'omnisend.create_batch': OmnisendCreateBatchInput
   'omnisend.list_campaigns': OmnisendListCampaignsInput
+  'omnisend.get_campaign': OmnisendGetCampaignInput
+  'omnisend.list_segments': OmnisendListSegmentsInput
+  'omnisend.get_segment': OmnisendGetSegmentInput
+  'omnisend.create_order': OmnisendCreateOrderInput
+  'omnisend.list_orders': OmnisendListOrdersInput
   'omnisend.custom_api_call': OmnisendCustomApiCallInput
   'oncehub.findContact': OncehubFindContactInput
   'oncehub.createContact': OncehubCreateContactInput
   'oncehub.custom_api_call': OncehubCustomApiCallInput
+  'onelogin.list_users': OneloginListUsersInput
+  'onelogin.get_user': OneloginGetUserInput
+  'onelogin.list_user_apps': OneloginListUserAppsInput
+  'onelogin.list_groups': OneloginListGroupsInput
+  'onelogin.get_group': OneloginGetGroupInput
+  'onelogin.list_roles': OneloginListRolesInput
+  'onelogin.list_apps': OneloginListAppsInput
+  'onelogin.get_app': OneloginGetAppInput
+  'onelogin.list_events': OneloginListEventsInput
+  'onelogin.set_user_status': OneloginSetUserStatusInput
+  'onelogin.get_rate_limit': OneloginGetRateLimitInput
   'onesignal.send_notification': OnesignalSendNotificationInput
   'onesignal.list_notifications': OnesignalListNotificationsInput
   'onesignal.list_devices': OnesignalListDevicesInput
@@ -66527,6 +71066,17 @@ export interface IntegrationActionInputMap {
   'open-router.list_models': OpenRouterListModelsInput
   'open-router.list_model_endpoints': OpenRouterListModelEndpointsInput
   'open-router.get_credits': OpenRouterGetCreditsInput
+  'opensearch.validate_connection': OpensearchValidateConnectionInput
+  'opensearch.list_indices': OpensearchListIndicesInput
+  'opensearch.get_index': OpensearchGetIndexInput
+  'opensearch.create_index': OpensearchCreateIndexInput
+  'opensearch.delete_index': OpensearchDeleteIndexInput
+  'opensearch.search_documents': OpensearchSearchDocumentsInput
+  'opensearch.index_document': OpensearchIndexDocumentInput
+  'opensearch.update_document': OpensearchUpdateDocumentInput
+  'opensearch.get_document': OpensearchGetDocumentInput
+  'opensearch.delete_document': OpensearchDeleteDocumentInput
+  'opensearch.custom_api_call': OpensearchCustomApiCallInput
   'opentable.list_reservations': OpentableListReservationsInput
   'opentable.get_availability': OpentableGetAvailabilityInput
   'opentable.list_restaurants': OpentableListRestaurantsInput
@@ -66898,6 +71448,13 @@ export interface IntegrationActionInputMap {
   'productlane.create_issue': ProductlaneCreateIssueInput
   'productlane.list_changelogs': ProductlaneListChangelogsInput
   'productlane.create_changelog': ProductlaneCreateChangelogInput
+  'prometheus.instant_query': PrometheusInstantQueryInput
+  'prometheus.range_query': PrometheusRangeQueryInput
+  'prometheus.list_alerts': PrometheusListAlertsInput
+  'prometheus.list_rules': PrometheusListRulesInput
+  'prometheus.list_targets': PrometheusListTargetsInput
+  'prometheus.get_status': PrometheusGetStatusInput
+  'prometheus.list_series': PrometheusListSeriesInput
   'propertyware.list_units': PropertywareListUnitsInput
   'propertyware.list_tenants': PropertywareListTenantsInput
   'propertyware.list_work_orders': PropertywareListWorkOrdersInput
@@ -67210,6 +71767,24 @@ export interface IntegrationActionInputMap {
   'redis-cloud.delete_database': RedisCloudDeleteDatabaseInput
   'redis-cloud.get_task': RedisCloudGetTaskInput
   'redis-cloud.custom_api_call': RedisCloudCustomApiCallInput
+  'redpanda.validate_connection': RedpandaValidateConnectionInput
+  'redpanda.list_topics': RedpandaListTopicsInput
+  'redpanda.create_topic': RedpandaCreateTopicInput
+  'redpanda.delete_topic': RedpandaDeleteTopicInput
+  'redpanda.get_topic_configurations': RedpandaGetTopicConfigurationsInput
+  'redpanda.set_topic_configurations': RedpandaSetTopicConfigurationsInput
+  'redpanda.list_connect_clusters': RedpandaListConnectClustersInput
+  'redpanda.get_connect_cluster': RedpandaGetConnectClusterInput
+  'redpanda.list_connectors': RedpandaListConnectorsInput
+  'redpanda.create_connector': RedpandaCreateConnectorInput
+  'redpanda.get_connector': RedpandaGetConnectorInput
+  'redpanda.get_connector_status': RedpandaGetConnectorStatusInput
+  'redpanda.upsert_connector_config': RedpandaUpsertConnectorConfigInput
+  'redpanda.pause_connector': RedpandaPauseConnectorInput
+  'redpanda.resume_connector': RedpandaResumeConnectorInput
+  'redpanda.restart_connector': RedpandaRestartConnectorInput
+  'redpanda.stop_connector': RedpandaStopConnectorInput
+  'redpanda.delete_connector': RedpandaDeleteConnectorInput
   'reducto.parse_document': ReductoParseDocumentInput
   'reducto.start_parse_job': ReductoStartParseJobInput
   'reducto.get_job': ReductoGetJobInput
@@ -67328,6 +71903,32 @@ export interface IntegrationActionInputMap {
   'runway.get_task': RunwayGetTaskInput
   'runway.list_assets': RunwayListAssetsInput
   'runway.custom_api_call': RunwayCustomApiCallInput
+  'sage-accounting.list_businesses': SageAccountingListBusinessesInput
+  'sage-accounting.list_contacts': SageAccountingListContactsInput
+  'sage-accounting.get_contact': SageAccountingGetContactInput
+  'sage-accounting.create_contact': SageAccountingCreateContactInput
+  'sage-accounting.update_contact': SageAccountingUpdateContactInput
+  'sage-accounting.list_sales_invoices': SageAccountingListSalesInvoicesInput
+  'sage-accounting.get_sales_invoice': SageAccountingGetSalesInvoiceInput
+  'sage-accounting.create_sales_invoice': SageAccountingCreateSalesInvoiceInput
+  'sage-accounting.update_sales_invoice': SageAccountingUpdateSalesInvoiceInput
+  'sage-accounting.list_purchase_invoices': SageAccountingListPurchaseInvoicesInput
+  'sage-accounting.get_purchase_invoice': SageAccountingGetPurchaseInvoiceInput
+  'sage-accounting.create_purchase_invoice': SageAccountingCreatePurchaseInvoiceInput
+  'sage-accounting.update_purchase_invoice': SageAccountingUpdatePurchaseInvoiceInput
+  'sage-accounting.list_contact_payments': SageAccountingListContactPaymentsInput
+  'sage-accounting.list_ledger_accounts': SageAccountingListLedgerAccountsInput
+  'sage-intacct.list_customers': SageIntacctListCustomersInput
+  'sage-intacct.list_vendors': SageIntacctListVendorsInput
+  'sage-intacct.list_invoices': SageIntacctListInvoicesInput
+  'sage-intacct.list_bills': SageIntacctListBillsInput
+  'sage-intacct.list_accounts': SageIntacctListAccountsInput
+  'sage-intacct.list_payments': SageIntacctListPaymentsInput
+  'sage-intacct.list_employees': SageIntacctListEmployeesInput
+  'sage-intacct.get_record': SageIntacctGetRecordInput
+  'sage-intacct.query_records': SageIntacctQueryRecordsInput
+  'sage-intacct.create_record': SageIntacctCreateRecordInput
+  'sage-intacct.update_record': SageIntacctUpdateRecordInput
   'saleor.rawGraphqlQuery': SaleorRawGraphqlQueryInput
   'saleor.getOrder': SaleorGetOrderInput
   'saleor.addOrderNote': SaleorAddOrderNoteInput
@@ -67380,6 +71981,15 @@ export interface IntegrationActionInputMap {
   'sanity.create_document': SanityCreateDocumentInput
   'sanity.update_document': SanityUpdateDocumentInput
   'sanity.delete_document': SanityDeleteDocumentInput
+  'sap-successfactors.list_users': SapSuccessfactorsListUsersInput
+  'sap-successfactors.get_user': SapSuccessfactorsGetUserInput
+  'sap-successfactors.list_persons': SapSuccessfactorsListPersonsInput
+  'sap-successfactors.get_person': SapSuccessfactorsGetPersonInput
+  'sap-successfactors.list_employments': SapSuccessfactorsListEmploymentsInput
+  'sap-successfactors.list_jobs': SapSuccessfactorsListJobsInput
+  'sap-successfactors.list_time_off': SapSuccessfactorsListTimeOffInput
+  'sap-successfactors.upsert_time_off': SapSuccessfactorsUpsertTimeOffInput
+  'sap-successfactors.upsert_record': SapSuccessfactorsUpsertRecordInput
   'schoology.list_courses': SchoologyListCoursesInput
   'schoology.list_sections': SchoologyListSectionsInput
   'schoology.list_assignments': SchoologyListAssignmentsInput
@@ -67457,6 +72067,8 @@ export interface IntegrationActionInputMap {
   'serpapi.google_maps_search': SerpapiGoogleMapsSearchInput
   'serpapi.search_locations': SerpapiSearchLocationsInput
   'serpapi.account_status': SerpapiAccountStatusInput
+  'service-now.list_incidents': ServiceNowListIncidentsInput
+  'service-now.create_incident': ServiceNowCreateIncidentInput
   'service-now.list_records': ServiceNowListRecordsInput
   'service-now.get_record': ServiceNowGetRecordInput
   'service-now.create_record': ServiceNowCreateRecordInput
@@ -67637,6 +72249,31 @@ export interface IntegrationActionInputMap {
   'sonarqube.get_measures': SonarqubeGetMeasuresInput
   'sonarqube.search_issues': SonarqubeSearchIssuesInput
   'sonarqube.list_quality_gates': SonarqubeListQualityGatesInput
+  'splunk.validate_connection': SplunkValidateConnectionInput
+  'splunk.create_search_job': SplunkCreateSearchJobInput
+  'splunk.get_search_job': SplunkGetSearchJobInput
+  'splunk.get_search_results': SplunkGetSearchResultsInput
+  'splunk.list_saved_searches': SplunkListSavedSearchesInput
+  'splunk.get_saved_search': SplunkGetSavedSearchInput
+  'splunk.dispatch_saved_search': SplunkDispatchSavedSearchInput
+  'splunk.update_saved_search': SplunkUpdateSavedSearchInput
+  'splunk.list_fired_alerts': SplunkListFiredAlertsInput
+  'splunk-on-call.list_current_incidents': SplunkOnCallListCurrentIncidentsInput
+  'splunk-on-call.search_incident_history': SplunkOnCallSearchIncidentHistoryInput
+  'splunk-on-call.get_incident': SplunkOnCallGetIncidentInput
+  'splunk-on-call.create_incident': SplunkOnCallCreateIncidentInput
+  'splunk-on-call.acknowledge_incident': SplunkOnCallAcknowledgeIncidentInput
+  'splunk-on-call.resolve_incident': SplunkOnCallResolveIncidentInput
+  'splunk-on-call.get_alert': SplunkOnCallGetAlertInput
+  'splunk-on-call.list_on_call_users': SplunkOnCallListOnCallUsersInput
+  'splunk-on-call.get_team_schedule': SplunkOnCallGetTeamScheduleInput
+  'splunk-on-call.list_teams': SplunkOnCallListTeamsInput
+  'splunk-on-call.list_escalation_policies': SplunkOnCallListEscalationPoliciesInput
+  'splunk-on-call.list_routing_keys': SplunkOnCallListRoutingKeysInput
+  'splunk-on-call.list_alert_rules': SplunkOnCallListAlertRulesInput
+  'splunk-on-call.create_alert_rule': SplunkOnCallCreateAlertRuleInput
+  'splunk-on-call.update_alert_rule': SplunkOnCallUpdateAlertRuleInput
+  'splunk-on-call.delete_alert_rule': SplunkOnCallDeleteAlertRuleInput
   'spotify.search': SpotifySearchInput
   'spotify.get_playback_state': SpotifyGetPlaybackStateInput
   'spotify.play': SpotifyPlayInput
@@ -67877,6 +72514,19 @@ export interface IntegrationActionInputMap {
   'synthesia.list_videos': SynthesiaListVideosInput
   'synthesia.list_avatars': SynthesiaListAvatarsInput
   'synthesia.custom_api_call': SynthesiaCustomApiCallInput
+  'tableau.validate_connection': TableauValidateConnectionInput
+  'tableau.list_workbooks': TableauListWorkbooksInput
+  'tableau.get_workbook': TableauGetWorkbookInput
+  'tableau.list_views': TableauListViewsInput
+  'tableau.get_view': TableauGetViewInput
+  'tableau.list_datasources': TableauListDatasourcesInput
+  'tableau.get_datasource': TableauGetDatasourceInput
+  'tableau.refresh_datasource': TableauRefreshDatasourceInput
+  'tableau.refresh_workbook': TableauRefreshWorkbookInput
+  'tableau.export_view_data': TableauExportViewDataInput
+  'tableau.export_view_pdf': TableauExportViewPdfInput
+  'tableau.list_webhooks': TableauListWebhooksInput
+  'tableau.create_webhook': TableauCreateWebhookInput
   'talentlms.get_user': TalentlmsGetUserInput
   'talentlms.create_user': TalentlmsCreateUserInput
   'talentlms.get_course': TalentlmsGetCourseInput
@@ -67976,10 +72626,20 @@ export interface IntegrationActionInputMap {
   'ticktick.find_task': TicktickFindTaskInput
   'ticktick.get_project': TicktickGetProjectInput
   'ticktick.custom_api_call': TicktickCustomApiCallInput
-  'tidio.send_message': TidioSendMessageInput
-  'tidio.list_visitors': TidioListVisitorsInput
-  'tidio.list_conversations': TidioListConversationsInput
-  'tidio.get_operator': TidioGetOperatorInput
+  'tidio.get_project': TidioGetProjectInput
+  'tidio.list_contacts': TidioListContactsInput
+  'tidio.get_contact': TidioGetContactInput
+  'tidio.create_contact': TidioCreateContactInput
+  'tidio.update_contact': TidioUpdateContactInput
+  'tidio.delete_contact': TidioDeleteContactInput
+  'tidio.list_tickets': TidioListTicketsInput
+  'tidio.get_ticket': TidioGetTicketInput
+  'tidio.create_ticket_as_contact': TidioCreateTicketAsContactInput
+  'tidio.update_ticket': TidioUpdateTicketInput
+  'tidio.reply_to_ticket': TidioReplyToTicketInput
+  'tidio.delete_ticket': TidioDeleteTicketInput
+  'tidio.list_operators': TidioListOperatorsInput
+  'tidio.list_departments': TidioListDepartmentsInput
   'tidio.custom_api_call': TidioCustomApiCallInput
   'tidycal.list_bookings': TidycalListBookingsInput
   'tidycal.get_booking': TidycalGetBookingInput
@@ -68029,10 +72689,29 @@ export interface IntegrationActionInputMap {
   'toast-pos.get_employee': ToastPosGetEmployeeInput
   'toast-pos.get_restaurant': ToastPosGetRestaurantInput
   'toast-pos.custom_api_call': ToastPosCustomApiCallInput
+  'todoist.list_projects': TodoistListProjectsInput
+  'todoist.get_project': TodoistGetProjectInput
+  'todoist.search_projects': TodoistSearchProjectsInput
+  'todoist.create_project': TodoistCreateProjectInput
+  'todoist.update_project': TodoistUpdateProjectInput
+  'todoist.archive_project': TodoistArchiveProjectInput
+  'todoist.delete_project': TodoistDeleteProjectInput
+  'todoist.list_sections': TodoistListSectionsInput
+  'todoist.create_section': TodoistCreateSectionInput
+  'todoist.update_section': TodoistUpdateSectionInput
+  'todoist.delete_section': TodoistDeleteSectionInput
+  'todoist.list_tasks': TodoistListTasksInput
+  'todoist.get_task': TodoistGetTaskInput
   'todoist.create_task': TodoistCreateTaskInput
   'todoist.update_task': TodoistUpdateTaskInput
-  'todoist.find_task': TodoistFindTaskInput
-  'todoist.mark_task_completed': TodoistMarkTaskCompletedInput
+  'todoist.move_task': TodoistMoveTaskInput
+  'todoist.close_task': TodoistCloseTaskInput
+  'todoist.reopen_task': TodoistReopenTaskInput
+  'todoist.delete_task': TodoistDeleteTaskInput
+  'todoist.list_comments': TodoistListCommentsInput
+  'todoist.add_comment': TodoistAddCommentInput
+  'todoist.update_comment': TodoistUpdateCommentInput
+  'todoist.delete_comment': TodoistDeleteCommentInput
   'todoist.custom_api_call': TodoistCustomApiCallInput
   'together-ai.chat': TogetherAiChatInput
   'together-ai.embed': TogetherAiEmbedInput
@@ -68057,14 +72736,29 @@ export interface IntegrationActionInputMap {
   'transistor.update_episode_metadata': TransistorUpdateEpisodeMetadataInput
   'transistor.list_subscribers': TransistorListSubscribersInput
   'transistor.get_show_analytics': TransistorGetShowAnalyticsInput
-  'trello.create_card': TrelloCreateCardInput
+  'trello.list_boards': TrelloListBoardsInput
+  'trello.get_board': TrelloGetBoardInput
+  'trello.search': TrelloSearchInput
+  'trello.list_lists': TrelloListListsInput
+  'trello.create_list': TrelloCreateListInput
+  'trello.update_list': TrelloUpdateListInput
+  'trello.list_cards': TrelloListCardsInput
   'trello.get_card': TrelloGetCardInput
+  'trello.create_card': TrelloCreateCardInput
   'trello.update_card': TrelloUpdateCardInput
+  'trello.move_card': TrelloMoveCardInput
+  'trello.archive_card': TrelloArchiveCardInput
   'trello.delete_card': TrelloDeleteCardInput
-  'trello.get_card_attachments': TrelloGetCardAttachmentsInput
-  'trello.add_card_attachment': TrelloAddCardAttachmentInput
-  'trello.get_card_attachment': TrelloGetCardAttachmentInput
-  'trello.delete_card_attachment': TrelloDeleteCardAttachmentInput
+  'trello.list_comments': TrelloListCommentsInput
+  'trello.add_comment': TrelloAddCommentInput
+  'trello.update_comment': TrelloUpdateCommentInput
+  'trello.delete_comment': TrelloDeleteCommentInput
+  'trello.list_members': TrelloListMembersInput
+  'trello.add_member_to_card': TrelloAddMemberToCardInput
+  'trello.remove_member_from_card': TrelloRemoveMemberFromCardInput
+  'trello.create_webhook': TrelloCreateWebhookInput
+  'trello.delete_webhook': TrelloDeleteWebhookInput
+  'trello.custom_api_call': TrelloCustomApiCallInput
   'trustpilot.list_reviews': TrustpilotListReviewsInput
   'trustpilot.get_review': TrustpilotGetReviewInput
   'trustpilot.reply_to_review': TrustpilotReplyToReviewInput
@@ -68164,8 +72858,16 @@ export interface IntegrationActionInputMap {
   'vercel.custom_api_call': VercelCustomApiCallInput
   'vidyard.list_videos': VidyardListVideosInput
   'vidyard.get_video': VidyardGetVideoInput
+  'vidyard.create_video': VidyardCreateVideoInput
+  'vidyard.update_video_metadata': VidyardUpdateVideoMetadataInput
+  'vidyard.get_video_status': VidyardGetVideoStatusInput
   'vidyard.get_analytics': VidyardGetAnalyticsInput
-  'vidyard.custom_api_call': VidyardCustomApiCallInput
+  'vidyard.list_captions': VidyardListCaptionsInput
+  'vidyard.create_caption': VidyardCreateCaptionInput
+  'vidyard.update_caption': VidyardUpdateCaptionInput
+  'vidyard.list_thumbnails': VidyardListThumbnailsInput
+  'vidyard.update_selected_thumbnail': VidyardUpdateSelectedThumbnailInput
+  'vidyard.delete_video': VidyardDeleteVideoInput
   'vimeo.upload_video': VimeoUploadVideoInput
   'vimeo.delete_video': VimeoDeleteVideoInput
   'vimeo.add_video_to_showcase': VimeoAddVideoToShowcaseInput
@@ -68283,6 +72985,18 @@ export interface IntegrationActionInputMap {
   'wise.create_quote': WiseCreateQuoteInput
   'wise.list_transfers': WiseListTransfersInput
   'wise.get_exchange_rate': WiseGetExchangeRateInput
+  'wistia.list_projects': WistiaListProjectsInput
+  'wistia.get_project': WistiaGetProjectInput
+  'wistia.list_medias': WistiaListMediasInput
+  'wistia.get_media': WistiaGetMediaInput
+  'wistia.upload_media_from_url': WistiaUploadMediaFromUrlInput
+  'wistia.update_media_metadata': WistiaUpdateMediaMetadataInput
+  'wistia.get_media_stats': WistiaGetMediaStatsInput
+  'wistia.list_captions': WistiaListCaptionsInput
+  'wistia.get_caption': WistiaGetCaptionInput
+  'wistia.create_or_update_caption': WistiaCreateOrUpdateCaptionInput
+  'wistia.update_thumbnail_from_url': WistiaUpdateThumbnailFromUrlInput
+  'wistia.delete_media': WistiaDeleteMediaInput
   'wix.list_sites': WixListSitesInput
   'wix.create_contact': WixCreateContactInput
   'wix.list_contacts': WixListContactsInput
@@ -68505,6 +73219,17 @@ export interface IntegrationActionInputMap {
 }
 
 export interface IntegrationActionInputsByIntegration {
+  '1password': {
+    'list_vaults': Integration1passwordListVaultsInput
+    'get_vault': Integration1passwordGetVaultInput
+    'list_items': Integration1passwordListItemsInput
+    'get_item_metadata': Integration1passwordGetItemMetadataInput
+    'reveal_item_values': Integration1passwordRevealItemValuesInput
+    'list_connect_activity': Integration1passwordListConnectActivityInput
+    'list_audit_events': Integration1passwordListAuditEventsInput
+    'list_item_usage_events': Integration1passwordListItemUsageEventsInput
+    'list_sign_in_attempts': Integration1passwordListSignInAttemptsInput
+  }
   'abstract-api': {
     'validate_email': AbstractApiValidateEmailInput
     'geolocate_ip': AbstractApiGeolocateIpInput
@@ -68524,8 +73249,12 @@ export interface IntegrationActionInputsByIntegration {
     'create_contact': ActivecampaignCreateContactInput
     'update_contact': ActivecampaignUpdateContactInput
     'find_contact': ActivecampaignFindContactInput
+    'list_contacts': ActivecampaignListContactsInput
     'subscribe_contact': ActivecampaignSubscribeContactInput
+    'unsubscribe_contact_from_list': ActivecampaignUnsubscribeContactFromListInput
     'add_tag': ActivecampaignAddTagInput
+    'list_campaigns': ActivecampaignListCampaignsInput
+    'get_campaign': ActivecampaignGetCampaignInput
     'create_account': ActivecampaignCreateAccountInput
     'update_account': ActivecampaignUpdateAccountInput
     'custom_api_call': ActivecampaignCustomApiCallInput
@@ -68544,6 +73273,26 @@ export interface IntegrationActionInputsByIntegration {
     'list_appointments': AcuitySchedulingListAppointmentsInput
     'get_appointment': AcuitySchedulingGetAppointmentInput
     'create_appointment': AcuitySchedulingCreateAppointmentInput
+  }
+  'acumatica': {
+    'list_customers': AcumaticaListCustomersInput
+    'list_vendors': AcumaticaListVendorsInput
+    'list_invoices': AcumaticaListInvoicesInput
+    'list_bills': AcumaticaListBillsInput
+    'list_payments': AcumaticaListPaymentsInput
+    'list_accounts': AcumaticaListAccountsInput
+    'list_employees': AcumaticaListEmployeesInput
+    'list_records': AcumaticaListRecordsInput
+    'get_record': AcumaticaGetRecordInput
+    'create_record': AcumaticaCreateRecordInput
+    'update_record': AcumaticaUpdateRecordInput
+  }
+  'adobe-express': {
+    'list_tagged_documents': AdobeExpressListTaggedDocumentsInput
+    'get_tagged_document': AdobeExpressGetTaggedDocumentInput
+    'generate_variation': AdobeExpressGenerateVariationInput
+    'export_rendition': AdobeExpressExportRenditionInput
+    'get_job_status': AdobeExpressGetJobStatusInput
   }
   'adobe-firefly-services': {
     'generate_image': AdobeFireflyServicesGenerateImageInput
@@ -68980,6 +73729,20 @@ export interface IntegrationActionInputsByIntegration {
     'extract-structured-data': ClaudeExtractStructuredDataInput
     'custom_api_call': ClaudeCustomApiCallInput
   }
+  'apache-superset': {
+    'validate_connection': ApacheSupersetValidateConnectionInput
+    'list_dashboards': ApacheSupersetListDashboardsInput
+    'get_dashboard': ApacheSupersetGetDashboardInput
+    'list_dashboard_datasets': ApacheSupersetListDashboardDatasetsInput
+    'list_datasets': ApacheSupersetListDatasetsInput
+    'get_dataset': ApacheSupersetGetDatasetInput
+    'create_dataset': ApacheSupersetCreateDatasetInput
+    'update_dataset': ApacheSupersetUpdateDatasetInput
+    'refresh_dataset': ApacheSupersetRefreshDatasetInput
+    'list_charts': ApacheSupersetListChartsInput
+    'get_chart': ApacheSupersetGetChartInput
+    'run_sqllab_query': ApacheSupersetRunSqllabQueryInput
+  }
   'apify': {
     'run_actor': ApifyRunActorInput
     'get_dataset': ApifyGetDatasetInput
@@ -69128,6 +73891,15 @@ export interface IntegrationActionInputsByIntegration {
     'list_teams': AttentionListTeamsInput
     'list_users': AttentionListUsersInput
     'list_calendar_events': AttentionListCalendarEventsInput
+  }
+  'attentive': {
+    'subscribe_user': AttentiveSubscribeUserInput
+    'unsubscribe_user': AttentiveUnsubscribeUserInput
+    'upsert_user_attributes': AttentiveUpsertUserAttributesInput
+    'set_custom_attributes': AttentiveSetCustomAttributesInput
+    'get_custom_attributes': AttentiveGetCustomAttributesInput
+    'send_custom_event': AttentiveSendCustomEventInput
+    'send_purchase_event': AttentiveSendPurchaseEventInput
   }
   'attio': {
     'list_records': AttioListRecordsInput
@@ -69461,6 +74233,16 @@ export interface IntegrationActionInputsByIntegration {
     'get_clicks_summary': BitlyGetClicksSummaryInput
     'list_groups': BitlyListGroupsInput
   }
+  'bitwarden': {
+    'list_members': BitwardenListMembersInput
+    'get_member': BitwardenGetMemberInput
+    'list_groups': BitwardenListGroupsInput
+    'get_group': BitwardenGetGroupInput
+    'list_collections': BitwardenListCollectionsInput
+    'get_collection': BitwardenGetCollectionInput
+    'list_events': BitwardenListEventsInput
+    'list_policies': BitwardenListPoliciesInput
+  }
   'bizzabo': {
     'list_events': BizzaboListEventsInput
     'get_event': BizzaboGetEventInput
@@ -69675,10 +74457,18 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': CalendlyCustomApiCallInput
   }
   'campaign-monitor': {
-    'add_subscriber_to_list': CampaignMonitorAddSubscriberToListInput
-    'update_subscriber_details': CampaignMonitorUpdateSubscriberDetailsInput
+    'list_clients': CampaignMonitorListClientsInput
+    'list_contact_lists': CampaignMonitorListContactListsInput
+    'list_segments': CampaignMonitorListSegmentsInput
+    'add_subscriber': CampaignMonitorAddSubscriberInput
+    'update_subscriber': CampaignMonitorUpdateSubscriberInput
+    'get_subscriber': CampaignMonitorGetSubscriberInput
+    'list_subscribers': CampaignMonitorListSubscribersInput
     'unsubscribe_subscriber': CampaignMonitorUnsubscribeSubscriberInput
-    'find_subscriber': CampaignMonitorFindSubscriberInput
+    'delete_subscriber': CampaignMonitorDeleteSubscriberInput
+    'list_campaigns': CampaignMonitorListCampaignsInput
+    'get_campaign_summary': CampaignMonitorGetCampaignSummaryInput
+    'suppress_email': CampaignMonitorSuppressEmailInput
   }
   'candid': {
     'search_nonprofits': CandidSearchNonprofitsInput
@@ -69997,8 +74787,26 @@ export interface IntegrationActionInputsByIntegration {
   }
   'cloudinary': {
     'list_resources': CloudinaryListResourcesInput
+    'search_resources': CloudinarySearchResourcesInput
     'get_resource': CloudinaryGetResourceInput
+    'upload_resource': CloudinaryUploadResourceInput
+    'update_resource_metadata': CloudinaryUpdateResourceMetadataInput
+    'create_transformation': CloudinaryCreateTransformationInput
+    'generate_derived_resource': CloudinaryGenerateDerivedResourceInput
     'delete_resource': CloudinaryDeleteResourceInput
+  }
+  'clover': {
+    'get_merchant': CloverGetMerchantInput
+    'list_items': CloverListItemsInput
+    'get_item': CloverGetItemInput
+    'create_item': CloverCreateItemInput
+    'update_item': CloverUpdateItemInput
+    'list_orders': CloverListOrdersInput
+    'get_order': CloverGetOrderInput
+    'list_customers': CloverListCustomersInput
+    'get_customer': CloverGetCustomerInput
+    'create_customer': CloverCreateCustomerInput
+    'refund_payment': CloverRefundPaymentInput
   }
   'coda': {
     'create_row': CodaCreateRowInput
@@ -70082,12 +74890,21 @@ export interface IntegrationActionInputsByIntegration {
     'get_environment': ConfluentCloudGetEnvironmentInput
     'list_kafka_clusters': ConfluentCloudListKafkaClustersInput
     'get_kafka_cluster': ConfluentCloudGetKafkaClusterInput
+    'list_topics': ConfluentCloudListTopicsInput
+    'get_topic': ConfluentCloudGetTopicInput
+    'create_topic': ConfluentCloudCreateTopicInput
+    'delete_topic': ConfluentCloudDeleteTopicInput
     'list_service_accounts': ConfluentCloudListServiceAccountsInput
     'get_service_account': ConfluentCloudGetServiceAccountInput
     'list_api_keys': ConfluentCloudListApiKeysInput
     'get_api_key': ConfluentCloudGetApiKeyInput
     'list_metric_descriptors': ConfluentCloudListMetricDescriptorsInput
     'query_metrics': ConfluentCloudQueryMetricsInput
+    'list_connectors': ConfluentCloudListConnectorsInput
+    'get_connector': ConfluentCloudGetConnectorInput
+    'get_connector_status': ConfluentCloudGetConnectorStatusInput
+    'create_connector': ConfluentCloudCreateConnectorInput
+    'delete_connector': ConfluentCloudDeleteConnectorInput
     'custom_api_call': ConfluentCloudCustomApiCallInput
   }
   'connectwise': {
@@ -70290,6 +75107,8 @@ export interface IntegrationActionInputsByIntegration {
   'dbt-cloud': {
     'list_projects': DbtCloudListProjectsInput
     'get_project': DbtCloudGetProjectInput
+    'list_environments': DbtCloudListEnvironmentsInput
+    'get_environment': DbtCloudGetEnvironmentInput
     'list_jobs': DbtCloudListJobsInput
     'get_job': DbtCloudGetJobInput
     'trigger_job_run': DbtCloudTriggerJobRunInput
@@ -70531,10 +75350,15 @@ export interface IntegrationActionInputsByIntegration {
     'list_doctors': DrchronoListDoctorsInput
   }
   'drip': {
-    'apply_tag_to_subscriber': DripApplyTagToSubscriberInput
-    'add_subscriber_to_campaign': DripAddSubscriberToCampaignInput
-    'upsert_subscriber': DripUpsertSubscriberInput
-    'custom_api_call': DripCustomApiCallInput
+    'list_subscribers': DripListSubscribersInput
+    'get_subscriber': DripGetSubscriberInput
+    'create_or_update_subscriber': DripCreateOrUpdateSubscriberInput
+    'track_event': DripTrackEventInput
+    'apply_tag': DripApplyTagInput
+    'list_tags': DripListTagsInput
+    'list_campaigns': DripListCampaignsInput
+    'unsubscribe_all': DripUnsubscribeAllInput
+    'delete_subscriber': DripDeleteSubscriberInput
   }
   'dropbox': {
     'search_dropbox': DropboxSearchDropboxInput
@@ -70572,6 +75396,18 @@ export interface IntegrationActionInputsByIntegration {
     'update_link': DubUpdateLinkInput
     'custom_api_call': DubCustomApiCallInput
   }
+  'duo': {
+    'list_users': DuoListUsersInput
+    'get_user': DuoGetUserInput
+    'list_groups': DuoListGroupsInput
+    'get_group': DuoGetGroupInput
+    'list_phones': DuoListPhonesInput
+    'get_phone': DuoGetPhoneInput
+    'list_integrations': DuoListIntegrationsInput
+    'list_authentication_logs': DuoListAuthenticationLogsInput
+    'list_administrator_logs': DuoListAdministratorLogsInput
+    'set_user_status': DuoSetUserStatusInput
+  }
   'dwolla': {
     'list_customers': DwollaListCustomersInput
     'create_customer': DwollaCreateCustomerInput
@@ -70599,11 +75435,17 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': EcwidCustomApiCallInput
   }
   'elasticsearch': {
-    'search': ElasticsearchSearchInput
+    'validate_connection': ElasticsearchValidateConnectionInput
+    'list_indices': ElasticsearchListIndicesInput
+    'get_index': ElasticsearchGetIndexInput
+    'create_index': ElasticsearchCreateIndexInput
+    'delete_index': ElasticsearchDeleteIndexInput
+    'search_documents': ElasticsearchSearchDocumentsInput
     'index_document': ElasticsearchIndexDocumentInput
+    'update_document': ElasticsearchUpdateDocumentInput
     'get_document': ElasticsearchGetDocumentInput
     'delete_document': ElasticsearchDeleteDocumentInput
-    'list_indices': ElasticsearchListIndicesInput
+    'custom_api_call': ElasticsearchCustomApiCallInput
   }
   'elevenlabs': {
     'elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
@@ -70667,10 +75509,14 @@ export interface IntegrationActionInputsByIntegration {
     'get_connector_manifest': EulerGetConnectorManifestInput
   }
   'eventbrite': {
+    'list_organizations': EventbriteListOrganizationsInput
     'create_event': EventbriteCreateEventInput
     'list_events': EventbriteListEventsInput
     'get_event': EventbriteGetEventInput
+    'update_event': EventbriteUpdateEventInput
+    'cancel_event': EventbriteCancelEventInput
     'list_attendees': EventbriteListAttendeesInput
+    'list_orders': EventbriteListOrdersInput
     'create_ticket_class': EventbriteCreateTicketClassInput
     'get_order': EventbriteGetOrderInput
     'custom_api_call': EventbriteCustomApiCallInput
@@ -70981,33 +75827,33 @@ export interface IntegrationActionInputsByIntegration {
   'freshservice': {
     'create_ticket': FreshserviceCreateTicketInput
     'list_tickets': FreshserviceListTicketsInput
+    'get_ticket': FreshserviceGetTicketInput
     'update_ticket': FreshserviceUpdateTicketInput
+    'delete_ticket': FreshserviceDeleteTicketInput
     'list_agents': FreshserviceListAgentsInput
     'list_requesters': FreshserviceListRequestersInput
+    'list_problems': FreshserviceListProblemsInput
+    'create_problem': FreshserviceCreateProblemInput
+    'update_problem': FreshserviceUpdateProblemInput
+    'delete_problem': FreshserviceDeleteProblemInput
+    'list_changes': FreshserviceListChangesInput
+    'create_change': FreshserviceCreateChangeInput
+    'update_change': FreshserviceUpdateChangeInput
+    'delete_change': FreshserviceDeleteChangeInput
     'custom_api_call': FreshserviceCustomApiCallInput
   }
   'front': {
-    'addComment': FrontAddCommentInput
-    'addContactHandle': FrontAddContactHandleInput
-    'addConversationLinks': FrontAddConversationLinksInput
-    'addConversationTags': FrontAddConversationTagsInput
-    'assignUnassignConversation': FrontAssignUnassignConversationInput
-    'createAccount': FrontCreateAccountInput
-    'createContact': FrontCreateContactInput
-    'createDraft': FrontCreateDraftInput
-    'createDraftReply': FrontCreateDraftReplyInput
-    'createLink': FrontCreateLinkInput
-    'findAccount': FrontFindAccountInput
-    'findContact': FrontFindContactInput
-    'findConversation': FrontFindConversationInput
-    'removeContactHandle': FrontRemoveContactHandleInput
-    'removeConversationLinks': FrontRemoveConversationLinksInput
-    'sendMessage': FrontSendMessageInput
-    'sendReply': FrontSendReplyInput
-    'updateAccount': FrontUpdateAccountInput
-    'updateContact': FrontUpdateContactInput
-    'updateConversation': FrontUpdateConversationInput
-    'updateLink': FrontUpdateLinkInput
+    'list_conversations': FrontListConversationsInput
+    'search_conversations': FrontSearchConversationsInput
+    'get_conversation': FrontGetConversationInput
+    'list_conversation_messages': FrontListConversationMessagesInput
+    'list_conversation_comments': FrontListConversationCommentsInput
+    'send_reply': FrontSendReplyInput
+    'add_comment': FrontAddCommentInput
+    'update_conversation': FrontUpdateConversationInput
+    'delete_conversation': FrontDeleteConversationInput
+    'list_contacts': FrontListContactsInput
+    'create_contact': FrontCreateContactInput
   }
   'sftp': {
     'create_file': SftpCreateFileInput
@@ -71359,7 +76205,12 @@ export interface IntegrationActionInputsByIntegration {
     'list_dashboards': GrafanaListDashboardsInput
     'get_dashboard': GrafanaGetDashboardInput
     'create_alert_rule': GrafanaCreateAlertRuleInput
+    'get_alert_rule': GrafanaGetAlertRuleInput
+    'update_alert_rule': GrafanaUpdateAlertRuleInput
+    'delete_alert_rule': GrafanaDeleteAlertRuleInput
     'list_alerts': GrafanaListAlertsInput
+    'list_contact_points': GrafanaListContactPointsInput
+    'list_alertmanager_alerts': GrafanaListAlertmanagerAlertsInput
     'custom_api_call': GrafanaCustomApiCallInput
   }
   'grain': {
@@ -71531,6 +76382,7 @@ export interface IntegrationActionInputsByIntegration {
     'send_reply': HelpScoutSendReplyInput
     'add_note': HelpScoutAddNoteInput
     'update_conversation_status': HelpScoutUpdateConversationStatusInput
+    'delete_conversation': HelpScoutDeleteConversationInput
     'list_customers': HelpScoutListCustomersInput
   }
   'hex': {
@@ -71770,6 +76622,19 @@ export interface IntegrationActionInputsByIntegration {
     'move_email': ImapMoveEmailInput
     'delete_email': ImapDeleteEmailInput
   }
+  'imgix': {
+    'list_sources': ImgixListSourcesInput
+    'get_source': ImgixGetSourceInput
+    'list_assets': ImgixListAssetsInput
+    'get_asset': ImgixGetAssetInput
+    'update_asset_metadata': ImgixUpdateAssetMetadataInput
+    'create_upload_session': ImgixCreateUploadSessionInput
+    'close_upload_session': ImgixCloseUploadSessionInput
+    'cancel_upload_session': ImgixCancelUploadSessionInput
+    'publish_asset': ImgixPublishAssetInput
+    'unpublish_asset': ImgixUnpublishAssetInput
+    'generate_rendering_url': ImgixGenerateRenderingUrlInput
+  }
   'incident-io': {
     'validate_connection': IncidentIoValidateConnectionInput
     'list_incidents': IncidentIoListIncidentsInput
@@ -71869,6 +76734,19 @@ export interface IntegrationActionInputsByIntegration {
     'list_campaigns': IterableListCampaignsInput
     'send_targeted_email': IterableSendTargetedEmailInput
     'custom_api_call': IterableCustomApiCallInput
+  }
+  'jamf': {
+    'list_computers': JamfListComputersInput
+    'get_computer_inventory': JamfGetComputerInventoryInput
+    'list_mobile_devices': JamfListMobileDevicesInput
+    'get_mobile_device': JamfGetMobileDeviceInput
+    'list_users': JamfListUsersInput
+    'get_user': JamfGetUserInput
+    'list_computer_groups': JamfListComputerGroupsInput
+    'get_computer_group': JamfGetComputerGroupInput
+    'list_mobile_device_groups': JamfListMobileDeviceGroupsInput
+    'get_mobile_device_group': JamfGetMobileDeviceGroupInput
+    'list_api_integrations': JamfListApiIntegrationsInput
   }
   'code': {
     'run_code': CodeRunCodeInput
@@ -72192,12 +77070,34 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': LibretranslateCustomApiCallInput
   }
   'lightspeed-restaurant': {
+    'list_accounts': LightspeedRestaurantListAccountsInput
     'list_orders': LightspeedRestaurantListOrdersInput
     'get_order': LightspeedRestaurantGetOrderInput
+    'update_order': LightspeedRestaurantUpdateOrderInput
     'list_menu_items': LightspeedRestaurantListMenuItemsInput
+    'get_menu_item': LightspeedRestaurantGetMenuItemInput
+    'update_menu_item': LightspeedRestaurantUpdateMenuItemInput
+    'list_customers': LightspeedRestaurantListCustomersInput
+    'get_customer': LightspeedRestaurantGetCustomerInput
+    'create_customer': LightspeedRestaurantCreateCustomerInput
     'get_employee': LightspeedRestaurantGetEmployeeInput
     'get_table': LightspeedRestaurantGetTableInput
     'custom_api_call': LightspeedRestaurantCustomApiCallInput
+  }
+  'lightspeed-retail': {
+    'get_current_user': LightspeedRetailGetCurrentUserInput
+    'list_products': LightspeedRetailListProductsInput
+    'get_product': LightspeedRetailGetProductInput
+    'create_product': LightspeedRetailCreateProductInput
+    'update_product': LightspeedRetailUpdateProductInput
+    'list_customers': LightspeedRetailListCustomersInput
+    'get_customer': LightspeedRetailGetCustomerInput
+    'create_customer': LightspeedRetailCreateCustomerInput
+    'update_customer': LightspeedRetailUpdateCustomerInput
+    'list_sales': LightspeedRetailListSalesInput
+    'get_sale': LightspeedRetailGetSaleInput
+    'create_sale': LightspeedRetailCreateSaleInput
+    'list_outlets': LightspeedRetailListOutletsInput
   }
   'line': {
     'push_message': LinePushMessageInput
@@ -72298,6 +77198,22 @@ export interface IntegrationActionInputsByIntegration {
     'upload_file': LokaliseUploadFileInput
     'download_file': LokaliseDownloadFileInput
   }
+  'looker': {
+    'validate_connection': LookerValidateConnectionInput
+    'search_content': LookerSearchContentInput
+    'search_dashboards': LookerSearchDashboardsInput
+    'get_dashboard': LookerGetDashboardInput
+    'create_dashboard': LookerCreateDashboardInput
+    'update_dashboard': LookerUpdateDashboardInput
+    'search_looks': LookerSearchLooksInput
+    'get_look': LookerGetLookInput
+    'run_saved_query': LookerRunSavedQueryInput
+    'run_inline_query': LookerRunInlineQueryInput
+    'create_dashboard_render_task': LookerCreateDashboardRenderTaskInput
+    'get_render_task': LookerGetRenderTaskInput
+    'get_render_task_results': LookerGetRenderTaskResultsInput
+    'run_scheduled_plan_once': LookerRunScheduledPlanOnceInput
+  }
   'loom': {
     'list_videos': LoomListVideosInput
     'get_video': LoomGetVideoInput
@@ -72329,6 +77245,22 @@ export interface IntegrationActionInputsByIntegration {
     'create_document_embed': LucidCreateDocumentEmbedInput
     'list_users': LucidListUsersInput
     'custom_api_call': LucidCustomApiCallInput
+  }
+  'luma': {
+    'get_calendar': LumaGetCalendarInput
+    'list_calendar_events': LumaListCalendarEventsInput
+    'lookup_event': LumaLookupEventInput
+    'get_event': LumaGetEventInput
+    'create_event': LumaCreateEventInput
+    'update_event': LumaUpdateEventInput
+    'list_guests': LumaListGuestsInput
+    'get_guest': LumaGetGuestInput
+    'add_guests': LumaAddGuestsInput
+    'update_guest_status': LumaUpdateGuestStatusInput
+    'list_ticket_types': LumaListTicketTypesInput
+    'create_ticket_type': LumaCreateTicketTypeInput
+    'request_event_cancellation': LumaRequestEventCancellationInput
+    'cancel_event': LumaCancelEventInput
   }
   'magento': {
     'list_products': MagentoListProductsInput
@@ -72566,17 +77498,26 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': Microsoft365CustomApiCallInput
   }
   'microsoft-365-planner': {
-    'createPlan': Microsoft365PlannerCreatePlanInput
-    'createBucket': Microsoft365PlannerCreateBucketInput
-    'createTask': Microsoft365PlannerCreateTaskInput
-    'deleteBucket': Microsoft365PlannerDeleteBucketInput
-    'deleteTask': Microsoft365PlannerDeleteTaskInput
-    'updatePlan': Microsoft365PlannerUpdatePlanInput
-    'updateBucket': Microsoft365PlannerUpdateBucketInput
-    'updateTask': Microsoft365PlannerUpdateTaskInput
-    'findAPlan': Microsoft365PlannerFindAPlanInput
-    'getABucket': Microsoft365PlannerGetABucketInput
-    'findTask': Microsoft365PlannerFindTaskInput
+    'list_groups': Microsoft365PlannerListGroupsInput
+    'list_plans': Microsoft365PlannerListPlansInput
+    'get_plan': Microsoft365PlannerGetPlanInput
+    'get_plan_details': Microsoft365PlannerGetPlanDetailsInput
+    'create_plan': Microsoft365PlannerCreatePlanInput
+    'update_plan': Microsoft365PlannerUpdatePlanInput
+    'list_buckets': Microsoft365PlannerListBucketsInput
+    'get_bucket': Microsoft365PlannerGetBucketInput
+    'create_bucket': Microsoft365PlannerCreateBucketInput
+    'update_bucket': Microsoft365PlannerUpdateBucketInput
+    'delete_bucket': Microsoft365PlannerDeleteBucketInput
+    'list_tasks': Microsoft365PlannerListTasksInput
+    'get_task': Microsoft365PlannerGetTaskInput
+    'get_task_details': Microsoft365PlannerGetTaskDetailsInput
+    'create_task': Microsoft365PlannerCreateTaskInput
+    'update_task': Microsoft365PlannerUpdateTaskInput
+    'move_task': Microsoft365PlannerMoveTaskInput
+    'update_task_details': Microsoft365PlannerUpdateTaskDetailsInput
+    'delete_task': Microsoft365PlannerDeleteTaskInput
+    'list_members': Microsoft365PlannerListMembersInput
     'custom_api_call': Microsoft365PlannerCustomApiCallInput
   }
   'microsoft-dynamics-crm': {
@@ -72682,9 +77623,18 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': MicrosoftOutlookCalendarCustomApiCallInput
   }
   'microsoft-power-bi': {
-    'create_dataset': MicrosoftPowerBiCreateDatasetInput
-    'push_rows_to_dataset_table': MicrosoftPowerBiPushRowsToDatasetTableInput
-    'custom_api_call': MicrosoftPowerBiCustomApiCallInput
+    'validate_connection': MicrosoftPowerBiValidateConnectionInput
+    'list_workspaces': MicrosoftPowerBiListWorkspacesInput
+    'list_dashboards': MicrosoftPowerBiListDashboardsInput
+    'get_dashboard': MicrosoftPowerBiGetDashboardInput
+    'list_reports': MicrosoftPowerBiListReportsInput
+    'get_report': MicrosoftPowerBiGetReportInput
+    'list_datasets': MicrosoftPowerBiListDatasetsInput
+    'get_dataset': MicrosoftPowerBiGetDatasetInput
+    'refresh_dataset': MicrosoftPowerBiRefreshDatasetInput
+    'get_refresh_history': MicrosoftPowerBiGetRefreshHistoryInput
+    'create_report_export': MicrosoftPowerBiCreateReportExportInput
+    'get_report_export': MicrosoftPowerBiGetReportExportInput
   }
   'microsoft-sharepoint': {
     'microsoft_sharepoint_create_folder': MicrosoftSharepointMicrosoftSharepointCreateFolderInput
@@ -72780,6 +77730,22 @@ export interface IntegrationActionInputsByIntegration {
     'query_profiles': MixpanelQueryProfilesInput
     'query_saved_report': MixpanelQuerySavedReportInput
   }
+  'mode': {
+    'validate_connection': ModeValidateConnectionInput
+    'list_reports_for_space': ModeListReportsForSpaceInput
+    'get_report': ModeGetReportInput
+    'update_report': ModeUpdateReportInput
+    'list_report_runs': ModeListReportRunsInput
+    'run_report': ModeRunReportInput
+    'list_queries': ModeListQueriesInput
+    'get_query': ModeGetQueryInput
+    'create_query': ModeCreateQueryInput
+    'update_query': ModeUpdateQueryInput
+    'list_query_runs': ModeListQueryRunsInput
+    'export_query_run_results': ModeExportQueryRunResultsInput
+    'get_dataset': ModeGetDatasetInput
+    'list_reports_for_dataset': ModeListReportsForDatasetInput
+  }
   'mollie': {
     'create_order': MollieCreateOrderInput
     'create_payment_link': MollieCreatePaymentLinkInput
@@ -72841,7 +77807,13 @@ export interface IntegrationActionInputsByIntegration {
     'list_assets': MuxListAssetsInput
     'get_asset': MuxGetAssetInput
     'create_asset': MuxCreateAssetInput
+    'create_direct_upload': MuxCreateDirectUploadInput
+    'create_playback_id': MuxCreatePlaybackIdInput
+    'add_caption_track': MuxAddCaptionTrackInput
+    'get_playback_urls': MuxGetPlaybackUrlsInput
+    'generate_signed_playback_url': MuxGenerateSignedPlaybackUrlInput
     'list_live_streams': MuxListLiveStreamsInput
+    'delete_asset': MuxDeleteAssetInput
   }
   'mycase': {
     'list_cases': MycaseListCasesInput
@@ -72849,6 +77821,18 @@ export interface IntegrationActionInputsByIntegration {
     'list_contacts': MycaseListContactsInput
     'create_contact': MycaseCreateContactInput
     'custom_api_call': MycaseCustomApiCallInput
+  }
+  'myob': {
+    'list_customers': MyobListCustomersInput
+    'list_suppliers': MyobListSuppliersInput
+    'list_employees': MyobListEmployeesInput
+    'list_accounts': MyobListAccountsInput
+    'list_invoices': MyobListInvoicesInput
+    'list_bills': MyobListBillsInput
+    'list_customer_payments': MyobListCustomerPaymentsInput
+    'get_record': MyobGetRecordInput
+    'create_record': MyobCreateRecordInput
+    'update_record': MyobUpdateRecordInput
   }
   'mysql': {
     'find_rows': MysqlFindRowsInput
@@ -73022,12 +78006,30 @@ export interface IntegrationActionInputsByIntegration {
     'send_event': OmnisendSendEventInput
     'create_batch': OmnisendCreateBatchInput
     'list_campaigns': OmnisendListCampaignsInput
+    'get_campaign': OmnisendGetCampaignInput
+    'list_segments': OmnisendListSegmentsInput
+    'get_segment': OmnisendGetSegmentInput
+    'create_order': OmnisendCreateOrderInput
+    'list_orders': OmnisendListOrdersInput
     'custom_api_call': OmnisendCustomApiCallInput
   }
   'oncehub': {
     'findContact': OncehubFindContactInput
     'createContact': OncehubCreateContactInput
     'custom_api_call': OncehubCustomApiCallInput
+  }
+  'onelogin': {
+    'list_users': OneloginListUsersInput
+    'get_user': OneloginGetUserInput
+    'list_user_apps': OneloginListUserAppsInput
+    'list_groups': OneloginListGroupsInput
+    'get_group': OneloginGetGroupInput
+    'list_roles': OneloginListRolesInput
+    'list_apps': OneloginListAppsInput
+    'get_app': OneloginGetAppInput
+    'list_events': OneloginListEventsInput
+    'set_user_status': OneloginSetUserStatusInput
+    'get_rate_limit': OneloginGetRateLimitInput
   }
   'onesignal': {
     'send_notification': OnesignalSendNotificationInput
@@ -73062,6 +78064,19 @@ export interface IntegrationActionInputsByIntegration {
     'list_models': OpenRouterListModelsInput
     'list_model_endpoints': OpenRouterListModelEndpointsInput
     'get_credits': OpenRouterGetCreditsInput
+  }
+  'opensearch': {
+    'validate_connection': OpensearchValidateConnectionInput
+    'list_indices': OpensearchListIndicesInput
+    'get_index': OpensearchGetIndexInput
+    'create_index': OpensearchCreateIndexInput
+    'delete_index': OpensearchDeleteIndexInput
+    'search_documents': OpensearchSearchDocumentsInput
+    'index_document': OpensearchIndexDocumentInput
+    'update_document': OpensearchUpdateDocumentInput
+    'get_document': OpensearchGetDocumentInput
+    'delete_document': OpensearchDeleteDocumentInput
+    'custom_api_call': OpensearchCustomApiCallInput
   }
   'opentable': {
     'list_reservations': OpentableListReservationsInput
@@ -73530,6 +78545,15 @@ export interface IntegrationActionInputsByIntegration {
     'list_changelogs': ProductlaneListChangelogsInput
     'create_changelog': ProductlaneCreateChangelogInput
   }
+  'prometheus': {
+    'instant_query': PrometheusInstantQueryInput
+    'range_query': PrometheusRangeQueryInput
+    'list_alerts': PrometheusListAlertsInput
+    'list_rules': PrometheusListRulesInput
+    'list_targets': PrometheusListTargetsInput
+    'get_status': PrometheusGetStatusInput
+    'list_series': PrometheusListSeriesInput
+  }
   'propertyware': {
     'list_units': PropertywareListUnitsInput
     'list_tenants': PropertywareListTenantsInput
@@ -73884,6 +78908,26 @@ export interface IntegrationActionInputsByIntegration {
     'get_task': RedisCloudGetTaskInput
     'custom_api_call': RedisCloudCustomApiCallInput
   }
+  'redpanda': {
+    'validate_connection': RedpandaValidateConnectionInput
+    'list_topics': RedpandaListTopicsInput
+    'create_topic': RedpandaCreateTopicInput
+    'delete_topic': RedpandaDeleteTopicInput
+    'get_topic_configurations': RedpandaGetTopicConfigurationsInput
+    'set_topic_configurations': RedpandaSetTopicConfigurationsInput
+    'list_connect_clusters': RedpandaListConnectClustersInput
+    'get_connect_cluster': RedpandaGetConnectClusterInput
+    'list_connectors': RedpandaListConnectorsInput
+    'create_connector': RedpandaCreateConnectorInput
+    'get_connector': RedpandaGetConnectorInput
+    'get_connector_status': RedpandaGetConnectorStatusInput
+    'upsert_connector_config': RedpandaUpsertConnectorConfigInput
+    'pause_connector': RedpandaPauseConnectorInput
+    'resume_connector': RedpandaResumeConnectorInput
+    'restart_connector': RedpandaRestartConnectorInput
+    'stop_connector': RedpandaStopConnectorInput
+    'delete_connector': RedpandaDeleteConnectorInput
+  }
   'reducto': {
     'parse_document': ReductoParseDocumentInput
     'start_parse_job': ReductoStartParseJobInput
@@ -74038,6 +79082,36 @@ export interface IntegrationActionInputsByIntegration {
     'list_assets': RunwayListAssetsInput
     'custom_api_call': RunwayCustomApiCallInput
   }
+  'sage-accounting': {
+    'list_businesses': SageAccountingListBusinessesInput
+    'list_contacts': SageAccountingListContactsInput
+    'get_contact': SageAccountingGetContactInput
+    'create_contact': SageAccountingCreateContactInput
+    'update_contact': SageAccountingUpdateContactInput
+    'list_sales_invoices': SageAccountingListSalesInvoicesInput
+    'get_sales_invoice': SageAccountingGetSalesInvoiceInput
+    'create_sales_invoice': SageAccountingCreateSalesInvoiceInput
+    'update_sales_invoice': SageAccountingUpdateSalesInvoiceInput
+    'list_purchase_invoices': SageAccountingListPurchaseInvoicesInput
+    'get_purchase_invoice': SageAccountingGetPurchaseInvoiceInput
+    'create_purchase_invoice': SageAccountingCreatePurchaseInvoiceInput
+    'update_purchase_invoice': SageAccountingUpdatePurchaseInvoiceInput
+    'list_contact_payments': SageAccountingListContactPaymentsInput
+    'list_ledger_accounts': SageAccountingListLedgerAccountsInput
+  }
+  'sage-intacct': {
+    'list_customers': SageIntacctListCustomersInput
+    'list_vendors': SageIntacctListVendorsInput
+    'list_invoices': SageIntacctListInvoicesInput
+    'list_bills': SageIntacctListBillsInput
+    'list_accounts': SageIntacctListAccountsInput
+    'list_payments': SageIntacctListPaymentsInput
+    'list_employees': SageIntacctListEmployeesInput
+    'get_record': SageIntacctGetRecordInput
+    'query_records': SageIntacctQueryRecordsInput
+    'create_record': SageIntacctCreateRecordInput
+    'update_record': SageIntacctUpdateRecordInput
+  }
   'saleor': {
     'rawGraphqlQuery': SaleorRawGraphqlQueryInput
     'getOrder': SaleorGetOrderInput
@@ -74099,6 +79173,17 @@ export interface IntegrationActionInputsByIntegration {
     'create_document': SanityCreateDocumentInput
     'update_document': SanityUpdateDocumentInput
     'delete_document': SanityDeleteDocumentInput
+  }
+  'sap-successfactors': {
+    'list_users': SapSuccessfactorsListUsersInput
+    'get_user': SapSuccessfactorsGetUserInput
+    'list_persons': SapSuccessfactorsListPersonsInput
+    'get_person': SapSuccessfactorsGetPersonInput
+    'list_employments': SapSuccessfactorsListEmploymentsInput
+    'list_jobs': SapSuccessfactorsListJobsInput
+    'list_time_off': SapSuccessfactorsListTimeOffInput
+    'upsert_time_off': SapSuccessfactorsUpsertTimeOffInput
+    'upsert_record': SapSuccessfactorsUpsertRecordInput
   }
   'schoology': {
     'list_courses': SchoologyListCoursesInput
@@ -74202,6 +79287,8 @@ export interface IntegrationActionInputsByIntegration {
     'account_status': SerpapiAccountStatusInput
   }
   'service-now': {
+    'list_incidents': ServiceNowListIncidentsInput
+    'create_incident': ServiceNowCreateIncidentInput
     'list_records': ServiceNowListRecordsInput
     'get_record': ServiceNowGetRecordInput
     'create_record': ServiceNowCreateRecordInput
@@ -74426,6 +79513,35 @@ export interface IntegrationActionInputsByIntegration {
     'get_measures': SonarqubeGetMeasuresInput
     'search_issues': SonarqubeSearchIssuesInput
     'list_quality_gates': SonarqubeListQualityGatesInput
+  }
+  'splunk': {
+    'validate_connection': SplunkValidateConnectionInput
+    'create_search_job': SplunkCreateSearchJobInput
+    'get_search_job': SplunkGetSearchJobInput
+    'get_search_results': SplunkGetSearchResultsInput
+    'list_saved_searches': SplunkListSavedSearchesInput
+    'get_saved_search': SplunkGetSavedSearchInput
+    'dispatch_saved_search': SplunkDispatchSavedSearchInput
+    'update_saved_search': SplunkUpdateSavedSearchInput
+    'list_fired_alerts': SplunkListFiredAlertsInput
+  }
+  'splunk-on-call': {
+    'list_current_incidents': SplunkOnCallListCurrentIncidentsInput
+    'search_incident_history': SplunkOnCallSearchIncidentHistoryInput
+    'get_incident': SplunkOnCallGetIncidentInput
+    'create_incident': SplunkOnCallCreateIncidentInput
+    'acknowledge_incident': SplunkOnCallAcknowledgeIncidentInput
+    'resolve_incident': SplunkOnCallResolveIncidentInput
+    'get_alert': SplunkOnCallGetAlertInput
+    'list_on_call_users': SplunkOnCallListOnCallUsersInput
+    'get_team_schedule': SplunkOnCallGetTeamScheduleInput
+    'list_teams': SplunkOnCallListTeamsInput
+    'list_escalation_policies': SplunkOnCallListEscalationPoliciesInput
+    'list_routing_keys': SplunkOnCallListRoutingKeysInput
+    'list_alert_rules': SplunkOnCallListAlertRulesInput
+    'create_alert_rule': SplunkOnCallCreateAlertRuleInput
+    'update_alert_rule': SplunkOnCallUpdateAlertRuleInput
+    'delete_alert_rule': SplunkOnCallDeleteAlertRuleInput
   }
   'spotify': {
     'search': SpotifySearchInput
@@ -74703,6 +79819,21 @@ export interface IntegrationActionInputsByIntegration {
     'list_avatars': SynthesiaListAvatarsInput
     'custom_api_call': SynthesiaCustomApiCallInput
   }
+  'tableau': {
+    'validate_connection': TableauValidateConnectionInput
+    'list_workbooks': TableauListWorkbooksInput
+    'get_workbook': TableauGetWorkbookInput
+    'list_views': TableauListViewsInput
+    'get_view': TableauGetViewInput
+    'list_datasources': TableauListDatasourcesInput
+    'get_datasource': TableauGetDatasourceInput
+    'refresh_datasource': TableauRefreshDatasourceInput
+    'refresh_workbook': TableauRefreshWorkbookInput
+    'export_view_data': TableauExportViewDataInput
+    'export_view_pdf': TableauExportViewPdfInput
+    'list_webhooks': TableauListWebhooksInput
+    'create_webhook': TableauCreateWebhookInput
+  }
   'talentlms': {
     'get_user': TalentlmsGetUserInput
     'create_user': TalentlmsCreateUserInput
@@ -74833,10 +79964,20 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': TicktickCustomApiCallInput
   }
   'tidio': {
-    'send_message': TidioSendMessageInput
-    'list_visitors': TidioListVisitorsInput
-    'list_conversations': TidioListConversationsInput
-    'get_operator': TidioGetOperatorInput
+    'get_project': TidioGetProjectInput
+    'list_contacts': TidioListContactsInput
+    'get_contact': TidioGetContactInput
+    'create_contact': TidioCreateContactInput
+    'update_contact': TidioUpdateContactInput
+    'delete_contact': TidioDeleteContactInput
+    'list_tickets': TidioListTicketsInput
+    'get_ticket': TidioGetTicketInput
+    'create_ticket_as_contact': TidioCreateTicketAsContactInput
+    'update_ticket': TidioUpdateTicketInput
+    'reply_to_ticket': TidioReplyToTicketInput
+    'delete_ticket': TidioDeleteTicketInput
+    'list_operators': TidioListOperatorsInput
+    'list_departments': TidioListDepartmentsInput
     'custom_api_call': TidioCustomApiCallInput
   }
   'tidycal': {
@@ -74904,10 +80045,29 @@ export interface IntegrationActionInputsByIntegration {
     'custom_api_call': ToastPosCustomApiCallInput
   }
   'todoist': {
+    'list_projects': TodoistListProjectsInput
+    'get_project': TodoistGetProjectInput
+    'search_projects': TodoistSearchProjectsInput
+    'create_project': TodoistCreateProjectInput
+    'update_project': TodoistUpdateProjectInput
+    'archive_project': TodoistArchiveProjectInput
+    'delete_project': TodoistDeleteProjectInput
+    'list_sections': TodoistListSectionsInput
+    'create_section': TodoistCreateSectionInput
+    'update_section': TodoistUpdateSectionInput
+    'delete_section': TodoistDeleteSectionInput
+    'list_tasks': TodoistListTasksInput
+    'get_task': TodoistGetTaskInput
     'create_task': TodoistCreateTaskInput
     'update_task': TodoistUpdateTaskInput
-    'find_task': TodoistFindTaskInput
-    'mark_task_completed': TodoistMarkTaskCompletedInput
+    'move_task': TodoistMoveTaskInput
+    'close_task': TodoistCloseTaskInput
+    'reopen_task': TodoistReopenTaskInput
+    'delete_task': TodoistDeleteTaskInput
+    'list_comments': TodoistListCommentsInput
+    'add_comment': TodoistAddCommentInput
+    'update_comment': TodoistUpdateCommentInput
+    'delete_comment': TodoistDeleteCommentInput
     'custom_api_call': TodoistCustomApiCallInput
   }
   'together-ai': {
@@ -74942,14 +80102,29 @@ export interface IntegrationActionInputsByIntegration {
     'get_show_analytics': TransistorGetShowAnalyticsInput
   }
   'trello': {
-    'create_card': TrelloCreateCardInput
+    'list_boards': TrelloListBoardsInput
+    'get_board': TrelloGetBoardInput
+    'search': TrelloSearchInput
+    'list_lists': TrelloListListsInput
+    'create_list': TrelloCreateListInput
+    'update_list': TrelloUpdateListInput
+    'list_cards': TrelloListCardsInput
     'get_card': TrelloGetCardInput
+    'create_card': TrelloCreateCardInput
     'update_card': TrelloUpdateCardInput
+    'move_card': TrelloMoveCardInput
+    'archive_card': TrelloArchiveCardInput
     'delete_card': TrelloDeleteCardInput
-    'get_card_attachments': TrelloGetCardAttachmentsInput
-    'add_card_attachment': TrelloAddCardAttachmentInput
-    'get_card_attachment': TrelloGetCardAttachmentInput
-    'delete_card_attachment': TrelloDeleteCardAttachmentInput
+    'list_comments': TrelloListCommentsInput
+    'add_comment': TrelloAddCommentInput
+    'update_comment': TrelloUpdateCommentInput
+    'delete_comment': TrelloDeleteCommentInput
+    'list_members': TrelloListMembersInput
+    'add_member_to_card': TrelloAddMemberToCardInput
+    'remove_member_from_card': TrelloRemoveMemberFromCardInput
+    'create_webhook': TrelloCreateWebhookInput
+    'delete_webhook': TrelloDeleteWebhookInput
+    'custom_api_call': TrelloCustomApiCallInput
   }
   'trustpilot': {
     'list_reviews': TrustpilotListReviewsInput
@@ -75081,8 +80256,16 @@ export interface IntegrationActionInputsByIntegration {
   'vidyard': {
     'list_videos': VidyardListVideosInput
     'get_video': VidyardGetVideoInput
+    'create_video': VidyardCreateVideoInput
+    'update_video_metadata': VidyardUpdateVideoMetadataInput
+    'get_video_status': VidyardGetVideoStatusInput
     'get_analytics': VidyardGetAnalyticsInput
-    'custom_api_call': VidyardCustomApiCallInput
+    'list_captions': VidyardListCaptionsInput
+    'create_caption': VidyardCreateCaptionInput
+    'update_caption': VidyardUpdateCaptionInput
+    'list_thumbnails': VidyardListThumbnailsInput
+    'update_selected_thumbnail': VidyardUpdateSelectedThumbnailInput
+    'delete_video': VidyardDeleteVideoInput
   }
   'vimeo': {
     'upload_video': VimeoUploadVideoInput
@@ -75234,6 +80417,20 @@ export interface IntegrationActionInputsByIntegration {
     'create_quote': WiseCreateQuoteInput
     'list_transfers': WiseListTransfersInput
     'get_exchange_rate': WiseGetExchangeRateInput
+  }
+  'wistia': {
+    'list_projects': WistiaListProjectsInput
+    'get_project': WistiaGetProjectInput
+    'list_medias': WistiaListMediasInput
+    'get_media': WistiaGetMediaInput
+    'upload_media_from_url': WistiaUploadMediaFromUrlInput
+    'update_media_metadata': WistiaUpdateMediaMetadataInput
+    'get_media_stats': WistiaGetMediaStatsInput
+    'list_captions': WistiaListCaptionsInput
+    'get_caption': WistiaGetCaptionInput
+    'create_or_update_caption': WistiaCreateOrUpdateCaptionInput
+    'update_thumbnail_from_url': WistiaUpdateThumbnailFromUrlInput
+    'delete_media': WistiaDeleteMediaInput
   }
   'wix': {
     'list_sites': WixListSitesInput
@@ -75515,11 +80712,14 @@ export type ActionPropertyName<I extends IntegrationName, A extends ActionName<I
 export type IntegrationActionKey = keyof IntegrationActionInputMap & string
 
 export const integrationNames = [
+  '1password',
   'abstract-api',
   'actionstep',
   'activecampaign',
   'acuity-health',
   'acuity-scheduling',
+  'acumatica',
+  'adobe-express',
   'adobe-firefly-services',
   'adobe-workfront',
   'adp',
@@ -75553,6 +80753,7 @@ export const integrationNames = [
   'amazon-sqs',
   'amplitude',
   'claude',
+  'apache-superset',
   'apify',
   'apollo',
   'appfolio',
@@ -75565,6 +80766,7 @@ export const integrationNames = [
   'atlassian',
   'statuspage',
   'attention',
+  'attentive',
   'attio',
   'auth0',
   'authorize-net',
@@ -75601,6 +80803,7 @@ export const integrationNames = [
   'messagebird',
   'bitbucket',
   'bitly',
+  'bitwarden',
   'bizzabo',
   'blockscout',
   'bloomerang',
@@ -75657,6 +80860,7 @@ export const integrationNames = [
   'cloudconvert',
   'cloudflare',
   'cloudinary',
+  'clover',
   'coda',
   'codacy',
   'cognism',
@@ -75715,6 +80919,7 @@ export const integrationNames = [
   'dropbox',
   'dropbox-sign',
   'dub',
+  'duo',
   'dwolla',
   'easypost',
   'ebay',
@@ -75830,6 +81035,7 @@ export const integrationNames = [
   'ideogram',
   'imanage',
   'imap',
+  'imgix',
   'incident-io',
   'influxdb',
   'infobip',
@@ -75840,6 +81046,7 @@ export const integrationNames = [
   'intercom',
   'ipinfo',
   'iterable',
+  'jamf',
   'code',
   'jazzhr',
   'jina-ai',
@@ -75874,6 +81081,7 @@ export const integrationNames = [
   'lever',
   'libretranslate',
   'lightspeed-restaurant',
+  'lightspeed-retail',
   'line',
   'linear',
   'linkedin',
@@ -75881,9 +81089,11 @@ export const integrationNames = [
   'local-computer-control',
   'local-computer-control-agent',
   'lokalise',
+  'looker',
   'loom',
   'loops',
   'lucid',
+  'luma',
   'magento',
   'mailchimp',
   'mandrill',
@@ -75919,6 +81129,7 @@ export const integrationNames = [
   'miro',
   'mistral',
   'mixpanel',
+  'mode',
   'mollie',
   'monday',
   'mongodb',
@@ -75927,6 +81138,7 @@ export const integrationNames = [
   'mrpeasy',
   'mux',
   'mycase',
+  'myob',
   'mysql',
   'n-able',
   'namely',
@@ -75945,11 +81157,13 @@ export const integrationNames = [
   'okta',
   'omnisend',
   'oncehub',
+  'onelogin',
   'onesignal',
   'onfleet',
   'openai',
   'opencage',
   'open-router',
+  'opensearch',
   'opentable',
   'openweather',
   'opsgenie',
@@ -75998,6 +81212,7 @@ export const integrationNames = [
   'procore',
   'productboard',
   'productlane',
+  'prometheus',
   'propertyware',
   'protocols-io',
   'proxycurl',
@@ -76019,6 +81234,7 @@ export const integrationNames = [
   'recurly',
   'reddit',
   'redis-cloud',
+  'redpanda',
   'reducto',
   'remote',
   'render',
@@ -76037,11 +81253,14 @@ export const integrationNames = [
   'rss',
   'rudderstack',
   'runway',
+  'sage-accounting',
+  'sage-intacct',
   'saleor',
   'salesforce',
   'salesloft',
   'advanced-code',
   'sanity',
+  'sap-successfactors',
   'schoology',
   'scraperapi',
   'scrapingbee',
@@ -76077,6 +81296,8 @@ export const integrationNames = [
   'snowflake',
   'snyk',
   'sonarqube',
+  'splunk',
+  'splunk-on-call',
   'spotify',
   'sprout-social',
   'spruce',
@@ -76095,6 +81316,7 @@ export const integrationNames = [
   'surveymonkey',
   'swaggerhub',
   'synthesia',
+  'tableau',
   'talentlms',
   'talkdesk',
   'tally',
@@ -76158,6 +81380,7 @@ export const integrationNames = [
   'whatsapp',
   'whimsical',
   'wise',
+  'wistia',
   'wix',
   'wolfram',
   'woocommerce',
@@ -76187,6 +81410,17 @@ export const integrationNames = [
 ] as const satisfies readonly IntegrationName[]
 
 export const integrationActions = {
+  '1password': [
+    'list_vaults',
+    'get_vault',
+    'list_items',
+    'get_item_metadata',
+    'reveal_item_values',
+    'list_connect_activity',
+    'list_audit_events',
+    'list_item_usage_events',
+    'list_sign_in_attempts',
+  ],
   'abstract-api': [
     'validate_email',
     'geolocate_ip',
@@ -76206,8 +81440,12 @@ export const integrationActions = {
     'create_contact',
     'update_contact',
     'find_contact',
+    'list_contacts',
     'subscribe_contact',
+    'unsubscribe_contact_from_list',
     'add_tag',
+    'list_campaigns',
+    'get_campaign',
     'create_account',
     'update_account',
     'custom_api_call',
@@ -76226,6 +81464,26 @@ export const integrationActions = {
     'list_appointments',
     'get_appointment',
     'create_appointment',
+  ],
+  'acumatica': [
+    'list_customers',
+    'list_vendors',
+    'list_invoices',
+    'list_bills',
+    'list_payments',
+    'list_accounts',
+    'list_employees',
+    'list_records',
+    'get_record',
+    'create_record',
+    'update_record',
+  ],
+  'adobe-express': [
+    'list_tagged_documents',
+    'get_tagged_document',
+    'generate_variation',
+    'export_rendition',
+    'get_job_status',
   ],
   'adobe-firefly-services': [
     'generate_image',
@@ -76662,6 +81920,20 @@ export const integrationActions = {
     'extract-structured-data',
     'custom_api_call',
   ],
+  'apache-superset': [
+    'validate_connection',
+    'list_dashboards',
+    'get_dashboard',
+    'list_dashboard_datasets',
+    'list_datasets',
+    'get_dataset',
+    'create_dataset',
+    'update_dataset',
+    'refresh_dataset',
+    'list_charts',
+    'get_chart',
+    'run_sqllab_query',
+  ],
   'apify': [
     'run_actor',
     'get_dataset',
@@ -76810,6 +82082,15 @@ export const integrationActions = {
     'list_teams',
     'list_users',
     'list_calendar_events',
+  ],
+  'attentive': [
+    'subscribe_user',
+    'unsubscribe_user',
+    'upsert_user_attributes',
+    'set_custom_attributes',
+    'get_custom_attributes',
+    'send_custom_event',
+    'send_purchase_event',
   ],
   'attio': [
     'list_records',
@@ -77143,6 +82424,16 @@ export const integrationActions = {
     'get_clicks_summary',
     'list_groups',
   ],
+  'bitwarden': [
+    'list_members',
+    'get_member',
+    'list_groups',
+    'get_group',
+    'list_collections',
+    'get_collection',
+    'list_events',
+    'list_policies',
+  ],
   'bizzabo': [
     'list_events',
     'get_event',
@@ -77357,10 +82648,18 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'campaign-monitor': [
-    'add_subscriber_to_list',
-    'update_subscriber_details',
+    'list_clients',
+    'list_contact_lists',
+    'list_segments',
+    'add_subscriber',
+    'update_subscriber',
+    'get_subscriber',
+    'list_subscribers',
     'unsubscribe_subscriber',
-    'find_subscriber',
+    'delete_subscriber',
+    'list_campaigns',
+    'get_campaign_summary',
+    'suppress_email',
   ],
   'candid': [
     'search_nonprofits',
@@ -77679,8 +82978,26 @@ export const integrationActions = {
   ],
   'cloudinary': [
     'list_resources',
+    'search_resources',
     'get_resource',
+    'upload_resource',
+    'update_resource_metadata',
+    'create_transformation',
+    'generate_derived_resource',
     'delete_resource',
+  ],
+  'clover': [
+    'get_merchant',
+    'list_items',
+    'get_item',
+    'create_item',
+    'update_item',
+    'list_orders',
+    'get_order',
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'refund_payment',
   ],
   'coda': [
     'create_row',
@@ -77764,12 +83081,21 @@ export const integrationActions = {
     'get_environment',
     'list_kafka_clusters',
     'get_kafka_cluster',
+    'list_topics',
+    'get_topic',
+    'create_topic',
+    'delete_topic',
     'list_service_accounts',
     'get_service_account',
     'list_api_keys',
     'get_api_key',
     'list_metric_descriptors',
     'query_metrics',
+    'list_connectors',
+    'get_connector',
+    'get_connector_status',
+    'create_connector',
+    'delete_connector',
     'custom_api_call',
   ],
   'connectwise': [
@@ -77972,6 +83298,8 @@ export const integrationActions = {
   'dbt-cloud': [
     'list_projects',
     'get_project',
+    'list_environments',
+    'get_environment',
     'list_jobs',
     'get_job',
     'trigger_job_run',
@@ -78213,10 +83541,15 @@ export const integrationActions = {
     'list_doctors',
   ],
   'drip': [
-    'apply_tag_to_subscriber',
-    'add_subscriber_to_campaign',
-    'upsert_subscriber',
-    'custom_api_call',
+    'list_subscribers',
+    'get_subscriber',
+    'create_or_update_subscriber',
+    'track_event',
+    'apply_tag',
+    'list_tags',
+    'list_campaigns',
+    'unsubscribe_all',
+    'delete_subscriber',
   ],
   'dropbox': [
     'search_dropbox',
@@ -78254,6 +83587,18 @@ export const integrationActions = {
     'update_link',
     'custom_api_call',
   ],
+  'duo': [
+    'list_users',
+    'get_user',
+    'list_groups',
+    'get_group',
+    'list_phones',
+    'get_phone',
+    'list_integrations',
+    'list_authentication_logs',
+    'list_administrator_logs',
+    'set_user_status',
+  ],
   'dwolla': [
     'list_customers',
     'create_customer',
@@ -78281,11 +83626,17 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'elasticsearch': [
-    'search',
+    'validate_connection',
+    'list_indices',
+    'get_index',
+    'create_index',
+    'delete_index',
+    'search_documents',
     'index_document',
+    'update_document',
     'get_document',
     'delete_document',
-    'list_indices',
+    'custom_api_call',
   ],
   'elevenlabs': [
     'elevenlabs-text-to-speech',
@@ -78349,10 +83700,14 @@ export const integrationActions = {
     'get_connector_manifest',
   ],
   'eventbrite': [
+    'list_organizations',
     'create_event',
     'list_events',
     'get_event',
+    'update_event',
+    'cancel_event',
     'list_attendees',
+    'list_orders',
     'create_ticket_class',
     'get_order',
     'custom_api_call',
@@ -78663,33 +84018,33 @@ export const integrationActions = {
   'freshservice': [
     'create_ticket',
     'list_tickets',
+    'get_ticket',
     'update_ticket',
+    'delete_ticket',
     'list_agents',
     'list_requesters',
+    'list_problems',
+    'create_problem',
+    'update_problem',
+    'delete_problem',
+    'list_changes',
+    'create_change',
+    'update_change',
+    'delete_change',
     'custom_api_call',
   ],
   'front': [
-    'addComment',
-    'addContactHandle',
-    'addConversationLinks',
-    'addConversationTags',
-    'assignUnassignConversation',
-    'createAccount',
-    'createContact',
-    'createDraft',
-    'createDraftReply',
-    'createLink',
-    'findAccount',
-    'findContact',
-    'findConversation',
-    'removeContactHandle',
-    'removeConversationLinks',
-    'sendMessage',
-    'sendReply',
-    'updateAccount',
-    'updateContact',
-    'updateConversation',
-    'updateLink',
+    'list_conversations',
+    'search_conversations',
+    'get_conversation',
+    'list_conversation_messages',
+    'list_conversation_comments',
+    'send_reply',
+    'add_comment',
+    'update_conversation',
+    'delete_conversation',
+    'list_contacts',
+    'create_contact',
   ],
   'sftp': [
     'create_file',
@@ -79041,7 +84396,12 @@ export const integrationActions = {
     'list_dashboards',
     'get_dashboard',
     'create_alert_rule',
+    'get_alert_rule',
+    'update_alert_rule',
+    'delete_alert_rule',
     'list_alerts',
+    'list_contact_points',
+    'list_alertmanager_alerts',
     'custom_api_call',
   ],
   'grain': [
@@ -79213,6 +84573,7 @@ export const integrationActions = {
     'send_reply',
     'add_note',
     'update_conversation_status',
+    'delete_conversation',
     'list_customers',
   ],
   'hex': [
@@ -79452,6 +84813,19 @@ export const integrationActions = {
     'move_email',
     'delete_email',
   ],
+  'imgix': [
+    'list_sources',
+    'get_source',
+    'list_assets',
+    'get_asset',
+    'update_asset_metadata',
+    'create_upload_session',
+    'close_upload_session',
+    'cancel_upload_session',
+    'publish_asset',
+    'unpublish_asset',
+    'generate_rendering_url',
+  ],
   'incident-io': [
     'validate_connection',
     'list_incidents',
@@ -79551,6 +84925,19 @@ export const integrationActions = {
     'list_campaigns',
     'send_targeted_email',
     'custom_api_call',
+  ],
+  'jamf': [
+    'list_computers',
+    'get_computer_inventory',
+    'list_mobile_devices',
+    'get_mobile_device',
+    'list_users',
+    'get_user',
+    'list_computer_groups',
+    'get_computer_group',
+    'list_mobile_device_groups',
+    'get_mobile_device_group',
+    'list_api_integrations',
   ],
   'code': [
     'run_code',
@@ -79874,12 +85261,34 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'lightspeed-restaurant': [
+    'list_accounts',
     'list_orders',
     'get_order',
+    'update_order',
     'list_menu_items',
+    'get_menu_item',
+    'update_menu_item',
+    'list_customers',
+    'get_customer',
+    'create_customer',
     'get_employee',
     'get_table',
     'custom_api_call',
+  ],
+  'lightspeed-retail': [
+    'get_current_user',
+    'list_products',
+    'get_product',
+    'create_product',
+    'update_product',
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'update_customer',
+    'list_sales',
+    'get_sale',
+    'create_sale',
+    'list_outlets',
   ],
   'line': [
     'push_message',
@@ -79980,6 +85389,22 @@ export const integrationActions = {
     'upload_file',
     'download_file',
   ],
+  'looker': [
+    'validate_connection',
+    'search_content',
+    'search_dashboards',
+    'get_dashboard',
+    'create_dashboard',
+    'update_dashboard',
+    'search_looks',
+    'get_look',
+    'run_saved_query',
+    'run_inline_query',
+    'create_dashboard_render_task',
+    'get_render_task',
+    'get_render_task_results',
+    'run_scheduled_plan_once',
+  ],
   'loom': [
     'list_videos',
     'get_video',
@@ -80011,6 +85436,22 @@ export const integrationActions = {
     'create_document_embed',
     'list_users',
     'custom_api_call',
+  ],
+  'luma': [
+    'get_calendar',
+    'list_calendar_events',
+    'lookup_event',
+    'get_event',
+    'create_event',
+    'update_event',
+    'list_guests',
+    'get_guest',
+    'add_guests',
+    'update_guest_status',
+    'list_ticket_types',
+    'create_ticket_type',
+    'request_event_cancellation',
+    'cancel_event',
   ],
   'magento': [
     'list_products',
@@ -80248,17 +85689,26 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'microsoft-365-planner': [
-    'createPlan',
-    'createBucket',
-    'createTask',
-    'deleteBucket',
-    'deleteTask',
-    'updatePlan',
-    'updateBucket',
-    'updateTask',
-    'findAPlan',
-    'getABucket',
-    'findTask',
+    'list_groups',
+    'list_plans',
+    'get_plan',
+    'get_plan_details',
+    'create_plan',
+    'update_plan',
+    'list_buckets',
+    'get_bucket',
+    'create_bucket',
+    'update_bucket',
+    'delete_bucket',
+    'list_tasks',
+    'get_task',
+    'get_task_details',
+    'create_task',
+    'update_task',
+    'move_task',
+    'update_task_details',
+    'delete_task',
+    'list_members',
     'custom_api_call',
   ],
   'microsoft-dynamics-crm': [
@@ -80364,9 +85814,18 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'microsoft-power-bi': [
-    'create_dataset',
-    'push_rows_to_dataset_table',
-    'custom_api_call',
+    'validate_connection',
+    'list_workspaces',
+    'list_dashboards',
+    'get_dashboard',
+    'list_reports',
+    'get_report',
+    'list_datasets',
+    'get_dataset',
+    'refresh_dataset',
+    'get_refresh_history',
+    'create_report_export',
+    'get_report_export',
   ],
   'microsoft-sharepoint': [
     'microsoft_sharepoint_create_folder',
@@ -80462,6 +85921,22 @@ export const integrationActions = {
     'query_profiles',
     'query_saved_report',
   ],
+  'mode': [
+    'validate_connection',
+    'list_reports_for_space',
+    'get_report',
+    'update_report',
+    'list_report_runs',
+    'run_report',
+    'list_queries',
+    'get_query',
+    'create_query',
+    'update_query',
+    'list_query_runs',
+    'export_query_run_results',
+    'get_dataset',
+    'list_reports_for_dataset',
+  ],
   'mollie': [
     'create_order',
     'create_payment_link',
@@ -80523,7 +85998,13 @@ export const integrationActions = {
     'list_assets',
     'get_asset',
     'create_asset',
+    'create_direct_upload',
+    'create_playback_id',
+    'add_caption_track',
+    'get_playback_urls',
+    'generate_signed_playback_url',
     'list_live_streams',
+    'delete_asset',
   ],
   'mycase': [
     'list_cases',
@@ -80531,6 +86012,18 @@ export const integrationActions = {
     'list_contacts',
     'create_contact',
     'custom_api_call',
+  ],
+  'myob': [
+    'list_customers',
+    'list_suppliers',
+    'list_employees',
+    'list_accounts',
+    'list_invoices',
+    'list_bills',
+    'list_customer_payments',
+    'get_record',
+    'create_record',
+    'update_record',
   ],
   'mysql': [
     'find_rows',
@@ -80704,12 +86197,30 @@ export const integrationActions = {
     'send_event',
     'create_batch',
     'list_campaigns',
+    'get_campaign',
+    'list_segments',
+    'get_segment',
+    'create_order',
+    'list_orders',
     'custom_api_call',
   ],
   'oncehub': [
     'findContact',
     'createContact',
     'custom_api_call',
+  ],
+  'onelogin': [
+    'list_users',
+    'get_user',
+    'list_user_apps',
+    'list_groups',
+    'get_group',
+    'list_roles',
+    'list_apps',
+    'get_app',
+    'list_events',
+    'set_user_status',
+    'get_rate_limit',
   ],
   'onesignal': [
     'send_notification',
@@ -80744,6 +86255,19 @@ export const integrationActions = {
     'list_models',
     'list_model_endpoints',
     'get_credits',
+  ],
+  'opensearch': [
+    'validate_connection',
+    'list_indices',
+    'get_index',
+    'create_index',
+    'delete_index',
+    'search_documents',
+    'index_document',
+    'update_document',
+    'get_document',
+    'delete_document',
+    'custom_api_call',
   ],
   'opentable': [
     'list_reservations',
@@ -81212,6 +86736,15 @@ export const integrationActions = {
     'list_changelogs',
     'create_changelog',
   ],
+  'prometheus': [
+    'instant_query',
+    'range_query',
+    'list_alerts',
+    'list_rules',
+    'list_targets',
+    'get_status',
+    'list_series',
+  ],
   'propertyware': [
     'list_units',
     'list_tenants',
@@ -81566,6 +87099,26 @@ export const integrationActions = {
     'get_task',
     'custom_api_call',
   ],
+  'redpanda': [
+    'validate_connection',
+    'list_topics',
+    'create_topic',
+    'delete_topic',
+    'get_topic_configurations',
+    'set_topic_configurations',
+    'list_connect_clusters',
+    'get_connect_cluster',
+    'list_connectors',
+    'create_connector',
+    'get_connector',
+    'get_connector_status',
+    'upsert_connector_config',
+    'pause_connector',
+    'resume_connector',
+    'restart_connector',
+    'stop_connector',
+    'delete_connector',
+  ],
   'reducto': [
     'parse_document',
     'start_parse_job',
@@ -81720,6 +87273,36 @@ export const integrationActions = {
     'list_assets',
     'custom_api_call',
   ],
+  'sage-accounting': [
+    'list_businesses',
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'list_sales_invoices',
+    'get_sales_invoice',
+    'create_sales_invoice',
+    'update_sales_invoice',
+    'list_purchase_invoices',
+    'get_purchase_invoice',
+    'create_purchase_invoice',
+    'update_purchase_invoice',
+    'list_contact_payments',
+    'list_ledger_accounts',
+  ],
+  'sage-intacct': [
+    'list_customers',
+    'list_vendors',
+    'list_invoices',
+    'list_bills',
+    'list_accounts',
+    'list_payments',
+    'list_employees',
+    'get_record',
+    'query_records',
+    'create_record',
+    'update_record',
+  ],
   'saleor': [
     'rawGraphqlQuery',
     'getOrder',
@@ -81781,6 +87364,17 @@ export const integrationActions = {
     'create_document',
     'update_document',
     'delete_document',
+  ],
+  'sap-successfactors': [
+    'list_users',
+    'get_user',
+    'list_persons',
+    'get_person',
+    'list_employments',
+    'list_jobs',
+    'list_time_off',
+    'upsert_time_off',
+    'upsert_record',
   ],
   'schoology': [
     'list_courses',
@@ -81884,6 +87478,8 @@ export const integrationActions = {
     'account_status',
   ],
   'service-now': [
+    'list_incidents',
+    'create_incident',
     'list_records',
     'get_record',
     'create_record',
@@ -82108,6 +87704,35 @@ export const integrationActions = {
     'get_measures',
     'search_issues',
     'list_quality_gates',
+  ],
+  'splunk': [
+    'validate_connection',
+    'create_search_job',
+    'get_search_job',
+    'get_search_results',
+    'list_saved_searches',
+    'get_saved_search',
+    'dispatch_saved_search',
+    'update_saved_search',
+    'list_fired_alerts',
+  ],
+  'splunk-on-call': [
+    'list_current_incidents',
+    'search_incident_history',
+    'get_incident',
+    'create_incident',
+    'acknowledge_incident',
+    'resolve_incident',
+    'get_alert',
+    'list_on_call_users',
+    'get_team_schedule',
+    'list_teams',
+    'list_escalation_policies',
+    'list_routing_keys',
+    'list_alert_rules',
+    'create_alert_rule',
+    'update_alert_rule',
+    'delete_alert_rule',
   ],
   'spotify': [
     'search',
@@ -82385,6 +88010,21 @@ export const integrationActions = {
     'list_avatars',
     'custom_api_call',
   ],
+  'tableau': [
+    'validate_connection',
+    'list_workbooks',
+    'get_workbook',
+    'list_views',
+    'get_view',
+    'list_datasources',
+    'get_datasource',
+    'refresh_datasource',
+    'refresh_workbook',
+    'export_view_data',
+    'export_view_pdf',
+    'list_webhooks',
+    'create_webhook',
+  ],
   'talentlms': [
     'get_user',
     'create_user',
@@ -82515,10 +88155,20 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'tidio': [
-    'send_message',
-    'list_visitors',
-    'list_conversations',
-    'get_operator',
+    'get_project',
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'delete_contact',
+    'list_tickets',
+    'get_ticket',
+    'create_ticket_as_contact',
+    'update_ticket',
+    'reply_to_ticket',
+    'delete_ticket',
+    'list_operators',
+    'list_departments',
     'custom_api_call',
   ],
   'tidycal': [
@@ -82586,10 +88236,29 @@ export const integrationActions = {
     'custom_api_call',
   ],
   'todoist': [
+    'list_projects',
+    'get_project',
+    'search_projects',
+    'create_project',
+    'update_project',
+    'archive_project',
+    'delete_project',
+    'list_sections',
+    'create_section',
+    'update_section',
+    'delete_section',
+    'list_tasks',
+    'get_task',
     'create_task',
     'update_task',
-    'find_task',
-    'mark_task_completed',
+    'move_task',
+    'close_task',
+    'reopen_task',
+    'delete_task',
+    'list_comments',
+    'add_comment',
+    'update_comment',
+    'delete_comment',
     'custom_api_call',
   ],
   'together-ai': [
@@ -82624,14 +88293,29 @@ export const integrationActions = {
     'get_show_analytics',
   ],
   'trello': [
-    'create_card',
+    'list_boards',
+    'get_board',
+    'search',
+    'list_lists',
+    'create_list',
+    'update_list',
+    'list_cards',
     'get_card',
+    'create_card',
     'update_card',
+    'move_card',
+    'archive_card',
     'delete_card',
-    'get_card_attachments',
-    'add_card_attachment',
-    'get_card_attachment',
-    'delete_card_attachment',
+    'list_comments',
+    'add_comment',
+    'update_comment',
+    'delete_comment',
+    'list_members',
+    'add_member_to_card',
+    'remove_member_from_card',
+    'create_webhook',
+    'delete_webhook',
+    'custom_api_call',
   ],
   'trustpilot': [
     'list_reviews',
@@ -82763,8 +88447,16 @@ export const integrationActions = {
   'vidyard': [
     'list_videos',
     'get_video',
+    'create_video',
+    'update_video_metadata',
+    'get_video_status',
     'get_analytics',
-    'custom_api_call',
+    'list_captions',
+    'create_caption',
+    'update_caption',
+    'list_thumbnails',
+    'update_selected_thumbnail',
+    'delete_video',
   ],
   'vimeo': [
     'upload_video',
@@ -82916,6 +88608,20 @@ export const integrationActions = {
     'create_quote',
     'list_transfers',
     'get_exchange_rate',
+  ],
+  'wistia': [
+    'list_projects',
+    'get_project',
+    'list_medias',
+    'get_media',
+    'upload_media_from_url',
+    'update_media_metadata',
+    'get_media_stats',
+    'list_captions',
+    'get_caption',
+    'create_or_update_caption',
+    'update_thumbnail_from_url',
+    'delete_media',
   ],
   'wix': [
     'list_sites',
