@@ -83,6 +83,210 @@ export interface Integration1passwordListSignInAttemptsInput {
   limit?: number
 }
 
+/** ABC Glofox — List Locations */
+export interface GlofoxListLocationsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Optional array of namespace filters. */
+  namespaces?: unknown
+}
+
+/** ABC Glofox — Search Members By Email */
+export interface GlofoxSearchMembersByEmailInput {
+  /** Email */
+  email: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** ABC Glofox — Get User */
+export interface GlofoxGetUserInput {
+  /** User ID */
+  userId: string
+}
+
+/** ABC Glofox — List Clients */
+export interface GlofoxListClientsInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** ABC Glofox — Create Lead */
+export interface GlofoxCreateLeadInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** First Name */
+  first_name: string
+  /** Last Name */
+  last_name: string
+  /** Email */
+  email: string
+  /** Phone */
+  phone?: string
+  /** User Type (values: `lead`, `member`) */
+  type?: "lead" | "member"
+  /** Additional Fields */
+  extraFields?: unknown
+}
+
+/** ABC Glofox — Update User */
+export interface GlofoxUpdateUserInput {
+  /** User ID */
+  userId: string
+  /** First Name */
+  first_name?: string
+  /** Last Name */
+  last_name?: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Optional Glofox consent object. */
+  consent?: unknown
+  /** Additional Fields */
+  extraFields?: unknown
+}
+
+/** ABC Glofox — List Memberships */
+export interface GlofoxListMembershipsInput {
+  /** Private Filter (values: `false`, `true`, `any`) */
+  private?: "false" | "true" | "any"
+}
+
+/** ABC Glofox — Get Membership */
+export interface GlofoxGetMembershipInput {
+  /** Membership ID */
+  membershipId: string
+}
+
+/** ABC Glofox — Purchase Membership */
+export interface GlofoxPurchaseMembershipInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** User ID */
+  userId: string
+  /** Membership ID */
+  membershipId: string
+  /** Plan Code */
+  planCode: string
+  /** Glofox MembershipPurchaseRequest body. */
+  body?: unknown
+}
+
+/** ABC Glofox — Cancel Membership */
+export interface GlofoxCancelMembershipInput {
+  /** User Membership ID */
+  userMembershipId: string
+  /** Sent as x-glofox-impersonated-member-id. */
+  memberId: string
+  /** Date accepted by Glofox, for example YYYY-MM-DD. */
+  cancellationDate: string
+  /** Reason */
+  reason?: string
+  /** Additional Fields */
+  extraFields?: unknown
+}
+
+/** ABC Glofox — List Credit Packs */
+export interface GlofoxListCreditPacksInput {
+  /** User ID */
+  user_id: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** ABC Glofox — List Events */
+export interface GlofoxListEventsInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** UTC timestamp in seconds. */
+  start: string
+  /** UTC timestamp in seconds. */
+  end: string
+  /** Event Type Filter (values: `event`, `course`, `timeslot`) */
+  filter?: "event" | "course" | "timeslot"
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Comma-separated program IDs. */
+  programs?: string
+}
+
+/** ABC Glofox — Get Event */
+export interface GlofoxGetEventInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** Event ID */
+  eventId: string
+}
+
+/** ABC Glofox — Create Booking */
+export interface GlofoxCreateBookingInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** Impersonated Member ID */
+  impersonatedMemberId?: string
+  /** Glofox booking request body. */
+  booking: unknown
+}
+
+/** ABC Glofox — List Bookings */
+export interface GlofoxListBookingsInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+  /** Modified Start Timestamp */
+  modified_start_date?: number
+  /** Modified End Timestamp */
+  modified_end_date?: number
+  /** BOOKED, WAITING, CANCELED, RESERVED, or FAILED. */
+  status?: string
+  /** Event ID */
+  event_id?: string
+}
+
+/** ABC Glofox — Cancel Booking */
+export interface GlofoxCancelBookingInput {
+  /** Booking ID */
+  bookingId: string
+  /** User ID */
+  userId: string
+}
+
+/** ABC Glofox — Mark Booking Attended */
+export interface GlofoxMarkBookingAttendedInput {
+  /** Glofox AttendanceRequest body. */
+  attendance: unknown
+}
+
+/** ABC Glofox — List Payment Methods */
+export interface GlofoxListPaymentMethodsInput {
+  /** Defaults to the branch ID configured on the connection. */
+  branchId?: string
+  /** Provider-supported includes value. */
+  includes: string
+}
+
+/** ABC Glofox — List Staff */
+export interface GlofoxListStaffInput {
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
 /** Abstract API — Validate Email */
 export interface AbstractApiValidateEmailInput {
   /** The email address to validate */
@@ -5201,6 +5405,40 @@ export interface AppfolioListPropertiesInput {
   propertyType?: string
 }
 
+/** AppFolio — List Units */
+export interface AppfolioListUnitsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Comma-separated AppFolio property IDs. */
+  propertyIds?: string
+  /** Include Hidden */
+  includeHidden?: boolean
+}
+
+/** AppFolio — Update Unit */
+export interface AppfolioUpdateUnitInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Listings */
+export interface AppfolioListListingsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Property ID */
+  propertyId?: string
+}
+
 /** AppFolio — List Tenants */
 export interface AppfolioListTenantsInput {
   /** Page Size */
@@ -5209,6 +5447,18 @@ export interface AppfolioListTenantsInput {
   pageCursor?: string
   /** Status (values: `current`, `past`, `future`) */
   status?: "current" | "past" | "future"
+}
+
+/** AppFolio — List Tenant Ledgers */
+export interface AppfolioListTenantLedgersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Occupancy ID */
+  occupancyId?: string
 }
 
 /** AppFolio — List Leases */
@@ -5221,14 +5471,170 @@ export interface AppfolioListLeasesInput {
   propertyId?: string
 }
 
-/** AppFolio — Custom API Call */
-export interface AppfolioCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** Path */
-  path: string
-  /** Body */
-  body?: unknown
+/** AppFolio — List Owners */
+export interface AppfolioListOwnersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+}
+
+/** AppFolio — Create Owner */
+export interface AppfolioCreateOwnerInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Owner */
+export interface AppfolioUpdateOwnerInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Vendors */
+export interface AppfolioListVendorsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Include Hidden */
+  includeHidden?: boolean
+}
+
+/** AppFolio — Create Vendor */
+export interface AppfolioCreateVendorInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Vendor */
+export interface AppfolioUpdateVendorInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Work Orders */
+export interface AppfolioListWorkOrdersInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Property ID */
+  propertyId?: string
+  /** Unit ID */
+  unitId?: string
+  /** Comma-separated work order statuses. */
+  statuses?: string
+}
+
+/** AppFolio — Create Work Order */
+export interface AppfolioCreateWorkOrderInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Work Order */
+export interface AppfolioUpdateWorkOrderInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Bills */
+export interface AppfolioListBillsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Property ID */
+  propertyId?: string
+  /** Vendor ID */
+  vendorId?: string
+}
+
+/** AppFolio — Create Bill */
+export interface AppfolioCreateBillInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Bill */
+export interface AppfolioUpdateBillInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Open Charges */
+export interface AppfolioListOpenChargesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Property ID */
+  propertyId: string
+}
+
+/** AppFolio — Create Charge */
+export interface AppfolioCreateChargeInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — List Leads */
+export interface AppfolioListLeadsInput {
+  /** Page Size */
+  pageSize?: number
+  /** Cursor for pagination. */
+  pageCursor?: string
+  /** Filter records updated since this ISO timestamp or date when supported by AppFolio. */
+  lastUpdatedAtFrom?: string
+  /** Comma-separated property IDs. */
+  propertyIds?: string
+}
+
+/** AppFolio — Create Lead */
+export interface AppfolioCreateLeadInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Lead */
+export interface AppfolioUpdateLeadInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Create Showing */
+export interface AppfolioCreateShowingInput {
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
+}
+
+/** AppFolio — Update Showing */
+export interface AppfolioUpdateShowingInput {
+  /** The AppFolio record ID to update. */
+  id: string
+  /** Provider request body for this AppFolio resource. */
+  body: unknown
 }
 
 /** Appwrite — List Databases */
@@ -10077,6 +10483,176 @@ export interface BizzaboCustomApiCallInput {
   body?: unknown
 }
 
+/** Blackboard Learn — List Courses */
+export interface BlackboardListCoursesInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Course ID Filter */
+  courseId?: string
+  /** Name Filter */
+  name?: string
+}
+
+/** Blackboard Learn — Get Course */
+export interface BlackboardGetCourseInput {
+  /** Course Identifier */
+  courseId: string
+}
+
+/** Blackboard Learn — Create Course */
+export interface BlackboardCreateCourseInput {
+  /** Course ID */
+  courseId: string
+  /** Name */
+  name: string
+  /** Description */
+  description?: string
+  /** Additional Course Fields */
+  fields?: unknown
+}
+
+/** Blackboard Learn — Update Course */
+export interface BlackboardUpdateCourseInput {
+  /** Course Identifier */
+  courseId: string
+  /** Course Fields */
+  fields: unknown
+}
+
+/** Blackboard Learn — Delete Course */
+export interface BlackboardDeleteCourseInput {
+  /** Course Identifier */
+  courseId: string
+}
+
+/** Blackboard Learn — List Users */
+export interface BlackboardListUsersInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+  /** Username Filter */
+  userName?: string
+  /** Email Filter */
+  email?: string
+}
+
+/** Blackboard Learn — Get User */
+export interface BlackboardGetUserInput {
+  /** User Identifier */
+  userId: string
+}
+
+/** Blackboard Learn — Create User */
+export interface BlackboardCreateUserInput {
+  /** Username */
+  userName: string
+  /** Given Name */
+  given: string
+  /** Family Name */
+  family: string
+  /** Email */
+  email?: string
+  /** Additional User Fields */
+  fields?: unknown
+}
+
+/** Blackboard Learn — Update User */
+export interface BlackboardUpdateUserInput {
+  /** User Identifier */
+  userId: string
+  /** User Fields */
+  fields: unknown
+}
+
+/** Blackboard Learn — Enroll User */
+export interface BlackboardEnrollUserInput {
+  /** Course Identifier */
+  courseId: string
+  /** User Identifier */
+  userId: string
+  /** For example Student, Instructor, TeachingAssistant. */
+  courseRoleId: string
+  /** Availability (values: `Yes`, `No`) */
+  availability?: "Yes" | "No"
+}
+
+/** Blackboard Learn — Unenroll User */
+export interface BlackboardUnenrollUserInput {
+  /** Course Identifier */
+  courseId: string
+  /** User Identifier */
+  userId: string
+}
+
+/** Blackboard Learn — List Grade Columns */
+export interface BlackboardListGradeColumnsInput {
+  /** Course Identifier */
+  courseId: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Blackboard Learn — Update Grade */
+export interface BlackboardUpdateGradeInput {
+  /** Course Identifier */
+  courseId: string
+  /** Grade Column ID */
+  columnId: string
+  /** User Identifier */
+  userId: string
+  /** Grade payload accepted by Learn for the column/user grade. */
+  fields: unknown
+}
+
+/** Blackboard Learn — List Content */
+export interface BlackboardListContentInput {
+  /** Course Identifier */
+  courseId: string
+  /** Parent Content ID */
+  parentId?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Blackboard Learn — Create Content */
+export interface BlackboardCreateContentInput {
+  /** Course Identifier */
+  courseId: string
+  /** Parent Content ID */
+  parentId?: string
+  /** Title */
+  title: string
+  /** Body */
+  body?: string
+  /** Additional Content Fields */
+  fields?: unknown
+}
+
+/** Blackboard Learn — Update Content */
+export interface BlackboardUpdateContentInput {
+  /** Course Identifier */
+  courseId: string
+  /** Content ID */
+  contentId: string
+  /** Content Fields */
+  fields: unknown
+}
+
+/** Blackboard Learn — Delete Content */
+export interface BlackboardDeleteContentInput {
+  /** Course Identifier */
+  courseId: string
+  /** Content ID */
+  contentId: string
+}
+
 /** Blockscout — Search */
 export interface BlockscoutSearchInput {
   /** Query */
@@ -11419,6 +11995,39 @@ export interface BrightDataGoogleSearchInput {
   responseFormat?: "json" | "raw"
 }
 
+/** Bring — Book Shipment */
+export interface BringBookShipmentInput {
+  /** Bring Booking API request body for /booking/api/create. */
+  booking: unknown
+}
+
+/** Bring — Track Shipment */
+export interface BringTrackShipmentInput {
+  /** Tracking number, shipment number, or reference. */
+  query: string
+  /** Tracking API Version */
+  version?: string
+  /** Extra Info */
+  extraInfo?: boolean
+}
+
+/** Bring — List Customer Webhooks */
+export type BringListCustomerWebhooksInput = Record<string, never>
+
+/** Bring — Renew Customer Webhook */
+export interface BringRenewCustomerWebhookInput {
+  /** Webhook Subscription ID */
+  webhookSubscriptionId: string
+}
+
+/** Bring — Delete Webhook */
+export interface BringDeleteWebhookInput {
+  /** Webhook Subscription ID */
+  webhookSubscriptionId: string
+  /** Webhook Type (values: `tracking`, `customer`) */
+  webhookType: "tracking" | "customer"
+}
+
 /** Buffer — Create Post */
 export interface BufferCreatePostInput {
   /** Array of profile IDs to post to */
@@ -12626,6 +13235,337 @@ export interface CanvasLmsListStudentsInput {
   courseId: string
   /** Per Page */
   perPage?: number
+}
+
+/** Canvas LMS — Create Course */
+export interface CanvasLmsCreateCourseInput {
+  /** Account ID */
+  accountId: string
+  /** Course Name */
+  name: string
+  /** Course Code */
+  courseCode?: string
+  /** SIS Course ID */
+  sisCourseId?: string
+  /** Additional Course Fields */
+  additionalFields?: unknown
+}
+
+/** Canvas LMS — Update Course */
+export interface CanvasLmsUpdateCourseInput {
+  /** Course ID */
+  courseId: string
+  /** Canvas course fields such as name, course_code, start_at, end_at, or offer. */
+  fields: unknown
+}
+
+/** Canvas LMS — Delete or Conclude Course */
+export interface CanvasLmsDeleteCourseInput {
+  /** Course ID */
+  courseId: string
+  /** Event (values: `delete`, `conclude`) */
+  event: "delete" | "conclude"
+}
+
+/** Canvas LMS — Create Assignment */
+export interface CanvasLmsCreateAssignmentInput {
+  /** Course ID */
+  courseId: string
+  /** Assignment Name */
+  name: string
+  /** Points Possible */
+  pointsPossible?: number
+  /** ISO 8601 timestamp. */
+  dueAt?: string
+  /** Additional Assignment Fields */
+  additionalFields?: unknown
+}
+
+/** Canvas LMS — Update Assignment */
+export interface CanvasLmsUpdateAssignmentInput {
+  /** Course ID */
+  courseId: string
+  /** Assignment ID */
+  assignmentId: string
+  /** Assignment Fields */
+  fields: unknown
+}
+
+/** Canvas LMS — Delete Assignment */
+export interface CanvasLmsDeleteAssignmentInput {
+  /** Course ID */
+  courseId: string
+  /** Assignment ID */
+  assignmentId: string
+}
+
+/** Canvas LMS — Create Enrollment */
+export interface CanvasLmsCreateEnrollmentInput {
+  /** Course ID */
+  courseId: string
+  /** User ID */
+  userId: string
+  /** Enrollment Type (values: `StudentEnrollment`, `TeacherEnrollment`, `TaEnrollment`, `ObserverEnrollment`, `DesignerEnrollment`) */
+  type: "StudentEnrollment" | "TeacherEnrollment" | "TaEnrollment" | "ObserverEnrollment" | "DesignerEnrollment"
+  /** Enrollment State (values: `active`, `invited`) */
+  enrollmentState?: "active" | "invited"
+  /** Section ID */
+  sectionId?: string
+}
+
+/** Canvas LMS — Delete or Conclude Enrollment */
+export interface CanvasLmsDeleteEnrollmentInput {
+  /** Course ID */
+  courseId: string
+  /** Enrollment ID */
+  enrollmentId: string
+  /** Task (values: `delete`, `conclude`, `deactivate`, `inactivate`) */
+  task: "delete" | "conclude" | "deactivate" | "inactivate"
+}
+
+/** Canvas LMS — Grade Submission */
+export interface CanvasLmsGradeSubmissionInput {
+  /** Course ID */
+  courseId: string
+  /** Assignment ID */
+  assignmentId: string
+  /** User ID */
+  userId: string
+  /** Posted Grade */
+  postedGrade?: string
+  /** Text Comment */
+  textComment?: string
+  /** Additional Submission Fields */
+  additionalFields?: unknown
+}
+
+/** Canvas Medical — Search Patients */
+export interface CanvasMedicalSearchPatientsInput {
+  /** Identifier */
+  identifier?: string
+  /** Name */
+  name?: string
+  /** FHIR date search value. */
+  birthdate?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Patient */
+export interface CanvasMedicalGetPatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** Canvas Medical — Create Patient */
+export interface CanvasMedicalCreatePatientInput {
+  /** FHIR Patient JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Update Patient */
+export interface CanvasMedicalUpdatePatientInput {
+  /** Patient ID */
+  patientId: string
+  /** Full FHIR Patient JSON resource body for Canvas Medical PUT update. */
+  body: unknown
+}
+
+/** Canvas Medical — Search Appointments */
+export interface CanvasMedicalSearchAppointmentsInput {
+  /** Patient Reference/ID */
+  patient?: string
+  /** Practitioner Reference/ID */
+  practitioner?: string
+  /** FHIR date filter, for example ge2026-01-01. */
+  date?: string
+  /** Status */
+  status?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Appointment */
+export interface CanvasMedicalGetAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Canvas Medical — Create Appointment */
+export interface CanvasMedicalCreateAppointmentInput {
+  /** FHIR Appointment JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Update Appointment */
+export interface CanvasMedicalUpdateAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Full FHIR Appointment JSON resource body for Canvas Medical PUT update. */
+  body: unknown
+}
+
+/** Canvas Medical — Cancel Appointment */
+export interface CanvasMedicalCancelAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Cancelation Reason Text */
+  cancelationReasonText?: string
+}
+
+/** Canvas Medical — Search Practitioners */
+export interface CanvasMedicalSearchPractitionersInput {
+  /** Identifier */
+  identifier?: string
+  /** Name */
+  name?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Practitioner */
+export interface CanvasMedicalGetPractitionerInput {
+  /** Practitioner ID */
+  practitionerId: string
+}
+
+/** Canvas Medical — Create Practitioner */
+export interface CanvasMedicalCreatePractitionerInput {
+  /** FHIR Practitioner JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Update Practitioner */
+export interface CanvasMedicalUpdatePractitionerInput {
+  /** Practitioner ID */
+  practitionerId: string
+  /** Full FHIR Practitioner JSON resource body for Canvas Medical PUT update. */
+  body: unknown
+}
+
+/** Canvas Medical — Search Encounters */
+export interface CanvasMedicalSearchEncountersInput {
+  /** Patient Reference/ID */
+  patient?: string
+  /** Practitioner Reference/ID */
+  practitioner?: string
+  /** FHIR date filter, for example ge2026-01-01. */
+  date?: string
+  /** Status */
+  status?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Encounter */
+export interface CanvasMedicalGetEncounterInput {
+  /** Encounter ID */
+  encounterId: string
+}
+
+/** Canvas Medical — Search Communications */
+export interface CanvasMedicalSearchCommunicationsInput {
+  /** Patient Reference/ID */
+  patient?: string
+  /** Subject Reference/ID */
+  subject?: string
+  /** Sent Date Filter */
+  sent?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Communication */
+export interface CanvasMedicalGetCommunicationInput {
+  /** Communication ID */
+  communicationId: string
+}
+
+/** Canvas Medical — Create Communication */
+export interface CanvasMedicalCreateCommunicationInput {
+  /** FHIR Communication JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Search Document References */
+export interface CanvasMedicalSearchDocumentReferencesInput {
+  /** Patient Reference/ID */
+  patient?: string
+  /** FHIR date filter, for example ge2026-01-01. */
+  date?: string
+  /** Status */
+  status?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Document Reference */
+export interface CanvasMedicalGetDocumentReferenceInput {
+  /** DocumentReference ID */
+  documentReferenceId: string
+}
+
+/** Canvas Medical — Create Document Reference */
+export interface CanvasMedicalCreateDocumentReferenceInput {
+  /** FHIR DocumentReference JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Search Tasks */
+export interface CanvasMedicalSearchTasksInput {
+  /** Patient Reference/ID */
+  patient?: string
+  /** Status */
+  status?: string
+  /** Authored On Filter */
+  authoredOn?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Get Task */
+export interface CanvasMedicalGetTaskInput {
+  /** Task ID */
+  taskId: string
+}
+
+/** Canvas Medical — Create Task */
+export interface CanvasMedicalCreateTaskInput {
+  /** FHIR Task JSON resource body accepted by Canvas Medical. */
+  body: unknown
+}
+
+/** Canvas Medical — Update Task */
+export interface CanvasMedicalUpdateTaskInput {
+  /** Task ID */
+  taskId: string
+  /** Full FHIR Task JSON resource body for Canvas Medical PUT update. */
+  body: unknown
+}
+
+/** Canvas Medical — Search Locations */
+export interface CanvasMedicalSearchLocationsInput {
+  /** FHIR _id search parameter. */
+  id?: string
+  /** FHIR _count. Canvas caps this at 100. */
+  count?: number
+}
+
+/** Canvas Medical — Search Schedules */
+export type CanvasMedicalSearchSchedulesInput = Record<string, never>
+
+/** Canvas Medical — Search Slots */
+export interface CanvasMedicalSearchSlotsInput {
+  /** Required Canvas Schedule resource id. */
+  schedule: string
+  /** YYYY-MM-DD. Defaults to current UTC date when omitted by Canvas. */
+  start?: string
+  /** YYYY-MM-DD. Defaults to seven days from start when omitted by Canvas. */
+  end?: string
+  /** Defaults to 20 minutes when omitted by Canvas. */
+  duration?: number
+  /** FHIR system|code value for the allowed appointment type, for example http://snomed.info/sct|185418009. */
+  appointmentType?: string
 }
 
 /** Capsule CRM — Create Contact */
@@ -16168,6 +17108,124 @@ export interface CloverRefundPaymentInput {
   confirmRefund: boolean
 }
 
+/** ClubReady — Create Prospect */
+export interface ClubreadyCreateProspectInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** First Name */
+  FirstName: string
+  /** Last Name */
+  LastName: string
+  /** Email */
+  Email: string
+  /** Send Welcome Email */
+  SendEmail: boolean
+  /** Phone */
+  Phone?: string
+  /** Cell Phone */
+  CellPhone?: string
+  /** YYYY-MM-DD. */
+  DateOfBirth?: string
+  /** Add Package ID */
+  AddPackageId?: number
+  /** Prospect Type ID */
+  ProspectTypeId?: number
+  /** Referral Type ID */
+  ReferralTypeId?: number
+  /** Internal Note */
+  Note?: string
+  /** External ID */
+  ExternalId?: string
+  /** Assign To Staff User ID */
+  AssignToId?: number
+  /** Email Opt Out */
+  EmailOptOut?: boolean
+  /** Non-Promotional SMS Opted In */
+  NonPromotionalSmsOptedIn?: boolean
+  /** Promotional SMS Opted In */
+  PromotionalSmsOptedIn?: boolean
+}
+
+/** ClubReady — Create Class Booking */
+export interface ClubreadyCreateClassBookingInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** User ID */
+  UserId: number
+  /** Schedule ID */
+  ScheduleId: number
+  /** Allow Waitlist */
+  AllowWaitList?: boolean
+}
+
+/** ClubReady — Update Booking Status */
+export interface ClubreadyUpdateBookingStatusInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** User ID */
+  UserId: number
+  /** Booking ID */
+  BookingId: number
+  /** Status ID */
+  StatusId: number
+}
+
+/** ClubReady — Cancel Waitlist */
+export interface ClubreadyCancelWaitlistInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** Defaults to the connection Chain ID when provided. */
+  ChainId?: number
+  /** Class Schedule ID */
+  ClassScheduleId: number
+}
+
+/** ClubReady — Check In User */
+export interface ClubreadyCheckInUserInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** Barcode */
+  Barcode: string
+  /** User ID */
+  UserId?: number
+}
+
+/** ClubReady — Make Payment */
+export interface ClubreadyMakePaymentInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** Defaults to the connection Chain ID when provided. */
+  ChainId?: number
+  /** Amount */
+  Amount: number
+  /** Invoice ID */
+  Invoice: number
+}
+
+/** ClubReady — Create User Note */
+export interface ClubreadyCreateUserNoteInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** User ID */
+  UserId: number
+  /** Subject */
+  Subject: string
+  /** Text */
+  Text: string
+  /** Posted By User ID */
+  PostedBy?: number
+}
+
+/** ClubReady — Tag User */
+export interface ClubreadyTagUserInput {
+  /** Defaults to the connection Store ID when provided. */
+  StoreId?: number
+  /** User ID */
+  UserId: number
+  /** Tag */
+  Tag: string
+}
+
 /** Coda — Create Row */
 export interface CodaCreateRowInput {
   /** Document (resolve via property options API) */
@@ -16915,6 +17973,12 @@ export interface CompanycamArchiveProjectInput {
   projectId: string
 }
 
+/** CompanyCam — Restore Project */
+export interface CompanycamRestoreProjectInput {
+  /** Project ID */
+  projectId: string
+}
+
 /** CompanyCam — Delete Project */
 export interface CompanycamDeleteProjectInput {
   /** Project ID */
@@ -16927,6 +17991,10 @@ export interface CompanycamUploadPhotoInput {
   projectId: string
   /** URL of photo to upload */
   uri: string
+  /** Description */
+  description?: string
+  /** Optional JSON array of tag names or IDs supported by CompanyCam. */
+  tags?: unknown
 }
 
 /** CompanyCam — List Project Photos */
@@ -16965,8 +18033,51 @@ export interface CompanycamCreateTagInput {
   display_value: string
 }
 
+/** CompanyCam — List Tags */
+export type CompanycamListTagsInput = Record<string, never>
+
+/** CompanyCam — Update Tag */
+export interface CompanycamUpdateTagInput {
+  /** Tag ID */
+  tagId: string
+  /** Tag Fields */
+  fields: unknown
+}
+
+/** CompanyCam — Delete Tag */
+export interface CompanycamDeleteTagInput {
+  /** Tag ID */
+  tagId: string
+}
+
+/** CompanyCam — Add Photo Tags */
+export interface CompanycamAddPhotoTagsInput {
+  /** Photo ID */
+  photoId: string
+  /** JSON array of tag names or IDs supported by CompanyCam. */
+  tags: unknown
+}
+
+/** CompanyCam — Add Photo Comment */
+export interface CompanycamAddPhotoCommentInput {
+  /** Photo ID */
+  photoId: string
+  /** Comment */
+  comment: string
+}
+
 /** CompanyCam — List Webhooks */
 export type CompanycamListWebhooksInput = Record<string, never>
+
+/** CompanyCam — Create Webhook */
+export interface CompanycamCreateWebhookInput {
+  /** Webhook URL */
+  url: string
+  /** JSON array of CompanyCam webhook scopes. */
+  scopes: unknown
+  /** Optional webhook token used by CompanyCam for delivery verification. */
+  token?: string
+}
 
 /** CompanyCam — Update Webhook */
 export interface CompanycamUpdateWebhookInput {
@@ -16974,6 +18085,12 @@ export interface CompanycamUpdateWebhookInput {
   webhookId: string
   /** Webhook Fields */
   fields: unknown
+}
+
+/** CompanyCam — Delete Webhook */
+export interface CompanycamDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
 }
 
 /** Confluence — Get Page */
@@ -18608,6 +19725,117 @@ export interface CventCustomApiCallInput {
   body?: unknown
 }
 
+/** D2L Brightspace — Get Current User */
+export type D2lBrightspaceGetWhoamiInput = Record<string, never>
+
+/** D2L Brightspace — Get Course */
+export interface D2lBrightspaceGetCourseInput {
+  /** Org Unit ID */
+  orgUnitId: number
+}
+
+/** D2L Brightspace — Create Course */
+export interface D2lBrightspaceCreateCourseInput {
+  /** CourseOffering JSON accepted by Brightspace, including name, code, path, template, and semester fields. */
+  fields: unknown
+}
+
+/** D2L Brightspace — Update Course */
+export interface D2lBrightspaceUpdateCourseInput {
+  /** Org Unit ID */
+  orgUnitId: number
+  /** Course Fields */
+  fields: unknown
+}
+
+/** D2L Brightspace — Delete Course */
+export interface D2lBrightspaceDeleteCourseInput {
+  /** Org Unit ID */
+  orgUnitId: number
+}
+
+/** D2L Brightspace — Create User */
+export interface D2lBrightspaceCreateUserInput {
+  /** Org Defined ID */
+  orgDefinedId: string
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Username */
+  userName: string
+  /** Role ID */
+  roleId: number
+  /** Email */
+  email?: string
+  /** Additional User Fields */
+  fields?: unknown
+}
+
+/** D2L Brightspace — Update User */
+export interface D2lBrightspaceUpdateUserInput {
+  /** User ID */
+  userId: number
+  /** User Fields */
+  fields: unknown
+}
+
+/** D2L Brightspace — List Classlist */
+export interface D2lBrightspaceListClasslistInput {
+  /** Org Unit ID */
+  orgUnitId: number
+  /** Search Term */
+  searchTerm?: string
+  /** Role ID */
+  roleId?: number
+  /** Bookmark */
+  bookmark?: string
+}
+
+/** D2L Brightspace — Enroll User */
+export interface D2lBrightspaceEnrollUserInput {
+  /** Org Unit ID */
+  orgUnitId: number
+  /** User ID */
+  userId: number
+  /** Role ID */
+  roleId: number
+  /** Send Enrollment Email */
+  sendEnrollmentEmail?: boolean
+}
+
+/** D2L Brightspace — Unenroll User */
+export interface D2lBrightspaceUnenrollUserInput {
+  /** Org Unit ID */
+  orgUnitId: number
+  /** User ID */
+  userId: number
+}
+
+/** D2L Brightspace — List Grade Objects */
+export interface D2lBrightspaceListGradeObjectsInput {
+  /** Org Unit ID */
+  orgUnitId: number
+}
+
+/** D2L Brightspace — Update Grade Value */
+export interface D2lBrightspaceUpdateGradeValueInput {
+  /** Org Unit ID */
+  orgUnitId: number
+  /** Grade Object ID */
+  gradeObjectId: number
+  /** User ID */
+  userId: number
+  /** IncomingGradeValue JSON, such as DisplayedGrade or PointsNumerator. */
+  gradeValue: unknown
+}
+
+/** D2L Brightspace — List Content Root */
+export interface D2lBrightspaceListContentRootInput {
+  /** Org Unit ID */
+  orgUnitId: number
+}
+
 /** Data Transformer — Transform JSON */
 export interface DataTransformerTransformJsonInput {
   /** Input JSON object to transform */
@@ -20042,6 +21270,147 @@ export interface DialpadListWebhooksInput {
   cursor?: string
 }
 
+/** Digitail — Get Logged-In Vet */
+export type DigitailGetLoggedInVetInput = Record<string, never>
+
+/** Digitail — List Pets */
+export interface DigitailListPetsInput {
+  /** Clinic ID */
+  clinicId?: number
+  /** Search Query */
+  query?: string
+  /** Provider-supported date filter when enabled for this endpoint. */
+  date?: string
+  /** Page */
+  page?: number
+}
+
+/** Digitail — Get Pet */
+export interface DigitailGetPetInput {
+  /** Pet ID */
+  petId: number
+}
+
+/** Digitail — Update Pet */
+export interface DigitailUpdatePetInput {
+  /** Pet ID */
+  petId: number
+  /** Pet Update Body */
+  body: unknown
+}
+
+/** Digitail — List Pet Parents */
+export interface DigitailListPetParentsInput {
+  /** Clinic ID */
+  clinicId?: number
+  /** Search Query */
+  query?: string
+  /** Page */
+  page?: number
+}
+
+/** Digitail — Get Pet Parent */
+export interface DigitailGetPetParentInput {
+  /** Pet Parent ID */
+  petParentId: number
+}
+
+/** Digitail — Create Pet Parent */
+export interface DigitailCreatePetParentInput {
+  /** First Name */
+  name: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email?: string
+  /** Phone */
+  phone?: string
+  /** Additional Pet Parent Fields */
+  additionalFields?: unknown
+}
+
+/** Digitail — Update Pet Parent */
+export interface DigitailUpdatePetParentInput {
+  /** Pet Parent ID */
+  petParentId: number
+  /** Pet Parent Update Body */
+  body: unknown
+}
+
+/** Digitail — List Appointments */
+export interface DigitailListAppointmentsInput {
+  /** Clinic ID */
+  clinicId?: number
+  /** Pet ID */
+  petId?: number
+  /** Status */
+  status?: string
+  /** Date filter accepted by Digitail for appointment searches. */
+  date?: string
+  /** Page */
+  page?: number
+}
+
+/** Digitail — Get Appointment */
+export interface DigitailGetAppointmentInput {
+  /** Appointment ID */
+  appointmentId: number
+}
+
+/** Digitail — Create Appointment */
+export interface DigitailCreateAppointmentInput {
+  /** Pet ID */
+  petId: number
+  /** Clinic ID */
+  clinicId: number
+  /** Vet ID */
+  vetId?: number
+  /** ISO 8601 date-time. */
+  datetimeStartUtc: string
+  /** ISO 8601 date-time. */
+  datetimeEndUtc?: string
+  /** Visit Type ID */
+  visitTypeId?: number
+  /** Observations */
+  observations?: string
+  /** Additional Appointment Fields */
+  additionalFields?: unknown
+}
+
+/** Digitail — Update Appointment */
+export interface DigitailUpdateAppointmentInput {
+  /** Appointment ID */
+  appointmentId: number
+  /** Appointment Update Body */
+  body: unknown
+}
+
+/** Digitail — List Pet Prescriptions */
+export interface DigitailListPetPrescriptionsInput {
+  /** Pet ID */
+  petId: number
+  /** Clinic ID */
+  clinicId?: number
+  /** Status */
+  status?: string
+  /** Page */
+  page?: number
+}
+
+/** Digitail — Create Prescription Refill */
+export interface DigitailCreatePrescriptionRefillInput {
+  /** Prescription ID */
+  prescriptionId: number
+  /** Record ID */
+  recordId: number
+  /** Vet ID */
+  vetId: number
+  /** Date or date-time accepted by Digitail. */
+  refilledAt: string
+  /** Internal Notes */
+  internalNotes?: string
+}
+
 /** DigitalOcean — List All Domains */
 export interface DigitalOceanListDomainsInput {
   /** Number of domains to return per page (1-200). */
@@ -21465,6 +22834,286 @@ export interface DrchronoListDoctorsInput {
   page?: number
 }
 
+/** DrChrono — List Messages */
+export interface DrchronoListMessagesInput {
+  /** Timestamp accepted by DrChrono. */
+  receivedSince?: string
+  /** Timestamp accepted by DrChrono. */
+  updatedSince?: string
+  /** Doctor ID */
+  doctor?: number
+  /** Owner User ID */
+  owner?: number
+  /** Patient ID */
+  patient?: number
+  /** Responsible User ID */
+  responsibleUser?: number
+  /** Show Archived */
+  showArchived?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Get Message */
+export interface DrchronoGetMessageInput {
+  /** Message ID */
+  messageId: number
+}
+
+/** DrChrono — Create Message */
+export interface DrchronoCreateMessageInput {
+  /** Doctor ID */
+  doctor: number
+  /** Title */
+  title: string
+  /** Owner User ID */
+  owner?: number
+  /** Patient ID */
+  patient?: number
+  /** Responsible User ID */
+  responsibleUser?: number
+  /** Type */
+  type?: string
+  /** Optional JSON array for DrChrono message_notes. */
+  messageNotes?: unknown
+}
+
+/** DrChrono — Update Message */
+export interface DrchronoUpdateMessageInput {
+  /** Message ID */
+  messageId: number
+  /** Title */
+  title?: string
+  /** Owner User ID */
+  owner?: number
+  /** Patient ID */
+  patient?: number
+  /** Responsible User ID */
+  responsibleUser?: number
+  /** Type */
+  type?: string
+  /** Optional JSON array for DrChrono message_notes. */
+  messageNotes?: unknown
+}
+
+/** DrChrono — List Prescription Messages */
+export interface DrchronoListPrescriptionMessagesInput {
+  /** Timestamp accepted by DrChrono. */
+  since?: string
+  /** Doctor ID */
+  doctor?: number
+  /** Patient ID */
+  patient?: number
+  /** Parent Message ID */
+  parentMessage?: number
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — List Clinical Notes */
+export interface DrchronoListClinicalNotesInput {
+  /** YYYY-MM-DD. */
+  date?: string
+  /** Date Range */
+  dateRange?: string
+  /** Timestamp accepted by DrChrono. */
+  since?: string
+  /** Doctor ID */
+  doctor?: number
+  /** Patient ID */
+  patient?: number
+  /** Office ID */
+  office?: number
+  /** Show Archived */
+  showArchived?: boolean
+  /** Verbose */
+  verbose?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Get Clinical Note */
+export interface DrchronoGetClinicalNoteInput {
+  /** Clinical Note ID */
+  clinicalNoteId: number
+  /** Verbose */
+  verbose?: boolean
+}
+
+/** DrChrono — List Clinical Note Field Values */
+export interface DrchronoListClinicalNoteFieldValuesInput {
+  /** Appointment ID */
+  appointment?: number
+  /** Clinical Note Field ID */
+  clinicalNoteField?: number
+  /** Timestamp accepted by DrChrono. */
+  since?: string
+  /** Show Persistent */
+  showPersistent?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Update Clinical Note Field Value */
+export interface DrchronoUpdateClinicalNoteFieldValueInput {
+  /** Field Value ID */
+  fieldValueId: number
+  /** Value */
+  value?: string
+  /** Archived */
+  archived?: boolean
+}
+
+/** DrChrono — List Tasks */
+export interface DrchronoListTasksInput {
+  /** Assignee User ID */
+  assigneeUser?: number
+  /** Assignee Group ID */
+  assigneeGroup?: number
+  /** Status ID */
+  status?: number
+  /** Category ID */
+  category?: number
+  /** YYYY-MM-DD. */
+  dueAtDate?: string
+  /** Due At Range */
+  dueAtRange?: string
+  /** Timestamp accepted by DrChrono. */
+  dueAtSince?: string
+  /** Due At Unknown */
+  dueAtUnknown?: boolean
+  /** Timestamp accepted by DrChrono. */
+  since?: string
+  /** Show Archived */
+  showArchived?: boolean
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Get Task */
+export interface DrchronoGetTaskInput {
+  /** Task ID */
+  taskId: number
+}
+
+/** DrChrono — Create Task */
+export interface DrchronoCreateTaskInput {
+  /** Title */
+  title: string
+  /** Status ID */
+  status: number
+  /** Assignee User ID */
+  assigneeUser?: number
+  /** Assignee Group ID */
+  assigneeGroup?: number
+  /** Category ID */
+  category?: number
+  /** Priority */
+  priority?: string
+  /** Archived */
+  archived?: boolean
+  /** Optional DrChrono due_date JSON object. */
+  dueDate?: unknown
+  /** Optional DrChrono associated_items JSON array. */
+  associatedItems?: unknown
+  /** Optional DrChrono notes JSON array. */
+  notes?: unknown
+}
+
+/** DrChrono — Update Task */
+export interface DrchronoUpdateTaskInput {
+  /** Task ID */
+  taskId: number
+  /** Title */
+  title?: string
+  /** Status ID */
+  status?: number
+  /** Assignee User ID */
+  assigneeUser?: number
+  /** Assignee Group ID */
+  assigneeGroup?: number
+  /** Category ID */
+  category?: number
+  /** Priority */
+  priority?: string
+  /** Archived */
+  archived?: boolean
+  /** Optional DrChrono due_date JSON object. */
+  dueDate?: unknown
+  /** Optional DrChrono associated_items JSON array. */
+  associatedItems?: unknown
+  /** Optional DrChrono notes JSON array. */
+  notes?: unknown
+}
+
+/** DrChrono — List Task Notes */
+export interface DrchronoListTaskNotesInput {
+  /** Task ID */
+  task?: number
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Create Task Note */
+export interface DrchronoCreateTaskNoteInput {
+  /** Task ID */
+  task: number
+  /** Text */
+  text: string
+}
+
+/** DrChrono — Update Task Note */
+export interface DrchronoUpdateTaskNoteInput {
+  /** Task Note ID */
+  taskNoteId: number
+  /** Text */
+  text: string
+}
+
+/** DrChrono — List Task Statuses */
+export interface DrchronoListTaskStatusesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Create Task Status */
+export interface DrchronoCreateTaskStatusInput {
+  /** Title */
+  title: string
+  /** Archived */
+  archived?: boolean
+}
+
+/** DrChrono — List Task Categories */
+export interface DrchronoListTaskCategoriesInput {
+  /** Page Size */
+  pageSize?: number
+  /** Page */
+  page?: number
+}
+
+/** DrChrono — Create Task Category */
+export interface DrchronoCreateTaskCategoryInput {
+  /** Title */
+  title: string
+  /** Archived */
+  archived?: boolean
+}
+
 /** Drip — List Subscribers */
 export interface DripListSubscribersInput {
   /** Status (values: `active`, `unsubscribed`, `removed`) */
@@ -22101,6 +23750,106 @@ export interface EasypostCreateAddressInput {
   verify?: boolean
 }
 
+/** Easyship — Create Shipment */
+export interface EasyshipCreateShipmentInput {
+  /** Easyship destination_address object. */
+  destinationAddress: unknown
+  /** Easyship origin_address object or ID-bearing object. */
+  originAddress: unknown
+  /** Array of Easyship parcel objects. */
+  parcels: unknown
+  /** Optional courier_service_id selected from rates. */
+  courierServiceId?: string
+  /** Platform Order Number */
+  platformOrderNumber?: string
+  /** Optional incoterms value such as DDU or DDP. */
+  incoterms?: string
+  /** Currency */
+  currency?: string
+  /** Optional current Easyship shipment fields not modeled above. */
+  additionalBody?: unknown
+}
+
+/** Easyship — Buy Label */
+export interface EasyshipCreateLabelInput {
+  /** Easyship shipment ID, such as ESSG... */
+  shipmentId: string
+  /** Courier Service ID */
+  courierServiceId: string
+  /** Additional Label Fields */
+  additionalBody?: unknown
+}
+
+/** Easyship — Create Return Shipment */
+export interface EasyshipCreateReturnShipmentInput {
+  /** Original Easyship Shipment ID */
+  shipmentId: string
+  /** Optional return destination address ID. */
+  destinationAddressId?: string
+  /** Courier Selection */
+  courierSelection?: unknown
+  /** Parcels */
+  parcels?: unknown
+  /** Additional Return Fields */
+  additionalBody?: unknown
+}
+
+/** Easyship — Cancel Shipment */
+export interface EasyshipCancelShipmentInput {
+  /** Easyship Shipment ID */
+  shipmentId: string
+}
+
+/** Easyship — Delete Shipment */
+export interface EasyshipDeleteShipmentInput {
+  /** Easyship Shipment ID */
+  shipmentId: string
+}
+
+/** Easyship — List Shipments */
+export interface EasyshipListShipmentsInput {
+  /** Limit */
+  limit?: number
+  /** Page */
+  page?: number
+  /** Label State */
+  labelState?: string
+  /** Delivery State */
+  deliveryState?: string
+  /** Platform Order Number */
+  platformOrderNumber?: string
+}
+
+/** Easyship — Get Shipment */
+export interface EasyshipGetShipmentInput {
+  /** Easyship Shipment ID */
+  shipmentId: string
+}
+
+/** Easyship — List Rates */
+export interface EasyshipListRatesInput {
+  /** Easyship Shipment ID */
+  shipmentId: string
+}
+
+/** Easyship — Create Tracking */
+export interface EasyshipCreateTrackingInput {
+  /** Tracking Number */
+  trackingNumber: string
+  /** Courier ID */
+  courierId: string
+  /** Platform Order Number */
+  platformOrderNumber?: string
+  /** Origin Address ID */
+  originAddressId?: string
+  /** Origin Address */
+  originAddress?: unknown
+  /** Destination Address */
+  destinationAddress: unknown
+  /** Array of tracking item objects. */
+  items: unknown
+}
+
 /** eBay — Search Items */
 export interface EbaySearchItemsInput {
   /** Keywords to search for */
@@ -22310,6 +24059,272 @@ export interface ElasticsearchCustomApiCallInput {
   body?: unknown
   /** Required for POST, PUT, PATCH, and DELETE custom calls. */
   confirmMutation?: boolean
+}
+
+/** Elation Health — List Patients */
+export interface ElationHealthListPatientsInput {
+  /** First Name */
+  firstName?: string
+  /** Last Name */
+  lastName?: string
+  /** YYYY-MM-DD. */
+  dateOfBirth?: string
+  /** Physician ID */
+  physician?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Patient */
+export interface ElationHealthGetPatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** Elation Health — Create Patient */
+export interface ElationHealthCreatePatientInput {
+  /** JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Update Patient */
+export interface ElationHealthUpdatePatientInput {
+  /** Patient ID */
+  patientId: string
+  /** Partial JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Delete Patient */
+export interface ElationHealthDeletePatientInput {
+  /** Patient ID */
+  patientId: string
+}
+
+/** Elation Health — List Appointments */
+export interface ElationHealthListAppointmentsInput {
+  /** Patient ID */
+  patient?: number
+  /** Physician filter value accepted by Elation. */
+  physician?: string
+  /** Practice ID */
+  practice?: number
+  /** Date-time accepted by Elation. */
+  fromDate?: string
+  /** Date-time accepted by Elation. */
+  toDate?: string
+  /** Time Slot Type (values: `appointment`, `appointment_slot`, `event`) */
+  timeSlotType?: "appointment" | "appointment_slot" | "event"
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Appointment */
+export interface ElationHealthGetAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Elation Health — Create Appointment */
+export interface ElationHealthCreateAppointmentInput {
+  /** JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Update Appointment */
+export interface ElationHealthUpdateAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+  /** Partial JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Delete Appointment */
+export interface ElationHealthDeleteAppointmentInput {
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Elation Health — List Physicians */
+export interface ElationHealthListPhysiciansInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Physician */
+export interface ElationHealthGetPhysicianInput {
+  /** Physician ID */
+  physicianId: string
+}
+
+/** Elation Health — Update Physician */
+export interface ElationHealthUpdatePhysicianInput {
+  /** Physician ID */
+  physicianId: string
+  /** Partial JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — List Service Locations */
+export interface ElationHealthListServiceLocationsInput {
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Service Location */
+export interface ElationHealthGetServiceLocationInput {
+  /** Service Location ID */
+  serviceLocationId: string
+}
+
+/** Elation Health — Create Service Location */
+export interface ElationHealthCreateServiceLocationInput {
+  /** JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Update Service Location */
+export interface ElationHealthUpdateServiceLocationInput {
+  /** Service Location ID */
+  serviceLocationId: string
+  /** Partial JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Delete Service Location */
+export interface ElationHealthDeleteServiceLocationInput {
+  /** Service Location ID */
+  serviceLocationId: string
+}
+
+/** Elation Health — List Message Threads */
+export interface ElationHealthListMessageThreadsInput {
+  /** Patient ID */
+  patient?: number
+  /** Subject Contains */
+  subject?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Message Thread */
+export interface ElationHealthGetMessageThreadInput {
+  /** Thread ID */
+  threadId: string
+}
+
+/** Elation Health — Create Message Thread */
+export interface ElationHealthCreateMessageThreadInput {
+  /** JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — Delete Message Thread */
+export interface ElationHealthDeleteMessageThreadInput {
+  /** Thread ID */
+  threadId: string
+}
+
+/** Elation Health — List Thread Messages */
+export interface ElationHealthListThreadMessagesInput {
+  /** Thread ID */
+  thread?: number
+  /** Patient ID */
+  patient?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Thread Message */
+export interface ElationHealthGetThreadMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Elation Health — Create Thread Message */
+export interface ElationHealthCreateThreadMessageInput {
+  /** Thread ID */
+  thread: number
+  /** Sender ID */
+  sender: number
+  /** Message Body */
+  body: string
+  /** Timestamp accepted by Elation. */
+  sendDate?: string
+}
+
+/** Elation Health — Delete Thread Message */
+export interface ElationHealthDeleteThreadMessageInput {
+  /** Message ID */
+  messageId: string
+}
+
+/** Elation Health — List Clinical Documents */
+export interface ElationHealthListClinicalDocumentsInput {
+  /** Patient ID */
+  patient?: number
+  /** Physician ID */
+  physician?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Clinical Document */
+export interface ElationHealthGetClinicalDocumentInput {
+  /** Clinical Document ID */
+  clinicalDocumentId: string
+}
+
+/** Elation Health — Create Clinical Document */
+export interface ElationHealthCreateClinicalDocumentInput {
+  /** JSON body matching the Elation Health API v2 schema for this resource. */
+  body: unknown
+}
+
+/** Elation Health — List Event Subscriptions */
+export interface ElationHealthListEventSubscriptionsInput {
+  /** Elation webhook resource name, for example patients or appointments. */
+  resource?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Elation Health — Get Event Subscription */
+export interface ElationHealthGetEventSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
+}
+
+/** Elation Health — Create Event Subscription */
+export interface ElationHealthCreateEventSubscriptionInput {
+  /** Elation webhook resource, for example patients, appointments, clinical_documents, message_threads, or thread_messages. */
+  resource: string
+  /** HTTPS webhook endpoint Elation should call. */
+  target: string
+  /** Optional resource-specific subscription properties. */
+  properties?: unknown
+}
+
+/** Elation Health — Delete Event Subscription */
+export interface ElationHealthDeleteEventSubscriptionInput {
+  /** Subscription ID */
+  subscriptionId: string
 }
 
 /** ElevenLabs — Text to Speech */
@@ -23835,6 +25850,452 @@ export interface FellowCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Fergus — List Jobs */
+export interface FergusListJobsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Job */
+export interface FergusGetJobInput {
+  /** Job ID */
+  id: string
+}
+
+/** Fergus — Create Job */
+export interface FergusCreateJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Job */
+export interface FergusUpdateJobInput {
+  /** Job ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Finalise Job */
+export interface FergusFinaliseJobInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Hold Job */
+export interface FergusHoldJobInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Resume Job */
+export interface FergusResumeJobInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — List Quotes */
+export interface FergusListQuotesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Quote */
+export interface FergusGetQuoteInput {
+  /** Quote ID */
+  id: string
+}
+
+/** Fergus — Publish Quote */
+export interface FergusPublishQuoteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Mark Quote as Sent */
+export interface FergusMarkQuoteAsSentInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Accept Quote */
+export interface FergusAcceptQuoteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Decline Quote */
+export interface FergusDeclineQuoteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Void Quote */
+export interface FergusVoidQuoteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — List Customer Invoices */
+export interface FergusListCustomerInvoicesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Customer Invoice */
+export interface FergusGetCustomerInvoiceInput {
+  /** Customer Invoice ID */
+  id: string
+}
+
+/** Fergus — List Customers */
+export interface FergusListCustomersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Customer */
+export interface FergusGetCustomerInput {
+  /** Customer ID */
+  id: string
+}
+
+/** Fergus — Create Customer */
+export interface FergusCreateCustomerInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Customer */
+export interface FergusUpdateCustomerInput {
+  /** Customer ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Delete Customer */
+export interface FergusDeleteCustomerInput {
+  /** Customer ID */
+  id: string
+}
+
+/** Fergus — List Sites */
+export interface FergusListSitesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Site */
+export interface FergusGetSiteInput {
+  /** Site ID */
+  id: string
+}
+
+/** Fergus — Create Site */
+export interface FergusCreateSiteInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Site */
+export interface FergusUpdateSiteInput {
+  /** Site ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Archive Site */
+export interface FergusArchiveSiteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Restore Site */
+export interface FergusRestoreSiteInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — List Contacts */
+export interface FergusListContactsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Contact */
+export interface FergusGetContactInput {
+  /** Contact ID */
+  id: string
+}
+
+/** Fergus — Create Contact */
+export interface FergusCreateContactInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Contact */
+export interface FergusUpdateContactInput {
+  /** Contact ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — List Enquirys */
+export interface FergusListEnquiriesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Enquiry */
+export interface FergusGetEnquiryInput {
+  /** Enquiry ID */
+  id: string
+}
+
+/** Fergus — Create Enquiry */
+export interface FergusCreateEnquiryInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — List Time Entrys */
+export interface FergusListTimeEntriesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Time Entry */
+export interface FergusGetTimeEntryInput {
+  /** Time Entry ID */
+  id: string
+}
+
+/** Fergus — List Calendar Events */
+export interface FergusListCalendarEventsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Calendar Event */
+export interface FergusGetCalendarEventInput {
+  /** Calendar Event ID */
+  id: string
+}
+
+/** Fergus — Create Calendar Event */
+export interface FergusCreateCalendarEventInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Calendar Event */
+export interface FergusUpdateCalendarEventInput {
+  /** Calendar Event ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Delete Calendar Event */
+export interface FergusDeleteCalendarEventInput {
+  /** Calendar Event ID */
+  id: string
+}
+
+/** Fergus — List Notes */
+export interface FergusListNotesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Note */
+export interface FergusGetNoteInput {
+  /** Note ID */
+  id: string
+}
+
+/** Fergus — Create Note */
+export interface FergusCreateNoteInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Note */
+export interface FergusUpdateNoteInput {
+  /** Note ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — List Tasks */
+export interface FergusListTasksInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search Text */
+  filterSearchText?: string
+  /** Section Name */
+  filterSectionName?: string
+  /** Object of additional documented Fergus query parameters. */
+  filters?: unknown
+}
+
+/** Fergus — Get Task */
+export interface FergusGetTaskInput {
+  /** Task ID */
+  id: string
+}
+
+/** Fergus — Create Task */
+export interface FergusCreateTaskInput {
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Update Task */
+export interface FergusUpdateTaskInput {
+  /** Task ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** Fergus — Delete Task */
+export interface FergusDeleteTaskInput {
+  /** Task ID */
+  id: string
+}
+
+/** Fergus — Complete Task */
+export interface FergusCompleteTaskInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Reopen Task */
+export interface FergusReopenTaskInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
+/** Fergus — Delete Attachment */
+export interface FergusDeleteAttachmentInput {
+  /** ID */
+  id: string
+  /** Optional documented Fergus request body. */
+  body?: unknown
+}
+
 /** FieldPulse — List Customers */
 export interface FieldpulseListCustomersInput {
   /** Maximum 100. */
@@ -24171,6 +26632,328 @@ export interface FieldpulseUpdateCommentInput {
 export interface FieldpulseDeleteCommentInput {
   /** Comment ID */
   id: string
+}
+
+/** FieldRoutes — Search Customers */
+export interface FieldroutesSearchCustomersInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Customers */
+export interface FieldroutesGetCustomersInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Customer */
+export interface FieldroutesCreateCustomerInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Customer */
+export interface FieldroutesUpdateCustomerInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Subscriptions */
+export interface FieldroutesSearchSubscriptionsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Subscriptions */
+export interface FieldroutesGetSubscriptionsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Subscription */
+export interface FieldroutesCreateSubscriptionInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Subscription */
+export interface FieldroutesUpdateSubscriptionInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Subscription Lead Stage */
+export interface FieldroutesUpdateSubscriptionLeadStageInput {
+  /** Documented FieldRoutes operation parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Tickets */
+export interface FieldroutesSearchTicketsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Tickets */
+export interface FieldroutesGetTicketsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Ticket */
+export interface FieldroutesCreateTicketInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Ticket */
+export interface FieldroutesUpdateTicketInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Delete Ticket */
+export interface FieldroutesDeleteTicketInput {
+  /** Documented FieldRoutes delete parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Appointments */
+export interface FieldroutesSearchAppointmentsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Appointments */
+export interface FieldroutesGetAppointmentsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Appointment */
+export interface FieldroutesCreateAppointmentInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Appointment */
+export interface FieldroutesUpdateAppointmentInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Cancel Appointment */
+export interface FieldroutesCancelAppointmentInput {
+  /** Documented FieldRoutes operation parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Complete Appointment */
+export interface FieldroutesCompleteAppointmentInput {
+  /** Documented FieldRoutes operation parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Employees */
+export interface FieldroutesSearchEmployeesInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Employees */
+export interface FieldroutesGetEmployeesInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Employee */
+export interface FieldroutesCreateEmployeeInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Employee */
+export interface FieldroutesUpdateEmployeeInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Dealias Employee */
+export interface FieldroutesDealiasEmployeeInput {
+  /** Documented FieldRoutes operation parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Payments */
+export interface FieldroutesSearchPaymentsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Payments */
+export interface FieldroutesGetPaymentsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Payment */
+export interface FieldroutesCreatePaymentInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Create Refund */
+export interface FieldroutesCreateRefundInput {
+  /** Documented FieldRoutes operation parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Contracts */
+export interface FieldroutesSearchContractsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Contracts */
+export interface FieldroutesGetContractsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Contract */
+export interface FieldroutesCreateContractInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Delete Contract */
+export interface FieldroutesDeleteContractInput {
+  /** Documented FieldRoutes delete parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Notes */
+export interface FieldroutesSearchNotesInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Notes */
+export interface FieldroutesGetNotesInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Note */
+export interface FieldroutesCreateNoteInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Note */
+export interface FieldroutesUpdateNoteInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Delete Note */
+export interface FieldroutesDeleteNoteInput {
+  /** Documented FieldRoutes delete parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Documents */
+export interface FieldroutesSearchDocumentsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Documents */
+export interface FieldroutesGetDocumentsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Document */
+export interface FieldroutesCreateDocumentInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Document */
+export interface FieldroutesUpdateDocumentInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Search Reviews */
+export interface FieldroutesSearchReviewsInput {
+  /** Object of documented FieldRoutes search parameters, including comparator objects where supported. */
+  parameters?: unknown
+  /** Include resolved data for the first 1000 matching records where supported. */
+  includeData?: boolean
+}
+
+/** FieldRoutes — Get Reviews */
+export interface FieldroutesGetReviewsInput {
+  /** Comma-separated IDs accepted by the FieldRoutes get endpoint. */
+  ids: string
+  /** Additional Parameters */
+  parameters?: unknown
+}
+
+/** FieldRoutes — Create Review */
+export interface FieldroutesCreateReviewInput {
+  /** Documented FieldRoutes create parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Update Review */
+export interface FieldroutesUpdateReviewInput {
+  /** Documented FieldRoutes update parameters. */
+  parameters: unknown
+}
+
+/** FieldRoutes — Delete Review */
+export interface FieldroutesDeleteReviewInput {
+  /** Documented FieldRoutes delete parameters. */
+  parameters: unknown
 }
 
 /** Fieldwire — Get Task */
@@ -31848,6 +34631,38 @@ export interface GuestyListListingsInput {
   skip?: number
 }
 
+/** Guesty — Get Listing */
+export interface GuestyGetListingInput {
+  /** Listing ID */
+  listingId: string
+}
+
+/** Guesty — Create Listing */
+export interface GuestyCreateListingInput {
+  /** Guesty listing creation request body. */
+  listing: unknown
+}
+
+/** Guesty — Update Listing */
+export interface GuestyUpdateListingInput {
+  /** Listing ID */
+  listingId: string
+  /** Guesty listing update request body. */
+  listing: unknown
+  /** Apply supported updates to a multi-unit and all sub-units. */
+  updateSubUnits?: boolean
+}
+
+/** Guesty — List Or Unlist Property */
+export interface GuestySetListingListedInput {
+  /** Listing ID */
+  listingId: string
+  /** True to list the property, false to unlist it. */
+  listed: boolean
+  /** Apply supported updates to a multi-unit and all sub-units. */
+  updateSubUnits?: boolean
+}
+
 /** Guesty — Get Guest */
 export interface GuestyGetGuestInput {
   /** Guest ID */
@@ -33996,6 +36811,60 @@ export interface HostawayListListingsInput {
   limit?: number
   /** Number of results to skip */
   offset?: number
+}
+
+/** Hostaway — Get Listing */
+export interface HostawayGetListingInput {
+  /** Listing ID */
+  listingId: string
+}
+
+/** Hostaway — Create Listing */
+export interface HostawayCreateListingInput {
+  /** Hostaway listing creation request body. */
+  listing: unknown
+}
+
+/** Hostaway — Update Listing */
+export interface HostawayUpdateListingInput {
+  /** Listing ID */
+  listingId: string
+  /** Hostaway listing update request body. */
+  listing: unknown
+}
+
+/** Hostaway — Delete Listing */
+export interface HostawayDeleteListingInput {
+  /** Listing ID */
+  listingId: string
+}
+
+/** Hostaway — Get Listing Calendar */
+export interface HostawayGetListingCalendarInput {
+  /** Listing ID */
+  listingId: string
+  /** YYYY-MM-DD */
+  startDate?: string
+  /** YYYY-MM-DD */
+  endDate?: string
+  /** Include supplementary reservation resources when Hostaway supports it. */
+  includeResources?: boolean
+}
+
+/** Hostaway — Update Listing Calendar */
+export interface HostawayUpdateListingCalendarInput {
+  /** Listing ID */
+  listingId: string
+  /** Hostaway calendar update body, including startDate/endDate and availability fields. */
+  calendarUpdate: unknown
+}
+
+/** Hostaway — Calculate Reservation Price */
+export interface HostawayCalculateReservationPriceInput {
+  /** Listing ID */
+  listingId: string
+  /** Hostaway price calculation request body. Use version 2 for the current calculator. */
+  priceRequest: unknown
 }
 
 /** Hostaway — Get Guest */
@@ -44868,6 +47737,117 @@ export interface MeistertaskCustomApiCallInput {
   followRedirects?: boolean
 }
 
+/** Mercado Libre — Get My User */
+export type MercadoLibreGetMyUserInput = Record<string, never>
+
+/** Mercado Libre — Search Marketplace Catalog */
+export interface MercadoLibreSearchCatalogInput {
+  /** Marketplace site such as MLA, MLB, MLM, MCO, MLC, or MLU. */
+  siteId: string
+  /** Query */
+  query?: string
+  /** Category ID */
+  category?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mercado Libre — List Seller Items */
+export interface MercadoLibreListSellerItemsInput {
+  /** Seller ID */
+  sellerId: string
+  /** Optional listing status such as active, paused, closed. */
+  status?: string
+  /** Optional provider search_type such as scan for large catalogs. */
+  searchType?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mercado Libre — Get Item */
+export interface MercadoLibreGetItemInput {
+  /** Item ID */
+  itemId: string
+}
+
+/** Mercado Libre — Create Item */
+export interface MercadoLibreCreateItemInput {
+  /** Item Payload */
+  item: unknown
+}
+
+/** Mercado Libre — Update Item */
+export interface MercadoLibreUpdateItemInput {
+  /** Item ID */
+  itemId: string
+  /** Item Updates */
+  updates: unknown
+}
+
+/** Mercado Libre — Update Item Status */
+export interface MercadoLibreUpdateItemStatusInput {
+  /** Item ID */
+  itemId: string
+  /** Status (values: `active`, `paused`, `closed`) */
+  status: "active" | "paused" | "closed"
+}
+
+/** Mercado Libre — List Orders */
+export interface MercadoLibreListOrdersInput {
+  /** Seller ID */
+  sellerId?: string
+  /** Buyer ID */
+  buyerId?: string
+  /** Order Status */
+  orderStatus?: string
+  /** Date Created From */
+  dateCreatedFrom?: string
+  /** Date Created To */
+  dateCreatedTo?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mercado Libre — Get Order */
+export interface MercadoLibreGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Mercado Libre — Get Shipment */
+export interface MercadoLibreGetShipmentInput {
+  /** Shipment ID */
+  shipmentId: string
+}
+
+/** Mercado Libre — List Questions */
+export interface MercadoLibreListQuestionsInput {
+  /** Seller ID */
+  sellerId?: string
+  /** Item ID */
+  itemId?: string
+  /** Status */
+  status?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Mercado Libre — Answer Question */
+export interface MercadoLibreAnswerQuestionInput {
+  /** Question ID */
+  questionId: string
+  /** Answer Text */
+  text: string
+}
+
 /** Mercado Pago — Create Checkout Preference */
 export interface MercadoPagoCreatePreferenceInput {
   /** Array of preference items. */
@@ -49302,6 +52282,249 @@ export interface MollieSearchCustomerInput {
   testmode?: boolean
 }
 
+/** Momence — Get Logged User Profile */
+export type MomenceGetProfileInput = Record<string, never>
+
+/** Momence — List Members */
+export interface MomenceListMembersInput {
+  /** Starts at 0. */
+  page: number
+  /** Maximum 100. */
+  pageSize: number
+  /** Search Query */
+  query?: string
+  /** Sort By (values: `lastSeenAt`, `firstSeenAt`, `firstName`, `lastName`, `email`) */
+  sortBy?: "lastSeenAt" | "firstSeenAt" | "firstName" | "lastName" | "email"
+  /** Sort Order (values: `ASC`, `DESC`) */
+  sortOrder?: "ASC" | "DESC"
+  /** Only Active Membership */
+  onlyActiveMembership?: boolean
+}
+
+/** Momence — Add Member */
+export interface MomenceCreateMemberInput {
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+  /** Email */
+  email: string
+  /** Phone Number */
+  phoneNumber?: string
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Momence — Get Member */
+export interface MomenceGetMemberInput {
+  /** Member ID */
+  memberId: number
+}
+
+/** Momence — Update Member Name */
+export interface MomenceUpdateMemberNameInput {
+  /** Member ID */
+  memberId: number
+  /** First Name */
+  firstName: string
+  /** Last Name */
+  lastName: string
+}
+
+/** Momence — Update Member Email */
+export interface MomenceUpdateMemberEmailInput {
+  /** Member ID */
+  memberId: number
+  /** Email */
+  email: string
+}
+
+/** Momence — Update Member Phone Number */
+export interface MomenceUpdateMemberPhoneNumberInput {
+  /** Member ID */
+  memberId: number
+  /** Phone Number */
+  phoneNumber: string
+}
+
+/** Momence — Delete Member Phone Number */
+export interface MomenceDeleteMemberPhoneNumberInput {
+  /** Member ID */
+  memberId: number
+  /** Confirm Delete */
+  confirmDelete: boolean
+}
+
+/** Momence — List Host Memberships */
+export type MomenceListHostMembershipsInput = Record<string, never>
+
+/** Momence — List Member Bought Memberships */
+export interface MomenceListMemberBoughtMembershipsInput {
+  /** Member ID */
+  memberId: number
+}
+
+/** Momence — Freeze Membership */
+export interface MomenceFreezeMembershipInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Request Body */
+  body?: unknown
+}
+
+/** Momence — Unfreeze Membership */
+export interface MomenceUnfreezeMembershipInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Request Body */
+  body?: unknown
+}
+
+/** Momence — Schedule Membership Freeze */
+export interface MomenceScheduleMembershipFreezeInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Request Body */
+  body?: unknown
+}
+
+/** Momence — Schedule Membership Unfreeze */
+export interface MomenceScheduleMembershipUnfreezeInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Request Body */
+  body?: unknown
+}
+
+/** Momence — Remove Scheduled Unfreeze */
+export interface MomenceRemoveScheduledUnfreezeInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Request Body */
+  body?: unknown
+}
+
+/** Momence — Update Membership Credits */
+export interface MomenceUpdateMembershipCreditsInput {
+  /** Member ID */
+  memberId: number
+  /** Bought Membership ID */
+  boughtMembershipId: number
+  /** Credits Update Body */
+  body: unknown
+}
+
+/** Momence — List Sessions */
+export interface MomenceListSessionsInput {
+  /** Starts at 0. */
+  page: number
+  /** Maximum 200. */
+  pageSize: number
+  /** Start After */
+  startAfter?: string
+  /** Start Before */
+  startBefore?: string
+  /** Location ID */
+  locationId?: number
+  /** Teacher ID */
+  teacherId?: number
+  /** Include Cancelled */
+  includeCancelled?: boolean
+  /** Sort By (values: `name`, `startsAt`, `endsAt`) */
+  sortBy?: "name" | "startsAt" | "endsAt"
+  /** Sort Order (values: `ASC`, `DESC`) */
+  sortOrder?: "ASC" | "DESC"
+}
+
+/** Momence — Get Session */
+export interface MomenceGetSessionInput {
+  /** Session ID */
+  sessionId: number
+}
+
+/** Momence — List Session Bookings */
+export interface MomenceListSessionBookingsInput {
+  /** Session ID */
+  sessionId: number
+}
+
+/** Momence — Add Member To Session For Free */
+export interface MomenceAddMemberToSessionForFreeInput {
+  /** Session ID */
+  sessionId: number
+  /** Member ID */
+  memberId: number
+  /** Create Recurring Booking */
+  createRecurringBooking?: boolean
+}
+
+/** Momence — Add Member To Waitlist */
+export interface MomenceAddMemberToWaitlistInput {
+  /** Session ID */
+  sessionId: number
+  /** Member ID */
+  memberId: number
+  /** Additional Body Fields */
+  body?: unknown
+}
+
+/** Momence — Cancel Session Booking */
+export interface MomenceCancelSessionBookingInput {
+  /** Session Booking ID */
+  bookingId: number
+  /** Cancellation Body */
+  body?: unknown
+}
+
+/** Momence — Cancel Recurring Session Booking */
+export interface MomenceCancelRecurringSessionBookingInput {
+  /** Recurring Booking ID */
+  recurringBookingId: number
+  /** Cancellation Body */
+  body?: unknown
+}
+
+/** Momence — Mark Session Booking Checked In */
+export interface MomenceMarkSessionBookingCheckedInInput {
+  /** Session Booking ID */
+  bookingId: number
+}
+
+/** Momence — Remove Session Booking Check In */
+export interface MomenceRemoveSessionBookingCheckInInput {
+  /** Session Booking ID */
+  bookingId: number
+}
+
+/** Momence — List Tags */
+export type MomenceListTagsInput = Record<string, never>
+
+/** Momence — Assign Tag To Member */
+export interface MomenceAssignTagToMemberInput {
+  /** Member ID */
+  memberId: number
+  /** Tag ID */
+  tagId: number
+}
+
+/** Momence — Unassign Tag From Member */
+export interface MomenceUnassignTagFromMemberInput {
+  /** Member ID */
+  memberId: number
+  /** Tag ID */
+  tagId: number
+}
+
 /** monday.com — Create Column */
 export interface MondayMondayCreateColumnInput {
   /** Workspace ID (resolve via property options API) */
@@ -49535,6 +52758,32 @@ export interface MoodleGetCourseInput {
   courseId: string
 }
 
+/** Moodle — Create Course */
+export interface MoodleCreateCourseInput {
+  /** Full Name */
+  fullname: string
+  /** Short Name */
+  shortname: string
+  /** Category ID */
+  categoryid: number
+  /** Additional Course Fields */
+  fields?: unknown
+}
+
+/** Moodle — Update Course */
+export interface MoodleUpdateCourseInput {
+  /** Course ID */
+  courseId: string
+  /** Course Fields */
+  fields: unknown
+}
+
+/** Moodle — Delete Course */
+export interface MoodleDeleteCourseInput {
+  /** Course ID */
+  courseId: string
+}
+
 /** Moodle — List Users */
 export interface MoodleListUsersInput {
   /** Search By (values: `email`, `username`, `firstname`, `lastname`) */
@@ -49557,6 +52806,44 @@ export interface MoodleCreateUserInput {
   email: string
 }
 
+/** Moodle — Update User */
+export interface MoodleUpdateUserInput {
+  /** User ID */
+  userId: string
+  /** Moodle user fields such as firstname, lastname, email, suspended, or customfields. */
+  fields: unknown
+}
+
+/** Moodle — Get Enrolled Users */
+export interface MoodleGetEnrolledUsersInput {
+  /** Course ID */
+  courseId: string
+}
+
+/** Moodle — Enroll User */
+export interface MoodleEnrollUserInput {
+  /** For example 5 for the default student role. */
+  roleId: number
+  /** User ID */
+  userId: number
+  /** Course ID */
+  courseId: number
+  /** Unix timestamp. */
+  timestart?: number
+  /** Unix timestamp, or 0 for no end. */
+  timeend?: number
+}
+
+/** Moodle — Unenroll User */
+export interface MoodleUnenrollUserInput {
+  /** User ID */
+  userId: number
+  /** Course ID */
+  courseId: number
+  /** Role ID */
+  roleId?: number
+}
+
 /** Moodle — Get Grades */
 export interface MoodleGetGradesInput {
   /** Course ID */
@@ -49565,14 +52852,98 @@ export interface MoodleGetGradesInput {
   userId?: string
 }
 
-/** Moodle — Custom API Call */
-export interface MoodleCustomApiCallInput {
-  /** Method (values: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`) */
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
-  /** The wsfunction name (e.g., core_course_get_courses) */
-  path: string
-  /** Extra query parameters as key-value pairs */
-  body?: unknown
+/** MoonPay — List Currencies */
+export interface MoonpayListCurrenciesInput {
+  /** Show (values: `enabled`, `all`) */
+  show?: "enabled" | "all"
+}
+
+/** MoonPay — Get Buy Quote */
+export interface MoonpayGetBuyQuoteInput {
+  /** Crypto currency code, for example btc or eth. */
+  currencyCode: string
+  /** Fiat currency code, for example usd. */
+  baseCurrencyCode: string
+  /** Base Currency Amount */
+  baseCurrencyAmount?: string
+  /** Quote Currency Amount */
+  quoteCurrencyAmount?: string
+  /** Payment Method */
+  paymentMethod?: string
+  /** Wallet Address */
+  walletAddress?: string
+  /** Fees Included */
+  areFeesIncluded?: boolean
+  /** Extra Fee Percentage */
+  extraFeePercentage?: string
+}
+
+/** MoonPay — Get Sell Quote */
+export interface MoonpayGetSellQuoteInput {
+  /** Crypto currency code to sell. */
+  currencyCode: string
+  /** Fiat currency code to receive. */
+  quoteCurrencyCode: string
+  /** Crypto amount to sell. */
+  baseCurrencyAmount: string
+  /** Payout Method */
+  payoutMethod?: string
+  /** Extra Fee Percentage */
+  extraFeePercentage?: string
+}
+
+/** MoonPay — List Payment Methods */
+export interface MoonpayListPaymentMethodsInput {
+  /** Currency Code */
+  currencyCode: string
+  /** Country Code */
+  countryCode: string
+  /** State Of Residence */
+  stateOfResidence?: string
+  /** Transaction Type (values: `buy`, `sell`) */
+  transactionType: "buy" | "sell"
+}
+
+/** MoonPay — List Buy Transactions */
+export interface MoonpayListBuyTransactionsInput {
+  /** External Transaction ID */
+  externalTransactionId?: string
+  /** Customer ID */
+  customerId?: string
+  /** External Customer ID */
+  externalCustomerId?: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** MoonPay — Get Buy Transaction */
+export interface MoonpayGetBuyTransactionInput {
+  /** Transaction ID */
+  transactionId: string
+}
+
+/** MoonPay — List Sell Transactions */
+export interface MoonpayListSellTransactionsInput {
+  /** Customer ID */
+  customerId?: string
+  /** External Customer ID */
+  externalCustomerId?: string
+  /** External Transaction ID */
+  externalTransactionId?: string
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
 }
 
 /** Moralis — Get Wallet History */
@@ -51157,14 +54528,30 @@ export interface NexhealthListPatientsInput {
   phoneNumber?: string
   /** YYYY-MM-DD. */
   dateOfBirth?: string
+  /** Patient ID from the health record system. */
+  foreignId?: string
   /** ISO 8601 date-time. */
   updatedSince?: string
   /** Include Inactive */
   inactive?: boolean
-  /** Start Cursor */
-  startCursor?: string
-  /** End Cursor */
-  endCursor?: string
+  /** New Patients Only */
+  newPatient?: boolean
+  /** Non-Patients Only */
+  nonPatient?: boolean
+  /** Forms Syncable Only */
+  formsSyncable?: boolean
+  /** Location Strict */
+  locationStrict?: boolean
+  /** Optional response includes, for example appointments. */
+  include?: unknown[]
+  /** Sort (values: `name`, `-name`, `created_at`, `-created_at`) */
+  sort?: "name" | "-name" | "created_at" | "-created_at"
+  /** YYYY-MM-DD. */
+  appointmentDateStart?: string
+  /** YYYY-MM-DD. */
+  appointmentDateEnd?: string
+  /** Page */
+  page?: number
   /** Per Page */
   perPage?: number
 }
@@ -51199,16 +54586,19 @@ export interface NexhealthCreatePatientInput {
   returnExistingIfMatch?: boolean
 }
 
+/** NexHealth — List Institutions */
+export type NexhealthListInstitutionsInput = Record<string, never>
+
 /** NexHealth — List Locations */
 export interface NexhealthListLocationsInput {
   /** Subdomain */
   subdomain?: string
-  /** Start Cursor */
-  startCursor?: string
-  /** End Cursor */
-  endCursor?: string
-  /** Per Page */
-  perPage?: number
+  /** Include Inactive */
+  inactive?: boolean
+  /** Foreign ID */
+  foreignId?: string
+  /** Subscription Feature */
+  filterBySubscriptionFeature?: "messaging" | "campaigns" | "reviews" | "recalls" | "reminders" | "online_booking" | "waitlist" | "forms" | "payments" | "ledger_sync" | "enterprise" | "insurance_verification"
 }
 
 /** NexHealth — List Providers */
@@ -51235,6 +54625,36 @@ export interface NexhealthListAppointmentTypesInput {
   subdomain: string
   /** Location ID */
   locationId?: number
+}
+
+/** NexHealth — View Available Slots */
+export interface NexhealthViewAvailableSlotsInput {
+  /** Subdomain */
+  subdomain: string
+  /** YYYY-MM-DD. */
+  startDate: string
+  /** Days */
+  days: number
+  /** Location IDs */
+  locationIds: unknown[]
+  /** Provider IDs */
+  providerIds?: unknown[]
+  /** Operatory IDs */
+  operatoryIds?: unknown[]
+  /** Appointment Type ID */
+  appointmentTypeId?: number
+  /** Working Hour Label ID */
+  workingHourLabelId?: number
+  /** Working Hour Source (values: `manual`, `synced`) */
+  workingHourSource?: "manual" | "synced"
+  /** Slot Length Minutes */
+  slotLength?: number
+  /** Slot Interval Minutes */
+  slotInterval?: number
+  /** Allow Overlapping Operatory Slots */
+  overlappingOperatorySlots?: boolean
+  /** Supported range is 1 to 5. */
+  appointmentsPerTimeslot?: number
 }
 
 /** NexHealth — List Appointments */
@@ -52689,6 +56109,40 @@ export interface OpenDentalListAppointmentsInput {
   offset?: number
 }
 
+/** Open Dental — Get Appointment */
+export interface OpenDentalGetAppointmentInput {
+  /** Appointment Number */
+  aptNum: number
+}
+
+/** Open Dental — List ASAP Appointments */
+export interface OpenDentalListAsapAppointmentsInput {
+  /** Clinic Number */
+  clinicNum?: number
+  /** Provider Number */
+  providerNum?: number
+  /** Limit */
+  limit?: number
+  /** Offset */
+  offset?: number
+}
+
+/** Open Dental — List Appointment Slots */
+export interface OpenDentalListAppointmentSlotsInput {
+  /** YYYY-MM-DD. Must be today or future. */
+  date?: string
+  /** YYYY-MM-DD. */
+  dateStart?: string
+  /** YYYY-MM-DD. */
+  dateEnd?: string
+  /** Minimum Length Minutes */
+  lengthMinutes?: number
+  /** Provider Number */
+  providerNum?: number
+  /** Operatory Number */
+  operatoryNum?: number
+}
+
 /** Open Dental — Create Appointment */
 export interface OpenDentalCreateAppointmentInput {
   /** Patient Number */
@@ -52727,6 +56181,26 @@ export interface OpenDentalUpdateAppointmentInput {
   appointmentTypeNum?: number
   /** Clinic Number */
   clinicNum?: number
+  /** Appointment Status (values: `Scheduled`, `Complete`, `UnschedList`, `Broken`, `Planned`, `PtNote`, `PtNoteCompleted`) */
+  appointmentStatus?: "Scheduled" | "Complete" | "UnschedList" | "Broken" | "Planned" | "PtNote" | "PtNoteCompleted"
+  /** Priority (values: `Normal`, `ASAP`) */
+  priority?: "Normal" | "ASAP"
+  /** Assistant Employee Number */
+  assistantEmployeeNum?: number
+  /** Unscheduled Status Definition Number */
+  unscheduledStatusDefNum?: number
+  /** Is Hygiene Appointment */
+  isHygiene?: boolean
+  /** Is New Patient */
+  isNewPatient?: boolean
+  /** HH:mm:ss. */
+  dateTimeArrived?: string
+  /** HH:mm:ss. */
+  dateTimeSeated?: string
+  /** HH:mm:ss. */
+  dateTimeDismissed?: string
+  /** Comma-separated RGB values, or 0 to clear. */
+  colorOverride?: string
   /** Overwrites the appointment note. */
   note?: string
 }
@@ -52737,6 +56211,8 @@ export interface OpenDentalBreakAppointmentInput {
   aptNum: number
   /** Send To Unscheduled List */
   sendToUnscheduledList?: boolean
+  /** Optional. Only use when the office has configured broken appointment procedures. (values: `Missed`, `Cancelled`) */
+  breakType?: "Missed" | "Cancelled"
 }
 
 /** Open Dental — Append Appointment Note */
@@ -52751,8 +56227,8 @@ export interface OpenDentalAppendAppointmentNoteInput {
 export interface OpenDentalConfirmAppointmentInput {
   /** Appointment Number */
   aptNum: number
-  /** Confirm Value (values: `None`, `Confirmed`, `Unconfirmed`, `Left Message`, `Contacted`, `Arrived`) */
-  confirmVal?: "None" | "Confirmed" | "Unconfirmed" | "Left Message" | "Contacted" | "Arrived"
+  /** Confirm Value (values: `None`, `Sent`, `Confirmed`, `Not Accepted`, `Failed`) */
+  confirmVal?: "None" | "Sent" | "Confirmed" | "Not Accepted" | "Failed"
   /** Open Dental definition.DefNum where Category=2. */
   definitionNum?: number
 }
@@ -62474,6 +65950,106 @@ export interface RampCustomApiCallInput {
   confirmFinancialChange: boolean
 }
 
+/** Ramp Network — List On-Ramp Assets */
+export interface RampNetworkListOnrampAssetsInput {
+  /** Fiat Currency Code */
+  currencyCode?: string
+  /** User IP */
+  userIp?: string
+  /** Include Disabled Assets */
+  withDisabled?: boolean
+}
+
+/** Ramp Network — List Off-Ramp Assets */
+export interface RampNetworkListOfframpAssetsInput {
+  /** Fiat Currency Code */
+  currencyCode?: string
+  /** User IP */
+  userIp?: string
+  /** Include Disabled Assets */
+  withDisabled?: boolean
+}
+
+/** Ramp Network — List Payment Methods */
+export interface RampNetworkListPaymentMethodsInput {
+  /** Fiat Currency Code */
+  currencyCode?: string
+  /** Country Code */
+  countryCode?: string
+}
+
+/** Ramp Network — List Payout Methods */
+export interface RampNetworkListPayoutMethodsInput {
+  /** Fiat Currency Code */
+  currencyCode?: string
+  /** Country Code */
+  countryCode?: string
+}
+
+/** Ramp Network — List Fiat Currencies */
+export interface RampNetworkListFiatCurrenciesInput {
+  /** Country Code */
+  countryCode?: string
+}
+
+/** Ramp Network — Create On-Ramp Quote */
+export interface RampNetworkCreateOnrampQuoteInput {
+  /** Crypto Asset Symbol */
+  cryptoAssetSymbol: string
+  /** Fiat Value */
+  fiatValue: number
+  /** Fiat Currency */
+  fiatCurrency: string
+  /** Additional Quote Fields */
+  additionalBody?: unknown
+}
+
+/** Ramp Network — Create Off-Ramp Quote */
+export interface RampNetworkCreateOfframpQuoteInput {
+  /** Crypto Asset Symbol */
+  cryptoAssetSymbol: string
+  /** Fiat Value */
+  fiatValue: number
+  /** Fiat Currency */
+  fiatCurrency: string
+  /** Additional Quote Fields */
+  additionalBody?: unknown
+}
+
+/** Ramp Network — Get Off-Ramp Sale */
+export interface RampNetworkGetOfframpSaleInput {
+  /** Sale ID */
+  saleId: string
+  /** Sale Secret */
+  secret: string
+}
+
+/** Ramp Network — Build Widget URL */
+export interface RampNetworkBuildWidgetUrlInput {
+  /** Default Mode (values: `ONRAMP`, `OFFRAMP`) */
+  defaultMode?: "ONRAMP" | "OFFRAMP"
+  /** For example ETH_ETH. */
+  swapAsset?: string
+  /** For example ETH_ETH. */
+  offrampAsset?: string
+  /** Fiat Currency */
+  fiatCurrency?: string
+  /** Fiat Value */
+  fiatValue?: number
+  /** User Wallet Address */
+  userAddress?: string
+  /** On-Ramp Webhook URL */
+  webhookStatusUrl?: string
+  /** Off-Ramp Webhook V3 URL */
+  offrampWebhookV3Url?: string
+  /** Selected Country Code */
+  selectedCountryCode?: string
+  /** Variant */
+  variant?: string
+  /** Additional URL Params */
+  additionalParams?: unknown
+}
+
 /** Razorpay — Custom API Call */
 export interface RazorpayCustomApiCallInput {
   /** url */
@@ -65237,6 +68813,141 @@ export interface SalesloftDeleteWebhookSubscriptionInput {
   confirmDelete: boolean
 }
 
+/** Salla — List Products */
+export interface SallaListProductsInput {
+  /** Keyword */
+  keyword?: string
+  /** Provider status filter such as sale or hidden when supported by the store. */
+  status?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Use Light Response */
+  formatLight?: boolean
+}
+
+/** Salla — Get Product */
+export interface SallaGetProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Salla — Get Product by SKU */
+export interface SallaGetProductBySkuInput {
+  /** SKU */
+  sku: string
+}
+
+/** Salla — Create Product */
+export interface SallaCreateProductInput {
+  /** Salla product creation payload. */
+  product: unknown
+}
+
+/** Salla — Update Product */
+export interface SallaUpdateProductInput {
+  /** Product ID */
+  productId: string
+  /** Product Updates */
+  updates: unknown
+}
+
+/** Salla — Delete Product */
+export interface SallaDeleteProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Salla — List Product Quantities */
+export interface SallaListProductQuantitiesInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Salla — List Orders */
+export interface SallaListOrdersInput {
+  /** Status ID or Slug */
+  status?: string
+  /** Provider-supported date filter, usually YYYY-MM-DD. */
+  fromDate?: string
+  /** Provider-supported date filter, usually YYYY-MM-DD. */
+  toDate?: string
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Salla — Get Order */
+export interface SallaGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Salla — Create External Order */
+export interface SallaCreateExternalOrderInput {
+  /** External Order Payload */
+  order: unknown
+}
+
+/** Salla — Perform Order Action */
+export interface SallaPerformOrderActionInput {
+  /** Action name supported by Salla for the target orders. */
+  actionName: string
+  /** Order IDs */
+  orderIds: unknown[]
+  /** Additional Payload */
+  payload?: unknown
+}
+
+/** Salla — Delete Order Item */
+export interface SallaDeleteOrderItemInput {
+  /** Order Item ID */
+  itemId: string
+}
+
+/** Salla — List Customers */
+export interface SallaListCustomersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+}
+
+/** Salla — Get Customer */
+export interface SallaGetCustomerInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** Salla — List Webhook Events */
+export type SallaListWebhookEventsInput = Record<string, never>
+
+/** Salla — Subscribe Webhook */
+export interface SallaSubscribeWebhookInput {
+  /** Name */
+  name: string
+  /** Salla event name such as order.created or product.updated. */
+  event: string
+  /** Webhook URL */
+  url: string
+  /** Webhook Version */
+  version?: number
+  /** Optional Salla conditional webhook rule. */
+  rule?: string
+  /** Optional array of header key/value objects. */
+  headers?: unknown
+}
+
+/** Salla — Deactivate Webhook */
+export interface SallaDeactivateWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
 /** Sandbox — Run Code */
 export interface AdvancedCodeRunCodeInput {
   /** The language or mode to execute (values: `javascript`, `python`, `shell`) */
@@ -65796,6 +69507,72 @@ export interface SemrushCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Sendcloud — Create Shipment */
+export interface SendcloudCreateShipmentInput {
+  /** Sendcloud v3 shipment request body. */
+  shipment: unknown
+}
+
+/** Sendcloud — Create And Announce Shipment */
+export interface SendcloudCreateAndAnnounceShipmentInput {
+  /** Sendcloud v3 /shipments/announce request body. */
+  shipment: unknown
+  /** Use the synchronous announce endpoint when immediate carrier feedback is needed. */
+  synchronous?: boolean
+}
+
+/** Sendcloud — Create Return */
+export interface SendcloudCreateReturnInput {
+  /** Sendcloud v3 return request body. */
+  returnBody: unknown
+  /** Use the synchronous return endpoint when immediate carrier feedback is needed. */
+  synchronous?: boolean
+}
+
+/** Sendcloud — Cancel Shipment */
+export interface SendcloudCancelShipmentInput {
+  /** Shipment ID */
+  shipmentId: string
+  /** Reason */
+  reason?: string
+}
+
+/** Sendcloud — Cancel Return */
+export interface SendcloudCancelReturnInput {
+  /** Return ID */
+  returnId: string
+  /** Reason */
+  reason?: string
+}
+
+/** Sendcloud — Get Shipment */
+export interface SendcloudGetShipmentInput {
+  /** Shipment ID */
+  shipmentId: string
+}
+
+/** Sendcloud — List Shipments */
+export interface SendcloudListShipmentsInput {
+  /** Cursor */
+  cursor?: string
+  /** Limit */
+  limit?: number
+  /** Tracking Number */
+  trackingNumber?: string
+  /** Order Number */
+  orderNumber?: string
+}
+
+/** Sendcloud — Track Parcel */
+export interface SendcloudTrackParcelInput {
+  /** Parcel ID */
+  parcelId?: string
+  /** Tracking Number */
+  trackingNumber?: string
+  /** Carrier Code */
+  carrierCode?: string
 }
 
 /** SendGrid — Send Email */
@@ -67248,14 +71025,52 @@ export interface ServiceTitanListJobsInput {
   page?: number
   /** Page Size */
   pageSize?: number
-  /** ISO 8601 date (e.g., 2024-01-01) */
+  /** ISO 8601 timestamp/date where supported. */
   createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
 }
 
 /** ServiceTitan — Get Job */
 export interface ServiceTitanGetJobInput {
   /** Job ID */
-  jobId: string
+  id: string
+}
+
+/** ServiceTitan — Create Job */
+export interface ServiceTitanCreateJobInput {
+  /** Body */
+  body: unknown
+}
+
+/** ServiceTitan — Update Job */
+export interface ServiceTitanUpdateJobInput {
+  /** Job ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** ServiceTitan — List Appointments */
+export interface ServiceTitanListAppointmentsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Appointment */
+export interface ServiceTitanGetAppointmentInput {
+  /** Appointment ID */
+  id: string
 }
 
 /** ServiceTitan — List Customers */
@@ -67264,8 +71079,66 @@ export interface ServiceTitanListCustomersInput {
   page?: number
   /** Page Size */
   pageSize?: number
-  /** Active Status (values: ``, `true`, `false`) */
-  active?: "" | "true" | "false"
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Customer */
+export interface ServiceTitanGetCustomerInput {
+  /** Customer ID */
+  id: string
+}
+
+/** ServiceTitan — Create Customer */
+export interface ServiceTitanCreateCustomerInput {
+  /** Body */
+  body: unknown
+}
+
+/** ServiceTitan — Update Customer */
+export interface ServiceTitanUpdateCustomerInput {
+  /** Customer ID */
+  id: string
+  /** Body */
+  body: unknown
+}
+
+/** ServiceTitan — List Locations */
+export interface ServiceTitanListLocationsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Location */
+export interface ServiceTitanGetLocationInput {
+  /** Location ID */
+  id: string
+}
+
+/** ServiceTitan — Create Location */
+export interface ServiceTitanCreateLocationInput {
+  /** Body */
+  body: unknown
+}
+
+/** ServiceTitan — Update Location */
+export interface ServiceTitanUpdateLocationInput {
+  /** Location ID */
+  id: string
+  /** Body */
+  body: unknown
 }
 
 /** ServiceTitan — List Invoices */
@@ -67274,8 +71147,98 @@ export interface ServiceTitanListInvoicesInput {
   page?: number
   /** Page Size */
   pageSize?: number
-  /** ISO 8601 date (e.g., 2024-01-01) */
+  /** ISO 8601 timestamp/date where supported. */
   createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Invoice */
+export interface ServiceTitanGetInvoiceInput {
+  /** Invoice ID */
+  id: string
+}
+
+/** ServiceTitan — List Payments */
+export interface ServiceTitanListPaymentsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Payment */
+export interface ServiceTitanGetPaymentInput {
+  /** Payment ID */
+  id: string
+}
+
+/** ServiceTitan — List Technicians */
+export interface ServiceTitanListTechniciansInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Technician */
+export interface ServiceTitanGetTechnicianInput {
+  /** Technician ID */
+  id: string
+}
+
+/** ServiceTitan — List Business Units */
+export interface ServiceTitanListBusinessUnitsInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Business Unit */
+export interface ServiceTitanGetBusinessUnitInput {
+  /** Business Unit ID */
+  id: string
+}
+
+/** ServiceTitan — List Job Types */
+export interface ServiceTitanListJobTypesInput {
+  /** Page */
+  page?: number
+  /** Page Size */
+  pageSize?: number
+  /** ISO 8601 timestamp/date where supported. */
+  createdOnOrAfter?: string
+  /** ISO 8601 timestamp/date where supported. */
+  modifiedOnOrAfter?: string
+  /** Object of additional documented ServiceTitan query parameters. */
+  filters?: unknown
+}
+
+/** ServiceTitan — Get Job Type */
+export interface ServiceTitanGetJobTypeInput {
+  /** Job Type ID */
+  id: string
 }
 
 /** Shippo — Create Shipment */
@@ -73706,6 +77669,147 @@ export interface TidycalCustomApiCallInput {
   body?: unknown
 }
 
+/** Tiendanube / Nuvemshop — List Products */
+export interface NuvemshopListProductsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Since ID */
+  sinceId?: string
+  /** Updated At Min */
+  updatedAtMin?: string
+  /** Updated At Max */
+  updatedAtMax?: string
+}
+
+/** Tiendanube / Nuvemshop — Get Product */
+export interface NuvemshopGetProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Tiendanube / Nuvemshop — Create Product */
+export interface NuvemshopCreateProductInput {
+  /** Product Payload */
+  product: unknown
+}
+
+/** Tiendanube / Nuvemshop — Update Product */
+export interface NuvemshopUpdateProductInput {
+  /** Product ID */
+  productId: string
+  /** Product Updates */
+  updates: unknown
+}
+
+/** Tiendanube / Nuvemshop — Delete Product */
+export interface NuvemshopDeleteProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Tiendanube / Nuvemshop — List Orders */
+export interface NuvemshopListOrdersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Status */
+  status?: string
+  /** Since ID */
+  sinceId?: string
+  /** Created At Min */
+  createdAtMin?: string
+  /** Created At Max */
+  createdAtMax?: string
+  /** Updated At Min */
+  updatedAtMin?: string
+  /** Updated At Max */
+  updatedAtMax?: string
+}
+
+/** Tiendanube / Nuvemshop — Get Order */
+export interface NuvemshopGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Tiendanube / Nuvemshop — Create Order */
+export interface NuvemshopCreateOrderInput {
+  /** Order Payload */
+  order: unknown
+}
+
+/** Tiendanube / Nuvemshop — Update Order */
+export interface NuvemshopUpdateOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Order Updates */
+  updates: unknown
+}
+
+/** Tiendanube / Nuvemshop — Pay Order */
+export interface NuvemshopPayOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Payment Payload */
+  payload?: unknown
+}
+
+/** Tiendanube / Nuvemshop — Close Order */
+export interface NuvemshopCloseOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Tiendanube / Nuvemshop — Reopen Order */
+export interface NuvemshopReopenOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Tiendanube / Nuvemshop — Cancel Order */
+export interface NuvemshopCancelOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Cancellation Payload */
+  payload?: unknown
+}
+
+/** Tiendanube / Nuvemshop — List Customers */
+export interface NuvemshopListCustomersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Email */
+  email?: string
+}
+
+/** Tiendanube / Nuvemshop — Get Customer */
+export interface NuvemshopGetCustomerInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** Tiendanube / Nuvemshop — List Webhooks */
+export type NuvemshopListWebhooksInput = Record<string, never>
+
+/** Tiendanube / Nuvemshop — Create Webhook */
+export interface NuvemshopCreateWebhookInput {
+  /** Event name such as order/paid or product/updated. */
+  event: string
+  /** Webhook URL */
+  url: string
+}
+
+/** Tiendanube / Nuvemshop — Delete Webhook */
+export interface NuvemshopDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
+}
+
 /** TikTok — Get User Info */
 export type TiktokGetUserInfoInput = Record<string, never>
 
@@ -74590,6 +78694,85 @@ export interface TotangoCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Transak — Refresh Access Token */
+export type TransakRefreshAccessTokenInput = Record<string, never>
+
+/** Transak — Get Price */
+export interface TransakGetPriceInput {
+  /** Fiat Currency */
+  fiatCurrency: string
+  /** Crypto Currency */
+  cryptoCurrency: string
+  /** Network */
+  network: string
+  /** Buy Or Sell (values: `BUY`, `SELL`) */
+  isBuyOrSell: "BUY" | "SELL"
+  /** Fiat Amount */
+  fiatAmount?: string
+  /** Crypto Amount */
+  cryptoAmount?: string
+  /** Payment Method */
+  paymentMethod?: string
+  /** Quote Country Code */
+  quoteCountryCode?: string
+}
+
+/** Transak — List Countries */
+export type TransakListCountriesInput = Record<string, never>
+
+/** Transak — List Crypto Currencies */
+export interface TransakListCryptoCurrenciesInput {
+  /** Country Code */
+  countryCode?: string
+  /** Fiat Currency */
+  fiatCurrency?: string
+  /** Buy Or Sell (values: `BUY`, `SELL`) */
+  isBuyOrSell?: "BUY" | "SELL"
+}
+
+/** Transak — List Fiat Currencies */
+export type TransakListFiatCurrenciesInput = Record<string, never>
+
+/** Transak — Verify Wallet Address */
+export interface TransakVerifyWalletAddressInput {
+  /** Crypto Currency */
+  cryptoCurrency: string
+  /** Network */
+  network: string
+  /** Wallet Address */
+  walletAddress: string
+}
+
+/** Transak — List Orders */
+export interface TransakListOrdersInput {
+  /** Status Filter */
+  status?: string
+  /** Sort Order (values: `asc`, `desc`) */
+  sortOrder?: "asc" | "desc"
+  /** Wallet Address */
+  walletAddress?: string
+  /** Partner Order ID */
+  partnerOrderId?: string
+  /** Page */
+  page?: number
+  /** Limit */
+  limit?: number
+}
+
+/** Transak — Get Order */
+export interface TransakGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Transak — Create Widget URL */
+export interface TransakCreateWidgetUrlInput {
+  /** Referrer Domain */
+  referrerDomain: string
+  /** Additional widgetParams merged with apiKey and referrerDomain. */
+  widgetParams?: unknown
 }
 
 /** Transistor.fm — List Shows */
@@ -76090,6 +80273,88 @@ export interface VercelCustomApiCallInput {
   queryParams?: Record<string, unknown>
   /** Body */
   body?: unknown
+}
+
+/** Vetspire — Get Organization */
+export interface VetspireGetOrganizationInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+}
+
+/** Vetspire — List Clients */
+export interface VetspireListClientsInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Active Only */
+  active?: boolean
+  /** Limit */
+  limit: number
+  /** Include Patient IDs/Names */
+  includePatients?: boolean
+}
+
+/** Vetspire — Get Client */
+export interface VetspireGetClientInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Client ID */
+  clientId: string
+  /** Include Patient IDs/Names */
+  includePatients?: boolean
+}
+
+/** Vetspire — List Patients */
+export interface VetspireListPatientsInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Active Only */
+  active?: boolean
+  /** Limit */
+  limit: number
+}
+
+/** Vetspire — Get Patient */
+export interface VetspireGetPatientInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Patient ID */
+  patientId: string
+}
+
+/** Vetspire — List Appointments */
+export interface VetspireListAppointmentsInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** YYYY-MM-DD. */
+  startDate: string
+  /** YYYY-MM-DD. */
+  endDate: string
+  /** Limit */
+  limit: number
+}
+
+/** Vetspire — Get Appointment */
+export interface VetspireGetAppointmentInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Appointment ID */
+  appointmentId: string
+}
+
+/** Vetspire — Create or Update Client */
+export interface VetspireCreateOrUpdateClientInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Vetspire ClientInput body from the official schema. */
+  input: unknown
+}
+
+/** Vetspire — Create or Update Patient */
+export interface VetspireCreateOrUpdatePatientInput {
+  /** Environment (values: `production`, `staging`, `sandbox`) */
+  environment?: "production" | "staging" | "sandbox"
+  /** Vetspire PatientInput body from the official schema. */
+  input: unknown
 }
 
 /** Vidyard — List Videos */
@@ -79558,6 +83823,165 @@ export interface XmlConvertJsonToXmlInput {
   header?: boolean
 }
 
+/** Yellow Card — Get Rates */
+export interface YellowCardGetRatesInput {
+  /** Local currency code such as NGN, KES, or ZAR. */
+  currency?: string
+}
+
+/** Yellow Card — Get Channels */
+export interface YellowCardGetChannelsInput {
+  /** Country */
+  country: string
+}
+
+/** Yellow Card — Get Networks */
+export interface YellowCardGetNetworksInput {
+  /** Country */
+  country: string
+}
+
+/** Yellow Card — Create Widget Quote */
+export interface YellowCardCreateWidgetQuoteInput {
+  /** Transaction Type (values: `Buy`, `Sell`) */
+  transactionType: "Buy" | "Sell"
+  /** Local Currency */
+  currency: string
+  /** Local Amount */
+  localAmount?: string
+  /** Crypto Amount */
+  cryptoAmount?: string
+  /** Coin */
+  coin: string
+  /** Network */
+  network: string
+  /** Channel ID */
+  channelId: string
+  /** Additional Quote Fields */
+  additionalBody?: unknown
+}
+
+/** Yellow Card — Submit Send */
+export interface YellowCardSubmitSendInput {
+  /** Sequence ID */
+  sequenceId: string
+  /** Reason */
+  reason: string
+  /** Customer UID */
+  customerUID: string
+  /** Customer Type (values: `individual`, `business`) */
+  customerType: "individual" | "business"
+  /** USD Amount */
+  amount?: string
+  /** Local Amount */
+  localAmount?: string
+  /** Local Currency */
+  currency?: string
+  /** Country */
+  country?: string
+  /** Channel ID */
+  channelId?: string
+  /** Channel Type */
+  channelType?: string
+  /** Network ID */
+  networkId?: string
+  /** Force Accept */
+  forceAccept?: boolean
+  /** Sender */
+  sender: unknown
+  /** Destination */
+  destination: unknown
+  /** Additional Send Fields */
+  additionalBody?: unknown
+}
+
+/** Yellow Card — List Sends */
+export interface YellowCardListSendsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Start At */
+  startAt?: string
+  /** Per Page */
+  perPage?: number
+  /** Range By */
+  rangeBy?: string
+  /** Sort By */
+  sortBy?: string
+  /** Order By (values: `asc`, `desc`) */
+  orderBy?: "asc" | "desc"
+}
+
+/** Yellow Card — Get Send */
+export interface YellowCardGetSendInput {
+  /** Send ID */
+  sendId: string
+}
+
+/** Yellow Card — Submit Crypto Send */
+export interface YellowCardSubmitCryptoSendInput {
+  /** Sequence ID */
+  sequenceId: string
+  /** Amount */
+  amount: string
+  /** Wallet Address */
+  walletAddress: string
+  /** Crypto Currency */
+  cryptoCurrency: string
+  /** Crypto Network */
+  cryptoNetwork: string
+  /** Travel Rule Info */
+  travelRuleInfo: unknown
+  /** Additional Crypto Send Fields */
+  additionalBody?: unknown
+}
+
+/** Yellow Card — List Wallets */
+export type YellowCardListWalletsInput = Record<string, never>
+
+/** Yellow Card — Create Wallet */
+export interface YellowCardCreateWalletInput {
+  /** Customer UID */
+  customerUID: string
+  /** Create Virtual Account */
+  createVirtualAccount?: boolean
+  /** Additional Wallet Fields */
+  additionalBody?: unknown
+}
+
+/** Yellow Card — Create RFQ */
+export interface YellowCardCreateRfqInput {
+  /** RFQ Body */
+  body: unknown
+}
+
+/** Yellow Card — List RFQs */
+export interface YellowCardListRfqsInput {
+  /** Start Date */
+  startDate?: string
+  /** End Date */
+  endDate?: string
+  /** Start At */
+  startAt?: string
+  /** Per Page */
+  perPage?: number
+}
+
+/** Yellow Card — Get RFQ */
+export interface YellowCardGetRfqInput {
+  /** RFQ ID */
+  rfqId: string
+}
+
+/** Yellow Card — Accept RFQ */
+export interface YellowCardAcceptRfqInput {
+  /** RFQ ID */
+  rfqId: string
+  /** Accept Body */
+  body?: unknown
+}
+
 /** Yotpo — List Reviews */
 export interface YotpoListReviewsInput {
   /** Page */
@@ -80072,6 +84496,110 @@ export interface ZerobounceCustomApiCallInput {
   path: string
   /** Body */
   body?: unknown
+}
+
+/** Zid — List Products */
+export interface ZidListProductsInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Search */
+  search?: string
+  /** Category ID */
+  categoryId?: string
+}
+
+/** Zid — Get Product */
+export interface ZidGetProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Zid — Create Product */
+export interface ZidCreateProductInput {
+  /** Product Payload */
+  product: unknown
+}
+
+/** Zid — Update Product */
+export interface ZidUpdateProductInput {
+  /** Product ID */
+  productId: string
+  /** Product Updates */
+  updates: unknown
+}
+
+/** Zid — Delete Product */
+export interface ZidDeleteProductInput {
+  /** Product ID */
+  productId: string
+}
+
+/** Zid — List Categories */
+export type ZidListCategoriesInput = Record<string, never>
+
+/** Zid — List Orders */
+export interface ZidListOrdersInput {
+  /** Page */
+  page?: number
+  /** Per Page */
+  perPage?: number
+  /** Status */
+  status?: string
+  /** From Date */
+  fromDate?: string
+  /** To Date */
+  toDate?: string
+}
+
+/** Zid — Get Order */
+export interface ZidGetOrderInput {
+  /** Order ID */
+  orderId: string
+}
+
+/** Zid — Update Order */
+export interface ZidUpdateOrderInput {
+  /** Order ID */
+  orderId: string
+  /** Order Updates */
+  updates: unknown
+}
+
+/** Zid — List Customers */
+export interface ZidListCustomersInput {
+  /** After Cursor */
+  after?: number
+  /** Per Page */
+  perPage?: number
+  /** Search */
+  search?: string
+}
+
+/** Zid — Get Customer */
+export interface ZidGetCustomerInput {
+  /** Customer ID */
+  customerId: string
+}
+
+/** Zid — List Webhooks */
+export type ZidListWebhooksInput = Record<string, never>
+
+/** Zid — Create Webhook */
+export interface ZidCreateWebhookInput {
+  /** Zid webhook event name. */
+  event: string
+  /** Webhook URL */
+  url: string
+  /** Additional Payload */
+  payload?: unknown
+}
+
+/** Zid — Delete Webhook */
+export interface ZidDeleteWebhookInput {
+  /** Webhook ID */
+  webhookId: string
 }
 
 /** Zillow — Get Property */
@@ -81453,6 +85981,25 @@ export interface IntegrationActionInputMap {
   '1password.list_audit_events': Integration1passwordListAuditEventsInput
   '1password.list_item_usage_events': Integration1passwordListItemUsageEventsInput
   '1password.list_sign_in_attempts': Integration1passwordListSignInAttemptsInput
+  'glofox.list_locations': GlofoxListLocationsInput
+  'glofox.search_members_by_email': GlofoxSearchMembersByEmailInput
+  'glofox.get_user': GlofoxGetUserInput
+  'glofox.list_clients': GlofoxListClientsInput
+  'glofox.create_lead': GlofoxCreateLeadInput
+  'glofox.update_user': GlofoxUpdateUserInput
+  'glofox.list_memberships': GlofoxListMembershipsInput
+  'glofox.get_membership': GlofoxGetMembershipInput
+  'glofox.purchase_membership': GlofoxPurchaseMembershipInput
+  'glofox.cancel_membership': GlofoxCancelMembershipInput
+  'glofox.list_credit_packs': GlofoxListCreditPacksInput
+  'glofox.list_events': GlofoxListEventsInput
+  'glofox.get_event': GlofoxGetEventInput
+  'glofox.create_booking': GlofoxCreateBookingInput
+  'glofox.list_bookings': GlofoxListBookingsInput
+  'glofox.cancel_booking': GlofoxCancelBookingInput
+  'glofox.mark_booking_attended': GlofoxMarkBookingAttendedInput
+  'glofox.list_payment_methods': GlofoxListPaymentMethodsInput
+  'glofox.list_staff': GlofoxListStaffInput
   'abstract-api.validate_email': AbstractApiValidateEmailInput
   'abstract-api.geolocate_ip': AbstractApiGeolocateIpInput
   'abstract-api.check_phone': AbstractApiCheckPhoneInput
@@ -81943,9 +86490,31 @@ export interface IntegrationActionInputMap {
   'apollo.search_contacts': ApolloSearchContactsInput
   'apollo.create_contact': ApolloCreateContactInput
   'appfolio.list_properties': AppfolioListPropertiesInput
+  'appfolio.list_units': AppfolioListUnitsInput
+  'appfolio.update_unit': AppfolioUpdateUnitInput
+  'appfolio.list_listings': AppfolioListListingsInput
   'appfolio.list_tenants': AppfolioListTenantsInput
+  'appfolio.list_tenant_ledgers': AppfolioListTenantLedgersInput
   'appfolio.list_leases': AppfolioListLeasesInput
-  'appfolio.custom_api_call': AppfolioCustomApiCallInput
+  'appfolio.list_owners': AppfolioListOwnersInput
+  'appfolio.create_owner': AppfolioCreateOwnerInput
+  'appfolio.update_owner': AppfolioUpdateOwnerInput
+  'appfolio.list_vendors': AppfolioListVendorsInput
+  'appfolio.create_vendor': AppfolioCreateVendorInput
+  'appfolio.update_vendor': AppfolioUpdateVendorInput
+  'appfolio.list_work_orders': AppfolioListWorkOrdersInput
+  'appfolio.create_work_order': AppfolioCreateWorkOrderInput
+  'appfolio.update_work_order': AppfolioUpdateWorkOrderInput
+  'appfolio.list_bills': AppfolioListBillsInput
+  'appfolio.create_bill': AppfolioCreateBillInput
+  'appfolio.update_bill': AppfolioUpdateBillInput
+  'appfolio.list_open_charges': AppfolioListOpenChargesInput
+  'appfolio.create_charge': AppfolioCreateChargeInput
+  'appfolio.list_leads': AppfolioListLeadsInput
+  'appfolio.create_lead': AppfolioCreateLeadInput
+  'appfolio.update_lead': AppfolioUpdateLeadInput
+  'appfolio.create_showing': AppfolioCreateShowingInput
+  'appfolio.update_showing': AppfolioUpdateShowingInput
   'appwrite.list_databases': AppwriteListDatabasesInput
   'appwrite.list_documents': AppwriteListDocumentsInput
   'appwrite.create_document': AppwriteCreateDocumentInput
@@ -82369,6 +86938,23 @@ export interface IntegrationActionInputMap {
   'bizzabo.list_attendees': BizzaboListAttendeesInput
   'bizzabo.create_registration': BizzaboCreateRegistrationInput
   'bizzabo.custom_api_call': BizzaboCustomApiCallInput
+  'blackboard.list_courses': BlackboardListCoursesInput
+  'blackboard.get_course': BlackboardGetCourseInput
+  'blackboard.create_course': BlackboardCreateCourseInput
+  'blackboard.update_course': BlackboardUpdateCourseInput
+  'blackboard.delete_course': BlackboardDeleteCourseInput
+  'blackboard.list_users': BlackboardListUsersInput
+  'blackboard.get_user': BlackboardGetUserInput
+  'blackboard.create_user': BlackboardCreateUserInput
+  'blackboard.update_user': BlackboardUpdateUserInput
+  'blackboard.enroll_user': BlackboardEnrollUserInput
+  'blackboard.unenroll_user': BlackboardUnenrollUserInput
+  'blackboard.list_grade_columns': BlackboardListGradeColumnsInput
+  'blackboard.update_grade': BlackboardUpdateGradeInput
+  'blackboard.list_content': BlackboardListContentInput
+  'blackboard.create_content': BlackboardCreateContentInput
+  'blackboard.update_content': BlackboardUpdateContentInput
+  'blackboard.delete_content': BlackboardDeleteContentInput
   'blockscout.search': BlockscoutSearchInput
   'blockscout.list_transactions': BlockscoutListTransactionsInput
   'blockscout.get_transaction': BlockscoutGetTransactionInput
@@ -82507,6 +87093,11 @@ export interface IntegrationActionInputMap {
   'brex.get_spend_limit': BrexGetSpendLimitInput
   'bright-data.unlock_url': BrightDataUnlockUrlInput
   'bright-data.google_search': BrightDataGoogleSearchInput
+  'bring.book_shipment': BringBookShipmentInput
+  'bring.track_shipment': BringTrackShipmentInput
+  'bring.list_customer_webhooks': BringListCustomerWebhooksInput
+  'bring.renew_customer_webhook': BringRenewCustomerWebhookInput
+  'bring.delete_webhook': BringDeleteWebhookInput
   'buffer.create_post': BufferCreatePostInput
   'buffer.list_profiles': BufferListProfilesInput
   'buffer.get_post': BufferGetPostInput
@@ -82636,6 +87227,43 @@ export interface IntegrationActionInputMap {
   'canvas-lms.get_course': CanvasLmsGetCourseInput
   'canvas-lms.list_assignments': CanvasLmsListAssignmentsInput
   'canvas-lms.list_students': CanvasLmsListStudentsInput
+  'canvas-lms.create_course': CanvasLmsCreateCourseInput
+  'canvas-lms.update_course': CanvasLmsUpdateCourseInput
+  'canvas-lms.delete_course': CanvasLmsDeleteCourseInput
+  'canvas-lms.create_assignment': CanvasLmsCreateAssignmentInput
+  'canvas-lms.update_assignment': CanvasLmsUpdateAssignmentInput
+  'canvas-lms.delete_assignment': CanvasLmsDeleteAssignmentInput
+  'canvas-lms.create_enrollment': CanvasLmsCreateEnrollmentInput
+  'canvas-lms.delete_enrollment': CanvasLmsDeleteEnrollmentInput
+  'canvas-lms.grade_submission': CanvasLmsGradeSubmissionInput
+  'canvas-medical.search_patients': CanvasMedicalSearchPatientsInput
+  'canvas-medical.get_patient': CanvasMedicalGetPatientInput
+  'canvas-medical.create_patient': CanvasMedicalCreatePatientInput
+  'canvas-medical.update_patient': CanvasMedicalUpdatePatientInput
+  'canvas-medical.search_appointments': CanvasMedicalSearchAppointmentsInput
+  'canvas-medical.get_appointment': CanvasMedicalGetAppointmentInput
+  'canvas-medical.create_appointment': CanvasMedicalCreateAppointmentInput
+  'canvas-medical.update_appointment': CanvasMedicalUpdateAppointmentInput
+  'canvas-medical.cancel_appointment': CanvasMedicalCancelAppointmentInput
+  'canvas-medical.search_practitioners': CanvasMedicalSearchPractitionersInput
+  'canvas-medical.get_practitioner': CanvasMedicalGetPractitionerInput
+  'canvas-medical.create_practitioner': CanvasMedicalCreatePractitionerInput
+  'canvas-medical.update_practitioner': CanvasMedicalUpdatePractitionerInput
+  'canvas-medical.search_encounters': CanvasMedicalSearchEncountersInput
+  'canvas-medical.get_encounter': CanvasMedicalGetEncounterInput
+  'canvas-medical.search_communications': CanvasMedicalSearchCommunicationsInput
+  'canvas-medical.get_communication': CanvasMedicalGetCommunicationInput
+  'canvas-medical.create_communication': CanvasMedicalCreateCommunicationInput
+  'canvas-medical.search_document_references': CanvasMedicalSearchDocumentReferencesInput
+  'canvas-medical.get_document_reference': CanvasMedicalGetDocumentReferenceInput
+  'canvas-medical.create_document_reference': CanvasMedicalCreateDocumentReferenceInput
+  'canvas-medical.search_tasks': CanvasMedicalSearchTasksInput
+  'canvas-medical.get_task': CanvasMedicalGetTaskInput
+  'canvas-medical.create_task': CanvasMedicalCreateTaskInput
+  'canvas-medical.update_task': CanvasMedicalUpdateTaskInput
+  'canvas-medical.search_locations': CanvasMedicalSearchLocationsInput
+  'canvas-medical.search_schedules': CanvasMedicalSearchSchedulesInput
+  'canvas-medical.search_slots': CanvasMedicalSearchSlotsInput
   'capsule-crm.create_contact': CapsuleCrmCreateContactInput
   'capsule-crm.update_contact': CapsuleCrmUpdateContactInput
   'capsule-crm.create_opportunity': CapsuleCrmCreateOpportunityInput
@@ -82946,6 +87574,14 @@ export interface IntegrationActionInputMap {
   'clover.get_customer': CloverGetCustomerInput
   'clover.create_customer': CloverCreateCustomerInput
   'clover.refund_payment': CloverRefundPaymentInput
+  'clubready.create_prospect': ClubreadyCreateProspectInput
+  'clubready.create_class_booking': ClubreadyCreateClassBookingInput
+  'clubready.update_booking_status': ClubreadyUpdateBookingStatusInput
+  'clubready.cancel_waitlist': ClubreadyCancelWaitlistInput
+  'clubready.check_in_user': ClubreadyCheckInUserInput
+  'clubready.make_payment': ClubreadyMakePaymentInput
+  'clubready.create_user_note': ClubreadyCreateUserNoteInput
+  'clubready.tag_user': ClubreadyTagUserInput
   'coda.create_row': CodaCreateRowInput
   'coda.update_row': CodaUpdateRowInput
   'coda.upsert_row': CodaUpsertRowInput
@@ -83025,6 +87661,7 @@ export interface IntegrationActionInputMap {
   'companycam.get_project': CompanycamGetProjectInput
   'companycam.update_project': CompanycamUpdateProjectInput
   'companycam.archive_project': CompanycamArchiveProjectInput
+  'companycam.restore_project': CompanycamRestoreProjectInput
   'companycam.delete_project': CompanycamDeleteProjectInput
   'companycam.upload_photo': CompanycamUploadPhotoInput
   'companycam.list_project_photos': CompanycamListProjectPhotosInput
@@ -83032,8 +87669,15 @@ export interface IntegrationActionInputMap {
   'companycam.update_photo': CompanycamUpdatePhotoInput
   'companycam.delete_photo': CompanycamDeletePhotoInput
   'companycam.create_tag': CompanycamCreateTagInput
+  'companycam.list_tags': CompanycamListTagsInput
+  'companycam.update_tag': CompanycamUpdateTagInput
+  'companycam.delete_tag': CompanycamDeleteTagInput
+  'companycam.add_photo_tags': CompanycamAddPhotoTagsInput
+  'companycam.add_photo_comment': CompanycamAddPhotoCommentInput
   'companycam.list_webhooks': CompanycamListWebhooksInput
+  'companycam.create_webhook': CompanycamCreateWebhookInput
   'companycam.update_webhook': CompanycamUpdateWebhookInput
+  'companycam.delete_webhook': CompanycamDeleteWebhookInput
   'confluence.get_page': ConfluenceGetPageInput
   'confluence.create_page': ConfluenceCreatePageInput
   'confluence.update_page': ConfluenceUpdatePageInput
@@ -83164,6 +87808,19 @@ export interface IntegrationActionInputMap {
   'cvent.list_registrants': CventListRegistrantsInput
   'cvent.get_sessions': CventGetSessionsInput
   'cvent.custom_api_call': CventCustomApiCallInput
+  'd2l-brightspace.get_whoami': D2lBrightspaceGetWhoamiInput
+  'd2l-brightspace.get_course': D2lBrightspaceGetCourseInput
+  'd2l-brightspace.create_course': D2lBrightspaceCreateCourseInput
+  'd2l-brightspace.update_course': D2lBrightspaceUpdateCourseInput
+  'd2l-brightspace.delete_course': D2lBrightspaceDeleteCourseInput
+  'd2l-brightspace.create_user': D2lBrightspaceCreateUserInput
+  'd2l-brightspace.update_user': D2lBrightspaceUpdateUserInput
+  'd2l-brightspace.list_classlist': D2lBrightspaceListClasslistInput
+  'd2l-brightspace.enroll_user': D2lBrightspaceEnrollUserInput
+  'd2l-brightspace.unenroll_user': D2lBrightspaceUnenrollUserInput
+  'd2l-brightspace.list_grade_objects': D2lBrightspaceListGradeObjectsInput
+  'd2l-brightspace.update_grade_value': D2lBrightspaceUpdateGradeValueInput
+  'd2l-brightspace.list_content_root': D2lBrightspaceListContentRootInput
   'data-transformer.transform_json': DataTransformerTransformJsonInput
   'data-transformer.merge_objects': DataTransformerMergeObjectsInput
   'data-transformer.filter_array': DataTransformerFilterArrayInput
@@ -83291,6 +87948,20 @@ export interface IntegrationActionInputMap {
   'dialpad.list_users': DialpadListUsersInput
   'dialpad.get_user': DialpadGetUserInput
   'dialpad.list_webhooks': DialpadListWebhooksInput
+  'digitail.get_logged_in_vet': DigitailGetLoggedInVetInput
+  'digitail.list_pets': DigitailListPetsInput
+  'digitail.get_pet': DigitailGetPetInput
+  'digitail.update_pet': DigitailUpdatePetInput
+  'digitail.list_pet_parents': DigitailListPetParentsInput
+  'digitail.get_pet_parent': DigitailGetPetParentInput
+  'digitail.create_pet_parent': DigitailCreatePetParentInput
+  'digitail.update_pet_parent': DigitailUpdatePetParentInput
+  'digitail.list_appointments': DigitailListAppointmentsInput
+  'digitail.get_appointment': DigitailGetAppointmentInput
+  'digitail.create_appointment': DigitailCreateAppointmentInput
+  'digitail.update_appointment': DigitailUpdateAppointmentInput
+  'digitail.list_pet_prescriptions': DigitailListPetPrescriptionsInput
+  'digitail.create_prescription_refill': DigitailCreatePrescriptionRefillInput
   'digital-ocean.list_domains': DigitalOceanListDomainsInput
   'digital-ocean.create_domain': DigitalOceanCreateDomainInput
   'digital-ocean.get_domain': DigitalOceanGetDomainInput
@@ -83427,6 +88098,26 @@ export interface IntegrationActionInputMap {
   'drchrono.delete_appointment': DrchronoDeleteAppointmentInput
   'drchrono.list_offices': DrchronoListOfficesInput
   'drchrono.list_doctors': DrchronoListDoctorsInput
+  'drchrono.list_messages': DrchronoListMessagesInput
+  'drchrono.get_message': DrchronoGetMessageInput
+  'drchrono.create_message': DrchronoCreateMessageInput
+  'drchrono.update_message': DrchronoUpdateMessageInput
+  'drchrono.list_prescription_messages': DrchronoListPrescriptionMessagesInput
+  'drchrono.list_clinical_notes': DrchronoListClinicalNotesInput
+  'drchrono.get_clinical_note': DrchronoGetClinicalNoteInput
+  'drchrono.list_clinical_note_field_values': DrchronoListClinicalNoteFieldValuesInput
+  'drchrono.update_clinical_note_field_value': DrchronoUpdateClinicalNoteFieldValueInput
+  'drchrono.list_tasks': DrchronoListTasksInput
+  'drchrono.get_task': DrchronoGetTaskInput
+  'drchrono.create_task': DrchronoCreateTaskInput
+  'drchrono.update_task': DrchronoUpdateTaskInput
+  'drchrono.list_task_notes': DrchronoListTaskNotesInput
+  'drchrono.create_task_note': DrchronoCreateTaskNoteInput
+  'drchrono.update_task_note': DrchronoUpdateTaskNoteInput
+  'drchrono.list_task_statuses': DrchronoListTaskStatusesInput
+  'drchrono.create_task_status': DrchronoCreateTaskStatusInput
+  'drchrono.list_task_categories': DrchronoListTaskCategoriesInput
+  'drchrono.create_task_category': DrchronoCreateTaskCategoryInput
   'drip.list_subscribers': DripListSubscribersInput
   'drip.get_subscriber': DripGetSubscriberInput
   'drip.create_or_update_subscriber': DripCreateOrUpdateSubscriberInput
@@ -83484,6 +88175,15 @@ export interface IntegrationActionInputMap {
   'easypost.buy_shipment': EasypostBuyShipmentInput
   'easypost.list_trackers': EasypostListTrackersInput
   'easypost.create_address': EasypostCreateAddressInput
+  'easyship.create_shipment': EasyshipCreateShipmentInput
+  'easyship.create_label': EasyshipCreateLabelInput
+  'easyship.create_return_shipment': EasyshipCreateReturnShipmentInput
+  'easyship.cancel_shipment': EasyshipCancelShipmentInput
+  'easyship.delete_shipment': EasyshipDeleteShipmentInput
+  'easyship.list_shipments': EasyshipListShipmentsInput
+  'easyship.get_shipment': EasyshipGetShipmentInput
+  'easyship.list_rates': EasyshipListRatesInput
+  'easyship.create_tracking': EasyshipCreateTrackingInput
   'ebay.search_items': EbaySearchItemsInput
   'ebay.get_item': EbayGetItemInput
   'ebay.list_orders': EbayListOrdersInput
@@ -83505,6 +88205,39 @@ export interface IntegrationActionInputMap {
   'elasticsearch.get_document': ElasticsearchGetDocumentInput
   'elasticsearch.delete_document': ElasticsearchDeleteDocumentInput
   'elasticsearch.custom_api_call': ElasticsearchCustomApiCallInput
+  'elation-health.list_patients': ElationHealthListPatientsInput
+  'elation-health.get_patient': ElationHealthGetPatientInput
+  'elation-health.create_patient': ElationHealthCreatePatientInput
+  'elation-health.update_patient': ElationHealthUpdatePatientInput
+  'elation-health.delete_patient': ElationHealthDeletePatientInput
+  'elation-health.list_appointments': ElationHealthListAppointmentsInput
+  'elation-health.get_appointment': ElationHealthGetAppointmentInput
+  'elation-health.create_appointment': ElationHealthCreateAppointmentInput
+  'elation-health.update_appointment': ElationHealthUpdateAppointmentInput
+  'elation-health.delete_appointment': ElationHealthDeleteAppointmentInput
+  'elation-health.list_physicians': ElationHealthListPhysiciansInput
+  'elation-health.get_physician': ElationHealthGetPhysicianInput
+  'elation-health.update_physician': ElationHealthUpdatePhysicianInput
+  'elation-health.list_service_locations': ElationHealthListServiceLocationsInput
+  'elation-health.get_service_location': ElationHealthGetServiceLocationInput
+  'elation-health.create_service_location': ElationHealthCreateServiceLocationInput
+  'elation-health.update_service_location': ElationHealthUpdateServiceLocationInput
+  'elation-health.delete_service_location': ElationHealthDeleteServiceLocationInput
+  'elation-health.list_message_threads': ElationHealthListMessageThreadsInput
+  'elation-health.get_message_thread': ElationHealthGetMessageThreadInput
+  'elation-health.create_message_thread': ElationHealthCreateMessageThreadInput
+  'elation-health.delete_message_thread': ElationHealthDeleteMessageThreadInput
+  'elation-health.list_thread_messages': ElationHealthListThreadMessagesInput
+  'elation-health.get_thread_message': ElationHealthGetThreadMessageInput
+  'elation-health.create_thread_message': ElationHealthCreateThreadMessageInput
+  'elation-health.delete_thread_message': ElationHealthDeleteThreadMessageInput
+  'elation-health.list_clinical_documents': ElationHealthListClinicalDocumentsInput
+  'elation-health.get_clinical_document': ElationHealthGetClinicalDocumentInput
+  'elation-health.create_clinical_document': ElationHealthCreateClinicalDocumentInput
+  'elation-health.list_event_subscriptions': ElationHealthListEventSubscriptionsInput
+  'elation-health.get_event_subscription': ElationHealthGetEventSubscriptionInput
+  'elation-health.create_event_subscription': ElationHealthCreateEventSubscriptionInput
+  'elation-health.delete_event_subscription': ElationHealthDeleteEventSubscriptionInput
   'elevenlabs.elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
   'elevenlabs.custom_api_call': ElevenlabsCustomApiCallInput
   'emailoctopus.add_or_update_contact': EmailoctopusAddOrUpdateContactInput
@@ -83629,6 +88362,59 @@ export interface IntegrationActionInputMap {
   'fathom.list_team_members': FathomListTeamMembersInput
   'fellow.get-note': FellowGetNoteInput
   'fellow.custom_api_call': FellowCustomApiCallInput
+  'fergus.list_jobs': FergusListJobsInput
+  'fergus.get_job': FergusGetJobInput
+  'fergus.create_job': FergusCreateJobInput
+  'fergus.update_job': FergusUpdateJobInput
+  'fergus.finalise_job': FergusFinaliseJobInput
+  'fergus.hold_job': FergusHoldJobInput
+  'fergus.resume_job': FergusResumeJobInput
+  'fergus.list_quotes': FergusListQuotesInput
+  'fergus.get_quote': FergusGetQuoteInput
+  'fergus.publish_quote': FergusPublishQuoteInput
+  'fergus.mark_quote_as_sent': FergusMarkQuoteAsSentInput
+  'fergus.accept_quote': FergusAcceptQuoteInput
+  'fergus.decline_quote': FergusDeclineQuoteInput
+  'fergus.void_quote': FergusVoidQuoteInput
+  'fergus.list_customer_invoices': FergusListCustomerInvoicesInput
+  'fergus.get_customer_invoice': FergusGetCustomerInvoiceInput
+  'fergus.list_customers': FergusListCustomersInput
+  'fergus.get_customer': FergusGetCustomerInput
+  'fergus.create_customer': FergusCreateCustomerInput
+  'fergus.update_customer': FergusUpdateCustomerInput
+  'fergus.delete_customer': FergusDeleteCustomerInput
+  'fergus.list_sites': FergusListSitesInput
+  'fergus.get_site': FergusGetSiteInput
+  'fergus.create_site': FergusCreateSiteInput
+  'fergus.update_site': FergusUpdateSiteInput
+  'fergus.archive_site': FergusArchiveSiteInput
+  'fergus.restore_site': FergusRestoreSiteInput
+  'fergus.list_contacts': FergusListContactsInput
+  'fergus.get_contact': FergusGetContactInput
+  'fergus.create_contact': FergusCreateContactInput
+  'fergus.update_contact': FergusUpdateContactInput
+  'fergus.list_enquiries': FergusListEnquiriesInput
+  'fergus.get_enquiry': FergusGetEnquiryInput
+  'fergus.create_enquiry': FergusCreateEnquiryInput
+  'fergus.list_time_entries': FergusListTimeEntriesInput
+  'fergus.get_time_entry': FergusGetTimeEntryInput
+  'fergus.list_calendar_events': FergusListCalendarEventsInput
+  'fergus.get_calendar_event': FergusGetCalendarEventInput
+  'fergus.create_calendar_event': FergusCreateCalendarEventInput
+  'fergus.update_calendar_event': FergusUpdateCalendarEventInput
+  'fergus.delete_calendar_event': FergusDeleteCalendarEventInput
+  'fergus.list_notes': FergusListNotesInput
+  'fergus.get_note': FergusGetNoteInput
+  'fergus.create_note': FergusCreateNoteInput
+  'fergus.update_note': FergusUpdateNoteInput
+  'fergus.list_tasks': FergusListTasksInput
+  'fergus.get_task': FergusGetTaskInput
+  'fergus.create_task': FergusCreateTaskInput
+  'fergus.update_task': FergusUpdateTaskInput
+  'fergus.delete_task': FergusDeleteTaskInput
+  'fergus.complete_task': FergusCompleteTaskInput
+  'fergus.reopen_task': FergusReopenTaskInput
+  'fergus.delete_attachment': FergusDeleteAttachmentInput
   'fieldpulse.list_customers': FieldpulseListCustomersInput
   'fieldpulse.get_customer': FieldpulseGetCustomerInput
   'fieldpulse.create_customer': FieldpulseCreateCustomerInput
@@ -83667,6 +88453,53 @@ export interface IntegrationActionInputMap {
   'fieldpulse.create_comment': FieldpulseCreateCommentInput
   'fieldpulse.update_comment': FieldpulseUpdateCommentInput
   'fieldpulse.delete_comment': FieldpulseDeleteCommentInput
+  'fieldroutes.search_customers': FieldroutesSearchCustomersInput
+  'fieldroutes.get_customers': FieldroutesGetCustomersInput
+  'fieldroutes.create_customer': FieldroutesCreateCustomerInput
+  'fieldroutes.update_customer': FieldroutesUpdateCustomerInput
+  'fieldroutes.search_subscriptions': FieldroutesSearchSubscriptionsInput
+  'fieldroutes.get_subscriptions': FieldroutesGetSubscriptionsInput
+  'fieldroutes.create_subscription': FieldroutesCreateSubscriptionInput
+  'fieldroutes.update_subscription': FieldroutesUpdateSubscriptionInput
+  'fieldroutes.update_subscription_lead_stage': FieldroutesUpdateSubscriptionLeadStageInput
+  'fieldroutes.search_tickets': FieldroutesSearchTicketsInput
+  'fieldroutes.get_tickets': FieldroutesGetTicketsInput
+  'fieldroutes.create_ticket': FieldroutesCreateTicketInput
+  'fieldroutes.update_ticket': FieldroutesUpdateTicketInput
+  'fieldroutes.delete_ticket': FieldroutesDeleteTicketInput
+  'fieldroutes.search_appointments': FieldroutesSearchAppointmentsInput
+  'fieldroutes.get_appointments': FieldroutesGetAppointmentsInput
+  'fieldroutes.create_appointment': FieldroutesCreateAppointmentInput
+  'fieldroutes.update_appointment': FieldroutesUpdateAppointmentInput
+  'fieldroutes.cancel_appointment': FieldroutesCancelAppointmentInput
+  'fieldroutes.complete_appointment': FieldroutesCompleteAppointmentInput
+  'fieldroutes.search_employees': FieldroutesSearchEmployeesInput
+  'fieldroutes.get_employees': FieldroutesGetEmployeesInput
+  'fieldroutes.create_employee': FieldroutesCreateEmployeeInput
+  'fieldroutes.update_employee': FieldroutesUpdateEmployeeInput
+  'fieldroutes.dealias_employee': FieldroutesDealiasEmployeeInput
+  'fieldroutes.search_payments': FieldroutesSearchPaymentsInput
+  'fieldroutes.get_payments': FieldroutesGetPaymentsInput
+  'fieldroutes.create_payment': FieldroutesCreatePaymentInput
+  'fieldroutes.create_refund': FieldroutesCreateRefundInput
+  'fieldroutes.search_contracts': FieldroutesSearchContractsInput
+  'fieldroutes.get_contracts': FieldroutesGetContractsInput
+  'fieldroutes.create_contract': FieldroutesCreateContractInput
+  'fieldroutes.delete_contract': FieldroutesDeleteContractInput
+  'fieldroutes.search_notes': FieldroutesSearchNotesInput
+  'fieldroutes.get_notes': FieldroutesGetNotesInput
+  'fieldroutes.create_note': FieldroutesCreateNoteInput
+  'fieldroutes.update_note': FieldroutesUpdateNoteInput
+  'fieldroutes.delete_note': FieldroutesDeleteNoteInput
+  'fieldroutes.search_documents': FieldroutesSearchDocumentsInput
+  'fieldroutes.get_documents': FieldroutesGetDocumentsInput
+  'fieldroutes.create_document': FieldroutesCreateDocumentInput
+  'fieldroutes.update_document': FieldroutesUpdateDocumentInput
+  'fieldroutes.search_reviews': FieldroutesSearchReviewsInput
+  'fieldroutes.get_reviews': FieldroutesGetReviewsInput
+  'fieldroutes.create_review': FieldroutesCreateReviewInput
+  'fieldroutes.update_review': FieldroutesUpdateReviewInput
+  'fieldroutes.delete_review': FieldroutesDeleteReviewInput
   'fieldwire.get_task': FieldwireGetTaskInput
   'fieldwire.create_task': FieldwireCreateTaskInput
   'fieldwire.upload_plan': FieldwireUploadPlanInput
@@ -84341,6 +89174,10 @@ export interface IntegrationActionInputMap {
   'guesty.pre_approve_channel_reservation': GuestyPreApproveChannelReservationInput
   'guesty.request_channel_reservation_cancellation': GuestyRequestChannelReservationCancellationInput
   'guesty.list_listings': GuestyListListingsInput
+  'guesty.get_listing': GuestyGetListingInput
+  'guesty.create_listing': GuestyCreateListingInput
+  'guesty.update_listing': GuestyUpdateListingInput
+  'guesty.set_listing_listed': GuestySetListingListedInput
   'guesty.get_guest': GuestyGetGuestInput
   'guesty.list_conversations': GuestyListConversationsInput
   'guesty.send_conversation_message': GuestySendConversationMessageInput
@@ -84553,6 +89390,13 @@ export interface IntegrationActionInputMap {
   'hostaway.update_reservation': HostawayUpdateReservationInput
   'hostaway.cancel_reservation': HostawayCancelReservationInput
   'hostaway.list_listings': HostawayListListingsInput
+  'hostaway.get_listing': HostawayGetListingInput
+  'hostaway.create_listing': HostawayCreateListingInput
+  'hostaway.update_listing': HostawayUpdateListingInput
+  'hostaway.delete_listing': HostawayDeleteListingInput
+  'hostaway.get_listing_calendar': HostawayGetListingCalendarInput
+  'hostaway.update_listing_calendar': HostawayUpdateListingCalendarInput
+  'hostaway.calculate_reservation_price': HostawayCalculateReservationPriceInput
   'hostaway.get_guest': HostawayGetGuestInput
   'hostaway.list_conversation_messages': HostawayListConversationMessagesInput
   'hostaway.get_conversation_message': HostawayGetConversationMessageInput
@@ -85532,6 +90376,18 @@ export interface IntegrationActionInputMap {
   'meistertask.find_or_create_task': MeistertaskFindOrCreateTaskInput
   'meistertask.find_or_create_label': MeistertaskFindOrCreateLabelInput
   'meistertask.custom_api_call': MeistertaskCustomApiCallInput
+  'mercado-libre.get_my_user': MercadoLibreGetMyUserInput
+  'mercado-libre.search_catalog': MercadoLibreSearchCatalogInput
+  'mercado-libre.list_seller_items': MercadoLibreListSellerItemsInput
+  'mercado-libre.get_item': MercadoLibreGetItemInput
+  'mercado-libre.create_item': MercadoLibreCreateItemInput
+  'mercado-libre.update_item': MercadoLibreUpdateItemInput
+  'mercado-libre.update_item_status': MercadoLibreUpdateItemStatusInput
+  'mercado-libre.list_orders': MercadoLibreListOrdersInput
+  'mercado-libre.get_order': MercadoLibreGetOrderInput
+  'mercado-libre.get_shipment': MercadoLibreGetShipmentInput
+  'mercado-libre.list_questions': MercadoLibreListQuestionsInput
+  'mercado-libre.answer_question': MercadoLibreAnswerQuestionInput
   'mercado-pago.create_preference': MercadoPagoCreatePreferenceInput
   'mercado-pago.update_preference': MercadoPagoUpdatePreferenceInput
   'mercado-pago.get_preference': MercadoPagoGetPreferenceInput
@@ -85961,6 +90817,34 @@ export interface IntegrationActionInputMap {
   'mollie.search_order': MollieSearchOrderInput
   'mollie.search_payment': MollieSearchPaymentInput
   'mollie.search_customer': MollieSearchCustomerInput
+  'momence.get_profile': MomenceGetProfileInput
+  'momence.list_members': MomenceListMembersInput
+  'momence.create_member': MomenceCreateMemberInput
+  'momence.get_member': MomenceGetMemberInput
+  'momence.update_member_name': MomenceUpdateMemberNameInput
+  'momence.update_member_email': MomenceUpdateMemberEmailInput
+  'momence.update_member_phone_number': MomenceUpdateMemberPhoneNumberInput
+  'momence.delete_member_phone_number': MomenceDeleteMemberPhoneNumberInput
+  'momence.list_host_memberships': MomenceListHostMembershipsInput
+  'momence.list_member_bought_memberships': MomenceListMemberBoughtMembershipsInput
+  'momence.freeze_membership': MomenceFreezeMembershipInput
+  'momence.unfreeze_membership': MomenceUnfreezeMembershipInput
+  'momence.schedule_membership_freeze': MomenceScheduleMembershipFreezeInput
+  'momence.schedule_membership_unfreeze': MomenceScheduleMembershipUnfreezeInput
+  'momence.remove_scheduled_unfreeze': MomenceRemoveScheduledUnfreezeInput
+  'momence.update_membership_credits': MomenceUpdateMembershipCreditsInput
+  'momence.list_sessions': MomenceListSessionsInput
+  'momence.get_session': MomenceGetSessionInput
+  'momence.list_session_bookings': MomenceListSessionBookingsInput
+  'momence.add_member_to_session_for_free': MomenceAddMemberToSessionForFreeInput
+  'momence.add_member_to_waitlist': MomenceAddMemberToWaitlistInput
+  'momence.cancel_session_booking': MomenceCancelSessionBookingInput
+  'momence.cancel_recurring_session_booking': MomenceCancelRecurringSessionBookingInput
+  'momence.mark_session_booking_checked_in': MomenceMarkSessionBookingCheckedInInput
+  'momence.remove_session_booking_check_in': MomenceRemoveSessionBookingCheckInInput
+  'momence.list_tags': MomenceListTagsInput
+  'momence.assign_tag_to_member': MomenceAssignTagToMemberInput
+  'momence.unassign_tag_from_member': MomenceUnassignTagFromMemberInput
   'monday.monday_create_column': MondayMondayCreateColumnInput
   'monday.monday_create_group': MondayMondayCreateGroupInput
   'monday.monday_create_item': MondayMondayCreateItemInput
@@ -85982,10 +90866,23 @@ export interface IntegrationActionInputMap {
   'mongodb.custom_api_call': MongodbCustomApiCallInput
   'moodle.list_courses': MoodleListCoursesInput
   'moodle.get_course': MoodleGetCourseInput
+  'moodle.create_course': MoodleCreateCourseInput
+  'moodle.update_course': MoodleUpdateCourseInput
+  'moodle.delete_course': MoodleDeleteCourseInput
   'moodle.list_users': MoodleListUsersInput
   'moodle.create_user': MoodleCreateUserInput
+  'moodle.update_user': MoodleUpdateUserInput
+  'moodle.get_enrolled_users': MoodleGetEnrolledUsersInput
+  'moodle.enroll_user': MoodleEnrollUserInput
+  'moodle.unenroll_user': MoodleUnenrollUserInput
   'moodle.get_grades': MoodleGetGradesInput
-  'moodle.custom_api_call': MoodleCustomApiCallInput
+  'moonpay.list_currencies': MoonpayListCurrenciesInput
+  'moonpay.get_buy_quote': MoonpayGetBuyQuoteInput
+  'moonpay.get_sell_quote': MoonpayGetSellQuoteInput
+  'moonpay.list_payment_methods': MoonpayListPaymentMethodsInput
+  'moonpay.list_buy_transactions': MoonpayListBuyTransactionsInput
+  'moonpay.get_buy_transaction': MoonpayGetBuyTransactionInput
+  'moonpay.list_sell_transactions': MoonpayListSellTransactionsInput
   'moralis.get_wallet_history': MoralisGetWalletHistoryInput
   'moralis.get_token_balances': MoralisGetTokenBalancesInput
   'moralis.get_native_transactions': MoralisGetNativeTransactionsInput
@@ -86168,9 +91065,11 @@ export interface IntegrationActionInputMap {
   'nexhealth.list_patients': NexhealthListPatientsInput
   'nexhealth.get_patient': NexhealthGetPatientInput
   'nexhealth.create_patient': NexhealthCreatePatientInput
+  'nexhealth.list_institutions': NexhealthListInstitutionsInput
   'nexhealth.list_locations': NexhealthListLocationsInput
   'nexhealth.list_providers': NexhealthListProvidersInput
   'nexhealth.list_appointment_types': NexhealthListAppointmentTypesInput
+  'nexhealth.view_available_slots': NexhealthViewAvailableSlotsInput
   'nexhealth.list_appointments': NexhealthListAppointmentsInput
   'nexhealth.create_appointment': NexhealthCreateAppointmentInput
   'nexhealth.update_appointment': NexhealthUpdateAppointmentInput
@@ -86318,6 +91217,9 @@ export interface IntegrationActionInputMap {
   'open-dental.create_patient': OpenDentalCreatePatientInput
   'open-dental.update_patient': OpenDentalUpdatePatientInput
   'open-dental.list_appointments': OpenDentalListAppointmentsInput
+  'open-dental.get_appointment': OpenDentalGetAppointmentInput
+  'open-dental.list_asap_appointments': OpenDentalListAsapAppointmentsInput
+  'open-dental.list_appointment_slots': OpenDentalListAppointmentSlotsInput
   'open-dental.create_appointment': OpenDentalCreateAppointmentInput
   'open-dental.update_appointment': OpenDentalUpdateAppointmentInput
   'open-dental.break_appointment': OpenDentalBreakAppointmentInput
@@ -87265,6 +92167,15 @@ export interface IntegrationActionInputMap {
   'ramp.update_gl_account': RampUpdateGlAccountInput
   'ramp.delete_gl_account': RampDeleteGlAccountInput
   'ramp.custom_api_call': RampCustomApiCallInput
+  'ramp-network.list_onramp_assets': RampNetworkListOnrampAssetsInput
+  'ramp-network.list_offramp_assets': RampNetworkListOfframpAssetsInput
+  'ramp-network.list_payment_methods': RampNetworkListPaymentMethodsInput
+  'ramp-network.list_payout_methods': RampNetworkListPayoutMethodsInput
+  'ramp-network.list_fiat_currencies': RampNetworkListFiatCurrenciesInput
+  'ramp-network.create_onramp_quote': RampNetworkCreateOnrampQuoteInput
+  'ramp-network.create_offramp_quote': RampNetworkCreateOfframpQuoteInput
+  'ramp-network.get_offramp_sale': RampNetworkGetOfframpSaleInput
+  'ramp-network.build_widget_url': RampNetworkBuildWidgetUrlInput
   'razorpay.custom_api_call': RazorpayCustomApiCallInput
   'razorpay.create-payment-link': RazorpayCreatePaymentLinkInput
   'readme-io.create_doc': ReadmeIoCreateDocInput
@@ -87519,6 +92430,23 @@ export interface IntegrationActionInputMap {
   'salesloft.list_webhook_subscriptions': SalesloftListWebhookSubscriptionsInput
   'salesloft.create_webhook_subscription': SalesloftCreateWebhookSubscriptionInput
   'salesloft.delete_webhook_subscription': SalesloftDeleteWebhookSubscriptionInput
+  'salla.list_products': SallaListProductsInput
+  'salla.get_product': SallaGetProductInput
+  'salla.get_product_by_sku': SallaGetProductBySkuInput
+  'salla.create_product': SallaCreateProductInput
+  'salla.update_product': SallaUpdateProductInput
+  'salla.delete_product': SallaDeleteProductInput
+  'salla.list_product_quantities': SallaListProductQuantitiesInput
+  'salla.list_orders': SallaListOrdersInput
+  'salla.get_order': SallaGetOrderInput
+  'salla.create_external_order': SallaCreateExternalOrderInput
+  'salla.perform_order_action': SallaPerformOrderActionInput
+  'salla.delete_order_item': SallaDeleteOrderItemInput
+  'salla.list_customers': SallaListCustomersInput
+  'salla.get_customer': SallaGetCustomerInput
+  'salla.list_webhook_events': SallaListWebhookEventsInput
+  'salla.subscribe_webhook': SallaSubscribeWebhookInput
+  'salla.deactivate_webhook': SallaDeactivateWebhookInput
   'advanced-code.run_code': AdvancedCodeRunCodeInput
   'sanity.query': SanityQueryInput
   'sanity.get_document': SanityGetDocumentInput
@@ -87564,6 +92492,14 @@ export interface IntegrationActionInputMap {
   'semrush.get_organic_keywords': SemrushGetOrganicKeywordsInput
   'semrush.get_backlinks': SemrushGetBacklinksInput
   'semrush.custom_api_call': SemrushCustomApiCallInput
+  'sendcloud.create_shipment': SendcloudCreateShipmentInput
+  'sendcloud.create_and_announce_shipment': SendcloudCreateAndAnnounceShipmentInput
+  'sendcloud.create_return': SendcloudCreateReturnInput
+  'sendcloud.cancel_shipment': SendcloudCancelShipmentInput
+  'sendcloud.cancel_return': SendcloudCancelReturnInput
+  'sendcloud.get_shipment': SendcloudGetShipmentInput
+  'sendcloud.list_shipments': SendcloudListShipmentsInput
+  'sendcloud.track_parcel': SendcloudTrackParcelInput
   'sendgrid.send_email': SendgridSendEmailInput
   'sendgrid.send_dynamic_template': SendgridSendDynamicTemplateInput
   'sendgrid.list_templates': SendgridListTemplatesInput
@@ -87709,8 +92645,28 @@ export interface IntegrationActionInputMap {
   'service-now.custom_api_call': ServiceNowCustomApiCallInput
   'service-titan.list_jobs': ServiceTitanListJobsInput
   'service-titan.get_job': ServiceTitanGetJobInput
+  'service-titan.create_job': ServiceTitanCreateJobInput
+  'service-titan.update_job': ServiceTitanUpdateJobInput
+  'service-titan.list_appointments': ServiceTitanListAppointmentsInput
+  'service-titan.get_appointment': ServiceTitanGetAppointmentInput
   'service-titan.list_customers': ServiceTitanListCustomersInput
+  'service-titan.get_customer': ServiceTitanGetCustomerInput
+  'service-titan.create_customer': ServiceTitanCreateCustomerInput
+  'service-titan.update_customer': ServiceTitanUpdateCustomerInput
+  'service-titan.list_locations': ServiceTitanListLocationsInput
+  'service-titan.get_location': ServiceTitanGetLocationInput
+  'service-titan.create_location': ServiceTitanCreateLocationInput
+  'service-titan.update_location': ServiceTitanUpdateLocationInput
   'service-titan.list_invoices': ServiceTitanListInvoicesInput
+  'service-titan.get_invoice': ServiceTitanGetInvoiceInput
+  'service-titan.list_payments': ServiceTitanListPaymentsInput
+  'service-titan.get_payment': ServiceTitanGetPaymentInput
+  'service-titan.list_technicians': ServiceTitanListTechniciansInput
+  'service-titan.get_technician': ServiceTitanGetTechnicianInput
+  'service-titan.list_business_units': ServiceTitanListBusinessUnitsInput
+  'service-titan.get_business_unit': ServiceTitanGetBusinessUnitInput
+  'service-titan.list_job_types': ServiceTitanListJobTypesInput
+  'service-titan.get_job_type': ServiceTitanGetJobTypeInput
   'shippo.create_shipment': ShippoCreateShipmentInput
   'shippo.get_shipment': ShippoGetShipmentInput
   'shippo.list_rates': ShippoListRatesInput
@@ -88312,6 +93268,24 @@ export interface IntegrationActionInputMap {
   'tidycal.get_booking': TidycalGetBookingInput
   'tidycal.list_booking_types': TidycalListBookingTypesInput
   'tidycal.custom_api_call': TidycalCustomApiCallInput
+  'nuvemshop.list_products': NuvemshopListProductsInput
+  'nuvemshop.get_product': NuvemshopGetProductInput
+  'nuvemshop.create_product': NuvemshopCreateProductInput
+  'nuvemshop.update_product': NuvemshopUpdateProductInput
+  'nuvemshop.delete_product': NuvemshopDeleteProductInput
+  'nuvemshop.list_orders': NuvemshopListOrdersInput
+  'nuvemshop.get_order': NuvemshopGetOrderInput
+  'nuvemshop.create_order': NuvemshopCreateOrderInput
+  'nuvemshop.update_order': NuvemshopUpdateOrderInput
+  'nuvemshop.pay_order': NuvemshopPayOrderInput
+  'nuvemshop.close_order': NuvemshopCloseOrderInput
+  'nuvemshop.reopen_order': NuvemshopReopenOrderInput
+  'nuvemshop.cancel_order': NuvemshopCancelOrderInput
+  'nuvemshop.list_customers': NuvemshopListCustomersInput
+  'nuvemshop.get_customer': NuvemshopGetCustomerInput
+  'nuvemshop.list_webhooks': NuvemshopListWebhooksInput
+  'nuvemshop.create_webhook': NuvemshopCreateWebhookInput
+  'nuvemshop.delete_webhook': NuvemshopDeleteWebhookInput
   'tiktok.get_user_info': TiktokGetUserInfoInput
   'tiktok.list_videos': TiktokListVideosInput
   'tiktok.get_video': TiktokGetVideoInput
@@ -88395,6 +93369,15 @@ export interface IntegrationActionInputMap {
   'totango.list_segments': TotangoListSegmentsInput
   'totango.get_health': TotangoGetHealthInput
   'totango.custom_api_call': TotangoCustomApiCallInput
+  'transak.refresh_access_token': TransakRefreshAccessTokenInput
+  'transak.get_price': TransakGetPriceInput
+  'transak.list_countries': TransakListCountriesInput
+  'transak.list_crypto_currencies': TransakListCryptoCurrenciesInput
+  'transak.list_fiat_currencies': TransakListFiatCurrenciesInput
+  'transak.verify_wallet_address': TransakVerifyWalletAddressInput
+  'transak.list_orders': TransakListOrdersInput
+  'transak.get_order': TransakGetOrderInput
+  'transak.create_widget_url': TransakCreateWidgetUrlInput
   'transistor.list_shows': TransistorListShowsInput
   'transistor.get_show': TransistorGetShowInput
   'transistor.list_episodes': TransistorListEpisodesInput
@@ -88533,6 +93516,15 @@ export interface IntegrationActionInputMap {
   'vercel.delete_webhook': VercelDeleteWebhookInput
   'vercel.trigger_deploy_hook': VercelTriggerDeployHookInput
   'vercel.custom_api_call': VercelCustomApiCallInput
+  'vetspire.get_organization': VetspireGetOrganizationInput
+  'vetspire.list_clients': VetspireListClientsInput
+  'vetspire.get_client': VetspireGetClientInput
+  'vetspire.list_patients': VetspireListPatientsInput
+  'vetspire.get_patient': VetspireGetPatientInput
+  'vetspire.list_appointments': VetspireListAppointmentsInput
+  'vetspire.get_appointment': VetspireGetAppointmentInput
+  'vetspire.create_or_update_client': VetspireCreateOrUpdateClientInput
+  'vetspire.create_or_update_patient': VetspireCreateOrUpdatePatientInput
   'vidyard.list_videos': VidyardListVideosInput
   'vidyard.get_video': VidyardGetVideoInput
   'vidyard.create_video': VidyardCreateVideoInput
@@ -88817,6 +93809,20 @@ export interface IntegrationActionInputMap {
   'xero.xero_find_purchase_order': XeroXeroFindPurchaseOrderInput
   'xero.custom_api_call': XeroCustomApiCallInput
   'xml.convert-json-to-xml': XmlConvertJsonToXmlInput
+  'yellow-card.get_rates': YellowCardGetRatesInput
+  'yellow-card.get_channels': YellowCardGetChannelsInput
+  'yellow-card.get_networks': YellowCardGetNetworksInput
+  'yellow-card.create_widget_quote': YellowCardCreateWidgetQuoteInput
+  'yellow-card.submit_send': YellowCardSubmitSendInput
+  'yellow-card.list_sends': YellowCardListSendsInput
+  'yellow-card.get_send': YellowCardGetSendInput
+  'yellow-card.submit_crypto_send': YellowCardSubmitCryptoSendInput
+  'yellow-card.list_wallets': YellowCardListWalletsInput
+  'yellow-card.create_wallet': YellowCardCreateWalletInput
+  'yellow-card.create_rfq': YellowCardCreateRfqInput
+  'yellow-card.list_rfqs': YellowCardListRfqsInput
+  'yellow-card.get_rfq': YellowCardGetRfqInput
+  'yellow-card.accept_rfq': YellowCardAcceptRfqInput
   'yotpo.list_reviews': YotpoListReviewsInput
   'yotpo.get_review': YotpoGetReviewInput
   'yotpo.create_review_request': YotpoCreateReviewRequestInput
@@ -88866,6 +93872,20 @@ export interface IntegrationActionInputMap {
   'zerobounce.validate_email': ZerobounceValidateEmailInput
   'zerobounce.get_credits': ZerobounceGetCreditsInput
   'zerobounce.custom_api_call': ZerobounceCustomApiCallInput
+  'zid.list_products': ZidListProductsInput
+  'zid.get_product': ZidGetProductInput
+  'zid.create_product': ZidCreateProductInput
+  'zid.update_product': ZidUpdateProductInput
+  'zid.delete_product': ZidDeleteProductInput
+  'zid.list_categories': ZidListCategoriesInput
+  'zid.list_orders': ZidListOrdersInput
+  'zid.get_order': ZidGetOrderInput
+  'zid.update_order': ZidUpdateOrderInput
+  'zid.list_customers': ZidListCustomersInput
+  'zid.get_customer': ZidGetCustomerInput
+  'zid.list_webhooks': ZidListWebhooksInput
+  'zid.create_webhook': ZidCreateWebhookInput
+  'zid.delete_webhook': ZidDeleteWebhookInput
   'zillow.get_property': ZillowGetPropertyInput
   'zillow.search_properties': ZillowSearchPropertiesInput
   'zillow.custom_api_call': ZillowCustomApiCallInput
@@ -88992,6 +94012,27 @@ export interface IntegrationActionInputsByIntegration {
     'list_audit_events': Integration1passwordListAuditEventsInput
     'list_item_usage_events': Integration1passwordListItemUsageEventsInput
     'list_sign_in_attempts': Integration1passwordListSignInAttemptsInput
+  }
+  'glofox': {
+    'list_locations': GlofoxListLocationsInput
+    'search_members_by_email': GlofoxSearchMembersByEmailInput
+    'get_user': GlofoxGetUserInput
+    'list_clients': GlofoxListClientsInput
+    'create_lead': GlofoxCreateLeadInput
+    'update_user': GlofoxUpdateUserInput
+    'list_memberships': GlofoxListMembershipsInput
+    'get_membership': GlofoxGetMembershipInput
+    'purchase_membership': GlofoxPurchaseMembershipInput
+    'cancel_membership': GlofoxCancelMembershipInput
+    'list_credit_packs': GlofoxListCreditPacksInput
+    'list_events': GlofoxListEventsInput
+    'get_event': GlofoxGetEventInput
+    'create_booking': GlofoxCreateBookingInput
+    'list_bookings': GlofoxListBookingsInput
+    'cancel_booking': GlofoxCancelBookingInput
+    'mark_booking_attended': GlofoxMarkBookingAttendedInput
+    'list_payment_methods': GlofoxListPaymentMethodsInput
+    'list_staff': GlofoxListStaffInput
   }
   'abstract-api': {
     'validate_email': AbstractApiValidateEmailInput
@@ -89574,9 +94615,31 @@ export interface IntegrationActionInputsByIntegration {
   }
   'appfolio': {
     'list_properties': AppfolioListPropertiesInput
+    'list_units': AppfolioListUnitsInput
+    'update_unit': AppfolioUpdateUnitInput
+    'list_listings': AppfolioListListingsInput
     'list_tenants': AppfolioListTenantsInput
+    'list_tenant_ledgers': AppfolioListTenantLedgersInput
     'list_leases': AppfolioListLeasesInput
-    'custom_api_call': AppfolioCustomApiCallInput
+    'list_owners': AppfolioListOwnersInput
+    'create_owner': AppfolioCreateOwnerInput
+    'update_owner': AppfolioUpdateOwnerInput
+    'list_vendors': AppfolioListVendorsInput
+    'create_vendor': AppfolioCreateVendorInput
+    'update_vendor': AppfolioUpdateVendorInput
+    'list_work_orders': AppfolioListWorkOrdersInput
+    'create_work_order': AppfolioCreateWorkOrderInput
+    'update_work_order': AppfolioUpdateWorkOrderInput
+    'list_bills': AppfolioListBillsInput
+    'create_bill': AppfolioCreateBillInput
+    'update_bill': AppfolioUpdateBillInput
+    'list_open_charges': AppfolioListOpenChargesInput
+    'create_charge': AppfolioCreateChargeInput
+    'list_leads': AppfolioListLeadsInput
+    'create_lead': AppfolioCreateLeadInput
+    'update_lead': AppfolioUpdateLeadInput
+    'create_showing': AppfolioCreateShowingInput
+    'update_showing': AppfolioUpdateShowingInput
   }
   'appwrite': {
     'list_databases': AppwriteListDatabasesInput
@@ -90103,6 +95166,25 @@ export interface IntegrationActionInputsByIntegration {
     'create_registration': BizzaboCreateRegistrationInput
     'custom_api_call': BizzaboCustomApiCallInput
   }
+  'blackboard': {
+    'list_courses': BlackboardListCoursesInput
+    'get_course': BlackboardGetCourseInput
+    'create_course': BlackboardCreateCourseInput
+    'update_course': BlackboardUpdateCourseInput
+    'delete_course': BlackboardDeleteCourseInput
+    'list_users': BlackboardListUsersInput
+    'get_user': BlackboardGetUserInput
+    'create_user': BlackboardCreateUserInput
+    'update_user': BlackboardUpdateUserInput
+    'enroll_user': BlackboardEnrollUserInput
+    'unenroll_user': BlackboardUnenrollUserInput
+    'list_grade_columns': BlackboardListGradeColumnsInput
+    'update_grade': BlackboardUpdateGradeInput
+    'list_content': BlackboardListContentInput
+    'create_content': BlackboardCreateContentInput
+    'update_content': BlackboardUpdateContentInput
+    'delete_content': BlackboardDeleteContentInput
+  }
   'blockscout': {
     'search': BlockscoutSearchInput
     'list_transactions': BlockscoutListTransactionsInput
@@ -90269,6 +95351,13 @@ export interface IntegrationActionInputsByIntegration {
     'unlock_url': BrightDataUnlockUrlInput
     'google_search': BrightDataGoogleSearchInput
   }
+  'bring': {
+    'book_shipment': BringBookShipmentInput
+    'track_shipment': BringTrackShipmentInput
+    'list_customer_webhooks': BringListCustomerWebhooksInput
+    'renew_customer_webhook': BringRenewCustomerWebhookInput
+    'delete_webhook': BringDeleteWebhookInput
+  }
   'buffer': {
     'create_post': BufferCreatePostInput
     'list_profiles': BufferListProfilesInput
@@ -90425,6 +95514,45 @@ export interface IntegrationActionInputsByIntegration {
     'get_course': CanvasLmsGetCourseInput
     'list_assignments': CanvasLmsListAssignmentsInput
     'list_students': CanvasLmsListStudentsInput
+    'create_course': CanvasLmsCreateCourseInput
+    'update_course': CanvasLmsUpdateCourseInput
+    'delete_course': CanvasLmsDeleteCourseInput
+    'create_assignment': CanvasLmsCreateAssignmentInput
+    'update_assignment': CanvasLmsUpdateAssignmentInput
+    'delete_assignment': CanvasLmsDeleteAssignmentInput
+    'create_enrollment': CanvasLmsCreateEnrollmentInput
+    'delete_enrollment': CanvasLmsDeleteEnrollmentInput
+    'grade_submission': CanvasLmsGradeSubmissionInput
+  }
+  'canvas-medical': {
+    'search_patients': CanvasMedicalSearchPatientsInput
+    'get_patient': CanvasMedicalGetPatientInput
+    'create_patient': CanvasMedicalCreatePatientInput
+    'update_patient': CanvasMedicalUpdatePatientInput
+    'search_appointments': CanvasMedicalSearchAppointmentsInput
+    'get_appointment': CanvasMedicalGetAppointmentInput
+    'create_appointment': CanvasMedicalCreateAppointmentInput
+    'update_appointment': CanvasMedicalUpdateAppointmentInput
+    'cancel_appointment': CanvasMedicalCancelAppointmentInput
+    'search_practitioners': CanvasMedicalSearchPractitionersInput
+    'get_practitioner': CanvasMedicalGetPractitionerInput
+    'create_practitioner': CanvasMedicalCreatePractitionerInput
+    'update_practitioner': CanvasMedicalUpdatePractitionerInput
+    'search_encounters': CanvasMedicalSearchEncountersInput
+    'get_encounter': CanvasMedicalGetEncounterInput
+    'search_communications': CanvasMedicalSearchCommunicationsInput
+    'get_communication': CanvasMedicalGetCommunicationInput
+    'create_communication': CanvasMedicalCreateCommunicationInput
+    'search_document_references': CanvasMedicalSearchDocumentReferencesInput
+    'get_document_reference': CanvasMedicalGetDocumentReferenceInput
+    'create_document_reference': CanvasMedicalCreateDocumentReferenceInput
+    'search_tasks': CanvasMedicalSearchTasksInput
+    'get_task': CanvasMedicalGetTaskInput
+    'create_task': CanvasMedicalCreateTaskInput
+    'update_task': CanvasMedicalUpdateTaskInput
+    'search_locations': CanvasMedicalSearchLocationsInput
+    'search_schedules': CanvasMedicalSearchSchedulesInput
+    'search_slots': CanvasMedicalSearchSlotsInput
   }
   'capsule-crm': {
     'create_contact': CapsuleCrmCreateContactInput
@@ -90800,6 +95928,16 @@ export interface IntegrationActionInputsByIntegration {
     'create_customer': CloverCreateCustomerInput
     'refund_payment': CloverRefundPaymentInput
   }
+  'clubready': {
+    'create_prospect': ClubreadyCreateProspectInput
+    'create_class_booking': ClubreadyCreateClassBookingInput
+    'update_booking_status': ClubreadyUpdateBookingStatusInput
+    'cancel_waitlist': ClubreadyCancelWaitlistInput
+    'check_in_user': ClubreadyCheckInUserInput
+    'make_payment': ClubreadyMakePaymentInput
+    'create_user_note': ClubreadyCreateUserNoteInput
+    'tag_user': ClubreadyTagUserInput
+  }
   'coda': {
     'create_row': CodaCreateRowInput
     'update_row': CodaUpdateRowInput
@@ -90896,6 +96034,7 @@ export interface IntegrationActionInputsByIntegration {
     'get_project': CompanycamGetProjectInput
     'update_project': CompanycamUpdateProjectInput
     'archive_project': CompanycamArchiveProjectInput
+    'restore_project': CompanycamRestoreProjectInput
     'delete_project': CompanycamDeleteProjectInput
     'upload_photo': CompanycamUploadPhotoInput
     'list_project_photos': CompanycamListProjectPhotosInput
@@ -90903,8 +96042,15 @@ export interface IntegrationActionInputsByIntegration {
     'update_photo': CompanycamUpdatePhotoInput
     'delete_photo': CompanycamDeletePhotoInput
     'create_tag': CompanycamCreateTagInput
+    'list_tags': CompanycamListTagsInput
+    'update_tag': CompanycamUpdateTagInput
+    'delete_tag': CompanycamDeleteTagInput
+    'add_photo_tags': CompanycamAddPhotoTagsInput
+    'add_photo_comment': CompanycamAddPhotoCommentInput
     'list_webhooks': CompanycamListWebhooksInput
+    'create_webhook': CompanycamCreateWebhookInput
     'update_webhook': CompanycamUpdateWebhookInput
+    'delete_webhook': CompanycamDeleteWebhookInput
   }
   'confluence': {
     'get_page': ConfluenceGetPageInput
@@ -91068,6 +96214,21 @@ export interface IntegrationActionInputsByIntegration {
     'get_sessions': CventGetSessionsInput
     'custom_api_call': CventCustomApiCallInput
   }
+  'd2l-brightspace': {
+    'get_whoami': D2lBrightspaceGetWhoamiInput
+    'get_course': D2lBrightspaceGetCourseInput
+    'create_course': D2lBrightspaceCreateCourseInput
+    'update_course': D2lBrightspaceUpdateCourseInput
+    'delete_course': D2lBrightspaceDeleteCourseInput
+    'create_user': D2lBrightspaceCreateUserInput
+    'update_user': D2lBrightspaceUpdateUserInput
+    'list_classlist': D2lBrightspaceListClasslistInput
+    'enroll_user': D2lBrightspaceEnrollUserInput
+    'unenroll_user': D2lBrightspaceUnenrollUserInput
+    'list_grade_objects': D2lBrightspaceListGradeObjectsInput
+    'update_grade_value': D2lBrightspaceUpdateGradeValueInput
+    'list_content_root': D2lBrightspaceListContentRootInput
+  }
   'data-transformer': {
     'transform_json': DataTransformerTransformJsonInput
     'merge_objects': DataTransformerMergeObjectsInput
@@ -91226,6 +96387,22 @@ export interface IntegrationActionInputsByIntegration {
     'list_users': DialpadListUsersInput
     'get_user': DialpadGetUserInput
     'list_webhooks': DialpadListWebhooksInput
+  }
+  'digitail': {
+    'get_logged_in_vet': DigitailGetLoggedInVetInput
+    'list_pets': DigitailListPetsInput
+    'get_pet': DigitailGetPetInput
+    'update_pet': DigitailUpdatePetInput
+    'list_pet_parents': DigitailListPetParentsInput
+    'get_pet_parent': DigitailGetPetParentInput
+    'create_pet_parent': DigitailCreatePetParentInput
+    'update_pet_parent': DigitailUpdatePetParentInput
+    'list_appointments': DigitailListAppointmentsInput
+    'get_appointment': DigitailGetAppointmentInput
+    'create_appointment': DigitailCreateAppointmentInput
+    'update_appointment': DigitailUpdateAppointmentInput
+    'list_pet_prescriptions': DigitailListPetPrescriptionsInput
+    'create_prescription_refill': DigitailCreatePrescriptionRefillInput
   }
   'digital-ocean': {
     'list_domains': DigitalOceanListDomainsInput
@@ -91394,6 +96571,26 @@ export interface IntegrationActionInputsByIntegration {
     'delete_appointment': DrchronoDeleteAppointmentInput
     'list_offices': DrchronoListOfficesInput
     'list_doctors': DrchronoListDoctorsInput
+    'list_messages': DrchronoListMessagesInput
+    'get_message': DrchronoGetMessageInput
+    'create_message': DrchronoCreateMessageInput
+    'update_message': DrchronoUpdateMessageInput
+    'list_prescription_messages': DrchronoListPrescriptionMessagesInput
+    'list_clinical_notes': DrchronoListClinicalNotesInput
+    'get_clinical_note': DrchronoGetClinicalNoteInput
+    'list_clinical_note_field_values': DrchronoListClinicalNoteFieldValuesInput
+    'update_clinical_note_field_value': DrchronoUpdateClinicalNoteFieldValueInput
+    'list_tasks': DrchronoListTasksInput
+    'get_task': DrchronoGetTaskInput
+    'create_task': DrchronoCreateTaskInput
+    'update_task': DrchronoUpdateTaskInput
+    'list_task_notes': DrchronoListTaskNotesInput
+    'create_task_note': DrchronoCreateTaskNoteInput
+    'update_task_note': DrchronoUpdateTaskNoteInput
+    'list_task_statuses': DrchronoListTaskStatusesInput
+    'create_task_status': DrchronoCreateTaskStatusInput
+    'list_task_categories': DrchronoListTaskCategoriesInput
+    'create_task_category': DrchronoCreateTaskCategoryInput
   }
   'drip': {
     'list_subscribers': DripListSubscribersInput
@@ -91466,6 +96663,17 @@ export interface IntegrationActionInputsByIntegration {
     'list_trackers': EasypostListTrackersInput
     'create_address': EasypostCreateAddressInput
   }
+  'easyship': {
+    'create_shipment': EasyshipCreateShipmentInput
+    'create_label': EasyshipCreateLabelInput
+    'create_return_shipment': EasyshipCreateReturnShipmentInput
+    'cancel_shipment': EasyshipCancelShipmentInput
+    'delete_shipment': EasyshipDeleteShipmentInput
+    'list_shipments': EasyshipListShipmentsInput
+    'get_shipment': EasyshipGetShipmentInput
+    'list_rates': EasyshipListRatesInput
+    'create_tracking': EasyshipCreateTrackingInput
+  }
   'ebay': {
     'search_items': EbaySearchItemsInput
     'get_item': EbayGetItemInput
@@ -91492,6 +96700,41 @@ export interface IntegrationActionInputsByIntegration {
     'get_document': ElasticsearchGetDocumentInput
     'delete_document': ElasticsearchDeleteDocumentInput
     'custom_api_call': ElasticsearchCustomApiCallInput
+  }
+  'elation-health': {
+    'list_patients': ElationHealthListPatientsInput
+    'get_patient': ElationHealthGetPatientInput
+    'create_patient': ElationHealthCreatePatientInput
+    'update_patient': ElationHealthUpdatePatientInput
+    'delete_patient': ElationHealthDeletePatientInput
+    'list_appointments': ElationHealthListAppointmentsInput
+    'get_appointment': ElationHealthGetAppointmentInput
+    'create_appointment': ElationHealthCreateAppointmentInput
+    'update_appointment': ElationHealthUpdateAppointmentInput
+    'delete_appointment': ElationHealthDeleteAppointmentInput
+    'list_physicians': ElationHealthListPhysiciansInput
+    'get_physician': ElationHealthGetPhysicianInput
+    'update_physician': ElationHealthUpdatePhysicianInput
+    'list_service_locations': ElationHealthListServiceLocationsInput
+    'get_service_location': ElationHealthGetServiceLocationInput
+    'create_service_location': ElationHealthCreateServiceLocationInput
+    'update_service_location': ElationHealthUpdateServiceLocationInput
+    'delete_service_location': ElationHealthDeleteServiceLocationInput
+    'list_message_threads': ElationHealthListMessageThreadsInput
+    'get_message_thread': ElationHealthGetMessageThreadInput
+    'create_message_thread': ElationHealthCreateMessageThreadInput
+    'delete_message_thread': ElationHealthDeleteMessageThreadInput
+    'list_thread_messages': ElationHealthListThreadMessagesInput
+    'get_thread_message': ElationHealthGetThreadMessageInput
+    'create_thread_message': ElationHealthCreateThreadMessageInput
+    'delete_thread_message': ElationHealthDeleteThreadMessageInput
+    'list_clinical_documents': ElationHealthListClinicalDocumentsInput
+    'get_clinical_document': ElationHealthGetClinicalDocumentInput
+    'create_clinical_document': ElationHealthCreateClinicalDocumentInput
+    'list_event_subscriptions': ElationHealthListEventSubscriptionsInput
+    'get_event_subscription': ElationHealthGetEventSubscriptionInput
+    'create_event_subscription': ElationHealthCreateEventSubscriptionInput
+    'delete_event_subscription': ElationHealthDeleteEventSubscriptionInput
   }
   'elevenlabs': {
     'elevenlabs-text-to-speech': ElevenlabsElevenlabsTextToSpeechInput
@@ -91645,6 +96888,61 @@ export interface IntegrationActionInputsByIntegration {
     'get-note': FellowGetNoteInput
     'custom_api_call': FellowCustomApiCallInput
   }
+  'fergus': {
+    'list_jobs': FergusListJobsInput
+    'get_job': FergusGetJobInput
+    'create_job': FergusCreateJobInput
+    'update_job': FergusUpdateJobInput
+    'finalise_job': FergusFinaliseJobInput
+    'hold_job': FergusHoldJobInput
+    'resume_job': FergusResumeJobInput
+    'list_quotes': FergusListQuotesInput
+    'get_quote': FergusGetQuoteInput
+    'publish_quote': FergusPublishQuoteInput
+    'mark_quote_as_sent': FergusMarkQuoteAsSentInput
+    'accept_quote': FergusAcceptQuoteInput
+    'decline_quote': FergusDeclineQuoteInput
+    'void_quote': FergusVoidQuoteInput
+    'list_customer_invoices': FergusListCustomerInvoicesInput
+    'get_customer_invoice': FergusGetCustomerInvoiceInput
+    'list_customers': FergusListCustomersInput
+    'get_customer': FergusGetCustomerInput
+    'create_customer': FergusCreateCustomerInput
+    'update_customer': FergusUpdateCustomerInput
+    'delete_customer': FergusDeleteCustomerInput
+    'list_sites': FergusListSitesInput
+    'get_site': FergusGetSiteInput
+    'create_site': FergusCreateSiteInput
+    'update_site': FergusUpdateSiteInput
+    'archive_site': FergusArchiveSiteInput
+    'restore_site': FergusRestoreSiteInput
+    'list_contacts': FergusListContactsInput
+    'get_contact': FergusGetContactInput
+    'create_contact': FergusCreateContactInput
+    'update_contact': FergusUpdateContactInput
+    'list_enquiries': FergusListEnquiriesInput
+    'get_enquiry': FergusGetEnquiryInput
+    'create_enquiry': FergusCreateEnquiryInput
+    'list_time_entries': FergusListTimeEntriesInput
+    'get_time_entry': FergusGetTimeEntryInput
+    'list_calendar_events': FergusListCalendarEventsInput
+    'get_calendar_event': FergusGetCalendarEventInput
+    'create_calendar_event': FergusCreateCalendarEventInput
+    'update_calendar_event': FergusUpdateCalendarEventInput
+    'delete_calendar_event': FergusDeleteCalendarEventInput
+    'list_notes': FergusListNotesInput
+    'get_note': FergusGetNoteInput
+    'create_note': FergusCreateNoteInput
+    'update_note': FergusUpdateNoteInput
+    'list_tasks': FergusListTasksInput
+    'get_task': FergusGetTaskInput
+    'create_task': FergusCreateTaskInput
+    'update_task': FergusUpdateTaskInput
+    'delete_task': FergusDeleteTaskInput
+    'complete_task': FergusCompleteTaskInput
+    'reopen_task': FergusReopenTaskInput
+    'delete_attachment': FergusDeleteAttachmentInput
+  }
   'fieldpulse': {
     'list_customers': FieldpulseListCustomersInput
     'get_customer': FieldpulseGetCustomerInput
@@ -91684,6 +96982,55 @@ export interface IntegrationActionInputsByIntegration {
     'create_comment': FieldpulseCreateCommentInput
     'update_comment': FieldpulseUpdateCommentInput
     'delete_comment': FieldpulseDeleteCommentInput
+  }
+  'fieldroutes': {
+    'search_customers': FieldroutesSearchCustomersInput
+    'get_customers': FieldroutesGetCustomersInput
+    'create_customer': FieldroutesCreateCustomerInput
+    'update_customer': FieldroutesUpdateCustomerInput
+    'search_subscriptions': FieldroutesSearchSubscriptionsInput
+    'get_subscriptions': FieldroutesGetSubscriptionsInput
+    'create_subscription': FieldroutesCreateSubscriptionInput
+    'update_subscription': FieldroutesUpdateSubscriptionInput
+    'update_subscription_lead_stage': FieldroutesUpdateSubscriptionLeadStageInput
+    'search_tickets': FieldroutesSearchTicketsInput
+    'get_tickets': FieldroutesGetTicketsInput
+    'create_ticket': FieldroutesCreateTicketInput
+    'update_ticket': FieldroutesUpdateTicketInput
+    'delete_ticket': FieldroutesDeleteTicketInput
+    'search_appointments': FieldroutesSearchAppointmentsInput
+    'get_appointments': FieldroutesGetAppointmentsInput
+    'create_appointment': FieldroutesCreateAppointmentInput
+    'update_appointment': FieldroutesUpdateAppointmentInput
+    'cancel_appointment': FieldroutesCancelAppointmentInput
+    'complete_appointment': FieldroutesCompleteAppointmentInput
+    'search_employees': FieldroutesSearchEmployeesInput
+    'get_employees': FieldroutesGetEmployeesInput
+    'create_employee': FieldroutesCreateEmployeeInput
+    'update_employee': FieldroutesUpdateEmployeeInput
+    'dealias_employee': FieldroutesDealiasEmployeeInput
+    'search_payments': FieldroutesSearchPaymentsInput
+    'get_payments': FieldroutesGetPaymentsInput
+    'create_payment': FieldroutesCreatePaymentInput
+    'create_refund': FieldroutesCreateRefundInput
+    'search_contracts': FieldroutesSearchContractsInput
+    'get_contracts': FieldroutesGetContractsInput
+    'create_contract': FieldroutesCreateContractInput
+    'delete_contract': FieldroutesDeleteContractInput
+    'search_notes': FieldroutesSearchNotesInput
+    'get_notes': FieldroutesGetNotesInput
+    'create_note': FieldroutesCreateNoteInput
+    'update_note': FieldroutesUpdateNoteInput
+    'delete_note': FieldroutesDeleteNoteInput
+    'search_documents': FieldroutesSearchDocumentsInput
+    'get_documents': FieldroutesGetDocumentsInput
+    'create_document': FieldroutesCreateDocumentInput
+    'update_document': FieldroutesUpdateDocumentInput
+    'search_reviews': FieldroutesSearchReviewsInput
+    'get_reviews': FieldroutesGetReviewsInput
+    'create_review': FieldroutesCreateReviewInput
+    'update_review': FieldroutesUpdateReviewInput
+    'delete_review': FieldroutesDeleteReviewInput
   }
   'fieldwire': {
     'get_task': FieldwireGetTaskInput
@@ -92498,6 +97845,10 @@ export interface IntegrationActionInputsByIntegration {
     'pre_approve_channel_reservation': GuestyPreApproveChannelReservationInput
     'request_channel_reservation_cancellation': GuestyRequestChannelReservationCancellationInput
     'list_listings': GuestyListListingsInput
+    'get_listing': GuestyGetListingInput
+    'create_listing': GuestyCreateListingInput
+    'update_listing': GuestyUpdateListingInput
+    'set_listing_listed': GuestySetListingListedInput
     'get_guest': GuestyGetGuestInput
     'list_conversations': GuestyListConversationsInput
     'send_conversation_message': GuestySendConversationMessageInput
@@ -92754,6 +98105,13 @@ export interface IntegrationActionInputsByIntegration {
     'update_reservation': HostawayUpdateReservationInput
     'cancel_reservation': HostawayCancelReservationInput
     'list_listings': HostawayListListingsInput
+    'get_listing': HostawayGetListingInput
+    'create_listing': HostawayCreateListingInput
+    'update_listing': HostawayUpdateListingInput
+    'delete_listing': HostawayDeleteListingInput
+    'get_listing_calendar': HostawayGetListingCalendarInput
+    'update_listing_calendar': HostawayUpdateListingCalendarInput
+    'calculate_reservation_price': HostawayCalculateReservationPriceInput
     'get_guest': HostawayGetGuestInput
     'list_conversation_messages': HostawayListConversationMessagesInput
     'get_conversation_message': HostawayGetConversationMessageInput
@@ -93916,6 +99274,20 @@ export interface IntegrationActionInputsByIntegration {
     'find_or_create_label': MeistertaskFindOrCreateLabelInput
     'custom_api_call': MeistertaskCustomApiCallInput
   }
+  'mercado-libre': {
+    'get_my_user': MercadoLibreGetMyUserInput
+    'search_catalog': MercadoLibreSearchCatalogInput
+    'list_seller_items': MercadoLibreListSellerItemsInput
+    'get_item': MercadoLibreGetItemInput
+    'create_item': MercadoLibreCreateItemInput
+    'update_item': MercadoLibreUpdateItemInput
+    'update_item_status': MercadoLibreUpdateItemStatusInput
+    'list_orders': MercadoLibreListOrdersInput
+    'get_order': MercadoLibreGetOrderInput
+    'get_shipment': MercadoLibreGetShipmentInput
+    'list_questions': MercadoLibreListQuestionsInput
+    'answer_question': MercadoLibreAnswerQuestionInput
+  }
   'mercado-pago': {
     'create_preference': MercadoPagoCreatePreferenceInput
     'update_preference': MercadoPagoUpdatePreferenceInput
@@ -94395,6 +99767,36 @@ export interface IntegrationActionInputsByIntegration {
     'search_payment': MollieSearchPaymentInput
     'search_customer': MollieSearchCustomerInput
   }
+  'momence': {
+    'get_profile': MomenceGetProfileInput
+    'list_members': MomenceListMembersInput
+    'create_member': MomenceCreateMemberInput
+    'get_member': MomenceGetMemberInput
+    'update_member_name': MomenceUpdateMemberNameInput
+    'update_member_email': MomenceUpdateMemberEmailInput
+    'update_member_phone_number': MomenceUpdateMemberPhoneNumberInput
+    'delete_member_phone_number': MomenceDeleteMemberPhoneNumberInput
+    'list_host_memberships': MomenceListHostMembershipsInput
+    'list_member_bought_memberships': MomenceListMemberBoughtMembershipsInput
+    'freeze_membership': MomenceFreezeMembershipInput
+    'unfreeze_membership': MomenceUnfreezeMembershipInput
+    'schedule_membership_freeze': MomenceScheduleMembershipFreezeInput
+    'schedule_membership_unfreeze': MomenceScheduleMembershipUnfreezeInput
+    'remove_scheduled_unfreeze': MomenceRemoveScheduledUnfreezeInput
+    'update_membership_credits': MomenceUpdateMembershipCreditsInput
+    'list_sessions': MomenceListSessionsInput
+    'get_session': MomenceGetSessionInput
+    'list_session_bookings': MomenceListSessionBookingsInput
+    'add_member_to_session_for_free': MomenceAddMemberToSessionForFreeInput
+    'add_member_to_waitlist': MomenceAddMemberToWaitlistInput
+    'cancel_session_booking': MomenceCancelSessionBookingInput
+    'cancel_recurring_session_booking': MomenceCancelRecurringSessionBookingInput
+    'mark_session_booking_checked_in': MomenceMarkSessionBookingCheckedInInput
+    'remove_session_booking_check_in': MomenceRemoveSessionBookingCheckInInput
+    'list_tags': MomenceListTagsInput
+    'assign_tag_to_member': MomenceAssignTagToMemberInput
+    'unassign_tag_from_member': MomenceUnassignTagFromMemberInput
+  }
   'monday': {
     'monday_create_column': MondayMondayCreateColumnInput
     'monday_create_group': MondayMondayCreateGroupInput
@@ -94421,10 +99823,25 @@ export interface IntegrationActionInputsByIntegration {
   'moodle': {
     'list_courses': MoodleListCoursesInput
     'get_course': MoodleGetCourseInput
+    'create_course': MoodleCreateCourseInput
+    'update_course': MoodleUpdateCourseInput
+    'delete_course': MoodleDeleteCourseInput
     'list_users': MoodleListUsersInput
     'create_user': MoodleCreateUserInput
+    'update_user': MoodleUpdateUserInput
+    'get_enrolled_users': MoodleGetEnrolledUsersInput
+    'enroll_user': MoodleEnrollUserInput
+    'unenroll_user': MoodleUnenrollUserInput
     'get_grades': MoodleGetGradesInput
-    'custom_api_call': MoodleCustomApiCallInput
+  }
+  'moonpay': {
+    'list_currencies': MoonpayListCurrenciesInput
+    'get_buy_quote': MoonpayGetBuyQuoteInput
+    'get_sell_quote': MoonpayGetSellQuoteInput
+    'list_payment_methods': MoonpayListPaymentMethodsInput
+    'list_buy_transactions': MoonpayListBuyTransactionsInput
+    'get_buy_transaction': MoonpayGetBuyTransactionInput
+    'list_sell_transactions': MoonpayListSellTransactionsInput
   }
   'moralis': {
     'get_wallet_history': MoralisGetWalletHistoryInput
@@ -94637,9 +100054,11 @@ export interface IntegrationActionInputsByIntegration {
     'list_patients': NexhealthListPatientsInput
     'get_patient': NexhealthGetPatientInput
     'create_patient': NexhealthCreatePatientInput
+    'list_institutions': NexhealthListInstitutionsInput
     'list_locations': NexhealthListLocationsInput
     'list_providers': NexhealthListProvidersInput
     'list_appointment_types': NexhealthListAppointmentTypesInput
+    'view_available_slots': NexhealthViewAvailableSlotsInput
     'list_appointments': NexhealthListAppointmentsInput
     'create_appointment': NexhealthCreateAppointmentInput
     'update_appointment': NexhealthUpdateAppointmentInput
@@ -94817,6 +100236,9 @@ export interface IntegrationActionInputsByIntegration {
     'create_patient': OpenDentalCreatePatientInput
     'update_patient': OpenDentalUpdatePatientInput
     'list_appointments': OpenDentalListAppointmentsInput
+    'get_appointment': OpenDentalGetAppointmentInput
+    'list_asap_appointments': OpenDentalListAsapAppointmentsInput
+    'list_appointment_slots': OpenDentalListAppointmentSlotsInput
     'create_appointment': OpenDentalCreateAppointmentInput
     'update_appointment': OpenDentalUpdateAppointmentInput
     'break_appointment': OpenDentalBreakAppointmentInput
@@ -95917,6 +101339,17 @@ export interface IntegrationActionInputsByIntegration {
     'delete_gl_account': RampDeleteGlAccountInput
     'custom_api_call': RampCustomApiCallInput
   }
+  'ramp-network': {
+    'list_onramp_assets': RampNetworkListOnrampAssetsInput
+    'list_offramp_assets': RampNetworkListOfframpAssetsInput
+    'list_payment_methods': RampNetworkListPaymentMethodsInput
+    'list_payout_methods': RampNetworkListPayoutMethodsInput
+    'list_fiat_currencies': RampNetworkListFiatCurrenciesInput
+    'create_onramp_quote': RampNetworkCreateOnrampQuoteInput
+    'create_offramp_quote': RampNetworkCreateOfframpQuoteInput
+    'get_offramp_sale': RampNetworkGetOfframpSaleInput
+    'build_widget_url': RampNetworkBuildWidgetUrlInput
+  }
   'razorpay': {
     'custom_api_call': RazorpayCustomApiCallInput
     'create-payment-link': RazorpayCreatePaymentLinkInput
@@ -96233,6 +101666,25 @@ export interface IntegrationActionInputsByIntegration {
     'create_webhook_subscription': SalesloftCreateWebhookSubscriptionInput
     'delete_webhook_subscription': SalesloftDeleteWebhookSubscriptionInput
   }
+  'salla': {
+    'list_products': SallaListProductsInput
+    'get_product': SallaGetProductInput
+    'get_product_by_sku': SallaGetProductBySkuInput
+    'create_product': SallaCreateProductInput
+    'update_product': SallaUpdateProductInput
+    'delete_product': SallaDeleteProductInput
+    'list_product_quantities': SallaListProductQuantitiesInput
+    'list_orders': SallaListOrdersInput
+    'get_order': SallaGetOrderInput
+    'create_external_order': SallaCreateExternalOrderInput
+    'perform_order_action': SallaPerformOrderActionInput
+    'delete_order_item': SallaDeleteOrderItemInput
+    'list_customers': SallaListCustomersInput
+    'get_customer': SallaGetCustomerInput
+    'list_webhook_events': SallaListWebhookEventsInput
+    'subscribe_webhook': SallaSubscribeWebhookInput
+    'deactivate_webhook': SallaDeactivateWebhookInput
+  }
   'advanced-code': {
     'run_code': AdvancedCodeRunCodeInput
   }
@@ -96297,6 +101749,16 @@ export interface IntegrationActionInputsByIntegration {
     'get_organic_keywords': SemrushGetOrganicKeywordsInput
     'get_backlinks': SemrushGetBacklinksInput
     'custom_api_call': SemrushCustomApiCallInput
+  }
+  'sendcloud': {
+    'create_shipment': SendcloudCreateShipmentInput
+    'create_and_announce_shipment': SendcloudCreateAndAnnounceShipmentInput
+    'create_return': SendcloudCreateReturnInput
+    'cancel_shipment': SendcloudCancelShipmentInput
+    'cancel_return': SendcloudCancelReturnInput
+    'get_shipment': SendcloudGetShipmentInput
+    'list_shipments': SendcloudListShipmentsInput
+    'track_parcel': SendcloudTrackParcelInput
   }
   'sendgrid': {
     'send_email': SendgridSendEmailInput
@@ -96460,8 +101922,28 @@ export interface IntegrationActionInputsByIntegration {
   'service-titan': {
     'list_jobs': ServiceTitanListJobsInput
     'get_job': ServiceTitanGetJobInput
+    'create_job': ServiceTitanCreateJobInput
+    'update_job': ServiceTitanUpdateJobInput
+    'list_appointments': ServiceTitanListAppointmentsInput
+    'get_appointment': ServiceTitanGetAppointmentInput
     'list_customers': ServiceTitanListCustomersInput
+    'get_customer': ServiceTitanGetCustomerInput
+    'create_customer': ServiceTitanCreateCustomerInput
+    'update_customer': ServiceTitanUpdateCustomerInput
+    'list_locations': ServiceTitanListLocationsInput
+    'get_location': ServiceTitanGetLocationInput
+    'create_location': ServiceTitanCreateLocationInput
+    'update_location': ServiceTitanUpdateLocationInput
     'list_invoices': ServiceTitanListInvoicesInput
+    'get_invoice': ServiceTitanGetInvoiceInput
+    'list_payments': ServiceTitanListPaymentsInput
+    'get_payment': ServiceTitanGetPaymentInput
+    'list_technicians': ServiceTitanListTechniciansInput
+    'get_technician': ServiceTitanGetTechnicianInput
+    'list_business_units': ServiceTitanListBusinessUnitsInput
+    'get_business_unit': ServiceTitanGetBusinessUnitInput
+    'list_job_types': ServiceTitanListJobTypesInput
+    'get_job_type': ServiceTitanGetJobTypeInput
   }
   'shippo': {
     'create_shipment': ShippoCreateShipmentInput
@@ -97184,6 +102666,26 @@ export interface IntegrationActionInputsByIntegration {
     'list_booking_types': TidycalListBookingTypesInput
     'custom_api_call': TidycalCustomApiCallInput
   }
+  'nuvemshop': {
+    'list_products': NuvemshopListProductsInput
+    'get_product': NuvemshopGetProductInput
+    'create_product': NuvemshopCreateProductInput
+    'update_product': NuvemshopUpdateProductInput
+    'delete_product': NuvemshopDeleteProductInput
+    'list_orders': NuvemshopListOrdersInput
+    'get_order': NuvemshopGetOrderInput
+    'create_order': NuvemshopCreateOrderInput
+    'update_order': NuvemshopUpdateOrderInput
+    'pay_order': NuvemshopPayOrderInput
+    'close_order': NuvemshopCloseOrderInput
+    'reopen_order': NuvemshopReopenOrderInput
+    'cancel_order': NuvemshopCancelOrderInput
+    'list_customers': NuvemshopListCustomersInput
+    'get_customer': NuvemshopGetCustomerInput
+    'list_webhooks': NuvemshopListWebhooksInput
+    'create_webhook': NuvemshopCreateWebhookInput
+    'delete_webhook': NuvemshopDeleteWebhookInput
+  }
   'tiktok': {
     'get_user_info': TiktokGetUserInfoInput
     'list_videos': TiktokListVideosInput
@@ -97288,6 +102790,17 @@ export interface IntegrationActionInputsByIntegration {
     'list_segments': TotangoListSegmentsInput
     'get_health': TotangoGetHealthInput
     'custom_api_call': TotangoCustomApiCallInput
+  }
+  'transak': {
+    'refresh_access_token': TransakRefreshAccessTokenInput
+    'get_price': TransakGetPriceInput
+    'list_countries': TransakListCountriesInput
+    'list_crypto_currencies': TransakListCryptoCurrenciesInput
+    'list_fiat_currencies': TransakListFiatCurrenciesInput
+    'verify_wallet_address': TransakVerifyWalletAddressInput
+    'list_orders': TransakListOrdersInput
+    'get_order': TransakGetOrderInput
+    'create_widget_url': TransakCreateWidgetUrlInput
   }
   'transistor': {
     'list_shows': TransistorListShowsInput
@@ -97460,6 +102973,17 @@ export interface IntegrationActionInputsByIntegration {
     'delete_webhook': VercelDeleteWebhookInput
     'trigger_deploy_hook': VercelTriggerDeployHookInput
     'custom_api_call': VercelCustomApiCallInput
+  }
+  'vetspire': {
+    'get_organization': VetspireGetOrganizationInput
+    'list_clients': VetspireListClientsInput
+    'get_client': VetspireGetClientInput
+    'list_patients': VetspireListPatientsInput
+    'get_patient': VetspireGetPatientInput
+    'list_appointments': VetspireListAppointmentsInput
+    'get_appointment': VetspireGetAppointmentInput
+    'create_or_update_client': VetspireCreateOrUpdateClientInput
+    'create_or_update_patient': VetspireCreateOrUpdatePatientInput
   }
   'vidyard': {
     'list_videos': VidyardListVideosInput
@@ -97809,6 +103333,22 @@ export interface IntegrationActionInputsByIntegration {
   'xml': {
     'convert-json-to-xml': XmlConvertJsonToXmlInput
   }
+  'yellow-card': {
+    'get_rates': YellowCardGetRatesInput
+    'get_channels': YellowCardGetChannelsInput
+    'get_networks': YellowCardGetNetworksInput
+    'create_widget_quote': YellowCardCreateWidgetQuoteInput
+    'submit_send': YellowCardSubmitSendInput
+    'list_sends': YellowCardListSendsInput
+    'get_send': YellowCardGetSendInput
+    'submit_crypto_send': YellowCardSubmitCryptoSendInput
+    'list_wallets': YellowCardListWalletsInput
+    'create_wallet': YellowCardCreateWalletInput
+    'create_rfq': YellowCardCreateRfqInput
+    'list_rfqs': YellowCardListRfqsInput
+    'get_rfq': YellowCardGetRfqInput
+    'accept_rfq': YellowCardAcceptRfqInput
+  }
   'yotpo': {
     'list_reviews': YotpoListReviewsInput
     'get_review': YotpoGetReviewInput
@@ -97869,6 +103409,22 @@ export interface IntegrationActionInputsByIntegration {
     'validate_email': ZerobounceValidateEmailInput
     'get_credits': ZerobounceGetCreditsInput
     'custom_api_call': ZerobounceCustomApiCallInput
+  }
+  'zid': {
+    'list_products': ZidListProductsInput
+    'get_product': ZidGetProductInput
+    'create_product': ZidCreateProductInput
+    'update_product': ZidUpdateProductInput
+    'delete_product': ZidDeleteProductInput
+    'list_categories': ZidListCategoriesInput
+    'list_orders': ZidListOrdersInput
+    'get_order': ZidGetOrderInput
+    'update_order': ZidUpdateOrderInput
+    'list_customers': ZidListCustomersInput
+    'get_customer': ZidGetCustomerInput
+    'list_webhooks': ZidListWebhooksInput
+    'create_webhook': ZidCreateWebhookInput
+    'delete_webhook': ZidDeleteWebhookInput
   }
   'zillow': {
     'get_property': ZillowGetPropertyInput
@@ -98015,6 +103571,7 @@ export type IntegrationActionKey = keyof IntegrationActionInputMap & string
 
 export const integrationNames = [
   '1password',
+  'glofox',
   'abstract-api',
   'actionstep',
   'activecampaign',
@@ -98112,6 +103669,7 @@ export const integrationNames = [
   'bitpay',
   'bitwarden',
   'bizzabo',
+  'blackboard',
   'blockscout',
   'bloomerang',
   'bluesky',
@@ -98126,6 +103684,7 @@ export const integrationNames = [
   'brevo',
   'brex',
   'bright-data',
+  'bring',
   'buffer',
   'bugsnag',
   'buildium',
@@ -98140,6 +103699,7 @@ export const integrationNames = [
   'canto',
   'canva',
   'canvas-lms',
+  'canvas-medical',
   'capsule-crm',
   'cartesia',
   'cashfree',
@@ -98172,6 +103732,7 @@ export const integrationNames = [
   'cloudflare',
   'cloudinary',
   'clover',
+  'clubready',
   'coda',
   'codacy',
   'cognism',
@@ -98197,6 +103758,7 @@ export const integrationNames = [
   'culture-amp',
   'customer-io',
   'cvent',
+  'd2l-brightspace',
   'data-transformer',
   'databricks',
   'datadog',
@@ -98213,6 +103775,7 @@ export const integrationNames = [
   'descript',
   'devrev',
   'dialpad',
+  'digitail',
   'digital-ocean',
   'discord',
   'discourse',
@@ -98236,9 +103799,11 @@ export const integrationNames = [
   'duo',
   'dwolla',
   'easypost',
+  'easyship',
   'ebay',
   'ecwid',
   'elasticsearch',
+  'elation-health',
   'elevenlabs',
   'emailoctopus',
   'etherscan',
@@ -98253,7 +103818,9 @@ export const integrationNames = [
   'fal-ai',
   'fathom',
   'fellow',
+  'fergus',
   'fieldpulse',
+  'fieldroutes',
   'fieldwire',
   'figma',
   'storage',
@@ -98437,6 +104004,7 @@ export const integrationNames = [
   'medium',
   'meilisearch',
   'meistertask',
+  'mercado-libre',
   'mercado-pago',
   'mercury',
   'metabase',
@@ -98462,9 +104030,11 @@ export const integrationNames = [
   'mixpanel',
   'mode',
   'mollie',
+  'momence',
   'monday',
   'mongodb',
   'moodle',
+  'moonpay',
   'moralis',
   'morningstar-credit-analytics',
   'mrpeasy',
@@ -98571,6 +104141,7 @@ export const integrationNames = [
   'railway',
   'raisely',
   'ramp',
+  'ramp-network',
   'razorpay',
   'readme-io',
   'real-geeks',
@@ -98602,6 +104173,7 @@ export const integrationNames = [
   'saleor',
   'salesforce',
   'salesloft',
+  'salla',
   'advanced-code',
   'sanity',
   'sap-successfactors',
@@ -98612,6 +104184,7 @@ export const integrationNames = [
   'segment',
   'semgrep',
   'semrush',
+  'sendcloud',
   'sendgrid',
   'sendpulse',
   'sentry',
@@ -98681,6 +104254,7 @@ export const integrationNames = [
   'ticktick',
   'tidio',
   'tidycal',
+  'nuvemshop',
   'tiktok',
   'tiktok-ads',
   'timescale',
@@ -98692,6 +104266,7 @@ export const integrationNames = [
   'together-ai',
   'tomtom',
   'totango',
+  'transak',
   'transistor',
   'trello',
   'trustpilot',
@@ -98709,6 +104284,7 @@ export const integrationNames = [
   'vanta',
   'vapi',
   'vercel',
+  'vetspire',
   'vidyard',
   'vimeo',
   'visual-crossing',
@@ -98741,12 +104317,14 @@ export const integrationNames = [
   'xendit',
   'xero',
   'xml',
+  'yellow-card',
   'yotpo',
   'youtube',
   'zapier',
   'zendesk',
   'zenoti',
   'zerobounce',
+  'zid',
   'zillow',
   'zocdoc',
   'zoho-books',
@@ -98771,6 +104349,27 @@ export const integrationActions = {
     'list_audit_events',
     'list_item_usage_events',
     'list_sign_in_attempts',
+  ],
+  'glofox': [
+    'list_locations',
+    'search_members_by_email',
+    'get_user',
+    'list_clients',
+    'create_lead',
+    'update_user',
+    'list_memberships',
+    'get_membership',
+    'purchase_membership',
+    'cancel_membership',
+    'list_credit_packs',
+    'list_events',
+    'get_event',
+    'create_booking',
+    'list_bookings',
+    'cancel_booking',
+    'mark_booking_attended',
+    'list_payment_methods',
+    'list_staff',
   ],
   'abstract-api': [
     'validate_email',
@@ -99353,9 +104952,31 @@ export const integrationActions = {
   ],
   'appfolio': [
     'list_properties',
+    'list_units',
+    'update_unit',
+    'list_listings',
     'list_tenants',
+    'list_tenant_ledgers',
     'list_leases',
-    'custom_api_call',
+    'list_owners',
+    'create_owner',
+    'update_owner',
+    'list_vendors',
+    'create_vendor',
+    'update_vendor',
+    'list_work_orders',
+    'create_work_order',
+    'update_work_order',
+    'list_bills',
+    'create_bill',
+    'update_bill',
+    'list_open_charges',
+    'create_charge',
+    'list_leads',
+    'create_lead',
+    'update_lead',
+    'create_showing',
+    'update_showing',
   ],
   'appwrite': [
     'list_databases',
@@ -99882,6 +105503,25 @@ export const integrationActions = {
     'create_registration',
     'custom_api_call',
   ],
+  'blackboard': [
+    'list_courses',
+    'get_course',
+    'create_course',
+    'update_course',
+    'delete_course',
+    'list_users',
+    'get_user',
+    'create_user',
+    'update_user',
+    'enroll_user',
+    'unenroll_user',
+    'list_grade_columns',
+    'update_grade',
+    'list_content',
+    'create_content',
+    'update_content',
+    'delete_content',
+  ],
   'blockscout': [
     'search',
     'list_transactions',
@@ -100048,6 +105688,13 @@ export const integrationActions = {
     'unlock_url',
     'google_search',
   ],
+  'bring': [
+    'book_shipment',
+    'track_shipment',
+    'list_customer_webhooks',
+    'renew_customer_webhook',
+    'delete_webhook',
+  ],
   'buffer': [
     'create_post',
     'list_profiles',
@@ -100204,6 +105851,45 @@ export const integrationActions = {
     'get_course',
     'list_assignments',
     'list_students',
+    'create_course',
+    'update_course',
+    'delete_course',
+    'create_assignment',
+    'update_assignment',
+    'delete_assignment',
+    'create_enrollment',
+    'delete_enrollment',
+    'grade_submission',
+  ],
+  'canvas-medical': [
+    'search_patients',
+    'get_patient',
+    'create_patient',
+    'update_patient',
+    'search_appointments',
+    'get_appointment',
+    'create_appointment',
+    'update_appointment',
+    'cancel_appointment',
+    'search_practitioners',
+    'get_practitioner',
+    'create_practitioner',
+    'update_practitioner',
+    'search_encounters',
+    'get_encounter',
+    'search_communications',
+    'get_communication',
+    'create_communication',
+    'search_document_references',
+    'get_document_reference',
+    'create_document_reference',
+    'search_tasks',
+    'get_task',
+    'create_task',
+    'update_task',
+    'search_locations',
+    'search_schedules',
+    'search_slots',
   ],
   'capsule-crm': [
     'create_contact',
@@ -100579,6 +106265,16 @@ export const integrationActions = {
     'create_customer',
     'refund_payment',
   ],
+  'clubready': [
+    'create_prospect',
+    'create_class_booking',
+    'update_booking_status',
+    'cancel_waitlist',
+    'check_in_user',
+    'make_payment',
+    'create_user_note',
+    'tag_user',
+  ],
   'coda': [
     'create_row',
     'update_row',
@@ -100675,6 +106371,7 @@ export const integrationActions = {
     'get_project',
     'update_project',
     'archive_project',
+    'restore_project',
     'delete_project',
     'upload_photo',
     'list_project_photos',
@@ -100682,8 +106379,15 @@ export const integrationActions = {
     'update_photo',
     'delete_photo',
     'create_tag',
+    'list_tags',
+    'update_tag',
+    'delete_tag',
+    'add_photo_tags',
+    'add_photo_comment',
     'list_webhooks',
+    'create_webhook',
     'update_webhook',
+    'delete_webhook',
   ],
   'confluence': [
     'get_page',
@@ -100847,6 +106551,21 @@ export const integrationActions = {
     'get_sessions',
     'custom_api_call',
   ],
+  'd2l-brightspace': [
+    'get_whoami',
+    'get_course',
+    'create_course',
+    'update_course',
+    'delete_course',
+    'create_user',
+    'update_user',
+    'list_classlist',
+    'enroll_user',
+    'unenroll_user',
+    'list_grade_objects',
+    'update_grade_value',
+    'list_content_root',
+  ],
   'data-transformer': [
     'transform_json',
     'merge_objects',
@@ -101005,6 +106724,22 @@ export const integrationActions = {
     'list_users',
     'get_user',
     'list_webhooks',
+  ],
+  'digitail': [
+    'get_logged_in_vet',
+    'list_pets',
+    'get_pet',
+    'update_pet',
+    'list_pet_parents',
+    'get_pet_parent',
+    'create_pet_parent',
+    'update_pet_parent',
+    'list_appointments',
+    'get_appointment',
+    'create_appointment',
+    'update_appointment',
+    'list_pet_prescriptions',
+    'create_prescription_refill',
   ],
   'digital-ocean': [
     'list_domains',
@@ -101173,6 +106908,26 @@ export const integrationActions = {
     'delete_appointment',
     'list_offices',
     'list_doctors',
+    'list_messages',
+    'get_message',
+    'create_message',
+    'update_message',
+    'list_prescription_messages',
+    'list_clinical_notes',
+    'get_clinical_note',
+    'list_clinical_note_field_values',
+    'update_clinical_note_field_value',
+    'list_tasks',
+    'get_task',
+    'create_task',
+    'update_task',
+    'list_task_notes',
+    'create_task_note',
+    'update_task_note',
+    'list_task_statuses',
+    'create_task_status',
+    'list_task_categories',
+    'create_task_category',
   ],
   'drip': [
     'list_subscribers',
@@ -101245,6 +107000,17 @@ export const integrationActions = {
     'list_trackers',
     'create_address',
   ],
+  'easyship': [
+    'create_shipment',
+    'create_label',
+    'create_return_shipment',
+    'cancel_shipment',
+    'delete_shipment',
+    'list_shipments',
+    'get_shipment',
+    'list_rates',
+    'create_tracking',
+  ],
   'ebay': [
     'search_items',
     'get_item',
@@ -101271,6 +107037,41 @@ export const integrationActions = {
     'get_document',
     'delete_document',
     'custom_api_call',
+  ],
+  'elation-health': [
+    'list_patients',
+    'get_patient',
+    'create_patient',
+    'update_patient',
+    'delete_patient',
+    'list_appointments',
+    'get_appointment',
+    'create_appointment',
+    'update_appointment',
+    'delete_appointment',
+    'list_physicians',
+    'get_physician',
+    'update_physician',
+    'list_service_locations',
+    'get_service_location',
+    'create_service_location',
+    'update_service_location',
+    'delete_service_location',
+    'list_message_threads',
+    'get_message_thread',
+    'create_message_thread',
+    'delete_message_thread',
+    'list_thread_messages',
+    'get_thread_message',
+    'create_thread_message',
+    'delete_thread_message',
+    'list_clinical_documents',
+    'get_clinical_document',
+    'create_clinical_document',
+    'list_event_subscriptions',
+    'get_event_subscription',
+    'create_event_subscription',
+    'delete_event_subscription',
   ],
   'elevenlabs': [
     'elevenlabs-text-to-speech',
@@ -101424,6 +107225,61 @@ export const integrationActions = {
     'get-note',
     'custom_api_call',
   ],
+  'fergus': [
+    'list_jobs',
+    'get_job',
+    'create_job',
+    'update_job',
+    'finalise_job',
+    'hold_job',
+    'resume_job',
+    'list_quotes',
+    'get_quote',
+    'publish_quote',
+    'mark_quote_as_sent',
+    'accept_quote',
+    'decline_quote',
+    'void_quote',
+    'list_customer_invoices',
+    'get_customer_invoice',
+    'list_customers',
+    'get_customer',
+    'create_customer',
+    'update_customer',
+    'delete_customer',
+    'list_sites',
+    'get_site',
+    'create_site',
+    'update_site',
+    'archive_site',
+    'restore_site',
+    'list_contacts',
+    'get_contact',
+    'create_contact',
+    'update_contact',
+    'list_enquiries',
+    'get_enquiry',
+    'create_enquiry',
+    'list_time_entries',
+    'get_time_entry',
+    'list_calendar_events',
+    'get_calendar_event',
+    'create_calendar_event',
+    'update_calendar_event',
+    'delete_calendar_event',
+    'list_notes',
+    'get_note',
+    'create_note',
+    'update_note',
+    'list_tasks',
+    'get_task',
+    'create_task',
+    'update_task',
+    'delete_task',
+    'complete_task',
+    'reopen_task',
+    'delete_attachment',
+  ],
   'fieldpulse': [
     'list_customers',
     'get_customer',
@@ -101463,6 +107319,55 @@ export const integrationActions = {
     'create_comment',
     'update_comment',
     'delete_comment',
+  ],
+  'fieldroutes': [
+    'search_customers',
+    'get_customers',
+    'create_customer',
+    'update_customer',
+    'search_subscriptions',
+    'get_subscriptions',
+    'create_subscription',
+    'update_subscription',
+    'update_subscription_lead_stage',
+    'search_tickets',
+    'get_tickets',
+    'create_ticket',
+    'update_ticket',
+    'delete_ticket',
+    'search_appointments',
+    'get_appointments',
+    'create_appointment',
+    'update_appointment',
+    'cancel_appointment',
+    'complete_appointment',
+    'search_employees',
+    'get_employees',
+    'create_employee',
+    'update_employee',
+    'dealias_employee',
+    'search_payments',
+    'get_payments',
+    'create_payment',
+    'create_refund',
+    'search_contracts',
+    'get_contracts',
+    'create_contract',
+    'delete_contract',
+    'search_notes',
+    'get_notes',
+    'create_note',
+    'update_note',
+    'delete_note',
+    'search_documents',
+    'get_documents',
+    'create_document',
+    'update_document',
+    'search_reviews',
+    'get_reviews',
+    'create_review',
+    'update_review',
+    'delete_review',
   ],
   'fieldwire': [
     'get_task',
@@ -102277,6 +108182,10 @@ export const integrationActions = {
     'pre_approve_channel_reservation',
     'request_channel_reservation_cancellation',
     'list_listings',
+    'get_listing',
+    'create_listing',
+    'update_listing',
+    'set_listing_listed',
     'get_guest',
     'list_conversations',
     'send_conversation_message',
@@ -102533,6 +108442,13 @@ export const integrationActions = {
     'update_reservation',
     'cancel_reservation',
     'list_listings',
+    'get_listing',
+    'create_listing',
+    'update_listing',
+    'delete_listing',
+    'get_listing_calendar',
+    'update_listing_calendar',
+    'calculate_reservation_price',
     'get_guest',
     'list_conversation_messages',
     'get_conversation_message',
@@ -103695,6 +109611,20 @@ export const integrationActions = {
     'find_or_create_label',
     'custom_api_call',
   ],
+  'mercado-libre': [
+    'get_my_user',
+    'search_catalog',
+    'list_seller_items',
+    'get_item',
+    'create_item',
+    'update_item',
+    'update_item_status',
+    'list_orders',
+    'get_order',
+    'get_shipment',
+    'list_questions',
+    'answer_question',
+  ],
   'mercado-pago': [
     'create_preference',
     'update_preference',
@@ -104174,6 +110104,36 @@ export const integrationActions = {
     'search_payment',
     'search_customer',
   ],
+  'momence': [
+    'get_profile',
+    'list_members',
+    'create_member',
+    'get_member',
+    'update_member_name',
+    'update_member_email',
+    'update_member_phone_number',
+    'delete_member_phone_number',
+    'list_host_memberships',
+    'list_member_bought_memberships',
+    'freeze_membership',
+    'unfreeze_membership',
+    'schedule_membership_freeze',
+    'schedule_membership_unfreeze',
+    'remove_scheduled_unfreeze',
+    'update_membership_credits',
+    'list_sessions',
+    'get_session',
+    'list_session_bookings',
+    'add_member_to_session_for_free',
+    'add_member_to_waitlist',
+    'cancel_session_booking',
+    'cancel_recurring_session_booking',
+    'mark_session_booking_checked_in',
+    'remove_session_booking_check_in',
+    'list_tags',
+    'assign_tag_to_member',
+    'unassign_tag_from_member',
+  ],
   'monday': [
     'monday_create_column',
     'monday_create_group',
@@ -104200,10 +110160,25 @@ export const integrationActions = {
   'moodle': [
     'list_courses',
     'get_course',
+    'create_course',
+    'update_course',
+    'delete_course',
     'list_users',
     'create_user',
+    'update_user',
+    'get_enrolled_users',
+    'enroll_user',
+    'unenroll_user',
     'get_grades',
-    'custom_api_call',
+  ],
+  'moonpay': [
+    'list_currencies',
+    'get_buy_quote',
+    'get_sell_quote',
+    'list_payment_methods',
+    'list_buy_transactions',
+    'get_buy_transaction',
+    'list_sell_transactions',
   ],
   'moralis': [
     'get_wallet_history',
@@ -104416,9 +110391,11 @@ export const integrationActions = {
     'list_patients',
     'get_patient',
     'create_patient',
+    'list_institutions',
     'list_locations',
     'list_providers',
     'list_appointment_types',
+    'view_available_slots',
     'list_appointments',
     'create_appointment',
     'update_appointment',
@@ -104596,6 +110573,9 @@ export const integrationActions = {
     'create_patient',
     'update_patient',
     'list_appointments',
+    'get_appointment',
+    'list_asap_appointments',
+    'list_appointment_slots',
     'create_appointment',
     'update_appointment',
     'break_appointment',
@@ -105696,6 +111676,17 @@ export const integrationActions = {
     'delete_gl_account',
     'custom_api_call',
   ],
+  'ramp-network': [
+    'list_onramp_assets',
+    'list_offramp_assets',
+    'list_payment_methods',
+    'list_payout_methods',
+    'list_fiat_currencies',
+    'create_onramp_quote',
+    'create_offramp_quote',
+    'get_offramp_sale',
+    'build_widget_url',
+  ],
   'razorpay': [
     'custom_api_call',
     'create-payment-link',
@@ -106012,6 +112003,25 @@ export const integrationActions = {
     'create_webhook_subscription',
     'delete_webhook_subscription',
   ],
+  'salla': [
+    'list_products',
+    'get_product',
+    'get_product_by_sku',
+    'create_product',
+    'update_product',
+    'delete_product',
+    'list_product_quantities',
+    'list_orders',
+    'get_order',
+    'create_external_order',
+    'perform_order_action',
+    'delete_order_item',
+    'list_customers',
+    'get_customer',
+    'list_webhook_events',
+    'subscribe_webhook',
+    'deactivate_webhook',
+  ],
   'advanced-code': [
     'run_code',
   ],
@@ -106076,6 +112086,16 @@ export const integrationActions = {
     'get_organic_keywords',
     'get_backlinks',
     'custom_api_call',
+  ],
+  'sendcloud': [
+    'create_shipment',
+    'create_and_announce_shipment',
+    'create_return',
+    'cancel_shipment',
+    'cancel_return',
+    'get_shipment',
+    'list_shipments',
+    'track_parcel',
   ],
   'sendgrid': [
     'send_email',
@@ -106239,8 +112259,28 @@ export const integrationActions = {
   'service-titan': [
     'list_jobs',
     'get_job',
+    'create_job',
+    'update_job',
+    'list_appointments',
+    'get_appointment',
     'list_customers',
+    'get_customer',
+    'create_customer',
+    'update_customer',
+    'list_locations',
+    'get_location',
+    'create_location',
+    'update_location',
     'list_invoices',
+    'get_invoice',
+    'list_payments',
+    'get_payment',
+    'list_technicians',
+    'get_technician',
+    'list_business_units',
+    'get_business_unit',
+    'list_job_types',
+    'get_job_type',
   ],
   'shippo': [
     'create_shipment',
@@ -106963,6 +113003,26 @@ export const integrationActions = {
     'list_booking_types',
     'custom_api_call',
   ],
+  'nuvemshop': [
+    'list_products',
+    'get_product',
+    'create_product',
+    'update_product',
+    'delete_product',
+    'list_orders',
+    'get_order',
+    'create_order',
+    'update_order',
+    'pay_order',
+    'close_order',
+    'reopen_order',
+    'cancel_order',
+    'list_customers',
+    'get_customer',
+    'list_webhooks',
+    'create_webhook',
+    'delete_webhook',
+  ],
   'tiktok': [
     'get_user_info',
     'list_videos',
@@ -107067,6 +113127,17 @@ export const integrationActions = {
     'list_segments',
     'get_health',
     'custom_api_call',
+  ],
+  'transak': [
+    'refresh_access_token',
+    'get_price',
+    'list_countries',
+    'list_crypto_currencies',
+    'list_fiat_currencies',
+    'verify_wallet_address',
+    'list_orders',
+    'get_order',
+    'create_widget_url',
   ],
   'transistor': [
     'list_shows',
@@ -107239,6 +113310,17 @@ export const integrationActions = {
     'delete_webhook',
     'trigger_deploy_hook',
     'custom_api_call',
+  ],
+  'vetspire': [
+    'get_organization',
+    'list_clients',
+    'get_client',
+    'list_patients',
+    'get_patient',
+    'list_appointments',
+    'get_appointment',
+    'create_or_update_client',
+    'create_or_update_patient',
   ],
   'vidyard': [
     'list_videos',
@@ -107588,6 +113670,22 @@ export const integrationActions = {
   'xml': [
     'convert-json-to-xml',
   ],
+  'yellow-card': [
+    'get_rates',
+    'get_channels',
+    'get_networks',
+    'create_widget_quote',
+    'submit_send',
+    'list_sends',
+    'get_send',
+    'submit_crypto_send',
+    'list_wallets',
+    'create_wallet',
+    'create_rfq',
+    'list_rfqs',
+    'get_rfq',
+    'accept_rfq',
+  ],
   'yotpo': [
     'list_reviews',
     'get_review',
@@ -107648,6 +113746,22 @@ export const integrationActions = {
     'validate_email',
     'get_credits',
     'custom_api_call',
+  ],
+  'zid': [
+    'list_products',
+    'get_product',
+    'create_product',
+    'update_product',
+    'delete_product',
+    'list_categories',
+    'list_orders',
+    'get_order',
+    'update_order',
+    'list_customers',
+    'get_customer',
+    'list_webhooks',
+    'create_webhook',
+    'delete_webhook',
   ],
   'zillow': [
     'get_property',
