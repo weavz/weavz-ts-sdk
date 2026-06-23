@@ -12,6 +12,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { WeavzClient, WeavzError } from '../src/index'
 
 const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
+const TRUSTED_TEST_ORIGIN = process.env.TEST_DASHBOARD_ORIGIN || 'http://localhost:3001'
 const SERVICE_KEY = 'local-test-service-key-12345'
 let TEST_ORG_ID = ''
 
@@ -35,6 +36,7 @@ async function serviceKeyRequest(method: string, path: string, body?: unknown) {
     'X-Service-Key': SERVICE_KEY,
     'X-Org-ID': TEST_ORG_ID,
     'Content-Type': 'application/json',
+    Origin: TRUSTED_TEST_ORIGIN,
   }
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
@@ -56,7 +58,7 @@ beforeAll(async () => {
   // Create a test org
   const orgRes = await fetch(`${BASE_URL}/api/v1/orgs`, {
     method: 'POST',
-    headers: { 'X-Service-Key': SERVICE_KEY, 'Content-Type': 'application/json' },
+    headers: { 'X-Service-Key': SERVICE_KEY, 'Content-Type': 'application/json', Origin: TRUSTED_TEST_ORIGIN },
     body: JSON.stringify({ name: 'SDK Test Org', slug: `sdk-test-${Date.now()}` }),
   })
   if (!orgRes.ok) throw new Error(`Failed to create org: ${orgRes.status} ${await orgRes.text()}`)

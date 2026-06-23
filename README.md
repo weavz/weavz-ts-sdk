@@ -7,9 +7,9 @@
 [![TypeScript](https://img.shields.io/badge/types-TypeScript-3178c6)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/npm/l/%40weavz-io%2Fsdk?label=license)](https://github.com/weavz/weavz-ts-sdk/blob/main/LICENSE)
 
-Official TypeScript SDK for [Weavz](https://weavz.io), the stateful agent runtime for SaaS and AI products.
+Official TypeScript SDK for [Weavz](https://weavz.io), governed app access and execution infrastructure for SaaS and AI products.
 
-Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, Filesystem, State KV, Sandbox execution, and 500+ integrations.
+Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, Filesystem, State KV, Sandbox execution, and 1,000+ integrations.
 
 ## Links
 
@@ -394,7 +394,7 @@ Plain strings still work for future or custom integrations through the dynamic f
 
 ## AI Framework Adapters
 
-MCP is the primary hosted agent surface. The SDK also includes small dependency-free adapters that convert configured workspace actions into common AI tool shapes.
+MCP is the primary hosted agent access path. The SDK also includes small dependency-free adapters that convert configured workspace actions into common AI tool shapes.
 
 ```typescript
 import {

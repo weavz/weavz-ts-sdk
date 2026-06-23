@@ -227,7 +227,7 @@ export type WorkspaceIntegrationSettings = {
  */
 export type PersistenceWorkspaceSettings = {
   /**
-   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, Agent Browser (Stealth AI), and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
+   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, Agent Browser (Stealth AI), and Local Browser for Agents. Browser integrations use this scope for durable browser profiles and live session reuse.
    */
   scope?: "end_user" | "workspace" | "external";
   /**
@@ -237,7 +237,7 @@ export type PersistenceWorkspaceSettings = {
 };
 
 /**
- * Owner-controlled runtime policy for the Agent Local Browser Control workspace integration.
+ * Owner-controlled runtime policy for the Local Browser for Agents workspace integration.
  */
 export type LocalBrowserWorkspaceSettings = {
   runtime?: "chrome_extension" | "managed_profile";
