@@ -92,6 +92,8 @@ export type Error = {
     | "APPROVAL_DECISION_DENIED"
     | "BROWSER_SANDBOX_UNAVAILABLE"
     | "BROWSER_SESSION_START_FAILED"
+    | "BROWSER_CONTROL_REQUIRED"
+    | "BROWSER_RECOVERY_REQUIRED"
     | "SESSION_NOT_FOUND"
     | "HANDOFF_FAILED";
   /**
@@ -125,6 +127,10 @@ export type Connection = {
    * Integration name (e.g., 'slack', 'gmail')
    */
   integrationName: string;
+  /**
+   * Selected integration auth method key for this credential, such as `api_key` or `oauth2`.
+   */
+  authMethodKey?: string | null;
   type:
     | "SECRET_TEXT"
     | "BASIC_AUTH"
@@ -148,6 +154,22 @@ export type ConnectSession = {
    * Integration being connected
    */
   integrationName: string;
+  /**
+   * Configured workspace integration whose auth selection this session inherits.
+   */
+  workspaceIntegrationId?: string | null;
+  /**
+   * Selected integration auth method key for this hosted connect session.
+   */
+  authMethodKey?: string | null;
+  /**
+   * OAuth app policy used when the selected auth method is OAuth.
+   */
+  oauthAppMode?: "weavz_managed" | "custom" | null;
+  /**
+   * Resolved OAuth app UUID used by this session when OAuth is selected. This may be a Weavz-managed platform app or a tenant-owned custom app.
+   */
+  oauthAppId?: string | null;
   /**
    * Display name for the connection
    */
@@ -205,7 +227,7 @@ export type WorkspaceIntegrationSettings = {
  */
 export type PersistenceWorkspaceSettings = {
   /**
-   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
+   * Persistent state namespace used by Filesystem, State KV, Agent Memory, Agent Scratchpad, Sequential Thinking, Agent Browser, Agent Browser (Stealth), Agent Browser AI, Agent Browser (Stealth AI), and Agent Local Browser Control. Browser integrations use this scope for durable browser profiles and live session reuse.
    */
   scope?: "end_user" | "workspace" | "external";
   /**
@@ -233,6 +255,18 @@ export type WorkspaceIntegration = {
    */
   alias: string;
   connectionStrategy: "fixed" | "per_user" | "per_user_with_fallback";
+  /**
+   * Selected auth method for this configured integration instance. Required on create when the catalog integration exposes multiple auth options.
+   */
+  authMethodKey?: string | null;
+  /**
+   * OAuth app policy used when `authMethodKey` selects an OAuth method. Defaults to `weavz_managed`.
+   */
+  oauthAppMode?: "weavz_managed" | "custom" | null;
+  /**
+   * Tenant-owned custom OAuth app UUID when `oauthAppMode` is `custom`; null for Weavz-managed OAuth.
+   */
+  oauthAppId?: string | null;
   connectionId: string;
   displayName: string;
   enabledActions: Array<string>;
@@ -422,12 +456,33 @@ export type IntegrationMetadata = {
     | "PRODUCTIVITY"
     | "SALES_AND_CRM"
   >;
+  /**
+   * Default auth summary for integrations with auth. Use `authOptions` for canonical auth selection.
+   */
   auth: {
     type?: Array<string>;
     oauth2?: {
       [key: string]: unknown;
     };
   };
+  /**
+   * Canonical auth methods supported by the integration. Workspace integrations and connect sessions select one option with `authMethodKey`.
+   */
+  authOptions: Array<{
+    /**
+     * Stable auth method key, such as `api_key`, `basic_auth`, `custom_auth`, `oauth2`, or a provider-specific key.
+     */
+    key: string;
+    /**
+     * Integration auth type for this option.
+     */
+    type: string;
+    displayName?: string;
+    description?: string;
+    oauth2?: {
+      [key: string]: unknown;
+    };
+  }>;
   actions: {
     [key: string]: {
       [key: string]: unknown;
@@ -1051,6 +1106,10 @@ export type CreateConnectionData = {
     externalId: string;
     displayName: string;
     integrationName: string;
+    /**
+     * Auth method key for this credential. Required when the integration exposes multiple compatible auth methods; defaults from `type` for single-auth integrations.
+     */
+    authMethodKey?: string;
     workspaceId?: string;
     /**
      * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
@@ -1058,7 +1117,7 @@ export type CreateConnectionData = {
     endUserId?: string;
     scope?: "ORGANIZATION" | "WORKSPACE" | "USER";
     /**
-     * Explicit OAuth app ID to use for OAUTH2/PLATFORM_OAUTH2 connections.
+     * Tenant-owned custom OAuth app UUID to use for OAUTH2/PLATFORM_OAUTH2 connections. Omit to use the Weavz-managed OAuth app.
      */
     oauthAppId?: string;
     /**
@@ -1179,6 +1238,10 @@ export type ResolveConnectionData = {
     externalId?: string;
     workspaceId: string;
     /**
+     * Optional auth method key to disambiguate multiple credentials for the same integration and externalId.
+     */
+    authMethodKey?: string;
+    /**
      * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
      */
     endUserId?: string;
@@ -1237,11 +1300,23 @@ export type ConnectCreateTokenData = {
      */
     workspaceId: string;
     /**
+     * Configured workspace integration to connect. When provided, hosted connect inherits its `authMethodKey` and OAuth app policy.
+     */
+    workspaceIntegrationId?: string;
+    /**
+     * Auth method key to use when connecting by `integrationName`. Required when multiple auth options exist and no `workspaceIntegrationId` is provided.
+     */
+    authMethodKey?: string;
+    /**
      * Connection scope (default ORGANIZATION)
      */
     scope?: "ORGANIZATION" | "WORKSPACE" | "USER";
     /**
-     * Explicit OAuth app ID to use for OAuth2 integrations when one has been configured for your organization.
+     * OAuth app policy for OAuth auth methods. Defaults to `weavz_managed`.
+     */
+    oauthAppMode?: "weavz_managed" | "custom";
+    /**
+     * Tenant-owned custom OAuth app UUID. Required when `oauthAppMode` is `custom`; omit for Weavz-managed OAuth.
      */
     oauthAppId?: string;
     /**
@@ -1364,6 +1439,10 @@ export type ConnectPollSessionResponses = {
     status: "PENDING" | "CONNECTING" | "COMPLETED" | "FAILED";
     connectionId: string;
     integrationName: string;
+    workspaceIntegrationId?: string | null;
+    authMethodKey?: string | null;
+    oauthAppMode?: "weavz_managed" | "custom" | null;
+    oauthAppId?: string | null;
     externalId: string;
     error: string;
   };
@@ -1412,6 +1491,18 @@ export type AddWorkspaceIntegrationData = {
      */
     alias?: string;
     connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback";
+    /**
+     * Auth method key to use for this workspace integration. Required when the catalog integration exposes multiple auth options.
+     */
+    authMethodKey?: string;
+    /**
+     * OAuth app policy when `authMethodKey` selects an OAuth auth option. Defaults to `weavz_managed`.
+     */
+    oauthAppMode?: "weavz_managed" | "custom";
+    /**
+     * Tenant-owned custom OAuth app UUID. Required when `oauthAppMode` is `custom`; omit for Weavz-managed OAuth.
+     */
+    oauthAppId?: string;
     /**
      * Connection ID (required for fixed and per_user_with_fallback strategies)
      */
@@ -1498,9 +1589,21 @@ export type UpdateWorkspaceIntegrationData = {
   body: {
     alias?: string;
     connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback";
-    connectionId?: string;
-    displayName?: string;
-    enabledActions?: Array<string>;
+    /**
+     * Auth method key to use for this workspace integration. Required when switching an integration with multiple auth options.
+     */
+    authMethodKey?: string;
+    /**
+     * OAuth app policy when `authMethodKey` selects an OAuth auth option. Defaults to `weavz_managed`.
+     */
+    oauthAppMode?: "weavz_managed" | "custom" | null;
+    /**
+     * Tenant-owned custom OAuth app UUID. Required when `oauthAppMode` is `custom`; omit for Weavz-managed OAuth.
+     */
+    oauthAppId?: string | null;
+    connectionId?: string | null;
+    displayName?: string | null;
+    enabledActions?: Array<string> | null;
     settings?: WorkspaceIntegrationSettings | null;
     sortOrder?: number;
   };
@@ -1550,6 +1653,10 @@ export type ExecuteActionData = {
       [key: string]: unknown;
     };
     connectionExternalId?: string;
+    /**
+     * Auth method key to disambiguate direct credential resolution when an integration supports multiple auth methods.
+     */
+    authMethodKey?: string;
     workspaceId: string;
     /**
      * Configured workspace integration instance to use for connection strategy and partial resolution.
@@ -2215,6 +2322,10 @@ export type EnableTriggerData = {
       [key: string]: unknown;
     };
     connectionExternalId?: string;
+    /**
+     * Auth method key to disambiguate direct credential resolution when an integration supports multiple auth methods.
+     */
+    authMethodKey?: string;
     workspaceId: string;
     /**
      * Configured workspace integration instance to use for connection strategy resolution.
@@ -3152,6 +3263,10 @@ export type ResolveIntegrationPropertyOptionsData = {
     triggerName?: string;
     propertyName: string;
     connectionExternalId?: string;
+    /**
+     * Auth method key to disambiguate direct credential resolution when an integration supports multiple auth methods.
+     */
+    authMethodKey?: string;
     workspaceId?: string;
     /**
      * Configured workspace integration instance to use for connection strategy resolution.
@@ -3216,6 +3331,10 @@ export type ResolveIntegrationPropertyData = {
     triggerName?: string;
     propertyName: string;
     connectionExternalId?: string;
+    /**
+     * Auth method key to disambiguate direct credential resolution when an integration supports multiple auth methods.
+     */
+    authMethodKey?: string;
     workspaceId?: string;
     /**
      * Configured workspace integration instance to use for connection strategy resolution.

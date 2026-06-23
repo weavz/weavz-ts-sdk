@@ -301,11 +301,12 @@ describe('Connections', () => {
 describe('Workspace Integrations', () => {
   it('should add an integration to a workspace', async () => {
     const result = await client.workspaces.addIntegration(createdWorkspaceId, {
-      integrationName: 'slack',
+      integrationName: 'openai',
+      alias: 'openai_user',
       connectionStrategy: 'per_user',
     })
     expect(result).toHaveProperty('integration')
-    expect((result.integration as any).integrationName).toBe('slack')
+    expect((result.integration as any).integrationName).toBe('openai')
     expect((result.integration as any).connectionStrategy).toBe('per_user')
     createdWorkspaceIntegrationId = (result.integration as any).id
   })
@@ -347,6 +348,7 @@ describe('Input Partials', () => {
     const result = await client.partials.create({
       workspaceId: createdWorkspaceId,
       integrationName: 'openai',
+      integrationAlias: 'openai_primary',
       name: 'SDK Test Partial',
       description: 'Test partial from SDK tests',
       values: { model: 'gpt-4o', temperature: 0.7 },
@@ -370,9 +372,10 @@ describe('Input Partials', () => {
   })
 
   it('should list partials filtered by integrationName', async () => {
-    const result = await client.partials.list({ workspaceId: createdWorkspaceId, integrationName: 'openai' })
+    const result = await client.partials.list({ workspaceId: createdWorkspaceId, integrationName: 'openai', integrationAlias: 'openai_primary' })
     expect(result.partials.length).toBeGreaterThan(0)
     expect(result.partials.every(p => p.integrationName === 'openai')).toBe(true)
+    expect(result.partials.every(p => p.integrationAlias === 'openai_primary')).toBe(true)
   })
 
   it('should get a specific partial', async () => {
@@ -457,8 +460,8 @@ describe('MCP Servers', () => {
 
   it('should add a tool to the server', async () => {
     const result = await client.mcpServers.addTool(createdMcpServerId, {
-      integrationName: 'openai',
-      actionName: 'chat_completion',
+      integrationName: 'http',
+      actionName: 'send_request',
     })
     expect(result).toHaveProperty('tool')
     toolId = (result.tool as any).id
@@ -719,7 +722,7 @@ describe('End Users', () => {
 
   it('should create a connect token with integration filter', async () => {
     const result = await client.endUsers.createConnectToken(endUserId, {
-      integrationName: 'slack',
+      integrationName: 'openai',
       expiresIn: 86400,
     })
     expect(result).toHaveProperty('token')

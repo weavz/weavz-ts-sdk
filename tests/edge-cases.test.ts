@@ -200,8 +200,8 @@ describe('Connection Edge Cases', () => {
       type: 'SECRET_TEXT',
       externalId: 'edge-secret-1',
       displayName: 'Same ExtID Different Integration',
-      integrationName: 'slack',
-      secretText: 'sk-slack-test-edge',
+      integrationName: 'discord',
+      secretText: 'discord-token-edge',
       workspaceId,
     })
     expect(result).toHaveProperty('connection')
@@ -214,7 +214,7 @@ describe('Connection Edge Cases', () => {
       type: 'BASIC_AUTH',
       externalId: 'edge-basic-1',
       displayName: 'Edge Basic Auth',
-      integrationName: 'http',
+      integrationName: 'clicksend',
       username: 'testuser',
       password: 'testpass123',
       workspaceId,
@@ -229,8 +229,8 @@ describe('Connection Edge Cases', () => {
       type: 'CUSTOM_AUTH',
       externalId: 'edge-custom-1',
       displayName: 'Edge Custom Auth',
-      integrationName: 'http',
-      props: { headerName: 'X-Custom-Token', headerValue: 'test-token-value' },
+      integrationName: 'amazon-s3',
+      props: { accessKeyId: 'test-key', secretAccessKey: 'test-secret', region: 'us-east-1', bucket: 'test-bucket' },
       workspaceId,
     })
     expect(result).toHaveProperty('connection')
@@ -493,8 +493,8 @@ describe('Workspace Integration Edge Cases', () => {
       type: 'SECRET_TEXT',
       externalId: 'wsint-edge-conn',
       displayName: 'WsInt Edge Conn',
-      integrationName: 'github',
-      secretText: 'ghp_testtoken123',
+      integrationName: 'openai',
+      secretText: 'sk-testtoken123',
       workspaceId,
     })
     connId = (c.connection as any).id
@@ -504,7 +504,7 @@ describe('Workspace Integration Edge Cases', () => {
   it('should reject fixed strategy without connectionId', async () => {
     try {
       await client.workspaces.addIntegration(workspaceId, {
-        integrationName: 'github',
+        integrationName: 'openai',
         connectionStrategy: 'fixed',
       })
       expect(true).toBe(false)
@@ -516,7 +516,7 @@ describe('Workspace Integration Edge Cases', () => {
 
   it('should add fixed strategy integration with connectionId', async () => {
     const result = await client.workspaces.addIntegration(workspaceId, {
-      integrationName: 'github',
+      integrationName: 'openai',
       connectionStrategy: 'fixed',
       connectionId: connId,
     })
@@ -530,7 +530,8 @@ describe('Workspace Integration Edge Cases', () => {
   it('should update existing workspace integration strategy', async () => {
     // Create per_user, then update to per_user_with_fallback
     const created = await client.workspaces.addIntegration(workspaceId, {
-      integrationName: 'slack',
+      integrationName: 'discord',
+      alias: 'discord-update-edge',
       connectionStrategy: 'per_user',
     })
     const integrationId = (created.integration as any).id
@@ -544,11 +545,12 @@ describe('Workspace Integration Edge Cases', () => {
 
   it('should add per_user integration for different integration', async () => {
     const result = await client.workspaces.addIntegration(workspaceId, {
-      integrationName: 'notion',
+      integrationName: 'discord',
+      alias: 'discord-edge-alt',
       connectionStrategy: 'per_user',
     })
     expect(result).toHaveProperty('integration')
-    expect((result.integration as any).integrationName).toBe('notion')
+    expect((result.integration as any).integrationName).toBe('discord')
     const integrationId = (result.integration as any).id
     cleanupStack.push(() => client.workspaces.removeIntegration(workspaceId, integrationId))
   })
@@ -568,6 +570,7 @@ describe('Workspace Integration Edge Cases', () => {
   it('should remove a workspace integration', async () => {
     const created = await client.workspaces.addIntegration(workspaceId, {
       integrationName: 'discord',
+      alias: 'discord-remove-edge',
       connectionStrategy: 'per_user',
     })
     const integrationId = (created.integration as any).id
