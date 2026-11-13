@@ -155,7 +155,11 @@ Read more:
 On your backend, create a Hosted Connect session when an end user needs to connect Slack, Google, GitHub, or another integration account. Return its short-lived `connectUrl` to the browser.
 
 ```typescript
-const session = await client.connect.createToken({
+const connectClient = new WeavzClient({
+  apiKey: process.env.WEAVZ_API_KEY!,
+  headers: { Origin: 'https://app.example.com' },
+})
+const session = await connectClient.connect.createToken({
   integrationName: 'slack',
   connectionName: 'Acme Slack',
   externalId: 'acme_slack',
@@ -165,7 +169,7 @@ const session = await client.connect.createToken({
 
 ```
 
-In the browser, open the URL with the standalone helper. No API key is needed:
+Set `Origin` on the backend client to the exact frontend origin that opens the popup. Choose it from server configuration or an allowlist, so OAuth completion returns to the correct page. Prepare `connectUrl` before the click, then call the standalone helper directly from the browser click handler. No API key is needed in the browser:
 
 ```typescript
 import { openConnectPopup } from '@weavz-io/sdk'
@@ -485,3 +489,11 @@ The default test run executes offline unit tests and skips live integration test
 ## License
 
 [MIT](LICENSE)
+
+## Migrating to 0.2.0
+
+Google function declarations now use `parametersJsonSchema` rather than `parameters`. Update code that reads the old field directly. Generated response types represent nullable fields accurately; check for null before using optional connection, workspace, and trigger metadata.
+
+Use `openConnectPopup({ connectUrl })` in browser code, with a session URL prepared by your backend. `client.connect.popup()` remains available for compatibility. Concurrent popups remain isolated, and messages must match both the connect origin and the opened window.
+
+MCP-derived adapters preserve the configured user, connection, defaults, and saved input rules. Conflicting bindings and duplicate tool names fail explicitly. Configure a matching binding before creating the tools. Action POST requests are not replayed after ambiguous network or server failures.

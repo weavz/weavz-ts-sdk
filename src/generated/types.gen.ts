@@ -95,7 +95,48 @@ export type Error = {
     | "BROWSER_CONTROL_REQUIRED"
     | "BROWSER_RECOVERY_REQUIRED"
     | "SESSION_NOT_FOUND"
-    | "HANDOFF_FAILED";
+    | "HANDOFF_FAILED"
+    | "ACTION_NOT_ENABLED"
+    | "ALIAS_NOT_FOUND"
+    | "ALREADY_INITIALIZED"
+    | "APPROVAL_LINK_NOT_FOUND"
+    | "AUTH_METHOD_REQUIRED"
+    | "AUTH_NOT_SUPPORTED"
+    | "CONNECTION_AUTH_METHOD_MISMATCH"
+    | "CONNECTION_CREATE_FAILED"
+    | "CONNECTION_MISMATCH"
+    | "CONNECTION_NOT_SUPPORTED"
+    | "CONNECTION_SCOPE_MISMATCH"
+    | "DUPLICATE_CONNECTION"
+    | "EMAIL_RATE_LIMITED"
+    | "END_USER_REQUIRES_WORKSPACE"
+    | "INTEGRATION_MISMATCH"
+    | "INTEGRATION_NOT_ALLOWED"
+    | "INTEGRATION_NOT_CONFIGURED"
+    | "INTEGRATION_NOT_CONNECTABLE"
+    | "INVALID_ACTION"
+    | "INVALID_AUTH_METHOD"
+    | "INVALID_AUTH_TYPE"
+    | "INVALID_CODE_EXECUTE_REQUEST"
+    | "INVALID_CONNECTION"
+    | "INVALID_INTEGRATION"
+    | "INVALID_REDIRECT_URI"
+    | "INVALID_STATUS"
+    | "INVALID_STRATEGY"
+    | "INVALID_WORKSPACE"
+    | "MCP_SUSPENDED"
+    | "MISSING_CREDENTIALS"
+    | "MISSING_INTEGRATION"
+    | "MISSING_PROPERTY"
+    | "MISSING_WORKSPACE"
+    | "MISSING_WORKSPACE_ID"
+    | "OAUTH_AUTHORIZATION_FAILED"
+    | "OAUTH_TOKEN_FAILED"
+    | "PARTIAL_SCOPE_MISMATCH"
+    | "SHARD_NOT_AVAILABLE"
+    | "TOKEN_EXPIRED"
+    | "UNSUPPORTED_AUTH_TYPE"
+    | "WORKSPACE_INTEGRATION_NOT_FOUND";
   /**
    * Additional error context
    */
@@ -137,13 +178,13 @@ export type Connection = {
     | "CUSTOM_AUTH"
     | "OAUTH2"
     | "PLATFORM_OAUTH2";
-  status: "ACTIVE" | "ERROR";
+  status: "ACTIVE" | "ERROR" | "EXPIRED";
   scope: "ORGANIZATION" | "WORKSPACE" | "USER";
-  workspaceId?: string;
+  workspaceId?: string | null;
   /**
    * The end user's external ID (your application's user identifier), or null if not user-scoped
    */
-  endUserId?: string;
+  endUserId?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -185,11 +226,11 @@ export type ConnectSession = {
   /**
    * ID of the created connection (set when COMPLETED)
    */
-  connectionId: string;
+  connectionId: string | null;
   /**
    * Error message (set when FAILED)
    */
-  error: string;
+  error: string | null;
   expiresAt: string;
   createdAt: string;
 };
@@ -267,13 +308,19 @@ export type WorkspaceIntegration = {
    * Tenant-owned custom OAuth app UUID when `oauthAppMode` is `custom`; null for Weavz-managed OAuth.
    */
   oauthAppId?: string | null;
-  connectionId: string;
-  displayName: string;
-  enabledActions: Array<string>;
+  connectionId: string | null;
+  displayName: string | null;
+  enabledActions: Array<string> | null;
   settings: WorkspaceIntegrationSettings;
   sortOrder: number;
   createdAt: string;
   updatedAt: string;
+  /**
+   * Customer-defined external ID of the fixed connection, when available in list responses.
+   */
+  connectionExternalId?: string | null;
+  connectionDisplayName?: string | null;
+  connectionStatus?: "ACTIVE" | "ERROR" | "EXPIRED" | null;
 };
 
 export type TriggerSource = {
@@ -285,7 +332,7 @@ export type TriggerSource = {
   /**
    * URL to receive webhooks for WEBHOOK-type triggers
    */
-  webhookUrl?: string;
+  webhookUrl?: string | null;
   /**
    * URL to deliver trigger events
    */
@@ -295,6 +342,23 @@ export type TriggerSource = {
    */
   simulate?: boolean;
   createdAt: string;
+  workspaceId?: string | null;
+  workspaceIntegrationId?: string | null;
+  /**
+   * Configured integration alias, when returned after enabling a trigger.
+   */
+  integrationAlias?: string | null;
+  /**
+   * Most recent delivery observed in list responses.
+   */
+  lastDelivery?: {
+    status?: string;
+    httpStatus?: number | null;
+    errorMessage?: string | null;
+    attempt?: number;
+    createdAt?: string;
+    deliveredAt?: string | null;
+  } | null;
 };
 
 export type ApiKey = {
@@ -330,9 +394,10 @@ export type ApiKey = {
            */
           decide?: boolean;
         };
-      };
-  lastUsedAt?: string;
-  expiresAt?: string;
+      }
+    | null;
+  lastUsedAt?: string | null;
+  expiresAt?: string | null;
   createdAt: string;
 };
 
@@ -357,9 +422,9 @@ export type McpServer = {
    */
   id: string;
   orgId: string;
-  workspaceId?: string;
+  workspaceId?: string | null;
   name: string;
-  description?: string;
+  description?: string | null;
   /**
    * Server mode (TOOLS for individual tools, CODE for code-mode meta-tools)
    */
@@ -396,7 +461,7 @@ export type McpServer = {
   /**
    * The end user's external ID (your application's user identifier), or null if not user-scoped
    */
-  endUserId?: string;
+  endUserId?: string | null;
   createdAt: string;
   updatedAt: string;
   /**
@@ -418,21 +483,21 @@ export type McpServerTool = {
   integrationAlias: string;
   actionName: string;
   toolType: "ACTION";
-  connectionId?: string;
-  displayName?: string;
-  description?: string;
+  connectionId?: string | null;
+  displayName?: string | null;
+  description?: string | null;
   inputDefaults?: {
     [key: string]: unknown;
-  };
+  } | null;
   /**
    * Partial IDs assigned to this tool
    */
-  partialIds?: Array<string>;
+  partialIds?: Array<string> | null;
   sortOrder: number;
   /**
    * ID of the workspace integration this tool was synced from
    */
-  sourceWorkspaceIntegrationId?: string;
+  sourceWorkspaceIntegrationId?: string | null;
 };
 
 export type IntegrationMetadata = {
@@ -463,7 +528,7 @@ export type IntegrationMetadata = {
     type?: Array<string>;
     oauth2?: {
       [key: string]: unknown;
-    };
+    } | null;
   };
   /**
    * Canonical auth methods supported by the integration. Workspace integrations and connect sessions select one option with `authMethodKey`.
@@ -477,11 +542,11 @@ export type IntegrationMetadata = {
      * Integration auth type for this option.
      */
     type: string;
-    displayName?: string;
-    description?: string;
+    displayName?: string | null;
+    description?: string | null;
     oauth2?: {
       [key: string]: unknown;
-    };
+    } | null;
   }>;
   actions: {
     [key: string]: {
@@ -503,21 +568,21 @@ export type InputPartial = {
   /**
    * Configured workspace integration instance this partial is scoped to.
    */
-  workspaceIntegrationId?: string;
+  workspaceIntegrationId?: string | null;
   /**
    * Workspace integration alias this partial is scoped to.
    */
-  integrationAlias?: string;
+  integrationAlias?: string | null;
   /**
    * Action scope. Null means this partial is not action-specific.
    */
-  actionName?: string;
+  actionName?: string | null;
   /**
    * Trigger scope. Null means this partial is not trigger-specific. `actionName` and `triggerName` are mutually exclusive.
    */
-  triggerName?: string;
+  triggerName?: string | null;
   name: string;
-  description?: string;
+  description?: string | null;
   values: {
     [key: string]: unknown;
   };
@@ -533,9 +598,9 @@ export type InputPartial = {
 export type ApprovalPolicy = {
   id: string;
   orgId: string;
-  workspaceId?: string;
+  workspaceId?: string | null;
   name: string;
-  description?: string;
+  description?: string | null;
   enabled: boolean;
   priority: number;
   sources: Array<
@@ -568,7 +633,7 @@ export type ApprovalPolicy = {
   }>;
   timeoutSeconds: number;
   defaultOnTimeout: "reject" | "expire";
-  reuseWindowSeconds?: number;
+  reuseWindowSeconds?: number | null;
   /**
    * Controls whether reviewers can approve through Weavz review views, hosted bearer links, or both.
    */
@@ -578,7 +643,7 @@ export type ApprovalPolicy = {
     | "hosted_link_only";
   metadata?: {
     [key: string]: unknown;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -640,10 +705,10 @@ export type ApprovalRequest = {
    * Approval request ID.
    */
   id: string;
-  policyId?: string;
+  policyId?: string | null;
   orgId: string;
-  workspaceId?: string;
-  endUserId?: string;
+  workspaceId?: string | null;
+  endUserId?: string | null;
   source: "rest" | "sdk" | "mcp_tools" | "mcp_code" | "playground" | "trigger";
   status:
     | "pending"
@@ -652,15 +717,15 @@ export type ApprovalRequest = {
     | "expired"
     | "canceled"
     | "consumed";
-  mcpServerId?: string;
-  mcpMode?: "TOOLS" | "CODE";
-  mcpAuthMode?: "oauth" | "bearer" | "oauth_and_bearer";
-  workspaceIntegrationId?: string;
+  mcpServerId?: string | null;
+  mcpMode?: "TOOLS" | "CODE" | null;
+  mcpAuthMode?: "oauth" | "bearer" | "oauth_and_bearer" | null;
+  workspaceIntegrationId?: string | null;
   integrationName: string;
-  integrationAlias?: string;
+  integrationAlias?: string | null;
   actionName: string;
-  connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback";
-  connectionScopeSummary?: string;
+  connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback" | null;
+  connectionScopeSummary?: string | null;
   partialIds?: Array<string>;
   enforcedKeys?: Array<string>;
   /**
@@ -675,8 +740,8 @@ export type ApprovalRequest = {
   };
   redactedPaths: Array<string>;
   riskReasons: Array<string>;
-  riskScore?: number;
-  riskCategory?: string;
+  riskScore?: number | null;
+  riskCategory?: string | null;
   approverSpec?: Array<{
     [key: string]: unknown;
   }>;
@@ -694,14 +759,14 @@ export type ApprovalRequest = {
   /**
    * Approval URL allowed by the policy access mode.
    */
-  approvalUrl?: string;
-  hostedApprovalUrl?: string;
-  externalCorrelationId?: string;
-  idempotencyKey?: string;
-  requestedByType?: string;
-  requestedById?: string;
-  decidedAt?: string;
-  consumedAt?: string;
+  approvalUrl?: string | null;
+  hostedApprovalUrl?: string | null;
+  externalCorrelationId?: string | null;
+  idempotencyKey?: string | null;
+  requestedByType?: string | null;
+  requestedById?: string | null;
+  decidedAt?: string | null;
+  consumedAt?: string | null;
   expiresAt: string;
   createdAt: string;
   updatedAt: string;
@@ -714,10 +779,10 @@ export type ApprovalRequest = {
     callbackUrl?: string;
     attempt?: number;
     status?: "pending" | "success" | "failed" | "retrying";
-    httpStatus?: number;
-    errorMessage?: string;
+    httpStatus?: number | null;
+    errorMessage?: string | null;
     createdAt?: string;
-    deliveredAt?: string;
+    deliveredAt?: string | null;
   }>;
 };
 
@@ -756,7 +821,7 @@ export type ApprovalCodeRunPreview = {
   codeRunId?: string;
   serverId?: string;
   serverName?: string;
-  workspaceId?: string;
+  workspaceId?: string | null;
   /**
    * Stored Code Mode source shown only when present in the redacted preview.
    */
@@ -815,7 +880,7 @@ export type ApprovalWebhookPayload = {
   receipt?: {
     id?: string;
     expiresAt?: string;
-  };
+  } | null;
   decision?: {
     reason?: string;
     metadata?: {
@@ -829,17 +894,17 @@ export type ApprovalRequiredResult = {
   status: "approval_required";
   approval: {
     id: string;
-    policyId?: string;
+    policyId?: string | null;
     status: "pending";
     approvalAccessMode?:
       | "dashboard_only"
       | "dashboard_and_hosted_link"
       | "hosted_link_only";
-    approvalUrl?: string;
-    hostedApprovalUrl?: string;
+    approvalUrl?: string | null;
+    hostedApprovalUrl?: string | null;
     expiresAt: string;
     retry: {
-      idempotencyKey?: string;
+      idempotencyKey?: string | null;
     };
   };
 };
@@ -849,7 +914,7 @@ export type ApprovalDecisionResult = {
   receipt: {
     id?: string;
     expiresAt?: string;
-  };
+  } | null;
 };
 
 export type EndUser = {
@@ -858,21 +923,21 @@ export type EndUser = {
   /**
    * Your application's end-user identifier (endUser.externalId)
    */
-  externalId?: string;
+  externalId?: string | null;
   /**
    * Human-readable display name
    */
-  displayName?: string;
+  displayName?: string | null;
   /**
    * End user email address
    */
-  email?: string;
+  email?: string | null;
   /**
    * Arbitrary metadata attached to the end user
    */
   metadata?: {
     [key: string]: unknown;
-  };
+  } | null;
   /**
    * Number of connections owned by this end user
    */
@@ -895,6 +960,16 @@ export type ListWorkspacesData = {
   };
   url: "/api/v1/workspaces";
 };
+
+export type ListWorkspacesErrors = {
+  /**
+   * Invalid query parameters
+   */
+  400: Error;
+};
+
+export type ListWorkspacesError =
+  ListWorkspacesErrors[keyof ListWorkspacesErrors];
 
 export type ListWorkspacesResponses = {
   /**
@@ -1070,6 +1145,10 @@ export type ListConnectionsData = {
 
 export type ListConnectionsErrors = {
   /**
+   * Invalid query parameters
+   */
+  400: Error;
+  /**
    * Connection not found (when id query param is provided)
    */
   404: Error;
@@ -1110,9 +1189,12 @@ export type CreateConnectionData = {
      * Auth method key for this credential. Required when the integration exposes multiple compatible auth methods; defaults from `type` for single-auth integrations.
      */
     authMethodKey?: string;
+    /**
+     * Required for WORKSPACE or USER scope, when endUserId is set, and for workspace-scoped API keys.
+     */
     workspaceId?: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user. Creating a new identity uses the plan’s end-user allowance. Existing identities can connect more accounts when that allowance is full.
      */
     endUserId?: string;
     scope?: "ORGANIZATION" | "WORKSPACE" | "USER";
@@ -1292,7 +1374,7 @@ export type ConnectCreateTokenData = {
      */
     externalId: string;
     /**
-     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user.
+     * The external ID of the end user (your application's user identifier). The API resolves this to the internal end user record. Used for per-user connection resolution and for stateful workspace integrations, including browser profile reuse, when the targeted workspace integration's persistence policy is end_user. Creating a new identity uses the plan’s end-user allowance. Existing identities can connect more accounts when that allowance is full.
      */
     endUserId?: string;
     /**
@@ -1437,14 +1519,14 @@ export type ConnectPollSessionResponses = {
    */
   200: {
     status: "PENDING" | "CONNECTING" | "COMPLETED" | "FAILED";
-    connectionId: string;
+    connectionId: string | null;
     integrationName: string;
     workspaceIntegrationId?: string | null;
     authMethodKey?: string | null;
     oauthAppMode?: "weavz_managed" | "custom" | null;
     oauthAppId?: string | null;
     externalId: string;
-    error: string;
+    error: string | null;
   };
 };
 
@@ -1792,13 +1874,17 @@ export type TestApprovalPolicyData = {
         | "playground"
         | "trigger";
       integrationName: string;
-      integrationAlias?: string;
+      integrationAlias?: string | null;
       actionName: string;
-      connectionStrategy?: "fixed" | "per_user" | "per_user_with_fallback";
+      connectionStrategy?:
+        | "fixed"
+        | "per_user"
+        | "per_user_with_fallback"
+        | null;
       input?: {
         [key: string]: unknown;
       };
-      idempotencyKey?: string;
+      idempotencyKey?: string | null;
       actionCategories?: Array<string>;
     };
   };
@@ -2117,21 +2203,21 @@ export type CreatePartialData = {
     /**
      * Configured workspace integration instance to scope the partial to. Recommended when the same integration is configured more than once.
      */
-    workspaceIntegrationId?: string;
+    workspaceIntegrationId?: string | null;
     /**
      * Workspace integration alias to scope the partial to. Use with workspaceId when workspaceIntegrationId is not provided.
      */
-    integrationAlias?: string;
+    integrationAlias?: string | null;
     /**
      * Action scope. Omit for integration-wide or trigger-scoped partials.
      */
-    actionName?: string;
+    actionName?: string | null;
     /**
      * Trigger scope. Omit for integration-wide or action-scoped partials. `actionName` and `triggerName` are mutually exclusive.
      */
-    triggerName?: string;
+    triggerName?: string | null;
     name: string;
-    description?: string;
+    description?: string | null;
     values?: {
       [key: string]: unknown;
     };
@@ -2234,7 +2320,7 @@ export type GetPartialResponse = GetPartialResponses[keyof GetPartialResponses];
 export type UpdatePartialData = {
   body: {
     name?: string;
-    description?: string;
+    description?: string | null;
     values?: {
       [key: string]: unknown;
     };
@@ -2400,6 +2486,15 @@ export type ListTriggersData = {
   url: "/api/v1/triggers";
 };
 
+export type ListTriggersErrors = {
+  /**
+   * Invalid query parameters
+   */
+  400: Error;
+};
+
+export type ListTriggersError = ListTriggersErrors[keyof ListTriggersErrors];
+
 export type ListTriggersResponses = {
   /**
    * List of triggers
@@ -2529,7 +2624,8 @@ export type CreateApiKeyData = {
              */
             decide?: boolean;
           };
-        };
+        }
+      | null;
   };
   path?: never;
   query?: never;
@@ -2607,6 +2703,16 @@ export type ListMcpServersData = {
   };
   url: "/api/v1/mcp/servers";
 };
+
+export type ListMcpServersErrors = {
+  /**
+   * Invalid query parameters
+   */
+  400: Error;
+};
+
+export type ListMcpServersError =
+  ListMcpServersErrors[keyof ListMcpServersErrors];
 
 export type ListMcpServersResponses = {
   /**
@@ -2748,7 +2854,7 @@ export type GetMcpServerResponse =
 export type UpdateMcpServerData = {
   body: {
     name?: string;
-    description?: string;
+    description?: string | null;
     mode?: "TOOLS" | "CODE";
     settings?: McpServerSettings;
     /**
@@ -2762,7 +2868,7 @@ export type UpdateMcpServerData = {
     /**
      * The external ID of the end user (your application's user identifier). The server will use this end user's connections. Set to null to remove.
      */
-    endUserId?: string;
+    endUserId?: string | null;
   };
   path: {
     id: string;
@@ -2979,7 +3085,7 @@ export type AddMcpServerToolData = {
     toolType?: "ACTION";
     connectionId?: string;
     displayName?: string;
-    description?: string;
+    description?: string | null;
     inputDefaults?: {
       [key: string]: unknown;
     };
@@ -3066,7 +3172,7 @@ export type UpdateMcpServerToolData = {
     inputDefaults?: {
       [key: string]: unknown;
     };
-    connectionId?: string;
+    connectionId?: string | null;
     sortOrder?: number;
     integrationAlias?: string;
     /**
@@ -3425,6 +3531,15 @@ export type ListEndUsersData = {
   url: "/api/v1/end-users";
 };
 
+export type ListEndUsersErrors = {
+  /**
+   * Invalid query parameters
+   */
+  400: Error;
+};
+
+export type ListEndUsersError = ListEndUsersErrors[keyof ListEndUsersErrors];
+
 export type ListEndUsersResponses = {
   /**
    * List of end users
@@ -3556,11 +3671,11 @@ export type GetEndUserResponse = GetEndUserResponses[keyof GetEndUserResponses];
 
 export type UpdateEndUserData = {
   body: {
-    displayName?: string;
-    email?: string;
+    displayName?: string | null;
+    email?: string | null;
     metadata?: {
       [key: string]: unknown;
-    };
+    } | null;
   };
   path: {
     id: string;
