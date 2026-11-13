@@ -27,7 +27,8 @@
     "typecheck": "tsc --noEmit",
     "test:types": "tsc --noEmit -p tsconfig.type-tests.json",
     "test": "vitest run tests/",
-    "test:watch": "vitest tests/"
+    "test:watch": "vitest tests/",
+    "test:unit": "vitest run tests/unit/"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.1",
@@ -43,10 +44,10 @@
     "integrations",
     "mcp",
     "agents",
-    "agent-runtime",
-    "stateful-agents",
     "filesystem",
-    "sandbox"
+    "sandbox",
+    "approvals",
+    "human-gates"
   ],
   "license": "MIT",
   "homepage": "https://weavz.io/docs/sdks/typescript",
@@ -56,5 +57,8 @@
   },
   "bugs": {
     "url": "https://github.com/weavz/weavz-ts-sdk/issues"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

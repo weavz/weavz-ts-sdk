@@ -9,6 +9,7 @@ import type {
   Connection,
   AdvancedCodeWorkspaceSettings as GeneratedAdvancedCodeWorkspaceSettings,
   EndUser as GeneratedEndUser,
+  ExecuteMcpCodeResponse,
   InputPartial as GeneratedInputPartial,
   IntegrationMetadata,
   McpServer,
@@ -95,6 +96,14 @@ export interface McpAccessTokenResponse {
     createdAt: string
   }
   mcpEndpoint: string
+}
+
+export interface WaitOptions {
+  /** Total time to wait, including API requests and retry delays (default: 120000). */
+  timeoutMs?: number
+  /** Delay between pending responses in milliseconds (default: 1000). */
+  intervalMs?: number
+  signal?: AbortSignal
 }
 
 export interface ListOptions {
@@ -211,16 +220,16 @@ class WorkspacesResource extends BaseResource {
     return this._post<{ workspace: Workspace }>('/api/v1/workspaces', data)
   }
   get(id: string) {
-    return this._get<{ workspace: Workspace }>(`/api/v1/workspaces/${id}`)
+    return this._get<{ workspace: Workspace }>(`/api/v1/workspaces/${encodeURIComponent(id)}`)
   }
   update(id: string, data: { name?: string; slug?: string }) {
-    return this._patch<{ workspace: Workspace }>(`/api/v1/workspaces/${id}`, data)
+    return this._patch<{ workspace: Workspace }>(`/api/v1/workspaces/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${encodeURIComponent(id)}`)
   }
   listIntegrations(workspaceId: string) {
-    return this._get<{ integrations: WorkspaceIntegration[]; total: number }>(`/api/v1/workspaces/${workspaceId}/integrations`)
+    return this._get<{ integrations: WorkspaceIntegration[]; total: number }>(`/api/v1/workspaces/${encodeURIComponent(workspaceId)}/integrations`)
   }
   addIntegration(workspaceId: string, data: {
     integrationName: string
@@ -235,7 +244,7 @@ class WorkspacesResource extends BaseResource {
     settings?: WorkspaceIntegrationSettings
     sortOrder?: number
   }) {
-    return this._post<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations`, data)
+    return this._post<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${encodeURIComponent(workspaceId)}/integrations`, data)
   }
   updateIntegration(workspaceId: string, id: string, data: {
     alias?: string
@@ -249,15 +258,15 @@ class WorkspacesResource extends BaseResource {
     settings?: WorkspaceIntegrationSettings | null
     sortOrder?: number
   }) {
-    return this._patch<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${workspaceId}/integrations/${id}`, data)
+    return this._patch<{ integration: WorkspaceIntegration }>(`/api/v1/workspaces/${encodeURIComponent(workspaceId)}/integrations/${encodeURIComponent(id)}`, data)
   }
   removeIntegration(workspaceId: string, id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${workspaceId}/integrations/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/workspaces/${encodeURIComponent(workspaceId)}/integrations/${encodeURIComponent(id)}`)
   }
 }
 
 class ConnectionsResource extends BaseResource {
-  list(id?: string): Promise<{ connection: Connection }>
+  list(id: string): Promise<{ connection: Connection }>
   list(params?: ListOptions): Promise<{ connections: Connection[]; total: number }>
   list(idOrParams?: string | ListOptions) {
     if (typeof idOrParams === 'string') {
@@ -266,9 +275,8 @@ class ConnectionsResource extends BaseResource {
     return this._get<{ connections: Connection[]; total: number }>('/api/v1/connections', idOrParams)
   }
   get(id: string) {
-    if (id) {
-      return this._get<{ connection: Connection }>('/api/v1/connections', { id })
-    }
+    if (!id) return Promise.reject(new WeavzError({ message: 'A connection ID is required', code: 'INVALID_REQUEST', status: 0 }))
+    return this._get<{ connection: Connection }>('/api/v1/connections', { id })
   }
   create(data: {
     type: ConnectionType
@@ -294,7 +302,7 @@ class ConnectionsResource extends BaseResource {
     return this._post<{ connection: Connection }>('/api/v1/connections', data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/connections/${encodeURIComponent(id)}`)
   }
   resolve(data: { integrationName: string; workspaceId: string; authMethodKey?: string; externalId?: string; endUserId?: string }) {
     return this._post<{ connection: Connection }>('/api/v1/connections/resolve', data)
@@ -321,7 +329,7 @@ class ConnectResource extends BaseResource {
   }
   /** Poll connect session status */
   getSession(sessionId: string) {
-    return this._get<{ session: { id: string; integrationName: string; workspaceIntegrationId: string | null; authMethodKey: string | null; oauthAppMode: OAuthAppMode | null; oauthAppId: string | null; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${sessionId}`)
+    return this._get<{ session: { id: string; integrationName: string; workspaceIntegrationId: string | null; authMethodKey: string | null; oauthAppMode: OAuthAppMode | null; oauthAppId: string | null; connectionName: string; externalId: string; status: string; connectionId: string | null; error: string | null; expiresAt: string; createdAt: string } }>(`/api/v1/connect/session/${encodeURIComponent(sessionId)}`)
   }
   /** Poll connect session status using the short-lived cst_ token returned by createToken(). */
   poll(token: string) {
@@ -338,66 +346,19 @@ class ConnectResource extends BaseResource {
     }>('/api/v1/connect/session/poll', { token })
   }
   /** Wait for a hosted connect token to complete or fail. */
-  async wait(token: string, options?: { timeoutMs?: number; intervalMs?: number }) {
-    const timeoutMs = options?.timeoutMs ?? 120_000
-    const intervalMs = options?.intervalMs ?? 1_000
-    const deadline = Date.now() + timeoutMs
-
-    while (Date.now() <= deadline) {
-      const result = await this.poll(token)
-      if (result.status === 'COMPLETED' || result.status === 'FAILED') return result
-      await new Promise(resolve => setTimeout(resolve, intervalMs))
-    }
-
-    throw new WeavzError({
-      message: 'Connect session timed out',
-      code: 'CONNECT_TIMEOUT',
-      status: 408,
-    })
+  async wait(token: string, options?: WaitOptions) {
+    return waitForResult(
+      signal => this.client.request<Awaited<ReturnType<ConnectResource['poll']>>>('/api/v1/connect/session/poll', { method: 'POST', body: { token }, signal }),
+      result => result.status === 'COMPLETED' || result.status === 'FAILED',
+      options, 'CONNECT_TIMEOUT', 'Connect session timed out',
+    )
   }
   /**
    * Open a popup for the hosted connect flow (browser-only).
    * Resolves with the connection result when complete.
    */
   async popup(options: { token: string; connectUrl: string }): Promise<{ connectionId: string; integrationName: string; externalId: string }> {
-    return new Promise((resolve, reject) => {
-      const popup = window.open(options.connectUrl, 'weavz-connect', 'width=500,height=600,popup=yes')
-
-      // Fallback: poll for popup close
-      const interval = setInterval(() => {
-        if (popup?.closed) {
-          clearInterval(interval)
-          setTimeout(() => {
-            window.removeEventListener('message', handler)
-            reject(new Error('Popup closed before completing'))
-          }, 3000)
-        }
-      }, 500)
-
-      const handler = (event: MessageEvent) => {
-        if (event.data?.type !== 'weavz-connect-result') return
-        // Validate origin matches connect URL
-        try {
-          const expectedOrigin = new URL(options.connectUrl).origin
-          if (event.origin && event.origin !== expectedOrigin) return
-        } catch { /* ignore URL parse errors */ }
-        window.removeEventListener('message', handler)
-        clearInterval(interval)
-
-        if (event.data.status === 'error') {
-          reject(new Error(event.data.error || 'Connection failed'))
-          return
-        }
-
-        resolve({
-          connectionId: event.data.connectionId,
-          integrationName: event.data.integrationName,
-          externalId: event.data.externalId,
-        })
-      }
-
-      window.addEventListener('message', handler)
-    })
+    return openConnectPopup(options)
   }
 }
 
@@ -447,13 +408,13 @@ class ApprovalPoliciesResource extends BaseResource {
     return this._post<{ policy: ApprovalPolicy }>('/api/v1/approval-policies', data)
   }
   get(id: string) {
-    return this._get<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${id}`)
+    return this._get<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${encodeURIComponent(id)}`)
   }
   update(id: string, data: Partial<ApprovalPolicyInput>) {
-    return this._patch<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${id}`, data)
+    return this._patch<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/approval-policies/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/approval-policies/${encodeURIComponent(id)}`)
   }
   test(data: {
     policy: ApprovalPolicyInput
@@ -494,33 +455,23 @@ class ApprovalsResource extends BaseResource {
     return this._get<{ approvals: ApprovalRequest[]; total: number }>('/api/v1/approvals', params)
   }
   get(id: string) {
-    return this._get<{ approval: ApprovalRequest }>(`/api/v1/approvals/${id}`)
+    return this._get<{ approval: ApprovalRequest }>(`/api/v1/approvals/${encodeURIComponent(id)}`)
   }
   approve(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
-    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/approve`, data)
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${encodeURIComponent(id)}/approve`, data)
   }
   reject(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
-    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/reject`, data)
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${encodeURIComponent(id)}/reject`, data)
   }
   cancel(id: string, data?: { reason?: string; metadata?: Record<string, unknown> }) {
-    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${id}/cancel`, data)
+    return this._post<ApprovalDecisionResult>(`/api/v1/approvals/${encodeURIComponent(id)}/cancel`, data)
   }
-  async wait(id: string, options?: { timeoutMs?: number; intervalMs?: number }) {
-    const timeoutMs = options?.timeoutMs ?? 120_000
-    const intervalMs = options?.intervalMs ?? 1_000
-    const deadline = Date.now() + timeoutMs
-
-    while (Date.now() <= deadline) {
-      const result = await this.get(id)
-      if (result.approval.status !== 'pending') return result
-      await new Promise(resolve => setTimeout(resolve, intervalMs))
-    }
-
-    throw new WeavzError({
-      message: 'Approval wait timed out',
-      code: 'APPROVAL_TIMEOUT',
-      status: 408,
-    })
+  async wait(id: string, options?: WaitOptions) {
+    return waitForResult(
+      signal => this.client.request<{ approval: ApprovalRequest }>(`/api/v1/approvals/${encodeURIComponent(id)}`, { signal }),
+      result => result.approval.status !== 'pending',
+      options, 'APPROVAL_TIMEOUT', 'Approval wait timed out',
+    )
   }
 }
 
@@ -573,20 +524,20 @@ class McpServersResource extends BaseResource {
     return this._post<{ server: McpServer; bearerToken?: string; mcpEndpoint: string }>('/api/v1/mcp/servers', data)
   }
   get(id: string) {
-    return this._get<{ server: McpServer; tools: McpServerTool[] }>(`/api/v1/mcp/servers/${id}`)
+    return this._get<{ server: McpServer; tools: McpServerTool[] }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}`)
   }
   update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; settings?: McpServerSettings; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; endUserId?: string | null }) {
-    return this._patch<{ server: McpServer; bearerToken?: string }>(`/api/v1/mcp/servers/${id}`, data)
+    return this._patch<{ server: McpServer; bearerToken?: string }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}`)
   }
   regenerateToken(id: string) {
-    return this._post<{ bearerToken: string; mcpEndpoint: string }>(`/api/v1/mcp/servers/${id}/regenerate-token`)
+    return this._post<{ bearerToken: string; mcpEndpoint: string }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}/regenerate-token`)
   }
   createAccessToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
     return this._post<McpAccessTokenResponse>(
-      `/api/v1/mcp/servers/${id}/access-tokens`,
+      `/api/v1/mcp/servers/${encodeURIComponent(id)}/access-tokens`,
       data,
     )
   }
@@ -598,7 +549,7 @@ class McpServersResource extends BaseResource {
   }
   createOAuthToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
     return this._post<{ accessToken: string; token: { id: string; tokenPrefix: string; scopes: string[]; endUserId: string; expiresAt: string; createdAt: string }; mcpEndpoint: string }>(
-      `/api/v1/mcp/servers/${id}/oauth-tokens`,
+      `/api/v1/mcp/servers/${encodeURIComponent(id)}/oauth-tokens`,
       data,
     )
   }
@@ -609,12 +560,12 @@ class McpServersResource extends BaseResource {
     toolType?: 'ACTION'
     connectionId?: string
     displayName?: string
-    description?: string
+    description?: string | null
     inputDefaults?: Record<string, unknown>
     partialIds?: string[]
     sortOrder?: number
   }) {
-    return this._post<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${serverId}/tools`, data)
+    return this._post<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/tools`, data)
   }
   updateTool(serverId: string, toolId: string, data: {
     displayName?: string
@@ -625,17 +576,17 @@ class McpServersResource extends BaseResource {
     integrationAlias?: string
     partialIds?: string[]
   }) {
-    return this._patch<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`, data)
+    return this._patch<{ tool: McpServerTool }>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/tools/${encodeURIComponent(toolId)}`, data)
   }
   deleteTool(serverId: string, toolId: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${serverId}/tools/${toolId}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/tools/${encodeURIComponent(toolId)}`)
   }
   executeCode(serverId: string, input: McpCodeExecutionInput) {
     const body = typeof input === 'string' ? { code: input } : input
-    return this._post<{ content: unknown[]; isError: boolean }>(`/api/v1/mcp/servers/${serverId}/execute-code`, body)
+    return this._post<ExecuteMcpCodeResponse>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/execute-code`, body)
   }
   getDeclarations(serverId: string, alias: string) {
-    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${serverId}/declarations/${alias}`)
+    return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/declarations/${encodeURIComponent(alias)}`)
   }
 }
 
@@ -646,12 +597,12 @@ class ApiKeysResource extends BaseResource {
   create(data: {
     name: string
     expiresAt?: string
-    permissions?: { scope: 'org'; approvals?: { decide?: boolean } } | { scope: 'workspace'; workspaceIds: string[]; approvals?: { decide?: boolean } }
+    permissions?: { scope: 'org'; approvals?: { decide?: boolean } } | { scope: 'workspace'; workspaceIds: string[]; approvals?: { decide?: boolean } } | null
   }) {
     return this._post<{ apiKey: ApiKey; plainKey: string }>('/api/v1/api-keys', data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/api-keys/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/api-keys/${encodeURIComponent(id)}`)
   }
 }
 
@@ -676,7 +627,7 @@ class IntegrationsResource extends BaseResource {
     data: ResolvePropertyOptions,
   ): Promise<{ options: unknown[]; disabled: boolean }>
   resolveOptions(integrationName: string, data: ResolvePropertyOptions) {
-    return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/integrations/${integrationName}/properties/options`, data)
+    return this._post<{ options: unknown[]; disabled: boolean }>(`/api/v1/integrations/${encodeURIComponent(integrationName)}/properties/options`, data)
   }
   resolveProperty<I extends KnownIntegrationName, A extends KnownActionName<I>>(
     integrationName: I,
@@ -687,7 +638,7 @@ class IntegrationsResource extends BaseResource {
     data: Omit<ResolvePropertyOptions, 'searchValue'>,
   ): Promise<unknown>
   resolveProperty(integrationName: string, data: Omit<ResolvePropertyOptions, 'searchValue'>) {
-    return this._post<unknown>(`/api/v1/integrations/${integrationName}/properties/resolve`, data)
+    return this._post<unknown>(`/api/v1/integrations/${encodeURIComponent(integrationName)}/properties/resolve`, data)
   }
   oauthStatus() {
     return this._get<{ configured: string[] }>('/api/v1/integrations/oauth-status')
@@ -706,7 +657,7 @@ class PartialsResource extends BaseResource {
     return this._get<{ partials: InputPartial[]; total: number }>('/api/v1/partials', params as Record<string, string | number | boolean | undefined>)
   }
   get(id: string) {
-    return this._get<{ partial: InputPartial }>(`/api/v1/partials/${id}`)
+    return this._get<{ partial: InputPartial }>(`/api/v1/partials/${encodeURIComponent(id)}`)
   }
   create(data: {
     workspaceId: string
@@ -733,13 +684,13 @@ class PartialsResource extends BaseResource {
     enforcedKeys?: string[]
     isDefault?: boolean
   }) {
-    return this._patch<{ partial: InputPartial }>(`/api/v1/partials/${id}`, data)
+    return this._patch<{ partial: InputPartial }>(`/api/v1/partials/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string }>(`/api/v1/partials/${id}`)
+    return this._del<{ deleted: boolean; id: string }>(`/api/v1/partials/${encodeURIComponent(id)}`)
   }
   setDefault(id: string, isDefault: boolean) {
-    return this._post<{ partial: InputPartial }>(`/api/v1/partials/${id}/set-default`, { isDefault })
+    return this._post<{ partial: InputPartial }>(`/api/v1/partials/${encodeURIComponent(id)}/set-default`, { isDefault })
   }
 }
 
@@ -757,23 +708,23 @@ class EndUsersResource extends BaseResource {
     return this._get<{ endUsers: EndUser[]; total: number }>('/api/v1/end-users', params)
   }
   get(id: string) {
-    return this._get<{ endUser: EndUser; connections: Connection[] }>(`/api/v1/end-users/${id}`)
+    return this._get<{ endUser: EndUser; connections: Connection[] }>(`/api/v1/end-users/${encodeURIComponent(id)}`)
   }
   update(id: string, data: {
     displayName?: string | null
     email?: string | null
     metadata?: Record<string, unknown> | null
   }) {
-    return this._patch<{ endUser: EndUser }>(`/api/v1/end-users/${id}`, data)
+    return this._patch<{ endUser: EndUser }>(`/api/v1/end-users/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
-    return this._del<{ deleted: boolean; id: string; connectionsDeleted: number }>(`/api/v1/end-users/${id}`)
+    return this._del<{ deleted: boolean; id: string; connectionsDeleted: number }>(`/api/v1/end-users/${encodeURIComponent(id)}`)
   }
   createConnectToken(id: string, data?: { integrationName?: string; workspaceIntegrationId?: string; expiresIn?: number }) {
-    return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${id}/connect-token`, data)
+    return this._post<{ connectUrl: string; token: string; expiresAt: string }>(`/api/v1/end-users/${encodeURIComponent(id)}/connect-token`, data)
   }
   invite(id: string, data: { email: string; integrationName?: string; workspaceIntegrationId?: string; expiresIn?: number }) {
-    return this._post<{ connectUrl: string; token: string; expiresAt: string; emailSent: boolean }>(`/api/v1/end-users/${id}/invite`, data)
+    return this._post<{ connectUrl: string; token: string; expiresAt: string; emailSent: boolean }>(`/api/v1/end-users/${encodeURIComponent(id)}/invite`, data)
   }
 }
 
@@ -804,12 +755,17 @@ export class WeavzClient {
   readonly endUsers: EndUsersResource
 
   constructor(options: WeavzClientOptions) {
+    if (typeof options.apiKey !== 'string' || !options.apiKey.trim()) throw new TypeError('apiKey must be a non-empty string')
+    if (options.timeout !== undefined && (!Number.isSafeInteger(options.timeout) || options.timeout <= 0 || options.timeout > 2_147_483_647)) throw new TypeError('timeout must be a positive integer of at most 2147483647 milliseconds')
+    if (options.maxRetries !== undefined && (!Number.isSafeInteger(options.maxRetries) || options.maxRetries < 0)) throw new TypeError('maxRetries must be a non-negative integer')
+    const base = new URL(options.baseUrl || 'https://platform.weavz.io')
+    if (!['https:', 'http:'].includes(base.protocol) || base.username || base.password || base.search || base.hash) throw new TypeError('baseUrl must be an HTTP(S) URL without credentials, a query, or a fragment')
     this.apiKey = options.apiKey
-    this.baseUrl = (options.baseUrl || 'https://platform.weavz.io').replace(/\/+$/, '')
+    this.baseUrl = base.toString().replace(/\/+$/, '')
     this.timeout = options.timeout ?? 310_000
     this.maxRetries = options.maxRetries ?? 2
     this.fetchImpl = options.fetch ?? fetch
-    this.headers = options.headers ?? {}
+    this.headers = { ...options.headers }
     if (options.userAgent) this.headers['User-Agent'] = options.userAgent
     this.onRetry = options.onRetry
 
@@ -827,113 +783,167 @@ export class WeavzClient {
     this.endUsers = new EndUsersResource(this)
   }
 
-  /** Make an authenticated request to the Weavz API */
+  /** Make an authenticated request to the Weavz API. Timeout applies to each attempt, including its response body. */
   async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-    const { method = 'GET', body, params, headers: requestHeaders, signal } = options
-
-    let url = `${this.baseUrl}${path}`
+    const { method: requestedMethod = 'GET', body, params, headers: requestHeaders, signal } = options
+    const method = requestedMethod.toUpperCase()
+    if (!path.startsWith('/') || path.startsWith('//')) {
+      throw new WeavzError({ message: 'Request paths must start with a single slash', code: 'INVALID_REQUEST', status: 0 })
+    }
+    const url = new URL(`${this.baseUrl}${path}`)
     if (params) {
-      const searchParams = new URLSearchParams()
       for (const [key, value] of Object.entries(params)) {
-        if (value !== undefined) searchParams.set(key, String(value))
+        if (value !== undefined) url.searchParams.set(key, String(value))
       }
-      const qs = searchParams.toString()
-      if (qs) url += `?${qs}`
     }
+    const headers = new Headers(this.headers)
+    for (const [name, value] of Object.entries(requestHeaders ?? {})) headers.set(name, value)
+    headers.set('Authorization', `Bearer ${this.apiKey}`)
+    if (body !== undefined) headers.set('Content-Type', 'application/json')
 
-    const headers: Record<string, string> = {
-      ...this.headers,
-      ...requestHeaders,
-      Authorization: `Bearer ${this.apiKey}`,
-    }
+    let serializedBody: string | undefined
+    try { serializedBody = body === undefined ? undefined : JSON.stringify(body) }
+    catch { throw new WeavzError({ message: 'Request body must be JSON serializable', code: 'INVALID_REQUEST', status: 0 }) }
+    const isIdempotent = ['GET', 'HEAD', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'].includes(method)
 
-    if (body !== undefined) {
-      headers['Content-Type'] = 'application/json'
-    }
-
-    const isIdempotent = method === 'GET' || method === 'PUT' || method === 'DELETE' || method === 'PATCH'
-
-    let lastError: WeavzError | undefined
-    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+    for (let attempt = 0; ; attempt++) {
+      if (signal?.aborted) throw requestAbortError(signal)
+      const controller = new AbortController()
+      let timedOut = false
+      const onAbort = () => controller.abort(signal?.reason)
+      signal?.addEventListener('abort', onAbort, { once: true })
+      const timeout = setTimeout(() => {
+        timedOut = true
+        controller.abort(new DOMException('Request timed out', 'TimeoutError'))
+      }, this.timeout)
       let response: Response
+      let text: string
       try {
-        response = await this.fetchImpl(url, {
-          method,
-          headers,
-          body: body !== undefined ? JSON.stringify(body) : undefined,
-          signal: signal ?? AbortSignal.timeout(this.timeout),
-        })
+        response = await this.fetchImpl(url.toString(), { method, headers, body: serializedBody, signal: controller.signal })
+        text = response.status === 204 ? '' : await response.text()
       } catch (error) {
-        lastError = new WeavzError({
-          message: error instanceof Error ? error.message : 'Network request failed',
-          code: error instanceof DOMException && error.name === 'TimeoutError' ? 'TIMEOUT' : 'NETWORK_ERROR',
-          status: 0,
-          details: error,
+        if (signal?.aborted) throw requestAbortError(signal)
+        const failure = new WeavzError({
+          message: timedOut ? 'Request timed out' : error instanceof Error ? error.message : 'Network request failed',
+          code: timedOut ? 'TIMEOUT' : 'NETWORK_ERROR', status: 0, details: error,
         })
-
-        if (!isIdempotent || attempt >= this.maxRetries) throw lastError
-        const delay = 500 * Math.pow(2, attempt)
-        this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: lastError })
-        await new Promise((resolve) => setTimeout(resolve, delay))
+        if (!isIdempotent || attempt >= this.maxRetries) throw failure
+        const delay = retryDelay(attempt)
+        this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: failure })
+        // Release per-attempt resources before waiting for another attempt.
+        clearTimeout(timeout)
+        signal?.removeEventListener('abort', onAbort)
+        await retrySleep(delay, signal)
         continue
+      } finally {
+        clearTimeout(timeout)
+        signal?.removeEventListener('abort', onAbort)
       }
 
       if (response.ok) {
-        if (response.status === 204) return undefined as T
-        const text = await response.text()
-        return (text ? JSON.parse(text) : undefined) as T
+        if (!text) return undefined as T
+        try { return JSON.parse(text) as T }
+        catch { throw new WeavzError({ message: 'The API returned an invalid JSON response', code: 'INVALID_RESPONSE', status: response.status }) }
       }
-
-      let errorBody: { error?: string; code?: string; details?: unknown } = {}
-      let errorText = ''
+      let errorBody: { error?: unknown; code?: unknown; details?: unknown } = {}
       try {
-        const contentType = response.headers.get('content-type') || ''
-        if (contentType.includes('application/json')) {
-          errorBody = await response.json() as typeof errorBody
-        } else {
-          errorText = await response.text()
-        }
-      } catch {
-        // ignore parse errors
-      }
-
-      lastError = new WeavzError({
-        message: errorBody.error || errorText || `HTTP ${response.status}`,
-        code: errorBody.code || 'HTTP_ERROR',
-        status: response.status,
-        details: errorBody.details,
+        const parsed: unknown = JSON.parse(text)
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) errorBody = parsed
+      } catch { /* Non-JSON HTTP errors retain their original response text. */ }
+      const failure = new WeavzError({
+        message: typeof errorBody.error === 'string' ? errorBody.error : text || `HTTP ${response.status}`,
+        code: typeof errorBody.code === 'string' ? errorBody.code : 'HTTP_ERROR',
+        status: response.status, details: errorBody.details,
       })
-
-      const is429 = response.status === 429
-      const is5xx = response.status >= 500 && response.status < 600
-      const shouldRetry = is429 || (is5xx && isIdempotent)
-
-      if (!shouldRetry || attempt >= this.maxRetries) {
-        throw lastError
-      }
-
-      // Calculate backoff delay
-      const retryAfter = response.headers.get('Retry-After')
-      let delay: number
-      if (retryAfter) {
-        const parsed = Number(retryAfter)
-        if (!Number.isNaN(parsed)) {
-          delay = parsed * 1000
-        } else {
-          // RFC 7231 date format
-          const date = new Date(retryAfter).getTime()
-          delay = Math.max(0, date - Date.now())
-        }
-      } else {
-        // Exponential backoff: 500ms, 1000ms, 2000ms, ...
-        delay = 500 * Math.pow(2, attempt)
-      }
-
-      this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: lastError })
-      await new Promise((resolve) => setTimeout(resolve, delay))
+      const shouldRetry = response.status === 429 || (response.status >= 500 && response.status < 600 && isIdempotent)
+      if (!shouldRetry || attempt >= this.maxRetries) throw failure
+      const delay = retryDelay(attempt, response.headers.get('Retry-After'))
+      this.onRetry?.({ attempt: attempt + 1, delayMs: delay, error: failure })
+      await retrySleep(delay, signal)
     }
-
-    // Should not reach here, but satisfy TypeScript
-    throw lastError!
   }
+}
+
+function requestAbortError(signal: AbortSignal): WeavzError {
+  return new WeavzError({ message: 'Request aborted', code: 'ABORTED', status: 0, details: signal.reason })
+}
+
+function retryDelay(attempt: number, retryAfter?: string | null): number {
+  const fallback = Math.min(500 * 2 ** attempt, 60_000)
+  if (!retryAfter?.trim()) return fallback
+  const seconds = Number(retryAfter)
+  const parsed = Number.isFinite(seconds) ? seconds * 1000 : Date.parse(retryAfter) - Date.now()
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.min(parsed, 60_000) : fallback
+}
+
+function retrySleep(delay: number, signal?: AbortSignal): Promise<void> {
+  if (signal?.aborted) return Promise.reject(requestAbortError(signal))
+  return new Promise((resolve, reject) => {
+    const onAbort = () => { clearTimeout(timer); signal?.removeEventListener('abort', onAbort); reject(requestAbortError(signal!)) }
+    const timer = setTimeout(() => { signal?.removeEventListener('abort', onAbort); resolve() }, delay)
+    signal?.addEventListener('abort', onAbort, { once: true })
+  })
+}
+
+async function waitForResult<T>(poll: (signal: AbortSignal) => Promise<T>, complete: (result: T) => boolean, options: WaitOptions | undefined, code: string, message: string): Promise<T> {
+  const timeoutMs = options?.timeoutMs ?? 120_000
+  const intervalMs = options?.intervalMs ?? 1000
+  for (const [name, value] of Object.entries({ timeoutMs, intervalMs })) {
+    if (!Number.isSafeInteger(value) || value <= 0 || value > 2_147_483_647) throw new TypeError(`${name} must be a positive integer of at most 2147483647 milliseconds`)
+  }
+  const controller = new AbortController()
+  const onAbort = () => controller.abort(options?.signal?.reason)
+  if (options?.signal?.aborted) throw requestAbortError(options.signal)
+  options?.signal?.addEventListener('abort', onAbort, { once: true })
+  let timedOut = false
+  const timeout = setTimeout(() => { timedOut = true; controller.abort() }, timeoutMs)
+  try {
+    while (true) {
+      const result = await poll(controller.signal)
+      if (complete(result)) return result
+      await retrySleep(intervalMs, controller.signal)
+    }
+  } catch (error) {
+    if (timedOut && !options?.signal?.aborted) throw new WeavzError({ message, code, status: 408 })
+    throw error
+  } finally {
+    clearTimeout(timeout)
+    options?.signal?.removeEventListener('abort', onAbort)
+  }
+}
+
+/** Open a short-lived Hosted Connect URL in a browser without creating an API-key client. */
+export async function openConnectPopup(options: { connectUrl: string }): Promise<{ connectionId: string; integrationName: string; externalId: string }> {
+  if (typeof window === 'undefined') throw new WeavzError({ message: 'The popup helper requires a browser', code: 'BROWSER_REQUIRED', status: 0 })
+  const connectUrl = new URL(options.connectUrl)
+  if (!['http:', 'https:'].includes(connectUrl.protocol)) throw new TypeError('connectUrl must use HTTP(S)')
+  const popup = window.open(connectUrl.toString(), 'weavz-connect', 'width=500,height=600,popup=yes')
+  if (!popup) throw new WeavzError({ message: 'The connection popup was blocked. Allow popups or open the connect URL directly.', code: 'POPUP_BLOCKED', status: 0 })
+
+  return new Promise((resolve, reject) => {
+    let closeTimer: ReturnType<typeof setTimeout> | undefined
+    const cleanup = () => {
+      clearInterval(interval)
+      if (closeTimer) clearTimeout(closeTimer)
+      window.removeEventListener('message', handler)
+    }
+    const handler = (event: MessageEvent) => {
+      if (event.source !== popup || event.origin !== connectUrl.origin || event.data?.type !== 'weavz-connect-result') return
+      if (event.data.status === 'error') {
+        cleanup()
+        reject(new Error(event.data.error || 'Connection failed'))
+        return
+      }
+      if (event.data.status !== 'success' || !['connectionId', 'integrationName', 'externalId'].every(key => typeof event.data[key] === 'string' && event.data[key].length > 0)) return
+      cleanup()
+      resolve({ connectionId: event.data.connectionId, integrationName: event.data.integrationName, externalId: event.data.externalId })
+    }
+    const interval = setInterval(() => {
+      if (!popup.closed) return
+      clearInterval(interval)
+      // Give a final postMessage time to arrive after the popup closes.
+      closeTimer = setTimeout(() => { cleanup(); reject(new Error('Popup closed before completing')) }, 3000)
+    }, 500)
+    window.addEventListener('message', handler)
+  })
 }

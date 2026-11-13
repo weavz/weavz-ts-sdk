@@ -1,24 +1,13 @@
-/**
- * SDK Integration Tests
- *
- * Runs against a live local Node.js API server (http://localhost:3000).
- * Requires: Docker (Postgres, Redis, MinIO) + running `npm run dev:node`.
- *
- * Bootstrap: creates a user via BetterAuth sign-up, creates an org,
- * then creates an API key to use for all subsequent SDK tests.
- */
+/** Customer API integration tests. Opt in with TEST_API_URL and an organization API key in TEST_API_KEY. */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { WeavzClient, WeavzError } from '../src/index'
 
-const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
-const TRUSTED_TEST_ORIGIN = process.env.TEST_DASHBOARD_ORIGIN || 'http://localhost:3001'
-const SERVICE_KEY = 'local-test-service-key-12345'
-let TEST_ORG_ID = ''
+describe.runIf(Boolean(process.env.TEST_API_URL && process.env.TEST_API_KEY))('Customer API integration', () => {
 
+const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
 let client: WeavzClient
 let apiKeyPlain: string
-let apiKeyId: string
 
 // Track resources for cleanup
 let createdWorkspaceId: string
@@ -31,54 +20,10 @@ let createdBearerMcpServerId: string
 let createdApprovalWorkspaceId: string
 let createdApprovalPolicyId: string
 
-async function serviceKeyRequest(method: string, path: string, body?: unknown) {
-  const headers: Record<string, string> = {
-    'X-Service-Key': SERVICE_KEY,
-    'X-Org-ID': TEST_ORG_ID,
-    'Content-Type': 'application/json',
-    Origin: TRUSTED_TEST_ORIGIN,
-  }
-  const res = await fetch(`${BASE_URL}${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  })
-  return res
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// Bootstrap
-// ────────────────────────────────────────────────────────────────────────────
-
 beforeAll(async () => {
-  // Verify server is reachable
-  const health = await fetch(`${BASE_URL}/health`)
-  if (!health.ok) throw new Error('API server not reachable at ' + BASE_URL)
-
-  // Create a test org
-  const orgRes = await fetch(`${BASE_URL}/api/v1/orgs`, {
-    method: 'POST',
-    headers: { 'X-Service-Key': SERVICE_KEY, 'Content-Type': 'application/json', Origin: TRUSTED_TEST_ORIGIN },
-    body: JSON.stringify({ name: 'SDK Test Org', slug: `sdk-test-${Date.now()}` }),
-  })
-  if (!orgRes.ok) throw new Error(`Failed to create org: ${orgRes.status} ${await orgRes.text()}`)
-  const orgData = (await orgRes.json()) as { org: { id: string } }
-  TEST_ORG_ID = orgData.org.id
-
-  // Create an API key using the service key
-  const res = await serviceKeyRequest('POST', '/api/v1/api-keys', {
-    name: 'sdk-test-key',
-  })
-  if (!res.ok) {
-    const err = await res.text()
-    throw new Error(`Failed to create API key: ${res.status} ${err}`)
-  }
-  const data = (await res.json()) as { apiKey: { id: string }; plainKey: string }
-  apiKeyPlain = data.plainKey
-  apiKeyId = data.apiKey.id
-
-  // Initialize SDK client
+  apiKeyPlain = process.env.TEST_API_KEY!
   client = new WeavzClient({ apiKey: apiKeyPlain, baseUrl: BASE_URL })
+  await client.workspaces.list({ limit: 1 })
 }, 15000)
 
 afterAll(async () => {
@@ -110,12 +55,7 @@ afterAll(async () => {
   try {
     if (createdWorkspaceId) await client.workspaces.delete(createdWorkspaceId)
   } catch {}
-  try {
-    if (apiKeyId) {
-      // Delete the test API key using service key (can't delete own key with itself)
-      await serviceKeyRequest('DELETE', `/api/v1/api-keys/${apiKeyId}`)
-    }
-  } catch {}
+
 })
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -764,4 +704,6 @@ describe('Error Handling', () => {
       client.workspaces.create({ name: '', slug: '' })
     ).rejects.toThrow(WeavzError)
   })
+})
+
 })

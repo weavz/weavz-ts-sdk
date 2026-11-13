@@ -1,4 +1,4 @@
-import type { IntegrationMetadata, McpServerTool } from './generated'
+import type { Connection, IntegrationMetadata, McpServerTool } from './generated'
 import type { ActionExecuteResult, WeavzClient } from './client'
 
 export type JsonSchema = {
@@ -26,6 +26,8 @@ export interface WeavzActionToolOptions {
   connectionExternalId?: string
   endUserId?: string
   partialIds?: string[]
+  authMethodKey?: string
+  inputDefaults?: Record<string, unknown>
   name?: string
   description?: string
   metadata?: IntegrationMetadata
@@ -44,6 +46,7 @@ type IntegrationProperty = {
   required?: boolean
   refreshers?: string[]
   options?: { options?: Array<{ label?: string; value: unknown }> }
+  properties?: Record<string, IntegrationProperty>
 }
 
 function safeToolName(name: string): string {
@@ -54,7 +57,7 @@ function safeToolName(name: string): string {
     .slice(0, 64)
 }
 
-function mapPropertyType(type: string | undefined): string {
+function mapPropertyType(type: string | undefined): string | string[] {
   switch (type) {
     case 'NUMBER':
       return 'number'
@@ -64,8 +67,12 @@ function mapPropertyType(type: string | undefined): string {
     case 'STATIC_MULTI_SELECT_DROPDOWN':
     case 'MULTI_SELECT_DROPDOWN':
       return 'array'
-    case 'OBJECT':
     case 'JSON':
+      return ['object', 'array', 'string', 'number', 'boolean', 'null']
+    case 'FILE':
+      return ['string', 'object']
+    case 'DYNAMIC':
+    case 'OBJECT':
     case 'CUSTOM_AUTH':
     case 'OAUTH2':
       return 'object'
@@ -88,8 +95,15 @@ export function propsToJsonSchema(props: Record<string, IntegrationProperty> = {
       schema.description = `${schema.description}. Depends on: ${prop.refreshers.join(', ')}.`
     }
 
-    if (Array.isArray(prop.options?.options)) {
-      schema.enum = prop.options.options.map(option => option.value)
+    const values = prop.options?.options?.length ? prop.options.options.map(option => option.value) : undefined
+    if (schema.type === 'array') {
+      // Generic arrays may contain objects or primitive values. Static choices
+      // constrain each selected item, not the entire array value.
+      schema.items = values ? enumSchema(values) : prop.properties ? propsToJsonSchema(prop.properties) : {}
+    } else if (values) {
+      Object.assign(schema, enumSchema(values))
+    } else if (schema.type === 'object' && prop.properties) {
+      Object.assign(schema, propsToJsonSchema(prop.properties))
     }
 
     properties[name] = schema
@@ -117,8 +131,9 @@ export async function createActionTool(client: WeavzClient, options: WeavzAction
     integrationAlias: options.integrationAlias,
     execute: (input: Record<string, unknown>) => client.actions.execute(options.integrationName, options.actionName, {
       workspaceId: options.workspaceId,
-      input,
+      input: { ...options.inputDefaults, ...Object.fromEntries(Object.entries(input).filter(([, value]) => value !== undefined)) },
       connectionExternalId: options.connectionExternalId,
+      authMethodKey: options.authMethodKey,
       endUserId: options.endUserId,
       integrationAlias: options.integrationAlias,
       partialIds: options.partialIds,
@@ -133,6 +148,7 @@ export async function createMcpServerActionTools(client: WeavzClient, serverId: 
   }
 
   const metadataByIntegration = new Map<string, IntegrationMetadata>()
+  const connectionsById = new Map<string, Connection>()
   const actionTools: WeavzActionTool[] = []
 
   for (const tool of tools as McpServerTool[]) {
@@ -140,11 +156,24 @@ export async function createMcpServerActionTools(client: WeavzClient, serverId: 
     if (!metadataByIntegration.has(tool.integrationName)) {
       metadataByIntegration.set(tool.integrationName, (await client.integrations.get(tool.integrationName)).integration)
     }
+    let connection: Connection | undefined
+    if (tool.connectionId) {
+      if (!connectionsById.has(tool.connectionId)) connectionsById.set(tool.connectionId, (await client.connections.get(tool.connectionId)).connection)
+      connection = connectionsById.get(tool.connectionId)!
+      if (connection.integrationName !== tool.integrationName) throw new Error('A tool connection must match its integration')
+      if (!server.endUserId && connection.endUserId) throw new Error('An end-user connection requires an MCP server bound to that end user')
+      if (connection.workspaceId && connection.workspaceId !== server.workspaceId) throw new Error('A tool connection must belong to the MCP server workspace')
+      if (server.endUserId && connection.endUserId && connection.endUserId !== server.endUserId) throw new Error('A tool connection must match the MCP server end user')
+    }
     actionTools.push(await createActionTool(client, {
       integrationName: tool.integrationName,
       actionName: tool.actionName,
       workspaceId: server.workspaceId,
       integrationAlias: tool.integrationAlias,
+      connectionExternalId: connection?.externalId,
+      authMethodKey: connection?.authMethodKey ?? undefined,
+      endUserId: server.endUserId ?? undefined,
+      inputDefaults: tool.inputDefaults ?? undefined,
       partialIds: (tool.partialIds || undefined) as string[] | undefined,
       name: `${tool.integrationAlias || tool.integrationName}__${tool.actionName}`,
       description: tool.description || undefined,
@@ -152,6 +181,7 @@ export async function createMcpServerActionTools(client: WeavzClient, serverId: 
     }))
   }
 
+  assertUniqueToolNames(actionTools)
   return actionTools
 }
 
@@ -161,6 +191,7 @@ export function toOpenAIResponsesTool(tool: WeavzActionTool) {
     name: tool.name,
     description: tool.description,
     parameters: tool.inputSchema,
+    strict: false,
   }
 }
 
@@ -171,6 +202,7 @@ export function toOpenAIChatTool(tool: WeavzActionTool) {
       name: tool.name,
       description: tool.description,
       parameters: tool.inputSchema,
+      strict: false,
     },
   }
 }
@@ -187,7 +219,7 @@ export function toGoogleFunctionDeclaration(tool: WeavzActionTool) {
   return {
     name: tool.name,
     description: tool.description,
-    parameters: tool.inputSchema,
+    parametersJsonSchema: tool.inputSchema,
   }
 }
 
@@ -199,6 +231,20 @@ function actionToolOutput(result: ActionExecuteResult): unknown {
   return 'output' in result ? result.output : result
 }
 
+function enumSchema(values: unknown[]): Record<string, unknown> {
+  const types = new Set(values.map(value => value === null ? 'null' : typeof value))
+  const type = types.size === 1 ? [...types][0] : undefined
+  return { enum: values, ...(type && ['string', 'number', 'boolean', 'null'].includes(type) ? { type } : {}) }
+}
+
+function assertUniqueToolNames(tools: WeavzActionTool[]) {
+  const names = new Set<string>()
+  for (const tool of tools) {
+    if (names.has(tool.name)) throw new Error(`Duplicate tool name: ${tool.name}`)
+    names.add(tool.name)
+  }
+}
+
 export function toVercelAIToolSet(
   tools: WeavzActionTool[],
   helpers?: {
@@ -206,6 +252,7 @@ export function toVercelAIToolSet(
     jsonSchema?: (schema: JsonSchema) => unknown
   },
 ) {
+  assertUniqueToolNames(tools)
   return Object.fromEntries(tools.map(tool => [
     tool.name,
     helpers?.tool
@@ -232,6 +279,7 @@ export function toLangChainToolLike(tool: WeavzActionTool) {
 }
 
 export function createToolExecutor(tools: WeavzActionTool[]) {
+  assertUniqueToolNames(tools)
   const byName = new Map(tools.map(tool => [tool.name, tool]))
   return async (name: string, input: Record<string, unknown>) => {
     const tool = byName.get(name)

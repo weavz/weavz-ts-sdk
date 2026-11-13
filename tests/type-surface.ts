@@ -111,3 +111,19 @@ client.integrations.resolveOptions('http', {
   actionName: 'send_request',
   propertyName: 'not_real',
 })
+
+// A zero-argument connection list is the paginated collection, not a single connection.
+client.connections.list().then(result => {
+  result.connections satisfies import('../src').Connection[]
+  result.total satisfies number
+  // @ts-expect-error list() does not return a single connection
+  result.connection
+})
+client.connections.list('00000000-0000-0000-0000-000000000000').then(result => {
+  result.connection satisfies import('../src').Connection
+})
+client.mcpServers.executeCode('00000000-0000-0000-0000-000000000000', 'return 1').then(result => {
+  result.structuredContent satisfies Record<string, unknown> | undefined
+})
+const options: import('../src').WaitOptions = { timeoutMs: 1000, signal: new AbortController().signal }
+client.connect.wait('example', options)

@@ -1,65 +1,22 @@
-/**
- * SDK Edge Case & Negative Tests
- *
- * Tests validation errors, duplicate handling, boundary conditions,
- * authorization edge cases, and resource lifecycle correctness.
- *
- * Runs against a live local Node.js API server (http://localhost:3000).
- * Requires: Docker (Postgres, Redis, MinIO) + running `npm run dev:node`.
- */
+/** Customer API integration tests. Opt in with TEST_API_URL and an organization API key in TEST_API_KEY. */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { WeavzClient, WeavzError } from '../src/index'
 
-const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
-const TRUSTED_TEST_ORIGIN = process.env.TEST_DASHBOARD_ORIGIN || 'http://localhost:3001'
-const SERVICE_KEY = 'local-test-service-key-12345'
-let TEST_ORG_ID = ''
+describe.runIf(Boolean(process.env.TEST_API_URL && process.env.TEST_API_KEY))('Customer API integration', () => {
 
+const BASE_URL = process.env.TEST_API_URL || 'http://localhost:3000'
 let client: WeavzClient
 let apiKeyPlain: string
-let apiKeyId: string
 
 // Track resources for cleanup
 const cleanupStack: Array<() => Promise<void>> = []
 const RAND = Date.now().toString(36)
 
-async function serviceKeyRequest(method: string, path: string, body?: unknown) {
-  return fetch(`${BASE_URL}${path}`, {
-    method,
-    headers: {
-      'X-Service-Key': SERVICE_KEY,
-      'X-Org-ID': TEST_ORG_ID,
-      'Content-Type': 'application/json',
-      Origin: TRUSTED_TEST_ORIGIN,
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  })
-}
-
 beforeAll(async () => {
-  const health = await fetch(`${BASE_URL}/health`)
-  if (!health.ok) throw new Error('API server not reachable at ' + BASE_URL)
-
-  // Create a test org
-  const orgRes = await fetch(`${BASE_URL}/api/v1/orgs`, {
-    method: 'POST',
-    headers: { 'X-Service-Key': SERVICE_KEY, 'Content-Type': 'application/json', Origin: TRUSTED_TEST_ORIGIN },
-    body: JSON.stringify({ name: 'Edge Case Org', slug: `edge-test-${Date.now()}` }),
-  })
-  if (!orgRes.ok) throw new Error(`Failed to create org: ${orgRes.status} ${await orgRes.text()}`)
-  const orgData = (await orgRes.json()) as { org: { id: string } }
-  TEST_ORG_ID = orgData.org.id
-
-  const res = await serviceKeyRequest('POST', '/api/v1/api-keys', {
-    name: 'edge-case-test-key',
-  })
-  if (!res.ok) throw new Error(`Failed to create API key: ${res.status} ${await res.text()}`)
-  const data = (await res.json()) as { apiKey: { id: string }; plainKey: string }
-  apiKeyPlain = data.plainKey
-  apiKeyId = data.apiKey.id
-
+  apiKeyPlain = process.env.TEST_API_KEY!
   client = new WeavzClient({ apiKey: apiKeyPlain, baseUrl: BASE_URL })
+  await client.workspaces.list({ limit: 1 })
 }, 15000)
 
 afterAll(async () => {
@@ -67,9 +24,7 @@ afterAll(async () => {
   for (const fn of cleanupStack.reverse()) {
     try { await fn() } catch {}
   }
-  try {
-    if (apiKeyId) await serviceKeyRequest('DELETE', `/api/v1/api-keys/${apiKeyId}`)
-  } catch {}
+
 })
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -794,13 +749,7 @@ describe('Client Configuration', () => {
 
   it('should handle baseUrl without protocol gracefully', async () => {
     // This should fail but not crash
-    const c = new WeavzClient({ apiKey: apiKeyPlain, baseUrl: 'localhost:3000' })
-    try {
-      await c.integrations.list()
-    } catch (e) {
-      // Expected to fail - fetch requires protocol
-      expect(e).toBeTruthy()
-    }
+    expect(() => new WeavzClient({ apiKey: apiKeyPlain, baseUrl: 'localhost:3000' })).toThrow(TypeError)
   })
 
   it('should work with custom request method', async () => {
@@ -808,4 +757,6 @@ describe('Client Configuration', () => {
     const result = await client.request<{ status: string }>('/health')
     expect(result.status).toBe('healthy')
   })
+})
+
 })

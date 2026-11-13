@@ -26,7 +26,7 @@ Weavz gives your product one API for connection management, end-user identity, h
 npm install @weavz-io/sdk
 ```
 
-The package ships ESM, CommonJS, and TypeScript declarations.
+The package ships ESM, CommonJS, and TypeScript declarations. Node.js 18 or later is supported; browser and edge clients need the standard Fetch and AbortController APIs. Keep your API key on a trusted backend. Send a short-lived Hosted Connect URL to the browser when connecting an end user.
 
 ```typescript
 import { WeavzClient } from '@weavz-io/sdk'
@@ -108,12 +108,21 @@ const client = new WeavzClient({
 | --- | --- | --- | --- |
 | `apiKey` | Yes | - | Weavz API key with the `wvz_` prefix |
 | `baseUrl` | No | `https://platform.weavz.io` | API base URL |
-| `timeout` | No | `310000` | Request timeout in milliseconds |
-| `maxRetries` | No | `2` | Retry count for transient failures |
+| `timeout` | No | `310000` | Timeout per attempt in milliseconds, including the response body |
+| `maxRetries` | No | `2` | Retry count for transient reads and throttled requests. Other mutations are not replayed after network or server failures. |
 | `fetch` | No | global `fetch` | Custom fetch implementation |
 | `headers` | No | `{}` | Extra headers sent with every request |
 | `userAgent` | No | - | User-Agent header value |
 | `onRetry` | No | - | Callback before retryable requests are retried |
+
+Retries use exponential backoff and honor `Retry-After`, with a maximum delay of 60 seconds. A caller's abort signal stops the current request and any retry delay. Invalid JSON responses raise `WeavzError` with code `INVALID_RESPONSE`; caller cancellation uses `ABORTED` and request timeouts use `TIMEOUT`.
+
+```typescript
+const controller = new AbortController()
+const pending = client.request('/api/v1/workspaces', { signal: controller.signal })
+// Call controller.abort() when the caller no longer needs the result.
+const workspaces = await pending
+```
 
 ## Core Product Flows
 
@@ -143,7 +152,7 @@ Read more:
 
 ### Hosted Connect
 
-Create a hosted connect session when an end user needs to connect Slack, Google, GitHub, or another integration account.
+On your backend, create a Hosted Connect session when an end user needs to connect Slack, Google, GitHub, or another integration account. Return its short-lived `connectUrl` to the browser.
 
 ```typescript
 const session = await client.connect.createToken({
@@ -154,11 +163,14 @@ const session = await client.connect.createToken({
   endUserId: 'user_123',
 })
 
-// Browser apps can use the popup helper.
-const connected = await client.connect.popup({
-  token: session.token,
-  connectUrl: session.connectUrl,
-})
+```
+
+In the browser, open the URL with the standalone helper. No API key is needed:
+
+```typescript
+import { openConnectPopup } from '@weavz-io/sdk'
+
+const connected = await openConnectPopup({ connectUrl })
 
 console.log(connected.connectionId)
 ```
@@ -235,7 +247,8 @@ const { bearerToken } = await client.mcpServers.createBearerToken(server.id, {
   expiresIn: 60 * 60 * 24 * 30,
 })
 
-console.log(mcpEndpoint, bearerToken)
+// Store bearerToken securely and provide it only to the intended AI client.
+console.log(mcpEndpoint)
 ```
 
 You can also run Code Mode directly through the SDK:
@@ -394,7 +407,11 @@ Plain strings still work for future or custom integrations through the dynamic f
 
 ## AI Framework Adapters
 
-MCP is the primary hosted agent access path. The SDK also includes small dependency-free adapters that convert configured workspace actions into common AI tool shapes.
+MCP is the primary hosted agent access path. The SDK also includes dependency-free adapters that convert configured workspace actions into common AI tool shapes.
+
+Adapter tools execute through the action API using your API key. Configure Human Gates for the `sdk` source when using these adapters. Use the MCP endpoint when you need MCP-specific approval policies. Tools created from an MCP server preserve its end-user binding, assigned credential, input defaults, integration alias, and partials. A conflicting credential context or duplicate dispatch name is rejected instead of selecting another account or action.
+
+The OpenAI mappings explicitly use `strict: false` to preserve optional fields and arbitrary JSON inputs from integration metadata. Google function declarations use `parametersJsonSchema` so numeric choices, arrays, nested objects and JSON unions retain their meaning. If you read the former `parameters` field directly, update that access to `parametersJsonSchema`.
 
 ```typescript
 import {
@@ -459,9 +476,11 @@ npm install
 npm run build
 npm run typecheck
 npm run test:types
+npm run test:unit
+npm test
 ```
 
-Live integration tests require a running Weavz API stack.
+The default test run executes offline unit tests and skips live integration tests. To run integration tests, set `TEST_API_URL` and `TEST_API_KEY` for a disposable test organization with an organization-wide API key. These tests create and delete workspaces, connections, MCP servers, and temporary keys; they do not provision an organization or change your supplied API key.
 
 ## License
 
