@@ -917,7 +917,7 @@ export async function openConnectPopup(options: { connectUrl: string }): Promise
   if (typeof window === 'undefined') throw new WeavzError({ message: 'The popup helper requires a browser', code: 'BROWSER_REQUIRED', status: 0 })
   const connectUrl = new URL(options.connectUrl)
   if (!['http:', 'https:'].includes(connectUrl.protocol)) throw new TypeError('connectUrl must use HTTP(S)')
-  const popup = window.open(connectUrl.toString(), 'weavz-connect', 'width=500,height=600,popup=yes')
+  const popup = window.open(connectUrl.toString(), '_blank', 'width=500,height=600,popup=yes')
   if (!popup) throw new WeavzError({ message: 'The connection popup was blocked. Allow popups or open the connect URL directly.', code: 'POPUP_BLOCKED', status: 0 })
 
   return new Promise((resolve, reject) => {

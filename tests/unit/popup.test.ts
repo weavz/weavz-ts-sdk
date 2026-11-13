@@ -19,6 +19,33 @@ describe('hosted connect popup', () => {
     send()
     await expect(promise).resolves.toMatchObject({ connectionId: 'connection' })
   })
+  it('keeps overlapping connect sessions in separate popups and promises', async () => {
+    vi.useFakeTimers()
+    const { send, listeners } = browser()
+    const namedPopups = new Map<string, { closed: boolean }>()
+    const popups: Array<{ closed: boolean }> = []
+    vi.mocked(window.open).mockImplementation((_url, target) => {
+      const popup = target === '_blank' ? { closed: false } : namedPopups.get(target!) ?? { closed: false }
+      if (target !== '_blank') namedPopups.set(target!, popup)
+      popups.push(popup)
+      return popup as Window
+    })
+    const firstFinished = vi.fn()
+    const first = openConnectPopup({ connectUrl: url }).then(value => { firstFinished(); return value })
+    const secondUrl = 'https://platform.example.com/connect?token=second-session'
+    const second = openConnectPopup({ connectUrl: secondUrl })
+    const secondResult = { ...result, connectionId: 'second-connection', externalId: 'second-customer' }
+
+    send(secondResult, 'https://platform.example.com', popups[1])
+    await expect(second).resolves.toMatchObject({ connectionId: 'second-connection', externalId: 'second-customer' })
+    expect(firstFinished).not.toHaveBeenCalled()
+    expect(listeners.size).toBe(1)
+
+    send(result, 'https://platform.example.com', popups[0])
+    await expect(first).resolves.toMatchObject({ connectionId: 'connection', externalId: 'customer' })
+    expect(listeners.size).toBe(0)
+    expect(vi.getTimerCount()).toBe(0)
+  })
   it('fails promptly when used outside a browser', async () => {
     const client = new WeavzClient({ apiKey: 'wvz_example' })
     await expect(client.connect.popup({ token: 'example', connectUrl: url })).rejects.toMatchObject({ code: 'BROWSER_REQUIRED' })

@@ -121,6 +121,8 @@ export async function createActionTool(client: WeavzClient, options: WeavzAction
   const name = safeToolName(options.name || `${options.integrationAlias || options.integrationName}__${options.actionName}`)
   const description = options.description || action.description || `${metadata.displayName}: ${action.displayName || options.actionName}`
   const inputSchema = propsToJsonSchema(action.props || {})
+  const inputDefaults = options.inputDefaults ?? {}
+  inputSchema.required = inputSchema.required?.filter(key => !Object.prototype.hasOwnProperty.call(inputDefaults, key) || inputDefaults[key] === undefined)
 
   return {
     name,

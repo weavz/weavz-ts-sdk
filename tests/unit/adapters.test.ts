@@ -62,6 +62,7 @@ describe('action execution context', () => {
   it('preserves MCP server end user, explicit credential, auth method, defaults, alias and partials', async () => {
     const { client } = mockClient()
     const tools = await createMcpServerActionTools(client, 'server')
+    expect(tools[0].inputSchema.required).toEqual([])
     const result = await tools[0].execute({ text: 'caller' })
     expect(await tools[0].execute({ text: undefined })).toMatchObject({ output: { input: { text: 'default' } } })
     expect(result).toMatchObject({ output: { workspaceId: 'workspace', endUserId: 'customer', connectionExternalId: 'selected-account', authMethodKey: 'api_key', integrationAlias: 'support', partialIds: ['partial'], input: { channel: 'support', text: 'caller' } } })
@@ -88,6 +89,34 @@ describe('action execution context', () => {
     const { client } = mockClient()
     const action = await createActionTool(client, { integrationName: 'example', actionName: 'send', workspaceId: 'workspace', connectionExternalId: 'selected', endUserId: 'customer', authMethodKey: 'api_key', inputDefaults: { channel: 'support' }, metadata: metadata as never })
     expect(await action.execute({ text: 'hello' })).toMatchObject({ output: { input: { channel: 'support', text: 'hello' }, connectionExternalId: 'selected', endUserId: 'customer', authMethodKey: 'api_key' } })
+  })
+
+  it('requires only metadata inputs not supplied by configured defaults', async () => {
+    const { client } = mockClient()
+    const actionMetadata = {
+      ...metadata,
+      actions: { send: { props: {
+        text: { type: 'SHORT_TEXT', required: true },
+        channel: { type: 'SHORT_TEXT', required: true },
+        count: { type: 'NUMBER', required: true },
+        active: { type: 'CHECKBOX', required: true },
+        json: { type: 'JSON', required: true },
+        unset: { type: 'SHORT_TEXT', required: true },
+        inherited: { type: 'SHORT_TEXT', required: true },
+      } } },
+    }
+    const inputDefaults = Object.assign(Object.create({ inherited: 'not-an-own-default' }), {
+      text: 'configured-value', channel: '', count: 0, active: false, json: null, unset: undefined,
+    })
+    const action = await createActionTool(client, { integrationName: 'example', actionName: 'send', workspaceId: 'workspace', inputDefaults, metadata: actionMetadata as never })
+
+    expect(action.inputSchema.required).toEqual(['unset', 'inherited'])
+    expect(Object.keys(action.inputSchema.properties!)).toEqual(Object.keys(actionMetadata.actions.send.props))
+    expect(JSON.stringify(action.inputSchema)).not.toContain('configured-value')
+    expect(Object.values(actionMetadata.actions.send.props).every(prop => prop.required)).toBe(true)
+    expect(await action.execute({ text: 'caller', channel: undefined, unset: 'supplied', inherited: 'supplied' })).toMatchObject({
+      output: { input: { text: 'caller', channel: '', count: 0, active: false, json: null, unset: 'supplied', inherited: 'supplied' } },
+    })
   })
 })
 
