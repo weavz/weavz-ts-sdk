@@ -46,7 +46,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-          registry-url: https://registry.npmjs.org
+
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11.21.1
 
       - name: Validate release request
         run: |
@@ -98,15 +100,8 @@ jobs:
 
       - name: Publish to npm
         if: inputs.dry_run == false
-        run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "NPM_TOKEN is required for npm publishing"
-            exit 1
-          fi
-
-          npm publish --access public --provenance --tag "$NPM_TAG"
+        run: npm publish --access public --provenance --tag "$NPM_TAG"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TAG: ${{ inputs.npm_tag }}
 
       - name: Tag release
