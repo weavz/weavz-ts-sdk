@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { WeavzClient, WeavzError } from '../src'
+import { WeavzClient, WeavzError } from '../../src'
 
 const library = { workspaceId: '11111111-1111-4111-8111-111111111111', endUserId: 'customer/alice@example.test' }
 function fixture(body: unknown = {}, status = 200) {

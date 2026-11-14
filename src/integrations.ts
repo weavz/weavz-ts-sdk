@@ -21989,7 +21989,7 @@ export interface ComplyadvantageUpdateCaseInput {
 export interface ComputerControlStartSessionInput {
   /** Omit to use the current computer for this end user and alias. */
   sessionId?: string
-  /** Seconds to reserve from your available computer time. Default 600; maximum 1800. Unused time is returned after the computer stops. */
+  /** Up to 600 seconds by default, adjusted to available computer time. An explicit duration must fit your available time; maximum 1800 seconds. Unused time is returned after the computer stops. */
   durationSeconds?: number
 }
 

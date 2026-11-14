@@ -997,6 +997,145 @@ export type EndUser = {
   updatedAt: string;
 };
 
+export type SkillLibrary = {
+  workspaceId: string;
+  scope?: "end_user" | "workspace";
+  /**
+   * Customer external end-user identity, required for a personal library. Shared workspace libraries do not have an owner selector.
+   */
+  endUserId?: string;
+};
+
+export type SkillMetadata = {
+  readonly id: string;
+  workspaceId: string;
+  scope: "end_user" | "workspace";
+  slug: string;
+  name: string;
+  description: string;
+  tags: Array<string>;
+  enabled: boolean;
+  readonly version: number;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+};
+
+export type Skill = SkillMetadata & {
+  /**
+   * User-authored SKILL.md instructions. Returned only by an explicit read or successful write. Reading does not grant app permissions or run actions.
+   */
+  markdown: string;
+};
+
+export type CreateSkillInput = SkillLibrary & {
+  slug: string;
+  name: string;
+  description?: string;
+  /**
+   * At most 64 KiB of UTF-8 encoded instructions.
+   */
+  markdown: string;
+  tags?: Array<string>;
+  enabled?: boolean;
+};
+
+export type UpdateSkillInput = SkillLibrary & {
+  expectedVersion: number;
+  slug?: string;
+  name?: string;
+  description?: string;
+  /**
+   * At most 64 KiB of UTF-8 encoded instructions.
+   */
+  markdown?: string;
+  tags?: Array<string>;
+  enabled?: boolean;
+};
+
+export type SkillResponse = {
+  skill: Skill;
+  permissions: {
+    canWrite: boolean;
+  };
+  /**
+   * Identifies the content as user-authored instructions, not authorization.
+   */
+  instructionNotice?: string;
+};
+
+/**
+ * Metadata only. Skill instructions require an explicit read.
+ */
+export type SkillListResponse = {
+  skills: Array<SkillMetadata>;
+  pagination: {
+    limit: number;
+    offset: number;
+    total: number;
+  };
+  permissions: {
+    canWrite: boolean;
+  };
+};
+
+export type SkillMetadataWritable = {
+  workspaceId: string;
+  scope: "end_user" | "workspace";
+  slug: string;
+  name: string;
+  description: string;
+  tags: Array<string>;
+  enabled: boolean;
+};
+
+export type SkillWritable = SkillMetadataWritable & {
+  /**
+   * User-authored SKILL.md instructions. Returned only by an explicit read or successful write. Reading does not grant app permissions or run actions.
+   */
+  markdown: string;
+};
+
+export type SkillResponseWritable = {
+  skill: SkillWritable;
+  permissions: {
+    canWrite: boolean;
+  };
+  /**
+   * Identifies the content as user-authored instructions, not authorization.
+   */
+  instructionNotice?: string;
+};
+
+/**
+ * Metadata only. Skill instructions require an explicit read.
+ */
+export type SkillListResponseWritable = {
+  skills: Array<SkillMetadataWritable>;
+  pagination: {
+    limit: number;
+    offset: number;
+    total: number;
+  };
+  permissions: {
+    canWrite: boolean;
+  };
+};
+
+/**
+ * Workspace containing the library. The API key must have access.
+ */
+export type SkillWorkspace = string;
+
+/**
+ * Personal library or shared workspace instructions.
+ */
+export type SkillScope = "end_user" | "workspace";
+
+/**
+ * Customer external end-user identity. Required for the personal end_user scope. Never an internal end-user UUID.
+ */
+export type SkillEndUser = string;
+
 export type ListWorkspacesData = {
   body?: never;
   path?: never;
@@ -3954,3 +4093,305 @@ export type CreateComputerSessionAccessResponses = {
 
 export type CreateComputerSessionAccessResponse =
   CreateComputerSessionAccessResponses[keyof CreateComputerSessionAccessResponses];
+
+export type ListSkillsData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Workspace containing the library. The API key must have access.
+     */
+    workspaceId: string;
+    /**
+     * Personal library or shared workspace instructions.
+     */
+    scope?: "end_user" | "workspace";
+    /**
+     * Customer external end-user identity. Required for the personal end_user scope. Never an internal end-user UUID.
+     */
+    endUserId?: string;
+    query?: string;
+    tag?: string;
+    includeDisabled?: boolean;
+    limit?: number;
+    offset?: number;
+  };
+  url: "/api/v1/skills";
+};
+
+export type ListSkillsErrors = {
+  /**
+   * Invalid input or missing external end-user identity
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Skill or end user not found in this library
+   */
+  404: Error;
+  /**
+   * Stale expectedVersion or duplicate library slug
+   */
+  409: Error;
+  /**
+   * Rate limit or fixed technical library limit reached
+   */
+  429: Error;
+  /**
+   * Skill storage temporarily unavailable
+   */
+  503: Error;
+};
+
+export type ListSkillsError = ListSkillsErrors[keyof ListSkillsErrors];
+
+export type ListSkillsResponses = {
+  /**
+   * Skill metadata and pagination
+   */
+  200: SkillListResponse;
+};
+
+export type ListSkillsResponse = ListSkillsResponses[keyof ListSkillsResponses];
+
+export type CreateSkillData = {
+  body: CreateSkillInput;
+  path?: never;
+  query?: never;
+  url: "/api/v1/skills";
+};
+
+export type CreateSkillErrors = {
+  /**
+   * Invalid input or missing external end-user identity
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Skill or end user not found in this library
+   */
+  404: Error;
+  /**
+   * Stale expectedVersion or duplicate library slug
+   */
+  409: Error;
+  /**
+   * Rate limit or fixed technical library limit reached
+   */
+  429: Error;
+  /**
+   * Skill storage temporarily unavailable
+   */
+  503: Error;
+};
+
+export type CreateSkillError = CreateSkillErrors[keyof CreateSkillErrors];
+
+export type CreateSkillResponses = {
+  /**
+   * Skill created
+   */
+  201: SkillResponse;
+};
+
+export type CreateSkillResponse =
+  CreateSkillResponses[keyof CreateSkillResponses];
+
+export type DeleteSkillData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query: {
+    /**
+     * Workspace containing the library. The API key must have access.
+     */
+    workspaceId: string;
+    /**
+     * Personal library or shared workspace instructions.
+     */
+    scope?: "end_user" | "workspace";
+    /**
+     * Customer external end-user identity. Required for the personal end_user scope. Never an internal end-user UUID.
+     */
+    endUserId?: string;
+    expectedVersion: number;
+  };
+  url: "/api/v1/skills/{id}";
+};
+
+export type DeleteSkillErrors = {
+  /**
+   * Invalid input or missing external end-user identity
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Skill or end user not found in this library
+   */
+  404: Error;
+  /**
+   * Stale expectedVersion or duplicate library slug
+   */
+  409: Error;
+  /**
+   * Rate limit or fixed technical library limit reached
+   */
+  429: Error;
+  /**
+   * Skill storage temporarily unavailable
+   */
+  503: Error;
+};
+
+export type DeleteSkillError = DeleteSkillErrors[keyof DeleteSkillErrors];
+
+export type DeleteSkillResponses = {
+  /**
+   * Skill deleted
+   */
+  200: {
+    deleted: true;
+    id: string;
+  };
+};
+
+export type DeleteSkillResponse =
+  DeleteSkillResponses[keyof DeleteSkillResponses];
+
+export type ReadSkillData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query: {
+    /**
+     * Workspace containing the library. The API key must have access.
+     */
+    workspaceId: string;
+    /**
+     * Personal library or shared workspace instructions.
+     */
+    scope?: "end_user" | "workspace";
+    /**
+     * Customer external end-user identity. Required for the personal end_user scope. Never an internal end-user UUID.
+     */
+    endUserId?: string;
+  };
+  url: "/api/v1/skills/{id}";
+};
+
+export type ReadSkillErrors = {
+  /**
+   * Invalid input or missing external end-user identity
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Skill or end user not found in this library
+   */
+  404: Error;
+  /**
+   * Stale expectedVersion or duplicate library slug
+   */
+  409: Error;
+  /**
+   * Rate limit or fixed technical library limit reached
+   */
+  429: Error;
+  /**
+   * Skill storage temporarily unavailable
+   */
+  503: Error;
+};
+
+export type ReadSkillError = ReadSkillErrors[keyof ReadSkillErrors];
+
+export type ReadSkillResponses = {
+  /**
+   * Skill instructions and current version
+   */
+  200: SkillResponse;
+};
+
+export type ReadSkillResponse = ReadSkillResponses[keyof ReadSkillResponses];
+
+export type UpdateSkillData = {
+  body: UpdateSkillInput;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/skills/{id}";
+};
+
+export type UpdateSkillErrors = {
+  /**
+   * Invalid input or missing external end-user identity
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Skill or end user not found in this library
+   */
+  404: Error;
+  /**
+   * Stale expectedVersion or duplicate library slug
+   */
+  409: Error;
+  /**
+   * Rate limit or fixed technical library limit reached
+   */
+  429: Error;
+  /**
+   * Skill storage temporarily unavailable
+   */
+  503: Error;
+};
+
+export type UpdateSkillError = UpdateSkillErrors[keyof UpdateSkillErrors];
+
+export type UpdateSkillResponses = {
+  /**
+   * Skill updated with an incremented version
+   */
+  200: SkillResponse;
+};
+
+export type UpdateSkillResponse =
+  UpdateSkillResponses[keyof UpdateSkillResponses];

@@ -9,7 +9,7 @@
 
 Official TypeScript SDK for [Weavz](https://weavz.io), governed app access and execution infrastructure for SaaS and AI products.
 
-Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, Human Gates, input partials, Filesystem, State KV, Sandbox execution, and 1,000+ integrations.
+Weavz gives your product one API for connection management, end-user identity, hosted connect flows, action execution, triggers, MCP servers, approval rules, saved inputs, Filesystem, State KV, Sandbox execution, and 1,000+ integrations.
 
 ## Links
 
@@ -46,13 +46,13 @@ const client = new WeavzClient({
 - Tool Mode MCP servers with a small explicit tool list
 - Filesystem and State KV for durable files, checkpoints, cursors, and lightweight agent state
 - Sandbox workflows that run JavaScript, Python, or Shell through the runtime
-- Human Gates for approvals before sensitive actions run
-- Input partials for defaults, locked fields, and reusable action configuration
+- Approval rules for review before selected actions run
+- Saved inputs for reusable action values, with optional advanced defaults and locked fields
 - Triggers and webhooks that forward integration events into your product
 
 ## Quick Start
 
-This example creates a workspace, enables a built-in integration, and executes an action through the SDK.
+This example creates a workspace and writes a file to its shared Filesystem. Use end-user scope when files should be private to each user.
 
 ```typescript
 import { WeavzClient } from '@weavz-io/sdk'
@@ -67,17 +67,18 @@ const { workspace } = await client.workspaces.create({
 })
 
 await client.workspaces.addIntegration(workspace.id, {
-  integrationName: 'hash-encode',
-  alias: 'hash',
+  integrationName: 'storage',
+  alias: 'files',
+  connectionStrategy: 'fixed',
+  settings: { persistence: { scope: 'workspace' } },
 })
 
-const result = await client.actions.execute('hash-encode', 'hash', {
+const result = await client.actions.execute('storage', 'write_file', {
   workspaceId: workspace.id,
-  integrationAlias: 'hash',
+  integrationAlias: 'files',
   input: {
-    text: 'hello from weavz',
-    algorithm: 'sha256',
-    encoding: 'hex',
+    path: 'hello.txt',
+    content: 'Hello from Weavz',
   },
 })
 
@@ -259,12 +260,10 @@ You can also run Code Mode directly through the SDK:
 
 ```typescript
 const codeRun = await client.mcpServers.executeCode(server.id, `
-  const parsed = await weavz.datetime.parse_date({
-    dateString: "June 18, 2026 9am",
-    timezone: "America/New_York"
+  return await weavz.files.write_file({
+    path: "summary.json",
+    content: JSON.stringify({ status: "ready" })
   })
-
-  return { parsed }
 `)
 ```
 
@@ -279,7 +278,7 @@ Read more:
 - [MCP Tool Mode](https://weavz.io/docs/guides/mcp-tool-mode)
 - [Weavz MCP App](https://weavz.io/docs/guides/weavz-mcp-app)
 
-### Human Gates
+### Approval Rules
 
 Human Gates let you require approval before sensitive actions execute.
 
@@ -312,21 +311,23 @@ if ('approval' in guarded) {
 
 Read more:
 
-- [Human Gates guide](https://weavz.io/docs/guides/human-gates)
+- [Approval rules guide](https://weavz.io/docs/guides/human-gates)
 - [Approvals API reference](https://weavz.io/docs/api-reference/approvals)
 
-### Input Partials
+### Saved Inputs
 
-Input partials let you reuse defaults and lock enforced fields so agents or callers only provide the fields they should control.
+Saved inputs reuse action values. They are optional and manually selected by default; use advanced locking only when a field must not be overridden. SDK names remain `partials`.
 
 ```typescript
 const { partial } = await client.partials.create({
   workspaceId: workspace.id,
   integrationName: 'slack',
   actionName: 'send_channel_message',
-  name: 'Support channel default',
-  values: { channel: '#support' },
-  enforcedKeys: ['channel'],
+  integrationAlias: 'customer_slack',
+  name: 'Support channel',
+  values: { channel: 'C0123456789' },
+  enforcedKeys: [],
+  isDefault: false,
 })
 
 await client.actions.execute('slack', 'send_channel_message', {
@@ -429,6 +430,33 @@ const tools = await createMcpServerActionTools(client, server.id)
 const openaiTools = tools.map(toOpenAIResponsesTool)
 const anthropicTools = tools.map(toAnthropicTool)
 ```
+
+## Skills
+
+Skills store optional reusable task instructions. Search returns metadata; read a selected skill explicitly. Saving instructions does not execute them or grant app access.
+
+```typescript
+const library = {
+  workspaceId: '11111111-1111-4111-8111-111111111111',
+  endUserId: 'customer_123',
+} as const
+
+const created = await client.skills.create({
+  ...library,
+  slug: 'customer-call-brief',
+  name: 'Prepare a customer call brief',
+  markdown: '# Customer call brief\nSummarize the connected records and cite sources.',
+})
+const matches = await client.skills.search({ ...library, query: 'brief' })
+const selected = await client.skills.get(created.skill.id, library)
+await client.skills.update(selected.skill.id, {
+  ...library,
+  expectedVersion: selected.skill.version,
+  description: 'Prepare a sourced brief before a customer meeting.',
+})
+```
+
+For shared instructions, use `{ workspaceId, scope: 'workspace' }` and omit `endUserId`. Sharing requires creating a separate record; an existing skill's owner and scope are immutable. Updates and deletion require the current `expectedVersion` and return `SKILL_CONFLICT` for a stale version. See the [Skills guide](https://weavz.io/docs/guides/skills).
 
 ## Resource Map
 
