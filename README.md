@@ -414,7 +414,7 @@ Plain strings still work for future or custom integrations through the dynamic f
 
 MCP is the primary hosted agent access path. The SDK also includes dependency-free adapters that convert configured workspace actions into common AI tool shapes.
 
-Adapter tools execute through the action API using your API key. Configure Human Gates for the `sdk` source when using these adapters. Use the MCP endpoint when you need MCP-specific approval policies. Tools created from an MCP server preserve its end-user binding, assigned credential, input defaults, integration alias, and partials. A conflicting credential context or duplicate dispatch name is rejected instead of selecting another account or action.
+Adapter tools execute through the action API using your API key. If an action needs approval, configure an optional approval rule for the `sdk` source when using these adapters. Use the MCP endpoint when you need MCP-specific approval policies. Tools created from an MCP server preserve its end-user binding, assigned credential, input defaults, integration alias, and saved inputs. A conflicting credential context or duplicate dispatch name is rejected instead of selecting another account or action.
 
 The OpenAI mappings explicitly use `strict: false` to preserve optional fields and arbitrary JSON inputs from integration metadata. Google function declarations use `parametersJsonSchema` so numeric choices, arrays, nested objects and JSON unions retain their meaning. If you read the former `parameters` field directly, update that access to `parametersJsonSchema`.
 
@@ -496,8 +496,8 @@ const access = await client.computerSessions.createAccess(
 | `client.computerSessions` | Short-lived human watch or control links for existing Computer Control sessions |
 | `client.integrations` | Integration metadata, property options, OAuth status |
 | `client.endUsers` | End-user identity, connect tokens, invites |
-| `client.partials` | Input partial presets and enforced fields |
-| `client.approvalPolicies` | Human Gates policy management |
+| `client.partials` | Saved inputs and enforced fields |
+| `client.approvalPolicies` | Approval rule management |
 | `client.approvals` | Approval inbox, decisions, and waiting |
 | `client.apiKeys` | Customer-facing API key management |
 
@@ -543,6 +543,10 @@ The default test run executes offline unit tests and skips live integration test
 ## License
 
 [MIT](LICENSE)
+
+## Current capabilities in 0.3.0
+
+The 0.3.0 SDK adds the Skills resource for optional, reusable task instructions and `client.computerSessions.createAccess()` for issuing a short-lived human watch or control link to an existing Computer Control session. Skills do not run tasks or grant app access; session access does not start or provision a computer. See [Skills](#skills) and [Human Computer Access](#human-computer-access) for setup and safe handling.
 
 ## Migrating to 0.2.0
 
