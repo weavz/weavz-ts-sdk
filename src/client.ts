@@ -1,4 +1,5 @@
 import { WeavzError } from './errors'
+import { SkillsResource } from './skills'
 import type {
   ApiKey,
   ApprovalDecisionResult,
@@ -789,6 +790,7 @@ export class WeavzClient {
   readonly partials: PartialsResource
   readonly endUsers: EndUsersResource
   readonly computerSessions: ComputerSessionsResource
+  readonly skills: SkillsResource
 
   constructor(options: WeavzClientOptions) {
     if (typeof options.apiKey !== 'string' || !options.apiKey.trim()) throw new TypeError('apiKey must be a non-empty string')
@@ -818,6 +820,7 @@ export class WeavzClient {
     this.partials = new PartialsResource(this)
     this.endUsers = new EndUsersResource(this)
     this.computerSessions = new ComputerSessionsResource(this)
+    this.skills = new SkillsResource(this)
   }
 
   /** Make an authenticated request to the Weavz API. Timeout applies to each attempt, including its response body. */

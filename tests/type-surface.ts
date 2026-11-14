@@ -143,3 +143,18 @@ client.computerSessions.control('session')
 client.approvalPolicies.update('policy', { workspaceId: null })
 const approvalPage: Promise<{ nextCursor: string | null }> = client.approvals.list({ status: 'history', cursor: 'opaque' })
 void approvalPage
+
+// Skills select a library explicitly and protect mutations by version.
+client.skills.list({ workspaceId: 'workspace', endUserId: 'customer-external-id' })
+client.skills.get('skill', { workspaceId: 'workspace', scope: 'workspace' })
+client.skills.create({ workspaceId: 'workspace', endUserId: 'customer-external-id', slug: 'brief', name: 'Brief', markdown: '# Instructions' })
+client.skills.update('skill', { workspaceId: 'workspace', scope: 'workspace', expectedVersion: 1, enabled: false })
+client.skills.delete('skill', { workspaceId: 'workspace', scope: 'workspace', expectedVersion: 1 })
+// @ts-expect-error personal customer libraries require an external end user
+client.skills.list({ workspaceId: 'workspace' })
+// @ts-expect-error shared libraries cannot select a personal owner
+client.skills.list({ workspaceId: 'workspace', scope: 'workspace', endUserId: 'customer' })
+// @ts-expect-error concurrent updates require expectedVersion
+client.skills.update('skill', { workspaceId: 'workspace', scope: 'workspace', name: 'Draft' })
+// @ts-expect-error concurrent deletes require expectedVersion
+client.skills.delete('skill', { workspaceId: 'workspace', scope: 'workspace' })

@@ -36,6 +36,7 @@ export {
   type EndUser,
 } from './client'
 export { WeavzError } from './errors'
+export { SkillsResource, type Skill, type SkillMetadata, type SkillScope, type SkillLibraryOptions, type SkillResponse, type SkillListResponse, type SkillListOptions, type CreateSkillOptions, type UpdateSkillOptions, type DeleteSkillOptions } from './skills'
 export * from './adapters'
 export type * from './generated/index'
 export * from './integrations'
