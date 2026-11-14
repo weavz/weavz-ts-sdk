@@ -33501,6 +33501,32 @@ export interface FigmaGetFileInput {
   branch_data?: boolean
 }
 
+/** Figma — Get File Outline */
+export interface FigmaGetFileOutlineInput {
+  /** File Key or Figma URL */
+  fileKey: string
+  /** Version ID */
+  version?: string
+  /** Expand a returned node ID. A validated node-id in the file URL is used when this is blank. */
+  parentNodeId?: string
+  /** Selected-node expansion only. Integer 1 or 2; the initial file outline always requests depth 2. */
+  depth?: number
+  /** Maximum 1 to 200 compact node records. Defaults to 100. */
+  maxNodes?: number
+}
+
+/** Figma — Get Node Design Context */
+export interface FigmaGetNodeDesignContextInput {
+  /** File Key or Figma URL */
+  fileKey: string
+  /** Comma-separated node IDs, such as 1:2 or an instance path returned by Figma. Optional only when fileKey is a Figma URL containing a valid node-id. */
+  nodeIds?: string
+  /** Version ID */
+  version?: string
+  /** Positive integer 1 or 2; always sent so Figma does not return an unbounded tree. */
+  depth?: number
+}
+
 /** Figma — Get File Metadata */
 export interface FigmaGetFileMetadataInput {
   /** File Key */
@@ -116098,6 +116124,8 @@ export interface IntegrationActionInputMap {
   'fieldwire.custom_api_call': FieldwireCustomApiCallInput
   'figma.get_me': FigmaGetMeInput
   'figma.get_file': FigmaGetFileInput
+  'figma.get_file_outline': FigmaGetFileOutlineInput
+  'figma.get_node_design_context': FigmaGetNodeDesignContextInput
   'figma.get_file_metadata': FigmaGetFileMetadataInput
   'figma.get_file_nodes': FigmaGetFileNodesInput
   'figma.render_images': FigmaRenderImagesInput
@@ -127650,6 +127678,8 @@ export interface IntegrationActionInputsByIntegration {
   'figma': {
     'get_me': FigmaGetMeInput
     'get_file': FigmaGetFileInput
+    'get_file_outline': FigmaGetFileOutlineInput
+    'get_node_design_context': FigmaGetNodeDesignContextInput
     'get_file_metadata': FigmaGetFileMetadataInput
     'get_file_nodes': FigmaGetFileNodesInput
     'render_images': FigmaRenderImagesInput
@@ -141770,6 +141800,8 @@ export const integrationActions = {
   'figma': [
     'get_me',
     'get_file',
+    'get_file_outline',
+    'get_node_design_context',
     'get_file_metadata',
     'get_file_nodes',
     'render_images',

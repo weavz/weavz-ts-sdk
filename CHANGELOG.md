@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1
+
+- Add generated input types for Figma file outlines and selected-node design context. These are additive actions on the existing Figma integration.
+- Document selection, truncation, image URLs and the distinction between REST reference data and Figma's separate MCP capabilities.
+
+## 0.3.0
+
+- Add Skills APIs for reusable personal and shared instructions.
+- Add human watch/control access issuance for computer sessions.
+- Refresh customer API models and integration input types while keeping dashboard-only APIs outside the SDK.
+
 ## 0.2.0
 
 - Align SDK models with the current customer API, including nullable fields and connection status metadata.
