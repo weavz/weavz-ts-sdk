@@ -595,6 +595,49 @@ export type InputPartial = {
   updatedAt: string;
 };
 
+export type ComputerSessionAccessInput = {
+  workspaceId: string;
+  /**
+   * Your external end-user ID for the user who owns this computer session, not a Weavz internal UUID.
+   */
+  endUserId: string;
+  /**
+   * Human access to watch the computer or take control.
+   */
+  role: "watch" | "control";
+  /**
+   * Requested link lifetime in seconds, bounded by the computer session lifetime.
+   */
+  ttlSeconds?: number;
+  /**
+   * Exact HTTPS origin of the application embedding the viewer, without a path, query, fragment, credentials, or wildcard. HTTP is accepted only for local development.
+   */
+  frameOrigin?: string;
+};
+
+export type ComputerSessionAccess = {
+  sessionId: string;
+  role: "watch" | "control";
+  /**
+   * Short-lived human viewer URL containing a sensitive access capability in its fragment. Deliver it to the intended human without adding it to agent or tool context.
+   */
+  viewerUrl: string;
+  expiresAt: string;
+  /**
+   * Canonical embedding origin when frameOrigin was requested.
+   */
+  frameOrigin?: string;
+};
+
+export type ApprovalReviewAccess = {
+  canDecide: boolean;
+  /**
+   * Explanation when the current caller cannot decide this request.
+   */
+  reason?: string;
+  code?: string;
+};
+
 export type ApprovalPolicy = {
   id: string;
   orgId: string;
@@ -701,6 +744,10 @@ export type ApprovalPolicyInput = {
 };
 
 export type ApprovalRequest = {
+  /**
+   * Current caller decision access, supplied by the approval detail endpoint.
+   */
+  reviewAccess?: ApprovalReviewAccess;
   /**
    * Approval request ID.
    */
@@ -1967,10 +2014,13 @@ export type GetApprovalPolicyResponse =
 
 export type UpdateApprovalPolicyData = {
   /**
-   * Partial approval policy update.
+   * Partial approval policy update. Omitted fields retain their saved values.
    */
   body: {
-    workspaceId?: string;
+    /**
+     * Set null to use an organization-wide policy. Omit to retain its current workspace.
+     */
+    workspaceId?: string | null;
     name?: string;
     description?: string;
     enabled?: boolean;
@@ -1997,6 +2047,10 @@ export type UpdateApprovalPolicyData = {
     }>;
     timeoutSeconds?: number;
     defaultOnTimeout?: "reject" | "expire";
+    approvalAccessMode?:
+      | "dashboard_only"
+      | "dashboard_and_hosted_link"
+      | "hosted_link_only";
     reuseWindowSeconds?: number;
     metadata?: {
       [key: string]: unknown;
@@ -2026,13 +2080,17 @@ export type ListApprovalsData = {
   path?: never;
   query?: {
     workspaceId?: string;
+    /**
+     * Use pending for active requests or history for completed and timed-out requests.
+     */
     status?:
       | "pending"
       | "approved"
       | "rejected"
       | "expired"
       | "canceled"
-      | "consumed";
+      | "consumed"
+      | "history";
     source?:
       | "rest"
       | "sdk"
@@ -2043,9 +2101,22 @@ export type ListApprovalsData = {
     integrationName?: string;
     actionName?: string;
     limit?: number;
+    /**
+     * Opaque nextCursor returned by the previous page. Keep the same filters when requesting another page.
+     */
+    cursor?: string;
   };
   url: "/api/v1/approvals";
 };
+
+export type ListApprovalsErrors = {
+  /**
+   * Invalid query or cursor
+   */
+  400: Error;
+};
+
+export type ListApprovalsError = ListApprovalsErrors[keyof ListApprovalsErrors];
 
 export type ListApprovalsResponses = {
   /**
@@ -2053,7 +2124,14 @@ export type ListApprovalsResponses = {
    */
   200: {
     approvals: Array<ApprovalRequest>;
+    /**
+     * Number of requests returned on this page.
+     */
     total: number;
+    /**
+     * Cursor for the next page, or null when no more requests match.
+     */
+    nextCursor: string | null;
   };
 };
 
@@ -3823,3 +3901,56 @@ export type InviteEndUserResponses = {
 
 export type InviteEndUserResponse =
   InviteEndUserResponses[keyof InviteEndUserResponses];
+
+export type CreateComputerSessionAccessData = {
+  body: ComputerSessionAccessInput;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/computer-sessions/{id}/access";
+};
+
+export type CreateComputerSessionAccessErrors = {
+  /**
+   * Invalid request, origin, or missing workspace and external end-user scope
+   */
+  400: Error;
+  /**
+   * Missing or invalid API key
+   */
+  401: Error;
+  /**
+   * API key cannot access this workspace
+   */
+  403: Error;
+  /**
+   * Computer session or matching end user not found
+   */
+  404: Error;
+  /**
+   * Computer session is stopped or expired
+   */
+  409: Error;
+  /**
+   * Rate limit or active embedding-origin limit exceeded
+   */
+  429: Error;
+  /**
+   * Computer session access is temporarily unavailable
+   */
+  503: Error;
+};
+
+export type CreateComputerSessionAccessError =
+  CreateComputerSessionAccessErrors[keyof CreateComputerSessionAccessErrors];
+
+export type CreateComputerSessionAccessResponses = {
+  /**
+   * Short-lived human viewer access
+   */
+  200: ComputerSessionAccess;
+};
+
+export type CreateComputerSessionAccessResponse =
+  CreateComputerSessionAccessResponses[keyof CreateComputerSessionAccessResponses];
