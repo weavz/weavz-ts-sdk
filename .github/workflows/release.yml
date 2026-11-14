@@ -73,7 +73,7 @@ jobs:
           NPM_TAG: ${{ inputs.npm_tag }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build and typecheck
         run: |
