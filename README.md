@@ -458,6 +458,30 @@ await client.skills.update(selected.skill.id, {
 
 For shared instructions, use `{ workspaceId, scope: 'workspace' }` and omit `endUserId`. Sharing requires creating a separate record; an existing skill's owner and scope are immutable. Updates and deletion require the current `expectedVersion` and return `SKILL_CONFLICT` for a stale version. See the [Skills guide](https://weavz.io/docs/guides/skills).
 
+## Human Computer Access
+
+Start and operate computers through [Computer Control actions](https://weavz.io/integrations/computer-control). For an existing session, your application backend can issue a short-lived link for a person to watch or take over.
+
+Authenticate the person and authorize access to that session before issuing a link. Derive the workspace, session and external end-user ID from your application's validated user context. Keep the Weavz API key on your backend.
+
+```typescript
+const access = await client.computerSessions.createAccess(
+  '7df5c03e-4df5-4b5f-95a7-5277d8f972db',
+  {
+    workspaceId: '550e8400-e29b-41d4-a716-446655440000',
+    endUserId: 'customer_123',
+    role: 'watch',
+    ttlSeconds: 120,
+    frameOrigin: 'https://app.example.com',
+  },
+)
+// Deliver access.viewerUrl privately to the authorized browser.
+```
+
+`watch` allows observation. Use `control` for an authorized person to take over through the viewer; it does not grant agent tool control. Request a lifetime of 1–300 seconds; the link expires no later than the computer session. Omit `frameOrigin` when opening the viewer directly; when embedding, provide the exact HTTPS origin without a path or wildcard.
+
+`viewerUrl` is a sensitive credential. Preserve its fragment when opening it, deliver it only to the intended person, and keep it out of logs, analytics and agent or tool context. See the [Computer Control guide](https://weavz.io/docs/guides/computer-control) for setup, embedding and control handoff.
+
 ## Resource Map
 
 | Resource | Purpose |
@@ -468,6 +492,8 @@ For shared instructions, use `{ workspaceId, scope: 'workspace' }` and omit `end
 | `client.actions` | Integration action execution |
 | `client.triggers` | Trigger enablement, listing, testing, and disabling |
 | `client.mcpServers` | MCP servers, tools, tokens, Code Mode execution, declarations |
+| `client.skills` | Personal and shared task instructions, metadata search and versioned editing |
+| `client.computerSessions` | Short-lived human watch or control links for existing Computer Control sessions |
 | `client.integrations` | Integration metadata, property options, OAuth status |
 | `client.endUsers` | End-user identity, connect tokens, invites |
 | `client.partials` | Input partial presets and enforced fields |
