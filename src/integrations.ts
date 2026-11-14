@@ -21985,6 +21985,154 @@ export interface ComplyadvantageUpdateCaseInput {
   confirmUpdate: boolean
 }
 
+/** Computer Control — Start computer */
+export interface ComputerControlStartSessionInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Seconds to reserve from your available computer time. Default 600; maximum 1800. Unused time is returned after the computer stops. */
+  durationSeconds?: number
+}
+
+/** Computer Control — Computer status */
+export interface ComputerControlSessionStatusInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
+/** Computer Control — Show live computer */
+export interface ComputerControlShowLiveViewInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
+/** Computer Control — Request human takeover */
+export interface ComputerControlRequestHumanInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
+/** Computer Control — Check returned control */
+export interface ComputerControlResumeInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
+/** Computer Control — Screenshot */
+export interface ComputerControlScreenshotInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
+/** Computer Control — Click */
+export interface ComputerControlClickInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Horizontal position in the 1280 × 800 desktop. */
+  x: number
+  /** Vertical position in the 1280 × 800 desktop. */
+  y: number
+  /** Mouse button (values: `left`, `middle`, `right`) */
+  button?: "left" | "middle" | "right"
+}
+
+/** Computer Control — Move mouse */
+export interface ComputerControlMoveMouseInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Horizontal position in the 1280 × 800 desktop. */
+  x: number
+  /** Vertical position in the 1280 × 800 desktop. */
+  y: number
+}
+
+/** Computer Control — Drag */
+export interface ComputerControlDragInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Horizontal position in the 1280 × 800 desktop. */
+  x: number
+  /** Vertical position in the 1280 × 800 desktop. */
+  y: number
+  /** Destination X */
+  toX: number
+  /** Destination Y */
+  toY: number
+}
+
+/** Computer Control — Type text */
+export interface ComputerControlTypeInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Text */
+  text: string
+}
+
+/** Computer Control — Press key */
+export interface ComputerControlPressKeyInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Key */
+  key: string
+}
+
+/** Computer Control — Scroll */
+export interface ComputerControlScrollInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Vertical distance */
+  deltaY: number
+}
+
+/** Computer Control — Wait */
+export interface ComputerControlWaitInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Milliseconds */
+  milliseconds: number
+}
+
+/** Computer Control — List workspace files */
+export interface ComputerControlFileListInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Path */
+  path?: string
+}
+
+/** Computer Control — Read workspace file */
+export interface ComputerControlFileReadInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** A relative path inside /workspace. This is the folder saved between sessions. */
+  path: string
+}
+
+/** Computer Control — Write workspace file */
+export interface ComputerControlFileWriteInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** A relative path inside /workspace. This is the folder saved between sessions. */
+  path: string
+  /** Content */
+  content: string
+}
+
+/** Computer Control — Run terminal command */
+export interface ComputerControlShellExecInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+  /** Command */
+  command: string
+  /** Timeout in seconds */
+  timeoutSeconds?: number
+}
+
+/** Computer Control — End computer session */
+export interface ComputerControlEndSessionInput {
+  /** Omit to use the current computer for this end user and alias. */
+  sessionId?: string
+}
+
 /** Confluence — Get Page */
 export interface ConfluenceGetPageInput {
   /** Page ID or title to retrieve */
@@ -114862,6 +115010,24 @@ export interface IntegrationActionInputMap {
   'complyadvantage.list_cases': ComplyadvantageListCasesInput
   'complyadvantage.get_case': ComplyadvantageGetCaseInput
   'complyadvantage.update_case': ComplyadvantageUpdateCaseInput
+  'computer-control.start_session': ComputerControlStartSessionInput
+  'computer-control.session_status': ComputerControlSessionStatusInput
+  'computer-control.show_live_view': ComputerControlShowLiveViewInput
+  'computer-control.request_human': ComputerControlRequestHumanInput
+  'computer-control.resume': ComputerControlResumeInput
+  'computer-control.screenshot': ComputerControlScreenshotInput
+  'computer-control.click': ComputerControlClickInput
+  'computer-control.move_mouse': ComputerControlMoveMouseInput
+  'computer-control.drag': ComputerControlDragInput
+  'computer-control.type': ComputerControlTypeInput
+  'computer-control.press_key': ComputerControlPressKeyInput
+  'computer-control.scroll': ComputerControlScrollInput
+  'computer-control.wait': ComputerControlWaitInput
+  'computer-control.file_list': ComputerControlFileListInput
+  'computer-control.file_read': ComputerControlFileReadInput
+  'computer-control.file_write': ComputerControlFileWriteInput
+  'computer-control.shell_exec': ComputerControlShellExecInput
+  'computer-control.end_session': ComputerControlEndSessionInput
   'confluence.get_page': ConfluenceGetPageInput
   'confluence.create_page': ConfluenceCreatePageInput
   'confluence.update_page': ConfluenceUpdatePageInput
@@ -126169,6 +126335,26 @@ export interface IntegrationActionInputsByIntegration {
     'get_case': ComplyadvantageGetCaseInput
     'update_case': ComplyadvantageUpdateCaseInput
   }
+  'computer-control': {
+    'start_session': ComputerControlStartSessionInput
+    'session_status': ComputerControlSessionStatusInput
+    'show_live_view': ComputerControlShowLiveViewInput
+    'request_human': ComputerControlRequestHumanInput
+    'resume': ComputerControlResumeInput
+    'screenshot': ComputerControlScreenshotInput
+    'click': ComputerControlClickInput
+    'move_mouse': ComputerControlMoveMouseInput
+    'drag': ComputerControlDragInput
+    'type': ComputerControlTypeInput
+    'press_key': ComputerControlPressKeyInput
+    'scroll': ComputerControlScrollInput
+    'wait': ComputerControlWaitInput
+    'file_list': ComputerControlFileListInput
+    'file_read': ComputerControlFileReadInput
+    'file_write': ComputerControlFileWriteInput
+    'shell_exec': ComputerControlShellExecInput
+    'end_session': ComputerControlEndSessionInput
+  }
   'confluence': {
     'get_page': ConfluenceGetPageInput
     'create_page': ConfluenceCreatePageInput
@@ -136845,6 +137031,7 @@ export const integrationNames = [
   'companies-house',
   'companycam',
   'complyadvantage',
+  'computer-control',
   'confluence',
   'confluent-cloud',
   'connectwise',
@@ -140267,6 +140454,26 @@ export const integrationActions = {
     'list_cases',
     'get_case',
     'update_case',
+  ],
+  'computer-control': [
+    'start_session',
+    'session_status',
+    'show_live_view',
+    'request_human',
+    'resume',
+    'screenshot',
+    'click',
+    'move_mouse',
+    'drag',
+    'type',
+    'press_key',
+    'scroll',
+    'wait',
+    'file_list',
+    'file_read',
+    'file_write',
+    'shell_exec',
+    'end_session',
   ],
   'confluence': [
     'get_page',
