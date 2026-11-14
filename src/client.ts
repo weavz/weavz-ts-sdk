@@ -4,7 +4,7 @@ import type {
   ApprovalDecisionResult,
   ApprovalPolicy,
   ApprovalPolicyInput,
-  ApprovalRequest,
+  ApprovalRequest as GeneratedApprovalRequest,
   ApprovalRequiredResult,
   Connection,
   AdvancedCodeWorkspaceSettings as GeneratedAdvancedCodeWorkspaceSettings,
@@ -97,6 +97,33 @@ export interface McpAccessTokenResponse {
   }
   mcpEndpoint: string
 }
+
+export type ComputerSessionAccessRole = 'watch' | 'control'
+export interface ComputerSessionAccessOptions {
+  workspaceId: string
+  /** Your external end-user ID, not a Weavz internal user UUID. */
+  endUserId: string
+  role: ComputerSessionAccessRole
+  /** Link lifetime in seconds, from 1 to 300, bounded by the session lifetime. */
+  ttlSeconds?: number
+  /** Exact HTTPS origin of the application that embeds the viewer. */
+  frameOrigin?: string
+}
+export interface ComputerSessionAccess {
+  sessionId: string
+  role: ComputerSessionAccessRole
+  /** Sensitive human viewer capability. Keep this URL out of agent/tool context. */
+  viewerUrl: string
+  expiresAt: string
+  frameOrigin?: string
+}
+export interface ApprovalReviewAccess {
+  canDecide: boolean
+  reason?: string
+  code?: string
+}
+export type ApprovalRequest = GeneratedApprovalRequest & { reviewAccess?: ApprovalReviewAccess }
+export type ApprovalPolicyUpdateInput = Omit<Partial<ApprovalPolicyInput>, 'workspaceId'> & { workspaceId?: string | null }
 
 export interface WaitOptions {
   /** Total time to wait, including API requests and retry delays (default: 120000). */
@@ -410,7 +437,7 @@ class ApprovalPoliciesResource extends BaseResource {
   get(id: string) {
     return this._get<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${encodeURIComponent(id)}`)
   }
-  update(id: string, data: Partial<ApprovalPolicyInput>) {
+  update(id: string, data: ApprovalPolicyUpdateInput) {
     return this._patch<{ policy: ApprovalPolicy }>(`/api/v1/approval-policies/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
@@ -446,13 +473,14 @@ class ApprovalPoliciesResource extends BaseResource {
 class ApprovalsResource extends BaseResource {
   list(params?: {
     workspaceId?: string
-    status?: 'pending' | 'approved' | 'rejected' | 'expired' | 'canceled' | 'consumed'
+    status?: 'pending' | 'approved' | 'rejected' | 'expired' | 'canceled' | 'consumed' | 'history'
     source?: 'rest' | 'sdk' | 'mcp_tools' | 'mcp_code' | 'playground' | 'trigger'
     integrationName?: string
     actionName?: string
     limit?: number
+    cursor?: string
   }) {
-    return this._get<{ approvals: ApprovalRequest[]; total: number }>('/api/v1/approvals', params)
+    return this._get<{ approvals: ApprovalRequest[]; total: number; nextCursor: string | null }>('/api/v1/approvals', params)
   }
   get(id: string) {
     return this._get<{ approval: ApprovalRequest }>(`/api/v1/approvals/${encodeURIComponent(id)}`)
@@ -587,6 +615,13 @@ class McpServersResource extends BaseResource {
   }
   getDeclarations(serverId: string, alias: string) {
     return this._get<{ declarations: string }>(`/api/v1/mcp/servers/${encodeURIComponent(serverId)}/declarations/${encodeURIComponent(alias)}`)
+  }
+}
+
+class ComputerSessionsResource extends BaseResource {
+  /** Issue a short-lived human viewer link from your trusted backend. */
+  createAccess(sessionId: string, options: ComputerSessionAccessOptions) {
+    return this._post<ComputerSessionAccess>(`/api/v1/computer-sessions/${encodeURIComponent(sessionId)}/access`, options)
   }
 }
 
@@ -753,6 +788,7 @@ export class WeavzClient {
   readonly integrations: IntegrationsResource
   readonly partials: PartialsResource
   readonly endUsers: EndUsersResource
+  readonly computerSessions: ComputerSessionsResource
 
   constructor(options: WeavzClientOptions) {
     if (typeof options.apiKey !== 'string' || !options.apiKey.trim()) throw new TypeError('apiKey must be a non-empty string')
@@ -781,6 +817,7 @@ export class WeavzClient {
     this.integrations = new IntegrationsResource(this)
     this.partials = new PartialsResource(this)
     this.endUsers = new EndUsersResource(this)
+    this.computerSessions = new ComputerSessionsResource(this)
   }
 
   /** Make an authenticated request to the Weavz API. Timeout applies to each attempt, including its response body. */

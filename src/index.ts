@@ -26,6 +26,12 @@ export {
   type AdvancedCodeStorageMountScope,
   type PersistenceWorkspaceSettings,
   type PersistenceScope,
+  type ComputerSessionAccessRole,
+  type ComputerSessionAccessOptions,
+  type ComputerSessionAccess,
+  type ApprovalReviewAccess,
+  type ApprovalRequest,
+  type ApprovalPolicyUpdateInput,
   type InputPartial,
   type EndUser,
 } from './client'

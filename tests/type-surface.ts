@@ -127,3 +127,19 @@ client.mcpServers.executeCode('00000000-0000-0000-0000-000000000000', 'return 1'
 })
 const options: import('../src').WaitOptions = { timeoutMs: 1000, signal: new AbortController().signal }
 client.connect.wait('example', options)
+
+// Human viewer access is a trusted-backend capability, separate from tools.
+const computerAccess = client.computerSessions.createAccess('550e8400-e29b-41d4-a716-446655440002', {
+  workspaceId: '550e8400-e29b-41d4-a716-446655440001', endUserId: 'external-customer', role: 'watch', frameOrigin: 'https://app.example.test',
+})
+const typedComputerAccess: Promise<import('../src').ComputerSessionAccess> = computerAccess
+void typedComputerAccess
+// @ts-expect-error customer workspace and external user scope are required
+client.computerSessions.createAccess('session', { role: 'control' })
+// @ts-expect-error only human watch/control roles are supported
+client.computerSessions.createAccess('session', { workspaceId: 'workspace', endUserId: 'user', role: 'agent' })
+// @ts-expect-error model tool control is not exposed as a customer resource method
+client.computerSessions.control('session')
+client.approvalPolicies.update('policy', { workspaceId: null })
+const approvalPage: Promise<{ nextCursor: string | null }> = client.approvals.list({ status: 'history', cursor: 'opaque' })
+void approvalPage
