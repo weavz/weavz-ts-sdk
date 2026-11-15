@@ -136,7 +136,10 @@ export type Error = {
     | "SHARD_NOT_AVAILABLE"
     | "TOKEN_EXPIRED"
     | "UNSUPPORTED_AUTH_TYPE"
-    | "WORKSPACE_INTEGRATION_NOT_FOUND";
+    | "WORKSPACE_INTEGRATION_NOT_FOUND"
+    | "MCP_WORKSPACE_ALREADY_CONFIGURED"
+    | "MCP_WORKSPACE_ENDPOINT_REQUIRED"
+    | "MCP_WORKSPACE_IDENTITY_IN_USE";
   /**
    * Additional error context
    */
@@ -145,13 +148,29 @@ export type Error = {
   };
 };
 
+/**
+ * An MCP Workspace with one automatically prepared MCP endpoint.
+ */
 export type Workspace = {
+  mcpServer?: WorkspaceMcpEndpoint | null;
   id: string;
   orgId: string;
   name: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type WorkspaceMcpEndpoint = {
+  id: string;
+  mode: "TOOLS" | "CODE";
+  authMode: "oauth" | "bearer" | "oauth_and_bearer";
+  endUserAccess: "restricted" | "open";
+  /**
+   * Authenticated organization members may join in addition to explicitly pre-added end users. Existing endpoint policies are preserved.
+   */
+  allowWorkspaceMembers: boolean;
+  mcpEndpoint: string;
 };
 
 export type Connection = {
@@ -417,6 +436,14 @@ export type McpServerSettings = {
 };
 
 export type McpServer = {
+  /**
+   * The primary endpoint belonging to this MCP Workspace. False identifies a legacy compatibility endpoint.
+   */
+  isCanonical?: boolean;
+  /**
+   * Allows authenticated organization members to authorize this endpoint, in addition to pre-added users.
+   */
+  allowWorkspaceMembers?: boolean;
   /**
    * Server ID (without 'srv_' prefix)
    */
@@ -1173,7 +1200,10 @@ export type ListWorkspacesResponse =
 export type CreateWorkspaceData = {
   body: {
     name: string;
-    slug: string;
+    /**
+     * Optional. A unique slug is generated when omitted.
+     */
+    slug?: string;
   };
   path?: never;
   query?: never;
@@ -2983,6 +3013,10 @@ export type CreateMcpServerErrors = {
    * End user not found
    */
   404: Error;
+  /**
+   * MCP Workspace already configured; update its endpoint explicitly
+   */
+  409: Error;
 };
 
 export type CreateMcpServerError =
@@ -2990,14 +3024,21 @@ export type CreateMcpServerError =
 
 export type CreateMcpServerResponses = {
   /**
-   * MCP server created
+   * Existing MCP Workspace endpoint
+   */
+  200: {
+    server: McpServer;
+    mcpEndpoint: string;
+  };
+  /**
+   * Initial legacy configuration of an unused MCP Workspace endpoint
    */
   201: {
-    server: McpServer;
     /**
-     * Static MCP bearer token. Returned only when authMode is bearer or oauth_and_bearer, and shown only once.
+     * Newly created static bearer secret, returned only once when the initial authentication configuration allows one.
      */
     bearerToken?: string;
+    server: McpServer;
     mcpEndpoint: string;
   };
 };
@@ -3019,6 +3060,10 @@ export type DeleteMcpServerErrors = {
    * MCP server not found
    */
   404: Error;
+  /**
+   * Primary MCP Workspace endpoint cannot be deleted separately; delete its workspace explicitly
+   */
+  409: Error;
 };
 
 export type DeleteMcpServerError =
@@ -3070,6 +3115,10 @@ export type GetMcpServerResponse =
 
 export type UpdateMcpServerData = {
   body: {
+    /**
+     * Explicitly allow authenticated organization members to authorize this endpoint. Does not share private app credentials.
+     */
+    allowWorkspaceMembers?: boolean;
     name?: string;
     description?: string | null;
     mode?: "TOOLS" | "CODE";
@@ -3113,6 +3162,7 @@ export type UpdateMcpServerResponses = {
    * MCP server updated
    */
   200: {
+    mcpEndpoint?: string;
     server: McpServer;
     /**
      * Static MCP bearer token. Returned only when switching to a bearer-enabled auth mode and no bearer token existed yet.
@@ -3159,6 +3209,80 @@ export type RegenerateMcpServerTokenResponses = {
 
 export type RegenerateMcpServerTokenResponse =
   RegenerateMcpServerTokenResponses[keyof RegenerateMcpServerTokenResponses];
+
+export type CreateWorkspaceAccessTokenData = {
+  body: {
+    /**
+     * Your application's external user ID. Internal Weavz user UUIDs are not accepted.
+     */
+    endUserId: string;
+    /**
+     * Optional MCP scopes. Defaults to the scopes supported by the server mode.
+     */
+    scopes?: Array<string>;
+    /**
+     * Token lifetime in seconds. Defaults to 30 days.
+     */
+    expiresIn?: number;
+  };
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/v1/workspaces/{id}/access-tokens";
+};
+
+export type CreateWorkspaceAccessTokenErrors = {
+  /**
+   * Invalid request or workspace-scoped MCP server required
+   */
+  400: Error;
+  /**
+   * Workspace scope denied, suspended workspace or endpoint, or session cannot act for this user
+   */
+  403: Error;
+  /**
+   * MCP Workspace or external end user not found
+   */
+  404: Error;
+  /**
+   * Endpoint authentication was changed during issuance; retry with its current settings
+   */
+  409: Error;
+};
+
+export type CreateWorkspaceAccessTokenError =
+  CreateWorkspaceAccessTokenErrors[keyof CreateWorkspaceAccessTokenErrors];
+
+export type CreateWorkspaceAccessTokenResponses = {
+  /**
+   * Private MCP Workspace token created
+   */
+  201: {
+    /**
+     * Token value. Send as Authorization: Bearer.
+     */
+    accessToken: string;
+    /**
+     * Same value as accessToken; present only for bearer-authenticated endpoints.
+     */
+    bearerToken?: string;
+    token: {
+      id: string;
+      tokenPrefix: string;
+      scopes: Array<string>;
+      endUserId: string;
+      authMethod: "bearer" | "oauth";
+      tokenType: "mcp_bearer" | "mcp_oauth";
+      expiresAt: string;
+      createdAt: string;
+    };
+    mcpEndpoint: string;
+  };
+};
+
+export type CreateWorkspaceAccessTokenResponse =
+  CreateWorkspaceAccessTokenResponses[keyof CreateWorkspaceAccessTokenResponses];
 
 export type CreateMcpServerAccessTokenData = {
   body: {
@@ -3839,6 +3963,10 @@ export type DeleteEndUserErrors = {
    * End user not found
    */
   404: Error;
+  /**
+   * End user is the default identity of a primary MCP Workspace endpoint; explicitly change the binding before deleting
+   */
+  409: Error;
 };
 
 export type DeleteEndUserError = DeleteEndUserErrors[keyof DeleteEndUserErrors];

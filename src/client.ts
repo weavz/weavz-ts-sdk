@@ -99,6 +99,14 @@ export interface McpAccessTokenResponse {
   mcpEndpoint: string
 }
 
+export interface McpWorkspaceAccessTokenResponse extends Omit<McpAccessTokenResponse, 'bearerToken' | 'token'> {
+  bearerToken?: string
+  token: Omit<McpAccessTokenResponse['token'], 'authMethod' | 'tokenType'> & {
+    authMethod: 'bearer' | 'oauth'
+    tokenType: 'mcp_bearer' | 'mcp_oauth'
+  }
+}
+
 export type ComputerSessionAccessRole = 'watch' | 'control'
 export interface ComputerSessionAccessOptions {
   workspaceId: string
@@ -241,10 +249,21 @@ class BaseResource {
 }
 
 class WorkspacesResource extends BaseResource {
+  /** Issue private access for one external end user without managing a server ID. */
+  createAccessToken(id: string, data: { endUserId: string; scopes?: string[]; expiresIn?: number }) {
+    return this._post<McpWorkspaceAccessTokenResponse>(`/api/v1/workspaces/${encodeURIComponent(id)}/access-tokens`, data)
+  }
+  /** Explicitly configure this MCP Workspace's existing endpoint. */
+  async configureMcp(id: string, data: Parameters<McpServersResource['update']>[1]) {
+    const { workspace } = await this.get(id)
+    if (!workspace.mcpServer) throw new Error('MCP Workspace endpoint is unavailable')
+    const result = await this.client.mcpServers.update(workspace.mcpServer.id, data)
+    return { ...result, mcpEndpoint: result.server.mcpEndpoint }
+  }
   list(params?: ListOptions) {
     return this._get<{ workspaces: Workspace[]; total: number }>('/api/v1/workspaces', params)
   }
-  create(data: { name: string; slug: string }) {
+  create(data: { name: string; slug?: string }) {
     return this._post<{ workspace: Workspace }>('/api/v1/workspaces', data)
   }
   get(id: string) {
@@ -539,6 +558,8 @@ class McpServersResource extends BaseResource {
   list(params?: ListOptions & { workspaceId?: string }) {
     return this._get<{ servers: McpServer[]; total: number }>('/api/v1/mcp/servers', params)
   }
+  /** @deprecated MCP Workspaces include their endpoint. Use mcpWorkspaces.create()
+   * and configureMcp(); this method only supports initial legacy setup or reuse. */
   create(data: {
     name: string
     workspaceId: string
@@ -555,7 +576,7 @@ class McpServersResource extends BaseResource {
   get(id: string) {
     return this._get<{ server: McpServer; tools: McpServerTool[] }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}`)
   }
-  update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; settings?: McpServerSettings; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; endUserId?: string | null }) {
+  update(id: string, data: { name?: string; description?: string | null; mode?: McpMode; settings?: McpServerSettings; authMode?: McpAuthMode; endUserAccess?: McpEndUserAccess; allowWorkspaceMembers?: boolean; endUserId?: string | null }) {
     return this._patch<{ server: McpServer; bearerToken?: string }>(`/api/v1/mcp/servers/${encodeURIComponent(id)}`, data)
   }
   delete(id: string) {
@@ -777,6 +798,7 @@ export class WeavzClient {
   private readonly headers: Record<string, string>
   private readonly onRetry?: WeavzClientOptions['onRetry']
 
+  readonly mcpWorkspaces: WorkspacesResource
   readonly workspaces: WorkspacesResource
   readonly connections: ConnectionsResource
   readonly connect: ConnectResource
@@ -808,6 +830,7 @@ export class WeavzClient {
     this.onRetry = options.onRetry
 
     this.workspaces = new WorkspacesResource(this)
+    this.mcpWorkspaces = this.workspaces
     this.connections = new ConnectionsResource(this)
     this.connect = new ConnectResource(this)
     this.actions = new ActionsResource(this)

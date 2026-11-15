@@ -125,6 +125,20 @@ const pending = client.request('/api/v1/workspaces', { signal: controller.signal
 const workspaces = await pending
 ```
 
+## MCP Workspaces
+
+An MCP Workspace includes one endpoint automatically. Add apps, choose whose accounts they use, then connect an AI client. No separate server creation is needed. New endpoints use Code Mode and OAuth, admit organization members and pre-added end users, and do not default to the creator's private credentials.
+
+```typescript
+const { workspace } = await client.mcpWorkspaces.create({ name: 'Support' })
+const endpoint = workspace.mcpServer?.mcpEndpoint
+
+// Optional: intentionally change endpoint settings.
+await client.mcpWorkspaces.configureMcp(workspace.id, { mode: 'TOOLS' })
+```
+
+The existing `workspaces` resource remains an alias. Several end users can share an endpoint with separate OAuth sessions or scoped access tokens. Existing endpoint URLs and permissions remain valid; older additional endpoints are compatibility connections. Use a separate MCP Workspace for a separate tool surface. Primary endpoint deletion is blocked; delete its workspace explicitly when that is intended.
+
 ## Core Product Flows
 
 ### Workspaces And Integration Aliases
@@ -228,38 +242,24 @@ Read more:
 - [Executing actions](https://weavz.io/docs/guides/executing-actions)
 - [Actions API reference](https://weavz.io/docs/api-reference/actions)
 
-### MCP Servers For Agents
+### MCP Workspaces For Agents
 
-Create remote MCP servers that expose workspace integrations to AI agents. Code Mode is the best default for broad agent workspaces; Tool Mode is useful for small explicit tool surfaces.
+Each MCP Workspace includes an endpoint. Connect an OAuth-capable client to its URL. For a programmatic agent, issue private access for an existing external end user:
 
 ```typescript
-const { server, mcpEndpoint } = await client.mcpServers.create({
-  name: 'Acme Agent Workspace',
-  mode: 'CODE',
-  workspaceId: workspace.id,
-  authMode: 'oauth_and_bearer',
-  endUserAccess: 'restricted',
-  settings: {
-    codeMode: {
-      approvalWaitSeconds: 30,
-    },
-  },
-})
-
-const { bearerToken } = await client.mcpServers.createBearerToken(server.id, {
+const { accessToken, mcpEndpoint } = await client.mcpWorkspaces.createAccessToken(workspace.id, {
   endUserId: 'user_123',
   scopes: ['mcp:tools', 'mcp:code'],
-  expiresIn: 60 * 60 * 24 * 30,
+  expiresIn: 60 * 60,
 })
-
-// Store bearerToken securely and provide it only to the intended AI client.
-console.log(mcpEndpoint)
+// Deliver mcpEndpoint and accessToken privately to this user's agent.
+// Send accessToken as Authorization: Bearer to the MCP endpoint.
 ```
 
 You can also run Code Mode directly through the SDK:
 
 ```typescript
-const codeRun = await client.mcpServers.executeCode(server.id, `
+const codeRun = await client.mcpServers.executeCode(workspace.mcpServer!.id, `
   return await weavz.files.write_file({
     path: "summary.json",
     content: JSON.stringify({ status: "ready" })

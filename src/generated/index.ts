@@ -107,6 +107,11 @@ export type {
   CreateSkillInput,
   CreateSkillResponse,
   CreateSkillResponses,
+  CreateWorkspaceAccessTokenData,
+  CreateWorkspaceAccessTokenError,
+  CreateWorkspaceAccessTokenErrors,
+  CreateWorkspaceAccessTokenResponse,
+  CreateWorkspaceAccessTokenResponses,
   CreateWorkspaceData,
   CreateWorkspaceError,
   CreateWorkspaceErrors,
@@ -380,4 +385,5 @@ export type {
   Workspace,
   WorkspaceIntegration,
   WorkspaceIntegrationSettings,
+  WorkspaceMcpEndpoint,
 } from "./types.gen";

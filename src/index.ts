@@ -18,6 +18,7 @@ export {
   type McpServerSettings,
   type McpCodeExecutionInput,
   type McpAccessTokenResponse,
+  type McpWorkspaceAccessTokenResponse,
   type WeavzClientOptions,
   type WorkspaceIntegration,
   type WorkspaceIntegrationSettings,
