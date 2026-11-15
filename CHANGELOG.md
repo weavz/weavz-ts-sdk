@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.1
+
+- Add case-insensitive literal search to the paged end-user directory, with matching totals and unchanged workspace and credential boundaries.
+- Expose `search`, `limit` and `offset` together in end-user list calls; search matches external user IDs, display names and email addresses.
+
+## 0.4.0
+
+- Add MCP Workspace helpers while preserving existing workspace methods and endpoint compatibility.
+
 ## 0.3.1
 
 - Add generated input types for Figma file outlines and selected-node design context. These are additive actions on the existing Figma integration.
