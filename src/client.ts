@@ -761,7 +761,7 @@ class EndUsersResource extends BaseResource {
   }) {
     return this._post<{ endUser: EndUser }>('/api/v1/end-users', data)
   }
-  list(params: { workspaceId: string } & ListOptions) {
+  list(params: { workspaceId: string; search?: string } & ListOptions) {
     return this._get<{ endUsers: EndUser[]; total: number }>('/api/v1/end-users', params)
   }
   get(id: string) {

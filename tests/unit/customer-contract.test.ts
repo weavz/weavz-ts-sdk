@@ -9,6 +9,24 @@ function fixture(body: unknown) {
   return { fetch, client: new WeavzClient({ apiKey: 'wvz_fixture', baseUrl: 'https://api.example.test', maxRetries: 0, fetch: fetch as typeof globalThis.fetch }) }
 }
 
+describe('end-user directory customer contract', () => {
+  it.each(['Team %_!\\ +/?#', ''])('preserves literal search and pagination in the query: %j', async search => {
+    const response = { endUsers: [{ id: 'customer-51', externalId: 'customer-51' }], total: 137 }
+    const { client, fetch } = fixture(response)
+    expect(await client.endUsers.list({ workspaceId, search, limit: 100, offset: 50 })).toEqual(response)
+    const [url, init] = fetch.mock.calls[0] as unknown as [string, RequestInit]
+    expect(new URL(url).pathname).toBe('/api/v1/end-users')
+    expect(Object.fromEntries(new URL(url).searchParams)).toEqual({ workspaceId, search, limit: '100', offset: '50' })
+    expect(init.method).toBe('GET')
+    expect(new Headers(init.headers).get('authorization')).toBe('Bearer wvz_fixture')
+  })
+  it('keeps existing workspace-only calls sparse', async () => {
+    const { client, fetch } = fixture({ endUsers: [], total: 0 })
+    await client.endUsers.list({ workspaceId })
+    expect(Object.fromEntries(new URL(fetch.mock.calls[0][0] as unknown as string).searchParams)).toEqual({ workspaceId })
+  })
+})
+
 describe('human computer access customer contract', () => {
   it('sends external identity, role and embedding origin to the access endpoint only', async () => {
     const { client, fetch } = fixture(access)

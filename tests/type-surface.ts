@@ -128,6 +128,15 @@ client.mcpServers.executeCode('00000000-0000-0000-0000-000000000000', 'return 1'
 const options: import('../src').WaitOptions = { timeoutMs: 1000, signal: new AbortController().signal }
 client.connect.wait('example', options)
 
+client.endUsers.list({ workspaceId: 'workspace', search: 'Customer %_', limit: 100, offset: 50 }).then(result => {
+  result.endUsers satisfies import('../src').EndUser[]
+  result.total satisfies number
+})
+// @ts-expect-error end-user search is text
+client.endUsers.list({ workspaceId: 'workspace', search: 123 })
+const endUserQuery = { workspaceId: 'workspace', search: 'Customer %_', limit: 100, offset: 50 } satisfies import('../src/generated/types.gen').ListEndUsersData['query']
+void endUserQuery
+
 // Human viewer access is a trusted-backend capability, separate from tools.
 const computerAccess = client.computerSessions.createAccess('550e8400-e29b-41d4-a716-446655440002', {
   workspaceId: '550e8400-e29b-41d4-a716-446655440001', endUserId: 'external-customer', role: 'watch', frameOrigin: 'https://app.example.test',

@@ -3866,6 +3866,10 @@ export type ListEndUsersData = {
      * Filter by workspace ID
      */
     workspaceId: string;
+    /**
+     * Match a literal substring of externalId, displayName, or email, ignoring case. Percent signs and underscores match themselves.
+     */
+    search?: string;
     limit?: number;
     offset?: number;
   };
